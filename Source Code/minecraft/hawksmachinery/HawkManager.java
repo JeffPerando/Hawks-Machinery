@@ -12,30 +12,36 @@ import net.minecraft.src.forge.*;
 /**
  * @author Elusivehawk
  * 
- * @Description This basically takes care of random stuff.
+ * @Description This class takes cares and manages of all general things
  */
-public class IHawkMiscHandler
+public class HawkManager
 {
 	public static int dust1ID;
 	public static int dust2ID;
 	public static int dust3ID;
 	public static int dust4ID;
 	public static int dust5ID;
-	public static int energyCrystalID;
-	public static int cubicZirconiumID;
-	public static int hawkBrassIngotID;
-	public static int machineID;
-	public static int miscID;
-	public static int oreID;
+	public static int dust6ID;
+	public static int dust7ID;
+	public static int dust8ID;
 	
-	public static File configuration = (new File(Minecraft.getMinecraftDir(), "config/UniversalElectricity/HawksMachinery/machineryConfig.cfg"));
+	public static int machineID;
+	public static int misc1ID;
+	
+	public static String guiPath = "/hawksmachinery";
+	
+	
+	public static final String blockTextureFile = "/hawksmachinery/blocks.png";
+	public static final String itemTextureFile = "/hawksmachinery/items.png";
+	
+	public static File configuration = (new File(Minecraft.getMinecraftDir(), "config/UniversalElectricity/HawksMachinery.cfg"));
 
 	public static int initProps()
 	{	
 		try
 		{
 			configuration.createNewFile();
-			System.out.println("Hawk's Machinery: Config file created");
+			System.out.println("Hawk's Machinery: Config file created/read.");
 		}
 		catch (IOException e)
 		{
@@ -47,13 +53,16 @@ public class IHawkMiscHandler
 		
 		HMConfig.load();
 		
-		machineID = HMConfig.getOrCreateIntProperty("machineID", Configuration.CATEGORY_BLOCK, 195).getInt(195);
+		machineID = HMConfig.getOrCreateIntProperty("machineID", Configuration.CATEGORY_BLOCK, 3950).getInt(3950);
 
 		dust1ID	= HMConfig.getOrCreateIntProperty("dust1ID", Configuration.CATEGORY_ITEM, 16001).getInt(16001);
 		dust2ID = HMConfig.getOrCreateIntProperty("dust2ID", Configuration.CATEGORY_ITEM, 16002).getInt(16002);
 		dust3ID = HMConfig.getOrCreateIntProperty("dust3ID", Configuration.CATEGORY_ITEM, 16003).getInt(16003);
 		dust4ID = HMConfig.getOrCreateIntProperty("dust4ID", Configuration.CATEGORY_ITEM, 16004).getInt(16004);
 		dust5ID = HMConfig.getOrCreateIntProperty("dust5ID", Configuration.CATEGORY_ITEM, 16005).getInt(16005);
+		dust6ID = HMConfig.getOrCreateIntProperty("dust6ID", Configuration.CATEGORY_ITEM, 16006).getInt(16006);
+		dust7ID = HMConfig.getOrCreateIntProperty("dust7ID", Configuration.CATEGORY_ITEM, 16007).getInt(16007);
+		dust8ID = HMConfig.getOrCreateIntProperty("dust8ID", Configuration.CATEGORY_ITEM, 16008).getInt(16008);
 
 		HMConfig.save();
 		
@@ -63,10 +72,5 @@ public class IHawkMiscHandler
 	public static mod_HawksMachinery getModInstance()
 	{
 		return mod_HawksMachinery.instance;
-	}
-	
-	public static HawkTileEntityGrinder getGrinderInstance()
-	{
-		return HawkTileEntityGrinder.instance;
 	}
 }

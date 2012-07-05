@@ -3,81 +3,56 @@
  */
 package hawksmachinery;
 
-import net.minecraft.src.*;
-import net.minecraft.src.forge.*;
-import net.minecraft.src.universalelectricity.*;
-import net.minecraft.src.universalelectricity.components.*;
+import net.minecraft.src.Block;
+import net.minecraft.src.EntityLiving;
+import net.minecraft.src.EntityPlayer;
+import net.minecraft.src.Material;
+import net.minecraft.src.MathHelper;
+import net.minecraft.src.ModLoader;
+import net.minecraft.src.TileEntity;
+import net.minecraft.src.World;
+import net.minecraft.src.forge.ITextureProvider;
+import net.minecraft.src.universalelectricity.extend.BlockMachine;
+import net.minecraft.src.universalelectricity.extend.IRotatable;
 
 /**
  * @author Elusivehawk
  *
  */
-public class HawkBlockProcessor extends UEBlockMachine implements ITextureProvider
+public class HawkBlockProcessor extends BlockMachine implements ITextureProvider
 {
-
 	public HawkBlockProcessor(String name, int id, Material material)
     {
         super(name, id, material);
         this.setBlockName(name);
-        this.setHardness(1.0F);
+        this.setHardness(0.5F);
+        this.setResistance(1.0F);
         ModLoader.addName(this, name);
     }
 
+	@Override
     public void onBlockAdded(World par1World, int par2, int par3, int par4)
     {
         super.onBlockAdded(par1World, par2, par3, par4);
-        this.setDefaultDirection(par1World, par2, par3, par4);
-    }
-
-    private void setDefaultDirection(World par1World, int par2, int par3, int par4)
-    {
-        if (!par1World.isRemote)
-        {
-            int var5 = par1World.getBlockId(par2, par3, par4 - 1);
-            int var6 = par1World.getBlockId(par2, par3, par4 + 1);
-            int var7 = par1World.getBlockId(par2 - 1, par3, par4);
-            int var8 = par1World.getBlockId(par2 + 1, par3, par4);
-            byte var9 = 3;
-
-            if (Block.opaqueCubeLookup[var5] && !Block.opaqueCubeLookup[var6])
-            {
-                var9 = 3;
-            }
-
-            if (Block.opaqueCubeLookup[var6] && !Block.opaqueCubeLookup[var5])
-            {
-                var9 = 2;
-            }
-
-            if (Block.opaqueCubeLookup[var7] && !Block.opaqueCubeLookup[var8])
-            {
-                var9 = 5;
-            }
-
-            if (Block.opaqueCubeLookup[var8] && !Block.opaqueCubeLookup[var7])
-            {
-                var9 = 4;
-            }
-
-            par1World.setBlockMetadataWithNotify(par2, par3, par4, var9);
-        }
     }
     
+    @Override
     public boolean machineActivated(World par1World, int x, int y, int z, EntityPlayer par5EntityPlayer)
     {
 		int metadata = par1World.getBlockMetadata(x, y, z);
 
         if (!par1World.isRemote)
         {
-        	par5EntityPlayer.openGui(IHawkMiscHandler.getModInstance(), 0, par1World, x, y, z); return true;
+        	par5EntityPlayer.openGui(HawkManager.getModInstance(), 0, par1World, x, y, z); return true;
         }
         
         return true;
     }
 
+    @Override
     public boolean onUseWrench(World par1World, int x, int y, int z, EntityPlayer par5EntityPlayer)
     {
-    	UEIRotatable tileEntity = (UEIRotatable)par1World.getBlockTileEntity(x, y, z);
+    	IRotatable tileEntity = (IRotatable)par1World.getBlockTileEntity(x, y, z);
 
 		switch(tileEntity.getDirection())
 		{
@@ -92,11 +67,13 @@ public class HawkBlockProcessor extends UEBlockMachine implements ITextureProvid
 		return true;
 	}
 
+    @Override
     public String getTextureFile()
     {
-		return "/hawksmachinery/blocks.png";
+		return HawkManager.blockTextureFile;
     }
     
+    @Override
     public TileEntity getBlockEntity(int metadata)
     {
     	switch(metadata)
@@ -107,4 +84,14 @@ public class HawkBlockProcessor extends UEBlockMachine implements ITextureProvid
     	return null;
     }
     
+    public int getBlockTextureFromSide(int side)
+    {
+    	switch (side)
+    	{
+    		case 0: return 1;
+    		case 1: return 0;
+    		case 2: return 3;
+    		default: return 2;
+    	}
+    }
 }

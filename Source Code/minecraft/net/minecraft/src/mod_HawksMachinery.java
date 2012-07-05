@@ -3,13 +3,17 @@
  */
 package net.minecraft.src;
 
-import hawksmachinery.*;
-import net.minecraft.client.Minecraft;
-import net.minecraft.src.*;
-import net.minecraft.src.forge.*;
-import net.minecraft.src.forge.oredict.*;
-import net.minecraft.src.universalelectricity.*;
-import net.minecraft.src.universalelectricity.components.*;
+import hawksmachinery.HawkBlockProcessor;
+import hawksmachinery.HawkGUIGrinder;
+import hawksmachinery.HawkItem;
+import hawksmachinery.HawkProcessingRecipes;
+import hawksmachinery.HawkTileEntityGrinder;
+import hawksmachinery.HawkManager;
+import net.minecraft.src.forge.IGuiHandler;
+import net.minecraft.src.forge.MinecraftForge;
+import net.minecraft.src.forge.MinecraftForgeClient;
+import net.minecraft.src.forge.NetworkMod;
+import net.minecraft.src.universalelectricity.UniversalElectricity;
 
 /**
  * @author Elusivehawk
@@ -17,35 +21,43 @@ import net.minecraft.src.universalelectricity.components.*;
  */
 public class mod_HawksMachinery extends NetworkMod implements IGuiHandler
 {
-	
-	public static Block blockProcessor = (new HawkBlockProcessor("Grinder", IHawkMiscHandler.initProps(), Material.wood)).setHardness(0.5F).setResistance(1.0F);
+	public static Block blockProcessor = new HawkBlockProcessor("Grinder", HawkManager.initProps(), Material.wood);
 
-	public static Item dust1 = (new HawkItem("Coal Dust", IHawkMiscHandler.dust1ID)).setIconCoord(0, 1);
-	public static Item dust2 = (new HawkItem("Diamond Dust", IHawkMiscHandler.dust2ID)).setIconCoord(9, 1);
-	public static Item dust3 = (new HawkItem("Gold Dust", IHawkMiscHandler.dust3ID)).setIconCoord(2, 1);
-	public static Item dust4 = (new HawkItem("Ender Dust", IHawkMiscHandler.dust4ID)).setIconCoord(10, 1);
-	public static Item dust5 = (new HawkItem("Glass Dust", IHawkMiscHandler.dust5ID)).setIconCoord(11, 1);
+	public static Item coalDust = (new HawkItem("Coal Dust", HawkManager.dust1ID)).setIconCoord(1, 0);
+	public static Item diamondDust = (new HawkItem("Diamond Dust", HawkManager.dust2ID)).setIconCoord(10, 0);
+	public static Item goldDustUnref = (new HawkItem("Unrefined Gold Dust", HawkManager.dust3ID)).setIconCoord(10, 2);
+	public static Item enderDust = (new HawkItem("Ender Dust", HawkManager.dust4ID)).setIconCoord(11, 0);
+	public static Item glassDust = (new HawkItem("Glass Dust", HawkManager.dust5ID)).setIconCoord(12, 0);
+	public static Item ironDustUnref = (new HawkItem("Unrefined Iron Dust", HawkManager.dust6ID)).setIconCoord(2, 1);
+	public static Item copperDustUnref = (new HawkItem("Unrefined Copper Dust", HawkManager.dust7ID)).setIconCoord(12, 2);
+	public static Item tinDustUnref = (new HawkItem("Unrefined Tin Dust", HawkManager.dust8ID)).setIconCoord(11, 2);
 	
 	public static mod_HawksMachinery instance;
 
+	@Override
 	public void load()
 	{
 		instance = this;
 		
-		HawkProcessingRecipes.initHawksProcessingRecipes();
+		UniversalElectricity.registerAddon(this, "0.4.2");
+		
+		HawkProcessingRecipes.loadRecipes();
+		
 		checkRequiredModsExistence();
+		
 		preloadHawksTextures();
 		
 		ModLoader.registerBlock(blockProcessor);
 
-		ModLoader.registerTileEntity(HawkTileEntityGrinder.class, "Grinder", new UEBlockRenderer());
+		ModLoader.registerTileEntity(HawkTileEntityGrinder.class, "Grinder");
 		
 		MinecraftForge.setGuiHandler(this, this);
 	}
 
+	@Override
 	public String getVersion()
 	{
-		return "v0.1, built with MC v1.2.5, Forge #152 and UE v3.1";
+		return "Alpha v0.1.0";
 	}
 	
 	public String getName()
@@ -53,6 +65,7 @@ public class mod_HawksMachinery extends NetworkMod implements IGuiHandler
 		return "Hawk's Machinery";
 	}
 	
+	@Override
 	public Object getGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)
 	{
 		TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
@@ -92,7 +105,7 @@ public class mod_HawksMachinery extends NetworkMod implements IGuiHandler
 	
 	private static void preloadHawksTextures()
 	{
-		MinecraftForgeClient.preloadTexture("/hawksmachinery/blocks.png");
-		MinecraftForgeClient.preloadTexture("/hawksmachinery/items.png");
+		MinecraftForgeClient.preloadTexture(HawkManager.blockTextureFile);
+		MinecraftForgeClient.preloadTexture(HawkManager.itemTextureFile);
 	}
 }
