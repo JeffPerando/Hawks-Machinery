@@ -3,9 +3,9 @@
   "modid": "mod_HawksMachinery",
   "name": "Hawk's Machinery",
   "description": "An add-on for Calclavia's Universal Electricity mod, Hawk's Machinery adds various machines that give automation in Minecraft a purpose besides auto-smelting.",
-  "version": "Alpha v1.0",
+  "version": "Alpha v0.1a",
   "mcversion": "1.2.5",
-  "url": "",
+  "url": "http://minecraftforge.net/forum/index.php/topic,583.0.html",
   "updateUrl": "",
   "authors": [
     "Elusivehawk",
