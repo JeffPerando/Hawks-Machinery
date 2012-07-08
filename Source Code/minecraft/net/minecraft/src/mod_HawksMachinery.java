@@ -46,7 +46,7 @@ public class mod_HawksMachinery extends NetworkMod implements IGuiHandler
 	@Override
 	public String getVersion()
 	{
-		return "Alpha v0.2.0";
+		return "Alpha v0.1b";
 	}
 	
 	public String getName()
