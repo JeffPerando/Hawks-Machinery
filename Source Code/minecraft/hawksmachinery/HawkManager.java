@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 package hawksmachinery;
 
 import java.io.*;
@@ -25,14 +23,14 @@ public class HawkManager
 	public static int dust7ID;
 	public static int dust8ID;
 	
-	public static int machineID;
-	public static int misc1ID;
+	public static int machineBlockID;
+	public static int grinderID;
 	
-	public static String guiPath = "/hawksmachinery";
+	public static String guiPath = "/hawksmachinery/gui";
 	
 	
-	public static final String blockTextureFile = "/hawksmachinery/blocks.png";
-	public static final String itemTextureFile = "/hawksmachinery/items.png";
+	public static final String blockTextureFile = "/hawksmachinery/textures/blocks.png";
+	public static final String itemTextureFile = "/hawksmachinery/textures/items.png";
 	
 	public static File configuration = (new File(Minecraft.getMinecraftDir(), "config/UniversalElectricity/HawksMachinery.cfg"));
 
@@ -53,20 +51,21 @@ public class HawkManager
 		
 		HMConfig.load();
 		
-		machineID = HMConfig.getOrCreateIntProperty("machineID", Configuration.CATEGORY_BLOCK, 3950).getInt(3950);
+		grinderID = HMConfig.getOrCreateIntProperty("Grinder", Configuration.CATEGORY_BLOCK, 3950).getInt(3950);
+		machineBlockID = HMConfig.getOrCreateIntProperty("Machine Block", Configuration.CATEGORY_BLOCK, 3951).getInt(3951);
 
-		dust1ID	= HMConfig.getOrCreateIntProperty("dust1ID", Configuration.CATEGORY_ITEM, 16001).getInt(16001);
-		dust2ID = HMConfig.getOrCreateIntProperty("dust2ID", Configuration.CATEGORY_ITEM, 16002).getInt(16002);
-		dust3ID = HMConfig.getOrCreateIntProperty("dust3ID", Configuration.CATEGORY_ITEM, 16003).getInt(16003);
-		dust4ID = HMConfig.getOrCreateIntProperty("dust4ID", Configuration.CATEGORY_ITEM, 16004).getInt(16004);
-		dust5ID = HMConfig.getOrCreateIntProperty("dust5ID", Configuration.CATEGORY_ITEM, 16005).getInt(16005);
-		dust6ID = HMConfig.getOrCreateIntProperty("dust6ID", Configuration.CATEGORY_ITEM, 16006).getInt(16006);
-		dust7ID = HMConfig.getOrCreateIntProperty("dust7ID", Configuration.CATEGORY_ITEM, 16007).getInt(16007);
-		dust8ID = HMConfig.getOrCreateIntProperty("dust8ID", Configuration.CATEGORY_ITEM, 16008).getInt(16008);
+		dust1ID	= HMConfig.getOrCreateIntProperty("Coal Dust", Configuration.CATEGORY_ITEM, 16001).getInt(16001);
+		dust2ID = HMConfig.getOrCreateIntProperty("Diamond Dust", Configuration.CATEGORY_ITEM, 16002).getInt(16002);
+		dust3ID = HMConfig.getOrCreateIntProperty("Gold Dust", Configuration.CATEGORY_ITEM, 16003).getInt(16003);
+		dust4ID = HMConfig.getOrCreateIntProperty("Ender Dust", Configuration.CATEGORY_ITEM, 16004).getInt(16004);
+		dust5ID = HMConfig.getOrCreateIntProperty("Glass Dust", Configuration.CATEGORY_ITEM, 16005).getInt(16005);
+		dust6ID = HMConfig.getOrCreateIntProperty("Unrefined Iron Dust", Configuration.CATEGORY_ITEM, 16006).getInt(16006);
+		dust7ID = HMConfig.getOrCreateIntProperty("Unrefined Copper Dust", Configuration.CATEGORY_ITEM, 16007).getInt(16007);
+		dust8ID = HMConfig.getOrCreateIntProperty("Unrefined Tin Dust", Configuration.CATEGORY_ITEM, 16008).getInt(16008);
 
 		HMConfig.save();
 		
-		return machineID;
+		return grinderID;
 	}
 
 	public static mod_HawksMachinery getModInstance()

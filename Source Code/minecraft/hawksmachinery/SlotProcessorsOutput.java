@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 package hawksmachinery;
 
 import net.minecraft.src.*;

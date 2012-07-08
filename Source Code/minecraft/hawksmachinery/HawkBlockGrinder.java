@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 package hawksmachinery;
 
 import net.minecraft.src.Block;
@@ -19,15 +17,16 @@ import net.minecraft.src.universalelectricity.extend.IRotatable;
  * @author Elusivehawk
  *
  */
-public class HawkBlockProcessor extends BlockMachine implements ITextureProvider
+public class HawkBlockGrinder extends BlockMachine implements ITextureProvider
 {
-	public HawkBlockProcessor(String name, int id, Material material)
+	public HawkBlockGrinder(String name, int id, Material material)
     {
         super(name, id, material);
         this.setBlockName(name);
         this.setHardness(0.5F);
-        this.setResistance(1.0F);
+        this.setResistance(20.0F);
         ModLoader.addName(this, name);
+        ModLoader.registerBlock(this);
     }
 
 	@Override
@@ -79,9 +78,8 @@ public class HawkBlockProcessor extends BlockMachine implements ITextureProvider
     	switch(metadata)
     	{
 	    	case 0: return new HawkTileEntityGrinder();
+	    	default: return null;
     	}
-    	
-    	return null;
     }
     
     public int getBlockTextureFromSide(int side)

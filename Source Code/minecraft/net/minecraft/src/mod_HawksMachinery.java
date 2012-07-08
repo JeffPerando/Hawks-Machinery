@@ -1,18 +1,8 @@
-/**
- * 
- */
+
 package net.minecraft.src;
 
-import hawksmachinery.HawkBlockProcessor;
-import hawksmachinery.HawkGUIGrinder;
-import hawksmachinery.HawkItem;
-import hawksmachinery.HawkProcessingRecipes;
-import hawksmachinery.HawkTileEntityGrinder;
-import hawksmachinery.HawkManager;
-import net.minecraft.src.forge.IGuiHandler;
-import net.minecraft.src.forge.MinecraftForge;
-import net.minecraft.src.forge.MinecraftForgeClient;
-import net.minecraft.src.forge.NetworkMod;
+import hawksmachinery.*;
+import net.minecraft.src.forge.*;
 import net.minecraft.src.universalelectricity.UniversalElectricity;
 
 /**
@@ -21,7 +11,8 @@ import net.minecraft.src.universalelectricity.UniversalElectricity;
  */
 public class mod_HawksMachinery extends NetworkMod implements IGuiHandler
 {
-	public static Block blockProcessor = new HawkBlockProcessor("Grinder", HawkManager.initProps(), Material.wood);
+	public static Block blockProcessor = new HawkBlockGrinder("Grinder", HawkManager.initProps(), Material.wood);
+	public static Block blockEmptyMachine = new HawkBlock("Empty Machine Block", HawkManager.machineBlockID, Material.iron, 1, 1, 1, 1, 1, 1).setHardness(1.0F).setResistance(1.0F);
 
 	public static Item coalDust = (new HawkItem("Coal Dust", HawkManager.dust1ID)).setIconCoord(1, 0);
 	public static Item diamondDust = (new HawkItem("Diamond Dust", HawkManager.dust2ID)).setIconCoord(10, 0);
@@ -46,8 +37,6 @@ public class mod_HawksMachinery extends NetworkMod implements IGuiHandler
 		checkRequiredModsExistence();
 		
 		preloadHawksTextures();
-		
-		ModLoader.registerBlock(blockProcessor);
 
 		ModLoader.registerTileEntity(HawkTileEntityGrinder.class, "Grinder");
 		
@@ -57,7 +46,7 @@ public class mod_HawksMachinery extends NetworkMod implements IGuiHandler
 	@Override
 	public String getVersion()
 	{
-		return "Alpha v0.1.0";
+		return "Alpha v0.2.0";
 	}
 	
 	public String getName()

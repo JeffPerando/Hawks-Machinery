@@ -1,13 +1,11 @@
-/**
- * 
- */
+
 package hawksmachinery;
 
 import java.util.*;
 import net.minecraft.src.*;
 import net.minecraft.src.basiccomponents.BasicComponents;
 import net.minecraft.src.forge.*;
-import net.minecraft.src.forge.oredict.OreDictionary;
+import net.minecraft.src.universalelectricity.recipe.UERecipeManager;
 
 /**
  * @author Elusivehawk
@@ -19,9 +17,15 @@ public class HawkProcessingRecipes
 {
 	private static Map grinderList = new HashMap();
 	
+	/**
+	 * Loads all of the recipes for Hawk's Machinery, including regular crafting recipes.
+	 */
 	public static void loadRecipes()
 	{
-		ModLoader.addSmelting(mod_HawksMachinery.glassDust.shiftedIndex, new ItemStack(Block.thinGlass));
+		UERecipeManager.addRecipe(new ItemStack(mod_HawksMachinery.blockEmptyMachine, 1), new Object[]{"oxo", "x x", "oxo", 'o', BasicComponents.ItemSteelIngot, 'x', BasicComponents.ItemSteelPlate});
+		UERecipeManager.addRecipe((new ItemStack(mod_HawksMachinery.blockProcessor, 1)), new Object[]{"xix", "xpx", "xex", 'x', BasicComponents.ItemSteelIngot, 'p', Item.pickaxeSteel, 'e', mod_HawksMachinery.blockEmptyMachine, 'i', new ItemStack(BasicComponents.ItemCircuit, 1, 1)});
+		
+		UERecipeManager.addSmelting(mod_HawksMachinery.glassDust, new ItemStack(Block.thinGlass));
 		
 		addProcessingRecipe(Item.coal.shiftedIndex, new ItemStack(mod_HawksMachinery.coalDust, 1), 1);
 		addProcessingRecipe(Item.diamond.shiftedIndex, new ItemStack(mod_HawksMachinery.diamondDust, 4), 1);
@@ -29,10 +33,9 @@ public class HawkProcessingRecipes
 		addProcessingRecipe(Item.enderPearl.shiftedIndex, new ItemStack(mod_HawksMachinery.enderDust, 2), 1);
 		addProcessingRecipe(Block.glass.blockID, new ItemStack(mod_HawksMachinery.glassDust, 4), 1);
 		addProcessingRecipe(Block.oreIron.blockID, new ItemStack(mod_HawksMachinery.ironDustUnref, 2), 1);
-	
 	}
 	
-	/*
+	/**
 	 * Adds a processing method.
 	 * 
 	 * Args:
@@ -49,21 +52,15 @@ public class HawkProcessingRecipes
     	}
     }
     
-    /*
+    /**
      * Metadata-sensitive processing function.
      */
 	public void addProcessingRecipe(int itemID, int metadata, ItemStack itemstack, int processingType)
 	{
-		if(processingType <= 16)
+		switch(processingType)
 		{
-			switch(processingType)
-			{
-				case 1: this.grinderList.put(Arrays.asList(itemID, metadata), itemstack);
-			}
-		}
-		else
-		{
-			MinecraftForge.killMinecraft("Hawk's Machinery", "Invalid processing type: " + processingType);
+			case 1: this.grinderList.put(Arrays.asList(itemID, metadata), itemstack);
+			default: MinecraftForge.killMinecraft("Hawk's Machinery", "Invalid processing type: " + processingType);
 		}
 	}
 	

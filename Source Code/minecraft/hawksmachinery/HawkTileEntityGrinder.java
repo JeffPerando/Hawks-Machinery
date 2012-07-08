@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 package hawksmachinery;
 
 import net.minecraft.src.Entity;
@@ -26,7 +24,7 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 {
 	public final int electricityRequired = 120;
 
-	public final int ticksNeededtoProcess = 200;
+	public final int ticksNeededtoProcess = 160;
 	
 	public byte facingDirection = 0;
 	
@@ -40,7 +38,6 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
     
     public HawkTileEntityGrinder()
     {
-    	//Registers this unit to receive electricity
     	ElectricityManager.registerElectricUnit(this);
     }
     
@@ -75,13 +72,11 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 						
 	    	if(this.electricityStored >= this.electricityRequired && !this.isDisabled())
 	    	{
-		    	//The left slot contains the item to be smelted
 		    	if(this.containingItems[1] != null && this.canGrind() && this.workTicks == 0)
 		        {
 		        	this.workTicks = this.ticksNeededtoProcess;
 		        }
 		    	
-		        //Checks if the item can be smelted and if the smelting time left is greater than 0, if so, then smelt the item.
 		        if(this.canGrind() && this.workTicks > 0)
 		    	{
 		    		this.workTicks -= this.getTickInterval();
@@ -149,7 +144,14 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 	@Override
 	public float electricityRequest()
 	{
-		return this.electricityRequired-this.electricityStored;
+		if (this.canGrind())
+		{
+			return this.electricityRequired-this.electricityStored;
+		}
+		else
+		{
+			return 0;
+		}
 	}
 
 	@Override

@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 package hawksmachinery;
 
 import java.util.List;
@@ -24,6 +22,6 @@ public class HawkItem extends Item implements ITextureProvider
 	
 	public String getTextureFile()
 	{
-		return "/hawksmachinery/items.png";
+		return HawkManager.itemTextureFile;
 	}
 }
