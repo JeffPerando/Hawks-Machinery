@@ -22,7 +22,7 @@ public class HawkProcessingRecipes
 	 */
 	public static void loadRecipes()
 	{
-		UERecipeManager.addRecipe(new ItemStack(mod_HawksMachinery.blockEmptyMachine, 1), new Object[]{"oxo", "x x", "oxo", 'o', BasicComponents.ItemSteelIngot, 'x', BasicComponents.ItemSteelPlate});
+		UERecipeManager.addRecipe(new ItemStack(mod_HawksMachinery.blockEmptyMachine, 1), new Object[]{"oxo", "xvx", "oxo", 'o', BasicComponents.ItemSteelIngot, 'x', BasicComponents.ItemSteelPlate, 'v', Item.bucketLava});
 		UERecipeManager.addRecipe((new ItemStack(mod_HawksMachinery.blockProcessor, 1)), new Object[]{"xix", "xpx", "xex", 'x', BasicComponents.ItemSteelIngot, 'p', Item.pickaxeSteel, 'e', mod_HawksMachinery.blockEmptyMachine, 'i', new ItemStack(BasicComponents.ItemCircuit, 1, 1)});
 		UERecipeManager.addRecipe((new ItemStack(BasicComponents.ItemSteelIngot, 24)), new Object[]{"e", 'e', mod_HawksMachinery.blockEmptyMachine});
 		
