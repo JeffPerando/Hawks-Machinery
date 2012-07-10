@@ -22,6 +22,10 @@ public class HawkManager
 	public static int dust6ID;
 	public static int dust7ID;
 	public static int dust8ID;
+	public static int dust9ID;
+	public static int dust10ID;
+	public static int dust11ID;
+	public static int dust12ID;
 	
 	public static int machineBlockID;
 	public static int grinderID;
@@ -56,12 +60,16 @@ public class HawkManager
 
 		dust1ID	= HMConfig.getOrCreateIntProperty("Coal Dust", Configuration.CATEGORY_ITEM, 16001).getInt(16001);
 		dust2ID = HMConfig.getOrCreateIntProperty("Diamond Dust", Configuration.CATEGORY_ITEM, 16002).getInt(16002);
-		dust3ID = HMConfig.getOrCreateIntProperty("Gold Dust", Configuration.CATEGORY_ITEM, 16003).getInt(16003);
+		dust3ID = HMConfig.getOrCreateIntProperty("Unrefined Gold Dust", Configuration.CATEGORY_ITEM, 16003).getInt(16003);
 		dust4ID = HMConfig.getOrCreateIntProperty("Ender Dust", Configuration.CATEGORY_ITEM, 16004).getInt(16004);
 		dust5ID = HMConfig.getOrCreateIntProperty("Glass Dust", Configuration.CATEGORY_ITEM, 16005).getInt(16005);
 		dust6ID = HMConfig.getOrCreateIntProperty("Unrefined Iron Dust", Configuration.CATEGORY_ITEM, 16006).getInt(16006);
 		dust7ID = HMConfig.getOrCreateIntProperty("Unrefined Copper Dust", Configuration.CATEGORY_ITEM, 16007).getInt(16007);
 		dust8ID = HMConfig.getOrCreateIntProperty("Unrefined Tin Dust", Configuration.CATEGORY_ITEM, 16008).getInt(16008);
+		dust9ID = HMConfig.getOrCreateIntProperty("Iron Dust", Configuration.CATEGORY_ITEM, 16009).getInt(16009);
+		dust10ID = HMConfig.getOrCreateIntProperty("Gold Dust", Configuration.CATEGORY_ITEM, 16010).getInt(16010);
+		dust11ID = HMConfig.getOrCreateIntProperty("Copper Dust", Configuration.CATEGORY_ITEM, 16011).getInt(16011);
+		dust12ID = HMConfig.getOrCreateIntProperty("Tin Dust", Configuration.CATEGORY_ITEM, 16012).getInt(16012);
 
 		HMConfig.save();
 		

@@ -2,14 +2,19 @@
 package net.minecraft.src;
 
 import hawksmachinery.*;
+import net.minecraft.src.basiccomponents.BasicComponents;
 import net.minecraft.src.forge.*;
 import net.minecraft.src.universalelectricity.UniversalElectricity;
+import net.minecraft.src.universalelectricity.recipe.IRecipeReplacementHandler;
+import net.minecraft.src.universalelectricity.recipe.UEFurnaceRecipe;
+import net.minecraft.src.universalelectricity.recipe.UERecipe;
+import net.minecraft.src.universalelectricity.recipe.UERecipeManager;
 
 /**
  * @author Elusivehawk
  *
  */
-public class mod_HawksMachinery extends NetworkMod implements IGuiHandler
+public class mod_HawksMachinery extends NetworkMod implements IGuiHandler, IRecipeReplacementHandler
 {
 	public static Block blockProcessor = new HawkBlockGrinder("Grinder", HawkManager.initProps(), Material.wood);
 	public static Block blockEmptyMachine = new HawkBlock("Empty Machine Block", HawkManager.machineBlockID, Material.iron, 1, 1, 1, 1, 1, 1).setHardness(1.0F).setResistance(1.0F);
@@ -22,6 +27,11 @@ public class mod_HawksMachinery extends NetworkMod implements IGuiHandler
 	public static Item ironDustUnref = (new HawkItem("Unrefined Iron Dust", HawkManager.dust6ID)).setIconCoord(2, 1);
 	public static Item copperDustUnref = (new HawkItem("Unrefined Copper Dust", HawkManager.dust7ID)).setIconCoord(12, 2);
 	public static Item tinDustUnref = (new HawkItem("Unrefined Tin Dust", HawkManager.dust8ID)).setIconCoord(11, 2);
+	public static Item ironDust = (new HawkItem("Iron Dust", HawkManager.dust9ID)).setIconCoord(2, 0);
+	public static Item goldDust = (new HawkItem("Gold Dust", HawkManager.dust10ID)).setIconCoord(10, 1);
+	public static Item copperDust = (new HawkItem("Copper Dust", HawkManager.dust11ID)).setIconCoord(12, 1);
+	public static Item tinDust = (new HawkItem("Tin Dust", HawkManager.dust12ID)).setIconCoord(11, 1);
+
 	
 	public static mod_HawksMachinery instance;
 
@@ -46,7 +56,7 @@ public class mod_HawksMachinery extends NetworkMod implements IGuiHandler
 	@Override
 	public String getVersion()
 	{
-		return "Alpha v0.1b";
+		return "Alpha v0.2";
 	}
 	
 	public String getName()
@@ -97,4 +107,22 @@ public class mod_HawksMachinery extends NetworkMod implements IGuiHandler
 		MinecraftForgeClient.preloadTexture(HawkManager.blockTextureFile);
 		MinecraftForgeClient.preloadTexture(HawkManager.itemTextureFile);
 	}
+
+	@Override
+    public Object[] onReplaceShapedRecipe(UERecipe recipe)
+    {
+	    return null;
+    }
+
+	@Override
+    public Object[] onReplaceShapelessRecipe(UERecipe recipe)
+    {
+	    return null;
+    }
+
+	@Override
+    public ItemStack onReplaceSmeltingRecipe(UEFurnaceRecipe recipe)
+    {
+	    return null;
+    }
 }

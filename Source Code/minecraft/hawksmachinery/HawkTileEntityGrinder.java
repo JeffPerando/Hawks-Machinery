@@ -36,6 +36,8 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 	
     private ItemStack[] containingItems = new ItemStack[3];
     
+    public static int electricityCapacity = 2000;
+    
     public HawkTileEntityGrinder()
     {
     	ElectricityManager.registerElectricUnit(this);
@@ -70,9 +72,9 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 	    	
 			this.electricityStored += watts;
 						
-	    	if(this.electricityStored >= this.electricityRequired && !this.isDisabled())
+	    	if (this.canGrind() && !this.isDisabled())
 	    	{
-		    	if(this.containingItems[1] != null && this.canGrind() && this.workTicks == 0)
+		    	if(this.containingItems[1] != null && this.workTicks == 0)
 		        {
 		        	this.workTicks = this.ticksNeededtoProcess;
 		        }
@@ -81,38 +83,54 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 		    	{
 		    		this.workTicks -= this.getTickInterval();
 		    		
-		    		//When the item is finished smelting
 		    		if(this.workTicks < 1*this.getTickInterval())
 		    		{
 		    			this.grindItem();
 		    			this.workTicks = 0;
 		    		}
+		    		
+		    		this.electricityStored = this.electricityStored - this.electricityRequired;
 		    	}
 		        else
 		        {
 		        	this.workTicks = 0;
 		        }
-		        
-		        this.electricityStored = 0;
 	    	}
+	    	
+	    	if (this.electricityStored <= 0)
+	    	{
+	    		this.electricityStored = 0;
+	    	}
+	    	
+	    	if (this.electricityStored >= this.electricityCapacity)
+	    	{
+	    		this.electricityStored = this.electricityCapacity;
+	    	}
+	    	
         }
 	}
     
     private boolean canGrind()
     {
-    	//If the input is not null
-        if(this.containingItems[1] == null)
+        if (this.containingItems[1] == null)
         {
             return false;
         }
         else
         {
-            ItemStack var1 = HawkProcessingRecipes.getGrindingResult(this.containingItems[1]);
-            if (var1 == null) return false;
-            if (this.containingItems[2] == null) return true;
-            if (!this.containingItems[2].isItemEqual(var1)) return false;
-            int result = containingItems[2].stackSize + var1.stackSize;
-            return (result <= getInventoryStackLimit() && result <= var1.getMaxStackSize());
+        	if (this.electricityStored <= this.electricityRequired * 2)
+        	{
+                ItemStack var1 = HawkProcessingRecipes.getGrindingResult(this.containingItems[1]);
+                if (var1 == null) return false;
+                if (this.containingItems[2] == null) return true;
+                if (!this.containingItems[2].isItemEqual(var1)) return false;
+                int result = containingItems[2].stackSize + var1.stackSize;
+                return (result <= getInventoryStackLimit() && result <= var1.getMaxStackSize());
+        	}
+        	else
+        	{
+        		return false;
+        	}
         }
     }
 
@@ -144,14 +162,11 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 	@Override
 	public float electricityRequest()
 	{
-		if (this.canGrind())
+		if (this.canGrind() | !(this.electricityCapacity == this.electricityStored))
 		{
-			return this.electricityRequired-this.electricityStored;
+			return electricityRequired * 3;
 		}
-		else
-		{
-			return 0;
-		}
+		return 0;
 	}
 
 	@Override
@@ -355,4 +370,29 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 		this.isBeingPoweredByRedstone = false;
     }
 
+    public int getGrindingStatus(int par1)
+    {
+        return this.workTicks * par1 / 200;
+    }
+    
+	public String getGrinderStatus()
+	{
+		if (this.isDisabled())
+		{
+			return "Disabled!";
+		}
+		else if (this.workTicks > 0)
+		{
+			return "Grinding";
+		}
+		else
+		{
+			return "Idle";
+		}
+	}
+	
+	public float getElectricityStored()
+	{
+		return this.electricityStored;
+	}
 }
