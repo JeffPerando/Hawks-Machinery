@@ -6,6 +6,7 @@ package hawksmachinery;
 import net.minecraft.src.GuiContainer;
 import net.minecraft.src.InventoryPlayer;
 import net.minecraft.src.StatCollector;
+import net.minecraft.src.World;
 import net.minecraft.src.basiccomponents.BasicComponents;
 
 import org.lwjgl.opengl.GL11;

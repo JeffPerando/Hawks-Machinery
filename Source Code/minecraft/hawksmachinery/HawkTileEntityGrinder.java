@@ -7,6 +7,8 @@ import net.minecraft.src.IInventory;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.NBTTagCompound;
 import net.minecraft.src.NBTTagList;
+import net.minecraft.src.TileEntity;
+import net.minecraft.src.World;
 import net.minecraft.src.forge.ISidedInventory;
 import net.minecraft.src.forge.ITextureProvider;
 import net.minecraft.src.universalelectricity.electricity.ElectricityManager;
@@ -16,27 +18,27 @@ import net.minecraft.src.universalelectricity.extend.IRotatable;
 import net.minecraft.src.universalelectricity.extend.ItemElectric;
 
 /**
- * A block that grinds stuff
+ * A tile entity that grinds stuff
  * @author Elusivehawk
  *
  */
 public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRedstoneReceptor, ITextureProvider, IInventory, ISidedInventory, IRotatable
 {
-	public final int electricityRequired = 120;
+	public int electricityRequired = 60;
 
-	public final int ticksNeededtoProcess = 160;
+	public int ticksNeededtoProcess = 160;
 	
 	public byte facingDirection = 0;
 	
 	public float electricityStored = 0;
 	
-	public static int workTicks = 0;
+	public int workTicks = 0;
 	
-	private static boolean isBeingPoweredByRedstone;
+	private boolean isBeingPoweredByRedstone;
 	
     private ItemStack[] containingItems = new ItemStack[3];
     
-    public static int electricityCapacity = 2000;
+    public int electricityCapacity = 1250;
     
     public HawkTileEntityGrinder()
     {
@@ -118,7 +120,7 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
         }
         else
         {
-        	if (this.electricityStored <= this.electricityRequired * 2)
+        	if (this.electricityStored >= this.electricityRequired * 2)
         	{
                 ItemStack var1 = HawkProcessingRecipes.getGrindingResult(this.containingItems[1]);
                 if (var1 == null) return false;
@@ -135,7 +137,7 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
     }
 
 
-    public void grindItem()
+    private void grindItem()
     {
         if (this.canGrind())
         {
@@ -162,11 +164,21 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 	@Override
 	public float electricityRequest()
 	{
-		if (this.canGrind() | !(this.electricityCapacity == this.electricityStored))
+		if (this.canGrind())
 		{
-			return electricityRequired * 3;
+			return electricityRequired;
 		}
-		return 0;
+		else
+		{
+			if (this.electricityCapacity != this.electricityStored)
+			{
+				return (this.electricityCapacity - this.electricityStored) / 10;
+			}
+			else
+			{
+				return 0;
+			}
+		}
 	}
 
 	@Override

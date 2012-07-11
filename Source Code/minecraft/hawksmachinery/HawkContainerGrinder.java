@@ -46,9 +46,9 @@ public class HawkContainerGrinder extends Container
         }
     }
     
-    public static TileEntity getGrinderContainer()
+    public TileEntity getGrinderContainer()
     {
-    	return tileEntity;
+    	return this.tileEntity;
     }
     
     public ItemStack transferStackInSlot(int par1)
