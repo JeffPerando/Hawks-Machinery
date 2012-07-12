@@ -2,6 +2,7 @@
 package net.minecraft.src;
 
 import hawksmachinery.*;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.src.basiccomponents.BasicComponents;
 import net.minecraft.src.forge.*;
 import net.minecraft.src.universalelectricity.UniversalElectricity;
@@ -65,7 +66,7 @@ public class mod_HawksMachinery extends NetworkMod implements IGuiHandler, IReci
 	
 	private String clientOrServer()
 	{
-		return "Client";
+		return "Server";
 	}
 	
 	@Override
@@ -75,7 +76,7 @@ public class mod_HawksMachinery extends NetworkMod implements IGuiHandler, IReci
 		
 		if (tileEntity != null)
         {
-			return new HawkGUIGrinder(player.inventory, ((HawkTileEntityGrinder)tileEntity));
+			return new HawkContainerGrinder(player.inventory, ((HawkTileEntityGrinder)tileEntity));
         }
 		return null;
 	}
@@ -101,10 +102,14 @@ public class mod_HawksMachinery extends NetworkMod implements IGuiHandler, IReci
 		}
 	}
 	
+	/**
+	 * The server apparently doesn't load textures.
+	 */
+	@Deprecated
 	private static void preloadHawksTextures()
 	{
-		MinecraftForgeClient.preloadTexture(HawkManager.blockTextureFile);
-		MinecraftForgeClient.preloadTexture(HawkManager.itemTextureFile);
+		//MinecraftForgeClient.preloadTexture(HawkManager.blockTextureFile);
+		//MinecraftForgeClient.preloadTexture(HawkManager.itemTextureFile);
 	}
 
 	@Override

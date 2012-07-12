@@ -1,19 +1,15 @@
 
 package hawksmachinery;
 
-import java.io.DataInputStream;
-import java.io.IOException;
-
 import net.minecraft.src.Entity;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.IInventory;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.NBTTagCompound;
 import net.minecraft.src.NBTTagList;
-import net.minecraft.src.NetworkManager;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
-import net.minecraft.src.mod_HawksMachinery;
+import net.minecraft.src.basiccomponents.BasicComponents;
 import net.minecraft.src.forge.ISidedInventory;
 import net.minecraft.src.forge.ITextureProvider;
 import net.minecraft.src.universalelectricity.electricity.ElectricityManager;
@@ -21,14 +17,14 @@ import net.minecraft.src.universalelectricity.electricity.TileEntityElectricUnit
 import net.minecraft.src.universalelectricity.extend.IRedstoneReceptor;
 import net.minecraft.src.universalelectricity.extend.IRotatable;
 import net.minecraft.src.universalelectricity.extend.ItemElectric;
-import net.minecraft.src.universalelectricity.network.IPacketReceiver;
+import net.minecraft.src.universalelectricity.network.IPacketSender;
 
 /**
  * A tile entity that grinds stuff
  * @author Elusivehawk
  *
  */
-public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRedstoneReceptor, ITextureProvider, IInventory, ISidedInventory, IRotatable, IPacketReceiver
+public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRedstoneReceptor, ITextureProvider, IInventory, ISidedInventory, IRotatable, IPacketSender
 {
 	public int electricityRequired = 60;
 
@@ -49,74 +45,77 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
     public HawkTileEntityGrinder()
     {
     	ElectricityManager.registerElectricUnit(this);
-    	mod_HawksMachinery.packetManager.registerPacketUser(this);
     }
     
     @Override
 	public void onUpdate(float watts, float voltage, byte side)
-	{		
-		if(!this.worldObj.isRemote)
-        {
-			super.onUpdate(watts, voltage, side);
-			
-			if(voltage > this.getVoltage())
-	    	{
-	    		 this.worldObj.createExplosion((Entity)null, this.xCoord, this.yCoord, this.zCoord, 0.7F);
-	    	}
-			
-			//The slot is for portable batteries to be used in the grinder
-	    	if(this.containingItems[0] != null)
-	        {
-	            if(this.containingItems[0].getItem() instanceof ItemElectric)
-	            {
-		           	ItemElectric electricItem = (ItemElectric)this.containingItems[0].getItem();
-		           	
-	            	if(electricItem.canProduceElectricity())
-		           	{
-		            	double receivedElectricity = electricItem.onUseElectricity(electricItem.getTransferRate(), this.containingItems[0]);
-		            	this.electricityStored += receivedElectricity;
-		           	}
-	            }
-	        }
-	    	
-			this.electricityStored += watts;
-						
-	    	if (this.canGrind() && !this.isDisabled())
-	    	{
-		    	if(this.containingItems[1] != null && this.workTicks == 0)
-		        {
-		        	this.workTicks = this.ticksNeededtoProcess;
-		        }
-		    	
-		        if(this.canGrind() && this.workTicks > 0)
-		    	{
-		    		this.workTicks -= this.getTickInterval();
-		    		
-		    		if(this.workTicks < 1*this.getTickInterval())
-		    		{
-		    			this.grindItem();
-		    			this.workTicks = 0;
-		    		}
-		    		
-		    		this.electricityStored = this.electricityStored - this.electricityRequired;
-		    	}
-		        else
-		        {
-		        	this.workTicks = 0;
-		        }
-	    	}
-	    	
-	    	if (this.electricityStored <= 0)
-	    	{
-	    		this.electricityStored = 0;
-	    	}
-	    	
-	    	if (this.electricityStored >= this.electricityCapacity)
-	    	{
-	    		this.electricityStored = this.electricityCapacity;
-	    	}
-	    	
-        }
+	{
+    	if (!this.worldObj.isRemote)
+    	{
+    		super.onUpdate(watts, voltage, side);
+    		
+    		if(!this.worldObj.isRemote)
+            {			
+    			if(voltage > this.getVoltage())
+    	    	{
+    	    		 this.worldObj.createExplosion((Entity)null, this.xCoord, this.yCoord, this.zCoord, 0.7F);
+    	    	}
+    			
+    			//The slot is for portable batteries to be used in the grinder
+    	    	if(this.containingItems[0] != null)
+    	        {
+    	            if(this.containingItems[0].getItem() instanceof ItemElectric)
+    	            {
+    		           	ItemElectric electricItem = (ItemElectric)this.containingItems[0].getItem();
+    		           	
+    	            	if(electricItem.canProduceElectricity())
+    		           	{
+    		            	double receivedElectricity = electricItem.onUseElectricity(electricItem.getTransferRate(), this.containingItems[0]);
+    		            	this.electricityStored += receivedElectricity;
+    		           	}
+    	            }
+    	        }
+    	    	
+    			this.electricityStored += watts;
+    						
+    	    	if (this.canGrind() && !this.isDisabled())
+    	    	{
+    		    	if(this.containingItems[1] != null && this.workTicks == 0)
+    		        {
+    		        	this.workTicks = this.ticksNeededtoProcess;
+    		        }
+    		    	
+    		        if(this.canGrind() && this.workTicks > 0)
+    		    	{
+    		    		this.workTicks -= this.getTickInterval();
+    		    		
+    		    		if(this.workTicks < 1*this.getTickInterval())
+    		    		{
+    		    			this.grindItem();
+    		    			this.workTicks = 0;
+    		    		}
+    		    		
+    		    		this.electricityStored = this.electricityStored - this.electricityRequired;
+    		    	}
+    		        else
+    		        {
+    		        	this.workTicks = 0;
+    		        }
+    	    	}
+    	    	
+    	    	if (this.electricityStored <= 0)
+    	    	{
+    	    		this.electricityStored = 0;
+    	    	}
+    	    	
+    	    	if (this.electricityStored >= this.electricityCapacity)
+    	    	{
+    	    		this.electricityStored = this.electricityCapacity;
+    	    	}
+            }
+    	}
+    	
+    	BasicComponents.packetManager.sendPacketData(this, new double[]{this.electricityStored, this.workTicks, this.disabledTicks});
 	}
     
     private boolean canGrind()
@@ -416,24 +415,8 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 	}
 
 	@Override
-    public int getPacketID()
-    {
-		//First person to get the reference gets a cookie. :3
-	    return 395;
-    }
-
-	@Override
-    public void onPacketData(NetworkManager network, String channel, DataInputStream dataStream)
-    {
-		try
-		{
-			this.disabledTicks = (int)dataStream.readDouble();
-			this.workTicks = (int)dataStream.readDouble();
-			this.electricityStored = (int)dataStream.readDouble();
-		}
-		catch(IOException e)
-		{
-			e.printStackTrace();
-		}		
-    }
+	public int getPacketID()
+	{
+		return 395;
+	}
 }

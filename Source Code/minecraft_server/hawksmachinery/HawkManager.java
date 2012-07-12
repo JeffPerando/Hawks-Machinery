@@ -3,7 +3,7 @@ package hawksmachinery;
 
 import java.io.*;
 
-import net.minecraft.client.*;
+import net.minecraft.server.*;
 import net.minecraft.src.*;
 import net.minecraft.src.basiccomponents.BasicComponents;
 import net.minecraft.src.forge.*;
@@ -33,17 +33,16 @@ public class HawkManager
 	public static int machineBlockID;
 	public static int grinderID;
 	
-	public static String guiPath = "/hawksmachinery/textures/gui";
+	public static final String guiPath = "/hawksmachinery/textures/gui";
+	public static final String configPath = "/config/HawksMachinery";
 	
 	public static final String blockTextureFile = "/hawksmachinery/textures/blocks.png";
 	public static final String itemTextureFile = "/hawksmachinery/textures/items.png";
 	
-	public static File hawksFolder = (new File(Minecraft.getMinecraftDir() + "/config/HawksMachinery"));
-	
-	public static File configuration = (new File(hawksFolder + "/Config.cfg"));
+	public static File configuration = (new File(configPath + "/Config.cfg"));
 
 	public static int initProps()
-	{
+	{	
 		try
 		{
 			configuration.createNewFile();
