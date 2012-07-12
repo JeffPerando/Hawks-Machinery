@@ -5,7 +5,10 @@ import java.io.*;
 
 import net.minecraft.client.*;
 import net.minecraft.src.*;
+import net.minecraft.src.basiccomponents.BasicComponents;
 import net.minecraft.src.forge.*;
+import net.minecraft.src.universalelectricity.ore.UEOreManager;
+import net.minecraft.src.universalelectricity.recipe.UERecipeManager;
 
 /**
  * @author Elusivehawk
@@ -30,7 +33,7 @@ public class HawkManager
 	public static int machineBlockID;
 	public static int grinderID;
 	
-	public static String guiPath = "/hawksmachinery/gui";
+	public static String guiPath = "/hawksmachinery/textures/gui";
 	
 	
 	public static final String blockTextureFile = "/hawksmachinery/textures/blocks.png";
@@ -79,5 +82,42 @@ public class HawkManager
 	public static mod_HawksMachinery getModInstance()
 	{
 		return mod_HawksMachinery.instance;
+	}
+	
+	/**
+	 * Loads all of the recipes for Hawk's Machinery, including regular crafting recipes.
+	 */
+	public static void loadRecipes()
+	{
+		UERecipeManager.addRecipe((new ItemStack(mod_HawksMachinery.blockEmptyMachine, 1)), new Object[]{"oxo", "xvx", "oxo", 'o', BasicComponents.ItemSteelIngot, 'x', BasicComponents.ItemSteelPlate, 'v', Item.blazePowder});
+		UERecipeManager.addRecipe((new ItemStack(mod_HawksMachinery.blockProcessor, 1)), new Object[]{"xix", "xpx", "xex", 'x', BasicComponents.ItemSteelIngot, 'p', Item.pickaxeSteel, 'e', mod_HawksMachinery.blockEmptyMachine, 'i', new ItemStack(BasicComponents.ItemCircuit, 1, 1)});
+		UERecipeManager.addRecipe((new ItemStack(BasicComponents.ItemSteelIngot, 24)), new Object[]{"e", 'e', mod_HawksMachinery.blockEmptyMachine});
+		UERecipeManager.addRecipe((new ItemStack(BasicComponents.ItemBattery)), new Object[]{" x ", "xcx", "xrx", 'x', BasicComponents.ItemTinIngot, 'c', mod_HawksMachinery.coalDust, 'r', Item.redstone});
+		UERecipeManager.addRecipe((new ItemStack(Block.torchWood, 4)), new Object[]{"c", "s", 'c', mod_HawksMachinery.coalDust, 's', Item.stick});
+		
+		UERecipeManager.addShapelessRecipe((new ItemStack(BasicComponents.ItemSteelClump, 1)), new Object[]{Item.ingotIron, mod_HawksMachinery.coalDust});
+		UERecipeManager.addShapelessRecipe((new ItemStack(mod_HawksMachinery.ironDust, 2)), new Object[]{Item.bucketWater, mod_HawksMachinery.ironDustUnref, mod_HawksMachinery.ironDustUnref});
+		UERecipeManager.addShapelessRecipe((new ItemStack(mod_HawksMachinery.goldDust, 2)), new Object[]{Item.bucketWater, mod_HawksMachinery.goldDustUnref, mod_HawksMachinery.goldDustUnref});
+		UERecipeManager.addShapelessRecipe((new ItemStack(mod_HawksMachinery.copperDust, 2)), new Object[]{Item.bucketWater, mod_HawksMachinery.copperDustUnref, mod_HawksMachinery.copperDustUnref});
+		UERecipeManager.addShapelessRecipe((new ItemStack(mod_HawksMachinery.tinDust, 2)), new Object[]{Item.bucketWater, mod_HawksMachinery.tinDustUnref, mod_HawksMachinery.tinDustUnref});
+		
+		UERecipeManager.addSmelting(mod_HawksMachinery.glassDust, new ItemStack(Block.thinGlass));
+		UERecipeManager.addSmelting(mod_HawksMachinery.ironDust, new ItemStack(Item.ingotIron));
+		UERecipeManager.addSmelting(mod_HawksMachinery.goldDust, new ItemStack(Item.ingotGold));
+		UERecipeManager.addSmelting(mod_HawksMachinery.copperDust, new ItemStack(BasicComponents.ItemCopperIngot));
+		UERecipeManager.addSmelting(mod_HawksMachinery.tinDust, new ItemStack(BasicComponents.ItemTinIngot));
+		
+		HawkProcessingRecipes.addHawkProcessingRecipe(Item.coal.shiftedIndex, new ItemStack(mod_HawksMachinery.coalDust, 1), 1);
+		HawkProcessingRecipes.addHawkProcessingRecipe(Item.diamond.shiftedIndex, new ItemStack(mod_HawksMachinery.diamondDust, 4), 1);
+		HawkProcessingRecipes.addHawkProcessingRecipe(Block.oreGold.blockID, new ItemStack(mod_HawksMachinery.goldDustUnref, 2), 1);
+		HawkProcessingRecipes.addHawkProcessingRecipe(Item.enderPearl.shiftedIndex, new ItemStack(mod_HawksMachinery.enderDust, 2), 1);
+		HawkProcessingRecipes.addHawkProcessingRecipe(Block.glass.blockID, new ItemStack(mod_HawksMachinery.glassDust, 4), 1);
+		HawkProcessingRecipes.addHawkProcessingRecipe(Block.oreIron.blockID, new ItemStack(mod_HawksMachinery.ironDustUnref, 2), 1);
+		HawkProcessingRecipes.addHawkProcessingRecipe(BasicComponents.ItemCopperIngot.shiftedIndex, new ItemStack(mod_HawksMachinery.copperDust), 1);
+		HawkProcessingRecipes.addHawkProcessingRecipe(BasicComponents.ItemTinIngot.shiftedIndex, new ItemStack(mod_HawksMachinery.tinDust), 1);
+		
+		HawkProcessingRecipes.addHawkMetaProcessingRecipe(UEOreManager.getOre(BasicComponents.CopperOreID).blockID, UEOreManager.getOreMetadata(BasicComponents.CopperOreID), new ItemStack(mod_HawksMachinery.copperDustUnref, 2), 1);
+		HawkProcessingRecipes.addHawkMetaProcessingRecipe(UEOreManager.getOre(BasicComponents.TinOreID).blockID, UEOreManager.getOreMetadata(BasicComponents.TinOreID), new ItemStack(mod_HawksMachinery.tinDustUnref, 2), 1);
+		
 	}
 }
