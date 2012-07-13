@@ -26,7 +26,7 @@ import net.minecraft.src.universalelectricity.network.IPacketSender;
  */
 public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRedstoneReceptor, ITextureProvider, IInventory, ISidedInventory, IRotatable, IPacketSender
 {
-	public int electricityRequired = 60;
+	public int electricityRequired = 20;
 
 	public int ticksNeededtoProcess = 160;
 	
@@ -41,6 +41,8 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
     private ItemStack[] containingItems = new ItemStack[3];
     
     public int electricityCapacity = 1250;
+
+	private int grinderStatus;
     
     public HawkTileEntityGrinder()
     {
@@ -394,18 +396,25 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
     }
     
 	public String getGrinderStatus()
-	{
+	{	
 		if (this.isDisabled())
 		{
-			return "Disabled!";
+			this.grinderStatus = 2;
 		}
 		else if (this.workTicks > 0)
 		{
-			return "Grinding";
+			this.grinderStatus = 1;
 		}
 		else
 		{
-			return "Idle";
+			this.grinderStatus =  0;
+		}
+		
+		switch (this.grinderStatus)
+		{
+			case 1: return "Grinding";
+			case 2: return "Disabled!";
+			default: return "Idle";
 		}
 	}
 	

@@ -40,11 +40,9 @@ public class mod_HawksMachinery extends NetworkMod implements IGuiHandler, IReci
 	{
 		instance = this;
 		
-		UniversalElectricity.registerAddon(this, "0.4.2");
+		UniversalElectricity.registerAddon(this, "0.4.4");
 		
 		HawkManager.loadRecipes();
-		
-		checkRequiredModsExistence();
 		
 		preloadHawksTextures();
 
@@ -56,7 +54,7 @@ public class mod_HawksMachinery extends NetworkMod implements IGuiHandler, IReci
 	@Override
 	public String getVersion()
 	{
-		return "Alpha v0.3";
+		return "Alpha v1.0";
 	}
 	
 	public String getName()
@@ -79,27 +77,6 @@ public class mod_HawksMachinery extends NetworkMod implements IGuiHandler, IReci
 			return new HawkContainerGrinder(player.inventory, ((HawkTileEntityGrinder)tileEntity));
         }
 		return null;
-	}
-	
-	/*
-	 * Checks for required mods, and certain mods that sure as hell aren't compatible.
-	 */
-	private void checkRequiredModsExistence()
-	{
-		if (ModLoader.isModLoaded("mod_FCBTW") == true) //Checks to see if some poor sap thought it would be intelligent to install this mod with Better Than Wolves.
-		{
-			throw new RuntimeException("...What are you thinking?");
-		}
-		
-		if (ModLoader.isModLoaded("mod_MinecraftForge") == false) //Checks for Minecraft Forge's existence.
-		{
-			throw new RuntimeException("Hawk's Machinery: You forgot to install Minecraft Forge, which is for the record, REQUIRED.");
-		}
-		
-		if (ModLoader.isModLoaded("mod_UniversalElectricity") == false) //Ditto as above, but with Universal Electricity.
-		{
-			MinecraftForge.killMinecraft("Hawk's Machinery", "You forgot to install Universal Electricity.");
-		}
 	}
 	
 	/**

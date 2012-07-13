@@ -30,7 +30,7 @@ import net.minecraft.src.universalelectricity.network.IPacketReceiver;
  */
 public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRedstoneReceptor, ITextureProvider, IInventory, ISidedInventory, IRotatable, IPacketReceiver
 {
-	public int electricityRequired = 60;
+	public int electricityRequired = 20;
 
 	public int ticksNeededtoProcess = 160;
 	
@@ -43,6 +43,8 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 	private boolean isBeingPoweredByRedstone;
 	
     private ItemStack[] containingItems = new ItemStack[3];
+    
+    private int grinderStatus;
     
     public int electricityCapacity = 1250;
     
@@ -179,7 +181,14 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 		{
 			if (this.electricityCapacity != this.electricityStored)
 			{
-				return (this.electricityCapacity - this.electricityStored) / 10;
+				if (this.electricityStored + this.electricityRequired >= this.electricityCapacity)
+				{
+					return this.electricityCapacity - this.electricityStored;
+				}
+				else
+				{
+					return this.electricityRequired;
+				}
 			}
 			else
 			{
@@ -395,18 +404,25 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
     }
     
 	public String getGrinderStatus()
-	{
+	{	
 		if (this.isDisabled())
 		{
-			return "Disabled!";
+			this.grinderStatus = 2;
 		}
 		else if (this.workTicks > 0)
 		{
-			return "Grinding";
+			this.grinderStatus = 1;
 		}
 		else
 		{
-			return "Idle";
+			this.grinderStatus =  0;
+		}
+		
+		switch (this.grinderStatus)
+		{
+			case 1: return "Grinding";
+			case 2: return "Disabled!";
+			default: return "Idle";
 		}
 	}
 	
@@ -430,6 +446,7 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 			this.disabledTicks = (int)dataStream.readDouble();
 			this.workTicks = (int)dataStream.readDouble();
 			this.electricityStored = (int)dataStream.readDouble();
+			this.grinderStatus = (int)dataStream.readDouble();
 		}
 		catch(IOException e)
 		{
