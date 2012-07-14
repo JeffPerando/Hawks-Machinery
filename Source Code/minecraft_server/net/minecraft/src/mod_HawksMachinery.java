@@ -40,7 +40,7 @@ public class mod_HawksMachinery extends NetworkMod implements IGuiHandler, IReci
 	{
 		instance = this;
 		
-		UniversalElectricity.registerAddon(this, "0.4.4");
+		UniversalElectricity.registerAddon(this, "0.4.5");
 		
 		HawkManager.loadRecipes();
 		
