@@ -8,6 +8,7 @@ import net.minecraft.src.InventoryPlayer;
 import net.minecraft.src.StatCollector;
 import net.minecraft.src.World;
 import net.minecraft.src.basiccomponents.BasicComponents;
+import net.minecraft.src.universalelectricity.UniversalElectricity;
 
 import org.lwjgl.opengl.GL11;
 
@@ -36,8 +37,8 @@ public class HawkGUIGrinder extends GuiContainer
 		this.fontRenderer.drawString("Battery:", 10, 53, 4210752);
 
 		this.fontRenderer.drawString("Status: "+this.tileEntity.getGrinderStatus(), 75, 48, 4210752);
-		this.fontRenderer.drawString("Voltage: "+(int)this.tileEntity.getVoltage(), 75, 60, 4210752);
-		this.fontRenderer.drawString("Stored Watts: "+this.tileEntity.getElectricityStored(), 75, 70, 4210752);
+		this.fontRenderer.drawString(UniversalElectricity.getVoltDisplay((int)this.tileEntity.getVoltage()), 75, 60, 4210752);
+		this.fontRenderer.drawString(UniversalElectricity.getWattDisplay(this.tileEntity.getElectricityStored()), 75, 70, 4210752);
 
 	    this.fontRenderer.drawString(StatCollector.translateToLocal("container.inventory"), 8, this.ySize - 96 + 2, 4210752);
 	}
