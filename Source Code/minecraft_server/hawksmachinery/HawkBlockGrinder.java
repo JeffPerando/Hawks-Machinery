@@ -50,6 +50,7 @@ public class HawkBlockGrinder extends BlockMachine implements ITextureProvider
 		{
 			case 2: world.setBlockMetadataWithNotify(x, y, z, 5); break;
 	    	case 5: world.setBlockMetadataWithNotify(x, y, z, 3); break;
+	    	case 0: world.setBlockMetadataWithNotify(x, y, z, 4); break;
 	    	case 3: world.setBlockMetadataWithNotify(x, y, z, 4); break;
 	    	case 4: world.setBlockMetadataWithNotify(x, y, z, 2); break;
 		}

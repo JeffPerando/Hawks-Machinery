@@ -56,10 +56,11 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
     
     @Override
 	public void onUpdate(float watts, float voltage, byte side)
-	{		
+	{	
+		super.onUpdate(watts, voltage, side);
+    	
 		if(!this.worldObj.isRemote)
         {
-			super.onUpdate(watts, voltage, side);
 			
 			if(voltage > this.getVoltage())
 	    	{

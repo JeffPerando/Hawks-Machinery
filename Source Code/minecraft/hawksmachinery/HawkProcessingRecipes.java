@@ -39,11 +39,11 @@ public class HawkProcessingRecipes
     /**
      * Metadata-sensitive processing function.
      */
-	public static void addHawkMetaProcessingRecipe(int itemID, int metadata, ItemStack itemstack, int processingType)
+	public static void addHawkMetaProcessingRecipe(int input, int inputMetadata, ItemStack output, int processingType)
 	{
 		switch(processingType)
 		{
-			case 1: grinderList.put(Arrays.asList(itemID, metadata), itemstack);
+			case 1: grinderList.put(Arrays.asList(input, inputMetadata), output);
 		}
 	}
 	

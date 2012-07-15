@@ -117,7 +117,7 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
             }
     	}
     	
-    	BasicComponents.packetManager.sendPacketData(this, new double[]{this.electricityStored, this.workTicks, this.disabledTicks});
+    	BasicComponents.packetManager.sendPacketData(this, new double[]{this.grinderStatus, this.electricityStored, this.workTicks, this.disabledTicks});
 	}
     
     private boolean canGrind()
