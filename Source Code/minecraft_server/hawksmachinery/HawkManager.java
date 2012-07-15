@@ -100,7 +100,9 @@ public class HawkManager
 		UERecipeManager.addShapelessRecipe((new ItemStack(mod_HawksMachinery.goldDust, 2)), new Object[]{Item.bucketWater, mod_HawksMachinery.goldDustUnref, mod_HawksMachinery.goldDustUnref});
 		UERecipeManager.addShapelessRecipe((new ItemStack(mod_HawksMachinery.copperDust, 2)), new Object[]{Item.bucketWater, mod_HawksMachinery.copperDustUnref, mod_HawksMachinery.copperDustUnref});
 		UERecipeManager.addShapelessRecipe((new ItemStack(mod_HawksMachinery.tinDust, 2)), new Object[]{Item.bucketWater, mod_HawksMachinery.tinDustUnref, mod_HawksMachinery.tinDustUnref});
-		
+		UERecipeManager.addShapelessRecipe((new ItemStack(BasicComponents.ItemSteelIngot, 5)), new Object[]{BasicComponents.ItemSteelPlate});
+		UERecipeManager.addShapelessRecipe((new ItemStack(Item.pumpkinSeeds, 4)), new Object[]{Block.pumpkinLantern});
+
 		UERecipeManager.addSmelting(mod_HawksMachinery.glassDust, new ItemStack(Block.thinGlass));
 		UERecipeManager.addSmelting(mod_HawksMachinery.ironDust, new ItemStack(Item.ingotIron));
 		UERecipeManager.addSmelting(mod_HawksMachinery.goldDust, new ItemStack(Item.ingotGold));
@@ -116,16 +118,33 @@ public class HawkManager
 		HawkProcessingRecipes.addHawkProcessingRecipe(BasicComponents.ItemTinIngot.shiftedIndex, new ItemStack(mod_HawksMachinery.tinDust), 1);		
 		HawkProcessingRecipes.addHawkProcessingRecipe(Item.blazeRod.shiftedIndex, new ItemStack(Item.blazePowder, 2), 1);
 		HawkProcessingRecipes.addHawkProcessingRecipe(Item.bone.shiftedIndex, new ItemStack(Item.dyePowder, 3, 15), 1);
-		HawkProcessingRecipes.addHawkProcessingRecipe(Block.cobblestone.blockID, new ItemStack(Block.gravel), 1);
+		HawkProcessingRecipes.addHawkProcessingRecipe(Block.stone.blockID, new ItemStack(Block.gravel), 1);
+		HawkProcessingRecipes.addHawkProcessingRecipe(Block.cobblestone.blockID, new ItemStack(Block.sand), 1);
+		HawkProcessingRecipes.addHawkProcessingRecipe(Block.gravel.blockID, new ItemStack(Item.flint), 1);
 		HawkProcessingRecipes.addHawkProcessingRecipe(Item.eyeOfEnder.shiftedIndex, new ItemStack(mod_HawksMachinery.enderDust), 1);
 		HawkProcessingRecipes.addHawkProcessingRecipe(Block.pumpkin.blockID, new ItemStack(Item.pumpkinSeeds, 4), 1);
-		
+		HawkProcessingRecipes.addHawkProcessingRecipe(Block.pistonBase.blockID, new ItemStack(Item.ingotIron), 1);
+		HawkProcessingRecipes.addHawkProcessingRecipe(Block.pistonStickyBase.blockID, new ItemStack(Item.ingotIron), 1);
+		HawkProcessingRecipes.addHawkProcessingRecipe(Block.pumpkinLantern.blockID, new ItemStack(Item.pumpkinSeeds, 4), 1);
+		HawkProcessingRecipes.addHawkProcessingRecipe(Block.dispenser.blockID, new ItemStack(Item.bow), 1);
+		HawkProcessingRecipes.addHawkProcessingRecipe(Block.stoneOvenIdle.blockID, new ItemStack(Block.cobblestone, 8), 1);
+		HawkProcessingRecipes.addHawkProcessingRecipe(Block.thinGlass.blockID, new ItemStack(mod_HawksMachinery.glassDust), 1);
+		HawkProcessingRecipes.addHawkProcessingRecipe(Block.glowStone.blockID, new ItemStack(Item.lightStoneDust, 4), 1);
+		HawkProcessingRecipes.addHawkProcessingRecipe(Block.redstoneLampIdle.blockID, new ItemStack(Item.lightStoneDust, 4), 1);
+		HawkProcessingRecipes.addHawkProcessingRecipe(Block.enchantmentTable.blockID, new ItemStack(Item.diamond, 2), 1);
+		HawkProcessingRecipes.addHawkProcessingRecipe(Item.brewingStand.shiftedIndex, new ItemStack(Item.blazePowder, 2), 1);
+		HawkProcessingRecipes.addHawkProcessingRecipe(Block.sandStone.blockID, new ItemStack(Block.sand, 4), 1);
+
 		HawkProcessingRecipes.addHawkMetaProcessingRecipe(Item.coal.shiftedIndex, 0, new ItemStack(mod_HawksMachinery.coalDust), 1);
 		HawkProcessingRecipes.addHawkMetaProcessingRecipe(Item.coal.shiftedIndex, 1, new ItemStack(mod_HawksMachinery.coalDust), 1);
 		HawkProcessingRecipes.addHawkMetaProcessingRecipe(UEOreManager.getOre(BasicComponents.CopperOreID).blockID, UEOreManager.getOreMetadata(BasicComponents.CopperOreID), new ItemStack(mod_HawksMachinery.copperDustUnref, 2), 1);
 		HawkProcessingRecipes.addHawkMetaProcessingRecipe(UEOreManager.getOre(BasicComponents.TinOreID).blockID, UEOreManager.getOreMetadata(BasicComponents.TinOreID), new ItemStack(mod_HawksMachinery.tinDustUnref, 2), 1);
 		HawkProcessingRecipes.addHawkMetaProcessingRecipe(Block.plantRed.blockID, 1, new ItemStack(Item.dyePowder, 2, 1), 1);
 		HawkProcessingRecipes.addHawkMetaProcessingRecipe(Block.plantYellow.blockID, 11, new ItemStack(Item.dyePowder, 2, 11), 1);
-		
+		HawkProcessingRecipes.addHawkMetaProcessingRecipe(Block.stoneBrick.blockID, 0, new ItemStack(Block.cobblestone), 1);
+		HawkProcessingRecipes.addHawkMetaProcessingRecipe(Block.stoneBrick.blockID, 1, new ItemStack(Block.cobblestone), 1);
+		HawkProcessingRecipes.addHawkMetaProcessingRecipe(Block.stoneBrick.blockID, 2, new ItemStack(Block.cobblestoneMossy), 1);
+		HawkProcessingRecipes.addHawkMetaProcessingRecipe(Block.stoneBrick.blockID, 3, new ItemStack(Block.cobblestone), 1);
+
 	}
 }
