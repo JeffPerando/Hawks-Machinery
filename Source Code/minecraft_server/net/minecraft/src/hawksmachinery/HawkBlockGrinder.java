@@ -1,5 +1,5 @@
 
-package hawksmachinery;
+package net.minecraft.src.hawksmachinery;
 
 import net.minecraft.src.*;
 import net.minecraft.src.forge.ITextureProvider;

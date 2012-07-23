@@ -1,5 +1,5 @@
 
-package hawksmachinery;
+package net.minecraft.src.hawksmachinery;
 
 import java.util.List;
 
@@ -16,7 +16,6 @@ public class HawkItem extends Item implements ITextureProvider
     {
 	    super(id);
 	    this.setItemName(name);
-	    this.setMaxDamage(16);
 	    ModLoader.addName(this, name);
     }
 	

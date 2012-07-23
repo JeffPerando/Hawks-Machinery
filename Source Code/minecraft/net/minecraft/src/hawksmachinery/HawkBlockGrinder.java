@@ -1,5 +1,5 @@
 
-package hawksmachinery;
+package net.minecraft.src.hawksmachinery;
 
 import net.minecraft.src.*;
 import net.minecraft.src.forge.ITextureProvider;
@@ -17,8 +17,6 @@ public class HawkBlockGrinder extends BlockMachine implements ITextureProvider
     {
         super(name, id, material);
         this.setBlockName(name);
-        this.setHardness(0.5F);
-        this.setResistance(20.0F);
         ModLoader.addName(this, name);
         ModLoader.registerBlock(this);
     	this.setRequiresSelfNotify();
@@ -28,6 +26,12 @@ public class HawkBlockGrinder extends BlockMachine implements ITextureProvider
     public void onBlockAdded(World par1World, int par2, int par3, int par4)
     {
         super.onBlockAdded(par1World, par2, par3, par4);
+    }
+	
+    @Override
+    protected int damageDropped(int metadata)
+    {
+        return 0;
     }
     
     @Override
@@ -48,11 +52,11 @@ public class HawkBlockGrinder extends BlockMachine implements ITextureProvider
     {
 		switch(world.getBlockMetadata(x, y, z))
 		{
-			case 2: world.setBlockMetadataWithNotify(x, y, z, 5); break;
-	    	case 5: world.setBlockMetadataWithNotify(x, y, z, 3); break;
-	    	case 0: world.setBlockMetadataWithNotify(x, y, z, 4); break;
-	    	case 3: world.setBlockMetadataWithNotify(x, y, z, 4); break;
-	    	case 4: world.setBlockMetadataWithNotify(x, y, z, 2); break;
+			case 2: world.setBlockMetadataWithNotify(x, y, z, 4); break;
+	    	case 5: world.setBlockMetadataWithNotify(x, y, z, 2); break;
+	    	case 0: world.setBlockMetadataWithNotify(x, y, z, 5); break;
+	    	case 3: world.setBlockMetadataWithNotify(x, y, z, 5); break;
+	    	case 4: world.setBlockMetadataWithNotify(x, y, z, 3); break;
 		}
 		
 		return true;
@@ -95,28 +99,28 @@ public class HawkBlockGrinder extends BlockMachine implements ITextureProvider
     				{
     					case 0: return 1;
     					case 1: return 1;
-    					case 2: return 3;
+    					case 3: return 3;
     					default: return 2;
     				}
     		case 3: switch (side)
     				{
     					case 0: return 1;
     					case 1: return 1;
-    					case 3: return 3;
+    					case 2: return 3;
     					default: return 2;
     				}
     		case 4: switch (side)
     				{
     					case 0: return 1;
     					case 1: return 1;
-    					case 4: return 3;
+    					case 5: return 3;
     					default: return 2;
     				}
     		case 5: switch (side)
     				{
     					case 0: return 1;
     					case 1: return 1;
-    					case 5: return 3;
+    					case 4: return 3;
     					default: return 2;
     				}
     		default: switch (side)

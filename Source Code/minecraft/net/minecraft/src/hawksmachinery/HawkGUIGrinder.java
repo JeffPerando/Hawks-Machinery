@@ -1,7 +1,7 @@
 /**
  * 
  */
-package hawksmachinery;
+package net.minecraft.src.hawksmachinery;
 
 import net.minecraft.src.GuiContainer;
 import net.minecraft.src.InventoryPlayer;

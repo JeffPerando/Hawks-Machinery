@@ -1,7 +1,7 @@
 
-package net.minecraft.src;
+package net.minecraft.src.hawksmachinery;
 
-import hawksmachinery.*;
+import net.minecraft.src.*;
 import net.minecraft.src.basiccomponents.BasicComponents;
 import net.minecraft.src.forge.*;
 import net.minecraft.src.universalelectricity.UniversalElectricity;
@@ -14,53 +14,50 @@ import net.minecraft.src.universalelectricity.recipe.*;
  */
 public class mod_HawksMachinery extends NetworkMod implements IGuiHandler, IRecipeReplacementHandler
 {
-	public static Block blockProcessor = new HawkBlockGrinder("Grinder", HawkManager.initProps(), Material.wood);
-	public static Block blockEmptyMachine = new HawkBlock("Empty Machine Block", HawkManager.machineBlockID, Material.iron, 1, 1, 1, 1, 1, 1).setHardness(1.0F).setResistance(1.0F);
+	public static Block blockGrinder = new HawkBlockGrinder("Grinder", HawkManager.initProps(), Material.wood);
+	public static Block blockEmptyMachine = new HawkBlock("Empty Machine Block", HawkManager.machineBlockID, Material.iron, 1, 1, 1, 1, 1, 1);
 
-	public static Item coalDust = (new HawkItem("Coal Dust", HawkManager.dust1ID)).setIconCoord(1, 0);
-	public static Item diamondDust = (new HawkItem("Diamond Dust", HawkManager.dust2ID)).setIconCoord(10, 0);
-	public static Item goldDustUnref = (new HawkItem("Unrefined Gold Dust", HawkManager.dust3ID)).setIconCoord(10, 2);
-	public static Item enderDust = (new HawkItem("Ender Dust", HawkManager.dust4ID)).setIconCoord(11, 0);
-	public static Item glassDust = (new HawkItem("Glass Dust", HawkManager.dust5ID)).setIconCoord(12, 0);
-	public static Item ironDustUnref = (new HawkItem("Unrefined Iron Dust", HawkManager.dust6ID)).setIconCoord(2, 1);
-	public static Item copperDustUnref = (new HawkItem("Unrefined Copper Dust", HawkManager.dust7ID)).setIconCoord(12, 2);
-	public static Item tinDustUnref = (new HawkItem("Unrefined Tin Dust", HawkManager.dust8ID)).setIconCoord(11, 2);
-	public static Item ironDust = (new HawkItem("Iron Dust", HawkManager.dust9ID)).setIconCoord(2, 0);
-	public static Item goldDust = (new HawkItem("Gold Dust", HawkManager.dust10ID)).setIconCoord(10, 1);
-	public static Item copperDust = (new HawkItem("Copper Dust", HawkManager.dust11ID)).setIconCoord(12, 1);
-	public static Item tinDust = (new HawkItem("Tin Dust", HawkManager.dust12ID)).setIconCoord(11, 1);
+	/**
+	 * Dusts in metadata form, finally! From 0 to 13: Coal, Diamond, Unref Gold, Ender, Glass, Unref Iron, Unref Copper, Unref Tin, Iron, Gold, Copper, Tin, Obsidian, Emerald.
+	 */
+	public static Item dust = (new HawkItemDust(HawkManager.dustID));
 
-	public static final PacketManager packetManager = new PacketManager("mod_HawksMachinery"); 
 	
+	public static final PacketManager packetManager = new PacketManager("mod_HawksMachinery"); 
 	public static mod_HawksMachinery instance;
 
 	@Override
 	public void load()
 	{
 		instance = this;
-		
 		UniversalElectricity.registerAddon(this, "0.4.5");
-		
 		HawkManager.loadRecipes();
-		
 		preloadHawksTextures();
-
 		ModLoader.registerTileEntity(HawkTileEntityGrinder.class, "Grinder");
-		
 		MinecraftForge.setGuiHandler(this, this);
+	}
+	
+	@Override
+	public void modsLoaded()
+	{
+		HawkProcessingRecipes.APIMagicsnortsnort();
 	}
 
 	@Override
 	public String getVersion()
 	{
-		return "Alpha v1.0a";
+		return "Alpha v1.1";
 	}
 	
+	@Override
 	public String getName()
 	{
 		return "Hawk's Machinery";
 	}
 	
+	/**
+	 * Used in order to keep track of the client and server versions.
+	 */
 	private String clientOrServer()
 	{
 		return "Client";
@@ -113,4 +110,76 @@ public class mod_HawksMachinery extends NetworkMod implements IGuiHandler, IReci
 	{
 		return false;
 	}
+	
+	@Override
+    public int addFuel(int id, int metadata)
+    {
+		if (id == HawkManager.dustID && metadata == 0)
+		{
+			return 1600;
+		}
+		
+		if (id == Item.blazePowder.shiftedIndex)
+		{
+			return 1200;
+		}
+		
+		if (id == Item.reed.shiftedIndex)
+		{
+			return 50;
+		}
+		
+		if (id == Item.wheat.shiftedIndex)
+		{
+			return 300;
+		}
+		
+		if (id == Item.bow.shiftedIndex)
+		{
+			return 300;
+		}
+		
+		if (id == Item.fishingRod.shiftedIndex)
+		{
+			return 300;
+		}
+		
+		if (id == Item.bowlEmpty.shiftedIndex)
+		{
+			return 200;
+		}
+		
+		if (id == Item.boat.shiftedIndex)
+		{
+			return 1500;
+		}
+		
+		if (id == Item.paper.shiftedIndex)
+		{
+			return 50;
+		}
+		
+		if (id == Item.map.shiftedIndex)
+		{
+			return 400;
+		}
+		
+		if (id == Item.sign.shiftedIndex)
+		{
+			return 1900;
+		}
+		
+		if (id == Item.doorWood.shiftedIndex)
+		{
+			return 1800;
+		}
+		
+		if (id == Block.chest.blockID)
+		{
+			return 2400;
+		}
+		
+		return 0;
+    }
+
 }

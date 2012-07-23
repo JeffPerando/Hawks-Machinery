@@ -1,10 +1,10 @@
 
-package hawksmachinery;
+package net.minecraft.src.hawksmachinery;
 
 import net.minecraft.src.*;
-import net.minecraft.server.*;
+import net.minecraft.client.*;
 import net.minecraft.src.forge.*;
-import cpw.mods.fml.server.FMLServerHandler;
+import cpw.mods.fml.client.FMLClientHandler;
 /**
  * @author Elusivehawk
  *
@@ -42,7 +42,7 @@ public class SlotProcessorsOutput extends Slot
 
     public void onPickupFromSlot(ItemStack par1ItemStack)
     {
-        this.func_48416_b(par1ItemStack);
+        this.func_48434_c(par1ItemStack);
         super.onPickupFromSlot(par1ItemStack);
     }
 
@@ -50,6 +50,6 @@ public class SlotProcessorsOutput extends Slot
     protected void func_48435_a(ItemStack par1ItemStack, int par2)
     {
         this.field_48437_f += par2;
-        this.func_48416_b(par1ItemStack);
+        this.func_48434_c(par1ItemStack);
     }
 }

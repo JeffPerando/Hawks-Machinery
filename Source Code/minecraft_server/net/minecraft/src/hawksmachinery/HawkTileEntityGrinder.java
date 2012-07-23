@@ -1,5 +1,5 @@
 
-package hawksmachinery;
+package net.minecraft.src.hawksmachinery;
 
 import net.minecraft.src.Entity;
 import net.minecraft.src.EntityPlayer;
@@ -40,9 +40,9 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 	
     private ItemStack[] containingItems = new ItemStack[3];
     
-    public int electricityCapacity = 1250;
-
 	private int grinderStatus;
+    
+    public int electricityCapacity = 1250;
     
     public HawkTileEntityGrinder()
     {
@@ -52,58 +52,54 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
     @Override
 	public void onUpdate(float watts, float voltage, byte side)
 	{
+		super.onUpdate(watts, voltage, side);
+
     	if (!this.worldObj.isRemote)
-    	{
-    		super.onUpdate(watts, voltage, side);
-    		
-    		if(!this.worldObj.isRemote)
-            {			
-    			if(voltage > this.getVoltage())
-    	    	{
-    	    		 this.worldObj.createExplosion((Entity)null, this.xCoord, this.yCoord, this.zCoord, 0.7F);
-    	    	}
+    	{    				
+    		if(voltage > this.getVoltage())
+    	   	{
+    			this.explodeGrinder(0.7F);
+    	   	}
     			
     			//The slot is for portable batteries to be used in the grinder
-    	    	if(this.containingItems[0] != null)
+    	   	if(this.containingItems[0] != null)
+    	    {
+    	        if(this.containingItems[0].getItem() instanceof ItemElectric)
     	        {
-    	            if(this.containingItems[0].getItem() instanceof ItemElectric)
-    	            {
-    		           	ItemElectric electricItem = (ItemElectric)this.containingItems[0].getItem();
+    	        	ItemElectric electricItem = (ItemElectric)this.containingItems[0].getItem();
     		           	
-    	            	if(electricItem.canProduceElectricity())
-    		           	{
-    		            	double receivedElectricity = electricItem.onUseElectricity(electricItem.getTransferRate(), this.containingItems[0]);
-    		            	this.electricityStored += receivedElectricity;
-    		           	}
-    	            }
+    	            if(electricItem.canProduceElectricity())
+    		        {
+    		            double receivedElectricity = electricItem.onUseElectricity(electricItem.getTransferRate(), this.containingItems[0]);
+    		            this.electricityStored += receivedElectricity;
+    		        }
     	        }
+    	    }
     	    	
-    			this.electricityStored += watts;
+    		this.electricityStored += watts;
     						
-    	    	if (this.canGrind() && !this.isDisabled())
-    	    	{
-    		    	if(this.containingItems[1] != null && this.workTicks == 0)
-    		        {
-    		        	this.workTicks = this.ticksNeededtoProcess;
-    		        }
+    	    if ((this.canGrind() || this.canExplode()) && !this.isDisabled())
+    	    {
+    		    if(this.containingItems[1] != null && this.workTicks == 0)
+    		    {
+    		        this.workTicks = this.ticksNeededtoProcess;
+    		    }
     		    	
-    		        if(this.canGrind() && this.workTicks > 0)
+    		    if((this.canGrind() || this.canExplode()) && this.workTicks > 0)
+    		    {
+    		    	this.workTicks -= this.getTickInterval();
+    		    	if(this.workTicks < 1*this.getTickInterval())
     		    	{
-    		    		this.workTicks -= this.getTickInterval();
-    		    		
-    		    		if(this.workTicks < 1*this.getTickInterval())
-    		    		{
-    		    			this.grindItem();
-    		    			this.workTicks = 0;
-    		    		}
-    		    		
-    		    		this.electricityStored = this.electricityStored - this.electricityRequired;
+    		    		this.grindItem();
+    		    		this.workTicks = 0;
     		    	}
-    		        else
-    		        {
-    		        	this.workTicks = 0;
-    		        }
-    	    	}
+    		    		
+    		    	this.electricityStored = this.electricityStored - this.electricityRequired;
+    		    }
+    		    else
+    		    {
+    		    	this.workTicks = 0;
+    		    }
     	    	
     	    	if (this.electricityStored <= 0)
     	    	{
@@ -143,6 +139,25 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
         	}
         }
     }
+    
+    private boolean canExplode()
+    {
+        if (this.containingItems[1] == null)
+        {
+            return false;
+        }
+        else
+        {
+        	if (this.electricityStored >= this.electricityRequired * 2)
+        	{
+                return HawkProcessingRecipes.getGrindingExplosive(this.containingItems[1]);
+        	}
+        	else
+        	{
+        		return false;
+        	}
+        }
+    }
 
 
     private void grindItem()
@@ -167,12 +182,20 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
                 this.containingItems[1] = null;
             }
         }
+        else
+        {
+        	if (this.canExplode())
+        	{
+                --this.containingItems[1].stackSize;
+        		this.explodeGrinder(2.0F);
+        	}
+        }
     }
 
 	@Override
 	public float electricityRequest()
 	{
-		if (this.canGrind())
+		if (this.canGrind() || this.canExplode())
 		{
 			return electricityRequired;
 		}
@@ -324,13 +347,14 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
      * Reads a tile entity from NBT.
      */
     @Override
-	public void readFromNBT(NBTTagCompound par1NBTTagCompound)
+	public void readFromNBT(NBTTagCompound NBTTag)
     {
-    	super.readFromNBT(par1NBTTagCompound);
-    	this.electricityStored = par1NBTTagCompound.getFloat("electricityStored");
-    	this.facingDirection = par1NBTTagCompound.getByte("facingDirection");
+    	super.readFromNBT(NBTTag);
+    	this.electricityStored = NBTTag.getFloat("electricityStored");
+    	this.facingDirection = NBTTag.getByte("facingDirection");
+    	this.workTicks = NBTTag.getInteger("workTicks");
     	
-    	NBTTagList var2 = par1NBTTagCompound.getTagList("Items");
+    	NBTTagList var2 = NBTTag.getTagList("Items");
         this.containingItems = new ItemStack[this.getSizeInventory()];
         for (int var3 = 0; var3 < var2.tagCount(); ++var3)
         {
@@ -346,11 +370,12 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
      * Writes a tile entity to NBT.
      */
     @Override
-	public void writeToNBT(NBTTagCompound par1NBTTagCompound)
+	public void writeToNBT(NBTTagCompound NBTTag)
     {
-    	super.writeToNBT(par1NBTTagCompound);
-    	par1NBTTagCompound.setFloat("electricityStored", this.electricityStored);
-    	par1NBTTagCompound.setByte("facingDirection", this.facingDirection);
+    	super.writeToNBT(NBTTag);
+    	NBTTag.setFloat("electricityStored", this.electricityStored);
+    	NBTTag.setByte("facingDirection", this.facingDirection);
+    	NBTTag.setInteger("workTicks", this.workTicks);
     	
     	NBTTagList var2 = new NBTTagList();
         for (int var3 = 0; var3 < this.containingItems.length; ++var3)
@@ -363,7 +388,7 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
                 var2.appendTag(var4);
             }
         }
-        par1NBTTagCompound.setTag("Items", var2);
+        NBTTag.setTag("Items", var2);
     }
     
 	@Override
@@ -427,5 +452,14 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 	public int getPacketID()
 	{
 		return 395;
+	}
+	
+	/**
+	 * Causes the current Grinder to explode.
+	 * @param strength The strength of the explosion.
+	 */
+	private void explodeGrinder(float strength)
+	{
+		 this.worldObj.createExplosion((Entity)null, this.xCoord, this.yCoord, this.zCoord, strength);
 	}
 }

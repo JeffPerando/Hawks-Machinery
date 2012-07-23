@@ -1,9 +1,8 @@
 
-package hawksmachinery;
+package net.minecraft.src.hawksmachinery;
 
 import java.io.DataInputStream;
 import java.io.IOException;
-
 import net.minecraft.src.Entity;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.IInventory;
@@ -13,9 +12,9 @@ import net.minecraft.src.NBTTagList;
 import net.minecraft.src.NetworkManager;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
-import net.minecraft.src.mod_HawksMachinery;
 import net.minecraft.src.forge.ISidedInventory;
 import net.minecraft.src.forge.ITextureProvider;
+import net.minecraft.src.forge.MinecraftForge;
 import net.minecraft.src.universalelectricity.electricity.ElectricityManager;
 import net.minecraft.src.universalelectricity.electricity.TileEntityElectricUnit;
 import net.minecraft.src.universalelectricity.extend.IRedstoneReceptor;
@@ -30,9 +29,9 @@ import net.minecraft.src.universalelectricity.network.IPacketReceiver;
  */
 public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRedstoneReceptor, ITextureProvider, IInventory, ISidedInventory, IRotatable, IPacketReceiver
 {
-	public int electricityRequired = 20;
+	public int electricityRequired = 10;
 
-	public int ticksNeededtoProcess = 160;
+	public int ticksNeededtoProcess = 100;
 	
 	public byte facingDirection = 0;
 	
@@ -46,7 +45,7 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
     
     private int grinderStatus;
     
-    public int electricityCapacity = 1250;
+    public int electricityCapacity = 2500;
     
     public HawkTileEntityGrinder()
     {
@@ -56,15 +55,14 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
     
     @Override
 	public void onUpdate(float watts, float voltage, byte side)
-	{	
+    {
 		super.onUpdate(watts, voltage, side);
-    	
-		if(!this.worldObj.isRemote)
-        {
-			
+    			
+		if (!worldObj.isRemote)
+        {			
 			if(voltage > this.getVoltage())
 	    	{
-	    		 this.worldObj.createExplosion((Entity)null, this.xCoord, this.yCoord, this.zCoord, 0.7F);
+				this.explodeGrinder(0.7F);
 	    	}
 			
 			//The slot is for portable batteries to be used in the grinder
@@ -84,14 +82,14 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 	    	
 			this.electricityStored += watts;
 						
-	    	if (this.canGrind() && !this.isDisabled())
+	    	if ((this.canGrind() || this.canExplode()) && !this.isDisabled())
 	    	{
 		    	if(this.containingItems[1] != null && this.workTicks == 0)
 		        {
 		        	this.workTicks = this.ticksNeededtoProcess;
 		        }
 		    	
-		        if(this.canGrind() && this.workTicks > 0)
+		        if((this.canGrind() || this.canExplode()) && this.workTicks > 0)
 		    	{
 		    		this.workTicks -= this.getTickInterval();
 		    		
@@ -146,7 +144,32 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
         }
     }
 
-
+    private boolean canExplode()
+    {
+        if (this.containingItems[1] == null)
+        {
+            return false;
+        }
+        else
+        {
+        	if (this.electricityStored >= this.electricityRequired * 2)
+        	{
+                ItemStack var1 = HawkProcessingRecipes.getGrindingExplosive(this.containingItems[1]);
+                
+                if (var1 == null) return false;
+                if (this.containingItems[2] == null) return true;
+                if (!this.containingItems[2].isItemEqual(var1)) return false; System.out.println("canExplode(): false");
+                int result = containingItems[2].stackSize + var1.stackSize;
+                return (result <= getInventoryStackLimit() && result <= var1.getMaxStackSize());
+        	}
+        	else
+        	{
+        		System.out.println("NOOOOOOOO!!");
+        		return false;
+        	}
+        }
+    }
+    
     private void grindItem()
     {
         if (this.canGrind())
@@ -169,12 +192,20 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
                 this.containingItems[1] = null;
             }
         }
+        else
+        {
+        	if (this.canExplode())
+        	{
+                --this.containingItems[1].stackSize;
+        		this.explodeGrinder(2.0F);
+        	}
+        }
     }
 
 	@Override
 	public float electricityRequest()
 	{
-		if (this.canGrind())
+		if (this.canGrind() || this.canExplode())
 		{
 			return electricityRequired;
 		}
@@ -201,7 +232,14 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 	@Override
 	public boolean canReceiveFromSide(byte side)
 	{
-		return true;
+		if (side == this.getBlockMetadata())
+		{
+			return false;
+		}
+		else
+		{
+			return true;
+		}
 	}
 	
 	@Override
@@ -333,13 +371,14 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
      * Reads a tile entity from NBT.
      */
     @Override
-	public void readFromNBT(NBTTagCompound par1NBTTagCompound)
+	public void readFromNBT(NBTTagCompound NBTTag)
     {
-    	super.readFromNBT(par1NBTTagCompound);
-    	this.electricityStored = par1NBTTagCompound.getFloat("electricityStored");
-    	this.facingDirection = par1NBTTagCompound.getByte("facingDirection");
+    	super.readFromNBT(NBTTag);
+    	this.electricityStored = NBTTag.getFloat("electricityStored");
+    	this.facingDirection = NBTTag.getByte("facingDirection");
+    	this.workTicks = NBTTag.getInteger("workTicks");
     	
-    	NBTTagList var2 = par1NBTTagCompound.getTagList("Items");
+    	NBTTagList var2 = NBTTag.getTagList("Items");
         this.containingItems = new ItemStack[this.getSizeInventory()];
         for (int var3 = 0; var3 < var2.tagCount(); ++var3)
         {
@@ -355,11 +394,12 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
      * Writes a tile entity to NBT.
      */
     @Override
-	public void writeToNBT(NBTTagCompound par1NBTTagCompound)
+	public void writeToNBT(NBTTagCompound NBTTag)
     {
-    	super.writeToNBT(par1NBTTagCompound);
-    	par1NBTTagCompound.setFloat("electricityStored", this.electricityStored);
-    	par1NBTTagCompound.setByte("facingDirection", this.facingDirection);
+    	super.writeToNBT(NBTTag);
+    	NBTTag.setFloat("electricityStored", this.electricityStored);
+    	NBTTag.setByte("facingDirection", this.facingDirection);
+    	NBTTag.setInteger("workTicks", this.workTicks);
     	
     	NBTTagList var2 = new NBTTagList();
         for (int var3 = 0; var3 < this.containingItems.length; ++var3)
@@ -372,7 +412,7 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
                 var2.appendTag(var4);
             }
         }
-        par1NBTTagCompound.setTag("Items", var2);
+        NBTTag.setTag("Items", var2);
     }
     
 	@Override
@@ -454,4 +494,13 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 			e.printStackTrace();
 		}		
     }
+	
+	/**
+	 * Causes the current Grinder to explode.
+	 * @param strength The strength of the explosion.
+	 */
+	private void explodeGrinder(float strength)
+	{
+		 this.worldObj.createExplosion((Entity)null, this.xCoord, this.yCoord, this.zCoord, strength);
+	}
 }

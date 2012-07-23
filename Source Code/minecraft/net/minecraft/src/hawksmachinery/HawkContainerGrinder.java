@@ -1,7 +1,5 @@
-/**
- * 
- */
-package hawksmachinery;
+
+package net.minecraft.src.hawksmachinery;
 
 import net.minecraft.src.Container;
 import net.minecraft.src.EntityPlayer;

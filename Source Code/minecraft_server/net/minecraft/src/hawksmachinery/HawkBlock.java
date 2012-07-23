@@ -1,5 +1,5 @@
 
-package hawksmachinery;
+package net.minecraft.src.hawksmachinery;
 
 import java.util.ArrayList;
 
