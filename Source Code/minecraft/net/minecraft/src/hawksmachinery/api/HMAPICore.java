@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import net.minecraft.src.ItemStack;
+import net.minecraft.src.ModLoader;
+import net.minecraft.src.hawksmachinery.HawkProcessingRecipes;
 
 /**
  * Handles all API operations; Part of the API redistributable; DO NOT MODIFY!
@@ -32,9 +34,19 @@ public class HMAPICore
 	 */
     public void addHawkProcessingRecipe(int input, ItemStack output, int processingType)
     {
-    	switch(processingType)
+    	if (ModLoader.isModLoaded("mod_HawksMachinery"))
     	{
-    		case 1: grinderRecipesAPI.put(Arrays.asList(input, 0), output);
+    		switch(processingType)
+    		{
+    			case 1: HawkProcessingRecipes.getGrindingList().put(Arrays.asList(input, 0), output);
+    		}	
+    	}
+    	else
+    	{
+    		switch(processingType)
+    		{
+    			case 1: grinderRecipesAPI.put(Arrays.asList(input, 0), output);
+    		}	
     	}
     }
     
@@ -43,35 +55,55 @@ public class HMAPICore
      */
 	public void addHawkMetaProcessingRecipe(int input, int inputMetadata, ItemStack output, int processingType)
 	{
-		switch(processingType)
-		{
-			case 1: grinderRecipesAPI.put(Arrays.asList(input, inputMetadata), output);
-		}
+    	if (ModLoader.isModLoaded("mod_HawksMachinery"))
+    	{
+    		switch(processingType)
+    		{
+    			case 1: HawkProcessingRecipes.getGrindingList().put(Arrays.asList(input, inputMetadata), output);
+    		}	
+    	}
+    	else
+    	{
+    		switch(processingType)
+    		{
+    			case 1: grinderRecipesAPI.put(Arrays.asList(input, inputMetadata), output);
+    		}	
+    	}
 	}
 	
 	public static void addHawkExplosive(int explosive, int processingType)
 	{
-		switch (processingType)
+		if (ModLoader.isModLoaded("mod_HawksMachinery"))
 		{
-			case 1: grinderExplosivesAPI.putAll((Map) Arrays.asList(explosive, 0));
+			switch (processingType)
+			{
+				case 1: HawkProcessingRecipes.getGrindingExplosivesList().putAll((Map) Arrays.asList(explosive, 0));
+			}
+		}
+		else
+		{
+			switch (processingType)
+			{
+				case 1: grinderExplosivesAPI.putAll((Map) Arrays.asList(explosive, 0));
+			}
 		}
 	}
 	
 	public static void addHawkMetaExplosive(int explosive, int explosiveDmg, int processingType)
 	{
-		switch (processingType)
+		if (ModLoader.isModLoaded("mod_HawksMachinery"))
 		{
-			case 1: grinderExplosivesAPI.putAll((Map) Arrays.asList(explosive, explosiveDmg));
+			switch (processingType)
+			{
+				case 1: HawkProcessingRecipes.getGrindingExplosivesList().putAll((Map) Arrays.asList(explosive, explosiveDmg));
+			}
+		}
+		else
+		{
+			switch (processingType)
+			{
+				case 1: grinderExplosivesAPI.putAll((Map) Arrays.asList(explosive, explosiveDmg));
+			}
 		}
 	}
-    
-    public static Map getGrinderAPIRecipes()
-    {
-		return grinderRecipesAPI;	
-    }
-    
-    public static Map getGrinderAPIExplosives()
-    {
-    	return grinderExplosivesAPI;
-    }
 }

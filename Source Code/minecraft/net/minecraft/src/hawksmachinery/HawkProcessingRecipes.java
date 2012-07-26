@@ -20,9 +20,7 @@ import net.minecraft.src.universalelectricity.recipe.UERecipeManager;
 public class HawkProcessingRecipes
 {
 	private static Map grinderRecipes = new HashMap();
-	private static Map grinderRecipesAPI = new HashMap();
 	private static Map grinderExplosives = new HashMap();
-	private static Map grinderExplosivesAPI = new HashMap();
 
 	/**
 	 * Adds a processing recipe.
@@ -85,27 +83,15 @@ public class HawkProcessingRecipes
 		return grinderRecipes;
 	}
 	
-	public static Map getGrindingAPIList()
-	{
-		return grinderRecipesAPI;
-	}
-	
 	public static Map getGrindingExplosivesList()
 	{
 		return grinderExplosives;
 	}
 	
-	public static Map getGrindingExplosivesAPIList()
-	{
-		return grinderExplosivesAPI;
-	}
-	
 	public static void APIMagicsnortsnort()
 	{
-		grinderRecipesAPI = HMAPICore.getGrinderAPIRecipes();
-		grinderExplosivesAPI = HMAPICore.getGrinderAPIExplosives();
-		System.out.println(getGrindingList().size() + getGrindingAPIList().size() + " Hawk's Machinery recipes");
-		System.out.println(getGrindingExplosivesList().size() + getGrindingExplosivesAPIList().size() + " Hawk's Machinery explosives");
+		System.out.println(getGrindingList().size() + " Hawk's Machinery recipes");
+		System.out.println(getGrindingExplosivesList().size() + " Hawk's Machinery explosives");
 		
 	}
 	
@@ -118,20 +104,12 @@ public class HawkProcessingRecipes
         else
         {
             ItemStack ret = (ItemStack)grinderRecipes.get(Arrays.asList(item.itemID, item.getItemDamage()));
-            ItemStack ret2 = (ItemStack)grinderRecipesAPI.get(Arrays.asList(item.itemID, item.getItemDamage()));
             
             if (ret != null) 
             {
                 return ret;
             }
-            else
-            {
-            	if (ret2 != null)
-            	{
-            		return ret2;
-            	}
-            	return null;
-            }
+            return null;
         }
 	}
 	
@@ -147,24 +125,12 @@ public class HawkProcessingRecipes
         else
         {
             ItemStack ret = (ItemStack)grinderExplosives.get(Arrays.asList(item.itemID, item.getItemDamage()));
-            ItemStack ret2 = (ItemStack)grinderExplosivesAPI.get(Arrays.asList(item.itemID, item.getItemDamage()));
             
             if (ret != null) 
             {
                 return ret;
             }
-            else
-            {
-            	if (ret2 != null)
-            	{
-            		return ret2;
-            	}
-            	else
-            	{
-            		System.out.println("DOUBLE POO!");
-                	return null;
-            	}
-            }
+            return null;
         }
 	}
 }
