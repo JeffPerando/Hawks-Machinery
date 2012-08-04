@@ -15,10 +15,10 @@ import net.minecraft.src.universalelectricity.recipe.*;
 public class mod_HawksMachinery extends NetworkMod implements IGuiHandler, IRecipeReplacementHandler
 {
 	/**
-	 * Note to self: DO NOT MOVE THIS! I'm serious, I don't want to see any refactor job move this, due to the fact that doing so is A VERY BAD IDEA!
+	 * Note: DO NOT MOVE THIS! I'm serious, I don't want to see any refactor job move this, due to the fact that doing so is A VERY BAD IDEA!
 	 */
 	public static Block blockGrinder = new HawkBlockGrinder("Grinder", HawkManager.initProps(), Material.wood);
-	public static Block blockEmptyMachine = new HawkBlock("Empty Machine Block", HawkManager.machineBlockID, Material.iron, 1, 1, 1, 1, 1, 1);
+	public static Block blockEmptyMachine = new HawkBlockMachine(HawkManager.machineBlockID, Material.iron);
 
 	/**
 	 * Dusts in metadata form, finally! From 0 to 13: Coal, Diamond, Unref Gold, Ender, Glass, Unref Iron, Unref Copper, Unref Tin, Iron, Gold, Copper, Tin, Obsidian, Emerald.
@@ -127,7 +127,7 @@ public class mod_HawksMachinery extends NetworkMod implements IGuiHandler, IReci
 			return 1200;
 		}
 		
-		if (id == Item.reed.shiftedIndex)
+		if (id == Item.reed.shiftedIndex && !ModLoader.isModLoaded("mod_IC2"))
 		{
 			return 50;
 		}
@@ -184,5 +184,11 @@ public class mod_HawksMachinery extends NetworkMod implements IGuiHandler, IReci
 		
 		return 0;
     }
+	
+	@Override
+	public String getPriorities()
+	{
+		return "after:mod_UnversalElectricity;after:mod_BasicComponents";
+	}
 
 }

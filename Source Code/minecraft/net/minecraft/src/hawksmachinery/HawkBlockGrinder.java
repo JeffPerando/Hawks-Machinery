@@ -63,20 +63,20 @@ public class HawkBlockGrinder extends BlockMachine implements ITextureProvider
 	}
     
     @Override
-    public void onBlockPlacedBy(World par1World, int x, int y, int z, EntityLiving entityLiving)
+    public void onBlockPlacedBy(World world, int x, int y, int z, EntityLiving entityLiving)
     {
         int direction = MathHelper.floor_double((entityLiving.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
         int newMetadata = 3;
         
     	switch (direction)
         {
-        	case 0: newMetadata = 2; break;
-        	case 1: newMetadata = 5; break;
-        	case 2: newMetadata = 3; break;
-        	case 3: newMetadata = 4; break;
+        	case 0: newMetadata = 3; break;
+        	case 1: newMetadata = 4; break;
+        	case 2: newMetadata = 2; break;
+        	case 3: newMetadata = 5; break;
         }
     	
-    	par1World.setBlockMetadataWithNotify(x, y, z, newMetadata);
+    	world.setBlockMetadataWithNotify(x, y, z, newMetadata);
     }
 
     @Override
@@ -97,38 +97,33 @@ public class HawkBlockGrinder extends BlockMachine implements ITextureProvider
     	{
     		case 2: switch (side)
     				{
-    					case 0: return 1;
-    					case 1: return 1;
-    					case 3: return 3;
-    					default: return 2;
+    					case 1: return 5;
+    					case 3: return 6;
+    					default: return 7;
     				}
     		case 3: switch (side)
     				{
-    					case 0: return 1;
-    					case 1: return 1;
-    					case 2: return 3;
-    					default: return 2;
+    					case 1: return 5;
+    					case 2: return 6;
+    					default: return 7;
     				}
     		case 4: switch (side)
     				{
-    					case 0: return 1;
-    					case 1: return 1;
-    					case 5: return 3;
-    					default: return 2;
+    					case 1: return 5;
+    					case 5: return 6;
+    					default: return 7;
     				}
     		case 5: switch (side)
     				{
-    					case 0: return 1;
-    					case 1: return 1;
-    					case 4: return 3;
-    					default: return 2;
+    					case 1: return 5;
+    					case 4: return 6;
+    					default: return 7;
     				}
     		default: switch (side)
     				{
-    					case 0: return 1;
-    					case 1: return 1;
-    					case 3: return 3;
-    					default: return 2;
+    					case 1: return 5;
+    					case 3: return 6;
+    					default: return 7;
     				}
     	}
     }
