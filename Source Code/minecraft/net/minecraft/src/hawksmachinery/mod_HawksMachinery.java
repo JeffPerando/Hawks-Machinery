@@ -49,7 +49,7 @@ public class mod_HawksMachinery extends NetworkMod implements IGuiHandler, IReci
 	@Override
 	public String getVersion()
 	{
-		return "Alpha v1.1";
+		return "Alpha v1.1a";
 	}
 	
 	@Override
