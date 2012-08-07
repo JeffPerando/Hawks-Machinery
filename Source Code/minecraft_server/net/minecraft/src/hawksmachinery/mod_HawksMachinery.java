@@ -16,7 +16,7 @@ import net.minecraft.src.universalelectricity.recipe.*;
 public class mod_HawksMachinery extends NetworkMod implements IGuiHandler, IRecipeReplacementHandler
 {
 	public static Block blockGrinder = new HawkBlockGrinder("Grinder", HawkManager.initProps(), Material.wood);
-	public static Block blockEmptyMachine = new HawkBlock("Empty Machine Block", HawkManager.machineBlockID, Material.iron, 1, 1, 1, 1, 1, 1);
+	public static Block blockEmptyMachine = new HawkBlockMachine(HawkManager.machineBlockID, Material.iron);
 
 	/**
 	 * Dusts in metadata form, finally! From 0 to 13: Coal, Diamond, Unref Gold, Ender, Glass, Unref Iron, Unref Copper, Unref Tin, Iron, Gold, Copper, Tin, Obsidian, Emerald.
@@ -176,5 +176,11 @@ public class mod_HawksMachinery extends NetworkMod implements IGuiHandler, IReci
 		
 		return 0;
     }
+	
+	@Override
+	public String getPriorities()
+	{
+		return "after:mod_UniversalElectricity;after:mod_BasicComponents";
+	}
 	
 }

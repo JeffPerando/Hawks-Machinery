@@ -2,7 +2,6 @@
 package net.minecraft.src.hawksmachinery;
 
 import java.util.*;
-
 import net.minecraft.src.*;
 import net.minecraft.src.basiccomponents.BasicComponents;
 import net.minecraft.src.forge.*;

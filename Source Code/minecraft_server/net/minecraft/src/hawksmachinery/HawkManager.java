@@ -2,7 +2,6 @@
 package net.minecraft.src.hawksmachinery;
 
 import java.io.*;
-
 import net.minecraft.server.*;
 import net.minecraft.src.*;
 import net.minecraft.src.basiccomponents.BasicComponents;
@@ -11,9 +10,11 @@ import net.minecraft.src.universalelectricity.ore.UEOreManager;
 import net.minecraft.src.universalelectricity.recipe.UERecipeManager;
 
 /**
- * @author Elusivehawk
  * 
- * @Description This class takes cares and manages of all general things
+ * 
+ * This class takes cares and manages of all general things
+ * 
+ * @author Elusivehawk
  */
 public class HawkManager
 {
@@ -22,19 +23,19 @@ public class HawkManager
 	public static int machineBlockID;
 	public static int grinderID;
 	
-	public static final String guiPath = "/hawksmachinery/textures/gui";
-	public static final String configPath = "/config/HawksMachinery";
+	public static final String GUI_PATH = "/hawksmachinery/textures/gui";
+	public static final String CONFIG_PATH = "/config/HawksMachinery";
 	
-	public static final String blockTextureFile = "/hawksmachinery/textures/blocks.png";
-	public static final String itemTextureFile = "/hawksmachinery/textures/items.png";
+	public static final String BLOCK_TEXTURE_FILE = "/hawksmachinery/textures/blocks.png";
+	public static final String ITEM_TEXTURE_FILE = "/hawksmachinery/textures/items.png";
 	
-	public static File configuration = (new File(configPath + "/Config.cfg"));
+	public static File CONFIGURATION = (new File(CONFIG_PATH + "/Config.cfg"));
 
 	public static int initProps()
 	{	
 		try
 		{
-			configuration.createNewFile();
+			CONFIGURATION.createNewFile();
 			System.out.println("Hawk's Machinery: Config file created/read.");
 		}
 		catch (IOException e)
@@ -43,7 +44,7 @@ public class HawkManager
 			System.out.println(e);
 		}
 		
-		Configuration HMConfig = new Configuration(configuration);
+		Configuration HMConfig = new Configuration(CONFIGURATION);
 		
 		HMConfig.load();
 		

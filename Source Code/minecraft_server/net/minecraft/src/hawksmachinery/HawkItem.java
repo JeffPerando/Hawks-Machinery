@@ -21,6 +21,6 @@ public class HawkItem extends Item implements ITextureProvider
 	
 	public String getTextureFile()
 	{
-		return HawkManager.itemTextureFile;
+		return HawkManager.ITEM_TEXTURE_FILE;
 	}
 }

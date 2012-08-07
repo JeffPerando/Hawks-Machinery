@@ -424,7 +424,7 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 	@Override
     public String getTextureFile()
     {
-	    return HawkManager.blockTextureFile;
+	    return HawkManager.BLOCK_TEXTURE_FILE;
     }
 
 	@Override

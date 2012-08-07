@@ -2,12 +2,10 @@
 package net.minecraft.src.hawksmachinery;
 
 import java.util.*;
-
 import net.minecraft.src.*;
 import net.minecraft.src.basiccomponents.BasicComponents;
 import net.minecraft.src.forge.*;
 import net.minecraft.src.forge.oredict.OreDictionary;
-import net.minecraft.src.hawksmachinery.api.HMAPICore;
 import net.minecraft.src.universalelectricity.ore.UEOreManager;
 import net.minecraft.src.universalelectricity.recipe.UERecipeManager;
 
@@ -88,7 +86,7 @@ public class HawkProcessingRecipes
 		return grinderExplosives;
 	}
 	
-	public static void APIMagicsnortsnort()
+	public static void reportRecipes()
 	{
 		System.out.println(getGrindingList().size() + " Hawk's Machinery recipes");
 		System.out.println(getGrindingExplosivesList().size() + " Hawk's Machinery explosives");

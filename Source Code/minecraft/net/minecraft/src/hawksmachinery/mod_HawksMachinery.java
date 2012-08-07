@@ -43,7 +43,7 @@ public class mod_HawksMachinery extends NetworkMod implements IGuiHandler, IReci
 	@Override
 	public void modsLoaded()
 	{
-		HawkProcessingRecipes.APIMagicsnortsnort();
+		HawkProcessingRecipes.reportRecipes();
 	}
 
 	@Override
@@ -80,8 +80,8 @@ public class mod_HawksMachinery extends NetworkMod implements IGuiHandler, IReci
 
 	private static void preloadHawksTextures()
 	{
-		MinecraftForgeClient.preloadTexture(HawkManager.blockTextureFile);
-		MinecraftForgeClient.preloadTexture(HawkManager.itemTextureFile);
+		MinecraftForgeClient.preloadTexture(HawkManager.BLOCK_TEXTURE_FILE);
+		MinecraftForgeClient.preloadTexture(HawkManager.ITEM_TEXTURE_FILE);
 	}
 
 	@Override

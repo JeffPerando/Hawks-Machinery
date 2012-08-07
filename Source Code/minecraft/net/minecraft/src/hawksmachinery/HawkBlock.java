@@ -35,7 +35,7 @@ public class HawkBlock extends Block implements ITextureProvider
 
 	public String getTextureFile()
 	{
-		return HawkManager.blockTextureFile;
+		return HawkManager.BLOCK_TEXTURE_FILE;
 	}
 	
     public void onBlockAdded(World par1World, int par2, int par3, int par4)

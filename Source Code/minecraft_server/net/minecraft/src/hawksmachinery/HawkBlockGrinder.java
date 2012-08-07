@@ -78,7 +78,7 @@ public class HawkBlockGrinder extends BlockMachine implements ITextureProvider
     @Override
     public String getTextureFile()
     {
-		return HawkManager.blockTextureFile;
+		return HawkManager.BLOCK_TEXTURE_FILE;
     }
     
     @Override

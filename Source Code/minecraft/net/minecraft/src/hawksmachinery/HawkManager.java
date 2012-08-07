@@ -21,20 +21,20 @@ public class HawkManager
 	public static int machineBlockID;
 	public static int grinderID;
 	
-	public static String guiPath = "/hawksmachinery/textures/gui";
+	public static final String GUI_PATH = "/hawksmachinery/textures/gui";
 	
-	public static final String blockTextureFile = "/hawksmachinery/textures/blocks.png";
-	public static final String itemTextureFile = "/hawksmachinery/textures/items.png";
+	public static final String BLOCK_TEXTURE_FILE = "/hawksmachinery/textures/blocks.png";
+	public static final String ITEM_TEXTURE_FILE = "/hawksmachinery/textures/items.png";
 	
-	public static File hawksFolder = (new File(Minecraft.getMinecraftDir() + "/config/HawksMachinery"));
+	public static File HAWKS_FOLDER = (new File(Minecraft.getMinecraftDir() + "/config/HawksMachinery"));
 	
-	public static File configuration = (new File(hawksFolder + "/Config.cfg"));
+	public static File CONFIGURATION = (new File(HAWKS_FOLDER + "/Config.cfg"));
 
 	public static int initProps()
 	{
 		try
 		{
-			configuration.createNewFile();
+			CONFIGURATION.createNewFile();
 			System.out.println("Hawk's Machinery: Config file created/read.");
 		}
 		catch (IOException e)
@@ -43,7 +43,7 @@ public class HawkManager
 			System.out.println(e);
 		}
 		
-		Configuration HMConfig = new Configuration(configuration);
+		Configuration HMConfig = new Configuration(CONFIGURATION);
 		
 		HMConfig.load();
 		
