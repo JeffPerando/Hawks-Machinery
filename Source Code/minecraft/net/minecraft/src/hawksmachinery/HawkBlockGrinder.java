@@ -17,6 +17,8 @@ public class HawkBlockGrinder extends BlockMachine implements ITextureProvider
     {
         super(name, id, material);
         this.setBlockName(name);
+        this.setHardness(0.5F);
+        this.setResistance(20.0F);
         ModLoader.addName(this, name);
         ModLoader.registerBlock(this);
     	this.setRequiresSelfNotify();
@@ -35,7 +37,7 @@ public class HawkBlockGrinder extends BlockMachine implements ITextureProvider
     }
     
     @Override
-    public boolean machineActivated(World par1World, int x, int y, int z, EntityPlayer par5EntityPlayer)
+    public boolean onMachineActivated(World par1World, int x, int y, int z, EntityPlayer par5EntityPlayer)
     {
 		int metadata = par1World.getBlockMetadata(x, y, z);
 
@@ -91,10 +93,11 @@ public class HawkBlockGrinder extends BlockMachine implements ITextureProvider
     	return new HawkTileEntityGrinder();
     }
     
-    public int getBlockTextureFromSideAndMetadata(int side, int metadata)
-    {
-    	switch (metadata)
-    	{
+    @Override
+	public int getBlockTextureFromSideAndMetadata(int side, int metadata)
+	{
+		switch (metadata)
+		{
     		case 2: switch (side)
     				{
     					case 1: return 5;
@@ -109,13 +112,13 @@ public class HawkBlockGrinder extends BlockMachine implements ITextureProvider
     				}
     		case 4: switch (side)
     				{
-    					case 1: return 5;
+    					case 1: return 23;
     					case 5: return 6;
     					default: return 7;
     				}
     		case 5: switch (side)
     				{
-    					case 1: return 5;
+    					case 1: return 23;
     					case 4: return 6;
     					default: return 7;
     				}
@@ -125,7 +128,7 @@ public class HawkBlockGrinder extends BlockMachine implements ITextureProvider
     					case 3: return 6;
     					default: return 7;
     				}
-    	}
-    }
+		}
+	}
 
 }

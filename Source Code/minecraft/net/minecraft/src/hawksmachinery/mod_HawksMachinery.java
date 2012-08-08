@@ -12,7 +12,7 @@ import net.minecraft.src.universalelectricity.recipe.*;
  * @author Elusivehawk
  *
  */
-public class mod_HawksMachinery extends NetworkMod implements IGuiHandler, IRecipeReplacementHandler
+public class mod_HawksMachinery extends NetworkMod implements IGuiHandler, IRecipeReplacementHandler, ICraftingHandler
 {
 	/**
 	 * Note: DO NOT MOVE THIS! I'm serious, I don't want to see any refactor job move this, due to the fact that doing so is A VERY BAD IDEA!
@@ -38,6 +38,7 @@ public class mod_HawksMachinery extends NetworkMod implements IGuiHandler, IReci
 		preloadHawksTextures();
 		ModLoader.registerTileEntity(HawkTileEntityGrinder.class, "Grinder");
 		MinecraftForge.setGuiHandler(this, this);
+		HawkAchievements.achievementStuff();
 	}
 	
 	@Override
@@ -85,19 +86,19 @@ public class mod_HawksMachinery extends NetworkMod implements IGuiHandler, IReci
 	}
 
 	@Override
-    public Object[] onReplaceShapedRecipe(UERecipe recipe)
+    public UERecipe onReplaceShapedRecipe(UERecipe recipe)
     {
 	    return null;
     }
 
 	@Override
-    public Object[] onReplaceShapelessRecipe(UERecipe recipe)
+    public UERecipe onReplaceShapelessRecipe(UERecipe recipe)
     {
 	    return null;
     }
 
 	@Override
-    public ItemStack onReplaceSmeltingRecipe(UEFurnaceRecipe recipe)
+    public UEFurnaceRecipe onReplaceSmeltingRecipe(UEFurnaceRecipe recipe)
     {
 	    return null;
     }
@@ -190,5 +191,31 @@ public class mod_HawksMachinery extends NetworkMod implements IGuiHandler, IReci
 	{
 		return "after:mod_UnversalElectricity;after:mod_BasicComponents";
 	}
-
+	
+	@Override
+	public void onTakenFromCrafting(EntityPlayer player, ItemStack stack, IInventory craftMatrix)
+	{
+		player.addChatMessage("I WAS CALLED, YA PUNK!");
+		
+		if (stack.itemID == blockEmptyMachine.blockID && stack.getItemDamage() == 0)
+		{
+			player.addStat(HawkAchievements.shellOfAMachine, 1);
+		}
+		
+		if (stack.itemID == blockEmptyMachine.blockID && stack.getItemDamage() <= 4 && stack.getItemDamage() > 1)
+		{
+			player.addStat(HawkAchievements.buildABetterMachineBlock, 1);
+		}
+		
+		if (stack.itemID == blockGrinder.blockID)
+		{
+			player.addStat(HawkAchievements.timeToGrind, 1);
+		}
+		
+		if (stack.itemID == blockEmptyMachine.blockID && stack.getItemDamage() > 3)
+		{
+			player.addStat(HawkAchievements.redstonedWithCare, 1);
+		}
+	}
+	
 }

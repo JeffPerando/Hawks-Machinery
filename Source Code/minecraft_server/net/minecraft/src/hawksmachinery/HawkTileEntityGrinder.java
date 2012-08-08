@@ -215,7 +215,16 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 	@Override
 	public boolean canReceiveFromSide(byte side)
 	{
-		return true;
+		if (side == this.getBlockMetadata())
+		{
+			return false;
+		}
+		else if (side == 1)
+		{
+			return false;
+		}
+		
+		return false;
 	}
 	
 	@Override

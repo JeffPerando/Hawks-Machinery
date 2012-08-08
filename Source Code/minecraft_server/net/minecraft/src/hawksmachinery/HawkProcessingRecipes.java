@@ -18,9 +18,7 @@ import net.minecraft.src.universalelectricity.recipe.UERecipeManager;
 public class HawkProcessingRecipes
 {
 	private static Map grinderRecipes = new HashMap();
-	private static Map grinderRecipesAPI = new HashMap();
 	private static Map grinderExplosives = new HashMap();
-	private static Map grinderExplosivesAPI = new HashMap();
 	
 	/**
 	 * Adds a processing method.
@@ -78,24 +76,21 @@ public class HawkProcessingRecipes
 		}
 	}
 	
+	public static void reportRecipes()
+	{
+		System.out.println(getGrindingList().size() + " Hawk's Machinery recipes");
+		System.out.println(getGrindingExplosivesList().size() + " Hawk's Machinery explosives");
+		
+	}
+	
 	public static Map getGrindingList()
 	{
 		return grinderRecipes;
 	}
 	
-	public static Map getGrindingAPIList()
-	{
-		return grinderRecipesAPI;
-	}
-	
 	public static Map getGrindingExplosivesList()
 	{
 		return grinderExplosives;
-	}
-	
-	public static Map getGrindingExplosivesAPIList()
-	{
-		return grinderExplosivesAPI;
 	}
 	
 	public static ItemStack getGrindingResult(ItemStack item)
@@ -126,20 +121,13 @@ public class HawkProcessingRecipes
         else
         {
             ItemStack ret = (ItemStack)grinderExplosives.get(Arrays.asList(item.itemID, item.getItemDamage()));
-            ItemStack ret2 = (ItemStack)grinderExplosivesAPI.get(Arrays.asList(item.itemID, item.getItemDamage()));
             
             if (ret != null) 
             {
                 return true;
             }
-            else
-            {
-            	if (ret2 != null)
-            	{
-            		return true;
-            	}
-            	return false;
-            }
         }
+        
+        return false;
 	}
 }

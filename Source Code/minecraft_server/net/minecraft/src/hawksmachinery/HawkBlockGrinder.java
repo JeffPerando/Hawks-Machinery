@@ -11,8 +11,7 @@ import net.minecraft.src.universalelectricity.extend.*;
  *
  */
 public class HawkBlockGrinder extends BlockMachine implements ITextureProvider
-{	
-	
+{
 	public HawkBlockGrinder(String name, int id, Material material)
     {
         super(name, id, material);
@@ -31,7 +30,7 @@ public class HawkBlockGrinder extends BlockMachine implements ITextureProvider
     }
     
     @Override
-    public boolean machineActivated(World par1World, int x, int y, int z, EntityPlayer par5EntityPlayer)
+    public boolean onMachineActivated(World par1World, int x, int y, int z, EntityPlayer par5EntityPlayer)
     {
 		int metadata = par1World.getBlockMetadata(x, y, z);
 
@@ -48,11 +47,11 @@ public class HawkBlockGrinder extends BlockMachine implements ITextureProvider
     {
 		switch(world.getBlockMetadata(x, y, z))
 		{
-			case 2: world.setBlockMetadataWithNotify(x, y, z, 5); break;
-	    	case 5: world.setBlockMetadataWithNotify(x, y, z, 3); break;
-	    	case 0: world.setBlockMetadataWithNotify(x, y, z, 4); break;
-	    	case 3: world.setBlockMetadataWithNotify(x, y, z, 4); break;
-	    	case 4: world.setBlockMetadataWithNotify(x, y, z, 2); break;
+			case 2: world.setBlockMetadataWithNotify(x, y, z, 4); break;
+	    	case 5: world.setBlockMetadataWithNotify(x, y, z, 2); break;
+	    	case 0: world.setBlockMetadataWithNotify(x, y, z, 5); break;
+	    	case 3: world.setBlockMetadataWithNotify(x, y, z, 5); break;
+	    	case 4: world.setBlockMetadataWithNotify(x, y, z, 3); break;
 		}
 		
 		return true;
@@ -66,10 +65,10 @@ public class HawkBlockGrinder extends BlockMachine implements ITextureProvider
         
     	switch (direction)
         {
-        	case 0: newMetadata = 2; break;
-        	case 1: newMetadata = 5; break;
-        	case 2: newMetadata = 3; break;
-        	case 3: newMetadata = 4; break;
+        	case 0: newMetadata = 3; break;
+        	case 1: newMetadata = 4; break;
+        	case 2: newMetadata = 2; break;
+        	case 3: newMetadata = 5; break;
         }
     	
     	par1World.setBlockMetadataWithNotify(x, y, z, newMetadata);
@@ -87,46 +86,42 @@ public class HawkBlockGrinder extends BlockMachine implements ITextureProvider
     	return new HawkTileEntityGrinder();
     }
     
+    @Override
     public int getBlockTextureFromSideAndMetadata(int side, int metadata)
     {
     	switch (metadata)
-    	{
+		{
     		case 2: switch (side)
     				{
-    					case 0: return 1;
-    					case 1: return 1;
-    					case 2: return 3;
-    					default: return 2;
+    					case 1: return 5;
+    					case 3: return 6;
+    					default: return 7;
     				}
     		case 3: switch (side)
     				{
-    					case 0: return 1;
-    					case 1: return 1;
-    					case 3: return 3;
-    					default: return 2;
+    					case 1: return 5;
+    					case 2: return 6;
+    					default: return 7;
     				}
     		case 4: switch (side)
     				{
-    					case 0: return 1;
-    					case 1: return 1;
-    					case 4: return 3;
-    					default: return 2;
+    					case 1: return 23;
+    					case 5: return 6;
+    					default: return 7;
     				}
     		case 5: switch (side)
     				{
-    					case 0: return 1;
-    					case 1: return 1;
-    					case 5: return 3;
-    					default: return 2;
+    					case 1: return 23;
+    					case 4: return 6;
+    					default: return 7;
     				}
     		default: switch (side)
     				{
-    					case 0: return 1;
-    					case 1: return 1;
-    					case 3: return 3;
-    					default: return 2;
+    					case 1: return 5;
+    					case 3: return 6;
+    					default: return 7;
     				}
-    	}
+		}
     }
 
 }

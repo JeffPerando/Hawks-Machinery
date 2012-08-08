@@ -236,10 +236,12 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 		{
 			return false;
 		}
-		else
+		else if (side == 1)
 		{
-			return true;
+			return false;
 		}
+		
+		return true;
 	}
 	
 	@Override

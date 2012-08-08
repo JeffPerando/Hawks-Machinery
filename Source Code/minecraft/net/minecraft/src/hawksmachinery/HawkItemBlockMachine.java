@@ -11,6 +11,8 @@ import net.minecraft.src.forge.ITextureProvider;
  */
 public class HawkItemBlockMachine extends ItemBlock implements ITextureProvider
 {
+	public static mod_HawksMachinery BASEMOD;
+	
 	public HawkItemBlockMachine(int id)
     {
 	    super(id);
@@ -37,7 +39,7 @@ public class HawkItemBlockMachine extends ItemBlock implements ITextureProvider
 	@Override
 	public int getBlockID()
 	{
-		return HawkManager.machineBlockID;
+		return BASEMOD.blockEmptyMachine.blockID;
 	}
 	
 	@Override

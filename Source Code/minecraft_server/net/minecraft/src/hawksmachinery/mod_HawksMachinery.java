@@ -1,6 +1,7 @@
 
 package net.minecraft.src.hawksmachinery;
 
+import java.util.List;
 import net.minecraft.src.*;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.src.basiccomponents.BasicComponents;
@@ -13,7 +14,7 @@ import net.minecraft.src.universalelectricity.recipe.*;
  * @author Elusivehawk
  *
  */
-public class mod_HawksMachinery extends NetworkMod implements IGuiHandler, IRecipeReplacementHandler
+public class mod_HawksMachinery extends NetworkMod implements IGuiHandler, IRecipeReplacementHandler, ICraftingHandler
 {
 	public static Block blockGrinder = new HawkBlockGrinder("Grinder", HawkManager.initProps(), Material.wood);
 	public static Block blockEmptyMachine = new HawkBlockMachine(HawkManager.machineBlockID, Material.iron);
@@ -36,8 +37,16 @@ public class mod_HawksMachinery extends NetworkMod implements IGuiHandler, IReci
 		preloadHawksTextures();
 		ModLoader.registerTileEntity(HawkTileEntityGrinder.class, "Grinder");
 		MinecraftForge.setGuiHandler(this, this);
+		HawkAchievements.achievementStuff();
 	}
-
+	
+	
+	@Override
+	public void modsLoaded()
+	{
+		HawkProcessingRecipes.reportRecipes();
+	}
+	
 	@Override
 	public String getVersion()
 	{
@@ -77,19 +86,19 @@ public class mod_HawksMachinery extends NetworkMod implements IGuiHandler, IReci
 	}
 
 	@Override
-    public Object[] onReplaceShapedRecipe(UERecipe recipe)
+    public UERecipe onReplaceShapedRecipe(UERecipe recipe)
     {
 	    return null;
     }
 
 	@Override
-    public Object[] onReplaceShapelessRecipe(UERecipe recipe)
+    public UERecipe onReplaceShapelessRecipe(UERecipe recipe)
     {
 	    return null;
     }
 
 	@Override
-    public ItemStack onReplaceSmeltingRecipe(UEFurnaceRecipe recipe)
+    public UEFurnaceRecipe onReplaceSmeltingRecipe(UEFurnaceRecipe recipe)
     {
 	    return null;
     }
@@ -181,6 +190,34 @@ public class mod_HawksMachinery extends NetworkMod implements IGuiHandler, IReci
 	public String getPriorities()
 	{
 		return "after:mod_UniversalElectricity;after:mod_BasicComponents";
+	}
+
+
+	@Override
+	public void onTakenFromCrafting(EntityPlayer player, ItemStack stack, IInventory craftMatrix)
+	{
+		if (craftMatrix.getInvName() == "container.crafting")
+		{
+			if (stack == new ItemStack(blockEmptyMachine, 1, 0))
+			{
+				player.addStat(HawkAchievements.shellOfAMachine, 0);
+			}
+			
+			if (stack.itemID == blockEmptyMachine.blockID && stack.getItemDamage() <= 4 && stack.getItemDamage() > 1)
+			{
+				player.addStat(HawkAchievements.buildABetterMachineBlock, 0);
+			}
+			
+			if (stack.itemID == blockGrinder.blockID)
+			{
+				player.addStat(HawkAchievements.timeToGrind, 0);
+			}
+			
+			if (stack.itemID == blockEmptyMachine.blockID && stack.getItemDamage() > 3)
+			{
+				player.addStat(HawkAchievements.redstonedWithCare, 0);
+			}
+		}
 	}
 	
 }
