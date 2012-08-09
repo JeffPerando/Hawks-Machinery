@@ -1,9 +1,7 @@
 
 package net.minecraft.src.hawksmachinery;
 
-import java.util.List;
 import net.minecraft.src.*;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.src.basiccomponents.BasicComponents;
 import net.minecraft.src.forge.*;
 import net.minecraft.src.universalelectricity.UniversalElectricity;
@@ -14,11 +12,14 @@ import net.minecraft.src.universalelectricity.recipe.*;
  * @author Elusivehawk
  *
  */
-public class mod_HawksMachinery extends NetworkMod implements IGuiHandler, IRecipeReplacementHandler, ICraftingHandler
+public class mod_HawksMachinery extends NetworkMod implements IGuiHandler, IRecipeReplacementHandler
 {
-	public static Block blockGrinder = new HawkBlockGrinder("Grinder", HawkManager.initProps(), Material.wood);
+	/**
+	 * Note: DO NOT MOVE THIS! I'm serious, I don't want to see any refactor job move this, due to the fact that doing so is A VERY BAD IDEA!
+	 */
+	public static Block blockGrinder = new HawkBlockGrinder(HawkManager.initProps(), Material.iron);
 	public static Block blockEmptyMachine = new HawkBlockMachine(HawkManager.machineBlockID, Material.iron);
-
+	
 	/**
 	 * Dusts in metadata form, finally! From 0 to 13: Coal, Diamond, Unref Gold, Ender, Glass, Unref Iron, Unref Copper, Unref Tin, Iron, Gold, Copper, Tin, Obsidian, Emerald.
 	 */
@@ -32,7 +33,7 @@ public class mod_HawksMachinery extends NetworkMod implements IGuiHandler, IReci
 	public void load()
 	{
 		instance = this;
-		UniversalElectricity.registerAddon(this, "0.4.5");
+		UniversalElectricity.registerAddon(this, "0.4.6");
 		HawkManager.loadRecipes();
 		preloadHawksTextures();
 		ModLoader.registerTileEntity(HawkTileEntityGrinder.class, "Grinder");
@@ -50,7 +51,7 @@ public class mod_HawksMachinery extends NetworkMod implements IGuiHandler, IReci
 	@Override
 	public String getVersion()
 	{
-		return "Alpha v1.1a";
+		return "Alpha v1.1b";
 	}
 	
 	public String getName()
@@ -128,7 +129,7 @@ public class mod_HawksMachinery extends NetworkMod implements IGuiHandler, IReci
 			return 1200;
 		}
 		
-		if (id == Item.reed.shiftedIndex)
+		if (id == Item.reed.shiftedIndex && !ModLoader.isModLoaded("mod_IC2"))
 		{
 			return 50;
 		}
@@ -190,34 +191,6 @@ public class mod_HawksMachinery extends NetworkMod implements IGuiHandler, IReci
 	public String getPriorities()
 	{
 		return "after:mod_UniversalElectricity;after:mod_BasicComponents";
-	}
-
-
-	@Override
-	public void onTakenFromCrafting(EntityPlayer player, ItemStack stack, IInventory craftMatrix)
-	{
-		if (craftMatrix.getInvName() == "container.crafting")
-		{
-			if (stack == new ItemStack(blockEmptyMachine, 1, 0))
-			{
-				player.addStat(HawkAchievements.shellOfAMachine, 0);
-			}
-			
-			if (stack.itemID == blockEmptyMachine.blockID && stack.getItemDamage() <= 4 && stack.getItemDamage() > 1)
-			{
-				player.addStat(HawkAchievements.buildABetterMachineBlock, 0);
-			}
-			
-			if (stack.itemID == blockGrinder.blockID)
-			{
-				player.addStat(HawkAchievements.timeToGrind, 0);
-			}
-			
-			if (stack.itemID == blockEmptyMachine.blockID && stack.getItemDamage() > 3)
-			{
-				player.addStat(HawkAchievements.redstonedWithCare, 0);
-			}
-		}
 	}
 	
 }

@@ -8,30 +8,36 @@ import net.minecraft.src.World;
 import net.minecraft.src.forge.ITextureProvider;
 
 /**
+ * 
+ * Used solely to fix the achievements "Time to Grind" not being received properly.
+ * 
  * @author Elusivehawk
- *
  */
-public class HawkItemBlockMachine extends ItemBlock implements ITextureProvider
+public class HawkItemBlockGrinder extends ItemBlock implements ITextureProvider
 {
 	public static mod_HawksMachinery BASEMOD;
 	
-	public HawkItemBlockMachine(int id)
+	public HawkItemBlockGrinder(int id)
     {
 	    super(id);
-	    setMaxDamage(0);
-	    setHasSubtypes(true);
     }
+	
+	@Override
+	public String getItemDisplayName(ItemStack item)
+	{
+		return "Grinder";
+	}
 	
 	@Override
 	public int getBlockID()
 	{
-		return BASEMOD.blockEmptyMachine.blockID;
+		return BASEMOD.blockGrinder.blockID;
 	}
 	
 	@Override
 	public int getMetadata(int meta)
 	{
-		return meta;
+		return 0;
 	}
 	
 	@Override
@@ -43,22 +49,6 @@ public class HawkItemBlockMachine extends ItemBlock implements ITextureProvider
 	@Override
 	public void onCreated(ItemStack item, World world, EntityPlayer player)
 	{
-		int dmg = item.getItemDamage();
-				
-		if (dmg == 0)
-		{
-			player.addStat(HawkAchievements.shellOfAMachine, 1);
-		}
-		
-		if (dmg <= 3 && dmg != 0)
-		{
-			player.addStat(HawkAchievements.buildABetterMachineBlock, 1);
-		}
-		
-		if (dmg <= 6 && dmg > 3)
-		{
-			player.addStat(HawkAchievements.redstonedWithCare, 1);
-		}
+		player.addStat(HawkAchievements.timeToGrind, 1);
 	}
-	
 }

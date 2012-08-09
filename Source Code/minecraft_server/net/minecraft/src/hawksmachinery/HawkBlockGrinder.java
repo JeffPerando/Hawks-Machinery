@@ -7,22 +7,23 @@ import net.minecraft.src.universalelectricity.*;
 import net.minecraft.src.universalelectricity.extend.*;
 
 /**
+ * 
+ * Just the block for the Grinder.
+ * 
  * @author Elusivehawk
- *
  */
 public class HawkBlockGrinder extends BlockMachine implements ITextureProvider
 {
-	public HawkBlockGrinder(String name, int id, Material material)
+	public HawkBlockGrinder(int id, Material material)
     {
-        super(name, id, material);
-        this.setBlockName(name);
-        this.setHardness(0.5F);
+        super("Grinder", id, material);
+        this.setBlockName("Grinder");
+        this.setHardness(2.0F);
         this.setResistance(20.0F);
-        ModLoader.addName(this, name);
-        ModLoader.registerBlock(this);
+        ModLoader.registerBlock(this, HawkItemBlockGrinder.class);
     	this.setRequiresSelfNotify();
     }
-
+	
 	@Override
     public void onBlockAdded(World par1World, int par2, int par3, int par4)
     {
@@ -123,5 +124,16 @@ public class HawkBlockGrinder extends BlockMachine implements ITextureProvider
     				}
 		}
     }
+	
+	@Override
+	public boolean isBlockSolidOnSide(World world, int x, int y, int z, int side)
+	{
+		if (side != 0 || side == world.getBlockMetadata(x, y, z))
+		{
+			return false;
+		}
+		
+		return true;
+	}
 
 }

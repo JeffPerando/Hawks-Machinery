@@ -86,7 +86,6 @@ public class HawkManager
 	{
 		RECIPE_GIVER.addRecipe(new ItemStack(BASEMOD.blockEmptyMachine, 1, 0), new Object[]{"oxo", "xpx", "oxo", 'o', BasicComponents.ItemSteelIngot, 'x', BasicComponents.ItemSteelPlate, 'p', Item.blazePowder});
 		RECIPE_GIVER.addRecipe(new ItemStack(BASEMOD.blockGrinder, 1), new Object[]{"xMx", "xpx", "xmx", 'x', BasicComponents.ItemSteelIngot, 'p', Item.pickaxeSteel, 'm', new ItemStack(BASEMOD.blockEmptyMachine, 1, 4), 'M', BasicComponents.ItemMotor});
-		RECIPE_GIVER.addRecipe(new ItemStack(BasicComponents.ItemSteelIngot, 24), new Object[]{"e", 'e', BASEMOD.blockEmptyMachine});
 		RECIPE_GIVER.addRecipe(new ItemStack(BasicComponents.ItemBattery), new Object[]{" x ", "xrx", "xcx", 'x', BasicComponents.ItemTinIngot, 'c', new ItemStack(BASEMOD.dust, 1, 0), 'r', Item.redstone});
 		RECIPE_GIVER.addRecipe(new ItemStack(Block.torchWood, 4), new Object[]{"c", "s", 'c', new ItemStack(BASEMOD.dust, 1, 0), 's', Item.stick});
 		RECIPE_GIVER.addRecipe(new ItemStack(Block.enchantmentTable, 1), new Object[]{" b ", "dod", "ooo", 'b', Item.book, 'd', new ItemStack(BASEMOD.dust, 1, 1), 'o', Block.obsidian});
@@ -97,7 +96,16 @@ public class HawkManager
 		RECIPE_GIVER.addRecipe(new ItemStack(BASEMOD.blockEmptyMachine, 1, 5), new Object[]{"RRR", "RMR", "RRR", 'R', Item.redstone, 'M', new ItemStack(BASEMOD.blockEmptyMachine, 1, 2)});
 		RECIPE_GIVER.addRecipe(new ItemStack(BASEMOD.blockEmptyMachine, 1, 6), new Object[]{"RRR", "RMR", "RRR", 'R', Item.redstone, 'M', new ItemStack(BASEMOD.blockEmptyMachine, 1, 3)});
 		
-		RECIPE_GIVER.addShapelessRecipe(new ItemStack(BasicComponents.ItemSteelClump, 1), new Object[]{Item.ingotIron, new ItemStack(BASEMOD.dust, 1, 0)});
+		RECIPE_GIVER.addShapelessRecipe(new ItemStack(BasicComponents.ItemSteelIngot, 5), new Object[]{BasicComponents.ItemSteelPlate});
+		RECIPE_GIVER.addShapelessRecipe(new ItemStack(BasicComponents.ItemSteelIngot, 24), new Object[]{new ItemStack(BASEMOD.blockEmptyMachine, 1, 0)});
+		RECIPE_GIVER.addShapelessRecipe(new ItemStack(BasicComponents.ItemSteelIngot, 44), new Object[]{new ItemStack(BASEMOD.blockEmptyMachine, 1, 1)});
+		RECIPE_GIVER.addShapelessRecipe(new ItemStack(BasicComponents.ItemSteelIngot, 44), new Object[]{new ItemStack(BASEMOD.blockEmptyMachine, 1, 2)});
+		RECIPE_GIVER.addShapelessRecipe(new ItemStack(BasicComponents.ItemSteelIngot, 44), new Object[]{new ItemStack(BASEMOD.blockEmptyMachine, 1, 3)});
+		RECIPE_GIVER.addShapelessRecipe(new ItemStack(BasicComponents.ItemSteelIngot, 44), new Object[]{new ItemStack(BASEMOD.blockEmptyMachine, 1, 4)});
+		RECIPE_GIVER.addShapelessRecipe(new ItemStack(BasicComponents.ItemSteelIngot, 44), new Object[]{new ItemStack(BASEMOD.blockEmptyMachine, 1, 5)});
+		RECIPE_GIVER.addShapelessRecipe(new ItemStack(BasicComponents.ItemSteelIngot, 44), new Object[]{new ItemStack(BASEMOD.blockEmptyMachine, 1, 6)});
+		
+		RECIPE_GIVER.addShapelessRecipe(new ItemStack(BasicComponents.ItemSteelClump, 1), new Object[]{new ItemStack(BASEMOD.dust, 1, 8), new ItemStack(BASEMOD.dust, 1, 0)});
 		RECIPE_GIVER.addShapelessRecipe(new ItemStack(BASEMOD.dust, 2, 8), new Object[]{Item.bucketWater, new ItemStack(BASEMOD.dust, 1, 5), new ItemStack(BASEMOD.dust, 1, 5)});
 		RECIPE_GIVER.addShapelessRecipe(new ItemStack(BASEMOD.dust, 2, 9), new Object[]{Item.bucketWater, new ItemStack(BASEMOD.dust, 1, 2), new ItemStack(BASEMOD.dust, 1, 2)});
 		RECIPE_GIVER.addShapelessRecipe(new ItemStack(BASEMOD.dust, 2, 10), new Object[]{Item.bucketWater, new ItemStack(BASEMOD.dust, 1, 6), new ItemStack(BASEMOD.dust, 1, 6)});
