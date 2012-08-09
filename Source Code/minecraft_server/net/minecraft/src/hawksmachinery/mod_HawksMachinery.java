@@ -41,7 +41,6 @@ public class mod_HawksMachinery extends NetworkMod implements IGuiHandler, IReci
 		HawkAchievements.achievementStuff();
 	}
 	
-	
 	@Override
 	public void modsLoaded()
 	{
@@ -51,7 +50,7 @@ public class mod_HawksMachinery extends NetworkMod implements IGuiHandler, IReci
 	@Override
 	public String getVersion()
 	{
-		return "Alpha v1.1b";
+		return "Alpha v1.1c";
 	}
 	
 	public String getName()

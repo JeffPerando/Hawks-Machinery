@@ -46,11 +46,11 @@ public class mod_HawksMachinery extends NetworkMod implements IGuiHandler, IReci
 	{
 		HawkProcessingRecipes.reportRecipes();
 	}
-
+	
 	@Override
 	public String getVersion()
 	{
-		return "Alpha v1.1b";
+		return "Alpha v1.1c";
 	}
 	
 	@Override
