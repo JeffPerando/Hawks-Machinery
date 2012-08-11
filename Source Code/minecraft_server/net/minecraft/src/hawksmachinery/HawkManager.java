@@ -20,10 +20,12 @@ public class HawkManager
 	public static mod_HawksMachinery BASEMOD;
 	public static UERecipeManager RECIPE_GIVER;
 	
-	public static int dustID;
+	public static int dustRawID;
+	public static int dustRefinedID;
 	
 	public static int machineBlockID;
 	public static int grinderID;
+	public static int oreID;
 	
 	public static int ACHshellOfAMachine;
 	public static int ACHbackToBasics;
@@ -59,8 +61,10 @@ public class HawkManager
 		
 		grinderID = HMConfig.getOrCreateBlockIdProperty("Grinder", 3960).getInt(3960);
 		machineBlockID = HMConfig.getOrCreateBlockIdProperty("Machine Block", 3961).getInt(3961);
+		oreID = HMConfig.getOrCreateBlockIdProperty("Ore", 3962).getInt(3962);
 		
-		dustID	= HMConfig.getOrCreateIntProperty("Coal Dust", Configuration.CATEGORY_ITEM, 24150).getInt(24150);
+		dustRawID = HMConfig.getOrCreateIntProperty("Raw Dust", Configuration.CATEGORY_ITEM, 24150).getInt(24150);
+		dustRefinedID = HMConfig.getOrCreateIntProperty("Refined Dust", Configuration.CATEGORY_ITEM, 24151).getInt(24151);
 		
 		ACHshellOfAMachine = HMConfig.getOrCreateIntProperty("Shell of a Machine", Configuration.CATEGORY_GENERAL, 1500).getInt(1500);
 		ACHbackToBasics = HMConfig.getOrCreateIntProperty("Back to Basics", Configuration.CATEGORY_GENERAL, 1501).getInt(1501);
@@ -86,17 +90,17 @@ public class HawkManager
 	{
 		RECIPE_GIVER.addRecipe(new ItemStack(BASEMOD.blockEmptyMachine, 1, 0), new Object[]{"oxo", "xpx", "oxo", 'o', BasicComponents.ItemSteelIngot, 'x', BasicComponents.ItemSteelPlate, 'p', Item.blazePowder});
 		RECIPE_GIVER.addRecipe(new ItemStack(BASEMOD.blockGrinder, 1), new Object[]{"xMx", "xpx", "xmx", 'x', BasicComponents.ItemSteelIngot, 'p', Item.pickaxeSteel, 'm', new ItemStack(BASEMOD.blockEmptyMachine, 1, 4), 'M', BasicComponents.ItemMotor});
-		RECIPE_GIVER.addRecipe(new ItemStack(BasicComponents.ItemBattery), new Object[]{" x ", "xrx", "xcx", 'x', BasicComponents.ItemTinIngot, 'c', new ItemStack(BASEMOD.dust, 1, 0), 'r', Item.redstone});
-		RECIPE_GIVER.addRecipe(new ItemStack(Block.torchWood, 4), new Object[]{"c", "s", 'c', new ItemStack(BASEMOD.dust, 1, 0), 's', Item.stick});
-		RECIPE_GIVER.addRecipe(new ItemStack(Block.enchantmentTable, 1), new Object[]{" b ", "dod", "ooo", 'b', Item.book, 'd', new ItemStack(BASEMOD.dust, 1, 1), 'o', Block.obsidian});
+		RECIPE_GIVER.addRecipe(new ItemStack(BasicComponents.ItemBattery), new Object[]{" x ", "xrx", "xcx", 'x', BasicComponents.ItemTinIngot, 'c', new ItemStack(BASEMOD.dustRaw, 1, 0), 'r', Item.redstone});
+		RECIPE_GIVER.addRecipe(new ItemStack(Block.torchWood, 4), new Object[]{"c", "s", 'c', new ItemStack(BASEMOD.dustRaw, 1, 0), 's', Item.stick});
+		RECIPE_GIVER.addRecipe(new ItemStack(Block.enchantmentTable, 1), new Object[]{" b ", "dod", "ooo", 'b', Item.book, 'd', new ItemStack(BASEMOD.dustRaw, 1, 1), 'o', Block.obsidian});
 		RECIPE_GIVER.addRecipe(new ItemStack(BASEMOD.blockEmptyMachine, 1, 1), new Object[]{" C ", "CMC", " C ", 'C', new ItemStack(BasicComponents.ItemCircuit, 1, 0), 'M', new ItemStack(BASEMOD.blockEmptyMachine, 1, 0)});
 		RECIPE_GIVER.addRecipe(new ItemStack(BASEMOD.blockEmptyMachine, 1, 2), new Object[]{" C ", "CMC", " C ", 'C', new ItemStack(BasicComponents.ItemCircuit, 1, 1), 'M', new ItemStack(BASEMOD.blockEmptyMachine, 1, 0)});
 		RECIPE_GIVER.addRecipe(new ItemStack(BASEMOD.blockEmptyMachine, 1, 3), new Object[]{" C ", "CMC", " C ", 'C', new ItemStack(BasicComponents.ItemCircuit, 1, 2), 'M', new ItemStack(BASEMOD.blockEmptyMachine, 1, 0)});
 		RECIPE_GIVER.addRecipe(new ItemStack(BASEMOD.blockEmptyMachine, 1, 4), new Object[]{"RRR", "RMR", "RRR", 'R', Item.redstone, 'M', new ItemStack(BASEMOD.blockEmptyMachine, 1, 1)});
 		RECIPE_GIVER.addRecipe(new ItemStack(BASEMOD.blockEmptyMachine, 1, 5), new Object[]{"RRR", "RMR", "RRR", 'R', Item.redstone, 'M', new ItemStack(BASEMOD.blockEmptyMachine, 1, 2)});
 		RECIPE_GIVER.addRecipe(new ItemStack(BASEMOD.blockEmptyMachine, 1, 6), new Object[]{"RRR", "RMR", "RRR", 'R', Item.redstone, 'M', new ItemStack(BASEMOD.blockEmptyMachine, 1, 3)});
-		RECIPE_GIVER.addRecipe(new ItemStack(BASEMOD.blockEmptyMachine, 1, 0), new Object[]{"oxo", "xex", "oxo", 'o', BasicComponents.ItemSteelIngot, 'x', BasicComponents.ItemSteelPlate, 'e', new ItemStack(BASEMOD.dust, 1, 3)});
-		RECIPE_GIVER.addRecipe(new ItemStack(Block.glass, 4), new Object[]{"GG", "GG", 'G', new ItemStack(BASEMOD.dust, 1, 4)});
+		RECIPE_GIVER.addRecipe(new ItemStack(BASEMOD.blockEmptyMachine, 1, 0), new Object[]{"oxo", "xex", "oxo", 'o', BasicComponents.ItemSteelIngot, 'x', BasicComponents.ItemSteelPlate, 'e', new ItemStack(BASEMOD.dustRefined, 1, 1)});
+		RECIPE_GIVER.addRecipe(new ItemStack(Block.glass, 4), new Object[]{"GG", "GG", 'G', new ItemStack(BASEMOD.dustRefined, 1, 2)});
 		
 		RECIPE_GIVER.addShapelessRecipe(new ItemStack(BasicComponents.ItemSteelIngot, 5), new Object[]{BasicComponents.ItemSteelPlate});
 		RECIPE_GIVER.addShapelessRecipe(new ItemStack(BasicComponents.ItemSteelIngot, 24), new Object[]{new ItemStack(BASEMOD.blockEmptyMachine, 1, 0)});
@@ -106,89 +110,89 @@ public class HawkManager
 		RECIPE_GIVER.addShapelessRecipe(new ItemStack(BasicComponents.ItemSteelIngot, 44), new Object[]{new ItemStack(BASEMOD.blockEmptyMachine, 1, 4)});
 		RECIPE_GIVER.addShapelessRecipe(new ItemStack(BasicComponents.ItemSteelIngot, 44), new Object[]{new ItemStack(BASEMOD.blockEmptyMachine, 1, 5)});
 		RECIPE_GIVER.addShapelessRecipe(new ItemStack(BasicComponents.ItemSteelIngot, 44), new Object[]{new ItemStack(BASEMOD.blockEmptyMachine, 1, 6)});
-		RECIPE_GIVER.addShapelessRecipe(BasicComponents.ItemSteelClump, new Object[]{new ItemStack(BASEMOD.dust, 1, 0), new ItemStack(BASEMOD.dust, 1, 8)});
-		RECIPE_GIVER.addShapelessRecipe(new ItemStack(BASEMOD.dust, 2, 8), new Object[]{Item.bucketWater, new ItemStack(BASEMOD.dust, 1, 5), new ItemStack(BASEMOD.dust, 1, 5)});
-		RECIPE_GIVER.addShapelessRecipe(new ItemStack(BASEMOD.dust, 2, 9), new Object[]{Item.bucketWater, new ItemStack(BASEMOD.dust, 1, 2), new ItemStack(BASEMOD.dust, 1, 2)});
-		RECIPE_GIVER.addShapelessRecipe(new ItemStack(BASEMOD.dust, 2, 10), new Object[]{Item.bucketWater, new ItemStack(BASEMOD.dust, 1, 6), new ItemStack(BASEMOD.dust, 1, 6)});
-		RECIPE_GIVER.addShapelessRecipe(new ItemStack(BASEMOD.dust, 2, 11), new Object[]{Item.bucketWater, new ItemStack(BASEMOD.dust, 1, 7), new ItemStack(BASEMOD.dust, 1, 7)});
-		RECIPE_GIVER.addShapelessRecipe(new ItemStack(Item.fireballCharge, 3), new Object[]{Item.blazePowder, Item.gunpowder, new ItemStack(BASEMOD.dust, 1, 0)});
+		RECIPE_GIVER.addShapelessRecipe(BasicComponents.ItemSteelClump, new Object[]{new ItemStack(BASEMOD.dustRaw, 1, 0), new ItemStack(BASEMOD.dustRefined, 1, 1)});
+		RECIPE_GIVER.addShapelessRecipe(new ItemStack(BASEMOD.dustRefined, 2, 3), new Object[]{Item.bucketWater, new ItemStack(BASEMOD.dustRaw, 1, 1), new ItemStack(BASEMOD.dustRaw, 1, 1)});
+		RECIPE_GIVER.addShapelessRecipe(new ItemStack(BASEMOD.dustRefined, 2, 4), new Object[]{Item.bucketWater, new ItemStack(BASEMOD.dustRaw, 1, 2), new ItemStack(BASEMOD.dustRaw, 1, 2)});
+		RECIPE_GIVER.addShapelessRecipe(new ItemStack(BASEMOD.dustRefined, 2, 5), new Object[]{Item.bucketWater, new ItemStack(BASEMOD.dustRaw, 1, 3), new ItemStack(BASEMOD.dustRaw, 1, 3)});
+		RECIPE_GIVER.addShapelessRecipe(new ItemStack(BASEMOD.dustRefined, 2, 6), new Object[]{Item.bucketWater, new ItemStack(BASEMOD.dustRaw, 1, 4), new ItemStack(BASEMOD.dustRaw, 1, 4)});
+		RECIPE_GIVER.addShapelessRecipe(new ItemStack(Item.fireballCharge, 3), new Object[]{Item.blazePowder, Item.gunpowder, new ItemStack(BASEMOD.dustRaw, 1, 0)});
 		
-		RECIPE_GIVER.addSmelting(new ItemStack(BASEMOD.dust, 1, 4), new ItemStack(Block.thinGlass));
-		RECIPE_GIVER.addSmelting(new ItemStack(BASEMOD.dust, 1, 8), new ItemStack(Item.ingotIron));
-		RECIPE_GIVER.addSmelting(new ItemStack(BASEMOD.dust, 1, 9), new ItemStack(Item.ingotGold));
-		RECIPE_GIVER.addSmelting(new ItemStack(BASEMOD.dust, 1, 10), new ItemStack(BasicComponents.ItemCopperIngot));
-		RECIPE_GIVER.addSmelting(new ItemStack(BASEMOD.dust, 1, 11), new ItemStack(BasicComponents.ItemTinIngot));
-		RECIPE_GIVER.addSmelting(new ItemStack(BASEMOD.dust, 1, 12), new ItemStack(Block.obsidian));
+		RECIPE_GIVER.addSmelting(new ItemStack(BASEMOD.dustRefined, 1, 2), new ItemStack(Block.thinGlass));
+		RECIPE_GIVER.addSmelting(new ItemStack(BASEMOD.dustRefined, 1, 3), new ItemStack(Item.ingotIron));
+		RECIPE_GIVER.addSmelting(new ItemStack(BASEMOD.dustRefined, 1, 4), new ItemStack(Item.ingotGold));
+		RECIPE_GIVER.addSmelting(new ItemStack(BASEMOD.dustRefined, 1, 5), new ItemStack(BasicComponents.ItemCopperIngot));
+		RECIPE_GIVER.addSmelting(new ItemStack(BASEMOD.dustRefined, 1, 6), new ItemStack(BasicComponents.ItemTinIngot));
+		RECIPE_GIVER.addSmelting(new ItemStack(BASEMOD.dustRaw, 1, 5), new ItemStack(Block.obsidian));
 		RECIPE_GIVER.addSmelting(new ItemStack(BASEMOD.blockGrinder, 1, 0), new ItemStack(BasicComponents.ItemSteelPlate, 15));
 		
 		
-		HawkProcessingRecipes.addHawkProcessingRecipe(Item.diamond.shiftedIndex, new ItemStack(BASEMOD.dust, 1, 1), 1);
-		HawkProcessingRecipes.addHawkProcessingRecipe(Block.oreGold.blockID, new ItemStack(BASEMOD.dust, 2, 2), 1);
-		HawkProcessingRecipes.addHawkProcessingRecipe(Item.enderPearl.shiftedIndex, new ItemStack(BASEMOD.dust, 1, 3), 1);
-		HawkProcessingRecipes.addHawkProcessingRecipe(Block.glass.blockID, new ItemStack(BASEMOD.dust, 4, 4), 1);
-		HawkProcessingRecipes.addHawkProcessingRecipe(Block.oreIron.blockID, new ItemStack(BASEMOD.dust, 2, 5), 1);
-		HawkProcessingRecipes.addHawkProcessingRecipe(BasicComponents.ItemCopperIngot.shiftedIndex, new ItemStack(BASEMOD.dust, 1, 10), 1);
-		HawkProcessingRecipes.addHawkProcessingRecipe(BasicComponents.ItemTinIngot.shiftedIndex, new ItemStack(BASEMOD.dust, 1, 11), 1);		
+		HawkProcessingRecipes.addHawkProcessingRecipe(Item.diamond.shiftedIndex, new ItemStack(BASEMOD.dustRefined, 1, 0), 1);
+		HawkProcessingRecipes.addHawkProcessingRecipe(Block.oreGold.blockID, new ItemStack(BASEMOD.dustRaw, 2, 2), 1);
+		HawkProcessingRecipes.addHawkProcessingRecipe(Item.enderPearl.shiftedIndex, new ItemStack(BASEMOD.dustRefined, 1, 1), 1);
+		HawkProcessingRecipes.addHawkProcessingRecipe(Block.glass.blockID, new ItemStack(BASEMOD.dustRefined, 4, 2), 1);
+		HawkProcessingRecipes.addHawkProcessingRecipe(Block.oreIron.blockID, new ItemStack(BASEMOD.dustRaw, 2, 1), 1);
+		HawkProcessingRecipes.addHawkProcessingRecipe(BasicComponents.ItemCopperIngot.shiftedIndex, new ItemStack(BASEMOD.dustRaw, 1, 3), 1);
+		HawkProcessingRecipes.addHawkProcessingRecipe(BasicComponents.ItemTinIngot.shiftedIndex, new ItemStack(BASEMOD.dustRaw, 1, 4), 1);		
 		HawkProcessingRecipes.addHawkProcessingRecipe(Item.blazeRod.shiftedIndex, new ItemStack(Item.blazePowder, 2), 1);
 		HawkProcessingRecipes.addHawkProcessingRecipe(Item.bone.shiftedIndex, new ItemStack(Item.dyePowder, 3, 15), 1);
 		HawkProcessingRecipes.addHawkProcessingRecipe(Block.stone.blockID, new ItemStack(Block.gravel), 1);
 		HawkProcessingRecipes.addHawkProcessingRecipe(Block.cobblestone.blockID, new ItemStack(Block.sand), 1);
 		HawkProcessingRecipes.addHawkProcessingRecipe(Block.gravel.blockID, new ItemStack(Item.flint), 1);
-		HawkProcessingRecipes.addHawkProcessingRecipe(Item.eyeOfEnder.shiftedIndex, new ItemStack(BASEMOD.dust, 1, 3), 1);
+		HawkProcessingRecipes.addHawkProcessingRecipe(Item.eyeOfEnder.shiftedIndex, new ItemStack(BASEMOD.dustRefined, 1, 1), 1);
 		HawkProcessingRecipes.addHawkProcessingRecipe(Block.pumpkin.blockID, new ItemStack(Item.pumpkinSeeds, 4), 1);
-		HawkProcessingRecipes.addHawkProcessingRecipe(Block.pistonBase.blockID, new ItemStack(BASEMOD.dust, 1, 8), 1);
-		HawkProcessingRecipes.addHawkProcessingRecipe(Block.pistonStickyBase.blockID, new ItemStack(BASEMOD.dust, 1, 8), 1);
+		HawkProcessingRecipes.addHawkProcessingRecipe(Block.pistonBase.blockID, new ItemStack(BASEMOD.dustRefined, 1, 3), 1);
+		HawkProcessingRecipes.addHawkProcessingRecipe(Block.pistonStickyBase.blockID, new ItemStack(BASEMOD.dustRefined, 1, 3), 1);
 		HawkProcessingRecipes.addHawkProcessingRecipe(Block.pumpkinLantern.blockID, new ItemStack(Item.pumpkinSeeds, 4), 1);
 		HawkProcessingRecipes.addHawkProcessingRecipe(Block.dispenser.blockID, new ItemStack(Item.bow), 1);
 		HawkProcessingRecipes.addHawkProcessingRecipe(Block.stoneOvenIdle.blockID, new ItemStack(Block.cobblestone, 8), 1);
-		HawkProcessingRecipes.addHawkProcessingRecipe(Block.thinGlass.blockID, new ItemStack(BASEMOD.dust, 1, 4), 1);
+		HawkProcessingRecipes.addHawkProcessingRecipe(Block.thinGlass.blockID, new ItemStack(BASEMOD.dustRefined, 1, 2), 1);
 		HawkProcessingRecipes.addHawkProcessingRecipe(Block.glowStone.blockID, new ItemStack(Item.lightStoneDust, 4), 1);
 		HawkProcessingRecipes.addHawkProcessingRecipe(Block.redstoneLampIdle.blockID, new ItemStack(Item.lightStoneDust, 4), 1);
 		HawkProcessingRecipes.addHawkProcessingRecipe(Block.enchantmentTable.blockID, new ItemStack(Item.diamond, 2), 1);
 		HawkProcessingRecipes.addHawkProcessingRecipe(Item.brewingStand.shiftedIndex, new ItemStack(Item.blazeRod, 1), 1);
 		HawkProcessingRecipes.addHawkProcessingRecipe(Block.sandStone.blockID, new ItemStack(Block.sand, 4), 1);
-		HawkProcessingRecipes.addHawkProcessingRecipe(Block.obsidian.blockID, new ItemStack(BASEMOD.dust, 1, 12), 1);
-		HawkProcessingRecipes.addHawkProcessingRecipe(Item.glassBottle.shiftedIndex, new ItemStack(BASEMOD.dust, 4, 4), 1);
-		HawkProcessingRecipes.addHawkProcessingRecipe(Block.thinGlass.blockID, new ItemStack(BASEMOD.dust, 1, 4), 1);
+		HawkProcessingRecipes.addHawkProcessingRecipe(Block.obsidian.blockID, new ItemStack(BASEMOD.dustRaw, 1, 5), 1);
+		HawkProcessingRecipes.addHawkProcessingRecipe(Item.glassBottle.shiftedIndex, new ItemStack(BASEMOD.dustRefined, 4, 2), 1);
+		HawkProcessingRecipes.addHawkProcessingRecipe(Block.thinGlass.blockID, new ItemStack(BASEMOD.dustRefined, 1, 2), 1);
 
-		HawkProcessingRecipes.addHawkProcessingRecipe(Item.helmetSteel.shiftedIndex, new ItemStack(BASEMOD.dust, 5, 8), 1);
-		HawkProcessingRecipes.addHawkProcessingRecipe(Item.plateSteel.shiftedIndex, new ItemStack(BASEMOD.dust, 8, 8), 1);
-		HawkProcessingRecipes.addHawkProcessingRecipe(Item.legsSteel.shiftedIndex, new ItemStack(BASEMOD.dust, 7, 8), 1);
-		HawkProcessingRecipes.addHawkProcessingRecipe(Item.bootsSteel.shiftedIndex, new ItemStack(BASEMOD.dust, 4, 8), 1);
-		HawkProcessingRecipes.addHawkProcessingRecipe(Item.helmetGold.shiftedIndex, new ItemStack(BASEMOD.dust, 5, 9), 1);
-		HawkProcessingRecipes.addHawkProcessingRecipe(Item.plateGold.shiftedIndex, new ItemStack(BASEMOD.dust, 8, 9), 1);
-		HawkProcessingRecipes.addHawkProcessingRecipe(Item.legsGold.shiftedIndex, new ItemStack(BASEMOD.dust, 7, 9), 1);
-		HawkProcessingRecipes.addHawkProcessingRecipe(Item.bootsGold.shiftedIndex, new ItemStack(BASEMOD.dust, 4, 9), 1);
+		HawkProcessingRecipes.addHawkProcessingRecipe(Item.helmetSteel.shiftedIndex, new ItemStack(BASEMOD.dustRefined, 5, 3), 1);
+		HawkProcessingRecipes.addHawkProcessingRecipe(Item.plateSteel.shiftedIndex, new ItemStack(BASEMOD.dustRefined, 8, 3), 1);
+		HawkProcessingRecipes.addHawkProcessingRecipe(Item.legsSteel.shiftedIndex, new ItemStack(BASEMOD.dustRefined, 7, 3), 1);
+		HawkProcessingRecipes.addHawkProcessingRecipe(Item.bootsSteel.shiftedIndex, new ItemStack(BASEMOD.dustRefined, 4, 3), 1);
+		HawkProcessingRecipes.addHawkProcessingRecipe(Item.helmetGold.shiftedIndex, new ItemStack(BASEMOD.dustRefined, 5, 4), 1);
+		HawkProcessingRecipes.addHawkProcessingRecipe(Item.plateGold.shiftedIndex, new ItemStack(BASEMOD.dustRefined, 8, 4), 1);
+		HawkProcessingRecipes.addHawkProcessingRecipe(Item.legsGold.shiftedIndex, new ItemStack(BASEMOD.dustRefined, 7, 4), 1);
+		HawkProcessingRecipes.addHawkProcessingRecipe(Item.bootsGold.shiftedIndex, new ItemStack(BASEMOD.dustRefined, 4, 4), 1);
 		
-		HawkProcessingRecipes.addHawkProcessingRecipe(Item.swordSteel.shiftedIndex, new ItemStack(BASEMOD.dust, 2, 8), 1);
-		HawkProcessingRecipes.addHawkProcessingRecipe(Item.pickaxeSteel.shiftedIndex, new ItemStack(BASEMOD.dust, 3, 8), 1);
-		HawkProcessingRecipes.addHawkProcessingRecipe(Item.shovelSteel.shiftedIndex, new ItemStack(BASEMOD.dust, 1, 8), 1);
-		HawkProcessingRecipes.addHawkProcessingRecipe(Item.axeSteel.shiftedIndex, new ItemStack(BASEMOD.dust, 3, 8), 1);
-		HawkProcessingRecipes.addHawkProcessingRecipe(Item.hoeSteel.shiftedIndex, new ItemStack(BASEMOD.dust, 2, 8), 1);
-		HawkProcessingRecipes.addHawkProcessingRecipe(Item.swordGold.shiftedIndex, new ItemStack(BASEMOD.dust, 2, 9), 1);
-		HawkProcessingRecipes.addHawkProcessingRecipe(Item.pickaxeGold.shiftedIndex, new ItemStack(BASEMOD.dust, 3, 9), 1);
-		HawkProcessingRecipes.addHawkProcessingRecipe(Item.shovelGold.shiftedIndex, new ItemStack(BASEMOD.dust, 1, 9), 1);
-		HawkProcessingRecipes.addHawkProcessingRecipe(Item.axeGold.shiftedIndex, new ItemStack(BASEMOD.dust, 3, 9), 1);
-		HawkProcessingRecipes.addHawkProcessingRecipe(Item.hoeGold.shiftedIndex, new ItemStack(BASEMOD.dust, 2, 9), 1);
-		HawkProcessingRecipes.addHawkProcessingRecipe(Item.shears.shiftedIndex, new ItemStack(BASEMOD.dust, 2, 8), 1);
+		HawkProcessingRecipes.addHawkProcessingRecipe(Item.swordSteel.shiftedIndex, new ItemStack(BASEMOD.dustRefined, 2, 3), 1);
+		HawkProcessingRecipes.addHawkProcessingRecipe(Item.pickaxeSteel.shiftedIndex, new ItemStack(BASEMOD.dustRefined, 3, 3), 1);
+		HawkProcessingRecipes.addHawkProcessingRecipe(Item.shovelSteel.shiftedIndex, new ItemStack(BASEMOD.dustRefined, 1, 3), 1);
+		HawkProcessingRecipes.addHawkProcessingRecipe(Item.axeSteel.shiftedIndex, new ItemStack(BASEMOD.dustRefined, 3, 3), 1);
+		HawkProcessingRecipes.addHawkProcessingRecipe(Item.hoeSteel.shiftedIndex, new ItemStack(BASEMOD.dustRefined, 2, 3), 1);
+		HawkProcessingRecipes.addHawkProcessingRecipe(Item.swordGold.shiftedIndex, new ItemStack(BASEMOD.dustRefined, 2, 4), 1);
+		HawkProcessingRecipes.addHawkProcessingRecipe(Item.pickaxeGold.shiftedIndex, new ItemStack(BASEMOD.dustRefined, 3, 4), 1);
+		HawkProcessingRecipes.addHawkProcessingRecipe(Item.shovelGold.shiftedIndex, new ItemStack(BASEMOD.dustRefined, 1, 4), 1);
+		HawkProcessingRecipes.addHawkProcessingRecipe(Item.axeGold.shiftedIndex, new ItemStack(BASEMOD.dustRefined, 3, 4), 1);
+		HawkProcessingRecipes.addHawkProcessingRecipe(Item.hoeGold.shiftedIndex, new ItemStack(BASEMOD.dustRefined, 2, 4), 1);
+		HawkProcessingRecipes.addHawkProcessingRecipe(Item.shears.shiftedIndex, new ItemStack(BASEMOD.dustRefined, 2, 4), 1);
 		
-		HawkProcessingRecipes.addHawkProcessingRecipe(Item.minecartEmpty.shiftedIndex, new ItemStack(BASEMOD.dust, 5, 8), 1);
-		HawkProcessingRecipes.addHawkProcessingRecipe(Item.minecartPowered.shiftedIndex, new ItemStack(BASEMOD.dust, 2, 8), 1);
-		HawkProcessingRecipes.addHawkProcessingRecipe(Item.minecartCrate.shiftedIndex, new ItemStack(BASEMOD.dust, 2, 8), 1);
-		HawkProcessingRecipes.addHawkProcessingRecipe(Item.doorSteel.shiftedIndex, new ItemStack(BASEMOD.dust, 6, 8), 1);
-		HawkProcessingRecipes.addHawkProcessingRecipe(Item.bucketEmpty.shiftedIndex, new ItemStack(BASEMOD.dust, 3, 8), 1);
-		HawkProcessingRecipes.addHawkProcessingRecipe(Item.compass.shiftedIndex, new ItemStack(BASEMOD.dust, 4, 8), 1);
-		HawkProcessingRecipes.addHawkProcessingRecipe(Item.pocketSundial.shiftedIndex, new ItemStack(BASEMOD.dust, 4, 9), 1);
-		HawkProcessingRecipes.addHawkProcessingRecipe(Item.cauldron.shiftedIndex, new ItemStack(BASEMOD.dust, 7, 8), 1);
+		HawkProcessingRecipes.addHawkProcessingRecipe(Item.minecartEmpty.shiftedIndex, new ItemStack(BASEMOD.dustRefined, 5, 3), 1);
+		HawkProcessingRecipes.addHawkProcessingRecipe(Item.minecartPowered.shiftedIndex, new ItemStack(BASEMOD.dustRefined, 5, 3), 1);
+		HawkProcessingRecipes.addHawkProcessingRecipe(Item.minecartCrate.shiftedIndex, new ItemStack(BASEMOD.dustRefined, 5, 3), 1);
+		HawkProcessingRecipes.addHawkProcessingRecipe(Item.doorSteel.shiftedIndex, new ItemStack(BASEMOD.dustRefined, 6, 3), 1);
+		HawkProcessingRecipes.addHawkProcessingRecipe(Item.bucketEmpty.shiftedIndex, new ItemStack(BASEMOD.dustRefined, 3, 3), 1);
+		HawkProcessingRecipes.addHawkProcessingRecipe(Item.compass.shiftedIndex, new ItemStack(BASEMOD.dustRefined, 4, 3), 1);
+		HawkProcessingRecipes.addHawkProcessingRecipe(Item.pocketSundial.shiftedIndex, new ItemStack(BASEMOD.dustRefined, 4, 4), 1);
+		HawkProcessingRecipes.addHawkProcessingRecipe(Item.cauldron.shiftedIndex, new ItemStack(BASEMOD.dustRefined, 7, 3), 1);
 		HawkProcessingRecipes.addHawkProcessingRecipe(Block.plantRed.blockID, new ItemStack(Item.dyePowder, 2, 1), 1);
 		HawkProcessingRecipes.addHawkProcessingRecipe(Block.plantYellow.blockID, new ItemStack(Item.dyePowder, 2, 11), 1);
-		HawkProcessingRecipes.addHawkProcessingRecipe(Item.flintAndSteel.shiftedIndex, new ItemStack(BASEMOD.dust, 1, 8), 1);
+		HawkProcessingRecipes.addHawkProcessingRecipe(Item.flintAndSteel.shiftedIndex, new ItemStack(BASEMOD.dustRefined, 1, 3), 1);
 		
 		
-		HawkProcessingRecipes.addHawkMetaProcessingRecipe(Item.coal.shiftedIndex, 0, new ItemStack(BASEMOD.dust, 1, 0), 1);
-		HawkProcessingRecipes.addHawkMetaProcessingRecipe(Item.coal.shiftedIndex, 1, new ItemStack(BASEMOD.dust, 1, 0), 1);
-		HawkProcessingRecipes.addHawkMetaProcessingRecipe(UEOreManager.getOre(BasicComponents.CopperOreID).blockID, UEOreManager.getOreMetadata(BasicComponents.CopperOreID), new ItemStack(BASEMOD.dust, 2, 6), 1);
-		HawkProcessingRecipes.addHawkMetaProcessingRecipe(UEOreManager.getOre(BasicComponents.TinOreID).blockID, UEOreManager.getOreMetadata(BasicComponents.TinOreID), new ItemStack(BASEMOD.dust, 2, 7), 1);
+		HawkProcessingRecipes.addHawkMetaProcessingRecipe(Item.coal.shiftedIndex, 0, new ItemStack(BASEMOD.dustRaw, 1, 0), 1);
+		HawkProcessingRecipes.addHawkMetaProcessingRecipe(Item.coal.shiftedIndex, 1, new ItemStack(BASEMOD.dustRaw, 1, 0), 1);
+		HawkProcessingRecipes.addHawkMetaProcessingRecipe(UEOreManager.getOre(BasicComponents.CopperOreID).blockID, UEOreManager.getOreMetadata(BasicComponents.CopperOreID), new ItemStack(BASEMOD.dustRaw, 2, 3), 1);
+		HawkProcessingRecipes.addHawkMetaProcessingRecipe(UEOreManager.getOre(BasicComponents.TinOreID).blockID, UEOreManager.getOreMetadata(BasicComponents.TinOreID), new ItemStack(BASEMOD.dustRaw, 2, 4), 1);
 		HawkProcessingRecipes.addHawkMetaProcessingRecipe(Block.stoneBrick.blockID, 0, new ItemStack(Block.cobblestone), 1);
 		HawkProcessingRecipes.addHawkMetaProcessingRecipe(Block.stoneBrick.blockID, 1, new ItemStack(Block.cobblestone), 1);
 		HawkProcessingRecipes.addHawkMetaProcessingRecipe(Block.stoneBrick.blockID, 2, new ItemStack(Block.cobblestoneMossy), 1);

@@ -8,8 +8,10 @@ import net.minecraft.src.World;
 import net.minecraft.src.forge.ITextureProvider;
 
 /**
+ * 
+ * 
+ * 
  * @author Elusivehawk
- *
  */
 public class HawkItemBlockMachine extends ItemBlock implements ITextureProvider
 {

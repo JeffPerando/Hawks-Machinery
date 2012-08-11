@@ -6,11 +6,15 @@ import net.minecraft.src.basiccomponents.BasicComponents;
 import net.minecraft.src.forge.*;
 import net.minecraft.src.universalelectricity.UniversalElectricity;
 import net.minecraft.src.universalelectricity.network.PacketManager;
+import net.minecraft.src.universalelectricity.ore.OreData;
+import net.minecraft.src.universalelectricity.ore.UEOreManager;
 import net.minecraft.src.universalelectricity.recipe.*;
 
 /**
+ * 
+ * 
+ * 
  * @author Elusivehawk
- *
  */
 public class mod_HawksMachinery extends NetworkMod implements IGuiHandler, IRecipeReplacementHandler
 {
@@ -19,16 +23,22 @@ public class mod_HawksMachinery extends NetworkMod implements IGuiHandler, IReci
 	 */
 	public static Block blockGrinder = new HawkBlockGrinder(HawkManager.initProps(), Material.iron);
 	public static Block blockEmptyMachine = new HawkBlockMachine(HawkManager.machineBlockID, Material.iron);
+	public static Block blockOre = new HawkBlockOre(HawkManager.oreID);
 	
 	/**
-	 * Dusts in metadata form, finally! From 0 to 13: Coal, Diamond, Unref Gold, Ender, Glass, Unref Iron, Unref Copper, Unref Tin, Iron, Gold, Copper, Tin, Obsidian, Emerald.
+	 * Raw dusts! 0 - Coal, 1 - Iron, 2 - Gold, 3 - Copper, 4 - Tin, 5 - Obsidian.
 	 */
-	public static Item dust = (new HawkItemDust(HawkManager.dustID));
+	public static Item dustRaw = new HawkItemRawDust(HawkManager.dustRawID);
 	
-
+	/**
+	 * Refined dusts! 0 - Diamond, 1 - Ender, 2 - Glass, 3 - Iron, 4 - Gold, 5 - Copper, 6 - Tin, 7 - Emerald. 
+	 */
+	public static Item dustRefined = new HawkItemRefinedDust(HawkManager.dustRefinedID);
+	
+	
 	public static final PacketManager packetManager = new PacketManager("mod_HawksMachinery"); 
 	public static mod_HawksMachinery instance;
-
+	
 	@Override
 	public void load()
 	{
@@ -50,7 +60,7 @@ public class mod_HawksMachinery extends NetworkMod implements IGuiHandler, IReci
 	@Override
 	public String getVersion()
 	{
-		return "Alpha v1.1c";
+		return "Alpha v1.1d";
 	}
 	
 	public String getName()
@@ -118,7 +128,7 @@ public class mod_HawksMachinery extends NetworkMod implements IGuiHandler, IReci
 	@Override
     public int addFuel(int id, int metadata)
     {
-		if (id == HawkManager.dustID && metadata == 0)
+		if (id == HawkManager.dustRawID && metadata == 0)
 		{
 			return 1600;
 		}
@@ -189,7 +199,7 @@ public class mod_HawksMachinery extends NetworkMod implements IGuiHandler, IReci
 	@Override
 	public String getPriorities()
 	{
-		return "after:mod_UniversalElectricity;after:mod_BasicComponents";
+		return "require-after:mod_UnversalElectricity;require-after:mod_BasicComponents";
 	}
 	
 }
