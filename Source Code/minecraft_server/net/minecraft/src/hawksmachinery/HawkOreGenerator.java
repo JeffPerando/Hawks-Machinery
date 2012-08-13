@@ -52,9 +52,16 @@ public class HawkOreGenerator implements IWorldGenerator
 			float temp = biomeGenCheck.temperature;
 			int randAmount = random.nextInt(8);
 			
-			if (randAmount > 0 && randPosY >= 6 && (temp <= 40.0F))
+			if (temp <= 40.0F)
 			{
-				(new WorldGenMinable(BASEMOD.blockOre.blockID, 0, randAmount)).generate(world, random, randPosX, randPosY, randPosZ);
+				if (randAmount > 0 && randPosY >= 6)
+				{
+					(new WorldGenMinable(BASEMOD.blockOre.blockID, 0, randAmount)).generate(world, random, randPosX, randPosY, randPosZ);
+				}
+			}
+			else
+			{
+				break;
 			}
 			
 			if (counter == 32)
@@ -71,9 +78,16 @@ public class HawkOreGenerator implements IWorldGenerator
 			BiomeGenBase biomeGenCheck = world.getBiomeGenForCoords(randPosX, randPosZ);
 			int randAmount = random.nextInt(8);
 			
-			if (randAmount > 0 && randPosY >= 6 && (biomeGenCheck == BiomeGenBase.desert || biomeGenCheck == BiomeGenBase.desertHills))
+			if (biomeGenCheck == BiomeGenBase.desert || biomeGenCheck == BiomeGenBase.desertHills)
 			{
-				(new WorldGenMinable(BASEMOD.blockOre.blockID, 1, randAmount)).generate(world, random, randPosX, randPosY, randPosZ);
+				if (randAmount > 0 && randPosY >= 6)
+				{
+					(new WorldGenMinable(BASEMOD.blockOre.blockID, 1, randAmount)).generate(world, random, randPosX, randPosY, randPosZ);
+				}
+			}
+			else
+			{
+				break;
 			}
 			
 			if (counter == 32)
@@ -90,9 +104,16 @@ public class HawkOreGenerator implements IWorldGenerator
 			BiomeGenBase biomeGenCheck = world.getBiomeGenForCoords(randPosX, randPosZ);
 			int randAmount = random.nextInt(8);
 			
-			if (randAmount > 0 && randPosY >= 6 && (biomeGenCheck == BiomeGenBase.jungle || biomeGenCheck == BiomeGenBase.jungleHills))
+			if (biomeGenCheck == BiomeGenBase.jungle || biomeGenCheck == BiomeGenBase.jungleHills)
 			{
-				(new WorldGenMinable(BASEMOD.blockOre.blockID, 2, randAmount)).generate(world, random, randPosX, randPosY, randPosZ);
+				if (randAmount > 0 && randPosY >= 6)
+				{
+					(new WorldGenMinable(BASEMOD.blockOre.blockID, 2, randAmount)).generate(world, random, randPosX, randPosY, randPosZ);
+				}
+			}
+			else
+			{
+				break;
 			}
 			
 			if (counter == 38)

@@ -29,11 +29,14 @@ public class HawkItemRefinedDust extends Item implements ITextureProvider
 			case 0: return 10;
 			case 1: return 11;
 			case 2: return 12;
-			case 3: return 2;
+			case 3: return 25;
 			case 4: return 26;
 			case 5: return 28;
 			case 6: return 27;
-			case 7: return 19;
+			case 7: return 4;
+			case 8: return 6;
+			case 9: return 7;
+			case 10: return 2;
 			default: return 0;
 		}
 	}
@@ -41,16 +44,19 @@ public class HawkItemRefinedDust extends Item implements ITextureProvider
 	@Override
     public String getItemDisplayName(ItemStack item)
     {
-    	switch (MathHelper.clamp_int(item.getItemDamage(), 0, 13))
+    	switch (item.getItemDamage())
     	{
-    		case 0: return "Diamond Dust";
-    		case 1: return "Ender Dust";
-    		case 2: return "Glass Dust";
-    		case 3: return "Iron Dust";
-    		case 4: return "Gold Dust";
-    		case 5: return "Copper Dust";
-    		case 6: return "Tin Dust";
-    		case 7: return "Emerald Dust";
+			case 0: return "Diamond Dust";
+			case 1: return "Ender Dust";
+			case 2: return "Glass Dust";
+			case 3: return "Iron Dust";
+			case 4: return "Gold Dust";
+			case 5: return "Copper Dust";
+			case 6: return "Tin Dust";
+			case 7: return "Titanium Dust";
+			case 8: return "Aluminum Dust";
+			case 9: return "Silver Dust";
+			case 10: return "Emerald Dust";
     		default: return "Look Jay, 0% body fat!";
 		}
     }
@@ -58,7 +64,7 @@ public class HawkItemRefinedDust extends Item implements ITextureProvider
     @Override
     public void addCreativeItems(ArrayList itemList)
     {       
-        for (int counter = 0; counter <= 13; ++counter)
+        for (int counter = 0; counter <= 10; ++counter)
         {
             itemList.add(new ItemStack(this, 1, counter));
         }
@@ -84,8 +90,8 @@ public class HawkItemRefinedDust extends Item implements ITextureProvider
 			default: effect = 4; break;
 		}
 		
-		((EntityLiving)entity).addPotionEffect(new PotionEffect(Potion.blindness.getId(), effect, 1));
-		((EntityLiving)entity).addPotionEffect(new PotionEffect(Potion.poison.getId(), effect, 1));
+		((EntityLiving)entity).addPotionEffect(new PotionEffect(Potion.blindness.getId(), effect, 25));
+		((EntityLiving)entity).addPotionEffect(new PotionEffect(Potion.poison.getId(), effect, 25));
 		
 		if (!player.capabilities.isCreativeMode)
 		{

@@ -17,11 +17,10 @@ public class HawkBlockGrinder extends BlockMachine implements ITextureProvider
 	public HawkBlockGrinder(int id, Material material)
     {
         super("Grinder", id, material);
-        this.setBlockName("Grinder");
-        this.setHardness(2.0F);
-        this.setResistance(20.0F);
+        setHardness(2.0F);
+        setResistance(20.0F);
         ModLoader.registerBlock(this, HawkItemBlockGrinder.class);
-    	this.setRequiresSelfNotify();
+    	setRequiresSelfNotify();
     }
 	
 	@Override

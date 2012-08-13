@@ -24,7 +24,7 @@ public class HawkItemRefinedDust extends Item implements ITextureProvider
 	@Override
 	public void addCreativeItems(ArrayList itemList)
 	{
-		for (int counter = 0; counter <= 7; ++counter)
+		for (int counter = 0; counter <= 10; ++counter)
 		{
 			itemList.add(new ItemStack(this, 1, counter));
 		}

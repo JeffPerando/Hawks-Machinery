@@ -3,7 +3,6 @@ package net.minecraft.src.hawksmachinery;
 
 import java.util.ArrayList;
 import java.util.Random;
-
 import net.minecraft.src.*;
 import net.minecraft.src.forge.ITextureProvider;
 
@@ -29,11 +28,14 @@ public class HawkItemRawDust extends Item implements ITextureProvider
 		switch (dmg)
 		{
 			case 0: return 1;
-			case 1: return 18;
+			case 1: return 41;
 			case 2: return 42;
 			case 3: return 44;
 			case 4: return 43;
-			case 5: return 3;
+			case 5: return 20;
+			case 6: return 22;
+			case 7: return 23;
+			case 8: return 3;
 			default: return 0;
 		}
 	}
@@ -41,14 +43,17 @@ public class HawkItemRawDust extends Item implements ITextureProvider
 	@Override
 	public String getItemDisplayName(ItemStack item)
 	{
-    	switch (MathHelper.clamp_int(item.getItemDamage(), 0, 13))
+    	switch (item.getItemDamage())
     	{
 			case 0: return "Coal Dust";
 			case 1: return "Unrefined Iron Dust";
 			case 2: return "Unrefined Gold Dust";
 			case 3: return "Unrefined Copper Dust";
 			case 4: return "Unrefined Tin Dust";
-			case 5: return "Obsidian Dust";
+			case 5: return "Unrefined Titanium Dust";
+			case 6: return "Unrefined Aluminum Dust";
+			case 7: return "Unrefined Silver Dust";
+			case 8: return "Obsidian Dust";
 			default: return "Look Jay, 0% body fat!";
 		}
     }
@@ -56,7 +61,7 @@ public class HawkItemRawDust extends Item implements ITextureProvider
     @Override
 	public void addCreativeItems(ArrayList itemList)
 	{       
-		for (int counter = 0; counter <= 6; ++counter)
+		for (int counter = 0; counter <= 8; ++counter)
 		{
 			itemList.add(new ItemStack(this, 1, counter));
 		}

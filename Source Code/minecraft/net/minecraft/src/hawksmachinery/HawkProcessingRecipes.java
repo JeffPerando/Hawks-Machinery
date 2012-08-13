@@ -113,11 +113,9 @@ public class HawkProcessingRecipes
 	
 	public static ItemStack getGrindingExplosive(ItemStack item)
 	{
-		System.out.println("Testing explosive...");
 		
         if (item == null)
         {
-        	System.out.println("POO!");
             return null;
         }
         else

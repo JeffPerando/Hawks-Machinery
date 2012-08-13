@@ -29,10 +29,11 @@ public class HawkItemBlockOre extends ItemBlock implements ITextureProvider
 		{
 			case 0: return "Titanium Ore";
 			case 1: return "Bauxium Ore";
-			case 2: return "Nickel Ore";
-			case 6: return "Nether Titanium Ore";
-			case 7: return "Nether Bauxium Ore";
-			case 8: return "Nether Nickel Ore";
+			case 2: return "Silver Ore";
+			case 5: return "Nether Titanium Ore";
+			case 6: return "Nether Bauxium Ore";
+			case 7: return "Nether Silver Ore";
+			case 10: return "Dragonite Ore";
 			default: return "Buggy coding!";
 		}
 	}

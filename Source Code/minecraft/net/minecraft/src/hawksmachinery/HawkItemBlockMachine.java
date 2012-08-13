@@ -13,7 +13,7 @@ import net.minecraft.src.forge.ITextureProvider;
  * 
  * @author Elusivehawk
  */
-public class HawkItemBlockMachine extends ItemBlock implements ITextureProvider
+public class HawkItemBlockMachine extends ItemBlock
 {
 	public static mod_HawksMachinery BASEMOD;
 	
@@ -50,12 +50,6 @@ public class HawkItemBlockMachine extends ItemBlock implements ITextureProvider
 	public int getMetadata(int meta)
 	{
 		return meta;
-	}
-	
-	@Override
-	public String getTextureFile()
-	{
-		return HawkManager.BLOCK_TEXTURE_FILE;
 	}
 	
 	@Override

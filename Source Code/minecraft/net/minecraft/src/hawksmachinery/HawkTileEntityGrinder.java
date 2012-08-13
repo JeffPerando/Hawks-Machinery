@@ -158,13 +158,12 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
                 
                 if (var1 == null) return false;
                 if (this.containingItems[2] == null) return true;
-                if (!this.containingItems[2].isItemEqual(var1)) return false; System.out.println("canExplode(): false");
+                if (!this.containingItems[2].isItemEqual(var1)) return false;
                 int result = containingItems[2].stackSize + var1.stackSize;
                 return (result <= getInventoryStackLimit() && result <= var1.getMaxStackSize());
         	}
         	else
         	{
-        		System.out.println("NOOOOOOOO!!");
         		return false;
         	}
         }

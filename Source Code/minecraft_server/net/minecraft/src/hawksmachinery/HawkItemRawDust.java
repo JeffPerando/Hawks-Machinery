@@ -21,19 +21,19 @@ public class HawkItemRawDust extends Item implements ITextureProvider
 	    ModLoader.addName(this, "Raw Dust");
 	}
 	
-    @Override
-    public void addCreativeItems(ArrayList itemList)
-    {       
-        for (int counter = 0; counter <= 5; ++counter)
-        {
-            itemList.add(new ItemStack(this, 1, counter));
-        }
-    }
-    
-    public String getTextureFile()
-    {
+	@Override
+	public void addCreativeItems(ArrayList itemList)
+	{       
+		for (int counter = 0; counter <= 8; ++counter)
+		{
+			itemList.add(new ItemStack(this, 1, counter));
+		}
+	}
+	
+	public String getTextureFile()
+	{
 		return HawkManager.ITEM_TEXTURE_FILE;
-    }
+	}
     
 	@Override
 	public boolean onLeftClickEntity(ItemStack item, EntityPlayer player, Entity entity)

@@ -16,7 +16,7 @@ import net.minecraft.src.universalelectricity.recipe.*;
  * 
  * @author Elusivehawk
  */
-public class mod_HawksMachinery extends NetworkMod implements IGuiHandler, IRecipeReplacementHandler
+public class mod_HawksMachinery extends NetworkMod implements IRecipeReplacementHandler
 {
 	/**
 	 * Note: DO NOT MOVE THIS! I'm serious, I don't want to see any refactor job move this, due to the fact that doing so is A VERY BAD IDEA!
@@ -24,6 +24,7 @@ public class mod_HawksMachinery extends NetworkMod implements IGuiHandler, IReci
 	public static Block blockGrinder = new HawkBlockGrinder(HawkManager.initProps(), Material.iron);
 	public static Block blockEmptyMachine = new HawkBlockMachine(HawkManager.machineBlockID, Material.iron);
 	public static Block blockOre = new HawkBlockOre(HawkManager.oreID);
+	public static Block blockMetalStorage = new HawkBlockMetalStorage(HawkManager.metalStorageID);
 	
 	/**
 	 * Raw dusts! 0 - Coal, 1 - Iron, 2 - Gold, 3 - Copper, 4 - Tin, 5 - Obsidian.
@@ -34,7 +35,7 @@ public class mod_HawksMachinery extends NetworkMod implements IGuiHandler, IReci
 	 * Refined dusts! 0 - Diamond, 1 - Ender, 2 - Glass, 3 - Iron, 4 - Gold, 5 - Copper, 6 - Tin, 7 - Emerald. 
 	 */
 	public static Item dustRefined = new HawkItemRefinedDust(HawkManager.dustRefinedID);
-	
+	public static Item ingots = new HawkItemIngots(HawkManager.ingotsID);
 	
 	public static final PacketManager packetManager = new PacketManager("mod_HawksMachinery"); 
 	public static mod_HawksMachinery instance;
@@ -45,9 +46,9 @@ public class mod_HawksMachinery extends NetworkMod implements IGuiHandler, IReci
 		instance = this;
 		UniversalElectricity.registerAddon(this, "0.4.6");
 		HawkManager.loadRecipes();
-		preloadHawksTextures();
+		
 		ModLoader.registerTileEntity(HawkTileEntityGrinder.class, "Grinder");
-		MinecraftForge.setGuiHandler(this, this);
+		MinecraftForge.setGuiHandler(this, new HawkManager());
 		HawkAchievements.achievementStuff();
 	}
 	
@@ -73,28 +74,6 @@ public class mod_HawksMachinery extends NetworkMod implements IGuiHandler, IReci
 		return "Server";
 	}
 	
-	@Override
-	public Object getGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)
-	{
-		TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
-		
-		if (tileEntity != null)
-        {
-			return new HawkContainerGrinder(player.inventory, ((HawkTileEntityGrinder)tileEntity));
-        }
-		return null;
-	}
-	
-	/**
-	 * The server apparently doesn't load textures.
-	 */
-	@Deprecated
-	private static void preloadHawksTextures()
-	{
-		//MinecraftForgeClient.preloadTexture(HawkManager.blockTextureFile);
-		//MinecraftForgeClient.preloadTexture(HawkManager.itemTextureFile);
-	}
-
 	@Override
     public UERecipe onReplaceShapedRecipe(UERecipe recipe)
     {

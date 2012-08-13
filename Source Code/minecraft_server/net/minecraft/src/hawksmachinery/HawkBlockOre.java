@@ -2,12 +2,14 @@
 package net.minecraft.src.hawksmachinery;
 
 import java.util.ArrayList;
-
 import net.minecraft.src.Block;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.Material;
 import net.minecraft.src.ModLoader;
+import net.minecraft.src.World;
+import net.minecraft.src.WorldGenMinable;
 import net.minecraft.src.forge.ITextureProvider;
+import net.minecraft.src.forge.MinecraftForge;
 
 /**
  * 
@@ -21,7 +23,10 @@ public class HawkBlockOre extends Block implements ITextureProvider
 	{
 		super(id, Material.rock);
 		ModLoader.registerBlock(this, HawkItemBlockOre.class);
-		ModLoader.addName(this, "Ores");
+		setHardness(1.0F);
+		setResistance(50.0F);
+		
+		MinecraftForge.setBlockHarvestLevel(this, 10, "pickaxe", 5);
 	}
 	
 	@Override
@@ -29,6 +34,13 @@ public class HawkBlockOre extends Block implements ITextureProvider
 	{
 		switch (meta)
 		{
+			case 0: return 25;
+			case 1: return 26;
+			case 2: return 27;
+			case 5: return 41;
+			case 6: return 42;
+			case 7: return 43;
+			case 10: return 30;
 			default: return 0;
 		}
 	}
@@ -36,10 +48,14 @@ public class HawkBlockOre extends Block implements ITextureProvider
 	@Override
 	public void addCreativeItems(ArrayList itemList)
 	{
-		for (int counter = 0; counter < 7; ++counter)
-		{
-			itemList.add(new ItemStack(this, 1, counter));
-		}
+		itemList.add(new ItemStack(this, 1, 0));
+		itemList.add(new ItemStack(this, 1, 1));
+		itemList.add(new ItemStack(this, 1, 2));
+		itemList.add(new ItemStack(this, 1, 5));
+		itemList.add(new ItemStack(this, 1, 6));
+		itemList.add(new ItemStack(this, 1, 7));
+		itemList.add(new ItemStack(this, 1, 10));
+
 	}
 	
 	@Override
@@ -47,5 +63,5 @@ public class HawkBlockOre extends Block implements ITextureProvider
 	{
 		return HawkManager.BLOCK_TEXTURE_FILE;
 	}
-
+	
 }
