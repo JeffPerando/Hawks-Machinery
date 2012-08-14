@@ -1,20 +1,19 @@
-/**
- * 
- */
-package net.minecraft.src.hawksmachinery;
 
+package hawksmachinery;
+
+import org.lwjgl.opengl.GL11;
+
+import universalelectricity.UniversalElectricity;
 import net.minecraft.src.GuiContainer;
 import net.minecraft.src.InventoryPlayer;
 import net.minecraft.src.StatCollector;
 import net.minecraft.src.World;
-import net.minecraft.src.basiccomponents.BasicComponents;
-import net.minecraft.src.universalelectricity.UniversalElectricity;
-
-import org.lwjgl.opengl.GL11;
 
 /**
+ * 
+ * 
+ * 
  * @author Elusivehawk
- *
  */
 public class HawkGUIGrinder extends GuiContainer
 {
