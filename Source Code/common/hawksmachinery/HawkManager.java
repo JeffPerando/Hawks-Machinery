@@ -44,9 +44,7 @@ public class HawkManager
 	public static final String BLOCK_TEXTURE_FILE = "/hawksmachinery/textures/blocks.png";
 	public static final String ITEM_TEXTURE_FILE = "/hawksmachinery/textures/items.png";
 	
-	public static File HAWKS_FOLDER = (new File("/config/HawksMachinery"));
-	
-	public static File CONFIGURATION = (new File(HAWKS_FOLDER + "/Config.cfg"));
+	public static File CONFIGURATION = (new File("/confing/HawksMachinery/Config.cfg"));
 	
 	public static int initProps()
 	{

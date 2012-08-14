@@ -72,7 +72,7 @@ public class HawksMachinery
 	{
 		instance = this;
 		
-		UniversalElectricity.registerMod(this, getName(), getVersion());
+		UniversalElectricity.registerMod(this, getName(), "0.5.0");
 		NetworkRegistry.instance().registerGuiHandler(this, this.proxy);
 		
 		proxy.preInit();

@@ -16,7 +16,7 @@ import universalelectricity.extend.CommonProxy;
 public class HMCommonProxy extends CommonProxy
 {
 	@Override
-	public void preInit() { }
+	public void preInit() {}
 	
 	@Override
 	public void init()
@@ -29,7 +29,7 @@ public class HMCommonProxy extends CommonProxy
 	{
 		return null;
 	}
-
+	
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) 
 	{
