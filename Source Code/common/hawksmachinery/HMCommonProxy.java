@@ -1,6 +1,7 @@
 
 package hawksmachinery;
 
+import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.TileEntity;
@@ -21,7 +22,7 @@ public class HMCommonProxy extends CommonProxy
 	@Override
 	public void init()
 	{
-		ModLoader.registerTileEntity(HawkTileEntityGrinder.class, "Grinder");
+		GameRegistry.registerTileEntity(HawkTileEntityGrinder.class, "Grinder");
 	}
 	
 	@Override

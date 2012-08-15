@@ -1,6 +1,8 @@
 
 package hawksmachinery;
 
+import cpw.mods.fml.common.registry.LanguageRegistry;
+import net.minecraft.src.CreativeTabs;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.ItemBlock;
 import net.minecraft.src.ItemStack;
@@ -19,8 +21,9 @@ public class HawkItemBlockMachine extends ItemBlock
 	public HawkItemBlockMachine(int id)
     {
 	    super(id);
-	    setMaxDamage(0);
 	    setHasSubtypes(true);
+	    setMaxDamage(0);
+		LanguageRegistry.instance().addNameForObject(this, "en_US", "Machine Block");
     }
 	
 	@Override

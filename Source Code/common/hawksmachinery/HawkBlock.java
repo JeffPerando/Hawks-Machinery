@@ -2,13 +2,15 @@
 package hawksmachinery;
 
 import java.util.ArrayList;
-
+import cpw.mods.fml.common.registry.LanguageRegistry;
 import net.minecraft.src.*;
 import net.minecraftforge.*;
 
 /**
+ * 
+ * 
+ * 
  * @author Elusivehawk
- *
  */
 public class HawkBlock extends Block
 {
@@ -22,8 +24,8 @@ public class HawkBlock extends Block
 	public HawkBlock(String name, int id, Material material, int side0, int side1, int side2, int side3, int side4, int side5)
     {
 	    super(id, material);
-	    this.setBlockName(name);
-	    ModLoader.addName(this, name);
+	    setBlockName(name);
+	    LanguageRegistry.instance().addNameForObject(this, "en_US", name);
 	    ModLoader.registerBlock(this);
 	    this.side0 = side0;
 	    this.side1 = side1;

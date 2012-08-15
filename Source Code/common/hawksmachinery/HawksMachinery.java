@@ -7,7 +7,6 @@ import net.minecraft.src.Block;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.Material;
-import net.minecraft.src.ModLoader;
 import net.minecraftforge.oredict.OreDictionary;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
@@ -28,7 +27,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
  * 
  * @author Elusivehawk
  */
-@Mod(modid = "HawksMachinery", name = "Hawk's Machinery", version = "Alpha v1.2")
+@Mod(modid = "HawksMachinery", name = "Hawk's Machinery", version = "Alpha v1.2", dependencies = "after:UniversalElectricity")
 @NetworkMod(channels = { "HawksMachinery" }, clientSideRequired = true, serverSideRequired = false, packetHandler = PacketManager.class)
 public class HawksMachinery
 {
@@ -87,8 +86,6 @@ public class HawksMachinery
 		GameRegistry.registerBlock(blockEmptyMachine);
 		GameRegistry.registerBlock(blockOre);
 		GameRegistry.registerBlock(blockMetalStorage);
-		
-		ModLoader.registerTileEntity(HawkTileEntityGrinder.class, "Grinder");
 		
 		OreDictionary.registerOre("ingotTitanium", new ItemStack(ingots, 1, 0));
 		OreDictionary.registerOre("ingotAluminum", new ItemStack(ingots, 1, 1));

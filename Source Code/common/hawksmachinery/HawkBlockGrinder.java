@@ -1,6 +1,8 @@
 
 package hawksmachinery;
 
+import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.common.registry.LanguageRegistry;
 import universalelectricity.extend.BlockMachine;
 import net.minecraft.src.*;
 
@@ -14,13 +16,14 @@ import net.minecraft.src.*;
 public class HawkBlockGrinder extends BlockMachine
 {
 	public HawkBlockGrinder(int id, Material material)
-    {
-        super("Grinder", id, material);
-        setHardness(2.0F);
-        setResistance(20.0F);
-        ModLoader.registerBlock(this, HawkItemBlockGrinder.class);
-    	setRequiresSelfNotify();
-    }
+	{
+		super("Grinder", id, material);
+		setHardness(2.0F);
+		setResistance(20.0F);
+		GameRegistry.registerBlock(this, HawkItemBlockGrinder.class);
+		setRequiresSelfNotify();
+		setCreativeTab(CreativeTabs.tabMisc);
+	}
 	
 	@Override
     public void onBlockAdded(World par1World, int par2, int par3, int par4)

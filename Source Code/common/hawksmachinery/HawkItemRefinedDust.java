@@ -3,6 +3,8 @@ package hawksmachinery;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import cpw.mods.fml.common.registry.LanguageRegistry;
 import net.minecraft.src.*;
 
 /**
@@ -18,7 +20,8 @@ public class HawkItemRefinedDust extends Item
 	    super(id);
 	    this.setHasSubtypes(true);
 	    this.setMaxDamage(0);
-	    ModLoader.addName(this, "Refined Dust");
+		setTabToDisplayOn(CreativeTabs.tabMaterials);
+	    LanguageRegistry.instance().addNameForObject(this, "en_US", "Refined Dust");
 	}
 	
 	@Override

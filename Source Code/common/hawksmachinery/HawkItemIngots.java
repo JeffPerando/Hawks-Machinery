@@ -3,6 +3,8 @@ package hawksmachinery;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import cpw.mods.fml.common.registry.LanguageRegistry;
 import net.minecraft.src.CreativeTabs;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
@@ -21,6 +23,8 @@ public class HawkItemIngots extends Item
 		super(id);
 		setHasSubtypes(true);
 		setMaxDamage(0);
+		setTabToDisplayOn(CreativeTabs.tabMaterials);
+		LanguageRegistry.instance().addNameForObject(this, "en_US", "Ingots");
 		
 		OreDictionary.registerOre("ingotTitanium", new ItemStack(this, 1, 0));
 		OreDictionary.registerOre("ingotAluminum", new ItemStack(this, 1, 1));

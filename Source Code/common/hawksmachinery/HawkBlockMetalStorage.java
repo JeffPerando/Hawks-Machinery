@@ -2,8 +2,12 @@
 package hawksmachinery;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import cpw.mods.fml.common.registry.GameRegistry;
 
 import net.minecraft.src.Block;
+import net.minecraft.src.CreativeTabs;
 import net.minecraft.src.IBlockAccess;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.Material;
@@ -21,9 +25,10 @@ public class HawkBlockMetalStorage extends Block
 	public HawkBlockMetalStorage(int id)
 	{
 		super(id, Material.iron);
-		ModLoader.registerBlock(this, HawkItemBlockMetalStorage.class);
 		setHardness(1.5F);
 		setResistance(12.0F);
+		setCreativeTab(CreativeTabs.tabBlock);
+		GameRegistry.registerBlock(this, HawkItemBlockMetalStorage.class);
 	}
 	
 	@Override
@@ -40,7 +45,7 @@ public class HawkBlockMetalStorage extends Block
 	}
 	
 	@Override
-	public void addCreativeItems(ArrayList itemList)
+	public void getSubBlocks(int id, CreativeTabs tabs, List itemList)
 	{
 		for (int counter = 0; counter <= 3; ++counter)
 		{

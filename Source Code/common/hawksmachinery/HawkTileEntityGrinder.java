@@ -9,6 +9,7 @@ import universalelectricity.electricity.TileEntityElectricUnit;
 import universalelectricity.extend.IRedstoneReceptor;
 import universalelectricity.extend.IRotatable;
 import universalelectricity.network.IPacketReceiver;
+import universalelectricity.network.PacketManager;
 import net.minecraft.src.Entity;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.IInventory;
@@ -117,6 +118,8 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 	    		this.electricityStored = this.electricityCapacity;
 	    	}
 	    	
+			PacketManager.sendTileEntityPacket(this, "HawksMachinery", new double[]{this.disabledTicks, this.workTicks, this.electricityStored, this.grinderStatus});
+			
         }
 	}
     

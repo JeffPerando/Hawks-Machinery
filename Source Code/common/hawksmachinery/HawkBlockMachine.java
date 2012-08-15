@@ -2,6 +2,10 @@
 package hawksmachinery;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.common.registry.LanguageRegistry;
 import net.minecraft.src.*;
 import net.minecraftforge.*;
 
@@ -14,11 +18,11 @@ import net.minecraftforge.*;
 public class HawkBlockMachine extends Block
 {
 	public HawkBlockMachine(int id, Material mat)
-    {
-	    super(id, mat);
-	    ModLoader.addName(this, "Machine Block");
-	    ModLoader.registerBlock(this, HawkItemBlockMachine.class);
-    }
+	{
+		super(id, mat);
+		setCreativeTab(CreativeTabs.tabMaterials);
+		GameRegistry.registerBlock(this, HawkItemBlockMachine.class);
+	}
 	
 	@Override
 	public int getBlockTextureFromSideAndMetadata(int side, int meta)
@@ -37,7 +41,7 @@ public class HawkBlockMachine extends Block
 	}
 	
 	@Override
-	public void addCreativeItems(ArrayList itemList)
+	public void getSubBlocks(int id, CreativeTabs tabs, List itemList)
 	{
 		for (int counter = 0; counter <= 6; ++counter)
 		{

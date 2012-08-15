@@ -1,6 +1,8 @@
 
 package hawksmachinery;
 
+import cpw.mods.fml.common.registry.LanguageRegistry;
+import net.minecraft.src.CreativeTabs;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.ItemBlock;
 import net.minecraft.src.ItemStack;
@@ -17,14 +19,14 @@ public class HawkItemBlockGrinder extends ItemBlock
 	public static HawksMachinery BASEMOD;
 	
 	public HawkItemBlockGrinder(int id)
-    {
-	    super(id);
-    }
+	{
+		super(id);
+	}
 	
 	@Override
 	public String getItemDisplayName(ItemStack item)
 	{
-		return "Grinder";
+		return item.getItemName();
 	}
 	
 	@Override

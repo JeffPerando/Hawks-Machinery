@@ -40,6 +40,5 @@ public class HawkAchievements
 		ModLoader.addAchievementDesc(minerkiin, "Minerkiin", "In their tongue...");
 		ModLoader.addAchievementDesc(spartaMiner, "Spartan Miner", "TONIGHT, WE MINE, IN HELL!");
 		ModLoader.addAchievementDesc(compactCompact, "Compact Compact", "Am I missing an eyebrow?");
-		
 	}
 }

@@ -13,7 +13,7 @@ import net.minecraftforge.*;
 public class SlotProcessorsOutput extends Slot
 {
     private EntityPlayer thePlayer;
-    private int field_48437_f;
+    private int field_48437_b;
     
     public SlotProcessorsOutput(EntityPlayer par1EntityPlayer, IInventory par2IInventory, int par3, int par4, int par5)
     {
@@ -21,31 +21,34 @@ public class SlotProcessorsOutput extends Slot
         this.thePlayer = par1EntityPlayer;
     }
     
-
+    @Override
     public boolean isItemValid(ItemStack par1ItemStack)
     {
         return false;
     }
     
+    @Override
     public ItemStack decrStackSize(int par1)
     {
         if (this.getHasStack())
         {
-            this.field_48437_f += Math.min(par1, this.getStack().stackSize);
+            this.field_48437_b += Math.min(par1, this.getStack().stackSize);
         }
 
         return super.decrStackSize(par1);
     }
-
+    
+    @Override
     public void onPickupFromSlot(ItemStack par1ItemStack)
     {
         this.putStack(par1ItemStack);
         super.onPickupFromSlot(par1ItemStack);
     }
     
-    protected void func_48435_a(ItemStack par1ItemStack, int par2)
+    @Override
+    protected void onCrafting(ItemStack item, int i)
     {
-        this.field_48437_f += par2;
-        this.putStack(par1ItemStack);
+    	this.field_48437_b += i;
+    	item.onCrafting(this.thePlayer.worldObj, this.thePlayer, this.field_48437_b);
     }
 }

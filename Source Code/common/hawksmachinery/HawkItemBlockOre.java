@@ -1,6 +1,8 @@
 
 package hawksmachinery;
 
+import cpw.mods.fml.common.registry.LanguageRegistry;
+import net.minecraft.src.CreativeTabs;
 import net.minecraft.src.ItemBlock;
 import net.minecraft.src.ItemStack;
 
@@ -19,6 +21,7 @@ public class HawkItemBlockOre extends ItemBlock
 		super(id);
 		setHasSubtypes(true);
 		setMaxDamage(0);
+		LanguageRegistry.instance().addNameForObject(this, "en_US", "Ore");
 	}
 	
 	@Override

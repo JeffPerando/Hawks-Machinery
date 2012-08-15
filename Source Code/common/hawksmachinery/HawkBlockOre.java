@@ -2,7 +2,11 @@
 package hawksmachinery;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.src.Block;
+import net.minecraft.src.CreativeTabs;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.Material;
 import net.minecraft.src.ModLoader;
@@ -22,9 +26,11 @@ public class HawkBlockOre extends Block
 	public HawkBlockOre(int id)
 	{
 		super(id, Material.rock);
-		ModLoader.registerBlock(this, HawkItemBlockOre.class);
+		setBlockName("Ore");
 		setHardness(1.0F);
-		setResistance(50.0F);
+		setResistance(5.0F);
+		GameRegistry.registerBlock(this, HawkItemBlockOre.class);
+		setCreativeTab(CreativeTabs.tabBlock);
 		
 		MinecraftForge.setBlockHarvestLevel(this, 10, "pickaxe", 5);
 		
@@ -50,7 +56,7 @@ public class HawkBlockOre extends Block
 	}
 	
 	@Override
-	public void addCreativeItems(ArrayList itemList)
+	public void getSubBlocks(int id, CreativeTabs tabs, List itemList)
 	{
 		itemList.add(new ItemStack(this, 1, 0));
 		itemList.add(new ItemStack(this, 1, 1));
