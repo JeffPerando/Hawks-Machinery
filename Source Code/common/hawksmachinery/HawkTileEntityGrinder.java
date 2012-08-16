@@ -19,15 +19,15 @@ import net.minecraft.src.NBTTagList;
 import net.minecraft.src.NetworkManager;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
+import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.common.ISidedInventory;
-import net.minecraftforge.common.Orientation;
 import universalelectricity.extend.IItemElectric;
 
-
 /**
+ * 
  * A tile entity that grinds stuff
+ * 
  * @author Elusivehawk
- *
  */
 public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRedstoneReceptor, IInventory, ISidedInventory, IRotatable, IPacketReceiver
 {
@@ -55,7 +55,7 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
     }
     
     @Override
-	public void onUpdate(float watts, float voltage, byte side)
+	public void onUpdate(float watts, float voltage, ForgeDirection side)
     {
 		super.onUpdate(watts, voltage, side);
     			
@@ -230,15 +230,16 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 			}
 		}
 	}
-
+	
 	@Override
-	public boolean canReceiveFromSide(byte side)
+	public boolean canReceiveFromSide(ForgeDirection side)
 	{
-		if (side == this.getBlockMetadata())
+		if (side == ForgeDirection.UP)
 		{
 			return false;
 		}
-		else if (side == 1)
+		
+		if (side == ForgeDirection.getOrientation(this.getBlockMetadata()))
 		{
 			return false;
 		}
@@ -247,13 +248,13 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 	}
 	
 	@Override
-    public int getStartInventorySide(Orientation side)
+    public int getStartInventorySide(ForgeDirection side)
     {
-		if (side == Orientation.UP)
+		if (side == ForgeDirection.UP)
         {
         	return 1;
         }
-        if (side == Orientation.DOWN)
+        if (side == ForgeDirection.DOWN)
         {
         	return 0;
         }
@@ -261,7 +262,7 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
     }
 
 	@Override
-	public int getSizeInventorySide(Orientation side)
+	public int getSizeInventorySide(ForgeDirection side)
 	{
 		return 1;
 	}

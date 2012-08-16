@@ -20,6 +20,7 @@ public class HawkBlockMachine extends Block
 	public HawkBlockMachine(int id, Material mat)
 	{
 		super(id, mat);
+		setBlockName("Machine Blocks");
 		setCreativeTab(CreativeTabs.tabMaterials);
 		GameRegistry.registerBlock(this, HawkItemBlockMachine.class);
 	}

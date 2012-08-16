@@ -22,7 +22,7 @@ public class HawkBlockGrinder extends BlockMachine
 		setResistance(20.0F);
 		GameRegistry.registerBlock(this, HawkItemBlockGrinder.class);
 		setRequiresSelfNotify();
-		setCreativeTab(CreativeTabs.tabMisc);
+		setCreativeTab(CreativeTabs.tabDeco);
 	}
 	
 	@Override
@@ -102,25 +102,25 @@ public class HawkBlockGrinder extends BlockMachine
     		case 2: switch (side)
     				{
     					case 1: return 5;
-    					case 3: return 6;
+    					case 2: return 6;
     					default: return 7;
     				}
     		case 3: switch (side)
     				{
     					case 1: return 5;
-    					case 2: return 6;
+    					case 3: return 6;
     					default: return 7;
     				}
     		case 4: switch (side)
     				{
     					case 1: return 23;
-    					case 5: return 6;
+    					case 4: return 6;
     					default: return 7;
     				}
     		case 5: switch (side)
     				{
     					case 1: return 23;
-    					case 4: return 6;
+    					case 5: return 6;
     					default: return 7;
     				}
     		default: switch (side)
@@ -135,7 +135,7 @@ public class HawkBlockGrinder extends BlockMachine
 	@Override
 	public boolean canPlaceBlockOnSide(World world, int x, int y, int z, int side)
 	{
-		if (side != 0 || side == world.getBlockMetadata(x, y, z))
+		if (side != 0 && side != world.getBlockMetadata(x, y, z))
 		{
 			return true;
 		}

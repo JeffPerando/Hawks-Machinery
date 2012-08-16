@@ -1,7 +1,9 @@
 
 package hawksmachinery;
 
+import cpw.mods.fml.common.registry.LanguageRegistry;
 import net.minecraft.src.EntityPlayer;
+import net.minecraft.src.ItemStack;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
@@ -15,6 +17,8 @@ import net.minecraftforge.client.MinecraftForgeClient;
  */
 public class HMClientProxy extends HMCommonProxy
 {
+	public HawksMachinery BASEMOD;
+	
 	@Override
 	public void preInit()
 	{
@@ -27,6 +31,8 @@ public class HMClientProxy extends HMCommonProxy
 	public void init()
 	{
 		ModLoader.registerTileEntity(HawkTileEntityGrinder.class, "Grinder");
+		
+		HawkLanguageCore.addToolTips();
 	}
 	
 	@Override

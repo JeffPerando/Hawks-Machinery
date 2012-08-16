@@ -1,7 +1,6 @@
 
 package hawksmachinery;
 
-import cpw.mods.fml.common.registry.LanguageRegistry;
 import net.minecraft.src.CreativeTabs;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.ItemBlock;
@@ -18,35 +17,17 @@ public class HawkItemBlockMachine extends ItemBlock
 {
 	public static HawksMachinery BASEMOD;
 	
+	/**
+	 * English names.
+	 */
+	public static String[] en_USNames = {"Empty", "Basic", "Advanced", "Elite", "Basic Redstone-Treated", "Advanced Redstone-Treated", "Elite Redstone-Treated"};
+	
 	public HawkItemBlockMachine(int id)
     {
 	    super(id);
 	    setHasSubtypes(true);
 	    setMaxDamage(0);
-		LanguageRegistry.instance().addNameForObject(this, "en_US", "Machine Block");
     }
-	
-	@Override
-	public String getItemDisplayName(ItemStack item)
-	{
-		switch (item.getItemDamage())
-		{
-			case 0: return "Empty Machine Block";
-			case 1: return "Basic Machine Block";
-			case 2: return "Advanced Machine Block";
-			case 3: return "Elite Machine Block";
-			case 4: return "Basic Redstone-Treated Machine Block";
-			case 5: return "Advanced Redstone-Treated Machine Block";
-			case 6: return "Elite Redstone-Treated Machine Block";
-			default: return "Buggy coding!";
-		}
-	}
-	
-	@Override
-	public int getBlockID()
-	{
-		return BASEMOD.blockEmptyMachine.blockID;
-	}
 	
 	@Override
 	public int getMetadata(int meta)
@@ -74,4 +55,11 @@ public class HawkItemBlockMachine extends ItemBlock
 			player.addStat(HawkAchievements.redstonedWithCare, 1);
 		}
 	}
+	
+	@Override
+	public String getItemNameIS(ItemStack item)
+	{
+		return (new StringBuilder()).append(super.getItemName()).append(".").append(en_USNames[item.getItemDamage()]).toString();
+	}
+	
 }

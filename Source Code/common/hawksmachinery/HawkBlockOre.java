@@ -26,9 +26,9 @@ public class HawkBlockOre extends Block
 	public HawkBlockOre(int id)
 	{
 		super(id, Material.rock);
-		setBlockName("Ore");
 		setHardness(1.0F);
 		setResistance(5.0F);
+		setBlockName("Ore");
 		GameRegistry.registerBlock(this, HawkItemBlockOre.class);
 		setCreativeTab(CreativeTabs.tabBlock);
 		

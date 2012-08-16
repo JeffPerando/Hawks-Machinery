@@ -1,7 +1,6 @@
 
 package hawksmachinery;
 
-import cpw.mods.fml.common.registry.LanguageRegistry;
 import net.minecraft.src.CreativeTabs;
 import net.minecraft.src.EnumRarity;
 import net.minecraft.src.ItemBlock;
@@ -17,31 +16,16 @@ public class HawkItemBlockMetalStorage extends ItemBlock
 {
 	public HawksMachinery BASEMOD;
 	
+	/**
+	 * English names.
+	 */
+	public static String[] en_USNames = {"Titanium Block", "Aluminum Block", "Silver Block", "Block"};
+	
 	public HawkItemBlockMetalStorage(int id)
 	{
 		super(id);
 		setHasSubtypes(true);
 		setMaxDamage(0);
-		LanguageRegistry.instance().addNameForObject(this, "en_US", "Metal Blocks");
-	}
-	
-	@Override
-	public String getItemDisplayName(ItemStack item)
-	{
-		switch (item.getItemDamage())
-		{
-			case 0: return "Titanium Block";
-			case 1: return "Aluminum Block";
-			case 2: return "Silver Block";
-			case 3: return "Block";
-			default: return "Buggy coding!";
-		}
-	}
-	
-	@Override
-	public int getBlockID()
-	{
-		return BASEMOD.blockMetalStorage.blockID;
 	}
 	
 	@Override
@@ -53,11 +37,12 @@ public class HawkItemBlockMetalStorage extends ItemBlock
 	@Override
 	public boolean hasEffect(ItemStack item)
 	{
-		switch (item.getItemDamage())
+		if (item.getItemDamage() == 3)
 		{
-			case 3: return true;
-			default: return false;
+			return true;
 		}
+		
+		return false;
 	}
 	
 	@Override
@@ -69,4 +54,11 @@ public class HawkItemBlockMetalStorage extends ItemBlock
 			default: return EnumRarity.common;
 		}
 	}
+	
+	@Override
+	public String getItemNameIS(ItemStack item)
+	{
+		return (new StringBuilder()).append(super.getItemName()).append(".").append(en_USNames[item.getItemDamage()]).toString();
+	}
+	
 }
