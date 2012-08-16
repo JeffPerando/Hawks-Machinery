@@ -10,6 +10,7 @@ import net.minecraft.src.IChunkProvider;
 import net.minecraft.src.World;
 import net.minecraft.src.WorldGenMinable;
 import cpw.mods.fml.common.IWorldGenerator;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 /**
  * 
@@ -20,6 +21,11 @@ import cpw.mods.fml.common.IWorldGenerator;
 public class HawkOreGenerator implements IWorldGenerator
 {
 	public static HawksMachinery BASEMOD;
+	
+	public HawkOreGenerator()
+	{
+		
+	}
 	
 	@Override
 	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider)
@@ -129,5 +135,5 @@ public class HawkOreGenerator implements IWorldGenerator
 	{
 		
 	}
-
+	
 }

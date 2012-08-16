@@ -20,9 +20,11 @@ public class HawkBlockMachine extends Block
 	public HawkBlockMachine(int id, Material mat)
 	{
 		super(id, mat);
+		setHardness(1.5F);
+		setResistance(25.0F);
 		setBlockName("Machine Blocks");
-		setCreativeTab(CreativeTabs.tabMaterials);
 		GameRegistry.registerBlock(this, HawkItemBlockMachine.class);
+		setCreativeTab(CreativeTabs.tabMaterials);
 	}
 	
 	@Override
@@ -55,5 +57,5 @@ public class HawkBlockMachine extends Block
 	{
 		return HawkManager.BLOCK_TEXTURE_FILE;
 	}
-
+	
 }

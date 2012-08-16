@@ -59,7 +59,7 @@ public class HawkItemBlockMachine extends ItemBlock
 	@Override
 	public String getItemNameIS(ItemStack item)
 	{
-		return (new StringBuilder()).append(super.getItemName()).append(".").append(en_USNames[item.getItemDamage()]).toString();
+		return (new StringBuilder()).append(super.getItemName()).append(".").append(en_USNames[item.getItemDamage()]).toString() + " Machine Block";
 	}
 	
 }

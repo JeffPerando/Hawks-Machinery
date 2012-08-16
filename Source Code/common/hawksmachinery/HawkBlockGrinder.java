@@ -20,8 +20,8 @@ public class HawkBlockGrinder extends BlockMachine
 		super("Grinder", id, material);
 		setHardness(2.0F);
 		setResistance(20.0F);
-		GameRegistry.registerBlock(this, HawkItemBlockGrinder.class);
 		setRequiresSelfNotify();
+		GameRegistry.registerBlock(this, HawkItemBlockGrinder.class);
 		setCreativeTab(CreativeTabs.tabDeco);
 	}
 	

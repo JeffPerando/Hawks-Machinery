@@ -74,6 +74,9 @@ public class HawksMachinery
 		UniversalElectricity.registerMod(this, getName(), "0.5.0");
 		NetworkRegistry.instance().registerGuiHandler(this, this.proxy);
 		
+		//To whoever decided to make "static" and "this" incompatible: Bazinga, punk!
+		GameRegistry.registerWorldGenerator(new HawkOreGenerator());
+		
 		proxy.preInit();
 	}
 	
@@ -81,11 +84,6 @@ public class HawksMachinery
 	public void load(FMLInitializationEvent event)
 	{
 		proxy.init();
-		
-		GameRegistry.registerBlock(blockGrinder);
-		GameRegistry.registerBlock(blockEmptyMachine);
-		GameRegistry.registerBlock(blockOre);
-		GameRegistry.registerBlock(blockMetalStorage);
 		
 		OreDictionary.registerOre("ingotTitanium", new ItemStack(ingots, 1, 0));
 		OreDictionary.registerOre("ingotAluminum", new ItemStack(ingots, 1, 1));

@@ -480,6 +480,7 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 			this.workTicks = (int)dataStream.readDouble();
 			this.electricityStored = (int)dataStream.readDouble();
 			this.grinderStatus = (int)dataStream.readDouble();
+			
 		}
 		catch(Exception e)
 		{

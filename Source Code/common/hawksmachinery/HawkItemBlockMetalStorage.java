@@ -54,7 +54,7 @@ public class HawkItemBlockMetalStorage extends ItemBlock
 			default: return EnumRarity.common;
 		}
 	}
-	
+
 	@Override
 	public String getItemNameIS(ItemStack item)
 	{

@@ -28,8 +28,8 @@ public class HawkBlockMetalStorage extends Block
 		setHardness(1.5F);
 		setResistance(12.0F);
 		setBlockName("Metal Storage");
-		setCreativeTab(CreativeTabs.tabBlock);
 		GameRegistry.registerBlock(this, HawkItemBlockMetalStorage.class);
+		setCreativeTab(CreativeTabs.tabBlock);
 	}
 	
 	@Override
