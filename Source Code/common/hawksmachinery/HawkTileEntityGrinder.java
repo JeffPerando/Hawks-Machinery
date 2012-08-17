@@ -31,9 +31,9 @@ import universalelectricity.extend.IItemElectric;
  */
 public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRedstoneReceptor, IInventory, ISidedInventory, IRotatable, IPacketReceiver
 {
-	public int electricityRequired = 10;
-
-	public int ticksNeededtoProcess = 100;
+	public int ELECTRICITY_REQUIRED = 15;
+	
+	public int TICKS_REQUIRED = 100;
 	
 	public byte facingDirection = 0;
 	
@@ -43,54 +43,54 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 	
 	private boolean isBeingPoweredByRedstone;
 	
-    private ItemStack[] containingItems = new ItemStack[3];
-    
-    private int grinderStatus;
-    
-    public int electricityCapacity = 2500;
-    
-    public HawkTileEntityGrinder()
-    {
-    	ElectricityManager.registerElectricUnit(this);
-    }
-    
-    @Override
+	private ItemStack[] containingItems = new ItemStack[3];
+	
+	private int grinderStatus;
+	
+	public int ELECTRICITY_LIMIT = 2500;
+	
+	public HawkTileEntityGrinder()
+	{
+		ElectricityManager.registerElectricUnit(this);
+	}
+	
+	@Override
 	public void onUpdate(float watts, float voltage, ForgeDirection side)
-    {
+	{
 		super.onUpdate(watts, voltage, side);
-    			
+		
 		if (!worldObj.isRemote)
-        {			
+		{			
 			if (voltage > this.getVoltage())
-	    	{
+			{
 				this.explodeGrinder(0.7F);
-	    	}
+			}
 			
 			//The slot is for portable batteries to be used in the grinder
-	    	if (this.containingItems[0] != null)
-	        {
-	            if (this.containingItems[0].getItem() instanceof IItemElectric)
-	            {
-		           	IItemElectric electricItem = (IItemElectric)this.containingItems[0].getItem();
-		           	
-	            	if (electricItem.canProduceElectricity())
-		           	{
-		            	double receivedElectricity = electricItem.onUseElectricity(electricItem.getTransferRate(), this.containingItems[0]);
-		            	this.electricityStored += receivedElectricity;
-		           	}
-	            }
-	        }
-	    	
+			if (this.containingItems[0] != null)
+			{
+				if (this.containingItems[0].getItem() instanceof IItemElectric)
+				{
+					IItemElectric electricItem = (IItemElectric)this.containingItems[0].getItem();
+					
+					if (electricItem.canProduceElectricity())
+					{
+						double receivedElectricity = electricItem.onUseElectricity(electricItem.getTransferRate(), this.containingItems[0]);
+						this.electricityStored += receivedElectricity;
+					}
+				}
+			}
+			
 			this.electricityStored += watts;
-						
-	    	if ((this.canGrind() || this.canExplode()) && !this.isDisabled())
-	    	{
+			
+			if ((this.canGrind() || this.canExplode()) && !this.isDisabled())
+			{
 		    	if(this.containingItems[1] != null && this.workTicks == 0)
-		        {
-		        	this.workTicks = this.ticksNeededtoProcess;
-		        }
+		    	{
+		    		this.workTicks = this.TICKS_REQUIRED;
+		    	}
 		    	
-		        if((this.canGrind() || this.canExplode()) && this.workTicks > 0)
+		    	if ((this.canGrind() || this.canExplode()) && this.workTicks > 0)
 		    	{
 		    		this.workTicks -= this.getTickInterval();
 		    		
@@ -100,22 +100,22 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 		    			this.workTicks = 0;
 		    		}
 		    		
-		    		this.electricityStored = this.electricityStored - this.electricityRequired;
-		    	}
-		        else
+		    		this.electricityStored = this.electricityStored - this.ELECTRICITY_REQUIRED;
+				}
+				else
 		        {
 		        	this.workTicks = 0;
 		        }
-	    	}
+			}
 	    	
 	    	if (this.electricityStored <= 0)
 	    	{
 	    		this.electricityStored = 0;
 	    	}
 	    	
-	    	if (this.electricityStored >= this.electricityCapacity)
+	    	if (this.electricityStored >= this.ELECTRICITY_LIMIT)
 	    	{
-	    		this.electricityStored = this.electricityCapacity;
+	    		this.electricityStored = this.ELECTRICITY_LIMIT;
 	    	}
 	    	
 			PacketManager.sendTileEntityPacket(this, "HawksMachinery", new double[]{this.disabledTicks, this.workTicks, this.electricityStored, this.grinderStatus});
@@ -131,7 +131,7 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
         }
         else
         {
-        	if (this.electricityStored >= this.electricityRequired * 2)
+        	if (this.electricityStored >= this.ELECTRICITY_REQUIRED * 2)
         	{
                 ItemStack var1 = HawkProcessingRecipes.getGrindingResult(this.containingItems[1]);
                 if (var1 == null) return false;
@@ -155,7 +155,7 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
         }
         else
         {
-        	if (this.electricityStored >= this.electricityRequired * 2)
+        	if (this.electricityStored >= this.ELECTRICITY_REQUIRED * 2)
         	{
                 ItemStack var1 = HawkProcessingRecipes.getGrindingExplosive(this.containingItems[1]);
                 
@@ -209,19 +209,19 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 	{
 		if (this.canGrind() || this.canExplode())
 		{
-			return electricityRequired;
+			return ELECTRICITY_REQUIRED;
 		}
 		else
 		{
-			if (this.electricityCapacity != this.electricityStored)
+			if (this.ELECTRICITY_LIMIT != this.electricityStored)
 			{
-				if (this.electricityStored + this.electricityRequired >= this.electricityCapacity)
+				if (this.electricityStored + this.ELECTRICITY_REQUIRED >= this.ELECTRICITY_LIMIT)
 				{
-					return this.electricityCapacity - this.electricityStored;
+					return this.ELECTRICITY_LIMIT - this.electricityStored;
 				}
 				else
 				{
-					return this.electricityRequired;
+					return this.ELECTRICITY_REQUIRED;
 				}
 			}
 			else
@@ -361,88 +361,89 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
     public void closeChest() {}
 	
 	@Override
-    public byte getDirection()
-    {
-	    return this.facingDirection;
-    }
-
-	@Override
-    public void setDirection(byte facingDirection)
-    {
-	    this.facingDirection = facingDirection;
-    }
+	public byte getDirection()
+	{
+		return this.facingDirection;
+	}
 	
-    /**
-     * Reads a tile entity from NBT.
-     */
-    @Override
-	public void readFromNBT(NBTTagCompound NBTTag)
-    {
-    	super.readFromNBT(NBTTag);
-    	this.electricityStored = NBTTag.getFloat("electricityStored");
-    	this.facingDirection = NBTTag.getByte("facingDirection");
-    	this.workTicks = NBTTag.getInteger("workTicks");
-    	
-    	NBTTagList var2 = NBTTag.getTagList("Items");
-        this.containingItems = new ItemStack[this.getSizeInventory()];
-        for (int var3 = 0; var3 < var2.tagCount(); ++var3)
-        {
-            NBTTagCompound var4 = (NBTTagCompound)var2.tagAt(var3);
-            byte var5 = var4.getByte("Slot");
-            if (var5 >= 0 && var5 < this.containingItems.length)
-            {
-                this.containingItems[var5] = ItemStack.loadItemStackFromNBT(var4);
-            }
-        }
-    }
-    /**
-     * Writes a tile entity to NBT.
-     */
-    @Override
-	public void writeToNBT(NBTTagCompound NBTTag)
-    {
-    	super.writeToNBT(NBTTag);
-    	NBTTag.setFloat("electricityStored", this.electricityStored);
-    	NBTTag.setByte("facingDirection", this.facingDirection);
-    	NBTTag.setInteger("workTicks", this.workTicks);
-    	
-    	NBTTagList var2 = new NBTTagList();
-        for (int var3 = 0; var3 < this.containingItems.length; ++var3)
-        {
-            if (this.containingItems[var3] != null)
-            {
-                NBTTagCompound var4 = new NBTTagCompound();
-                var4.setByte("Slot", (byte)var3);
-                this.containingItems[var3].writeToNBT(var4);
-                var2.appendTag(var4);
-            }
-        }
-        NBTTag.setTag("Items", var2);
-    }
-    
 	@Override
-    public float getVoltage()
-    {
-	    return 120;
-    }
+	public void setDirection(byte facingDirection)
+	{
+		this.facingDirection = facingDirection;
+	}
+	
+	/**
+	 * Reads a tile entity from NBT.
+	 */
+	@Override
+	public void readFromNBT(NBTTagCompound NBTTag)
+	{
+		super.readFromNBT(NBTTag);
+		this.electricityStored = NBTTag.getFloat("electricityStored");
+		this.facingDirection = NBTTag.getByte("facingDirection");
+		this.workTicks = NBTTag.getInteger("workTicks");
+		
+		NBTTagList var2 = NBTTag.getTagList("Items");
+		this.containingItems = new ItemStack[this.getSizeInventory()];
+		for (int var3 = 0; var3 < var2.tagCount(); ++var3)
+		{
+			NBTTagCompound var4 = (NBTTagCompound)var2.tagAt(var3);
+			byte var5 = var4.getByte("Slot");
+			if (var5 >= 0 && var5 < this.containingItems.length)
+			{
+				this.containingItems[var5] = ItemStack.loadItemStackFromNBT(var4);
+			}
+		}
+	}
+	
+	/**
+	 * Writes a tile entity to NBT.
+	 */
+	@Override
+	public void writeToNBT(NBTTagCompound NBTTag)
+	{
+		super.writeToNBT(NBTTag);
+		NBTTag.setFloat("electricityStored", this.electricityStored);
+		NBTTag.setByte("facingDirection", this.facingDirection);
+		NBTTag.setInteger("workTicks", this.workTicks);
+		
+		NBTTagList var2 = new NBTTagList();
+		for (int var3 = 0; var3 < this.containingItems.length; ++var3)
+		{
+			if (this.containingItems[var3] != null)
+			{
+				NBTTagCompound var4 = new NBTTagCompound();
+				var4.setByte("Slot", (byte)var3);
+				this.containingItems[var3].writeToNBT(var4);
+				var2.appendTag(var4);
+			}
+		}
+		NBTTag.setTag("Items", var2);
+	}
+	
+	@Override
+	public float getVoltage()
+	{
+		return 120;
+	}
 	
 	@Override
 	public void onPowerOn()
 	{
 		this.isBeingPoweredByRedstone = true;
 	}
-
+	
 	@Override
 	public void onPowerOff()
 	{
 		this.isBeingPoweredByRedstone = false;
 	}
 	
-    public int getGrindingStatus(int par1)
-    {
-        return this.workTicks * par1 / 200;
-    }
-    
+	public int getGrindingStatus(int par1)
+	{
+		return this.workTicks * par1 / 200;
+	}
+	
 	public String getGrinderStatus()
 	{	
 		if (this.isDisabled())
@@ -472,8 +473,8 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 	}
 	
 	@Override
-    public void handlePacketData(NetworkManager network, String channel, ByteArrayDataInput dataStream)
-    {
+	public void handlePacketData(NetworkManager network, String channel, ByteArrayDataInput dataStream)
+	{
 		try
 		{
 			this.disabledTicks = (int)dataStream.readDouble();
@@ -494,6 +495,6 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 	 */
 	private void explodeGrinder(float strength)
 	{
-		 this.worldObj.createExplosion((Entity)null, this.xCoord, this.yCoord, this.zCoord, strength);
+		this.worldObj.createExplosion((Entity)null, this.xCoord, this.yCoord, this.zCoord, strength);
 	}
 }

@@ -49,7 +49,7 @@ public class HawkBlockGrinder extends BlockMachine
         
         return true;
     }
-
+    
     @Override
     public boolean onUseWrench(World world, int x, int y, int z, EntityPlayer par5EntityPlayer)
     {
@@ -73,10 +73,10 @@ public class HawkBlockGrinder extends BlockMachine
         
     	switch (direction)
         {
-        	case 0: newMetadata = 3; break;
-        	case 1: newMetadata = 4; break;
-        	case 2: newMetadata = 2; break;
-        	case 3: newMetadata = 5; break;
+        	case 0: newMetadata = 2; break;
+        	case 1: newMetadata = 5; break;
+        	case 2: newMetadata = 3; break;
+        	case 3: newMetadata = 4; break;
         }
     	
     	world.setBlockMetadataWithNotify(x, y, z, newMetadata);

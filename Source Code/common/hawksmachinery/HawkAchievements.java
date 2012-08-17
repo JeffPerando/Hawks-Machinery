@@ -3,15 +3,12 @@ package hawksmachinery;
 
 import net.minecraft.src.Achievement;
 import net.minecraft.src.AchievementList;
-import net.minecraft.src.AchievementMap;
 import net.minecraft.src.ItemStack;
-import net.minecraft.src.ModLoader;
 import net.minecraftforge.common.AchievementPage;
-import net.minecraftforge.common.MinecraftForge;
 
 /**
  * 
- * Where all of the achievements for Hawk's Machinery are handled.
+ * Where all of the achievements for Hawk's Machinery are stored.
  * 
  * @author Elusivehawk
  */
@@ -30,15 +27,4 @@ public class HawkAchievements
 	
 	public static AchievementPage HAWKSPAGE = new AchievementPage("Hawk's Machinery", shellOfAMachine, buildABetterMachineBlock, timeToGrind, redstonedWithCare, minerkiin, spartaMiner, compactCompact);
 	
-	public static void achievementStuff()
-	{
-		ModLoader.addAchievementDesc(shellOfAMachine, "Shell of a Machine", "The hull of a machine");
-		ModLoader.addAchievementDesc(buildABetterMachineBlock, "Build a Better Machine Block", "Couldn't find a mouse trap mod...");
-		ModLoader.addAchievementDesc(redstonedWithCare, "Redstoned with Care", "Isn't Redstone awesome?");
-		ModLoader.addAchievementDesc(timeToGrind, "Time to Grind!", "The matriarch of Hawk's Machinery");
-		
-		ModLoader.addAchievementDesc(minerkiin, "Minerkiin", "In their tongue...");
-		ModLoader.addAchievementDesc(spartaMiner, "Spartan Miner", "TONIGHT, WE MINE, IN HELL!");
-		ModLoader.addAchievementDesc(compactCompact, "Compact Compact", "Am I missing an eyebrow?");
-	}
 }

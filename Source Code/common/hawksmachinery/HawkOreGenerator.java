@@ -7,6 +7,7 @@ import net.minecraft.src.ChunkProviderEnd;
 import net.minecraft.src.ChunkProviderGenerate;
 import net.minecraft.src.ChunkProviderHell;
 import net.minecraft.src.IChunkProvider;
+import net.minecraft.src.PlayerManager;
 import net.minecraft.src.World;
 import net.minecraft.src.WorldGenMinable;
 import cpw.mods.fml.common.IWorldGenerator;
@@ -46,7 +47,7 @@ public class HawkOreGenerator implements IWorldGenerator
 	
 	public void generateSurface(World world, Random random, int chunkX, int chunkZ)
 	{
-		for (int counter = 0; counter >= 24; ++counter)
+		for (int counter = 0; counter <= 24; ++counter)
 		{
 			int randPosX = chunkX + random.nextInt(16);
 			int randPosY = random.nextInt(world.provider.getAverageGroundLevel() - 40);
@@ -55,7 +56,7 @@ public class HawkOreGenerator implements IWorldGenerator
 			float temp = biomeGenCheck.temperature;
 			int randAmount = random.nextInt(8);
 			
-			if (temp <= 40.0F)
+			if (temp <= 0.1F)
 			{
 				if (randAmount > 0 && randPosY >= 6)
 				{
@@ -73,7 +74,7 @@ public class HawkOreGenerator implements IWorldGenerator
 			}
 		}
 		
-		for (int counter = 0; counter >= 32; ++counter)
+		for (int counter = 0; counter <= 32; ++counter)
 		{
 			int randPosX = chunkX + random.nextInt(16);
 			int randPosY = random.nextInt(world.provider.getAverageGroundLevel() - 32);
@@ -99,7 +100,7 @@ public class HawkOreGenerator implements IWorldGenerator
 			}
 		}
 		
-		for (int counter = 0; counter >= 38; ++counter)
+		for (int counter = 0; counter <= 38; ++counter)
 		{
 			int randPosX = chunkX + random.nextInt(16);
 			int randPosY = random.nextInt(world.provider.getAverageGroundLevel() - 26);

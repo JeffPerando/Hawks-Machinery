@@ -88,7 +88,7 @@ public class HawkManager
 	
 	public static HawksMachinery getModInstance()
 	{
-		return HawksMachinery.instance;
+		return HawksMachinery.INSTANCE;
 	}
 	
 	/**
@@ -125,6 +125,10 @@ public class HawkManager
 		RECIPE_GIVER.addShapelessRecipe(new ItemStack(BASEMOD.dustRefined, 2, 6), new Object[]{Item.bucketWater, new ItemStack(BASEMOD.dustRaw, 1, 4), new ItemStack(BASEMOD.dustRaw, 1, 4)});
 		RECIPE_GIVER.addShapelessRecipe(new ItemStack(Item.fireballCharge, 3), new Object[]{Item.blazePowder, Item.gunpowder, new ItemStack(BASEMOD.dustRaw, 1, 0)});
 		
+		RECIPE_GIVER.addShapelessRecipe(new ItemStack(BASEMOD.ingots, 9, 0), new Object[]{new ItemStack(BASEMOD.blockMetalStorage, 1, 0)});
+		RECIPE_GIVER.addShapelessRecipe(new ItemStack(BASEMOD.ingots, 9, 1), new Object[]{new ItemStack(BASEMOD.blockMetalStorage, 1, 1)});
+		RECIPE_GIVER.addShapelessRecipe(new ItemStack(BASEMOD.ingots, 9, 2), new Object[]{new ItemStack(BASEMOD.blockMetalStorage, 1, 2)});
+		
 		RECIPE_GIVER.addSmelting(new ItemStack(BASEMOD.dustRefined, 1, 2), new ItemStack(Block.thinGlass));
 		RECIPE_GIVER.addSmelting(new ItemStack(BASEMOD.dustRefined, 1, 3), new ItemStack(Item.ingotIron));
 		RECIPE_GIVER.addSmelting(new ItemStack(BASEMOD.dustRefined, 1, 4), new ItemStack(Item.ingotGold));
@@ -132,6 +136,10 @@ public class HawkManager
 		RECIPE_GIVER.addSmelting(new ItemStack(BASEMOD.dustRefined, 1, 6), new ItemStack(BasicComponents.itemTinIngot));
 		RECIPE_GIVER.addSmelting(new ItemStack(BASEMOD.dustRaw, 1, 5), new ItemStack(Block.obsidian));
 		RECIPE_GIVER.addSmelting(new ItemStack(BASEMOD.blockGrinder, 1, 0), new ItemStack(BasicComponents.itemSteelPlate, 15));
+		
+		RECIPE_GIVER.addSmelting(new ItemStack(BASEMOD.blockOre, 1, 0), new ItemStack(BASEMOD.ingots, 1, 0));
+		RECIPE_GIVER.addSmelting(new ItemStack(BASEMOD.blockOre, 1, 1), new ItemStack(BASEMOD.ingots, 1, 1));
+		RECIPE_GIVER.addSmelting(new ItemStack(BASEMOD.blockOre, 1, 2), new ItemStack(BASEMOD.ingots, 1, 2));
 		
 		
 		PROCESS_RECIPES.addHawkProcessingRecipe(Item.diamond.shiftedIndex, new ItemStack(BASEMOD.dustRefined, 1, 0), 1);
@@ -210,6 +218,8 @@ public class HawkManager
 		PROCESS_RECIPES.addHawkMetaProcessingRecipe(BASEMOD.blockOre.blockID, 5, new ItemStack(BASEMOD.dustRaw, 3, 5), 1);
 		PROCESS_RECIPES.addHawkMetaProcessingRecipe(BASEMOD.blockOre.blockID, 6, new ItemStack(BASEMOD.dustRaw, 3, 6), 1);
 		PROCESS_RECIPES.addHawkMetaProcessingRecipe(BASEMOD.blockOre.blockID, 7, new ItemStack(BASEMOD.dustRaw, 3, 7), 1);
+		
+		PROCESS_RECIPES.addHawkProcessingRecipe(Item.emerald.shiftedIndex, new ItemStack(BASEMOD.dustRefined, 1, 10), 1);
 		
 		
 		PROCESS_RECIPES.addHawkExplosive(Block.tnt.blockID, 1);

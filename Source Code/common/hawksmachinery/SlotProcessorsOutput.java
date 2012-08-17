@@ -41,7 +41,6 @@ public class SlotProcessorsOutput extends Slot
     @Override
     public void onPickupFromSlot(ItemStack par1ItemStack)
     {
-        this.putStack(par1ItemStack);
         super.onPickupFromSlot(par1ItemStack);
     }
     

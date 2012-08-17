@@ -35,17 +35,6 @@ public class HawkItemBlockMetalStorage extends ItemBlock
 	}
 	
 	@Override
-	public boolean hasEffect(ItemStack item)
-	{
-		if (item.getItemDamage() == 3)
-		{
-			return true;
-		}
-		
-		return false;
-	}
-	
-	@Override
 	public EnumRarity getRarity(ItemStack item)
 	{
 		switch (item.getItemDamage())

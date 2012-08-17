@@ -7,6 +7,8 @@ import net.minecraft.src.Block;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.Material;
+import net.minecraft.src.ModLoader;
+import net.minecraftforge.common.AchievementPage;
 import net.minecraftforge.oredict.OreDictionary;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
@@ -32,10 +34,10 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public class HawksMachinery
 {
 	@Instance
-	public static HawksMachinery instance;
+	public static HawksMachinery INSTANCE;
 	
 	@SidedProxy(clientSide = "hawksmachinery.HMClientProxy", serverSide = "hawksmachinery.HMCommonProxy")
-	public static HMCommonProxy proxy;
+	public static HMCommonProxy PROXY;
 	
 	/**
 	 * Note: DO NOT MOVE THIS! I'm serious, I don't want to see any refactor job move this, due to the fact that doing so is A VERY BAD IDEA!
@@ -51,39 +53,32 @@ public class HawksMachinery
 	public static Item dustRaw = new HawkItemRawDust(HawkManager.dustRawID);
 	
 	/**
-	 * Refined dusts! 0 - Diamond, 1 - Ender, 2 - Glass, 3 - Iron, 4 - Gold, 5 - Copper, 6 - Tin, 7 - Emerald. 
+	 * Refined dusts! 0 - Diamond, 1 - Ender, 2 - Glass, 3 - Iron, 4 - Gold, 5 - Copper, 6 - Tin, 7 - Titanium, 8 - Aluminum, 9 - Silver, 10 - Emerald. 
 	 */
 	public static Item dustRefined = new HawkItemRefinedDust(HawkManager.dustRefinedID);
 	public static Item ingots = new HawkItemIngots(HawkManager.ingotsID);
 	
-	private static String getName()
-	{
-		return "Hawk's Machinery";
-	}
-	
-	private static String getVersion()
-	{
-		return "Alpha v1.2";
-	}
-	
 	@PreInit
 	public void preInit(FMLPreInitializationEvent event)
 	{
-		instance = this;
+		INSTANCE = this;
 		
-		UniversalElectricity.registerMod(this, getName(), "0.5.0");
-		NetworkRegistry.instance().registerGuiHandler(this, this.proxy);
+		UniversalElectricity.registerMod(this, "Hawk's Machinery", UniversalElectricity.VERSION);
+		NetworkRegistry.instance().registerGuiHandler(this, this.PROXY);
 		
 		//To whoever decided to make "static" and "this" incompatible: Bazinga, punk!
 		GameRegistry.registerWorldGenerator(new HawkOreGenerator());
 		
-		proxy.preInit();
+		AchievementPage.registerAchievementPage(HawkAchievements.HAWKSPAGE);
+		
+		PROXY.preInit();
+		
 	}
 	
 	@Init
 	public void load(FMLInitializationEvent event)
 	{
-		proxy.init();
+		PROXY.init();
 		
 		OreDictionary.registerOre("ingotTitanium", new ItemStack(ingots, 1, 0));
 		OreDictionary.registerOre("ingotAluminum", new ItemStack(ingots, 1, 1));
