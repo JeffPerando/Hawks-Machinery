@@ -17,6 +17,7 @@ import net.minecraft.src.ItemStack;
 import net.minecraft.src.NBTTagCompound;
 import net.minecraft.src.NBTTagList;
 import net.minecraft.src.NetworkManager;
+import net.minecraft.src.Packet250CustomPayload;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 import net.minecraftforge.common.ForgeDirection;
@@ -35,7 +36,7 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 	
 	public int TICKS_REQUIRED = 100;
 	
-	public byte facingDirection = 0;
+	public ForgeDirection facingDirection = ForgeDirection.UNKNOWN;
 	
 	public float electricityStored = 0;
 	
@@ -361,13 +362,13 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
     public void closeChest() {}
 	
 	@Override
-	public byte getDirection()
+	public ForgeDirection getDirection()
 	{
 		return this.facingDirection;
 	}
 	
 	@Override
-	public void setDirection(byte facingDirection)
+	public void setDirection(ForgeDirection facingDirection)
 	{
 		this.facingDirection = facingDirection;
 	}
@@ -380,7 +381,6 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 	{
 		super.readFromNBT(NBTTag);
 		this.electricityStored = NBTTag.getFloat("electricityStored");
-		this.facingDirection = NBTTag.getByte("facingDirection");
 		this.workTicks = NBTTag.getInteger("workTicks");
 		
 		NBTTagList var2 = NBTTag.getTagList("Items");
@@ -404,7 +404,6 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 	{
 		super.writeToNBT(NBTTag);
 		NBTTag.setFloat("electricityStored", this.electricityStored);
-		NBTTag.setByte("facingDirection", this.facingDirection);
 		NBTTag.setInteger("workTicks", this.workTicks);
 		
 		NBTTagList var2 = new NBTTagList();
@@ -473,7 +472,7 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 	}
 	
 	@Override
-	public void handlePacketData(NetworkManager network, String channel, ByteArrayDataInput dataStream)
+	public void handlePacketData(NetworkManager network, Packet250CustomPayload packet, EntityPlayer player, ByteArrayDataInput dataStream)
 	{
 		try
 		{
