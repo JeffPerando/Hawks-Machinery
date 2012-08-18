@@ -1,7 +1,6 @@
 
 package hawksmachinery;
 
-import net.minecraft.src.CreativeTabs;
 import net.minecraft.src.EnumRarity;
 import net.minecraft.src.ItemBlock;
 import net.minecraft.src.ItemStack;
@@ -19,7 +18,7 @@ public class HawkItemBlockMetalStorage extends ItemBlock
 	/**
 	 * English names.
 	 */
-	public static String[] en_USNames = {"Titanium Block", "Aluminum Block", "Silver Block", "Block"};
+	public static String[] en_USNames = {"Titanium Block", "Aluminum Block", "Silver Block", "Endium Block"};
 	
 	public HawkItemBlockMetalStorage(int id)
 	{

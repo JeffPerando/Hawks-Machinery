@@ -53,7 +53,7 @@ public class HawkItemIngots extends Item
 			case 0: return "Titanium Ingot";
 			case 1: return "Aluminum Ingot";
 			case 2: return "Silver Ingot";
-			case 3: return "Ingot";
+			case 3: return "Endium Ingot";
 			default: return "Look Jay, 0% body fat!";
 		}
 	}
