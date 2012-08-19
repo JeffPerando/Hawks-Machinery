@@ -6,7 +6,6 @@ import java.io.IOException;
 import com.google.common.io.ByteArrayDataInput;
 import universalelectricity.electricity.ElectricityManager;
 import universalelectricity.electricity.TileEntityElectricUnit;
-import universalelectricity.extend.IElectricityStorage;
 import universalelectricity.extend.IRedstoneReceptor;
 import universalelectricity.extend.IRotatable;
 import universalelectricity.network.IPacketReceiver;
@@ -27,7 +26,7 @@ import universalelectricity.extend.IItemElectric;
 
 /**
  * 
- * A tile entity that grinds stuff
+ * The Tile Entity for the Grinder.
  * 
  * @author Elusivehawk
  */
