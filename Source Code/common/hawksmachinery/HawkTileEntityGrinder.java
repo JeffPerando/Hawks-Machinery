@@ -6,6 +6,7 @@ import java.io.IOException;
 import com.google.common.io.ByteArrayDataInput;
 import universalelectricity.electricity.ElectricityManager;
 import universalelectricity.electricity.TileEntityElectricUnit;
+import universalelectricity.extend.IElectricityStorage;
 import universalelectricity.extend.IRedstoneReceptor;
 import universalelectricity.extend.IRotatable;
 import universalelectricity.network.IPacketReceiver;
@@ -496,4 +497,5 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 	{
 		this.worldObj.createExplosion((Entity)null, this.xCoord, this.yCoord, this.zCoord, strength);
 	}
+	
 }
