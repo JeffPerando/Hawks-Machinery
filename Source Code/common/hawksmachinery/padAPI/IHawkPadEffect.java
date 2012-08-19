@@ -1,7 +1,7 @@
 
 package hawksmachinery.padAPI;
 
-import net.minecraft.src.EntityLiving;
+import net.minecraft.src.Entity;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.World;
@@ -27,8 +27,9 @@ public interface IHawkPadEffect
 	 * @param z The z position of the block.
 	 * @param entity The Entity that's on the pad.
 	 * @param isBeingRedstoned Whether or not the Pad is being powered by redstone.
+	 * @param electricityStored The electricity stored in the Pad.
 	 */
-	public void getPadEffect(ItemStack padItem, World world, int x, int y, int z, EntityLiving entity, boolean isBeingRedstoned);
+	public void getPadEffect(ItemStack padItem, World world, int x, int y, int z, Entity entity, boolean isBeingRedstoned, int electricityStored);
 	
 	/**
 	 * 

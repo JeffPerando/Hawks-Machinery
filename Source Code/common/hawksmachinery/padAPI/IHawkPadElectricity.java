@@ -17,7 +17,7 @@ public interface IHawkPadElectricity
 	 * Used in order to determine how much electricity a Pad uses per tick with a specific item in it.
 	 * 
 	 * @param padItem The item in the Pad.
-	 * @param electricityStored How much electricity the Pad has in it.
+	 * @param electricityStored The electricity stored in the Pad.
 	 * @param isBeingRedstoned Whether or not the Pad is being powered by redstone.
 	 * @return How much electricity is required per tick.
 	 */
@@ -28,9 +28,10 @@ public interface IHawkPadElectricity
 	 * Used in order to determine if a Pad can conduct electricity to nearby Pads.
 	 * 
 	 * @param padItem The item in the Pad.
+	 * @param electricityStored The electricity stored in the Pad.
 	 * @param isBeingRedstoned Whether or not the Pad is being powered by redstone.
 	 * @return True if the pad can conduct electricity, false otherwise.
 	 */
-	public boolean canConductElectricity(ItemStack padItem, boolean isBeingRedstoned);
+	public boolean canConductElectricity(ItemStack padItem, int electricityStored, boolean isBeingRedstoned);
 	
 }
