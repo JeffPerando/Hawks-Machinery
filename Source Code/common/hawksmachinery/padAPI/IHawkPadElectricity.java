@@ -28,8 +28,9 @@ public interface IHawkPadElectricity
 	 * Used in order to determine if a Pad can conduct electricity to nearby Pads.
 	 * 
 	 * @param padItem The item in the Pad.
+	 * @param isBeingRedstoned Whether or not the Pad is being powered by redstone.
 	 * @return True if the pad can conduct electricity, false otherwise.
 	 */
-	public boolean canConductElectricity(ItemStack padItem);
+	public boolean canConductElectricity(ItemStack padItem, boolean isBeingRedstoned);
 	
 }

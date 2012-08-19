@@ -26,8 +26,9 @@ public interface IHawkPadEffect
 	 * @param y The y position of the block.
 	 * @param z The z position of the block.
 	 * @param entity The Entity that's on the pad.
+	 * @param isBeingRedstoned Whether or not the Pad is being powered by redstone.
 	 */
-	public void getPadEffect(ItemStack padItem, World world, int x, int y, int z, EntityLiving entity);
+	public void getPadEffect(ItemStack padItem, World world, int x, int y, int z, EntityLiving entity, boolean isBeingRedstoned);
 	
 	/**
 	 * 
@@ -40,8 +41,9 @@ public interface IHawkPadEffect
 	 * @param z The z position of the block.
 	 * @param player The player that's right-clicking the Pad.
 	 * @param padDirection The direction the pad is facing.
+	 * @param isBeingRedstoned Whether or not the Pad is being powered by redstone.
 	 * @return True if it is, false otherwise.
 	 */
-	public boolean isItemValidForPad(ItemStack padItem, World world, int x, int y, int z, EntityPlayer player, ForgeDirection padDirection);
+	public boolean isItemValidForPad(ItemStack padItem, World world, int x, int y, int z, EntityPlayer player, ForgeDirection padDirection, boolean isBeingRedstoned);
 	
 }
