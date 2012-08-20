@@ -32,9 +32,9 @@ import universalelectricity.extend.IItemElectric;
  */
 public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRedstoneReceptor, IInventory, ISidedInventory, IRotatable, IPacketReceiver
 {
-	public int ELECTRICITY_REQUIRED = 15;
+	public int ELECTRICITY_REQUIRED = 10;
 	
-	public int TICKS_REQUIRED = 100;
+	public int TICKS_REQUIRED = 120;
 	
 	public ForgeDirection facingDirection = ForgeDirection.UNKNOWN;
 	
@@ -119,7 +119,7 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 	    		this.electricityStored = this.ELECTRICITY_LIMIT;
 	    	}
 	    	
-			PacketManager.sendTileEntityPacket(this, "HawksMachinery", new double[]{this.disabledTicks, this.workTicks, this.electricityStored, this.grinderStatus});
+			PacketManager.sendTileEntityPacket(this, "HawksMachinery", this.disabledTicks, this.workTicks, this.electricityStored, this.grinderStatus);
 			
         }
 	}
@@ -204,11 +204,11 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
         	}
         }
     }
-
+    
 	@Override
 	public float electricityRequest()
 	{
-		if (this.canGrind() || this.canExplode())
+		if ((this.canGrind() || this.canExplode()) && this.electricityStored + this.ELECTRICITY_REQUIRED <= this.ELECTRICITY_LIMIT)
 		{
 			return ELECTRICITY_REQUIRED;
 		}
@@ -476,10 +476,10 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 	{
 		try
 		{
-			this.disabledTicks = (int)dataStream.readDouble();
-			this.workTicks = (int)dataStream.readDouble();
-			this.electricityStored = (int)dataStream.readDouble();
-			this.grinderStatus = (int)dataStream.readDouble();
+			this.disabledTicks = dataStream.readInt();
+			this.workTicks = dataStream.readInt();
+			this.electricityStored = dataStream.readFloat();
+			this.grinderStatus = dataStream.readInt();
 			
 		}
 		catch(Exception e)

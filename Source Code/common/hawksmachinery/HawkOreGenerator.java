@@ -54,7 +54,7 @@ public class HawkOreGenerator implements IWorldGenerator
 			int randPosZ = chunkZ + random.nextInt(16);
 			BiomeGenBase biomeGenCheck = world.getBiomeGenForCoords(randPosX, randPosZ);
 			float temp = biomeGenCheck.temperature;
-			int randAmount = random.nextInt(8);
+			int randAmount = random.nextInt(9);
 			
 			if (temp <= 0.1F)
 			{
@@ -80,7 +80,7 @@ public class HawkOreGenerator implements IWorldGenerator
 			int randPosY = random.nextInt(world.provider.getAverageGroundLevel() - 32);
 			int randPosZ = chunkZ + random.nextInt(16);
 			BiomeGenBase biomeGenCheck = world.getBiomeGenForCoords(randPosX, randPosZ);
-			int randAmount = random.nextInt(8);
+			int randAmount = random.nextInt(9);
 			
 			if (biomeGenCheck == BiomeGenBase.desert || biomeGenCheck == BiomeGenBase.desertHills)
 			{
@@ -106,7 +106,7 @@ public class HawkOreGenerator implements IWorldGenerator
 			int randPosY = random.nextInt(world.provider.getAverageGroundLevel() - 26);
 			int randPosZ = chunkZ + random.nextInt(16);
 			BiomeGenBase biomeGenCheck = world.getBiomeGenForCoords(randPosX, randPosZ);
-			int randAmount = random.nextInt(8);
+			int randAmount = random.nextInt(9);
 			
 			if (biomeGenCheck == BiomeGenBase.jungle || biomeGenCheck == BiomeGenBase.jungleHills)
 			{
@@ -129,12 +129,79 @@ public class HawkOreGenerator implements IWorldGenerator
 	
 	public void generateNether(World world, Random random, int chunkX, int chunkZ)
 	{
+		for (int counter = 0; counter <= 24; ++counter)
+		{
+			int randPosX = chunkX + random.nextInt(16);
+			int randPosY = random.nextInt(48);
+			int randPosZ = chunkZ + random.nextInt(16);
+			BiomeGenBase biomeGenCheck = world.getBiomeGenForCoords(randPosX, randPosZ);
+			float temp = biomeGenCheck.temperature;
+			int randAmount = random.nextInt(9);
+			
+			if (randAmount > 0 && randPosY >= 6)
+			{
+				(new WorldGenMinable(BASEMOD.blockOre.blockID, 5, randAmount)).generate(world, random, randPosX, randPosY, randPosZ);
+			}
+			
+			if (counter == 32)
+			{
+				break;
+			}
+		}
 		
+		for (int counter = 0; counter <= 32; ++counter)
+		{
+			int randPosX = chunkX + random.nextInt(16);
+			int randPosY = random.nextInt(64);
+			int randPosZ = chunkZ + random.nextInt(16);
+			BiomeGenBase biomeGenCheck = world.getBiomeGenForCoords(randPosX, randPosZ);
+			int randAmount = random.nextInt(9);
+			
+			if (randAmount > 0 && randPosY >= 6)
+			{
+				(new WorldGenMinable(BASEMOD.blockOre.blockID, 6, randAmount)).generate(world, random, randPosX, randPosY, randPosZ);
+			}
+			
+			if (counter == 32)
+			{
+				break;
+			}
+		}
+		
+		for (int counter = 0; counter <= 38; ++counter)
+		{
+			int randPosX = chunkX + random.nextInt(16);
+			int randPosY = random.nextInt(76);
+			int randPosZ = chunkZ + random.nextInt(16);
+			BiomeGenBase biomeGenCheck = world.getBiomeGenForCoords(randPosX, randPosZ);
+			int randAmount = random.nextInt(9);
+			
+			if (randAmount > 0 && randPosY >= 6)
+			{
+				(new WorldGenMinable(BASEMOD.blockOre.blockID, 7, randAmount)).generate(world, random, randPosX, randPosY, randPosZ);
+			}
+			
+			if (counter == 38)
+			{
+				break;
+			}
+		}
 	}
 	
 	public void generateEnd(World world, Random random, int chunkX, int chunkZ)
 	{
-		
+		for (int counter = 0; counter <= 24; ++counter)
+		{
+			int randPosX = chunkX + random.nextInt(16);
+			int randPosY = random.nextInt(50);
+			int randPosZ = chunkZ + random.nextInt(16);
+			int randAmount = random.nextInt(9);
+			
+			if (randAmount > 0 && randPosY < 70)
+			{
+				(new WorldGenMinable(BASEMOD.blockOre.blockID, 10, randAmount)).generate(world, random, randPosX, randPosY, randPosZ);
+			}
+		}
 	}
 	
 }

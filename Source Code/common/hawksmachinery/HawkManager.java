@@ -114,6 +114,11 @@ public class HawkManager
 		RECIPE_GIVER.addRecipe(new ItemStack(BASEMOD.blockEmptyMachine, 1, 0), new Object[]{"oxo", "xex", "oxo", 'o', BasicComponents.itemSteelIngot, 'x', BasicComponents.itemSteelPlate, 'e', new ItemStack(BASEMOD.dustRefined, 1, 1)});
 		RECIPE_GIVER.addRecipe(new ItemStack(Block.glass, 4), new Object[]{"GG", "GG", 'G', new ItemStack(BASEMOD.dustRefined, 1, 2)});
 		
+		RECIPE_GIVER.addRecipe(new ItemStack(BASEMOD.blockMetalStorage, 1, 0), new Object[]{"MMM", "MMM", "MMM", 'M', new ItemStack(BASEMOD.ingots, 1, 0)});
+		RECIPE_GIVER.addRecipe(new ItemStack(BASEMOD.blockMetalStorage, 1, 1), new Object[]{"MMM", "MMM", "MMM", 'M', new ItemStack(BASEMOD.ingots, 1, 1)});
+		RECIPE_GIVER.addRecipe(new ItemStack(BASEMOD.blockMetalStorage, 1, 2), new Object[]{"MMM", "MMM", "MMM", 'M', new ItemStack(BASEMOD.ingots, 1, 2)});
+		RECIPE_GIVER.addRecipe(new ItemStack(BASEMOD.blockMetalStorage, 1, 3), new Object[]{"MMM", "MMM", "MMM", 'M', new ItemStack(BASEMOD.ingots, 1, 3)});
+		
 		RECIPE_GIVER.addShapelessRecipe(new ItemStack(BasicComponents.itemSteelIngot, 5), new Object[]{BasicComponents.itemSteelPlate});
 		RECIPE_GIVER.addShapelessRecipe(new ItemStack(BasicComponents.itemSteelIngot, 24), new Object[]{new ItemStack(BASEMOD.blockEmptyMachine, 1, 0)});
 		RECIPE_GIVER.addShapelessRecipe(new ItemStack(BasicComponents.itemSteelIngot, 44), new Object[]{new ItemStack(BASEMOD.blockEmptyMachine, 1, 1)});
