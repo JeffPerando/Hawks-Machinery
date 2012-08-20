@@ -21,7 +21,7 @@ public interface IHawkPadTexture
 	 * @param electricityStored The electricity stored in the Pad.
 	 * @return A String containing a block texture file to use.
 	 */
-	public String getPadTextureFile(ItemStack padItem, boolean isBeingRedstoned, int electricityStored);
+	public String getPadTextureFile(ItemStack padItem, boolean isBeingRedstoned, float electricityStored);
 	
 	/**
 	 * 
@@ -32,17 +32,16 @@ public interface IHawkPadTexture
 	 * @param electricityStored The electricity stored in the Pad.
 	 * @return What swatch the Pad will use on the current texture file.
 	 */
-	public int getPadTextureLocation(ItemStack padItem, boolean isBeingRedstoned, int electricityStored);
+	public int getPadTextureLocation(ItemStack padItem, boolean isBeingRedstoned, float electricityStored);
 	
 	/**
 	 * 
 	 * Used in order to determine what color the Pad is.
 	 * 
 	 * @param padItem The item in the Pad.
-	 * @param isBeingRedstoned Whether or not the Pad is being powered by redstone.
 	 * @param electricityStored The electricity stored in the Pad.
 	 * @return The same number you would if you were using vMC's getBlockColor().
 	 */
-	public int getPadColor(ItemStack padItem, boolean isBeingRedstoned, int electricityStored);
+	public int getPadColor(ItemStack padItem, float electricityStored);
 	
 }

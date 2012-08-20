@@ -1,8 +1,10 @@
 
 package hawksmachinery.padAPI;
 
+import hawksmachinery.HawkManager;
 import java.util.ArrayList;
 import java.util.List;
+import com.google.common.collect.Lists;
 import net.minecraft.src.Entity;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.ItemStack;
@@ -15,170 +17,175 @@ import net.minecraftforge.common.ForgeDirection;
  * 
  * @author Elusivehawk
  */
-public class HawkPadAPICore implements IHawkPadEffect, IHawkPadElectricity, IHawkPadMisc, IHawkPadRedstone, IHawkPadTexture, IHawkPadUpdate
+public class HawkPadAPICore
 {
-	public static List<Object> MODS = new ArrayList<Object>();
+	private static List<IHawkPadEffect> effectHandlers = Lists.newArrayList();
+	private static List<IHawkPadElectricity> electricityHandlers = Lists.newArrayList();
+	private static List<IHawkPadMisc> miscHandlers = Lists.newArrayList();
+	private static List<IHawkPadRedstone> redstoneHandlers = Lists.newArrayList();
+	private static List<IHawkPadTexture> textureHandlers = Lists.newArrayList();
+	private static List<IHawkPadUpdate> updateHandlers = Lists.newArrayList();
+	private static List<IHawkPadInteraction> interactionHandlers = Lists.newArrayList();
 	
-	public HawkPadAPICore()
+	public HawkPadAPICore() {}
+	
+	public static void registerEffectHandler(IHawkPadEffect mod)
 	{
-		
+		effectHandlers.add(mod);
 	}
 	
-	/**
-	 * 
-	 * Call this in order to use the Pad API.
-	 * 
-	 * @param networkmod
-	 * @param name
-	 */
-	public static void registerPadInterfaceUser(Object networkmod, String name)
+	public static void registerElectricityHandler(IHawkPadElectricity mod)
 	{
-		MODS.add(networkmod);
-		
-		System.out.println("Registered Pad Interface User: " + name);
+		electricityHandlers.add(mod);
 	}
 	
-	@Override
-	public void onPadUpdate(ItemStack padItem, int electricityStored, boolean isBeingRedstoned, int x, int y, int z, World world)
+	public static void registerMiscHandler(IHawkPadMisc mod)
 	{
-		for (Object mod : MODS)
+		miscHandlers.add(mod);
+	}
+	
+	public static void registerRedstoneHandler(IHawkPadRedstone mod)
+	{
+		redstoneHandlers.add(mod);
+	}
+	
+	public static void registerTextureHandler(IHawkPadTexture mod)
+	{
+		textureHandlers.add(mod);
+	}
+	
+	public static void registerInteractionHandler(IHawkPadInteraction mod)
+	{
+		interactionHandlers.add(mod);
+	}
+	
+	public static void onPadUpdate(ItemStack padItem, float electricityStored, boolean isBeingRedstoned, int x, int y, int z, World world)
+	{
+		for (IHawkPadUpdate mod : updateHandlers)
 		{
-			if (mod instanceof IHawkPadUpdate)
-			{
-				((IHawkPadUpdate)mod).onPadUpdate(padItem, electricityStored, isBeingRedstoned, x, y, z, world);
-			}
+			mod.onPadUpdate(padItem, electricityStored, isBeingRedstoned, x, y, z, world);
 		}
 	}
 	
-	@Override
-	public String getPadTextureFile(ItemStack padItem, boolean isBeingRedstoned, int electricityStored)
+	public static String getPadTextureFile(ItemStack padItem, boolean isBeingRedstoned, float electricityStored)
 	{
-		for (Object mod : MODS)
+		for (IHawkPadTexture mod : textureHandlers)
 		{
-			if (mod instanceof IHawkPadTexture)
-			{
-				return ((IHawkPadTexture)mod).getPadTextureFile(padItem, isBeingRedstoned, electricityStored);
-			}
+			return mod.getPadTextureFile(padItem, isBeingRedstoned, electricityStored);
 		}
 		
-		return null;
+		return HawkManager.BLOCK_TEXTURE_FILE;
 	}
 	
-	@Override
-	public int getPadTextureLocation(ItemStack padItem, boolean isBeingRedstoned, int electricityStored)
+	public static int getPadTextureLocation(ItemStack padItem, boolean isBeingRedstoned, float electricityStored)
 	{
-		for (Object mod : MODS)
+		for (IHawkPadTexture mod : textureHandlers)
 		{
-			if (mod instanceof IHawkPadTexture)
-			{
-				return ((IHawkPadTexture)mod).getPadTextureLocation(padItem, isBeingRedstoned, electricityStored);
-			}
+			return mod.getPadTextureLocation(padItem, isBeingRedstoned, electricityStored);
 		}
 		
-		return 0;
+		return 57;
 	}
 	
-	@Override
-	public int getPadColor(ItemStack padItem, boolean isBeingRedstoned, int electricityStored)
+	public static int getPadColor(ItemStack padItem, float electricityStored)
 	{
-		for (Object mod : MODS)
+		for (IHawkPadTexture mod : textureHandlers)
 		{
-			if (mod instanceof IHawkPadTexture)
-			{
-				return ((IHawkPadTexture)mod).getPadColor(padItem, isBeingRedstoned, electricityStored);
-			}
+			return mod.getPadColor(padItem, electricityStored);
 		}
 		
 		return 16777215;
 	}
 	
-	@Override
-	public void onRedstoneOn(ItemStack padItem, int electricityStored)
+	public static void onRedstoneOn(ItemStack padItem, float electricityStored)
 	{
-		for (Object mod : MODS)
+		for (IHawkPadRedstone mod : redstoneHandlers)
 		{
-			if (mod instanceof IHawkPadRedstone)
-			{
-				((IHawkPadRedstone)mod).onRedstoneOn(padItem, electricityStored);
-			}
+			mod.onRedstoneOn(padItem, electricityStored);
 		}
 	}
 	
-	@Override
-	public void onRedstoneOff(ItemStack padItem, int electricityStored)
+	public static void onRedstoneOff(ItemStack padItem, float electricityStored)
 	{
-		for (Object mod : MODS)
+		for (IHawkPadRedstone mod : redstoneHandlers)
 		{
-			if (mod instanceof IHawkPadRedstone)
-			{
-				((IHawkPadRedstone)mod).onRedstoneOff(padItem, electricityStored);
-			}
+			mod.onRedstoneOff(padItem, electricityStored);
 		}
 	}
 	
-	@Override
-	public boolean canPadItemBeDroppedOnDestroyed(ItemStack padItem, boolean isBeingRedstoned)
+	public static boolean canPadItemBeDroppedOnDestroyed(ItemStack padItem, boolean isBeingRedstoned)
 	{
-		for (Object mod : MODS)
+		for (IHawkPadMisc mod : miscHandlers)
 		{
-			if (mod instanceof IHawkPadMisc)
-			{
-				return ((IHawkPadMisc)mod).canPadItemBeDroppedOnDestroyed(padItem, isBeingRedstoned);
-			}
+			return mod.canPadItemBeDroppedOnDestroyed(padItem, isBeingRedstoned);
 		}
 		
 		return true;
 	}
 	
-	@Override
-	public int getRequiredElectricityForPad(ItemStack padItem, int electricityStored, boolean isBeingRedstoned)
+	public static int getRequiredElectricityForPad(ItemStack padItem, float electricityStored, boolean isBeingRedstoned)
 	{
-		for (Object mod : MODS)
+		for (IHawkPadElectricity mod : electricityHandlers)
 		{
-			if (mod instanceof IHawkPadElectricity)
-			{
-				return ((IHawkPadElectricity)mod).getRequiredElectricityForPad(padItem, electricityStored, isBeingRedstoned);
-			}
+			return mod.getRequiredElectricityForPad(padItem, electricityStored, isBeingRedstoned);
 		}
 		
 		return 10;
 	}
 	
-	@Override
-	public boolean canConductElectricity(ItemStack padItem, int electricityStored, boolean isBeingRedstoned)
+	public static boolean canConductElectricity(ItemStack padItem, float electricityStored, boolean isBeingRedstoned)
 	{
-		for (Object mod : MODS)
+		for (IHawkPadElectricity mod : electricityHandlers)
 		{
-			if (mod instanceof IHawkPadElectricity)
-			{
-				return ((IHawkPadElectricity)mod).canConductElectricity(padItem, electricityStored, isBeingRedstoned);
-			}
+			return mod.canConductElectricity(padItem, electricityStored, isBeingRedstoned);
 		}
 		
 		return true;
 	}
 	
-	@Override
-	public void getPadEffect(ItemStack padItem, World world, int x, int y, int z, Entity entity, boolean isBeingRedstoned, int electricityStored)
+	public static int getPadElectricityLimit(ItemStack padItem, float electricityStored, boolean isBeingRedstoned)
 	{
-		for (Object mod : MODS)
+		for (IHawkPadElectricity mod : electricityHandlers)
 		{
-			if (mod instanceof IHawkPadEffect)
-			{
-				((IHawkPadEffect)mod).getPadEffect(padItem, world, x, y, z, entity, isBeingRedstoned, electricityStored);
-			}
+			return mod.getPadElectricityLimit(padItem, electricityStored, isBeingRedstoned);
+		}
+		
+		return 1000;
+	}
+	
+	public static void getPadEffect(ItemStack padItem, World world, int x, int y, int z, Entity entity, boolean isBeingRedstoned, float electricityStored)
+	{
+		for (IHawkPadEffect mod : effectHandlers)
+		{
+			mod.getPadEffect(padItem, world, x, y, z, entity, isBeingRedstoned, electricityStored);
 		}
 	}
 	
-	@Override
-	public boolean isItemValidForPad(ItemStack padItem, World world, int x, int y, int z, EntityPlayer player, ForgeDirection padDirection, boolean isBeingRedstoned)
+	public static boolean isItemValidForPad(ItemStack padItem, World world, int x, int y, int z, EntityPlayer player)
 	{
-		for (Object mod : MODS)
+		for (IHawkPadEffect mod : effectHandlers)
 		{
-			if (mod instanceof IHawkPadEffect)
-			{
-				return ((IHawkPadEffect)mod).isItemValidForPad(padItem, world, x, y, z, player, padDirection, isBeingRedstoned);
-			}
+			return mod.isItemValidForPad(padItem, world, x, y, z, player);
+		}
+		
+		return false;
+	}
+	
+	public static boolean onPadActivated(ItemStack padItem, World world, int x, int y, int z, EntityPlayer player)
+	{
+		for (IHawkPadInteraction mod : interactionHandlers)
+		{
+			return mod.onPadActivated(padItem, world, x, y, z, player);
+		}
+		
+		return false;
+	}
+	
+	public static boolean onPadWrenched(ItemStack padItem, World world, int x, int y, int z, EntityPlayer player)
+	{
+		for (IHawkPadInteraction mod : interactionHandlers)
+		{
+			return mod.onPadWrenched(padItem, world, x, y, z, player);
 		}
 		
 		return false;

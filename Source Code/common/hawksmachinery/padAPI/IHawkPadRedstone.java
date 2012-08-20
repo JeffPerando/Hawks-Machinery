@@ -19,7 +19,7 @@ public interface IHawkPadRedstone
 	 * @param padItem The item in the Pad.
 	 * @param electricityStored The electricity stored in the Pad.
 	 */
-	public void onRedstoneOn(ItemStack padItem, int electricityStored);
+	public void onRedstoneOn(ItemStack padItem, float electricityStored);
 	
 	/**
 	 * 
@@ -28,5 +28,6 @@ public interface IHawkPadRedstone
 	 * @param padItem The item in the Pad.
 	 * @param electricityStored The electricity stored in the Pad.
 	 */
-	public void onRedstoneOff(ItemStack padItem, int electricityStored);
+	public void onRedstoneOff(ItemStack padItem, float electricityStored);
+	
 }

@@ -1,6 +1,10 @@
 
 package hawksmachinery;
 
+import hawksmachinery.padAPI.HawkPadAPICore;
+import hawksmachinery.padAPI.IHawkPadEffect;
+import hawksmachinery.padAPI.IHawkPadElectricity;
+import hawksmachinery.padAPI.IHawkPadTexture;
 import java.io.*;
 import universalelectricity.basiccomponents.BasicComponents;
 import universalelectricity.recipe.RecipeManager;
@@ -63,23 +67,23 @@ public class HawkManager
 		HMConfig.load();
 		
 		grinderID = HMConfig.getOrCreateBlockIdProperty("Grinder", 3960).getInt(3960);
-		machineBlockID = HMConfig.getOrCreateBlockIdProperty("machineBlock", 3961).getInt(3961);
+		machineBlockID = HMConfig.getOrCreateBlockIdProperty("Machine Block", 3961).getInt(3961);
 		oreID = HMConfig.getOrCreateBlockIdProperty("Ores", 3962).getInt(3962);
-		metalStorageID = HMConfig.getOrCreateBlockIdProperty("metalStorageBlocks", 3963).getInt(3963);
+		metalStorageID = HMConfig.getOrCreateBlockIdProperty("Metal Storage Blocks", 3963).getInt(3963);
 		
-		dustRawID = HMConfig.getOrCreateIntProperty("rawDusts", Configuration.CATEGORY_ITEM, 24150).getInt(24150);
-		dustRefinedID = HMConfig.getOrCreateIntProperty("refinedDusts", Configuration.CATEGORY_ITEM, 24151).getInt(24151);
+		dustRawID = HMConfig.getOrCreateIntProperty("Raw Dusts", Configuration.CATEGORY_ITEM, 24150).getInt(24150);
+		dustRefinedID = HMConfig.getOrCreateIntProperty("Refined Dusts", Configuration.CATEGORY_ITEM, 24151).getInt(24151);
 		ingotsID = HMConfig.getOrCreateIntProperty("Ingots", Configuration.CATEGORY_ITEM, 24152).getInt(24152);
 		
-		ACHshellOfAMachine = HMConfig.getOrCreateIntProperty("ACHshellOfAMachine", Configuration.CATEGORY_GENERAL, 1500).getInt(1500);
-		ACHbackToBasics = HMConfig.getOrCreateIntProperty("ACHbackToBasics", Configuration.CATEGORY_GENERAL, 1501).getInt(1501);
-		ACHtimeToGrind = HMConfig.getOrCreateIntProperty("ACHtimeToGrind", Configuration.CATEGORY_GENERAL, 1502).getInt(1502);
-		ACHbuildABetterMachineBlock = HMConfig.getOrCreateIntProperty("ACHbuildABetterMachineBlock", Configuration.CATEGORY_GENERAL, 1503).getInt(1503);
-		ACHcircuitsThatBe = HMConfig.getOrCreateIntProperty("ACHcircuitsThatBe", Configuration.CATEGORY_GENERAL, 1504).getInt();
-		ACHredstonedWithCare = HMConfig.getOrCreateIntProperty("ACHredstonedWithCare", Configuration.CATEGORY_GENERAL, 1505).getInt(1505);
-		ACHminerkiin = HMConfig.getOrCreateIntProperty("ACHminerkiin", Configuration.CATEGORY_GENERAL, 1506).getInt(1506);
-		ACHspartaMiner = HMConfig.getOrCreateIntProperty("ACHtonightWeMineINHELL", Configuration.CATEGORY_GENERAL, 1507).getInt(1507);
-		ACHcompactCompact = HMConfig.getOrCreateIntProperty("ACHCompactCompact", Configuration.CATEGORY_GENERAL, 1508).getInt(1508);
+		ACHshellOfAMachine = HMConfig.getOrCreateIntProperty("ACH Shell Of A Machine", Configuration.CATEGORY_GENERAL, 1500).getInt(1500);
+		ACHbackToBasics = HMConfig.getOrCreateIntProperty("ACH Back To Basics", Configuration.CATEGORY_GENERAL, 1501).getInt(1501);
+		ACHtimeToGrind = HMConfig.getOrCreateIntProperty("ACH Time To Grind", Configuration.CATEGORY_GENERAL, 1502).getInt(1502);
+		ACHbuildABetterMachineBlock = HMConfig.getOrCreateIntProperty("ACH Build A Better Machine Block", Configuration.CATEGORY_GENERAL, 1503).getInt(1503);
+		ACHcircuitsThatBe = HMConfig.getOrCreateIntProperty("ACH Circuits That Be", Configuration.CATEGORY_GENERAL, 1504).getInt();
+		ACHredstonedWithCare = HMConfig.getOrCreateIntProperty("ACH Redstoned With Care", Configuration.CATEGORY_GENERAL, 1505).getInt(1505);
+		ACHminerkiin = HMConfig.getOrCreateIntProperty("ACH Minerkiin", Configuration.CATEGORY_GENERAL, 1506).getInt(1506);
+		ACHspartaMiner = HMConfig.getOrCreateIntProperty("ACH Tonight We Mine IN HELL", Configuration.CATEGORY_GENERAL, 1507).getInt(1507);
+		ACHcompactCompact = HMConfig.getOrCreateIntProperty("ACH Compact Compact", Configuration.CATEGORY_GENERAL, 1508).getInt(1508);
 		
 		HMConfig.save();
 		

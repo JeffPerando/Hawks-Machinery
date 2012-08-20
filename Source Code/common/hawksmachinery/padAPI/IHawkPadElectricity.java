@@ -21,7 +21,7 @@ public interface IHawkPadElectricity
 	 * @param isBeingRedstoned Whether or not the Pad is being powered by redstone.
 	 * @return How much electricity is required per tick.
 	 */
-	public int getRequiredElectricityForPad(ItemStack padItem, int electricityStored, boolean isBeingRedstoned);
+	public int getRequiredElectricityForPad(ItemStack padItem, float electricityStored, boolean isBeingRedstoned);
 	
 	/**
 	 * 
@@ -32,6 +32,17 @@ public interface IHawkPadElectricity
 	 * @param isBeingRedstoned Whether or not the Pad is being powered by redstone.
 	 * @return True if the pad can conduct electricity, false otherwise.
 	 */
-	public boolean canConductElectricity(ItemStack padItem, int electricityStored, boolean isBeingRedstoned);
+	public boolean canConductElectricity(ItemStack padItem, float electricityStored, boolean isBeingRedstoned);
+	
+	/**
+	 * 
+	 * Used in order to determine what the electricity limit for a Pad is.
+	 * 
+	 * @param padItem The item in the Pad.
+	 * @param electricityStored The electricity stored in the Pad.
+	 * @param isBeingRedstoned Whether or not the Pad is being powered by redstone.
+	 * @return How much electricity this Pad can contain.
+	 */
+	public int getPadElectricityLimit(ItemStack padItem, float electricityStored, boolean isBeingRedstoned);
 	
 }

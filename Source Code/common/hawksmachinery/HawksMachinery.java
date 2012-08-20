@@ -1,6 +1,7 @@
 
 package hawksmachinery;
 
+import hawksmachinery.padAPI.HawkPadAPICore;
 import universalelectricity.UniversalElectricity;
 import universalelectricity.network.PacketManager;
 import net.minecraft.src.Block;
@@ -25,7 +26,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 
 /**
  * 
- * 
+ * The main file for Hawk's Machinery.
  * 
  * @author Elusivehawk
  */
@@ -38,6 +39,8 @@ public class HawksMachinery
 	
 	@SidedProxy(clientSide = "hawksmachinery.HMClientProxy", serverSide = "hawksmachinery.HMCommonProxy")
 	public static HMCommonProxy PROXY;
+	
+	public static HawkPadManager PAD_MANAGER = new HawkPadManager();
 	
 	/**
 	 * Note: DO NOT MOVE THIS! I'm serious, I don't want to see any refactor job move this, due to the fact that doing so is A VERY BAD IDEA!
@@ -69,6 +72,10 @@ public class HawksMachinery
 		//To whoever decided to make "static" and "this" incompatible: Bazinga, punk!
 		GameRegistry.registerWorldGenerator(new HawkOreGenerator());
 		
+		HawkPadAPICore.registerElectricityHandler(PAD_MANAGER);
+		HawkPadAPICore.registerEffectHandler(PAD_MANAGER);
+		HawkPadAPICore.registerTextureHandler(PAD_MANAGER);
+		
 		AchievementPage.registerAchievementPage(HawkAchievements.HAWKSPAGE);
 		
 		PROXY.preInit();
@@ -83,6 +90,13 @@ public class HawksMachinery
 		OreDictionary.registerOre("ingotTitanium", new ItemStack(ingots, 1, 0));
 		OreDictionary.registerOre("ingotAluminum", new ItemStack(ingots, 1, 1));
 		OreDictionary.registerOre("ingotSilver", new ItemStack(ingots, 1, 2));
+		OreDictionary.registerOre("ingotEndium", new ItemStack(ingots, 1, 3));
+		
+		OreDictionary.registerOre("oreTitanium", new ItemStack(blockOre, 1, 0));
+		OreDictionary.registerOre("oreAluminum", new ItemStack(blockOre, 1, 1));
+		OreDictionary.registerOre("oreBauxium", new ItemStack(blockOre, 1, 1));
+		OreDictionary.registerOre("oreSilver", new ItemStack(blockOre, 1, 2));
+		OreDictionary.registerOre("oreEndium", new ItemStack(blockOre, 1, 3));
 		
 		HawkManager.loadRecipes();
 	}

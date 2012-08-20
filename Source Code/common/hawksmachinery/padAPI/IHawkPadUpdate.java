@@ -24,5 +24,6 @@ public interface IHawkPadUpdate
 	 * @param z The z position of the Pad.
 	 * @param world The World.
 	 */
-	public void onPadUpdate(ItemStack padItem, int electricityStored, boolean isBeingRedstoned, int x, int y, int z, World world);
+	public void onPadUpdate(ItemStack padItem, float electricityStored, boolean isBeingRedstoned, int x, int y, int z, World world);
+	
 }
