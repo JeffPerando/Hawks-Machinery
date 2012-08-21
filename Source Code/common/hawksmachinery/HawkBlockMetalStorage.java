@@ -21,7 +21,6 @@ import net.minecraft.src.ModLoader;
  */
 public class HawkBlockMetalStorage extends Block
 {
-	
 	public HawkBlockMetalStorage(int id)
 	{
 		super(id, Material.iron);
@@ -68,6 +67,12 @@ public class HawkBlockMetalStorage extends Block
 		}
 		
 		return 0;
+	}
+	
+	@Override
+	public int damageDropped(int meta)
+	{
+		return meta;
 	}
 	
 }

@@ -30,7 +30,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
  * 
  * @author Elusivehawk
  */
-@Mod(modid = "HawksMachinery", name = "Hawk's Machinery", version = "Alpha v1.2 Prerelease 1", dependencies = "after:UniversalElectricity")
+@Mod(modid = "HawksMachinery", name = "Hawk's Machinery", version = "Alpha v1.2 Prerelease 2", dependencies = "after:UniversalElectricity")
 @NetworkMod(channels = { "HawksMachinery" }, clientSideRequired = true, serverSideRequired = false, packetHandler = PacketManager.class)
 public class HawksMachinery
 {
@@ -45,8 +45,8 @@ public class HawksMachinery
 	/**
 	 * Note: DO NOT MOVE THIS! I'm serious, I don't want to see any refactor job move this, due to the fact that doing so is A VERY BAD IDEA!
 	 */
-	public static Block blockGrinder = new HawkBlockGrinder(HawkManager.initProps(), Material.iron);
-	public static Block blockEmptyMachine = new HawkBlockMachine(HawkManager.machineBlockID, Material.iron);
+	public static Block blockGrinder = new HawkBlockGrinder(HawkManager.initProps());
+	public static Block blockEmptyMachine = new HawkBlockMachine(HawkManager.machineBlockID);
 	public static Block blockOre = new HawkBlockOre(HawkManager.oreID);
 	public static Block blockMetalStorage = new HawkBlockMetalStorage(HawkManager.metalStorageID);
 	
@@ -60,6 +60,7 @@ public class HawksMachinery
 	 */
 	public static Item dustRefined = new HawkItemRefinedDust(HawkManager.dustRefinedID);
 	public static Item ingots = new HawkItemIngots(HawkManager.ingotsID);
+	public static Item parts = new HawkItemParts(HawkManager.partsID);
 	
 	@PreInit
 	public void preInit(FMLPreInitializationEvent event)
@@ -72,8 +73,8 @@ public class HawksMachinery
 		//To whoever decided to make "static" and "this" incompatible: Bazinga, punk!
 		GameRegistry.registerWorldGenerator(new HawkOreGenerator());
 		
-		HawkPadAPICore.registerElectricityHandler(PAD_MANAGER);
 		HawkPadAPICore.registerEffectHandler(PAD_MANAGER);
+		HawkPadAPICore.registerElectricityHandler(PAD_MANAGER);
 		HawkPadAPICore.registerTextureHandler(PAD_MANAGER);
 		
 		AchievementPage.registerAchievementPage(HawkAchievements.HAWKSPAGE);
@@ -99,6 +100,7 @@ public class HawksMachinery
 		OreDictionary.registerOre("oreEndium", new ItemStack(blockOre, 1, 3));
 		
 		HawkManager.loadRecipes();
+		
 	}
 	
 	@PostInit

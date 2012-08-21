@@ -15,7 +15,7 @@ import net.minecraft.src.TileEntity;
  */
 public class HawkContainerGrinder extends Container
 {
-	private static HawkTileEntityGrinder tileEntity;
+	private HawkTileEntityGrinder tileEntity;
 	
 	public boolean canInteractWith(EntityPlayer var1)
 	{

@@ -34,7 +34,7 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 {
 	public int ELECTRICITY_REQUIRED = 10;
 	
-	public int TICKS_REQUIRED = 120;
+	public int TICKS_REQUIRED = 200;
 	
 	public ForgeDirection facingDirection = ForgeDirection.UNKNOWN;
 	

@@ -76,17 +76,14 @@ public class HawkTileEntityPad extends TileEntityElectricUnit implements IElectr
 	}
 	
 	@Override
-	public boolean canConnect(ForgeDirection side)
-	{
-		return false;
-		//TODO: Fill this out.
-	}
-	
-	@Override
 	public boolean canReceiveFromSide(ForgeDirection side)
 	{
+		if (side.ordinal() == this.worldObj.getBlockMetadata(this.xCoord, this.yCoord, this.zCoord))
+		{
+			return true;
+		}
+		
 		return false;
-		//TODO: Fill this out.
 	}
 	
 	@Override

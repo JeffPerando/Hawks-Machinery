@@ -24,14 +24,16 @@ public class HawkManager
 	public static RecipeManager RECIPE_GIVER;
 	public static HawkProcessingRecipes PROCESS_RECIPES;
 	
-	public static int machineBlockID;
 	public static int grinderID;
+	public static int machineBlockID;
 	public static int oreID;
 	public static int metalStorageID;
+	public static int washerID;
 	
 	public static int dustRawID;
 	public static int dustRefinedID;
 	public static int ingotsID;
+	public static int partsID;
 	
 	public static int ACHshellOfAMachine;
 	public static int ACHbackToBasics;
@@ -74,6 +76,7 @@ public class HawkManager
 		dustRawID = HMConfig.getOrCreateIntProperty("Raw Dusts", Configuration.CATEGORY_ITEM, 24150).getInt(24150);
 		dustRefinedID = HMConfig.getOrCreateIntProperty("Refined Dusts", Configuration.CATEGORY_ITEM, 24151).getInt(24151);
 		ingotsID = HMConfig.getOrCreateIntProperty("Ingots", Configuration.CATEGORY_ITEM, 24152).getInt(24152);
+		partsID = HMConfig.getOrCreateIntProperty("Parts", Configuration.CATEGORY_ITEM, 24153).getInt(24153);
 		
 		ACHshellOfAMachine = HMConfig.getOrCreateIntProperty("ACH Shell Of A Machine", Configuration.CATEGORY_GENERAL, 1500).getInt(1500);
 		ACHbackToBasics = HMConfig.getOrCreateIntProperty("ACH Back To Basics", Configuration.CATEGORY_GENERAL, 1501).getInt(1501);
@@ -101,7 +104,7 @@ public class HawkManager
 	public static void loadRecipes()
 	{
 		RECIPE_GIVER.addRecipe(new ItemStack(BASEMOD.blockEmptyMachine, 1, 0), new Object[]{"oxo", "xpx", "oxo", 'o', BasicComponents.itemSteelIngot, 'x', BasicComponents.itemSteelPlate, 'p', Item.blazePowder});
-		RECIPE_GIVER.addRecipe(new ItemStack(BASEMOD.blockGrinder, 1), new Object[]{"xMx", "xpx", "xmx", 'x', BasicComponents.itemSteelIngot, 'p', Item.pickaxeSteel, 'm', new ItemStack(BASEMOD.blockEmptyMachine, 1, 4), 'M', BasicComponents.itemMotor});
+		RECIPE_GIVER.addRecipe(new ItemStack(BASEMOD.blockGrinder, 1), new Object[]{"xpx", "xMx", "xmx", 'x', BasicComponents.itemSteelIngot, 'p', Item.pickaxeSteel, 'm', new ItemStack(BASEMOD.blockEmptyMachine, 1, 3), 'M', BasicComponents.itemMotor});
 		RECIPE_GIVER.addRecipe(new ItemStack(BasicComponents.itemBattery), new Object[]{" x ", "xrx", "xcx", 'x', BasicComponents.itemTinIngot, 'c', new ItemStack(BASEMOD.dustRaw, 1, 0), 'r', Item.redstone});
 		RECIPE_GIVER.addRecipe(new ItemStack(Block.torchWood, 4), new Object[]{"c", "s", 'c', new ItemStack(BASEMOD.dustRaw, 1, 0), 's', Item.stick});
 		RECIPE_GIVER.addRecipe(new ItemStack(Block.enchantmentTable, 1), new Object[]{" b ", "dod", "ooo", 'b', Item.book, 'd', new ItemStack(BASEMOD.dustRaw, 1, 1), 'o', Block.obsidian});
@@ -144,7 +147,7 @@ public class HawkManager
 		RECIPE_GIVER.addSmelting(new ItemStack(BASEMOD.dustRefined, 1, 5), new ItemStack(BasicComponents.itemCopperIngot));
 		RECIPE_GIVER.addSmelting(new ItemStack(BASEMOD.dustRefined, 1, 6), new ItemStack(BasicComponents.itemTinIngot));
 		RECIPE_GIVER.addSmelting(new ItemStack(BASEMOD.dustRaw, 1, 5), new ItemStack(Block.obsidian));
-		RECIPE_GIVER.addSmelting(new ItemStack(BASEMOD.blockGrinder, 1, 0), new ItemStack(BasicComponents.itemSteelPlate, 15));
+		RECIPE_GIVER.addSmelting(new ItemStack(BASEMOD.blockGrinder, 1, 0), new ItemStack(BasicComponents.itemSteelPlate, 11));
 		
 		RECIPE_GIVER.addSmelting(new ItemStack(BASEMOD.blockOre, 1, 0), new ItemStack(BASEMOD.ingots, 1, 0));
 		RECIPE_GIVER.addSmelting(new ItemStack(BASEMOD.blockOre, 1, 1), new ItemStack(BASEMOD.ingots, 1, 1));
@@ -212,6 +215,8 @@ public class HawkManager
 		PROCESS_RECIPES.addHawkProcessingRecipe(Block.plantRed.blockID, new ItemStack(Item.dyePowder, 2, 1), 1);
 		PROCESS_RECIPES.addHawkProcessingRecipe(Block.plantYellow.blockID, new ItemStack(Item.dyePowder, 2, 11), 1);
 		
+		PROCESS_RECIPES.addHawkProcessingRecipe(Item.emerald.shiftedIndex, new ItemStack(BASEMOD.dustRefined, 1, 10), 1);
+		
 		
 		PROCESS_RECIPES.addHawkMetaProcessingRecipe(Item.coal.shiftedIndex, 0, new ItemStack(BASEMOD.dustRaw, 1, 0), 1);
 		PROCESS_RECIPES.addHawkMetaProcessingRecipe(Item.coal.shiftedIndex, 1, new ItemStack(BASEMOD.dustRaw, 1, 0), 1);
@@ -227,8 +232,6 @@ public class HawkManager
 		PROCESS_RECIPES.addHawkMetaProcessingRecipe(BASEMOD.blockOre.blockID, 5, new ItemStack(BASEMOD.dustRaw, 3, 5), 1);
 		PROCESS_RECIPES.addHawkMetaProcessingRecipe(BASEMOD.blockOre.blockID, 6, new ItemStack(BASEMOD.dustRaw, 3, 6), 1);
 		PROCESS_RECIPES.addHawkMetaProcessingRecipe(BASEMOD.blockOre.blockID, 7, new ItemStack(BASEMOD.dustRaw, 3, 7), 1);
-		
-		PROCESS_RECIPES.addHawkProcessingRecipe(Item.emerald.shiftedIndex, new ItemStack(BASEMOD.dustRefined, 1, 10), 1);
 		
 		
 		PROCESS_RECIPES.addHawkExplosive(Block.tnt.blockID, 1);

@@ -24,7 +24,6 @@ public class HawkItemIngots extends Item
 		setHasSubtypes(true);
 		setMaxDamage(0);
 		setTabToDisplayOn(CreativeTabs.tabMaterials);
-		LanguageRegistry.instance().addNameForObject(this, "en_US", "Ingots");
 		
 		OreDictionary.registerOre("ingotTitanium", new ItemStack(this, 1, 0));
 		OreDictionary.registerOre("ingotAluminum", new ItemStack(this, 1, 1));

@@ -21,7 +21,6 @@ public class HawkItemRefinedDust extends Item
 	    this.setHasSubtypes(true);
 	    this.setMaxDamage(0);
 		setTabToDisplayOn(CreativeTabs.tabMaterials);
-	    LanguageRegistry.instance().addNameForObject(this, "en_US", "Refined Dust");
 	}
 	
 	@Override

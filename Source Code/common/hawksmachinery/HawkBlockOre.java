@@ -47,9 +47,12 @@ public class HawkBlockOre extends Block
 			case 0: return 25;
 			case 1: return 26;
 			case 2: return 27;
+			case 3: return 28;
+			case 4: return 29;
 			case 5: return 41;
 			case 6: return 42;
 			case 7: return 43;
+			case 8: return 44;
 			case 10: return 30;
 			default: return 0;
 		}
@@ -72,6 +75,12 @@ public class HawkBlockOre extends Block
 	public String getTextureFile()
 	{
 		return HawkManager.BLOCK_TEXTURE_FILE;
+	}
+	
+	@Override
+	public int damageDropped(int meta)
+	{
+		return meta;
 	}
 	
 }

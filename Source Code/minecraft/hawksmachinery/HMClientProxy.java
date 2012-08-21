@@ -17,7 +17,7 @@ import net.minecraftforge.client.MinecraftForgeClient;
  */
 public class HMClientProxy extends HMCommonProxy
 {
-	public HawksMachinery BASEMOD;
+	public static HawksMachinery BASEMOD;
 	
 	@Override
 	public void preInit()
@@ -42,7 +42,11 @@ public class HMClientProxy extends HMCommonProxy
 		
 		if (tileEntity != null)
         {
-			return new HawkGUIGrinder(player.inventory, ((HawkTileEntityGrinder)tileEntity));
+			switch (ID)
+			{
+				case 0: return new HawkGUIGrinder(player.inventory, ((HawkTileEntityGrinder)tileEntity));
+				
+			}
         }
 		
 		return null;

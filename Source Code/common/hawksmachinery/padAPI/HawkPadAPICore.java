@@ -14,6 +14,7 @@ import net.minecraftforge.common.ForgeDirection;
 /**
  * 
  * Call registerPadInterfaceUser() here if you want to use Pad interfaces.
+ * Everything else can be left alone.
  * 
  * @author Elusivehawk
  */

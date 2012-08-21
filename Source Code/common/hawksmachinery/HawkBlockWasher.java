@@ -2,32 +2,40 @@
 package hawksmachinery;
 
 import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.LanguageRegistry;
+import net.minecraft.src.CreativeTabs;
+import net.minecraft.src.DamageSource;
+import net.minecraft.src.Entity;
+import net.minecraft.src.EntityEnderman;
+import net.minecraft.src.EntityLiving;
+import net.minecraft.src.EntityPlayer;
+import net.minecraft.src.Material;
+import net.minecraft.src.MathHelper;
+import net.minecraft.src.TileEntity;
+import net.minecraft.src.World;
 import universalelectricity.extend.BlockMachine;
-import net.minecraft.src.*;
 
 /**
  * 
- * Just the block for the Grinder.
+ * 
  * 
  * @author Elusivehawk
  */
-public class HawkBlockGrinder extends BlockMachine
+public class HawkBlockWasher extends BlockMachine
 {
-	public HawkTileEntityGrinder tileEntity = new HawkTileEntityGrinder();
+	public HawkTileEntityWasher tileEntity = new HawkTileEntityWasher();
 	
-	public HawkBlockGrinder(int id)
+	public HawkBlockWasher(int id)
 	{
-		super("Grinder", id, Material.iron);
+		super("Washer", id, Material.iron);
 		setHardness(2.0F);
 		setResistance(20.0F);
 		setRequiresSelfNotify();
-		GameRegistry.registerBlock(this, HawkItemBlockGrinder.class);
+		GameRegistry.registerBlock(this);
 		setCreativeTab(CreativeTabs.tabDeco);
 	}
 	
 	@Override
-	protected int damageDropped(int metadata)
+	public int damageDropped(int metadata)
 	{
 		return 0;
 	}
@@ -39,7 +47,7 @@ public class HawkBlockGrinder extends BlockMachine
 		
 		if (!world.isRemote)
 		{
-			player.openGui(HawkManager.getModInstance(), 0, world, x, y, z);
+			player.openGui(HawkManager.getModInstance(), 1, world, x, y, z);
 			return true;
 		}
 		
@@ -47,7 +55,7 @@ public class HawkBlockGrinder extends BlockMachine
 	}
 	
 	@Override
-	public boolean onUseWrench(World world, int x, int y, int z, EntityPlayer par5EntityPlayer)
+	public boolean onUseWrench(World world, int x, int y, int z, EntityPlayer player)
 	{
 		switch(world.getBlockMetadata(x, y, z))
 		{
@@ -85,55 +93,13 @@ public class HawkBlockGrinder extends BlockMachine
 	}
 	
 	@Override
-	public boolean hasTileEntity(int metadata)
-	{
-		return true;
-	}
-	
-	@Override
 	public TileEntity createNewTileEntity(World world)
-	{    	
+	{
 		return this.tileEntity;
 	}
 	
-	@Override
-	public int getBlockTextureFromSideAndMetadata(int side, int metadata)
-	{
-		switch (metadata)
-		{
-			case 2: switch (side)
-					{
-						case 1: return 5;
-						case 2: return 6;
-						default: return 7;
-					}
-			case 3: switch (side)
-					{
-						case 1: return 5;
-						case 3: return 6;
-						default: return 7;
-					}
-			case 4: switch (side)
-					{
-						case 1: return 23;
-						case 4: return 6;
-						default: return 7;
-					}
-			case 5: switch (side)
-					{
-						case 1: return 23;
-						case 5: return 6;
-						default: return 7;
-					}
-			default: switch (side)
-					{
-						case 1: return 5;
-						case 3: return 6;
-						default: return 7;
-					}
-		}
-	}
-    
+	
+	
 	@Override
 	public boolean canPlaceBlockOnSide(World world, int x, int y, int z, int side)
 	{
@@ -143,6 +109,17 @@ public class HawkBlockGrinder extends BlockMachine
 		}
 		
 		return false;
+	}
+	
+	@Override
+	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity)
+	{
+		if (entity instanceof EntityEnderman)
+		{
+			entity.attackEntityFrom(DamageSource.drown, 1);
+		}
+		
+		entity.extinguish();
 	}
 	
 }

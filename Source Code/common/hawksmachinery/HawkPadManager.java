@@ -2,6 +2,7 @@
 package hawksmachinery;
 
 import net.minecraft.src.Entity;
+import net.minecraft.src.EntityItem;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
@@ -18,10 +19,12 @@ import hawksmachinery.padAPI.IHawkPadTexture;
  */
 public class HawkPadManager implements IHawkPadTexture, IHawkPadElectricity, IHawkPadEffect
 {
+	public static HawksMachinery BASEMOD;
+	
 	@Override
 	public int getRequiredElectricityForPad(ItemStack padItem, float electricityStored, boolean isBeingRedstoned)
 	{
-		if (padItem.itemID == Item.redstone.shiftedIndex)
+		if (padItem == new ItemStack(BASEMOD.parts, 1, 0))
 		{
 			if (isBeingRedstoned)
 			{
@@ -43,7 +46,7 @@ public class HawkPadManager implements IHawkPadTexture, IHawkPadElectricity, IHa
 	@Override
 	public int getPadElectricityLimit(ItemStack padItem, float electricityStored, boolean isBeingRedstoned)
 	{
-		if (padItem.itemID == Item.redstone.shiftedIndex)
+		if (padItem == new ItemStack(BASEMOD.parts, 1, 0))
 		{
 			return 1100;
 		}
@@ -60,14 +63,14 @@ public class HawkPadManager implements IHawkPadTexture, IHawkPadElectricity, IHa
 	@Override
 	public int getPadTextureLocation(ItemStack padItem, boolean isBeingRedstoned, float electricityStored)
 	{
-		if (padItem.itemID == Item.redstone.shiftedIndex)
+		if (padItem == new ItemStack(BASEMOD.parts, 1, 0))
 		{
 			if (isBeingRedstoned)
 			{
-				return 32;
+				return 34;
 			}
 			
-			return 33;
+			return 35;
 		}
 		
 		return 57;
@@ -82,13 +85,19 @@ public class HawkPadManager implements IHawkPadTexture, IHawkPadElectricity, IHa
 	@Override
 	public void getPadEffect(ItemStack padItem, World world, int x, int y, int z, Entity entity, boolean isBeingRedstoned, float electricityStored)
 	{
-		
+		if (padItem == new ItemStack(BASEMOD.parts, 1, 0) && !(entity instanceof EntityItem))
+		{
+			switch (world.getBlockMetadata(x, y, z))
+			{
+				case 0: entity.addVelocity(0, 1, 0);
+			}
+		}
 	}
 	
 	@Override
 	public boolean isItemValidForPad(ItemStack padItem, World world, int x, int y, int z, EntityPlayer player)
 	{
-		if (padItem.itemID == Item.redstone.shiftedIndex)
+		if (padItem == new ItemStack(BASEMOD.parts, 1, 0))
 		{
 			return true;
 		}

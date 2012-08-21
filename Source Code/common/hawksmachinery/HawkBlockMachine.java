@@ -17,9 +17,9 @@ import net.minecraftforge.*;
  */
 public class HawkBlockMachine extends Block
 {
-	public HawkBlockMachine(int id, Material mat)
+	public HawkBlockMachine(int id)
 	{
-		super(id, mat);
+		super(id, Material.iron);
 		setHardness(1.5F);
 		setResistance(25.0F);
 		setBlockName("Machine Blocks");
@@ -56,6 +56,12 @@ public class HawkBlockMachine extends Block
 	public String getTextureFile()
 	{
 		return HawkManager.BLOCK_TEXTURE_FILE;
+	}
+	
+	@Override
+	public int damageDropped(int meta)
+	{
+		return meta;
 	}
 	
 }
