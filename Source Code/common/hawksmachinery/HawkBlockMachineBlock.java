@@ -15,9 +15,9 @@ import net.minecraftforge.*;
  * 
  * @author Elusivehawk
  */
-public class HawkBlockMachine extends Block
+public class HawkBlockMachineBlock extends Block
 {
-	public HawkBlockMachine(int id)
+	public HawkBlockMachineBlock(int id)
 	{
 		super(id, Material.iron);
 		setHardness(1.5F);
