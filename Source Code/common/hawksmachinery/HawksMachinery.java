@@ -45,7 +45,7 @@ public class HawksMachinery
 	/**
 	 * Note: DO NOT MOVE THIS! I'm serious, I don't want to see any refactor job move this, due to the fact that doing so is A VERY BAD IDEA!
 	 */
-	public static Block blockGrinder = new HawkBlockGrinder(HawkManager.initProps());
+	public static Block blockMachinery = new HawkBlockMachinery(HawkManager.initProps());
 	public static Block blockEmptyMachine = new HawkBlockMachine(HawkManager.machineBlockID);
 	public static Block blockOre = new HawkBlockOre(HawkManager.oreID);
 	public static Block blockMetalStorage = new HawkBlockMetalStorage(HawkManager.metalStorageID);

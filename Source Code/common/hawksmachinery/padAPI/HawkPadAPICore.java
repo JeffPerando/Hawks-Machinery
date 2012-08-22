@@ -13,7 +13,7 @@ import net.minecraftforge.common.ForgeDirection;
 
 /**
  * 
- * Call registerPadInterfaceUser() here if you want to use Pad interfaces.
+ * Call a register-blank-Handler() function here if you want to use certain Pad interfaces.
  * Everything else can be left alone.
  * 
  * @author Elusivehawk
@@ -22,7 +22,6 @@ public class HawkPadAPICore
 {
 	private static List<IHawkPadEffect> effectHandlers = Lists.newArrayList();
 	private static List<IHawkPadElectricity> electricityHandlers = Lists.newArrayList();
-	private static List<IHawkPadMisc> miscHandlers = Lists.newArrayList();
 	private static List<IHawkPadRedstone> redstoneHandlers = Lists.newArrayList();
 	private static List<IHawkPadTexture> textureHandlers = Lists.newArrayList();
 	private static List<IHawkPadUpdate> updateHandlers = Lists.newArrayList();
@@ -38,11 +37,6 @@ public class HawkPadAPICore
 	public static void registerElectricityHandler(IHawkPadElectricity mod)
 	{
 		electricityHandlers.add(mod);
-	}
-	
-	public static void registerMiscHandler(IHawkPadMisc mod)
-	{
-		miscHandlers.add(mod);
 	}
 	
 	public static void registerRedstoneHandler(IHawkPadRedstone mod)
@@ -114,16 +108,6 @@ public class HawkPadAPICore
 		}
 	}
 	
-	public static boolean canPadItemBeDroppedOnDestroyed(ItemStack padItem, boolean isBeingRedstoned)
-	{
-		for (IHawkPadMisc mod : miscHandlers)
-		{
-			return mod.canPadItemBeDroppedOnDestroyed(padItem, isBeingRedstoned);
-		}
-		
-		return true;
-	}
-	
 	public static int getRequiredElectricityForPad(ItemStack padItem, float electricityStored, boolean isBeingRedstoned)
 	{
 		for (IHawkPadElectricity mod : electricityHandlers)
@@ -162,6 +146,14 @@ public class HawkPadAPICore
 		}
 	}
 	
+	public static void onPadWalkedOn(ItemStack padItem, World world, int x, int y, int z, Entity entity, boolean isBeingRedstoned, float electricityStored)
+	{
+		for (IHawkPadEffect mod : effectHandlers)
+		{
+			mod.onPadWalkedOn(padItem, world, x, y, z, entity, isBeingRedstoned, electricityStored);
+		}
+	}
+	
 	public static boolean isItemValidForPad(ItemStack padItem, World world, int x, int y, int z, EntityPlayer player)
 	{
 		for (IHawkPadEffect mod : effectHandlers)
@@ -190,6 +182,16 @@ public class HawkPadAPICore
 		}
 		
 		return false;
+	}
+	
+	public static boolean canPadItemBeDroppedOnDestroyed(ItemStack padItem, boolean isBeingRedstoned)
+	{
+		for (IHawkPadInteraction mod : interactionHandlers)
+		{
+			return mod.canPadItemBeDroppedOnDestroyed(padItem, isBeingRedstoned);
+		}
+		
+		return true;
 	}
 	
 }

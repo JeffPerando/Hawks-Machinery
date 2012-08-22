@@ -15,11 +15,9 @@ import net.minecraft.src.*;
  */
 public class HawkItem extends Item
 {
-	public HawkItem(String name, int id)
+	public HawkItem(int id)
     {
 	    super(id);
-	    this.setItemName(name);
-	    LanguageRegistry.instance().addNameForObject(this, "en_US", name);
 		setTabToDisplayOn(CreativeTabs.tabMisc);
     }
 	

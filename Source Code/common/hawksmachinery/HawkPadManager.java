@@ -95,6 +95,12 @@ public class HawkPadManager implements IHawkPadTexture, IHawkPadElectricity, IHa
 	}
 	
 	@Override
+	public void onPadWalkedOn(ItemStack padItem, World world, int x, int y, int z, Entity entity, boolean isBeingRedstoned, float electricityStored)
+	{
+		
+	}
+	
+	@Override
 	public boolean isItemValidForPad(ItemStack padItem, World world, int x, int y, int z, EntityPlayer player)
 	{
 		if (padItem == new ItemStack(BASEMOD.parts, 1, 0))

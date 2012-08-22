@@ -17,7 +17,7 @@ public class HawkLanguageCore
 	
 	public static void addToolTips()
 	{
-		LanguageRegistry.instance().addNameForObject(BASEMOD.blockGrinder, "en_US", "Grinder");
+		LanguageRegistry.instance().addNameForObject(BASEMOD.blockMachinery, "en_US", "Grinder");
 		
 		
 		LanguageRegistry.instance().addStringLocalization(ACH.shellOfAMachine.getName(), "en_US", "Shell of a Machine");

@@ -6,11 +6,13 @@ import hawksmachinery.padAPI.IHawkPadEffect;
 import hawksmachinery.padAPI.IHawkPadElectricity;
 import hawksmachinery.padAPI.IHawkPadTexture;
 import java.io.*;
+import java.util.ArrayList;
 import universalelectricity.basiccomponents.BasicComponents;
 import universalelectricity.recipe.RecipeManager;
 import net.minecraft.src.*;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.oredict.OreDictionary;
 
 /**
  * 
@@ -24,7 +26,20 @@ public class HawkManager
 	public static RecipeManager RECIPE_GIVER;
 	public static HawkProcessingRecipes PROCESS_RECIPES;
 	
-	public static int grinderID;
+	public static ArrayList<ItemStack> copperOreList = OreDictionary.getOres("oreCopper");
+	public static ArrayList<ItemStack> tinOreList = OreDictionary.getOres("oreTin");
+	public static ArrayList<ItemStack> titaniumOreList = OreDictionary.getOres("oreTitanium");
+	public static ArrayList<ItemStack> aluminumOreList = OreDictionary.getOres("oreAluminum");
+	public static ArrayList<ItemStack> silverOreList = OreDictionary.getOres("oreSilver");
+	
+	public static ArrayList<ItemStack> copperIngotList = OreDictionary.getOres("ingotCopper");
+	public static ArrayList<ItemStack> tinIngotList = OreDictionary.getOres("ingotTin");
+	public static ArrayList<ItemStack> titaniumIngotList = OreDictionary.getOres("ingotTitanium");
+	public static ArrayList<ItemStack> aluminumIngotList = OreDictionary.getOres("ingotAluminum");
+	public static ArrayList<ItemStack> silverIngotList = OreDictionary.getOres("ingotSilver");
+	public static ArrayList<ItemStack> emeraldList = OreDictionary.getOres("");
+	
+	public static int machineryID;
 	public static int machineBlockID;
 	public static int oreID;
 	public static int metalStorageID;
@@ -68,8 +83,8 @@ public class HawkManager
 		
 		HMConfig.load();
 		
-		grinderID = HMConfig.getOrCreateBlockIdProperty("Grinder", 3960).getInt(3960);
-		machineBlockID = HMConfig.getOrCreateBlockIdProperty("Machine Block", 3961).getInt(3961);
+		machineryID = HMConfig.getOrCreateBlockIdProperty("Machinery", 3960).getInt(3960);
+		machineBlockID = HMConfig.getOrCreateBlockIdProperty("Machine Blocks", 3961).getInt(3961);
 		oreID = HMConfig.getOrCreateBlockIdProperty("Ores", 3962).getInt(3962);
 		metalStorageID = HMConfig.getOrCreateBlockIdProperty("Metal Storage Blocks", 3963).getInt(3963);
 		
@@ -90,7 +105,7 @@ public class HawkManager
 		
 		HMConfig.save();
 		
-		return grinderID;
+		return machineryID;
 	}
 	
 	public static HawksMachinery getModInstance()
@@ -104,7 +119,7 @@ public class HawkManager
 	public static void loadRecipes()
 	{
 		RECIPE_GIVER.addRecipe(new ItemStack(BASEMOD.blockEmptyMachine, 1, 0), new Object[]{"oxo", "xpx", "oxo", 'o', BasicComponents.itemSteelIngot, 'x', BasicComponents.itemSteelPlate, 'p', Item.blazePowder});
-		RECIPE_GIVER.addRecipe(new ItemStack(BASEMOD.blockGrinder, 1), new Object[]{"xpx", "xMx", "xmx", 'x', BasicComponents.itemSteelIngot, 'p', Item.pickaxeSteel, 'm', new ItemStack(BASEMOD.blockEmptyMachine, 1, 3), 'M', BasicComponents.itemMotor});
+		RECIPE_GIVER.addRecipe(new ItemStack(BASEMOD.blockMachinery, 1), new Object[]{"xpx", "xMx", "xmx", 'x', BasicComponents.itemSteelIngot, 'p', Item.pickaxeSteel, 'm', new ItemStack(BASEMOD.blockEmptyMachine, 1, 3), 'M', BasicComponents.itemMotor});
 		RECIPE_GIVER.addRecipe(new ItemStack(BasicComponents.itemBattery), new Object[]{" x ", "xrx", "xcx", 'x', BasicComponents.itemTinIngot, 'c', new ItemStack(BASEMOD.dustRaw, 1, 0), 'r', Item.redstone});
 		RECIPE_GIVER.addRecipe(new ItemStack(Block.torchWood, 4), new Object[]{"c", "s", 'c', new ItemStack(BASEMOD.dustRaw, 1, 0), 's', Item.stick});
 		RECIPE_GIVER.addRecipe(new ItemStack(Block.enchantmentTable, 1), new Object[]{" b ", "dod", "ooo", 'b', Item.book, 'd', new ItemStack(BASEMOD.dustRaw, 1, 1), 'o', Block.obsidian});
@@ -147,7 +162,7 @@ public class HawkManager
 		RECIPE_GIVER.addSmelting(new ItemStack(BASEMOD.dustRefined, 1, 5), new ItemStack(BasicComponents.itemCopperIngot));
 		RECIPE_GIVER.addSmelting(new ItemStack(BASEMOD.dustRefined, 1, 6), new ItemStack(BasicComponents.itemTinIngot));
 		RECIPE_GIVER.addSmelting(new ItemStack(BASEMOD.dustRaw, 1, 5), new ItemStack(Block.obsidian));
-		RECIPE_GIVER.addSmelting(new ItemStack(BASEMOD.blockGrinder, 1, 0), new ItemStack(BasicComponents.itemSteelPlate, 11));
+		RECIPE_GIVER.addSmelting(new ItemStack(BASEMOD.blockMachinery, 1, 0), new ItemStack(BasicComponents.itemSteelPlate, 11));
 		
 		RECIPE_GIVER.addSmelting(new ItemStack(BASEMOD.blockOre, 1, 0), new ItemStack(BASEMOD.ingots, 1, 0));
 		RECIPE_GIVER.addSmelting(new ItemStack(BASEMOD.blockOre, 1, 1), new ItemStack(BASEMOD.ingots, 1, 1));

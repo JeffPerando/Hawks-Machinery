@@ -28,6 +28,9 @@ public class HawkBlockPad extends BlockMachine
 	
 	public static HawksMachinery BASEMOD;
 	
+	/**
+	 * A reference to the tile entity this block is attached to.
+	 */
 	private HawkTileEntityPad tileEntity = new HawkTileEntityPad();
 	
 	private static HawkPadAPICore apiCore = new HawkPadAPICore();
@@ -36,7 +39,6 @@ public class HawkBlockPad extends BlockMachine
 	{
 		super("Pad", id, Material.iron);
 		GameRegistry.registerBlock(this, HawkItemBlockPad.class);
-		GameRegistry.registerTileEntity(HawkTileEntityPad.class, "Pad");
 		setRequiresSelfNotify();
 		setHardness(1.0F);
 		setResistance(25.0F);
@@ -151,6 +153,12 @@ public class HawkBlockPad extends BlockMachine
 	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity)
 	{
 		apiCore.getPadEffect(this.padItem, world, x, y, z, entity, this.tileEntity.isBeingRedstoned, this.tileEntity.electricityStored);
+	}
+	
+	@Override
+	public void onEntityWalking(World world, int x, int y, int z, Entity entity)
+	{
+		apiCore.onPadWalkedOn(this.padItem, world, x, y, z, entity, this.tileEntity.isBeingRedstoned, this.tileEntity.electricityStored);
 	}
 	
 }

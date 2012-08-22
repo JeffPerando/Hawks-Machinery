@@ -17,11 +17,6 @@ public class HawkContainerGrinder extends Container
 {
 	private HawkTileEntityGrinder tileEntity;
 	
-	public boolean canInteractWith(EntityPlayer var1)
-	{
-		return true;
-	}
-	
     public HawkContainerGrinder(InventoryPlayer par1InventoryPlayer, HawkTileEntityGrinder tileEntity)
     {
         this.tileEntity = tileEntity;
@@ -44,11 +39,18 @@ public class HawkContainerGrinder extends Container
         }
     }
     
+    @Override
+	public boolean canInteractWith(EntityPlayer var1)
+	{
+		return true;
+	}
+    
     public TileEntity getGrinderContainer()
     {
     	return this.tileEntity;
     }
     
+    @Override
     public ItemStack transferStackInSlot(int par1)
     {
 		return null;

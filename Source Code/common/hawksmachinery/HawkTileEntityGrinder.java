@@ -371,6 +371,7 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 	public void setDirection(ForgeDirection facingDirection)
 	{
 		this.facingDirection = facingDirection;
+		this.worldObj.notifyBlockChange(this.xCoord, this.yCoord, this.zCoord, this.worldObj.getBlockId(this.xCoord, this.yCoord, this.zCoord));
 	}
 	
 	/**

@@ -6,6 +6,7 @@ import java.util.List;
 
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import net.minecraft.src.CreativeTabs;
+import net.minecraft.src.EnumRarity;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
@@ -55,6 +56,17 @@ public class HawkItemIngots extends Item
 			case 3: return "Endium Ingot";
 			default: return "Look Jay, 0% body fat!";
 		}
+	}
+	
+	@Override
+	public EnumRarity getRarity(ItemStack item)
+	{
+		if (item.getItemDamage() == 3)
+		{
+			return EnumRarity.epic;
+		}
+		
+		return EnumRarity.common;
 	}
 	
 	@Override

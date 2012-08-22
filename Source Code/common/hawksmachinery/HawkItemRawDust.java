@@ -76,7 +76,7 @@ public class HawkItemRawDust extends Item
 	}
 	
 	@Override
-	public boolean onLeftClickEntity(ItemStack item, EntityPlayer player, Entity entity)
+	public boolean itemInteractionForEntity(ItemStack item, EntityLiving entity)
 	{
 		int effect;
 		
@@ -89,10 +89,7 @@ public class HawkItemRawDust extends Item
 		((EntityLiving)entity).addPotionEffect(new PotionEffect(Potion.blindness.getId(), effect, 1));
 		((EntityLiving)entity).addPotionEffect(new PotionEffect(Potion.poison.getId(), effect, 1));
 		
-		if (!player.capabilities.isCreativeMode)
-		{
-			--item.stackSize;
-		}
+		--item.stackSize;
 		
 		return true;
 	}

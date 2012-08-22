@@ -10,12 +10,13 @@ import net.minecraft.src.*;
  *
  * @notice PROCESSING TYPES:
  * 1 - GRINDING
+ * 2 - WASHING
  */
 public class HawkProcessingRecipes
 {
 	private static Map grinderRecipes = new HashMap();
 	private static Map grinderExplosives = new HashMap();
-
+	
 	/**
 	 * Adds a processing recipe.
 	 * 
@@ -25,17 +26,19 @@ public class HawkProcessingRecipes
 	 * Output
 	 * Processing Type
 	 */
-    public static void addHawkProcessingRecipe(int input, ItemStack output, int processingType)
-    {
-    	switch (processingType)
-    	{
-    		case 1: grinderRecipes.put(Arrays.asList(input, 0), output);
-    	}
-    }
-    
-    /**
-     * Metadata-sensitive processing function.
-     */
+	public static void addHawkProcessingRecipe(int input, ItemStack output, int processingType)
+	{
+		switch (processingType)
+		{
+			case 1: grinderRecipes.put(Arrays.asList(input, 0), output);
+		}
+	}
+	
+	/**
+	 * Metadata-sensitive processing function.
+	 *
+	  */
+	
 	public static void addHawkMetaProcessingRecipe(int input, int inputMetadata, ItemStack output, int processingType)
 	{
 		switch (processingType)
@@ -91,38 +94,40 @@ public class HawkProcessingRecipes
 	
 	public static ItemStack getGrindingResult(ItemStack item)
 	{
-        if (item == null)
-        {
-            return null;
-        }
-        else
-        {
-            ItemStack ret = (ItemStack)grinderRecipes.get(Arrays.asList(item.itemID, item.getItemDamage()));
-            
-            if (ret != null) 
-            {
-                return ret;
-            }
-            return null;
-        }
+		if (item == null)
+		{
+			return null;
+		}
+		else
+		{
+			ItemStack ret = (ItemStack)grinderRecipes.get(Arrays.asList(item.itemID, item.getItemDamage()));
+			
+			if (ret != null) 
+			{
+				return ret;
+			}
+			
+			return null;
+		}
 	}
 	
 	public static ItemStack getGrindingExplosive(ItemStack item)
 	{
-		
-        if (item == null)
-        {
-            return null;
-        }
-        else
-        {
-            ItemStack ret = (ItemStack)grinderExplosives.get(Arrays.asList(item.itemID, item.getItemDamage()));
-            
-            if (ret != null) 
-            {
-                return ret;
-            }
-            return null;
-        }
+		if (item == null)
+		{
+			return null;
+		}
+		else
+		{
+			ItemStack ret = (ItemStack)grinderExplosives.get(Arrays.asList(item.itemID, item.getItemDamage()));
+			
+			if (ret != null) 
+			{
+				return ret;
+			}
+			
+			return null;
+		}
 	}
+	
 }

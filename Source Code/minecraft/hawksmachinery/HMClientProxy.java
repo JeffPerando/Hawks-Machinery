@@ -30,9 +30,8 @@ public class HMClientProxy extends HMCommonProxy
 	@Override
 	public void init()
 	{
-		ModLoader.registerTileEntity(HawkTileEntityGrinder.class, "Grinder");
-		
 		HawkLanguageCore.addToolTips();
+		
 	}
 	
 	@Override
