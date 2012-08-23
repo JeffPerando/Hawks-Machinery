@@ -14,7 +14,7 @@ import net.minecraft.src.*;
 */
 public class HawkBlockGrinder extends BlockMachine
 {
-	public HawkTileEntityGrinder tileEntity = new HawkTileEntityGrinder();
+	public HawkTileEntityGrinder tileEntity;
 	
 	public HawkBlockGrinder(int id)
 	{
@@ -93,6 +93,7 @@ public class HawkBlockGrinder extends BlockMachine
 	@Override
 	public TileEntity createNewTileEntity(World world)
 	{
+		this.tileEntity = new HawkTileEntityGrinder();
 		return this.tileEntity;
 	}
 	

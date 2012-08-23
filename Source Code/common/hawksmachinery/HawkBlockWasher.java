@@ -22,7 +22,7 @@ import universalelectricity.extend.BlockMachine;
 */
 public class HawkBlockWasher extends BlockMachine
 {
-	public HawkTileEntityWasher tileEntity = new HawkTileEntityWasher();
+	public HawkTileEntityWasher tileEntity;
 	
 	public HawkBlockWasher(int id)
 	{
@@ -95,6 +95,7 @@ public class HawkBlockWasher extends BlockMachine
 	@Override
 	public TileEntity createNewTileEntity(World world)
 	{
+		this.tileEntity = new HawkTileEntityWasher();
 		return this.tileEntity;
 	}
 	

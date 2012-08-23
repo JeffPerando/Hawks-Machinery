@@ -31,7 +31,7 @@ public class HawkBlockPad extends BlockMachine
 	/**
 	 * A reference to the tile entity this block is attached to.
 	 */
-	private HawkTileEntityPad tileEntity = new HawkTileEntityPad();
+	private HawkTileEntityPad tileEntity;
 	
 	private static HawkPadAPICore apiCore = new HawkPadAPICore();
 	
@@ -128,6 +128,7 @@ public class HawkBlockPad extends BlockMachine
 	@Override
 	public TileEntity createNewTileEntity(World world, int metadata)
 	{
+		this.tileEntity = new HawkTileEntityPad();
 		return this.tileEntity;
 	}
 	

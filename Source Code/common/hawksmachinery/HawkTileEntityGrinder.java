@@ -60,7 +60,7 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 	{
 		super.onUpdate(watts, voltage, side);
 		
-		if (!worldObj.isRemote)
+		if (!this.worldObj.isRemote)
 		{			
 			if (voltage > this.getVoltage())
 			{

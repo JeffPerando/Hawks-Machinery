@@ -140,7 +140,7 @@ public class HawkOreGenerator implements IWorldGenerator
 			
 			if (randAmount > 0 && randPosY >= 6)
 			{
-				(new WorldGenMinable(BASEMOD.blockOre.blockID, 5, randAmount)).generate(world, random, randPosX, randPosY, randPosZ);
+				(new HawkWorldOreBlock(BASEMOD.blockOre.blockID, 5, randAmount)).generate(world, random, randPosX, randPosY, randPosZ);
 			}
 			
 			if (counter == 32)
@@ -159,7 +159,7 @@ public class HawkOreGenerator implements IWorldGenerator
 			
 			if (randAmount > 0 && randPosY >= 6)
 			{
-				(new WorldGenMinable(BASEMOD.blockOre.blockID, 6, randAmount)).generate(world, random, randPosX, randPosY, randPosZ);
+				(new HawkWorldOreBlock(BASEMOD.blockOre.blockID, 6, randAmount)).generate(world, random, randPosX, randPosY, randPosZ);
 			}
 			
 			if (counter == 32)
@@ -178,7 +178,7 @@ public class HawkOreGenerator implements IWorldGenerator
 			
 			if (randAmount > 0 && randPosY >= 6)
 			{
-				(new WorldGenMinable(BASEMOD.blockOre.blockID, 7, randAmount)).generate(world, random, randPosX, randPosY, randPosZ);
+				(new HawkWorldOreBlock(BASEMOD.blockOre.blockID, 7, randAmount)).generate(world, random, randPosX, randPosY, randPosZ);
 			}
 			
 			if (counter == 38)
@@ -190,7 +190,7 @@ public class HawkOreGenerator implements IWorldGenerator
 	
 	public void generateEnd(World world, Random random, int chunkX, int chunkZ)
 	{
-		for (int counter = 0; counter <= 24; ++counter)
+		for (int counter = 0; counter <= 18; ++counter)
 		{
 			int randPosX = chunkX + random.nextInt(16);
 			int randPosY = random.nextInt(50);
@@ -199,7 +199,7 @@ public class HawkOreGenerator implements IWorldGenerator
 			
 			if (randAmount > 0 && randPosY < 70)
 			{
-				(new WorldGenMinable(BASEMOD.blockOre.blockID, 10, randAmount)).generate(world, random, randPosX, randPosY, randPosZ);
+				(new HawkWorldOreBlock(BASEMOD.blockOre.blockID, 10, randAmount)).generate(world, random, randPosX, randPosY, randPosZ);
 			}
 		}
 	}
