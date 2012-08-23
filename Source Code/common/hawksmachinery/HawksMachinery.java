@@ -46,12 +46,11 @@ public class HawksMachinery
 	 * Note: DO NOT MOVE THIS! I'm serious, I don't want to see any refactor job move this, due to the fact that doing so is A VERY BAD IDEA!
 	 */
 	public static Block blockGrinder = new HawkBlockGrinder(HawkManager.initProps());
-	public static Block blockEmptyMachine = new HawkBlockMachineBlock(HawkManager.machineBlockID);
 	public static Block blockOre = new HawkBlockOre(HawkManager.oreID);
 	public static Block blockMetalStorage = new HawkBlockMetalStorage(HawkManager.metalStorageID);
 	
 	/**
-	 * Raw dusts! 0 - Coal, 1 - Iron, 2 - Gold, 3 - Copper, 4 - Tin, 5 - Obsidian.
+	 * Raw dusts! 0 - Coal, 1 - Iron, 2 - Gold, 3 - Copper, 4 - Tin, 5 - Obsidian, 6 - Titanium, 7 - Aluminum, 8 - Silver.
 	 */
 	public static Item dustRaw = new HawkItemRawDust(HawkManager.dustRawID);
 	

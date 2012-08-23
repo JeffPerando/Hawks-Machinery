@@ -32,7 +32,7 @@ public class HawkBlockOre extends Block
 		GameRegistry.registerBlock(this, HawkItemBlockOre.class);
 		setCreativeTab(CreativeTabs.tabBlock);
 		
-		MinecraftForge.setBlockHarvestLevel(this, 10, "pickaxe", 5);
+		MinecraftForge.setBlockHarvestLevel(this, 3, "pickaxe", 5);
 		
 		OreDictionary.registerOre("oreTitanium", new ItemStack(this, 1, 0));
 		OreDictionary.registerOre("oreAluminum", new ItemStack(this, 1, 1));
@@ -48,12 +48,6 @@ public class HawkBlockOre extends Block
 			case 1: return 26;
 			case 2: return 27;
 			case 3: return 28;
-			case 4: return 29;
-			case 5: return 41;
-			case 6: return 42;
-			case 7: return 43;
-			case 8: return 44;
-			case 10: return 30;
 			default: return 0;
 		}
 	}
@@ -64,11 +58,8 @@ public class HawkBlockOre extends Block
 		itemList.add(new ItemStack(this, 1, 0));
 		itemList.add(new ItemStack(this, 1, 1));
 		itemList.add(new ItemStack(this, 1, 2));
-		itemList.add(new ItemStack(this, 1, 5));
-		itemList.add(new ItemStack(this, 1, 6));
-		itemList.add(new ItemStack(this, 1, 7));
-		itemList.add(new ItemStack(this, 1, 10));
-
+		itemList.add(new ItemStack(this, 1, 3));
+		
 	}
 	
 	@Override

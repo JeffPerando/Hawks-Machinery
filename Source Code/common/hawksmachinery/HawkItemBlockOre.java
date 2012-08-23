@@ -18,7 +18,7 @@ public class HawkItemBlockOre extends ItemBlock
 	/**
 	 * English names.
 	 */
-	public static String[] en_USNames = {"Titanium Ore", "Bauxium Ore", "Silver Ore", "Nickel Ore", null, "Nether Titanium Ore", "Nether Bauxium Ore", "Nether Silver Ore", null, null, "Endium Ore"};
+	public static String[] en_USNames = {"Titanium Ore", "Bauxium Ore", "Silver Ore", "Endium Ore"};
 	
 	public HawkItemBlockOre(int id)
 	{

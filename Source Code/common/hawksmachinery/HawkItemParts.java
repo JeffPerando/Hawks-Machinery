@@ -44,7 +44,7 @@ public class HawkItemParts extends Item
 		{
 			case 0: return "Electric Piston";
 			case 1: return "Laser";
-			case 2: return "Circle Saw";
+			case 2: return "Circular Saw Blade";
 			case 3: return "Light Bulb";
 			default: return "Look Jay, 0% body fat!";
 		}

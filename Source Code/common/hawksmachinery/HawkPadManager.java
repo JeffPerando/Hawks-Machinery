@@ -85,7 +85,7 @@ public class HawkPadManager implements IHawkPadTexture, IHawkPadElectricity, IHa
 	@Override
 	public void getPadEffect(ItemStack padItem, World world, int x, int y, int z, Entity entity, boolean isBeingRedstoned, float electricityStored)
 	{
-		if (padItem == new ItemStack(BASEMOD.parts, 1, 0) && !(entity instanceof EntityItem))
+		if (padItem == new ItemStack(BASEMOD.parts, 1, 0) && !(entity instanceof EntityItem) && isBeingRedstoned)
 		{
 			switch (world.getBlockMetadata(x, y, z))
 			{
