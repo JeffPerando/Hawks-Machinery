@@ -58,6 +58,7 @@ public class HawksMachinery
 	public static Item dustRefined = new HawkItemRefinedDust(HawkManager.dustRefinedID);
 	public static Item ingots = new HawkItemIngots(HawkManager.ingotsID);
 	public static Item parts = new HawkItemParts(HawkManager.partsID);
+	public static Item plating = new HawkItemPlating(HawkManager.platingID);
 	
 	@PreInit
 	public void preInit(FMLPreInitializationEvent event)

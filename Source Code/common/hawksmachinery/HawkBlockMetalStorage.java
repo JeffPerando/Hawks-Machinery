@@ -3,6 +3,7 @@ package hawksmachinery;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 
@@ -12,6 +13,7 @@ import net.minecraft.src.IBlockAccess;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.Material;
 import net.minecraft.src.ModLoader;
+import net.minecraft.src.World;
 
 /**
  * 
@@ -36,10 +38,10 @@ public class HawkBlockMetalStorage extends Block
 	{
 		switch (meta)
 		{
-			case 0: return 57;
-			case 1: return 58;
-			case 2: return 59;
-			case 3: return 62;
+			case 0: return 41;
+			case 1: return 42;
+			case 2: return 43;
+			case 3: return 44;
 			default: return 0;
 		}
 	}
@@ -73,6 +75,29 @@ public class HawkBlockMetalStorage extends Block
 	public int damageDropped(int meta)
 	{
 		return meta;
+	}
+	
+	@Override
+	public void randomDisplayTick(World world, int x, int y, int z, Random random)
+	{
+		if (world.getBlockMetadata(x, y, z) == 3)
+		{
+			int randomInt = random.nextInt(50);
+			
+			if (randomInt > 2)
+			{
+				world.spawnParticle("portal", x, y, z, random.nextDouble(), random.nextDouble(), random.nextDouble());
+			}
+			
+			randomInt = random.nextInt(100);
+			
+			if (randomInt < 10)
+			{
+				int enderNoise = random.nextInt(6);
+				
+				world.playSound(x, y, z, "mob.enderman.idle" + enderNoise, random.nextFloat(), random.nextFloat());
+			}
+		}
 	}
 	
 }

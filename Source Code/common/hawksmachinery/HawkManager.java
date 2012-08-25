@@ -36,6 +36,7 @@ public class HawkManager
 	public static int dustRefinedID;
 	public static int ingotsID;
 	public static int partsID;
+	public static int platingID;
 	
 	public static int ACHtimeToGrind;
 	public static int ACHminerkiin;
@@ -77,6 +78,7 @@ public class HawkManager
 		dustRefinedID = HMConfig.getOrCreateIntProperty("Refined Dusts", Configuration.CATEGORY_ITEM, 24151).getInt(24151);
 		ingotsID = HMConfig.getOrCreateIntProperty("Ingots", Configuration.CATEGORY_ITEM, 24152).getInt(24152);
 		partsID = HMConfig.getOrCreateIntProperty("Parts", Configuration.CATEGORY_ITEM, 24153).getInt(24153);
+		platingID = HMConfig.getOrCreateIntProperty("Plating", Configuration.CATEGORY_ITEM, 24154).getInt(24154);
 		
 		ACHtimeToGrind = HMConfig.getOrCreateIntProperty("ACH Time To Grind", Configuration.CATEGORY_GENERAL, 1500).getInt(1500);
 		ACHminerkiin = HMConfig.getOrCreateIntProperty("ACH Minerkiin", Configuration.CATEGORY_GENERAL, 1501).getInt(1501);
@@ -119,37 +121,20 @@ public class HawkManager
 		RECIPE_GIVER.addRecipe(new ItemStack(Block.enchantmentTable, 1), new Object[]{" b ", "dod", "ooo", 'b', Item.book, 'd', new ItemStack(BASEMOD.dustRaw, 1, 1), 'o', Block.obsidian});
 		RECIPE_GIVER.addRecipe(new ItemStack(Block.glass, 4), new Object[]{"GG", "GG", 'G', new ItemStack(BASEMOD.dustRefined, 1, 2)});
 		
-		for (ItemStack titanium : titaniumIngotList)
-		{
-			RECIPE_GIVER.addRecipe(new ItemStack(BASEMOD.blockMetalStorage, 1, 0), new Object[]{"MMM", "MMM", "MMM", 'M', titanium});
-			RECIPE_GIVER.addRecipe(new ItemStack(BASEMOD.parts, 1, 1), new Object[]{"TLT", "TBT", " B ", 'T', titanium, 'B', Item.blazeRod, 'L', new ItemStack(BASEMOD.parts, 1, 3)});
-			RECIPE_GIVER.addRecipe(new ItemStack(BASEMOD.parts, 1, 2), new Object[]{" T ", "TET", " T ", 'T', titanium, 'E', Item.enderPearl});
-		}
-		
-		for (ItemStack aluminum : aluminumIngotList)
-		{
-			RECIPE_GIVER.addRecipe(new ItemStack(BASEMOD.blockMetalStorage, 1, 1), new Object[]{"MMM", "MMM", "MMM", 'M', aluminum});
-		}
-		
-		for (ItemStack silver : silverIngotList)
-		{
-			RECIPE_GIVER.addRecipe(new ItemStack(BASEMOD.blockMetalStorage, 1, 2), new Object[]{"MMM", "MMM", "MMM", 'M', silver});
-		}
-		
-		RECIPE_GIVER.addRecipe(new ItemStack(BASEMOD.blockMetalStorage, 1, 3), new Object[]{"MMM", "MMM", "MMM", 'M', new ItemStack(BASEMOD.ingots, 1, 3)});
-		
+		RECIPE_GIVER.addRecipe(new ItemStack(BASEMOD.blockMetalStorage, 1, 0), new Object[]{"MMM", "MMM", "MMM", 'M', "ingotTitanium"});
+		RECIPE_GIVER.addRecipe(new ItemStack(BASEMOD.blockMetalStorage, 1, 1), new Object[]{"MMM", "MMM", "MMM", 'M', "ingotAluminum"});
+		RECIPE_GIVER.addRecipe(new ItemStack(BASEMOD.blockMetalStorage, 1, 2), new Object[]{"MMM", "MMM", "MMM", 'M', "ingotSilver"});
+		RECIPE_GIVER.addRecipe(new ItemStack(BASEMOD.blockMetalStorage, 1, 3), new Object[]{"MMM", "MMM", "MMM", 'M', "ingotEndium"});
 		RECIPE_GIVER.addRecipe(new ItemStack(BASEMOD.parts, 1, 0), new Object[]{" B ", "PSM", " B ", 'P', BasicComponents.itemSteelPlate, 'S', BasicComponents.itemSteelIngot, 'M', BasicComponents.itemMotor, 'B', Item.blazePowder});
+		RECIPE_GIVER.addRecipe(new ItemStack(BASEMOD.parts, 1, 1), new Object[]{"TLT", "TBT", " B ", 'T', "ingotTitanium", 'B', Item.blazeRod, 'L', new ItemStack(BASEMOD.parts, 1, 3)});
+		RECIPE_GIVER.addRecipe(new ItemStack(BASEMOD.parts, 1, 2), new Object[]{" T ", "TET", " T ", 'T', "ingotTitanium", 'E', Item.enderPearl});
+		RECIPE_GIVER.addRecipe(new ItemStack(BASEMOD.parts, 1, 3), new Object[]{" G ", "GBG", "cCc", 'G', Block.thinGlass, 'B', Item.blazeRod, 'c', "ingotCopper", 'C', BasicComponents.itemCopperWire});
 		
-		for (ItemStack copper : copperIngotList)
-		{
-			RECIPE_GIVER.addRecipe(new ItemStack(BASEMOD.parts, 1, 3), new Object[]{" G ", "GBG", "cCc", 'G', Block.thinGlass, 'B', Item.blazeRod, 'c', copper, 'C', BasicComponents.itemCopperWire});
-			PROCESS_RECIPES.addHawkMetaProcessingRecipe(copper.itemID, copper.getItemDamage(), new ItemStack(BASEMOD.dustRefined, 2, 5), 1);
-		}
+		RECIPE_GIVER.addRecipe(new ItemStack(BASEMOD.plating, 1, 0), new Object[]{"TT", "TT", 'T', "ingotTitanium"});
+		RECIPE_GIVER.addRecipe(new ItemStack(BASEMOD.plating, 1, 1), new Object[]{"AA", "AA", 'A', "ingotAluminum"});
+		RECIPE_GIVER.addRecipe(new ItemStack(BASEMOD.plating, 1, 2), new Object[]{"SS", "SS", 'S', "ingotSilver"});
+		RECIPE_GIVER.addRecipe(new ItemStack(BASEMOD.plating, 1, 3), new Object[]{"EE", "EE", 'E', "ingotEndium"});
 		
-		for (ItemStack tin : tinIngotList)
-		{
-			PROCESS_RECIPES.addHawkMetaProcessingRecipe(tin.itemID, tin.getItemDamage(), new ItemStack(BASEMOD.dustRefined, 2, 6), 1);
-		}
 		
 		RECIPE_GIVER.addShapelessRecipe(BasicComponents.itemSteelAlloy, new Object[]{new ItemStack(BASEMOD.dustRaw, 1, 0), new ItemStack(BASEMOD.dustRefined, 1, 1)});
 		RECIPE_GIVER.addShapelessRecipe(new ItemStack(BASEMOD.dustRefined, 2, 3), new Object[]{Item.bucketWater, new ItemStack(BASEMOD.dustRaw, 1, 1), new ItemStack(BASEMOD.dustRaw, 1, 1)});
@@ -270,6 +255,33 @@ public class HawkManager
 		{
 			PROCESS_RECIPES.addHawkMetaProcessingRecipe(silver.itemID, silver.getItemDamage(), new ItemStack(BASEMOD.dustRaw, 2, 8), 1);
 		}
+		
+		
+		for (ItemStack copper : copperIngotList)
+		{
+			PROCESS_RECIPES.addHawkMetaProcessingRecipe(copper.itemID, copper.getItemDamage(), new ItemStack(BASEMOD.dustRefined, 1, 5), 1);
+		}
+		
+		for (ItemStack tin : tinIngotList)
+		{
+			PROCESS_RECIPES.addHawkMetaProcessingRecipe(tin.itemID, tin.getItemDamage(), new ItemStack(BASEMOD.dustRefined, 1, 6), 1);
+		}
+		
+		for (ItemStack titanium : titaniumIngotList)
+		{
+			PROCESS_RECIPES.addHawkMetaProcessingRecipe(titanium.itemID, titanium.getItemDamage(), new ItemStack(BASEMOD.dustRefined, 1, 5), 1);
+		}
+		
+		for (ItemStack aluminum : aluminumIngotList)
+		{
+			PROCESS_RECIPES.addHawkMetaProcessingRecipe(aluminum.itemID, aluminum.getItemDamage(), new ItemStack(BASEMOD.dustRefined, 1, 5), 1);
+		}
+		
+		for (ItemStack silver : silverIngotList)
+		{
+			PROCESS_RECIPES.addHawkMetaProcessingRecipe(silver.itemID, silver.getItemDamage(), new ItemStack(BASEMOD.dustRefined, 1, 5), 1);
+		}
+		
 		
 		PROCESS_RECIPES.addHawkExplosive(Block.tnt.blockID, 1);
 		PROCESS_RECIPES.addHawkExplosive(Item.gunpowder.shiftedIndex, 1);
