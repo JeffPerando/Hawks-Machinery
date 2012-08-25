@@ -93,7 +93,7 @@ public class HawkBlockGrinder extends BlockMachine
 	@Override
 	public TileEntity createNewTileEntity(World world)
 	{
-		this.tileEntity = new HawkTileEntityGrinder();
+		this.tileEntity = new HawkTileEntityGrinder(3);
 		return this.tileEntity;
 	}
 	

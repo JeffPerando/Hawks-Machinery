@@ -137,16 +137,19 @@ public class HawkOreGenerator implements IWorldGenerator
 	
 	public void generateEnd(World world, Random random, int chunkX, int chunkZ)
 	{
-		for (int counter = 0; counter <= 18; ++counter)
+		if (HawkManager.generateEndium)
 		{
-			int randPosX = chunkX + random.nextInt(16);
-			int randPosY = random.nextInt(50);
-			int randPosZ = chunkZ + random.nextInt(16);
-			int randAmount = random.nextInt(9);
-			
-			if (randAmount > 0 && randPosY < 70)
+			for (int counter = 0; counter <= 18; ++counter)
 			{
-				(new HawkWorldOreBlock(BASEMOD.blockOre.blockID, 3, randAmount)).generate(world, random, randPosX, randPosY, randPosZ);
+				int randPosX = chunkX + random.nextInt(16);
+				int randPosY = random.nextInt(50);
+				int randPosZ = chunkZ + random.nextInt(16);
+				int randAmount = random.nextInt(9);
+				
+				if (randAmount > 0 && randPosY < 70)
+				{
+					(new HawkWorldOreBlock(BASEMOD.blockOre.blockID, 3, randAmount)).generate(world, random, randPosX, randPosY, randPosZ);
+				}
 			}
 		}
 	}

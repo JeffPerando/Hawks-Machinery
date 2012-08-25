@@ -8,6 +8,7 @@ import universalelectricity.electricity.ElectricityManager;
 import universalelectricity.electricity.TileEntityElectricUnit;
 import universalelectricity.extend.IRedstoneReceptor;
 import universalelectricity.extend.IRotatable;
+import universalelectricity.extend.ITier;
 import universalelectricity.network.IPacketReceiver;
 import universalelectricity.network.PacketManager;
 import net.minecraft.src.Entity;
@@ -30,7 +31,7 @@ import universalelectricity.extend.IItemElectric;
  * 
  * @author Elusivehawk
  */
-public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRedstoneReceptor, IInventory, ISidedInventory, IRotatable, IPacketReceiver
+public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRedstoneReceptor, IInventory, ISidedInventory, IRotatable, IPacketReceiver, ITier
 {
 	public int ELECTRICITY_REQUIRED = 10;
 	
@@ -50,8 +51,11 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 	
 	public int ELECTRICITY_LIMIT = 2500;
 	
-	public HawkTileEntityGrinder()
+	public int tier;
+	
+	public HawkTileEntityGrinder(int tier)
 	{
+		this.setTier(tier);
 		ElectricityManager.registerElectricUnit(this);
 	}
 	
@@ -496,6 +500,18 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 	private void explodeGrinder(float strength)
 	{
 		this.worldObj.createExplosion((Entity)null, this.xCoord, this.yCoord, this.zCoord, strength);
+	}
+
+	@Override
+	public int getTier()
+	{
+		return this.tier;
+	}
+
+	@Override
+	public void setTier(int tier)
+	{
+		this.tier = tier;
 	}
 	
 }

@@ -7,6 +7,7 @@ import java.util.List;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.src.Block;
 import net.minecraft.src.CreativeTabs;
+import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.Material;
 import net.minecraft.src.ModLoader;
@@ -72,6 +73,20 @@ public class HawkBlockOre extends Block
 	public int damageDropped(int meta)
 	{
 		return meta;
+	}
+	
+	@Override
+	public void onBlockHarvested(World world, int x, int y, int z, int metadata, EntityPlayer player)
+	{
+		
+		if (metadata != 3)
+		{
+			player.addStat(HawkAchievements.prospector, 1);
+		}
+		else
+		{
+			player.addStat(HawkAchievements.minerkiin, 1);
+		}
 	}
 	
 }

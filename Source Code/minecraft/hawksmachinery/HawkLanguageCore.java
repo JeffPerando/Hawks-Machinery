@@ -29,6 +29,9 @@ public class HawkLanguageCore
 		LanguageRegistry.instance().addStringLocalization(ACH.compactCompact.getName(), "en_US", "Compact Compact");
 		LanguageRegistry.instance().addStringLocalization(ACH.compactCompact.getName() + ".desc", "en_US", "Am I missing, an eyebrow?");
 		
+		LanguageRegistry.instance().addStringLocalization(ACH.prospector.getName(), "en_US", "Prospector");
+		LanguageRegistry.instance().addStringLocalization(ACH.prospector.getName() + ".desc", "en_US", "There's Emerald in them hills!");
+		
 		
 		for (int counter = 0; counter <= 3; ++counter)
 		{

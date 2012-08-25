@@ -7,6 +7,7 @@ import universalelectricity.network.PacketManager;
 import net.minecraft.src.Block;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
+import net.minecraft.src.StepSound;
 import net.minecraftforge.common.AchievementPage;
 import net.minecraftforge.oredict.OreDictionary;
 import cpw.mods.fml.common.Mod;
@@ -29,7 +30,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
  * @author Elusivehawk
  */
 @Mod(modid = "HawksMachinery", name = "Hawk's Machinery", version = "Alpha v1.2", dependencies = "after:UniversalElectricity")
-@NetworkMod(channels = { "HawksMachinery" }, clientSideRequired = true, serverSideRequired = false, packetHandler = PacketManager.class)
+@NetworkMod(channels = {"HawksMachinery"}, clientSideRequired = true, serverSideRequired = false, packetHandler = PacketManager.class)
 public class HawksMachinery
 {
 	@Instance
@@ -43,29 +44,40 @@ public class HawksMachinery
 	/**
 	 * Note: DO NOT MOVE THIS! I'm serious, I don't want to see any refactor job move this, due to the fact that doing so is A VERY BAD IDEA!
 	 */
-	public static Block blockGrinder = new HawkBlockGrinder(HawkManager.initProps());
-	public static Block blockOre = new HawkBlockOre(HawkManager.oreID);
-	public static Block blockMetalStorage = new HawkBlockMetalStorage(HawkManager.metalStorageID);
+	public static Block blockGrinder;
+	public static Block blockOre;
+	public static Block blockMetalStorage;
 	
 	/**
 	 * Raw dusts! 0 - Coal, 1 - Iron, 2 - Gold, 3 - Copper, 4 - Tin, 5 - Obsidian, 6 - Titanium, 7 - Aluminum, 8 - Silver.
 	 */
-	public static Item dustRaw = new HawkItemRawDust(HawkManager.dustRawID);
+	public static Item dustRaw;
 	
 	/**
 	 * Refined dusts! 0 - Diamond, 1 - Ender, 2 - Glass, 3 - Iron, 4 - Gold, 5 - Copper, 6 - Tin, 7 - Titanium, 8 - Aluminum, 9 - Silver, 10 - Emerald. 
 	 */
-	public static Item dustRefined = new HawkItemRefinedDust(HawkManager.dustRefinedID);
-	public static Item ingots = new HawkItemIngots(HawkManager.ingotsID);
-	public static Item parts = new HawkItemParts(HawkManager.partsID);
-	public static Item plating = new HawkItemPlating(HawkManager.platingID);
+	public static Item dustRefined;
+	public static Item ingots;
+	public static Item parts;
+	public static Item plating;
 	
 	@PreInit
 	public void preInit(FMLPreInitializationEvent event)
 	{
 		INSTANCE = this;
 		
-		UniversalElectricity.registerMod(this, "Hawk's Machinery", UniversalElectricity.VERSION);
+		blockGrinder = new HawkBlockGrinder(HawkManager.initProps()).setStepSound(Block.soundMetalFootstep);
+		blockOre = new HawkBlockOre(HawkManager.oreID);
+		blockMetalStorage = new HawkBlockMetalStorage(HawkManager.metalStorageID).setStepSound(Block.soundMetalFootstep);
+		
+		dustRaw = new HawkItemRawDust(HawkManager.dustRawID);
+		dustRefined = new HawkItemRefinedDust(HawkManager.dustRefinedID);
+		ingots = new HawkItemIngots(HawkManager.ingotsID);
+		parts = new HawkItemParts(HawkManager.partsID);
+		plating = new HawkItemPlating(HawkManager.platingID);
+		
+		
+		UniversalElectricity.registerMod(this, "Hawk's Machinery", "0.6.0");
 		NetworkRegistry.instance().registerGuiHandler(this, this.PROXY);
 		GameRegistry.registerWorldGenerator(new HawkOreGenerator());
 		AchievementPage.registerAchievementPage(HawkAchievements.HAWKSPAGE);
