@@ -3,7 +3,9 @@ package hawksmachinery;
 
 import hawksmachinery.padAPI.HawkPadAPICore;
 import universalelectricity.UniversalElectricity;
+import universalelectricity.basiccomponents.BasicComponents;
 import universalelectricity.network.PacketManager;
+import universalelectricity.recipe.RecipeManager;
 import net.minecraft.src.Block;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
@@ -26,11 +28,11 @@ import cpw.mods.fml.common.registry.GameRegistry;
 
 /**
  * 
- * The main file for Hawk's Machinery.
+ * The mod file for Hawk's Machinery.
  * 
  * @author Elusivehawk
  */
-@Mod(modid = "HawksMachinery", name = "Hawk's Machinery", version = "Alpha v1.2 Prerelease 2", dependencies = "after:UniversalElectricity")
+@Mod(modid = "HawksMachinery", name = "Hawk's Machinery", version = "Alpha v1.2 Prerelease 3", dependencies = "after:UniversalElectricity")
 @NetworkMod(channels = { "HawksMachinery" }, clientSideRequired = true, serverSideRequired = false, packetHandler = PacketManager.class)
 public class HawksMachinery
 {
@@ -68,24 +70,12 @@ public class HawksMachinery
 		
 		UniversalElectricity.registerMod(this, "Hawk's Machinery", UniversalElectricity.VERSION);
 		NetworkRegistry.instance().registerGuiHandler(this, this.PROXY);
-		
-		//To whoever decided to make "static" and "this" incompatible: Bazinga, punk!
 		GameRegistry.registerWorldGenerator(new HawkOreGenerator());
+		AchievementPage.registerAchievementPage(HawkAchievements.HAWKSPAGE);
 		
 		HawkPadAPICore.registerEffectHandler(PAD_MANAGER);
 		HawkPadAPICore.registerElectricityHandler(PAD_MANAGER);
 		HawkPadAPICore.registerTextureHandler(PAD_MANAGER);
-		
-		AchievementPage.registerAchievementPage(HawkAchievements.HAWKSPAGE);
-		
-		PROXY.preInit();
-		
-	}
-	
-	@Init
-	public void load(FMLInitializationEvent event)
-	{
-		PROXY.init();
 		
 		OreDictionary.registerOre("ingotTitanium", new ItemStack(ingots, 1, 0));
 		OreDictionary.registerOre("ingotAluminum", new ItemStack(ingots, 1, 1));
@@ -98,13 +88,20 @@ public class HawksMachinery
 		OreDictionary.registerOre("oreSilver", new ItemStack(blockOre, 1, 2));
 		OreDictionary.registerOre("oreEndium", new ItemStack(blockOre, 1, 3));
 		
-		HawkManager.loadRecipes();
+		PROXY.preInit();
 		
+	}
+	
+	@Init
+	public void load(FMLInitializationEvent event)
+	{
+		PROXY.init();
 	}
 	
 	@PostInit
 	public void modsLoaded(FMLPostInitializationEvent event)
 	{
+		HawkManager.loadRecipes();
 		
 	}
 }
