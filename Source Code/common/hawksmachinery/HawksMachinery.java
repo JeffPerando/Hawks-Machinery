@@ -3,14 +3,10 @@ package hawksmachinery;
 
 import hawksmachinery.padAPI.HawkPadAPICore;
 import universalelectricity.UniversalElectricity;
-import universalelectricity.basiccomponents.BasicComponents;
 import universalelectricity.network.PacketManager;
-import universalelectricity.recipe.RecipeManager;
 import net.minecraft.src.Block;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
-import net.minecraft.src.Material;
-import net.minecraft.src.ModLoader;
 import net.minecraftforge.common.AchievementPage;
 import net.minecraftforge.oredict.OreDictionary;
 import cpw.mods.fml.common.Mod;
@@ -32,7 +28,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
  * 
  * @author Elusivehawk
  */
-@Mod(modid = "HawksMachinery", name = "Hawk's Machinery", version = "Alpha v1.2 Prerelease 3", dependencies = "after:UniversalElectricity")
+@Mod(modid = "HawksMachinery", name = "Hawk's Machinery", version = "Alpha v1.2", dependencies = "after:UniversalElectricity")
 @NetworkMod(channels = { "HawksMachinery" }, clientSideRequired = true, serverSideRequired = false, packetHandler = PacketManager.class)
 public class HawksMachinery
 {

@@ -35,8 +35,8 @@ public class HawkItemRawDust extends Item
 			case 3: return 44;
 			case 4: return 43;
 			case 5: return 20;
-			case 6: return 22;
-			case 7: return 23;
+			case 6: return 24;
+			case 7: return 21;
 			case 8: return 3;
 			default: return 0;
 		}

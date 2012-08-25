@@ -38,8 +38,8 @@ public class HawkItemIngots extends Item
 		switch (dmg)
 		{
 			case 0: return 36;
-			case 1: return 38;
-			case 2: return 39;
+			case 1: return 40;
+			case 2: return 37;
 			case 3: return 81;
 			default: return 0;
 		}
