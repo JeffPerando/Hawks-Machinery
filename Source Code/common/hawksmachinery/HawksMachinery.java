@@ -4,12 +4,6 @@ package hawksmachinery;
 import hawksmachinery.padAPI.HawkPadAPICore;
 import universalelectricity.UniversalElectricity;
 import universalelectricity.network.PacketManager;
-import vazkii.um.client.ModReleaseType;
-import vazkii.um.client.ModType;
-import vazkii.um.common.ModConverter;
-import vazkii.um.common.UpdateManager;
-import vazkii.um.common.UpdateManagerMod;
-import vazkii.um.common.checking.CheckingMethod;
 import net.minecraft.src.Block;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
@@ -35,7 +29,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
  * 
  * @author Elusivehawk
  */
-@Mod(modid = "HawksMachinery", name = "Hawk's Machinery", version = "Alpha v1.2.1", dependencies = "after:UniversalElectricity")
+@Mod(modid = "HawksMachinery", name = "Hawk's Machinery", version = "Alpha v1.2.2", dependencies = "after:UniversalElectricity")
 @NetworkMod(channels = {"HawksMachinery"}, clientSideRequired = true, serverSideRequired = false, packetHandler = PacketManager.class)
 public class HawksMachinery
 {
@@ -71,7 +65,6 @@ public class HawksMachinery
 	public void preInit(FMLPreInitializationEvent event)
 	{
 		INSTANCE = this;
-		new UpdateHandler(ModConverter.getMod(getClass()));
 		
 		blockGrinder = new HawkBlockGrinder(HawkManager.initProps()).setStepSound(Block.soundMetalFootstep);
 		blockOre = new HawkBlockOre(HawkManager.oreID);
@@ -120,101 +113,6 @@ public class HawksMachinery
 	public void modsLoaded(FMLPostInitializationEvent event)
 	{
 		HawkManager.loadProcessingRecipes();
-		
-	}
-	
-	public class UpdateHandler extends UpdateManagerMod
-	{
-		
-		public UpdateHandler(cpw.mods.fml.common.Mod m)
-		{
-			super(m);
-		}
-		
-		@Override
-		public String getModURL()
-		{
-			return "http://bit.ly/TbyBoC";
-		}
-		
-		@Override
-		public String getUpdateURL()
-		{
-			return "https://dl.dropbox.com/u/100525141/HawksMachineryVersion.txt";
-		}
-		
-		@Override
-		public ModType getModType()
-		{
-			return ModType.ADDON;
-		}
-		
-		@Override
-		public ModReleaseType getReleaseType()
-		{
-			return ModReleaseType.ALPHA;
-		}
-		
-		@Override
-		public ItemStack getIconStack()
-		{
-			return new ItemStack(blockGrinder, 1, 0);
-		}
-		
-		@Override
-		public CheckingMethod getCheckingMethod()
-		{
-			return CheckingMethod.LEXICOGRAPHICAL;
-		}
-		
-		@Override
-		public boolean enableAutoDownload()
-		{
-			return HawkManager.enableAutoDL;
-		}
-		
-		@Override
-		public boolean disableChecks()
-		{
-			return HawkManager.enableVersionChecking;
-		}
-		
-		@Override
-		public String getChangelogURL()
-		{
-			return "https://dl.dropbox.com/u/100525141/HawksMachineryAlpha121Changelog.txt";
-		}
-		
-		@Override
-		public String getModName()
-		{
-			return "Hawk's Machinery";
-		}
-		
-		@Override
-		public String[] addNotes()
-		{
-			return new String[]
-					{
-					"* Don't fall in love with your saves.",
-					"* Report any bugs to GitHub, unless it's already there.",
-					"* Got suggestions, or just want to discuss this mod or other UE mod?",
-					"  Go visit #universalelectricity at Espernet!"
-					};
-		}
-		
-		@Override
-		public String getDirectDownloadURL()
-		{
-			return "https://dl.dropbox.com/u/100525141/HawksMachneryDLLink.txt";
-		}
-		
-		@Override
-		public String getDisclaimerURL()
-		{
-			return "https://dl.dropbox.com/u/100525141/HawksMachineryDisclaimer.txt";
-		}
-		
 		
 	}
 	

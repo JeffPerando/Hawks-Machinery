@@ -95,7 +95,7 @@ public class HawkBlockMetalStorage extends Block
 			{
 				int enderNoise = random.nextInt(6);
 				
-				world.playSound(x, y, z, "mob.enderman.idle" + enderNoise, random.nextFloat(), random.nextFloat());
+				world.playSound(x, y, z, "resources.newsound.mob.enderman.idle" + enderNoise, random.nextFloat(), random.nextFloat());
 			}
 		}
 	}
