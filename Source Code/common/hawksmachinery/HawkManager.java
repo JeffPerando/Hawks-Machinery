@@ -47,6 +47,8 @@ public class HawkManager
 	public static boolean generateAluminum;
 	public static boolean generateSilver;
 	public static boolean generateEndium;
+	public static boolean enableVersionChecking;
+	public static boolean enableAutoDL;
 	
 	public static final String GUI_PATH = "/hawksmachinery/textures/gui";
 	public static final String BLOCK_TEXTURE_FILE = "/hawksmachinery/textures/blocks.png";
@@ -78,6 +80,8 @@ public class HawkManager
 		generateAluminum = HMConfig.getOrCreateBooleanProperty("Generate Aluminum", Configuration.CATEGORY_GENERAL, true).getBoolean(true);
 		generateSilver = HMConfig.getOrCreateBooleanProperty("Generate Silver", Configuration.CATEGORY_GENERAL, true).getBoolean(true);
 		generateEndium = HMConfig.getOrCreateBooleanProperty("Generate Endium", Configuration.CATEGORY_GENERAL, true).getBoolean(true);
+		enableVersionChecking = HMConfig.getOrCreateBooleanProperty("Enable Update Checking", Configuration.CATEGORY_GENERAL, true).getBoolean(true);
+		enableAutoDL = HMConfig.getOrCreateBooleanProperty("Enable Auto DL", Configuration.CATEGORY_GENERAL, false).getBoolean(false);
 		
 		HMConfig.save();
 		
@@ -148,6 +152,10 @@ public class HawkManager
 		RECIPE_GIVER.addSmelting(new ItemStack(BASEMOD.blockOre, 1, 1), new ItemStack(BASEMOD.ingots, 1, 1));
 		RECIPE_GIVER.addSmelting(new ItemStack(BASEMOD.blockOre, 1, 2), new ItemStack(BASEMOD.ingots, 1, 2));
 		
+	}
+	
+	public static void loadProcessingRecipes()
+	{
 		
 		PROCESS_RECIPES.addHawkProcessingRecipe(Item.diamond.shiftedIndex, new ItemStack(BASEMOD.dustRefined, 1, 0), 1);
 		PROCESS_RECIPES.addHawkProcessingRecipe(Block.oreGold.blockID, new ItemStack(BASEMOD.dustRaw, 2, 2), 1);
@@ -232,17 +240,17 @@ public class HawkManager
 		
 		for (ItemStack titanium : OreDictionary.getOres("oreTitanium"))
 		{
-			PROCESS_RECIPES.addHawkMetaProcessingRecipe(titanium.itemID, titanium.getItemDamage(), new ItemStack(BASEMOD.dustRaw, 2, 6), 1);
+			PROCESS_RECIPES.addHawkMetaProcessingRecipe(titanium.itemID, titanium.getItemDamage(), new ItemStack(BASEMOD.dustRaw, 2, 5), 1);
 		}
 		
 		for (ItemStack aluminum : OreDictionary.getOres("oreAluminum"))
 		{
-			PROCESS_RECIPES.addHawkMetaProcessingRecipe(aluminum.itemID, aluminum.getItemDamage(), new ItemStack(BASEMOD.dustRaw, 2, 7), 1);
+			PROCESS_RECIPES.addHawkMetaProcessingRecipe(aluminum.itemID, aluminum.getItemDamage(), new ItemStack(BASEMOD.dustRaw, 2, 6), 1);
 		}
 		
 		for (ItemStack silver : OreDictionary.getOres("oreSilver"))
 		{
-			PROCESS_RECIPES.addHawkMetaProcessingRecipe(silver.itemID, silver.getItemDamage(), new ItemStack(BASEMOD.dustRaw, 2, 8), 1);
+			PROCESS_RECIPES.addHawkMetaProcessingRecipe(silver.itemID, silver.getItemDamage(), new ItemStack(BASEMOD.dustRaw, 2, 7), 1);
 		}
 		
 		

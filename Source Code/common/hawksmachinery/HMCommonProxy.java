@@ -50,4 +50,5 @@ public class HMCommonProxy extends CommonProxy
 	{
 		return null;
 	}
+	
 }
