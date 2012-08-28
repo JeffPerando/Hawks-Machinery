@@ -1,6 +1,7 @@
 
 package hawksmachinery;
 
+import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.ItemStack;

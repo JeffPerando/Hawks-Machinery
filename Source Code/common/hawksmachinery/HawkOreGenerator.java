@@ -139,7 +139,7 @@ public class HawkOreGenerator implements IWorldGenerator
 	{
 		if (HawkManager.generateEndium)
 		{
-			for (int counter = 0; counter <= 18; ++counter)
+			for (int counter = 0; counter <= 16; ++counter)
 			{
 				int randPosX = chunkX + random.nextInt(16);
 				int randPosY = random.nextInt(50);

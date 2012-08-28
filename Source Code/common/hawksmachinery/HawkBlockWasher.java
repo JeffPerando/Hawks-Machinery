@@ -15,11 +15,11 @@ import net.minecraft.src.World;
 import universalelectricity.extend.BlockMachine;
 
 /**
-*
-*
-*
-* @author Elusivehawk
-*/
+ *
+ *
+ *
+ * @author Elusivehawk
+ */
 public class HawkBlockWasher extends BlockMachine
 {
 	public HawkTileEntityWasher tileEntity;

@@ -22,8 +22,6 @@ public class HMCommonProxy extends CommonProxy
 	@Override
 	public void init()
 	{
-		GameRegistry.registerTileEntity(HawkTileEntityGrinder.class, "Grinder");
-		GameRegistry.registerTileEntity(HawkTileEntityPad.class, "Pad");
 		
 	}
 	

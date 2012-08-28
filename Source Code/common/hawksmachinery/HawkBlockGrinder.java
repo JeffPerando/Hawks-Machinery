@@ -5,13 +5,14 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import universalelectricity.extend.BlockMachine;
 import net.minecraft.src.*;
+import net.minecraftforge.common.ForgeDirection;
 
 /**
-*
-* Just the block for the Grinder.
-*
-* @author Elusivehawk
-*/
+ *
+ * Just the block for the Grinder.
+ *
+ * @author Elusivehawk
+ */
 public class HawkBlockGrinder extends BlockMachine
 {
 	public HawkTileEntityGrinder tileEntity;
@@ -66,7 +67,7 @@ public class HawkBlockGrinder extends BlockMachine
 	{
 		int direction = MathHelper.floor_double((entity.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
 		int newMetadata = 3;
-		
+
 		switch (direction)
 		{
 			case 0: newMetadata = 2; break;
@@ -74,7 +75,7 @@ public class HawkBlockGrinder extends BlockMachine
 			case 2: newMetadata = 3; break;
 			case 3: newMetadata = 4; break;
 		}
-		
+
 		world.setBlockMetadataWithNotify(x, y, z, newMetadata);
 	}
 	
@@ -132,18 +133,42 @@ public class HawkBlockGrinder extends BlockMachine
 						case 3: return 6;
 						default: return 7;
 					}
+		}		
+	}
+	
+	@Override
+	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity)
+	{
+		if (entity instanceof EntityItem)
+		{
+			int id = ((EntityItem)entity).item.itemID;
+			int meta = ((EntityItem)entity).item.getItemDamage();
+			
+			if (this.tileEntity.containingItems[2] == null)
+			{
+				this.tileEntity.containingItems[2] = ((EntityItem)entity).item;
+				entity.setDead();
+			}
+			else
+			{
+				if (this.tileEntity.containingItems[2] == new ItemStack(id, this.tileEntity.containingItems[2].stackSize, meta))
+				{
+					this.tileEntity.containingItems[2].stackSize = (this.tileEntity.containingItems[2].stackSize + ((EntityItem)entity).item.stackSize);
+					entity.setDead();
+				}
+			}
 		}
 	}
-	    
+	
 	@Override
-	public boolean canPlaceBlockOnSide(World world, int x, int y, int z, int side)
+	public boolean isBlockSolidOnSide(World world, int x, int y, int z, ForgeDirection side)
 	{
-		if (side != 0 && side != world.getBlockMetadata(x, y, z))
+		if (side.ordinal() == 0 || side.ordinal() == world.getBlockMetadata(x, y, z))
 		{
-			return true;
+			return false;
 		}
 		
-		return false;
+		return true;
 	}
 	
 }

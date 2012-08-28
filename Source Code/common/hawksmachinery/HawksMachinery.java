@@ -1,7 +1,6 @@
 
 package hawksmachinery;
 
-import hawksmachinery.padAPI.HawkPadAPICore;
 import universalelectricity.UniversalElectricity;
 import universalelectricity.network.PacketManager;
 import net.minecraft.src.Block;
@@ -29,7 +28,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
  * 
  * @author Elusivehawk
  */
-@Mod(modid = "HawksMachinery", name = "Hawk's Machinery", version = "Alpha v1.2.2", dependencies = "after:UniversalElectricity")
+@Mod(modid = "HawksMachinery", name = "Hawk's Machinery", version = "Alpha v1.2.3", dependencies = "after:UniversalElectricity")
 @NetworkMod(channels = {"HawksMachinery"}, clientSideRequired = true, serverSideRequired = false, packetHandler = PacketManager.class)
 public class HawksMachinery
 {
@@ -38,8 +37,6 @@ public class HawksMachinery
 	
 	@SidedProxy(clientSide = "hawksmachinery.HMClientProxy", serverSide = "hawksmachinery.HMCommonProxy")
 	public static HMCommonProxy PROXY;
-	
-	public static HawkPadManager PAD_MANAGER = new HawkPadManager();
 	
 	/**
 	 * Note: DO NOT MOVE THIS! I'm serious, I don't want to see any refactor job move this, due to the fact that doing so is A VERY BAD IDEA!
@@ -76,15 +73,14 @@ public class HawksMachinery
 		parts = new HawkItemParts(HawkManager.partsID);
 		plating = new HawkItemPlating(HawkManager.platingID);
 		
-		
 		UniversalElectricity.registerMod(this, "Hawk's Machinery", "0.6.0");
 		NetworkRegistry.instance().registerGuiHandler(this, this.PROXY);
 		GameRegistry.registerWorldGenerator(new HawkOreGenerator());
 		AchievementPage.registerAchievementPage(HawkAchievements.HAWKSPAGE);
 		
-		HawkPadAPICore.registerEffectHandler(PAD_MANAGER);
-		HawkPadAPICore.registerElectricityHandler(PAD_MANAGER);
-		HawkPadAPICore.registerTextureHandler(PAD_MANAGER);
+		GameRegistry.registerTileEntity(HawkTileEntityGrinder.class, "HMGrinder");
+		GameRegistry.registerTileEntity(HawkTileEntityWasher.class, "HMWasher");
+		GameRegistry.registerTileEntity(HawkTileEntityMiningDrill.class, "HMMiningDrill");
 		
 		OreDictionary.registerOre("ingotTitanium", new ItemStack(ingots, 1, 0));
 		OreDictionary.registerOre("ingotAluminum", new ItemStack(ingots, 1, 1));

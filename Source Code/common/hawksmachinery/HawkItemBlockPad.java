@@ -24,7 +24,7 @@ public class HawkItemBlockPad extends ItemBlock
 	@Override
 	public int getMetadata(int metadata)
 	{
-		return 0;
+		return metadata;
 	}
 	
 	public String getTextureFile()

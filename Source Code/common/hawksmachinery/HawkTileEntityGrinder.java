@@ -45,7 +45,7 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 	
 	private boolean isBeingPoweredByRedstone;
 	
-	private ItemStack[] containingItems = new ItemStack[3];
+	public ItemStack[] containingItems = new ItemStack[3];
 	
 	private int grinderStatus;
 	
@@ -239,17 +239,7 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 	@Override
 	public boolean canReceiveFromSide(ForgeDirection side)
 	{
-		if (side == ForgeDirection.UP)
-		{
-			return false;
-		}
-		
-		if (side == ForgeDirection.getOrientation(this.getBlockMetadata()))
-		{
-			return false;
-		}
-		
-		return true;
+		return side != ForgeDirection.UP && side != ForgeDirection.getOrientation(this.facingDirection.ordinal());
 	}
 	
 	@Override
@@ -265,7 +255,7 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
         }
         return 2;
     }
-
+	
 	@Override
 	public int getSizeInventorySide(ForgeDirection side)
 	{
@@ -277,13 +267,13 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
     {
 		return this.containingItems.length;
     }
-
+	
 	@Override
     public ItemStack getStackInSlot(int var1)
     {
 		return this.containingItems[var1];
     }
-
+	
 	@Override
     public ItemStack decrStackSize(int var1, int var2)
     {
@@ -314,7 +304,7 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
             return null;
         }
     }
-
+	
 	@Override
     public ItemStack getStackInSlotOnClosing(int var1)
     {
@@ -329,7 +319,7 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
             return null;
         }
     }
-
+	
 	@Override
     public void setInventorySlotContents(int var1, ItemStack var2)
     {
@@ -340,28 +330,28 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
             var2.stackSize = this.getInventoryStackLimit();
         }
     }
-
+	
 	@Override
     public String getInvName()
     {
 	    return "Grinder";
     }
-
+	
 	@Override
     public int getInventoryStackLimit()
     {
 	    return 64;
     }
-
+	
 	@Override
     public boolean isUseableByPlayer(EntityPlayer var1)
     {
         return this.worldObj.getBlockTileEntity(this.xCoord, this.yCoord, this.zCoord) != this ? false : var1.getDistanceSq((double)this.xCoord + 0.5D, (double)this.yCoord + 0.5D, (double)this.zCoord + 0.5D) <= 64.0D;
     }
-
+	
 	@Override
     public void openChest() {}
-
+	
 	@Override
     public void closeChest() {}
 	
@@ -375,7 +365,6 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 	public void setDirection(ForgeDirection facingDirection)
 	{
 		this.facingDirection = facingDirection;
-		this.worldObj.notifyBlockChange(this.xCoord, this.yCoord, this.zCoord, this.worldObj.getBlockId(this.xCoord, this.yCoord, this.zCoord));
 	}
 	
 	/**
@@ -469,11 +458,6 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 			case 2: return "Disabled!";
 			default: return "Idle";
 		}
-	}
-	
-	public float getElectricityStored()
-	{
-		return this.electricityStored;
 	}
 	
 	@Override

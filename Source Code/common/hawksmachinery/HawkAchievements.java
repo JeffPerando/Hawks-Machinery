@@ -21,6 +21,6 @@ public class HawkAchievements
 	public static Achievement compactCompact = new Achievement(HawkManager.ACHcompactCompact, "Compact Compact", 0, -2, new ItemStack(BASEMOD.blockMetalStorage, 1, 2), prospector).registerAchievement();
 	public static Achievement minerkiin = new Achievement(HawkManager.ACHminerkiin, "Minerkiin", -5, 2, new ItemStack(BASEMOD.blockOre, 1, 3), AchievementList.theEnd2).registerAchievement();
 	
-	public static AchievementPage HAWKSPAGE = new AchievementPage("Hawk's Machinery", timeToGrind, minerkiin, compactCompact);
+	public static AchievementPage HAWKSPAGE = new AchievementPage("Hawk's Machinery", timeToGrind, minerkiin, compactCompact, prospector);
 	
 }

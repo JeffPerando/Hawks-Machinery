@@ -37,7 +37,7 @@ public class HawkGUIGrinder extends GuiContainer
 
 		this.fontRenderer.drawString("Status: "+this.tileEntity.getGrinderStatus(), 75, 48, 4210752);
 		this.fontRenderer.drawString(UniversalElectricity.getVoltDisplay((int)this.tileEntity.getVoltage()), 75, 60, 4210752);
-		this.fontRenderer.drawString(UniversalElectricity.getWattDisplay(this.tileEntity.getElectricityStored()), 75, 70, 4210752);
+		this.fontRenderer.drawString(UniversalElectricity.getWattDisplay(this.tileEntity.electricityStored), 75, 70, 4210752);
 
 	    this.fontRenderer.drawString(StatCollector.translateToLocal("container.inventory"), 8, this.ySize - 96 + 2, 4210752);
 	}

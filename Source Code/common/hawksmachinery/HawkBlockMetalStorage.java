@@ -89,14 +89,6 @@ public class HawkBlockMetalStorage extends Block
 				world.spawnParticle("portal", x, y, z, random.nextDouble(), random.nextDouble(), random.nextDouble());
 			}
 			
-			randomInt = random.nextInt(100);
-			
-			if (randomInt < 10)
-			{
-				int enderNoise = random.nextInt(6);
-				
-				world.playSound(x, y, z, "resources.newsound.mob.enderman.idle" + enderNoise, random.nextFloat(), random.nextFloat());
-			}
 		}
 	}
 	
