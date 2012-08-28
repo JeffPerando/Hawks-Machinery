@@ -1,6 +1,25 @@
-*.class
+/bin/*
+/conf/*
+/docs/*
+/eclipse/*
+/forge/*
+/jars/*
+/lib/*
+/logs/*
+/modsrc/*
+/reobf/*
+/runtime/*
+/src/*
+/temp/*
+/CHANGELOG
+/LICENSE.txt
 
-# Package Files #
-*.jar
-*.war
-*.ear
+/src/minecraft/*
+/src/minecraft_server/*
+/src/common/*
+!/src/common/hawksmachinery/*
+!/src/minecraft/hawksmachinery/*
+!/src/common/mcmod.info
+
+*.bat
+*.sh
