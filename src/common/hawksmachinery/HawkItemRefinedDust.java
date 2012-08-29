@@ -28,17 +28,17 @@ public class HawkItemRefinedDust extends Item
 	{
 		switch (dmg)
 		{
-			case 0: return 10;
-			case 1: return 11;
-			case 2: return 12;
+			case 0: return 42;
+			case 1: return 43;
+			case 2: return 44;
 			case 3: return 25;
 			case 4: return 26;
-			case 5: return 28;
-			case 6: return 27;
-			case 7: return 4;
-			case 8: return 8;
-			case 9: return 5;
-			case 10: return 2;
+			case 5: return 27;
+			case 6: return 28;
+			case 7: return 20;
+			case 8: return 24;
+			case 9: return 21;
+			case 10: return 58;
 			default: return 0;
 		}
 	}

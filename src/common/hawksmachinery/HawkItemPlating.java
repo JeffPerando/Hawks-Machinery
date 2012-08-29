@@ -31,7 +31,7 @@ public class HawkItemPlating extends Item
 			case 0: return 52;
 			case 1: return 56;
 			case 2: return 53;
-			case 3: return 97;
+			case 3: return 51;
 			default: return 0;
 		}
 	}
@@ -63,13 +63,9 @@ public class HawkItemPlating extends Item
 	@Override
 	public boolean hasEffect(ItemStack item)
 	{
-		switch (item.getItemDamage())
-		{
-			case 3: return true;
-			default: return false;
-		}
+		return item.getItemDamage() == 3;
 	}
-
+	
 	@Override
 	public String getTextureFile()
 	{

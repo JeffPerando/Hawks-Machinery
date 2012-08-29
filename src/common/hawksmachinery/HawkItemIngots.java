@@ -40,7 +40,7 @@ public class HawkItemIngots extends Item
 			case 0: return 36;
 			case 1: return 40;
 			case 2: return 37;
-			case 3: return 81;
+			case 3: return 35;
 			default: return 0;
 		}
 	}
