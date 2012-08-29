@@ -27,7 +27,7 @@ public class HawkManager
 	public static int oreID;
 	public static int metalStorageID;
 	public static int washerID;
-	public static int miningDrillID;
+	public static int verticalDrillID;
 	public static int endstoneFurnaceID;
 	
 	public static int dustRawID;
@@ -63,7 +63,7 @@ public class HawkManager
 		oreID = HMConfig.getOrCreateBlockIdProperty("Ores", 3961).getInt(3961);
 		metalStorageID = HMConfig.getOrCreateBlockIdProperty("Metal Storage Blocks", 3962).getInt(3962);
 		washerID = HMConfig.getOrCreateBlockIdProperty("Washer", 3963).getInt(3963);
-		miningDrillID = HMConfig.getOrCreateBlockIdProperty("Mining Drill", 3964).getInt(3964);
+		verticalDrillID = HMConfig.getOrCreateBlockIdProperty("Vertical Mining Drill", 3964).getInt(3964);
 		endstoneFurnaceID = HMConfig.getOrCreateBlockIdProperty("Endstone Furnace", 3965).getInt(3965);
 		
 		dustRawID = HMConfig.getOrCreateIntProperty("Raw Dusts", Configuration.CATEGORY_ITEM, 24150).getInt(24150);

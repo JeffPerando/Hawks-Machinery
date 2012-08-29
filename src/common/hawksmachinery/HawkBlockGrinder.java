@@ -137,21 +137,22 @@ public class HawkBlockGrinder extends BlockMachine
 	@Override
 	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity)
 	{
-		if (entity instanceof EntityItem)
+		if (entity instanceof EntityItem && (int)entity.posY == (y + 1))
 		{
 			int id = ((EntityItem)entity).item.itemID;
 			int meta = ((EntityItem)entity).item.getItemDamage();
+			int stackSize = ((EntityItem)entity).item.stackSize;
 			
-			if (this.tileEntity.containingItems[2] == null)
+			if (this.tileEntity.containingItems[1] == null)
 			{
-				this.tileEntity.containingItems[2] = ((EntityItem)entity).item;
+				this.tileEntity.containingItems[1] = ((EntityItem)entity).item;
 				entity.setDead();
 			}
 			else
 			{
-				if (this.tileEntity.containingItems[2] == new ItemStack(id, this.tileEntity.containingItems[2].stackSize, meta))
+				if (this.tileEntity.containingItems[1] == new ItemStack(id, this.tileEntity.containingItems[2].stackSize, meta))
 				{
-					this.tileEntity.containingItems[2].stackSize = (this.tileEntity.containingItems[2].stackSize + ((EntityItem)entity).item.stackSize);
+					this.tileEntity.containingItems[1].stackSize = (this.tileEntity.containingItems[2].stackSize + stackSize);
 					entity.setDead();
 				}
 			}

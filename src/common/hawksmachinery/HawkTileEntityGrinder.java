@@ -212,9 +212,9 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 	@Override
 	public float electricityRequest()
 	{
-		if ((this.canGrind() || this.canExplode()) && this.electricityStored + this.ELECTRICITY_REQUIRED <= this.ELECTRICITY_LIMIT)
+		if (!this.isDisabled() && (this.canGrind() || this.canExplode()) && this.electricityStored + this.ELECTRICITY_REQUIRED <= this.ELECTRICITY_LIMIT)
 		{
-			return ELECTRICITY_REQUIRED;
+			return this.ELECTRICITY_REQUIRED;
 		}
 		else
 		{
