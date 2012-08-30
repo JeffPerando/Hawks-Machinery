@@ -45,6 +45,7 @@ public class HawksMachinery
 	public static Block blockGrinder;
 	public static Block blockOre;
 	public static Block blockMetalStorage;
+	public static Block testVerticalMiner;
 	
 	/**
 	 * Raw dusts! 0 - Coal, 1 - Iron, 2 - Gold, 3 - Copper, 4 - Tin, 5 - Titanium, 6 - Aluminum, 7 - Silver, 8- Obsidian.
@@ -85,7 +86,6 @@ public class HawksMachinery
 		
 		GameRegistry.registerTileEntity(HawkTileEntityGrinder.class, "HMGrinder");
 		GameRegistry.registerTileEntity(HawkTileEntityWasher.class, "HMWasher");
-		GameRegistry.registerTileEntity(HawkTileEntityMiningDrill.class, "HMMiningDrill");
 		
 		OreDictionary.registerOre("ingotTitanium", new ItemStack(ingots, 1, 0));
 		OreDictionary.registerOre("ingotAluminum", new ItemStack(ingots, 1, 1));

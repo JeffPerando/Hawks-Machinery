@@ -162,12 +162,7 @@ public class HawkBlockGrinder extends BlockMachine
 	@Override
 	public boolean isBlockSolidOnSide(World world, int x, int y, int z, ForgeDirection side)
 	{
-		if (side.ordinal() == 0 || side.ordinal() == world.getBlockMetadata(x, y, z))
-		{
-			return false;
-		}
-		
-		return true;
+		return !(side.ordinal() == 0 || side.ordinal() == world.getBlockMetadata(x, y, z));
 	}
 	
 }
