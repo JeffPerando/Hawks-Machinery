@@ -4,11 +4,16 @@ package hawksmachinery;
 import universalelectricity.UniversalElectricity;
 import universalelectricity.network.PacketManager;
 import net.minecraft.src.Block;
+import net.minecraft.src.EnumToolMaterial;
 import net.minecraft.src.Item;
+import net.minecraft.src.ItemAxe;
+import net.minecraft.src.ItemPickaxe;
+import net.minecraft.src.ItemSpade;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.StepSound;
 import net.minecraftforge.common.AchievementPage;
 import net.minecraftforge.common.DungeonHooks;
+import net.minecraftforge.common.EnumHelper;
 import net.minecraftforge.oredict.OreDictionary;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
@@ -39,13 +44,14 @@ public class HawksMachinery
 	@SidedProxy(clientSide = "hawksmachinery.HMClientProxy", serverSide = "hawksmachinery.HMCommonProxy")
 	public static HMCommonProxy PROXY;
 	
+	public static HawkManager MANAGER = new HawkManager();
+	
 	/**
 	 * Note: DO NOT MOVE THIS! I'm serious, I don't want to see any refactor job move this, due to the fact that doing so is A VERY BAD IDEA!
 	 */
 	public static Block blockGrinder;
 	public static Block blockOre;
 	public static Block blockMetalStorage;
-	public static Block testVerticalMiner;
 	
 	/**
 	 * Raw dusts! 0 - Coal, 1 - Iron, 2 - Gold, 3 - Copper, 4 - Tin, 5 - Titanium, 6 - Aluminum, 7 - Silver, 8- Obsidian.
@@ -65,19 +71,20 @@ public class HawksMachinery
 	{
 		INSTANCE = this;
 		
-		blockGrinder = new HawkBlockGrinder(HawkManager.initProps()).setStepSound(Block.soundMetalFootstep);
-		blockOre = new HawkBlockOre(HawkManager.oreID);
+		blockGrinder = new HawkBlockGrinder(MANAGER.initProps()).setStepSound(Block.soundMetalFootstep);
+		blockOre = new HawkBlockOre(HawkManager.oreID).setStepSound(Block.soundStoneFootstep);
 		blockMetalStorage = new HawkBlockMetalStorage(HawkManager.metalStorageID).setStepSound(Block.soundMetalFootstep);
 		
-		dustRaw = new HawkItemRawDust(HawkManager.dustRawID);
-		dustRefined = new HawkItemRefinedDust(HawkManager.dustRefinedID);
-		ingots = new HawkItemIngots(HawkManager.ingotsID);
-		parts = new HawkItemParts(HawkManager.partsID);
-		plating = new HawkItemPlating(HawkManager.platingID);
+		dustRaw = new HawkItemRawDust(HawkManager.dustRawID - 256);
+		dustRefined = new HawkItemRefinedDust(HawkManager.dustRefinedID - 256);
+		ingots = new HawkItemIngots(HawkManager.ingotsID - 256);
+		parts = new HawkItemParts(HawkManager.partsID - 256);
+		plating = new HawkItemPlating(HawkManager.platingID - 256);
 		
 		UniversalElectricity.registerMod(this, "Hawk's Machinery", "0.6.0");
 		NetworkRegistry.instance().registerGuiHandler(this, this.PROXY);
 		GameRegistry.registerWorldGenerator(new HawkOreGenerator());
+		GameRegistry.registerFuelHandler(MANAGER);
 		AchievementPage.registerAchievementPage(HawkAchievements.HAWKSPAGE);
 		
 		DungeonHooks.addDungeonLoot(new ItemStack(ingots, 1, 0), 075, 1, 4);

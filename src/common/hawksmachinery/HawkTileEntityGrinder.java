@@ -55,8 +55,8 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 	
 	public HawkTileEntityGrinder(int tier)
 	{
+		super();
 		this.setTier(tier);
-		ElectricityManager.registerElectricUnit(this);
 	}
 	
 	@Override

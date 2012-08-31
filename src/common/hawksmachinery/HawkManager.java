@@ -3,11 +3,13 @@ package hawksmachinery;
 
 import java.io.*;
 import java.util.ArrayList;
+import cpw.mods.fml.common.IFuelHandler;
 import universalelectricity.basiccomponents.BasicComponents;
 import universalelectricity.basiccomponents.ItemBattery;
 import universalelectricity.recipe.RecipeManager;
 import net.minecraft.src.*;
 import net.minecraftforge.common.Configuration;
+import net.minecraftforge.common.EnumHelper;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -17,11 +19,13 @@ import net.minecraftforge.oredict.OreDictionary;
  * 
  * @author Elusivehawk
  */
-public class HawkManager
+public class HawkManager implements IFuelHandler
 {
 	public static HawksMachinery BASEMOD;
 	public static RecipeManager RECIPE_GIVER;
 	public static HawkProcessingRecipes PROCESS_RECIPES;
+	
+	public static EnumToolMaterial endiumTool = EnumHelper.addToolMaterial("Endium", 5, 3001, 15.0F, 4, 25);
 	
 	public static int grinderID;
 	public static int oreID;
@@ -37,6 +41,10 @@ public class HawkManager
 	public static int platingID;
 	public static int drillID;
 	
+	public static int endiumPickID;
+	public static int endiumShovelID;
+	public static int endiumAxeID;
+	
 	public static int ACHprospector;
 	public static int ACHtimeToGrind;
 	public static int ACHcompactCompact;
@@ -46,8 +54,7 @@ public class HawkManager
 	public static boolean generateAluminum;
 	public static boolean generateSilver;
 	public static boolean generateEndium;
-	public static boolean enableVersionChecking;
-	public static boolean enableAutoDL;
+	public static boolean enableEndiumTools;
 	
 	public static final String GUI_PATH = "/hawksmachinery/textures/gui";
 	public static final String BLOCK_TEXTURE_FILE = "/hawksmachinery/textures/blocks.png";
@@ -72,6 +79,10 @@ public class HawkManager
 		partsID = HMConfig.getOrCreateIntProperty("Parts", Configuration.CATEGORY_ITEM, 24153).getInt(24153);
 		platingID = HMConfig.getOrCreateIntProperty("Plating", Configuration.CATEGORY_ITEM, 24154).getInt(24154);
 		
+		endiumPickID = HMConfig.getOrCreateIntProperty("Endium Pickaxe", Configuration.CATEGORY_ITEM, 25000).getInt(25000);
+		endiumShovelID = HMConfig.getOrCreateIntProperty("Endium Shovel", Configuration.CATEGORY_ITEM, 25001).getInt(25001);
+		endiumAxeID = HMConfig.getOrCreateIntProperty("Endium Axe", Configuration.CATEGORY_ITEM, 25002).getInt(25002);
+		
 		ACHprospector = HMConfig.getOrCreateIntProperty("ACH Prospector", Configuration.CATEGORY_GENERAL, 1500).getInt(1500);
 		ACHtimeToGrind = HMConfig.getOrCreateIntProperty("ACH Time To Grind", Configuration.CATEGORY_GENERAL, 1501).getInt(1501);
 		ACHcompactCompact = HMConfig.getOrCreateIntProperty("ACH Compact Compact", Configuration.CATEGORY_GENERAL, 1502).getInt(1502);
@@ -81,6 +92,8 @@ public class HawkManager
 		generateAluminum = HMConfig.getOrCreateBooleanProperty("Generate Aluminum", Configuration.CATEGORY_GENERAL, true).getBoolean(true);
 		generateSilver = HMConfig.getOrCreateBooleanProperty("Generate Silver", Configuration.CATEGORY_GENERAL, true).getBoolean(true);
 		generateEndium = HMConfig.getOrCreateBooleanProperty("Generate Endium", Configuration.CATEGORY_GENERAL, true).getBoolean(true);
+		
+		enableEndiumTools = HMConfig.getOrCreateBooleanProperty("Enable Endium Tools", Configuration.CATEGORY_GENERAL, false).getBoolean(false);
 		
 		HMConfig.save();
 		
@@ -98,7 +111,7 @@ public class HawkManager
 	public static void loadRecipes()
 	{
 		
-		RECIPE_GIVER.addRecipe(new ItemStack(BASEMOD.blockGrinder, 1), new Object[]{"TPT", "TMT", "TBT", 'T', new ItemStack(BASEMOD.plating, 1, 0), 'P', Item.pickaxeSteel, 'M', BasicComponents.itemMotor, 'B', (((ItemBattery)BasicComponents.itemBattery).getChargedItemStack())});
+		RECIPE_GIVER.addRecipe(new ItemStack(BASEMOD.blockGrinder, 1), new Object[]{"TPT", "TMT", "TBT", 'T', new ItemStack(BASEMOD.plating, 1, 0), 'P', Item.pickaxeSteel, 'M', BasicComponents.itemMotor, 'B', (((ItemBattery)BasicComponents.itemBattery).getUnchargedItemStack())});
 		RECIPE_GIVER.addRecipe(new ItemStack(BasicComponents.itemBattery), new Object[]{" x ", "xrx", "xcx", 'x', BasicComponents.itemTinIngot, 'c', new ItemStack(BASEMOD.dustRaw, 1, 0), 'r', Item.redstone});
 		RECIPE_GIVER.addRecipe(new ItemStack(Block.torchWood, 4), new Object[]{"c", "s", 'c', new ItemStack(BASEMOD.dustRaw, 1, 0), 's', Item.stick});
 		RECIPE_GIVER.addRecipe(new ItemStack(Block.enchantmentTable, 1), new Object[]{" b ", "dod", "ooo", 'b', Item.book, 'd', new ItemStack(BASEMOD.dustRaw, 1, 1), 'o', Block.obsidian});
@@ -111,7 +124,7 @@ public class HawkManager
 		RECIPE_GIVER.addRecipe(new ItemStack(BASEMOD.parts, 1, 0), new Object[]{" B ", "PSM", " B ", 'P', BasicComponents.itemSteelPlate, 'S', BasicComponents.itemSteelIngot, 'M', BasicComponents.itemMotor, 'B', Item.blazePowder});
 		RECIPE_GIVER.addRecipe(new ItemStack(BASEMOD.parts, 1, 1), new Object[]{"TLT", "TBT", " B ", 'T', "ingotTitanium", 'B', Item.blazeRod, 'L', new ItemStack(BASEMOD.parts, 1, 3)});
 		RECIPE_GIVER.addRecipe(new ItemStack(BASEMOD.parts, 1, 2), new Object[]{" T ", "TET", " T ", 'T', "ingotTitanium", 'E', Item.enderPearl});
-		RECIPE_GIVER.addRecipe(new ItemStack(BASEMOD.parts, 1, 3), new Object[]{" G ", "GBG", "cCc", 'G', Block.thinGlass, 'B', Item.blazeRod, 'c', "ingotCopper", 'C', BasicComponents.itemCopperWire});
+		RECIPE_GIVER.addRecipe(new ItemStack(BASEMOD.parts, 1, 3), new Object[]{" G ", "GBG", "cCc", 'G', Block.thinGlass, 'B', Item.blazeRod, 'c', "ingotCopper", 'C', BasicComponents.blockCopperWire});
 		
 		RECIPE_GIVER.addRecipe(new ItemStack(BASEMOD.plating, 1, 0), new Object[]{"TT", "TT", 'T', "ingotTitanium"});
 		RECIPE_GIVER.addRecipe(new ItemStack(BASEMOD.plating, 1, 1), new Object[]{"AA", "AA", 'A', "ingotAluminum"});
@@ -128,7 +141,7 @@ public class HawkManager
 		RECIPE_GIVER.addShapelessRecipe(new ItemStack(BASEMOD.ingots, 9, 2), new Object[]{new ItemStack(BASEMOD.blockMetalStorage, 1, 2)});
 		RECIPE_GIVER.addShapelessRecipe(new ItemStack(BASEMOD.ingots, 9, 3), new Object[]{new ItemStack(BASEMOD.blockMetalStorage, 1, 3)});
 		
-		RECIPE_GIVER.addShapelessRecipe(BasicComponents.itemSteelAlloy, new Object[]{new ItemStack(BASEMOD.dustRaw, 1, 0), new ItemStack(BASEMOD.dustRefined, 1, 1)});
+		RECIPE_GIVER.addShapelessRecipe(BasicComponents.itemSteelDust, new Object[]{new ItemStack(BASEMOD.dustRaw, 1, 0), new ItemStack(BASEMOD.dustRefined, 1, 1)});
 		RECIPE_GIVER.addShapelessRecipe(new ItemStack(BASEMOD.dustRefined, 2, 3), new Object[]{Item.bucketWater, new ItemStack(BASEMOD.dustRaw, 1, 1), new ItemStack(BASEMOD.dustRaw, 1, 1)});
 		RECIPE_GIVER.addShapelessRecipe(new ItemStack(BASEMOD.dustRefined, 2, 4), new Object[]{Item.bucketWater, new ItemStack(BASEMOD.dustRaw, 1, 2), new ItemStack(BASEMOD.dustRaw, 1, 2)});
 		RECIPE_GIVER.addShapelessRecipe(new ItemStack(BASEMOD.dustRefined, 2, 5), new Object[]{Item.bucketWater, new ItemStack(BASEMOD.dustRaw, 1, 3), new ItemStack(BASEMOD.dustRaw, 1, 3)});
@@ -288,6 +301,12 @@ public class HawkManager
 		PROCESS_RECIPES.addHawkExplosive(Block.tnt.blockID, 1);
 		PROCESS_RECIPES.addHawkExplosive(Item.gunpowder.shiftedIndex, 1);
 		PROCESS_RECIPES.addHawkExplosive(Item.fireballCharge.shiftedIndex, 1);
+	}
+	
+	@Override
+	public int getBurnTime(ItemStack fuel)
+	{
+		return 0;
 	}
 	
 }
