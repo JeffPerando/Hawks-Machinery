@@ -16,6 +16,7 @@
 /src/minecraft/*
 /src/minecraft_server/*
 /src/common/*
+!/src/common/uristqwerty/
 !/src/common/hawksmachinery/
 !/src/minecraft/hawksmachinery/
 !/src/common/mcmod.info
