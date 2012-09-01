@@ -98,7 +98,7 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 				{
 					this.workTicks -= this.getTickInterval();
 					
-					if (this.workTicks < 1*this.getTickInterval())
+					if (this.workTicks < this.getTickInterval())
 					{
 						this.grindItem();
 						this.workTicks = 0;
@@ -368,9 +368,6 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 		this.facingDirection = facingDirection;
 	}
 	
-	/**
-	 * Reads a tile entity from NBT.
-	 */
 	@Override
 	public void readFromNBT(NBTTagCompound NBTTag)
 	{
@@ -391,9 +388,6 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 		}
 	}
 	
-	/**
-	 * Writes a tile entity to NBT.
-	 */
 	@Override
 	public void writeToNBT(NBTTagCompound NBTTag)
 	{
@@ -402,7 +396,8 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 		NBTTag.setInteger("workTicks", this.workTicks);
 		
 		NBTTagList var2 = new NBTTagList();
-		for (int var3 = 0; var3 < this.containingItems.length; ++var3)
+		
+		for (int var3 = 0; var3 <= this.containingItems.length; ++var3)
 		{
 			if (this.containingItems[var3] != null)
 			{
@@ -412,6 +407,7 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 				var2.appendTag(var4);
 			}
 		}
+		
 		NBTTag.setTag("Items", var2);
 	}
 	

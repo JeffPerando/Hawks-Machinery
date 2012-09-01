@@ -40,7 +40,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
  * 
  * @author Elusivehawk
  */
-@Mod(modid = "HawksMachinery", name = "Hawk's Machinery", version = "Alpha v1.2.4", dependencies = "after:BasicComponents")
+@Mod(modid = "HawksMachinery", name = "Hawk's Machinery", version = "Alpha v1.3.0", dependencies = "after:BasicComponents")
 @NetworkMod(channels = {"HawksMachinery"}, clientSideRequired = true, serverSideRequired = false, packetHandler = PacketManager.class)
 public class HawksMachinery implements IFuelHandler
 {
@@ -96,6 +96,7 @@ public class HawksMachinery implements IFuelHandler
 	public static Block blockGrinder;
 	public static Block blockOre;
 	public static Block blockMetalStorage;
+	public static Block blockWasher;
 	
 	/**
 	 * Raw dusts! 0 - Coal, 1 - Iron, 2 - Gold, 3 - Copper, 4 - Tin, 5 - Titanium, 6 - Aluminum, 7 - Silver, 8- Obsidian.
@@ -151,6 +152,7 @@ public class HawksMachinery implements IFuelHandler
 		blockGrinder = new HawkBlockGrinder(grinderID).setStepSound(Block.soundMetalFootstep);
 		blockOre = new HawkBlockOre(oreID).setStepSound(Block.soundStoneFootstep);
 		blockMetalStorage = new HawkBlockMetalStorage(metalStorageID).setStepSound(Block.soundMetalFootstep);
+		blockWasher = new HawkBlockWasher(washerID).setStepSound(Block.soundMetalFootstep);
 		
 		dustRaw = new HawkItemRawDust(dustRawID - 256);
 		dustRefined = new HawkItemRefinedDust(dustRefinedID - 256);

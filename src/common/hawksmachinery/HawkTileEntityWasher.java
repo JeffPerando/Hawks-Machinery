@@ -1,11 +1,16 @@
 
 package hawksmachinery;
 
+import java.util.Random;
 import com.google.common.io.ByteArrayDataInput;
+import net.minecraft.src.EntityItem;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.IInventory;
+import net.minecraft.src.Block;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
+import net.minecraft.src.NBTTagCompound;
+import net.minecraft.src.NBTTagList;
 import net.minecraft.src.NetworkManager;
 import net.minecraft.src.Packet250CustomPayload;
 import net.minecraftforge.common.ForgeDirection;
@@ -41,7 +46,7 @@ public class HawkTileEntityWasher extends TileEntityElectricUnit implements IInv
 	
 	public float waterUnits = 0;
 	
-	public float WATER_LIMIT = 10.0F;
+	public float WATER_LIMIT = 25.0F;
 	
 	public HawkTileEntityWasher()
 	{
@@ -80,22 +85,58 @@ public class HawkTileEntityWasher extends TileEntityElectricUnit implements IInv
 				this.containingItems[2] = null;
 			}
 			
-	    	if (this.electricityStored <= 0)
-	    	{
-	    		this.electricityStored = 0;
-	    	}
-	    	
-	    	if (this.electricityStored >= this.ELECTRICITY_LIMIT)
-	    	{
-	    		this.electricityStored = this.ELECTRICITY_LIMIT;
-	    	}
-	    	
-			PacketManager.sendTileEntityPacket(this, "HawksMachinery", this.workTicks, this.electricityStored);
+			if (this.canWash())
+			{
+				if (this.containingItems[1] != null && this.workTicks == 0)
+				{
+					this.workTicks = this.TICKS_REQUIRED;
+				}
+				
+				if (this.canWash() && this.workTicks > 0)
+				{
+					this.workTicks -= this.getTickInterval();
+					
+					if (this.workTicks < this.getTickInterval())
+					{
+						this.washItem();
+						this.workTicks = 0;
+					}
+					
+					this.electricityStored = this.electricityStored - this.ELECTRICITY_REQUIRED;
+				}
+				else
+				{
+					this.workTicks = 0;
+				}
+			}
+			
+			if (this.electricityStored <= 0)
+			{
+				this.electricityStored = 0;
+			}
+			
+			if (this.electricityStored >= this.ELECTRICITY_LIMIT)
+			{
+				this.electricityStored = this.ELECTRICITY_LIMIT;
+			}
+			
+			if (this.waterUnits > this.WATER_LIMIT)
+			{
+				this.waterUnits = this.WATER_LIMIT;
+			}
+			
+			if (this.worldObj.getBlockId(this.xCoord, this.yCoord - 1, this.zCoord) == Block.waterStill.blockID && this.waterUnits < this.WATER_LIMIT)
+			{
+				this.waterUnits += 1.0F;
+				this.worldObj.setBlockWithNotify(this.xCoord, this.yCoord - 1, this.zCoord, 0);
+			}
+			
+			PacketManager.sendTileEntityPacket(this, "HawksMachinery", this.workTicks, this.electricityStored, this.waterUnits);
 			
 		}
 	}
 	
-	private boolean canWash()
+	public boolean canWash()
 	{
 		if (this.containingItems[1] == null)
 		{
@@ -124,19 +165,63 @@ public class HawkTileEntityWasher extends TileEntityElectricUnit implements IInv
 		}
 	}
 	
+	private void washItem()
+	{
+		if (this.canWash())
+		{
+			ItemStack newItem = HawkProcessingRecipes.getWashingResult(this.containingItems[2]);
+			ItemStack secondItem = HawkProcessingRecipes.getWashingSecondaryResult(this.containingItems[2], this.worldObj.rand);
+			boolean isWashed = false;
+			
+			for (int counter = 3; counter <= this.containingItems.length; ++counter)
+			{
+				if (this.containingItems[counter] == null)
+				{
+					this.containingItems[counter] = newItem.copy();
+					isWashed = true;
+				}
+				else if (this.containingItems[counter].isItemEqual(newItem))
+				{
+					this.containingItems[counter].stackSize += newItem.stackSize;
+					isWashed = true;
+				}
+				
+				if (isWashed)
+				{
+					--this.containingItems[2].stackSize;
+					this.waterUnits -= 1.0F;
+					
+					if (secondItem != null)
+					{
+						this.worldObj.spawnEntityInWorld(new EntityItem(this.worldObj, this.xCoord + 1, this.yCoord, this.zCoord, secondItem));
+					}
+					
+					if (this.containingItems[2].stackSize <= 0)
+					{
+						this.containingItems[2] = null;
+					}
+					
+					break;
+				}
+				
+			}
+		}
+	}
+	
 	@Override
 	public void handlePacketData(NetworkManager network, Packet250CustomPayload packet, EntityPlayer player, ByteArrayDataInput dataStream)
 	{
-		 try
-		 {
-			 this.workTicks = dataStream.readInt();
-			 this.electricityStored = dataStream.readFloat();
-			 
-		 }
-		 catch(Exception e)
-		 {
-			 e.printStackTrace();
-		 }	
+		try
+		{
+			this.workTicks = dataStream.readInt();
+			this.electricityStored = dataStream.readFloat();
+			this.waterUnits = dataStream.readFloat();
+			
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}	
 	}
 	
 	@Override
@@ -170,6 +255,53 @@ public class HawkTileEntityWasher extends TileEntityElectricUnit implements IInv
 		}
 		
 		return 2;
+	}
+	
+	@Override
+	public void readFromNBT(NBTTagCompound NBTTag)
+	{
+		super.readFromNBT(NBTTag);
+		this.electricityStored = NBTTag.getFloat("electricityStored");
+		this.workTicks = NBTTag.getInteger("workTicks");
+		this.waterUnits = NBTTag.getFloat("waterUnits");
+		
+		NBTTagList var2 = NBTTag.getTagList("Items");
+		this.containingItems = new ItemStack[this.getSizeInventory()];
+		for (int var3 = 0; var3 < var2.tagCount(); ++var3)
+		{
+			NBTTagCompound var4 = (NBTTagCompound)var2.tagAt(var3);
+			byte var5 = var4.getByte("Slot");
+			if (var5 >= 0 && var5 < this.containingItems.length)
+			{
+				this.containingItems[var5] = ItemStack.loadItemStackFromNBT(var4);
+			}
+		}
+	}
+	
+	@Override
+	public void writeToNBT(NBTTagCompound NBTTag)
+	{
+		super.writeToNBT(NBTTag);
+		
+		NBTTag.setFloat("waterUnits", this.waterUnits);
+		NBTTag.setFloat("electricityStored", this.electricityStored);
+		NBTTag.setInteger("workTicks", this.workTicks);
+		
+		NBTTagList var2 = new NBTTagList();
+		
+		for (int var3 = 0; var3 < this.containingItems.length; ++var3)
+		{
+			if (this.containingItems[var3] != null)
+			{
+				NBTTagCompound var4 = new NBTTagCompound();
+				var4.setByte("Slot", (byte)var3);
+				this.containingItems[var3].writeToNBT(var4);
+				var2.appendTag(var4);
+			}
+		}
+		
+		NBTTag.setTag("Items", var2);
+		
 	}
 	
 	@Override

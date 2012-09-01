@@ -67,7 +67,7 @@ public class HawkBlockWasher extends BlockMachine
 			case 3: world.setBlockMetadataWithNotify(x, y, z, 5); break;
 			case 4: world.setBlockMetadataWithNotify(x, y, z, 3); break;
 		}
-	
+		
 		return true;
 	}
 	
@@ -92,6 +92,12 @@ public class HawkBlockWasher extends BlockMachine
 	public String getTextureFile()
 	{
 		return BASEMOD.BLOCK_TEXTURE_FILE;
+	}
+	
+	@Override
+	public boolean hasTileEntity(int metadata)
+	{
+		return true;
 	}
 	
 	@Override
@@ -142,7 +148,7 @@ public class HawkBlockWasher extends BlockMachine
 	@Override
 	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity)
 	{
-		if (entity instanceof EntityEnderman)
+		if (entity instanceof EntityEnderman && this.tileEntity.canWash())
 		{
 			entity.attackEntityFrom(DamageSource.drown, 1);
 		}

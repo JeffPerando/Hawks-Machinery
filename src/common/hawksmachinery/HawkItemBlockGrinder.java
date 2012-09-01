@@ -25,7 +25,7 @@ public class HawkItemBlockGrinder extends ItemBlock
 	@Override
 	public int getMetadata(int meta)
 	{
-		return 0;
+		return meta;
 	}
 	
 	@Override

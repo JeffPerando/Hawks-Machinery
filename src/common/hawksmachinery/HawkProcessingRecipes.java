@@ -149,6 +149,40 @@ public class HawkProcessingRecipes
 		}
 	}
 	
+	public static ItemStack getWashingSecondaryResult(ItemStack item, Random random)
+	{
+		int secondaryChance = random.nextInt(100);
+		
+		if (item == null)
+		{
+			return null;
+		}
+		else
+		{
+			if (secondaryChance < 5)
+			{
+				ItemStack ret = (ItemStack)washerRarities.get(Arrays.asList(item.itemID, item.getItemDamage()));
+				
+				if (ret != null) 
+				{
+					return ret;
+				}
+			}
+			else if (secondaryChance < 10)
+			{
+				ItemStack ret = (ItemStack)washerSecondaries.get(Arrays.asList(item.itemID, item.getItemDamage()));
+				
+				if (ret != null) 
+				{
+					return ret;
+				}
+			}
+			
+			return null;
+		}
+	}
+	
+	
 	public static ItemStack getGrindingExplosive(ItemStack item)
 	{
 		if (item == null)
