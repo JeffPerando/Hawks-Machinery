@@ -36,6 +36,9 @@ public class HMClientProxy extends HMCommonProxy
 	}
 	
 	@Override
+	public void postInit() {}
+	
+	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)
 	{
 		TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
@@ -45,6 +48,7 @@ public class HMClientProxy extends HMCommonProxy
 			switch (ID)
 			{
 				case 0: return new HawkGUIGrinder(player.inventory, ((HawkTileEntityGrinder)tileEntity));
+				case 1: return new HawkGUIWasher(player.inventory, ((HawkTileEntityWasher)tileEntity));
 				
 			}
         }

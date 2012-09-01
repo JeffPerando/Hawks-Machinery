@@ -20,10 +20,10 @@ public class HMCommonProxy extends CommonProxy
 	public void preInit() {}
 	
 	@Override
-	public void init()
-	{
-		
-	}
+	public void init() {}
+	
+	@Override
+	public void postInit() {}
 	
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)
@@ -32,14 +32,15 @@ public class HMCommonProxy extends CommonProxy
 	}
 	
 	@Override
-	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) 
+	public Object getServerGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) 
 	{
 		TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
 		
-		if (tileEntity != null)
-        {
-			return new HawkContainerGrinder(player.inventory, ((HawkTileEntityGrinder)tileEntity));
-        }
+		switch (id)
+		{
+			case 0: return new HawkContainerGrinder(player.inventory, ((HawkTileEntityGrinder)tileEntity));
+			case 1: return new HawkContainerWasher(player.inventory, ((HawkTileEntityWasher)tileEntity));
+		}
 		
 		return null;
 	}
