@@ -17,6 +17,10 @@ public class HawkProcessingRecipes
 	private static Map grinderRecipes = new HashMap();
 	private static Map grinderExplosives = new HashMap();
 	
+	private static Map washerRecipes = new HashMap();
+	private static Map washerSecondaries = new HashMap();
+	private static Map washerRarities = new HashMap();
+	
 	/**
 	 * Adds a processing recipe.
 	 * 
@@ -31,6 +35,7 @@ public class HawkProcessingRecipes
 		switch (processingType)
 		{
 			case 1: grinderRecipes.put(Arrays.asList(input, 0), output);
+			case 2: washerRecipes.put(Arrays.asList(input, 0), output);
 		}
 	}
 	
@@ -44,6 +49,7 @@ public class HawkProcessingRecipes
 		switch (processingType)
 		{
 			case 1: grinderRecipes.put(Arrays.asList(input, inputMetadata), output);
+			case 2: washerRecipes.put(Arrays.asList(input, inputMetadata), output);
 		}
 	}
 	
@@ -57,9 +63,10 @@ public class HawkProcessingRecipes
 	{
 		switch (processingType)
 		{
-			case 1: grinderExplosives.put(Arrays.asList(explosive, 0), null);
+			case 1: grinderExplosives.put(Arrays.asList(explosive, 0), new Object[]{});
 		}
 	}
+	
 	/**
 	 * Same as above, but metadata sensitive in order to facilitate ICBM support.
 	 * 
@@ -71,7 +78,19 @@ public class HawkProcessingRecipes
 	{
 		switch (processingType)
 		{
-			case 1: grinderExplosives.put(Arrays.asList(explosive, explosiveDmg), null);
+			case 1: grinderExplosives.put(Arrays.asList(explosive, explosiveDmg), new Object[]{});
+		}
+	}
+	
+	public static void addHawkWashingSecondary(int input, int inputMetadata, Object output, boolean isCommon)
+	{
+		if (isCommon)
+		{
+			washerSecondaries.put(Arrays.asList(input, inputMetadata), output);
+		}
+		else
+		{
+			washerRarities.put(Arrays.asList(input, inputMetadata), output);
 		}
 	}
 	
@@ -101,6 +120,25 @@ public class HawkProcessingRecipes
 		else
 		{
 			ItemStack ret = (ItemStack)grinderRecipes.get(Arrays.asList(item.itemID, item.getItemDamage()));
+			
+			if (ret != null) 
+			{
+				return ret;
+			}
+			
+			return null;
+		}
+	}
+	
+	public static ItemStack getWashingResult(ItemStack item)
+	{
+		if (item == null)
+		{
+			return null;
+		}
+		else
+		{
+			ItemStack ret = (ItemStack)washerRecipes.get(Arrays.asList(item.itemID, item.getItemDamage()));
 			
 			if (ret != null) 
 			{

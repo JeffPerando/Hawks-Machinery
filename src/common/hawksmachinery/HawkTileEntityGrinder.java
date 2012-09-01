@@ -71,7 +71,6 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 				this.explodeGrinder(0.7F);
 			}
 			
-			//The slot is for portable batteries to be used in the grinder
 			if (this.containingItems[0] != null)
 			{
 				if (this.containingItems[0].getItem() instanceof IItemElectric)
@@ -90,125 +89,125 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 			
 			if ((this.canGrind() || this.canExplode()) && !this.isDisabled())
 			{
-		    	if(this.containingItems[1] != null && this.workTicks == 0)
-		    	{
-		    		this.workTicks = this.TICKS_REQUIRED;
-		    	}
-		    	
-		    	if ((this.canGrind() || this.canExplode()) && this.workTicks > 0)
-		    	{
-		    		this.workTicks -= this.getTickInterval();
-		    		
-		    		if(this.workTicks < 1*this.getTickInterval())
-		    		{
-		    			this.grindItem();
-		    			this.workTicks = 0;
-		    		}
-		    		
-		    		this.electricityStored = this.electricityStored - this.ELECTRICITY_REQUIRED;
+				if (this.containingItems[1] != null && this.workTicks == 0)
+				{
+					this.workTicks = this.TICKS_REQUIRED;
+				}
+				
+				if ((this.canGrind() || this.canExplode()) && this.workTicks > 0)
+				{
+					this.workTicks -= this.getTickInterval();
+					
+					if (this.workTicks < 1*this.getTickInterval())
+					{
+						this.grindItem();
+						this.workTicks = 0;
+					}
+					
+					this.electricityStored = this.electricityStored - this.ELECTRICITY_REQUIRED;
 				}
 				else
-		        {
-		        	this.workTicks = 0;
-		        }
+				{
+					this.workTicks = 0;
+				}
 			}
-	    	
-	    	if (this.electricityStored <= 0)
-	    	{
-	    		this.electricityStored = 0;
-	    	}
-	    	
-	    	if (this.electricityStored >= this.ELECTRICITY_LIMIT)
-	    	{
-	    		this.electricityStored = this.ELECTRICITY_LIMIT;
-	    	}
-	    	
+			
+			if (this.electricityStored <= 0)
+			{
+				this.electricityStored = 0;
+			}
+			
+			if (this.electricityStored >= this.ELECTRICITY_LIMIT)
+			{
+				this.electricityStored = this.ELECTRICITY_LIMIT;
+			}
+			
 			PacketManager.sendTileEntityPacket(this, "HawksMachinery", this.disabledTicks, this.workTicks, this.electricityStored, this.grinderStatus);
 			
-        }
+		}
 	}
-    
-    private boolean canGrind()
-    {
-        if (this.containingItems[1] == null)
-        {
-            return false;
-        }
-        else
-        {
-        	if (this.electricityStored >= this.ELECTRICITY_REQUIRED * 2)
-        	{
-                ItemStack var1 = HawkProcessingRecipes.getGrindingResult(this.containingItems[1]);
-                if (var1 == null) return false;
-                if (this.containingItems[2] == null) return true;
-                if (!this.containingItems[2].isItemEqual(var1)) return false;
-                int result = containingItems[2].stackSize + var1.stackSize;
-                return (result <= getInventoryStackLimit() && result <= var1.getMaxStackSize());
-        	}
-        	else
-        	{
-        		return false;
-        	}
-        }
-    }
-
-    private boolean canExplode()
-    {
-        if (this.containingItems[1] == null)
-        {
-            return false;
-        }
-        else
-        {
-        	if (this.electricityStored >= this.ELECTRICITY_REQUIRED * 2)
-        	{
-                ItemStack var1 = HawkProcessingRecipes.getGrindingExplosive(this.containingItems[1]);
-                
-                if (var1 == null) return false;
-                if (this.containingItems[2] == null) return true;
-                if (!this.containingItems[2].isItemEqual(var1)) return false;
-                int result = containingItems[2].stackSize + var1.stackSize;
-                return (result <= getInventoryStackLimit() && result <= var1.getMaxStackSize());
-        	}
-        	else
-        	{
-        		return false;
-        	}
-        }
-    }
-    
-    private void grindItem()
-    {
-        if (this.canGrind())
-        {
-            ItemStack var1 = HawkProcessingRecipes.getGrindingResult(this.containingItems[1]);
-
-            if (this.containingItems[2] == null)
-            {
-                this.containingItems[2] = var1.copy();
-            }
-            else if (this.containingItems[2].isItemEqual(var1))
-            {
-                ++this.containingItems[2].stackSize;
-            }
-
-            --this.containingItems[1].stackSize;
-
-            if (this.containingItems[1].stackSize <= 0)
-            {
-                this.containingItems[1] = null;
-            }
-        }
-        else
-        {
-        	if (this.canExplode())
-        	{
-                --this.containingItems[1].stackSize;
-        		this.explodeGrinder(2.0F);
-        	}
-        }
-    }
-    
+	
+	private boolean canGrind()
+	{
+		if (this.containingItems[1] == null)
+		{
+			return false;
+		}
+		else
+		{
+			if (this.electricityStored >= this.ELECTRICITY_REQUIRED * 2)
+			{
+				ItemStack var1 = HawkProcessingRecipes.getGrindingResult(this.containingItems[1]);
+				if (var1 == null) return false;
+				if (this.containingItems[2] == null) return true;
+				if (!this.containingItems[2].isItemEqual(var1)) return false;
+				int result = containingItems[2].stackSize + var1.stackSize;
+				return (result <= getInventoryStackLimit() && result <= var1.getMaxStackSize());
+			}
+			else
+			{
+				return false;
+			}
+		}
+	}
+	
+	private boolean canExplode()
+	{
+		if (this.containingItems[1] == null)
+		{
+			return false;
+		}
+		else
+		{
+			if (this.electricityStored >= this.ELECTRICITY_REQUIRED * 2)
+			{
+				ItemStack var1 = HawkProcessingRecipes.getGrindingExplosive(this.containingItems[1]);
+				
+				if (var1 == null) return false;
+				if (this.containingItems[2] == null) return true;
+				if (!this.containingItems[2].isItemEqual(var1)) return false;
+				int result = containingItems[2].stackSize + var1.stackSize;
+				return (result <= getInventoryStackLimit() && result <= var1.getMaxStackSize());
+			}
+			else
+			{
+				return false;
+			}
+		}
+	}
+	
+	private void grindItem()
+	{
+		if (this.canGrind())
+		{
+			ItemStack var1 = HawkProcessingRecipes.getGrindingResult(this.containingItems[1]);
+			
+			if (this.containingItems[2] == null)
+			{
+				this.containingItems[2] = var1.copy();
+			}
+			else if (this.containingItems[2].isItemEqual(var1))
+			{
+				++this.containingItems[2].stackSize;
+			}
+			
+			--this.containingItems[1].stackSize;
+			
+			if (this.containingItems[1].stackSize <= 0)
+			{
+				this.containingItems[1] = null;
+			}
+		}
+		else
+		{
+			if (this.canExplode())
+			{
+				--this.containingItems[1].stackSize;
+				this.explodeGrinder(2.0F);
+			}
+		}
+	}
+	
 	@Override
 	public float electricityRequest()
 	{
@@ -243,18 +242,20 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 	}
 	
 	@Override
-    public int getStartInventorySide(ForgeDirection side)
-    {
+	public int getStartInventorySide(ForgeDirection side)
+	{
 		if (side == ForgeDirection.UP)
-        {
-        	return 1;
-        }
-        if (side == ForgeDirection.DOWN)
-        {
-        	return 0;
-        }
-        return 2;
-    }
+		{
+			return 1;
+		}
+		
+		if (side == ForgeDirection.DOWN)
+		{
+			return 0;
+		}
+		
+		return 2;
+	}
 	
 	@Override
 	public int getSizeInventorySide(ForgeDirection side)
@@ -263,97 +264,97 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 	}
 	
 	@Override
-    public int getSizeInventory()
-    {
+	public int getSizeInventory()
+	{
 		return this.containingItems.length;
-    }
+	}
 	
 	@Override
-    public ItemStack getStackInSlot(int var1)
-    {
+	public ItemStack getStackInSlot(int var1)
+	{
 		return this.containingItems[var1];
-    }
+	}
 	
 	@Override
-    public ItemStack decrStackSize(int var1, int var2)
-    {
-        if (this.containingItems[var1] != null)
-        {
-            ItemStack var3;
-
-            if (this.containingItems[var1].stackSize <= var2)
-            {
-                var3 = this.containingItems[var1];
-                this.containingItems[var1] = null;
-                return var3;
-            }
-            else
-            {
-                var3 = this.containingItems[var1].splitStack(var2);
-
-                if (this.containingItems[var1].stackSize == 0)
-                {
-                    this.containingItems[var1] = null;
-                }
-
-                return var3;
-            }
-        }
-        else
-        {
-            return null;
-        }
-    }
+	public ItemStack decrStackSize(int var1, int var2)
+	{
+		if (this.containingItems[var1] != null)
+		{
+			ItemStack var3;
+			
+			if (this.containingItems[var1].stackSize <= var2)
+			{
+				var3 = this.containingItems[var1];
+				this.containingItems[var1] = null;
+				return var3;
+			}
+			else
+			{
+				var3 = this.containingItems[var1].splitStack(var2);
+				
+				if (this.containingItems[var1].stackSize == 0)
+				{
+					this.containingItems[var1] = null;
+				}
+				
+				return var3;
+			}
+		}
+		else
+		{
+			return null;
+		}
+	}
 	
 	@Override
-    public ItemStack getStackInSlotOnClosing(int var1)
-    {
-        if (this.containingItems[var1] != null)
-        {
-            ItemStack var2 = this.containingItems[var1];
-            this.containingItems[var1] = null;
-            return var2;
-        }
-        else
-        {
-            return null;
-        }
-    }
+	public ItemStack getStackInSlotOnClosing(int var1)
+	{
+		if (this.containingItems[var1] != null)
+		{
+			ItemStack var2 = this.containingItems[var1];
+			this.containingItems[var1] = null;
+			return var2;
+		}
+		else
+		{
+			return null;
+		}
+	}
 	
 	@Override
-    public void setInventorySlotContents(int var1, ItemStack var2)
-    {
-        this.containingItems[var1] = var2;
-
-        if (var2 != null && var2.stackSize > this.getInventoryStackLimit())
-        {
-            var2.stackSize = this.getInventoryStackLimit();
-        }
-    }
+	public void setInventorySlotContents(int var1, ItemStack var2)
+	{
+		this.containingItems[var1] = var2;
+		
+		if (var2 != null && var2.stackSize > this.getInventoryStackLimit())
+		{
+			var2.stackSize = this.getInventoryStackLimit();
+		}
+	}
 	
 	@Override
-    public String getInvName()
-    {
-	    return "Grinder";
-    }
+	public String getInvName()
+	{
+		return "Grinder";
+	}
 	
 	@Override
-    public int getInventoryStackLimit()
-    {
-	    return 64;
-    }
+	public int getInventoryStackLimit()
+	{
+		return 64;
+	}
 	
 	@Override
-    public boolean isUseableByPlayer(EntityPlayer var1)
-    {
-        return this.worldObj.getBlockTileEntity(this.xCoord, this.yCoord, this.zCoord) != this ? false : var1.getDistanceSq((double)this.xCoord + 0.5D, (double)this.yCoord + 0.5D, (double)this.zCoord + 0.5D) <= 64.0D;
-    }
+	public boolean isUseableByPlayer(EntityPlayer var1)
+	{
+		return this.worldObj.getBlockTileEntity(this.xCoord, this.yCoord, this.zCoord) != this ? false : var1.getDistanceSq((double)this.xCoord + 0.5D, (double)this.yCoord + 0.5D, (double)this.zCoord + 0.5D) <= 64.0D;
+	}
 	
 	@Override
-    public void openChest() {}
+	public void openChest() {}
 	
 	@Override
-    public void closeChest() {}
+	public void closeChest() {}
 	
 	@Override
 	public ForgeDirection getDirection()
@@ -475,7 +476,7 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 		{
 			e.printStackTrace();
 		}		
-    }
+	}
 	
 	/**
 	 * Causes the current Grinder to explode.
@@ -483,15 +484,15 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 	 */
 	private void explodeGrinder(float strength)
 	{
-		this.worldObj.createExplosion((Entity)null, this.xCoord, this.yCoord, this.zCoord, strength);
+		this.worldObj.createExplosion(null, this.xCoord, this.yCoord, this.zCoord, strength);
 	}
-
+	
 	@Override
 	public int getTier()
 	{
 		return this.tier;
 	}
-
+	
 	@Override
 	public void setTier(int tier)
 	{

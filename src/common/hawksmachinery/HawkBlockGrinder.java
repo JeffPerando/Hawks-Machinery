@@ -132,7 +132,7 @@ public class HawkBlockGrinder extends BlockMachine
 						case 3: return 6;
 						default: return 7;
 					}
-		}		
+		}
 	}
 	
 	@Override

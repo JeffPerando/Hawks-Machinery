@@ -12,6 +12,7 @@ import net.minecraft.src.Material;
 import net.minecraft.src.MathHelper;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
+import net.minecraftforge.common.ForgeDirection;
 import universalelectricity.extend.BlockMachine;
 
 /**
@@ -27,7 +28,7 @@ public class HawkBlockWasher extends BlockMachine
 	
 	public HawkBlockWasher(int id)
 	{
-		super("Washer", id, Material.iron);
+		super("HMWasher", id, Material.iron);
 		setHardness(2.0F);
 		setResistance(20.0F);
 		setRequiresSelfNotify();
@@ -100,17 +101,42 @@ public class HawkBlockWasher extends BlockMachine
 		return this.tileEntity;
 	}
 	
-	
-	
 	@Override
-	public boolean canPlaceBlockOnSide(World world, int x, int y, int z, int side)
+	public int getBlockTextureFromSideAndMetadata(int side, int metadata)
 	{
-		if (side != 0 && side != world.getBlockMetadata(x, y, z))
+		switch (metadata)
 		{
-			return true;
+			case 2: switch (side)
+					{
+						case 1: return 36;
+						case 2: return 38;
+						default: return 37;
+					}
+			case 3: switch (side)
+					{
+						case 1: return 36;
+						case 3: return 38;
+						default: return 37;
+					}
+			case 4: switch (side)
+					{
+						case 1: return 36;
+						case 4: return 38;
+						default: return 37;
+					}
+			case 5: switch (side)
+					{
+						case 1: return 36;
+						case 5: return 38;
+						default: return 37;
+					}
+			default: switch (side)
+					{
+						case 1: return 36;
+						case 3: return 38;
+						default: return 37;
+					}
 		}
-		
-		return false;
 	}
 	
 	@Override
@@ -123,5 +149,11 @@ public class HawkBlockWasher extends BlockMachine
 		
 		entity.extinguish();
 	}
-
+	
+	@Override
+	public boolean isBlockSolidOnSide(World world, int x, int y, int z, ForgeDirection side)
+	{
+		return !(side.ordinal() == 0 || side.ordinal() == world.getBlockMetadata(x, y, z));
+	}
+	
 }

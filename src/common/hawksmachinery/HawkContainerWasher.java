@@ -1,30 +1,35 @@
 
 package hawksmachinery;
 
-import universalelectricity.basiccomponents.SlotElectricItem;
-import universalelectricity.extend.IItemElectric;
 import net.minecraft.src.Container;
 import net.minecraft.src.EntityPlayer;
-import net.minecraft.src.FurnaceRecipes;
 import net.minecraft.src.InventoryPlayer;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.Slot;
 import net.minecraft.src.TileEntity;
+import universalelectricity.basiccomponents.SlotElectricItem;
+import universalelectricity.extend.IItemElectric;
 
 /**
+ * 
+ * 
+ * 
  * @author Elusivehawk
- *
  */
-public class HawkContainerGrinder extends Container
+public class HawkContainerWasher extends Container
 {
-	private HawkTileEntityGrinder tileEntity;
+	private HawkTileEntityWasher tileEntity;
 	
-	public HawkContainerGrinder(InventoryPlayer playerInventory, HawkTileEntityGrinder tileEntity)
+	public HawkContainerWasher(InventoryPlayer playerInventory, HawkTileEntityWasher tileEntity)
 	{
 		this.tileEntity = tileEntity;
 		this.addSlotToContainer(new SlotElectricItem(tileEntity, 0, 55, 49));
 		this.addSlotToContainer(new Slot(tileEntity, 1, 55, 25));
-		this.addSlotToContainer(new SlotProcessorsOutput(playerInventory.player, tileEntity, 2, 108, 25));
+		this.addSlotToContainer(new Slot(tileEntity, 2, 55, 25));
+		this.addSlotToContainer(new SlotProcessorsOutput(playerInventory.player, tileEntity, 3, 108, 25));
+		this.addSlotToContainer(new SlotProcessorsOutput(playerInventory.player, tileEntity, 4, 108, 40));
+		this.addSlotToContainer(new SlotProcessorsOutput(playerInventory.player, tileEntity, 5, 108, 55));
+		
 		int var3;
 		
 		for (var3 = 0; var3 < 3; ++var3)
@@ -40,6 +45,7 @@ public class HawkContainerGrinder extends Container
 			this.addSlotToContainer(new Slot(playerInventory, var3, 8 + var3 * 18, 142));
 		}
 	}
+	
 	
 	@Override
 	public boolean canInteractWith(EntityPlayer var1)
