@@ -81,7 +81,7 @@ public class HawkContainerGrinder extends Container
                         return null;
                     }
                 }
-                else if (FurnaceRecipes.smelting().getSmeltingResult(var4) != null)
+                else if (HawkProcessingRecipes.getGrindingResult(var4) != null)
                 {
                     if (!this.mergeItemStack(var4, 1, 2, false))
                     {
