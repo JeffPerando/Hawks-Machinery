@@ -62,7 +62,7 @@ public class HawkItemParts extends Item
 	@Override
 	public String getTextureFile()
 	{
-		return HawkManager.ITEM_TEXTURE_FILE;
+		return BASEMOD.ITEM_TEXTURE_FILE;
 	}
 	
 }

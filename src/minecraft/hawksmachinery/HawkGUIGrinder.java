@@ -18,6 +18,7 @@ import net.minecraft.src.World;
  */
 public class HawkGUIGrinder extends GuiContainer
 {
+	public static HawksMachinery BASEMOD;
 	private HawkTileEntityGrinder tileEntity;
 	
 	private int containerWidth;
@@ -43,14 +44,13 @@ public class HawkGUIGrinder extends GuiContainer
 	    this.fontRenderer.drawString(StatCollector.translateToLocal("container.inventory"), 8, this.ySize - 96 + 2, 4210752);
 	}
 	
-	
 	/**
 	 * Draw the background layer for the GuiContainer (everything behind the items)
 	 */
    @Override
    protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3)
    {
-	   int var4 = this.mc.renderEngine.getTexture(HawkManager.GUI_PATH + "/Grinder.png");
+	   int var4 = this.mc.renderEngine.getTexture(BASEMOD.GUI_PATH + "/Grinder.png");
        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
        this.mc.renderEngine.bindTexture(var4);
        this.containerWidth = (this.width - this.xSize) / 2;

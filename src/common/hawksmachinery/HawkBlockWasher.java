@@ -22,6 +22,7 @@ import universalelectricity.extend.BlockMachine;
  */
 public class HawkBlockWasher extends BlockMachine
 {
+	public static HawksMachinery BASEMOD;
 	public HawkTileEntityWasher tileEntity;
 	
 	public HawkBlockWasher(int id)
@@ -47,7 +48,7 @@ public class HawkBlockWasher extends BlockMachine
 		
 		if (!world.isRemote)
 		{
-			player.openGui(HawkManager.getModInstance(), 1, world, x, y, z);
+			player.openGui(BASEMOD.getModInstance(), 1, world, x, y, z);
 			return true;
 		}
 		
@@ -89,7 +90,7 @@ public class HawkBlockWasher extends BlockMachine
 	@Override
 	public String getTextureFile()
 	{
-		return HawkManager.BLOCK_TEXTURE_FILE;
+		return BASEMOD.BLOCK_TEXTURE_FILE;
 	}
 	
 	@Override

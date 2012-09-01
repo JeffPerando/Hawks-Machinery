@@ -15,6 +15,7 @@ import net.minecraftforge.*;
  */
 public class HawkBlock extends Block
 {
+	public static HawksMachinery BASEMOD;
 	private int[] sides = new int[5];
 	
 	public HawkBlock(int id, Material material, int side0, int side1, int side2, int side3, int side4, int side5)
@@ -32,7 +33,7 @@ public class HawkBlock extends Block
 	@Override
 	public String getTextureFile()
 	{
-		return HawkManager.BLOCK_TEXTURE_FILE;
+		return BASEMOD.BLOCK_TEXTURE_FILE;
 	}
 	
 	@Override

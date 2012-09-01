@@ -44,7 +44,7 @@ public class HawkOreGenerator implements IWorldGenerator
 	
 	public void generateSurface(World world, Random random, int chunkX, int chunkZ)
 	{
-		if (HawkManager.generateTitanium)
+		if (BASEMOD.generateTitanium)
 		{
 			for (int counter = 0; counter <= 24; ++counter)
 			{
@@ -74,7 +74,7 @@ public class HawkOreGenerator implements IWorldGenerator
 			}
 		}
 		
-		if (HawkManager.generateAluminum)
+		if (BASEMOD.generateAluminum)
 		{
 			for (int counter = 0; counter <= 32; ++counter)
 			{
@@ -103,7 +103,7 @@ public class HawkOreGenerator implements IWorldGenerator
 			}
 		}
 		
-		if (HawkManager.generateSilver)
+		if (BASEMOD.generateSilver)
 		{
 			for (int counter = 0; counter <= 38; ++counter)
 			{
@@ -137,7 +137,7 @@ public class HawkOreGenerator implements IWorldGenerator
 	
 	public void generateEnd(World world, Random random, int chunkX, int chunkZ)
 	{
-		if (HawkManager.generateEndium)
+		if (BASEMOD.generateEndium)
 		{
 			for (int counter = 0; counter <= 16; ++counter)
 			{

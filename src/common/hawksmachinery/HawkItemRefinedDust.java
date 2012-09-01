@@ -15,6 +15,8 @@ import net.minecraft.src.*;
  */
 public class HawkItemRefinedDust extends Item
 {
+	public static HawksMachinery BASEMOD;
+	
 	public HawkItemRefinedDust(int id)
 	{
 	    super(id);
@@ -74,7 +76,7 @@ public class HawkItemRefinedDust extends Item
     
     public String getTextureFile()
     {
-		return HawkManager.ITEM_TEXTURE_FILE;
+		return BASEMOD.ITEM_TEXTURE_FILE;
     }
     
 	@Override

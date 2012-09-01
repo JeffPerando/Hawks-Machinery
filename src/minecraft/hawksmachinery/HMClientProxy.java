@@ -24,8 +24,8 @@ public class HMClientProxy extends HMCommonProxy
 	public void preInit()
 	{
 		//Preload textures
-		MinecraftForgeClient.preloadTexture(HawkManager.BLOCK_TEXTURE_FILE);
-		MinecraftForgeClient.preloadTexture(HawkManager.ITEM_TEXTURE_FILE);
+		MinecraftForgeClient.preloadTexture(BASEMOD.BLOCK_TEXTURE_FILE);
+		MinecraftForgeClient.preloadTexture(BASEMOD.ITEM_TEXTURE_FILE);
 	}
 	
 	@Override

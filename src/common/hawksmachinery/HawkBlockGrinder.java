@@ -15,6 +15,7 @@ import net.minecraftforge.common.ForgeDirection;
  */
 public class HawkBlockGrinder extends BlockMachine
 {
+	public static HawksMachinery BASEMOD;
 	public HawkTileEntityGrinder tileEntity;
 	
 	public HawkBlockGrinder(int id)
@@ -38,7 +39,7 @@ public class HawkBlockGrinder extends BlockMachine
 	{
 		if (!world.isRemote)
 		{
-			player.openGui(HawkManager.getModInstance(), 0, world, x, y, z);
+			player.openGui(BASEMOD.getModInstance(), 0, world, x, y, z);
 			return true;
 		}
 		
@@ -80,7 +81,7 @@ public class HawkBlockGrinder extends BlockMachine
 	@Override
 	public String getTextureFile()
 	{
-		return HawkManager.BLOCK_TEXTURE_FILE;
+		return BASEMOD.BLOCK_TEXTURE_FILE;
 	}
 	
 	@Override

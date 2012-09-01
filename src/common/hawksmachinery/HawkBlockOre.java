@@ -24,6 +24,8 @@ import net.minecraftforge.oredict.OreDictionary;
  */
 public class HawkBlockOre extends Block
 {
+	public static HawksMachinery BASEMOD;
+	
 	public HawkBlockOre(int id)
 	{
 		super(id, Material.rock);
@@ -66,7 +68,7 @@ public class HawkBlockOre extends Block
 	@Override
 	public String getTextureFile()
 	{
-		return HawkManager.BLOCK_TEXTURE_FILE;
+		return BASEMOD.BLOCK_TEXTURE_FILE;
 	}
 	
 	@Override

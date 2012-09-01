@@ -13,7 +13,7 @@ import net.minecraft.src.ItemStack;
  */
 public class HawkItemBlockMetalStorage extends ItemBlock
 {
-	public HawksMachinery BASEMOD;
+	public static HawksMachinery BASEMOD;
 	
 	/**
 	 * English names.

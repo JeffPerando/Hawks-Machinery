@@ -23,6 +23,8 @@ import net.minecraft.src.World;
  */
 public class HawkBlockMetalStorage extends Block
 {
+	public static HawksMachinery BASEMOD;
+	
 	public HawkBlockMetalStorage(int id)
 	{
 		super(id, Material.iron);
@@ -57,7 +59,7 @@ public class HawkBlockMetalStorage extends Block
 	
 	public String getTextureFile()
 	{
-		return HawkManager.BLOCK_TEXTURE_FILE;
+		return BASEMOD.BLOCK_TEXTURE_FILE;
 	}
 	
 	@Override

@@ -31,7 +31,7 @@ public class HawkItemBlockGrinder extends ItemBlock
 	@Override
 	public String getTextureFile()
 	{
-		return HawkManager.BLOCK_TEXTURE_FILE;
+		return BASEMOD.BLOCK_TEXTURE_FILE;
 	}
 	
 	@Override

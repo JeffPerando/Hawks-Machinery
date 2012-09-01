@@ -15,6 +15,8 @@ import net.minecraft.src.ItemStack;
  */
 public class HawkItemPlating extends Item
 {
+	public static HawksMachinery BASEMOD;
+	
 	public HawkItemPlating(int id)
 	{
 		super(id);
@@ -69,7 +71,7 @@ public class HawkItemPlating extends Item
 	@Override
 	public String getTextureFile()
 	{
-		return HawkManager.ITEM_TEXTURE_FILE;
+		return BASEMOD.ITEM_TEXTURE_FILE;
 	}
 	
 	@Override

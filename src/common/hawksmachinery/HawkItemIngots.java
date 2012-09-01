@@ -19,6 +19,8 @@ import net.minecraftforge.oredict.OreDictionary;
  */
 public class HawkItemIngots extends Item
 {
+	public static HawksMachinery BASEMOD;
+	
 	public HawkItemIngots(int id)
 	{
 		super(id);
@@ -81,7 +83,7 @@ public class HawkItemIngots extends Item
 	
 	public String getTextureFile()
 	{
-		return HawkManager.ITEM_TEXTURE_FILE;
+		return BASEMOD.ITEM_TEXTURE_FILE;
 	}
 	
 	@Override
