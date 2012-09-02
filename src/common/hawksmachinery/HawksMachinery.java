@@ -164,9 +164,12 @@ public class HawksMachinery implements IFuelHandler
 		parts = new HawkItemParts(partsID - 256);
 		plating = new HawkItemPlating(platingID - 256);
 		
-		endiumPick = new HawkItemEndiumPick(endiumPickID, endiumTool).setIconIndex(100);
-		endiumAxe = new HawkItemEndiumAxe(endiumAxeID, endiumTool).setIconIndex(101);
-		endiumShovel = new HawkItemEndiumShovel(endiumShovelID, endiumTool).setIconIndex(102);
+		if (enableEndiumTools)
+		{
+			endiumPick = new HawkItemEndiumPick(endiumPickID, endiumTool).setIconIndex(100);
+			endiumAxe = new HawkItemEndiumAxe(endiumAxeID, endiumTool).setIconIndex(101);
+			endiumShovel = new HawkItemEndiumShovel(endiumShovelID, endiumTool).setIconIndex(102);
+		}
 		
 		UniversalElectricity.registerMod(this, "Hawk's Machinery", "0.7.0");
 		NetworkRegistry.instance().registerGuiHandler(this, this.PROXY);

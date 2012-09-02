@@ -18,11 +18,11 @@ public class HawkItemRawDust extends Item
 {
 	public static HawksMachinery BASEMOD;
 	
-	public static String[] en_USNames = {"Coal Dust", 
-										"Unrefined Iron Dust", "Unrefined Gold Dust", 
-										"Unrefined Copper Dust", "Unrefined Tin Dust", 
-										"Unrefined Titanium Dust", "Unrefined Aluminum Dust", 
-										"Unrefined Silver Dust", "Obsidian Dust"};
+	public static String[] en_USNames = {"Coal", 
+										"Unrefined Iron", "Unrefined Gold", 
+										"Unrefined Copper", "Unrefined Tin", 
+										"Unrefined Titanium", "Unrefined Aluminum", 
+										"Unrefined Silver", "Obsidian"};
 	
 	public HawkItemRawDust(int id)
 	{

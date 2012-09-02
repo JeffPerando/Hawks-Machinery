@@ -17,7 +17,7 @@ public class HawkItemPlating extends Item
 {
 	public static HawksMachinery BASEMOD;
 	
-	public static String[] en_USNames = {"Titanium Plating", "Aluminum Plating", "Silver Plating", "Endium Plating"};
+	public static String[] en_USNames = {"Titanium", "Aluminum", "Silver", "Endium"};
 	
 	public HawkItemPlating(int id)
 	{

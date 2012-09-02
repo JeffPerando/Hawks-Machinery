@@ -17,11 +17,11 @@ public class HawkItemRefinedDust extends Item
 {
 	public static HawksMachinery BASEMOD;
 	
-	public static String[] en_USNames = {"Diamond Dust", "Ender Dust", "Glass Dust", 
-										"Iron Dust", "Gold Dust", 
-										"Copper Dust", "Tin Dust", 
-										"Titanium Dust", "Aluminum Dust", 
-										"Silver Dust", "Emerald Dust"};
+	public static String[] en_USNames = {"Diamond", "Ender", "Glass", 
+										"Iron", "Gold", 
+										"Copper", "Tin", 
+										"Titanium", "Aluminum", 
+										"Silver", "Emerald"};
 	
 	public HawkItemRefinedDust(int id)
 	{
