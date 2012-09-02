@@ -35,7 +35,7 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 {
 	public int ELECTRICITY_REQUIRED = 10;
 	
-	public int TICKS_REQUIRED = 160;
+	public int TICKS_REQUIRED = 180;
 	
 	public ForgeDirection facingDirection = ForgeDirection.UNKNOWN;
 	
@@ -77,7 +77,7 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 				{
 					IItemElectric electricItem = (IItemElectric)this.containingItems[0].getItem();
 					
-					if (electricItem.canProduceElectricity())
+					if (electricItem.canProduceElectricity() && this.electricityStored + electricItem.getTransferRate() <= this.ELECTRICITY_LIMIT)
 					{
 						double receivedElectricity = electricItem.onUseElectricity(electricItem.getTransferRate(), this.containingItems[0]);
 						this.electricityStored += receivedElectricity;

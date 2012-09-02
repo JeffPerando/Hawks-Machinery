@@ -40,7 +40,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
  * 
  * @author Elusivehawk
  */
-@Mod(modid = "HawksMachinery", name = "Hawk's Machinery", version = "Alpha v1.2.4", dependencies = "after:BasicComponents")
+@Mod(modid = "HawksMachinery", name = "Hawk's Machinery", version = "Alpha v1.2.5", dependencies = "after:BasicComponents")
 @NetworkMod(channels = {"HawksMachinery"}, clientSideRequired = true, serverSideRequired = false, packetHandler = PacketManager.class)
 public class HawksMachinery implements IFuelHandler
 {
@@ -267,14 +267,14 @@ public class HawksMachinery implements IFuelHandler
 		RECIPE_GIVER.addSmelting(new ItemStack(dustRefined, 1, 8), new ItemStack(ingots, 1, 1));
 		RECIPE_GIVER.addSmelting(new ItemStack(dustRefined, 1, 9), new ItemStack(ingots, 1, 2));
 		RECIPE_GIVER.addSmelting(new ItemStack(dustRaw, 1, 5), new ItemStack(Block.obsidian));
-		RECIPE_GIVER.addSmelting(new ItemStack(blockGrinder, 1, 0), new ItemStack(BasicComponents.itemSteelPlate, 11));
+		RECIPE_GIVER.addSmelting(new ItemStack(blockGrinder, 1, 0), new ItemStack(plating, 0, 6));
 		
 		RECIPE_GIVER.addSmelting(new ItemStack(blockOre, 1, 0), new ItemStack(ingots, 1, 0));
 		RECIPE_GIVER.addSmelting(new ItemStack(blockOre, 1, 1), new ItemStack(ingots, 1, 1));
 		RECIPE_GIVER.addSmelting(new ItemStack(blockOre, 1, 2), new ItemStack(ingots, 1, 2));
 		
 	}
-	
+																																																
 	public static void loadProcessingRecipes()
 	{
 		
@@ -286,15 +286,14 @@ public class HawksMachinery implements IFuelHandler
 		PROCESS_RECIPES.addHawkProcessingRecipe(BasicComponents.itemCopperIngot.shiftedIndex, new ItemStack(dustRaw, 1, 3), 1);
 		PROCESS_RECIPES.addHawkProcessingRecipe(BasicComponents.itemTinIngot.shiftedIndex, new ItemStack(dustRaw, 1, 4), 1);		
 		PROCESS_RECIPES.addHawkProcessingRecipe(Item.blazeRod.shiftedIndex, new ItemStack(Item.blazePowder, 2), 1);
-		PROCESS_RECIPES.addHawkProcessingRecipe(Item.bone.shiftedIndex, new ItemStack(Item.dyePowder, 3, 15), 1);
+		PROCESS_RECIPES.addHawkProcessingRecipe(Item.bone.shiftedIndex, new ItemStack(Item.dyePowder, 4, 15), 1);
 		PROCESS_RECIPES.addHawkProcessingRecipe(Block.stone.blockID, new ItemStack(Block.gravel), 1);
 		PROCESS_RECIPES.addHawkProcessingRecipe(Block.cobblestone.blockID, new ItemStack(Block.sand), 1);
-		PROCESS_RECIPES.addHawkProcessingRecipe(Block.gravel.blockID, new ItemStack(Item.flint), 1);
+		PROCESS_RECIPES.addHawkProcessingRecipe(Block.gravel.blockID, new ItemStack(Item.flint, 2), 1);
+		
 		PROCESS_RECIPES.addHawkProcessingRecipe(Item.eyeOfEnder.shiftedIndex, new ItemStack(dustRefined, 1, 1), 1);
-		PROCESS_RECIPES.addHawkProcessingRecipe(Block.pumpkin.blockID, new ItemStack(Item.pumpkinSeeds, 4), 1);
 		PROCESS_RECIPES.addHawkProcessingRecipe(Block.pistonBase.blockID, new ItemStack(dustRefined, 1, 3), 1);
 		PROCESS_RECIPES.addHawkProcessingRecipe(Block.pistonStickyBase.blockID, new ItemStack(dustRefined, 1, 3), 1);
-		PROCESS_RECIPES.addHawkProcessingRecipe(Block.pumpkinLantern.blockID, new ItemStack(Item.pumpkinSeeds, 4), 1);
 		PROCESS_RECIPES.addHawkProcessingRecipe(Block.dispenser.blockID, new ItemStack(Item.bow), 1);
 		PROCESS_RECIPES.addHawkProcessingRecipe(Block.stoneOvenIdle.blockID, new ItemStack(Block.cobblestone, 8), 1);
 		PROCESS_RECIPES.addHawkProcessingRecipe(Block.thinGlass.blockID, new ItemStack(dustRefined, 1, 2), 1);
@@ -344,61 +343,24 @@ public class HawksMachinery implements IFuelHandler
 		
 		PROCESS_RECIPES.addHawkMetaProcessingRecipe(Item.coal.shiftedIndex, 0, new ItemStack(dustRaw, 1, 0), 1);
 		PROCESS_RECIPES.addHawkMetaProcessingRecipe(Item.coal.shiftedIndex, 1, new ItemStack(dustRaw, 1, 0), 1);
-		PROCESS_RECIPES.addHawkMetaProcessingRecipe(Block.stoneBrick.blockID, 0, new ItemStack(Block.cobblestone), 1);
+		PROCESS_RECIPES.addHawkMetaProcessingRecipe(Block.stoneBrick.blockID, 0, new ItemStack(Block.stoneBrick, 1), 1);
 		PROCESS_RECIPES.addHawkMetaProcessingRecipe(Block.stoneBrick.blockID, 1, new ItemStack(Block.cobblestone), 1);
 		PROCESS_RECIPES.addHawkMetaProcessingRecipe(Block.stoneBrick.blockID, 2, new ItemStack(Block.cobblestoneMossy), 1);
 		PROCESS_RECIPES.addHawkMetaProcessingRecipe(Block.stoneBrick.blockID, 3, new ItemStack(Block.cobblestone), 1);
 		
-		for (ItemStack copper : OreDictionary.getOres("oreCopper"))
-		{
-			PROCESS_RECIPES.addHawkMetaProcessingRecipe(copper.itemID, copper.getItemDamage(), new ItemStack(dustRaw, 2, 3), 1);
-		}
+		PROCESS_RECIPES.addHawkFoDProcessingRecipe("oreCopper", new ItemStack(dustRaw, 1, 3), 1);
+		PROCESS_RECIPES.addHawkFoDProcessingRecipe("oreTin", new ItemStack(dustRaw, 1, 4), 1);
+		PROCESS_RECIPES.addHawkFoDProcessingRecipe("oreAluminum", new ItemStack(dustRaw, 1, 5), 1);
+		PROCESS_RECIPES.addHawkFoDProcessingRecipe("oretitanium", new ItemStack(dustRaw, 1, 6), 1);
+		PROCESS_RECIPES.addHawkFoDProcessingRecipe("oreSilver", new ItemStack(dustRaw, 1, 7), 1);
 		
-		for (ItemStack tin : OreDictionary.getOres("oreTin"))
-		{
-			PROCESS_RECIPES.addHawkMetaProcessingRecipe(tin.itemID, tin.getItemDamage(), new ItemStack(dustRaw, 2, 4), 1);
-		}
-		
-		for (ItemStack titanium : OreDictionary.getOres("oreTitanium"))
-		{
-			PROCESS_RECIPES.addHawkMetaProcessingRecipe(titanium.itemID, titanium.getItemDamage(), new ItemStack(dustRaw, 2, 5), 1);
-		}
-		
-		for (ItemStack aluminum : OreDictionary.getOres("oreAluminum"))
-		{
-			PROCESS_RECIPES.addHawkMetaProcessingRecipe(aluminum.itemID, aluminum.getItemDamage(), new ItemStack(dustRaw, 2, 6), 1);
-		}
-		
-		for (ItemStack silver : OreDictionary.getOres("oreSilver"))
-		{
-			PROCESS_RECIPES.addHawkMetaProcessingRecipe(silver.itemID, silver.getItemDamage(), new ItemStack(dustRaw, 2, 7), 1);
-		}
-		
-		
-		for (ItemStack copper : OreDictionary.getOres("ingotCopper"))
-		{
-			PROCESS_RECIPES.addHawkMetaProcessingRecipe(copper.itemID, copper.getItemDamage(), new ItemStack(dustRefined, 1, 5), 1);
-		}
-		
-		for (ItemStack tin : OreDictionary.getOres("ingotTin"))
-		{
-			PROCESS_RECIPES.addHawkMetaProcessingRecipe(tin.itemID, tin.getItemDamage(), new ItemStack(dustRefined, 1, 6), 1);
-		}
-		
-		for (ItemStack titanium : OreDictionary.getOres("ingotTitanium"))
-		{
-			PROCESS_RECIPES.addHawkMetaProcessingRecipe(titanium.itemID, titanium.getItemDamage(), new ItemStack(dustRefined, 1, 5), 1);
-		}
-		
-		for (ItemStack aluminum : OreDictionary.getOres("ingotAluminum"))
-		{
-			PROCESS_RECIPES.addHawkMetaProcessingRecipe(aluminum.itemID, aluminum.getItemDamage(), new ItemStack(dustRefined, 1, 5), 1);
-		}
-		
-		for (ItemStack silver : OreDictionary.getOres("ingotSilver"))
-		{
-			PROCESS_RECIPES.addHawkMetaProcessingRecipe(silver.itemID, silver.getItemDamage(), new ItemStack(dustRefined, 1, 5), 1);
-		}
+		PROCESS_RECIPES.addHawkFoDProcessingRecipe("ingotCopper", new ItemStack(dustRefined, 1, 5), 1);
+		PROCESS_RECIPES.addHawkFoDProcessingRecipe("ingotTin", new ItemStack(dustRefined, 1, 6), 1);
+		PROCESS_RECIPES.addHawkFoDProcessingRecipe("ingotTitanium", new ItemStack(dustRefined, 1, 7), 1);
+		PROCESS_RECIPES.addHawkFoDProcessingRecipe("ingotAluminum", new ItemStack(dustRefined, 1, 8), 1);
+		PROCESS_RECIPES.addHawkFoDProcessingRecipe("ingotSilver", new ItemStack(dustRefined, 1, 9), 1);
+		PROCESS_RECIPES.addHawkFoDProcessingRecipe("ingotSteel", new ItemStack(BasicComponents.itemSteelDust), 1);
+		PROCESS_RECIPES.addHawkFoDProcessingRecipe("ingotBronze", new ItemStack(BasicComponents.itemBronzeDust), 1);
 		
 		
 		PROCESS_RECIPES.addHawkExplosive(Block.tnt.blockID, 1);

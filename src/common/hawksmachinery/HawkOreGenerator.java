@@ -46,7 +46,7 @@ public class HawkOreGenerator implements IWorldGenerator
 	{
 		if (BASEMOD.generateTitanium)
 		{
-			for (int counter = 0; counter <= 24; ++counter)
+			for (int counter = 0; counter <= 32; ++counter)
 			{
 				int randPosX = chunkX + random.nextInt(16);
 				int randPosY = random.nextInt(world.provider.getAverageGroundLevel() - 40);
@@ -60,6 +60,7 @@ public class HawkOreGenerator implements IWorldGenerator
 					if (randAmount > 0 && randPosY >= 6)
 					{
 						(new WorldGenMinable(BASEMOD.blockOre.blockID, 0, randAmount)).generate(world, random, randPosX, randPosY, randPosZ);
+						System.out.println("TITANIUM GENERATED!");
 					}
 				}
 				else
@@ -105,7 +106,7 @@ public class HawkOreGenerator implements IWorldGenerator
 		
 		if (BASEMOD.generateSilver)
 		{
-			for (int counter = 0; counter <= 38; ++counter)
+			for (int counter = 0; counter <= 32; ++counter)
 			{
 				int randPosX = chunkX + random.nextInt(16);
 				int randPosY = random.nextInt(world.provider.getAverageGroundLevel() - 26);

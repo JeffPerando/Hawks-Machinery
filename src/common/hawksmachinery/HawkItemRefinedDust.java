@@ -35,8 +35,8 @@ public class HawkItemRefinedDust extends Item
 			case 2: return 44;
 			case 3: return 25;
 			case 4: return 26;
-			case 5: return 27;
-			case 6: return 28;
+			case 5: return 28;
+			case 6: return 27;
 			case 7: return 20;
 			case 8: return 24;
 			case 9: return 21;

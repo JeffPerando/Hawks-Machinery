@@ -3,6 +3,7 @@ package hawksmachinery;
 
 import java.util.*;
 import net.minecraft.src.*;
+import net.minecraftforge.oredict.OreDictionary;
 
 
 /**
@@ -51,6 +52,29 @@ public class HawkProcessingRecipes
 			case 1: grinderRecipes.put(Arrays.asList(input, inputMetadata), output);
 			case 2: washerRecipes.put(Arrays.asList(input, inputMetadata), output);
 		}
+	}
+	
+	/**
+	 * 
+	 * Forge Ore Dictionary supported version.
+	 * 
+	 * @param input
+	 * @param output
+	 * @param processingType
+	 */
+	public static void addHawkFoDProcessingRecipe(String input, ItemStack output, int processingType)
+	{
+		if (processingType == 1)
+		{
+			for (ItemStack ore : OreDictionary.getOres(input))
+			{
+				if (ore != null)
+				{
+					grinderRecipes.put(Arrays.asList(ore.itemID, ore.getItemDamage()), output);
+				}
+			}
+		}
+		
 	}
 	
 	/**
