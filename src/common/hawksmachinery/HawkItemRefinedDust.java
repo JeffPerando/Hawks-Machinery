@@ -17,11 +17,17 @@ public class HawkItemRefinedDust extends Item
 {
 	public static HawksMachinery BASEMOD;
 	
+	public static String[] en_USNames = {"Diamond Dust", "Ender Dust", "Glass Dust", 
+										"Iron Dust", "Gold Dust", 
+										"Copper Dust", "Tin Dust", 
+										"Titanium Dust", "Aluminum Dust", 
+										"Silver Dust", "Emerald Dust"};
+	
 	public HawkItemRefinedDust(int id)
 	{
-	    super(id);
-	    this.setHasSubtypes(true);
-	    this.setMaxDamage(0);
+		super(id);
+		this.setHasSubtypes(true);
+		this.setMaxDamage(0);
 		setTabToDisplayOn(CreativeTabs.tabMaterials);
 	}
 	
@@ -46,26 +52,6 @@ public class HawkItemRefinedDust extends Item
 	}
 	
 	@Override
-    public String getItemDisplayName(ItemStack item)
-    {
-    	switch (item.getItemDamage())
-    	{
-			case 0: return "Diamond Dust";
-			case 1: return "Ender Dust";
-			case 2: return "Glass Dust";
-			case 3: return "Iron Dust";
-			case 4: return "Gold Dust";
-			case 5: return "Copper Dust";
-			case 6: return "Tin Dust";
-			case 7: return "Titanium Dust";
-			case 8: return "Aluminum Dust";
-			case 9: return "Silver Dust";
-			case 10: return "Emerald Dust";
-    		default: return "Look Jay, 0% body fat!";
-		}
-    }
-    
-	@Override
 	public void getSubItems(int id, CreativeTabs tabs, List itemList)
 	{
 		for (int counter  = 0; counter <= 10; ++counter)
@@ -73,12 +59,12 @@ public class HawkItemRefinedDust extends Item
 			itemList.add(new ItemStack(this, 1, counter));
 		}
 	}
-    
-    public String getTextureFile()
-    {
+	
+	public String getTextureFile()
+	{
 		return BASEMOD.ITEM_TEXTURE_FILE;
-    }
-    
+	}
+	
 	@Override
 	public boolean itemInteractionForEntity(ItemStack item, EntityLiving entity)
 	{

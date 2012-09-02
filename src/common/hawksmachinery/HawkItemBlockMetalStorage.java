@@ -38,7 +38,7 @@ public class HawkItemBlockMetalStorage extends ItemBlock
 	{
 		switch (item.getItemDamage())
 		{
-			case 3: return EnumRarity.epic;
+			case 3: return EnumRarity.uncommon;
 			default: return EnumRarity.common;
 		}
 	}

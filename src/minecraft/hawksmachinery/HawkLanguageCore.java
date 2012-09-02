@@ -39,5 +39,8 @@ public class HawkLanguageCore
 			LanguageRegistry.instance().addNameForObject(new ItemStack(BASEMOD.blockOre, 1, counter), "en_US", HawkItemBlockOre.en_USNames[counter]);
 			LanguageRegistry.instance().addNameForObject(new ItemStack(BASEMOD.blockMetalStorage, 1, counter), "en_US", HawkItemBlockMetalStorage.en_USNames[counter]);
 		}
+		
+		//TODO: Convert item naming system over to here.
+		
 	}
 }

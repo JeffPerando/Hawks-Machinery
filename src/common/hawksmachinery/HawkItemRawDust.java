@@ -18,6 +18,12 @@ public class HawkItemRawDust extends Item
 {
 	public static HawksMachinery BASEMOD;
 	
+	public static String[] en_USNames = {"Coal Dust", 
+										"Unrefined Iron Dust", "Unrefined Gold Dust", 
+										"Unrefined Copper Dust", "Unrefined Tin Dust", 
+										"Unrefined Titanium Dust", "Unrefined Aluminum Dust", 
+										"Unrefined Silver Dust", "Obsidian Dust"};
+	
 	public HawkItemRawDust(int id)
 	{
 		super(id);
@@ -43,24 +49,6 @@ public class HawkItemRawDust extends Item
 			default: return 0;
 		}
 	}
-	
-	@Override
-	public String getItemDisplayName(ItemStack item)
-	{
-    	switch (item.getItemDamage())
-    	{
-			case 0: return "Coal Dust";
-			case 1: return "Unrefined Iron Dust";
-			case 2: return "Unrefined Gold Dust";
-			case 3: return "Unrefined Copper Dust";
-			case 4: return "Unrefined Tin Dust";
-			case 5: return "Unrefined Titanium Dust";
-			case 6: return "Unrefined Aluminum Dust";
-			case 7: return "Unrefined Silver Dust";
-			case 8: return "Obsidian Dust";
-			default: return "Look Jay, 0% body fat!";
-		}
-    }
     
 	@Override
 	public void getSubItems(int id, CreativeTabs tabs, List itemList)

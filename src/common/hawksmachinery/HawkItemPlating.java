@@ -17,6 +17,8 @@ public class HawkItemPlating extends Item
 {
 	public static HawksMachinery BASEMOD;
 	
+	public static String[] en_USNames = {"Titanium Plating", "Aluminum Plating", "Silver Plating", "Endium Plating"};
+	
 	public HawkItemPlating(int id)
 	{
 		super(id);
@@ -35,19 +37,6 @@ public class HawkItemPlating extends Item
 			case 2: return 53;
 			case 3: return 51;
 			default: return 0;
-		}
-	}
-	
-	@Override
-	public String getItemDisplayName(ItemStack item)
-	{
-		switch (item.getItemDamage())
-		{
-			case 0: return "Titanium Plating";
-			case 1: return "Aluminum Plating";
-			case 2: return "Silver Plating";
-			case 3: return "Endium Plating";
-			default: return "Look Jay, 0% body fat!";
 		}
 	}
 	

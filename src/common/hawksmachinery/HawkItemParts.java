@@ -16,6 +16,8 @@ public class HawkItemParts extends Item
 {
 	public static HawksMachinery BASEMOD;
 	
+	public static String[] en_USNames = {"Electric Piston", "Laser","Circular Saw Blade", "Light Bulb"};
+	
 	public HawkItemParts(int id)
 	{
 		super(id);
@@ -34,19 +36,6 @@ public class HawkItemParts extends Item
 			case 2: return 48;
 			case 3: return 64;
 			default: return 0;
-		}
-	}
-	
-	@Override
-	public String getItemDisplayName(ItemStack item)
-	{
-		switch (item.getItemDamage())
-		{
-			case 0: return "Electric Piston";
-			case 1: return "Laser";
-			case 2: return "Circular Saw Blade";
-			case 3: return "Light Bulb";
-			default: return "Look Jay, 0% body fat!";
 		}
 	}
 	

@@ -111,6 +111,10 @@ public class HawksMachinery implements IFuelHandler
 	public static Item parts;
 	public static Item plating;
 	
+	public static Item endiumPick;
+	public static Item endiumAxe;
+	public static Item endiumShovel;
+	
 	@PreInit
 	public void preInit(FMLPreInitializationEvent event)
 	{
@@ -132,9 +136,9 @@ public class HawksMachinery implements IFuelHandler
 		platingID = HMConfig.getOrCreateIntProperty("Plating", Configuration.CATEGORY_ITEM, 24154).getInt(24154);
 		
 		endiumPickID = HMConfig.getOrCreateIntProperty("Endium Pickaxe", Configuration.CATEGORY_ITEM, 25000).getInt(25000);
-		endiumShovelID = HMConfig.getOrCreateIntProperty("Endium Shovel", Configuration.CATEGORY_ITEM, 25001).getInt(25001);
-		endiumAxeID = HMConfig.getOrCreateIntProperty("Endium Axe", Configuration.CATEGORY_ITEM, 25002).getInt(25002);
-		
+		endiumAxeID = HMConfig.getOrCreateIntProperty("Endium Axe", Configuration.CATEGORY_ITEM, 25001).getInt(25001);
+		endiumShovelID = HMConfig.getOrCreateIntProperty("Endium Shovel", Configuration.CATEGORY_ITEM, 25002).getInt(25002);
+
 		ACHprospector = HMConfig.getOrCreateIntProperty("ACH Prospector", Configuration.CATEGORY_GENERAL, 1500).getInt(1500);
 		ACHtimeToGrind = HMConfig.getOrCreateIntProperty("ACH Time To Grind", Configuration.CATEGORY_GENERAL, 1501).getInt(1501);
 		ACHcompactCompact = HMConfig.getOrCreateIntProperty("ACH Compact Compact", Configuration.CATEGORY_GENERAL, 1502).getInt(1502);
@@ -159,6 +163,10 @@ public class HawksMachinery implements IFuelHandler
 		ingots = new HawkItemIngots(ingotsID - 256);
 		parts = new HawkItemParts(partsID - 256);
 		plating = new HawkItemPlating(platingID - 256);
+		
+		endiumPick = new HawkItemEndiumPick(endiumPickID, endiumTool).setIconIndex(100);
+		endiumAxe = new HawkItemEndiumAxe(endiumAxeID, endiumTool).setIconIndex(101);
+		endiumShovel = new HawkItemEndiumShovel(endiumShovelID, endiumTool).setIconIndex(102);
 		
 		UniversalElectricity.registerMod(this, "Hawk's Machinery", "0.7.0");
 		NetworkRegistry.instance().registerGuiHandler(this, this.PROXY);

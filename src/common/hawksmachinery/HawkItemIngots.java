@@ -21,6 +21,8 @@ public class HawkItemIngots extends Item
 {
 	public static HawksMachinery BASEMOD;
 	
+	public static String[] en_USNames = {"Titanium Ingot", "Aluminum Ingot", "Silver Ingot", "Endium Ingot"};
+	
 	public HawkItemIngots(int id)
 	{
 		super(id);
@@ -48,24 +50,11 @@ public class HawkItemIngots extends Item
 	}
 	
 	@Override
-	public String getItemDisplayName(ItemStack item)
-	{
-		switch (item.getItemDamage())
-		{
-			case 0: return "Titanium Ingot";
-			case 1: return "Aluminum Ingot";
-			case 2: return "Silver Ingot";
-			case 3: return "Endium Ingot";
-			default: return "Look Jay, 0% body fat!";
-		}
-	}
-	
-	@Override
 	public EnumRarity getRarity(ItemStack item)
 	{
 		if (item.getItemDamage() == 3)
 		{
-			return EnumRarity.epic;
+			return EnumRarity.uncommon;
 		}
 		
 		return EnumRarity.common;
