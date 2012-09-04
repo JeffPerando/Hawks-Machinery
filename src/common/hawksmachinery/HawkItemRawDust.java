@@ -19,10 +19,10 @@ public class HawkItemRawDust extends Item
 	public static HawksMachinery BASEMOD;
 	
 	public static String[] en_USNames = {"Coal", 
-										"Unrefined Iron", "Unrefined Gold", 
-										"Unrefined Copper", "Unrefined Tin", 
-										"Unrefined Titanium", "Unrefined Aluminum", 
-										"Unrefined Silver", "Obsidian"};
+										"Iron", "Gold", 
+										"Copper", "Tin", 
+										"Titanium", "Aluminum", 
+										"Silver", "Obsidian"};
 	
 	public HawkItemRawDust(int id)
 	{
@@ -83,4 +83,11 @@ public class HawkItemRawDust extends Item
 		
 		return true;
 	}
+	
+	@Override
+	public String getItemNameIS(ItemStack item)
+	{
+		return en_USNames[item.getItemDamage()] + "DustUnref";
+	}
+	
 }

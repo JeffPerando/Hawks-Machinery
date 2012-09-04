@@ -60,7 +60,6 @@ public class HawkOreGenerator implements IWorldGenerator
 					if (randAmount > 0 && randPosY >= 6)
 					{
 						(new WorldGenMinable(BASEMOD.blockOre.blockID, 0, randAmount)).generate(world, random, randPosX, randPosY, randPosZ);
-						System.out.println("TITANIUM GENERATED!");
 					}
 				}
 				else

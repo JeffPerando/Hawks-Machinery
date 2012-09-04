@@ -136,34 +136,9 @@ public class HawkBlockGrinder extends BlockMachine
 	}
 	
 	@Override
-	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity)
-	{
-		if (entity instanceof EntityItem && (int)entity.posY == (y + 1))
-		{
-			int id = ((EntityItem)entity).item.itemID;
-			int meta = ((EntityItem)entity).item.getItemDamage();
-			int stackSize = ((EntityItem)entity).item.stackSize;
-			
-			if (this.tileEntity.containingItems[1] == null)
-			{
-				this.tileEntity.containingItems[1] = ((EntityItem)entity).item;
-				entity.setDead();
-			}
-			else
-			{
-				if (this.tileEntity.containingItems[1] == new ItemStack(id, this.tileEntity.containingItems[2].stackSize, meta))
-				{
-					this.tileEntity.containingItems[1].stackSize = (this.tileEntity.containingItems[2].stackSize + stackSize);
-					entity.setDead();
-				}
-			}
-		}
-	}
-	
-	@Override
 	public boolean isBlockSolidOnSide(World world, int x, int y, int z, ForgeDirection side)
 	{
-		return !(side.ordinal() == 0 || side.ordinal() == world.getBlockMetadata(x, y, z));
+		return !(side.ordinal() == 1 || side.ordinal() == world.getBlockMetadata(x, y, z));
 	}
 	
 }

@@ -21,7 +21,8 @@ public class HawkItemIngots extends Item
 {
 	public static HawksMachinery BASEMOD;
 	
-	public static String[] en_USNames = {"Titanium Ingot", "Aluminum Ingot", "Silver Ingot", "Endium Ingot"};
+	public static String[] en_USNames = {"Titanium", "Aluminum", "Silver", "Endium"};
+	public static String[] en_PTNames = {"Better 'n Iron", "Cheap Bullion", "Silver Bullion", "Metal 'o the Tallone"};
 	
 	public HawkItemIngots(int id)
 	{
@@ -82,6 +83,12 @@ public class HawkItemIngots extends Item
 		{
 			itemList.add(new ItemStack(this, 1, counter));
 		}
+	}
+	
+	@Override
+	public String getItemNameIS(ItemStack item)
+	{
+		return en_USNames[item.getItemDamage()] + "Ingot";
 	}
 	
 }

@@ -1,26 +1,30 @@
 
 package hawksmachinery;
 
+import com.google.common.collect.ObjectArrays;
+import net.minecraft.src.Block;
 import net.minecraft.src.EnumRarity;
 import net.minecraft.src.EnumToolMaterial;
-import net.minecraft.src.ItemAxe;
+import net.minecraft.src.ItemPickaxe;
+import net.minecraft.src.ItemSpade;
 import net.minecraft.src.ItemStack;
+import net.minecraft.src.ItemTool;
 
 /**
  * 
- * Just a wrapper for ItemAxe.
+ * 
  * 
  * @author Elusivehawk
  */
-public class HawkItemEndiumAxe extends ItemAxe
+public class HawkItemEndiumTool extends ItemTool
 {
 	public static HawksMachinery BASEMOD;
 	
-	public HawkItemEndiumAxe(int id, EnumToolMaterial mat)
+	public HawkItemEndiumTool(int id, int dmg, Block[] blockArray)
 	{
-		super(id, mat);
+		super(id, dmg, BASEMOD.endiumTool, blockArray);
 	}
-
+	
 	@Override
 	public String getTextureFile()
 	{
