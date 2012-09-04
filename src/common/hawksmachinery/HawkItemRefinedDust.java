@@ -87,4 +87,11 @@ public class HawkItemRefinedDust extends Item
 		
 		return true;
 	}
+	
+	@Override
+	public String getItemNameIS(ItemStack item)
+	{
+		return en_USNames[item.getItemDamage()].toLowerCase() + "Dust";
+	}
+	
 }

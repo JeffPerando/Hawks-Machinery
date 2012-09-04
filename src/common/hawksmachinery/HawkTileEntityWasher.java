@@ -40,7 +40,7 @@ public class HawkTileEntityWasher extends TileEntityElectricUnit implements IInv
 	
 	public int workTicks = 0;
 	
-	public ItemStack[] containingItems = new ItemStack[5];
+	public ItemStack[] containingItems = new ItemStack[6];
 	
 	public int ELECTRICITY_LIMIT = 1200;
 	
@@ -71,7 +71,7 @@ public class HawkTileEntityWasher extends TileEntityElectricUnit implements IInv
 				{
 					IItemElectric electricItem = (IItemElectric)this.containingItems[0].getItem();
 					
-					if (electricItem.canProduceElectricity())
+					if (electricItem.canProduceElectricity() && this.electricityStored + electricItem.getTransferRate() <= this.ELECTRICITY_LIMIT)
 					{
 						double receivedElectricity = electricItem.onUseElectricity(electricItem.getTransferRate(), this.containingItems[0]);
 						this.electricityStored += receivedElectricity;

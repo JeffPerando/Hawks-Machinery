@@ -122,7 +122,7 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 				this.electricityStored = this.ELECTRICITY_LIMIT;
 			}
 			
-			PacketManager.sendTileEntityPacket(this, "HawksMachinery", this.disabledTicks, this.workTicks, this.electricityStored, this.grinderStatus);
+			PacketManager.sendTileEntityPacket(this, "HawksMachinery", this.workTicks, this.electricityStored);
 			
 		}
 	}
@@ -397,13 +397,13 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 		
 		NBTTagList var2 = new NBTTagList();
 		
-		for (int var3 = 0; var3 <= this.containingItems.length; ++var3)
+		for (int counter = 0; counter < this.containingItems.length; ++counter)
 		{
-			if (this.containingItems[var3] != null)
+			if (this.containingItems[counter] != null)
 			{
 				NBTTagCompound var4 = new NBTTagCompound();
-				var4.setByte("Slot", (byte)var3);
-				this.containingItems[var3].writeToNBT(var4);
+				var4.setByte("Slot", (byte)counter);
+				this.containingItems[counter].writeToNBT(var4);
 				var2.appendTag(var4);
 			}
 		}
@@ -462,10 +462,8 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 	{
 		try
 		{
-			this.disabledTicks = dataStream.readInt();
 			this.workTicks = dataStream.readInt();
 			this.electricityStored = dataStream.readFloat();
-			this.grinderStatus = dataStream.readInt();
 			
 		}
 		catch(Exception e)

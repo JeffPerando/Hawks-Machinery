@@ -18,6 +18,7 @@ public class HawkItemPlating extends Item
 	public static HawksMachinery BASEMOD;
 	
 	public static String[] en_USNames = {"Titanium", "Aluminum", "Silver", "Endium"};
+	public static String[] en_PTNames = {"Better 'n Iron", "Cheap Bullion", "Silver Bullion", "Metal 'o the Tallone"};
 	
 	public HawkItemPlating(int id)
 	{
@@ -45,7 +46,7 @@ public class HawkItemPlating extends Item
 	{
 		if (item.getItemDamage() == 3)
 		{
-			return EnumRarity.epic;
+			return EnumRarity.uncommon;
 		}
 		
 		return EnumRarity.common;
@@ -70,6 +71,12 @@ public class HawkItemPlating extends Item
 		{
 			itemList.add(new ItemStack(this, 1, counter));
 		}
+	}
+	
+	@Override
+	public String getItemNameIS(ItemStack item)
+	{
+		return en_USNames[item.getItemDamage()].toLowerCase() + "Plating";
 	}
 	
 }

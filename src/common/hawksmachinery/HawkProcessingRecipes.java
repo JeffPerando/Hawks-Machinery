@@ -1,8 +1,12 @@
 
 package hawksmachinery;
 
-import java.util.*;
-import net.minecraft.src.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
+import net.minecraft.src.Block;
+import net.minecraft.src.Item;
+import net.minecraft.src.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
 
@@ -31,27 +35,58 @@ public class HawkProcessingRecipes
 	 * Output
 	 * Processing Type
 	 */
-	public static void addHawkProcessingRecipe(int input, ItemStack output, int processingType)
+	public static void addHawkProcessingRecipe(ItemStack input, ItemStack output, int processingType)
 	{
-		switch (processingType)
+		if (input != null && output != null)
 		{
-			case 1: grinderRecipes.put(Arrays.asList(input, 0), output);
-			case 2: washerRecipes.put(Arrays.asList(input, 0), output);
+			switch (processingType)
+			{
+				case 1: grinderRecipes.put(new ItemStack(input.getItem(), 1, input.getItemDamage()), output);
+				case 2: washerRecipes.put(new ItemStack(input.getItem(), 1, input.getItemDamage()), output);
+			}
+		}
+		else
+		{
+			if (input == null)
+			{
+				throw new NullPointerException("Hawk's Machinery: Input cannot be null!");
+			}
+			
+			if (output == null)
+			{
+				throw new NullPointerException("Hawk's Machinery: Output cannot be null!");
+			}
 		}
 	}
 	
-	/**
-	 * Metadata-sensitive processing function.
-	 *
-	  */
-	
-	public static void addHawkMetaProcessingRecipe(int input, int inputMetadata, ItemStack output, int processingType)
+	public static void addHawkProcessingRecipe(Item input, ItemStack output, int processingType)
 	{
-		switch (processingType)
-		{
-			case 1: grinderRecipes.put(Arrays.asList(input, inputMetadata), output);
-			case 2: washerRecipes.put(Arrays.asList(input, inputMetadata), output);
-		}
+		addHawkProcessingRecipe(new ItemStack(input, 1, 0), output, processingType);
+	}
+	
+	public static void addHawkProcessingRecipe(Item input, Item output, int processingType)
+	{
+		addHawkProcessingRecipe(new ItemStack(input, 1, 0), new ItemStack(output, 1, 0), processingType);
+	}
+	
+	public static void addHawkProcessingRecipe(Item input, Block output, int processingType)
+	{
+		addHawkProcessingRecipe(new ItemStack(input, 1, 0), new ItemStack(output, 1, 0), processingType);
+	}
+	
+	public static void addHawkProcessingRecipe(Block input, ItemStack output, int processingType)
+	{
+		addHawkProcessingRecipe(new ItemStack(input, 1, 0), output, processingType);
+	}
+	
+	public static void addHawkProcessingRecipe(Block input, Item output, int processingType)
+	{
+		addHawkProcessingRecipe(new ItemStack(input, 1, 0), new ItemStack(output, 1, 0), processingType);
+	}
+	
+	public static void addHawkProcessingRecipe(Block input, Block output, int processingType)
+	{
+		addHawkProcessingRecipe(new ItemStack(input, 1, 0), new ItemStack(output, 1, 0), processingType);
 	}
 	
 	/**
@@ -64,17 +99,17 @@ public class HawkProcessingRecipes
 	 */
 	public static void addHawkFoDProcessingRecipe(String input, ItemStack output, int processingType)
 	{
-		if (processingType == 1)
+		for (ItemStack ore : OreDictionary.getOres(input))
 		{
-			for (ItemStack ore : OreDictionary.getOres(input))
+			if (ore != null)
 			{
-				if (ore != null)
+				switch (processingType)
 				{
-					grinderRecipes.put(Arrays.asList(ore.itemID, ore.getItemDamage()), output);
+					case 1: grinderRecipes.put(new ItemStack(ore.getItem(), 1, ore.getItemDamage()), output);
+					case 2: washerRecipes.put(new ItemStack(ore.getItem(), 1, ore.getItemDamage()), output);
 				}
 			}
 		}
-		
 	}
 	
 	/**
@@ -83,39 +118,47 @@ public class HawkProcessingRecipes
 	 * @param explosive The item/block that explodes once processed.
 	 * @param processingType Determines what machine explodes when processing said item/block.
 	 */
-	public static void addHawkExplosive(int explosive, int processingType)
+	public static void addHawkExplosive(ItemStack input, int processingType)
 	{
-		switch (processingType)
+		if (input != null)
 		{
-			case 1: grinderExplosives.put(Arrays.asList(explosive, 0), new Object[]{});
-		}
-	}
-	
-	/**
-	 * Same as above, but metadata sensitive in order to facilitate ICBM support.
-	 * 
-	 * @param explosive
-	 * @param explosiveDmg
-	 * @param processingType
-	 */
-	public static void addHawkMetaExplosive(int explosive, int explosiveDmg, int processingType)
-	{
-		switch (processingType)
-		{
-			case 1: grinderExplosives.put(Arrays.asList(explosive, explosiveDmg), new Object[]{});
-		}
-	}
-	
-	public static void addHawkWashingSecondary(int input, int inputMetadata, Object output, boolean isCommon)
-	{
-		if (isCommon)
-		{
-			washerSecondaries.put(Arrays.asList(input, inputMetadata), output);
+			switch (processingType)
+			{
+				case 1: grinderExplosives.put(new ItemStack(input.getItem(), 1, input.getItemDamage()), new Object[]{});
+			}
 		}
 		else
 		{
-			washerRarities.put(Arrays.asList(input, inputMetadata), output);
+			throw new NullPointerException("Hawl's Machinery: Explosive input cannot be null!");
 		}
+	}
+	
+	public static void addHawkWashingSecondary(ItemStack input, Object output, boolean isCommon)
+	{
+		if (input != null && output != null)
+		{
+			if (isCommon)
+			{
+				washerSecondaries.put(new ItemStack(input.getItem(), 1, input.getItemDamage()), output);
+			}
+			else
+			{
+				washerRarities.put(new ItemStack(input.getItem(), 1, input.getItemDamage()), output);
+			}
+		}
+		else
+		{
+			if (input == null)
+			{
+				throw new NullPointerException("Hawk's Machinery: Input cannot be null!");
+			}
+			
+			if (output == null)
+			{
+				throw new NullPointerException("Hawk's Machinery: Output cannot be null!");
+			}
+		}
+		
 	}
 	
 	public static Map getGrindingList()
@@ -143,14 +186,9 @@ public class HawkProcessingRecipes
 		}
 		else
 		{
-			ItemStack ret = (ItemStack)grinderRecipes.get(Arrays.asList(item.itemID, item.getItemDamage()));
+			ItemStack ret = (ItemStack)grinderRecipes.get(new ItemStack(item.getItem(), 1, item.getItemDamage()));
 			
-			if (ret != null) 
-			{
-				return ret;
-			}
-			
-			return null;
+			return ret;
 		}
 	}
 	
@@ -162,7 +200,7 @@ public class HawkProcessingRecipes
 		}
 		else
 		{
-			ItemStack ret = (ItemStack)washerRecipes.get(Arrays.asList(item.itemID, item.getItemDamage()));
+			ItemStack ret = (ItemStack)washerRecipes.get(new ItemStack(item.getItem(), 1, item.getItemDamage()));
 			
 			if (ret != null) 
 			{
@@ -185,7 +223,7 @@ public class HawkProcessingRecipes
 		{
 			if (secondaryChance < 5)
 			{
-				ItemStack ret = (ItemStack)washerRarities.get(Arrays.asList(item.itemID, item.getItemDamage()));
+				ItemStack ret = (ItemStack)washerRarities.get(new ItemStack(item.getItem(), 1, item.getItemDamage()));
 				
 				if (ret != null) 
 				{
@@ -194,7 +232,7 @@ public class HawkProcessingRecipes
 			}
 			else if (secondaryChance < 10)
 			{
-				ItemStack ret = (ItemStack)washerSecondaries.get(Arrays.asList(item.itemID, item.getItemDamage()));
+				ItemStack ret = (ItemStack)washerSecondaries.get(new ItemStack(item.getItem(), 1, item.getItemDamage()));
 				
 				if (ret != null) 
 				{
@@ -206,7 +244,6 @@ public class HawkProcessingRecipes
 		}
 	}
 	
-	
 	public static ItemStack getGrindingExplosive(ItemStack item)
 	{
 		if (item == null)
@@ -215,7 +252,7 @@ public class HawkProcessingRecipes
 		}
 		else
 		{
-			ItemStack ret = (ItemStack)grinderExplosives.get(Arrays.asList(item.itemID, item.getItemDamage()));
+			ItemStack ret = (ItemStack)grinderExplosives.get(new ItemStack(item.getItem(), 1, item.getItemDamage()));
 			
 			if (ret != null) 
 			{

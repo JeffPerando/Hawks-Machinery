@@ -2,23 +2,22 @@
 package hawksmachinery;
 
 import net.minecraft.src.EnumRarity;
-import net.minecraft.src.EnumToolMaterial;
-import net.minecraft.src.ItemPickaxe;
+import net.minecraft.src.ItemHoe;
 import net.minecraft.src.ItemStack;
 
 /**
  * 
- * Just a wrapper for ItemPickaxe.
+ * 
  * 
  * @author Elusivehawk
  */
-public class HawkItemEndiumPick extends ItemPickaxe
+public class HawkItemEndiumHoe extends ItemHoe
 {
 	public static HawksMachinery BASEMOD;
 	
-	public HawkItemEndiumPick(int id, EnumToolMaterial mat)
+	public HawkItemEndiumHoe(int id)
 	{
-		super(id, mat);
+		super(id, BASEMOD.endiumTool);
 	}
 	
 	@Override
@@ -26,7 +25,7 @@ public class HawkItemEndiumPick extends ItemPickaxe
 	{
 		return BASEMOD.ITEM_TEXTURE_FILE;
 	}
-
+	
 	@Override
 	public EnumRarity getRarity(ItemStack item)
 	{
@@ -37,7 +36,7 @@ public class HawkItemEndiumPick extends ItemPickaxe
 		
 		return EnumRarity.uncommon;
 	}
-
+	
 	@Override
 	public boolean hasEffect(ItemStack item)
 	{

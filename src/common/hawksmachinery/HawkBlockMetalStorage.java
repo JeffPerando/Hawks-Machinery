@@ -88,7 +88,7 @@ public class HawkBlockMetalStorage extends Block
 			
 			if (randomInt > 2)
 			{
-				world.spawnParticle("portal", x, y, z, 0, random.nextDouble(), 0);
+				world.spawnParticle("portal", x + 0.5F, y, z + 0.5F, 0, random.nextDouble() + random.nextDouble(), 0);
 			}
 			
 		}

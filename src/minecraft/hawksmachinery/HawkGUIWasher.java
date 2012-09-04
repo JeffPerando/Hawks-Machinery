@@ -46,7 +46,7 @@ public class HawkGUIWasher extends GuiContainer
    @Override
    protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3)
    {
-	   int var4 = this.mc.renderEngine.getTexture(BASEMOD.GUI_PATH + "/Grinder.png");
+	   int var4 = this.mc.renderEngine.getTexture(BASEMOD.GUI_PATH + "/Washer.png");
        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
        this.mc.renderEngine.bindTexture(var4);
        this.containerWidth = (this.width - this.xSize) / 2;
