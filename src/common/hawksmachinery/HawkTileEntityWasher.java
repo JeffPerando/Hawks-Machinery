@@ -79,15 +79,15 @@ public class HawkTileEntityWasher extends TileEntityElectricUnit implements IInv
 				}
 			}
 			
-			if (this.containingItems[2] == new ItemStack(Item.bucketWater, 1) && this.waterUnits <= this.WATER_LIMIT)
+			if (this.containingItems[1] == new ItemStack(Item.bucketWater, 1) && this.waterUnits <= this.WATER_LIMIT)
 			{
 				this.waterUnits += 1.0;
-				this.containingItems[2] = null;
+				this.containingItems[1] = null;
 			}
 			
 			if (this.canWash())
 			{
-				if (this.containingItems[1] != null && this.workTicks == 0)
+				if (this.containingItems[2] != null && this.workTicks == 0)
 				{
 					this.workTicks = this.TICKS_REQUIRED;
 				}
@@ -138,7 +138,7 @@ public class HawkTileEntityWasher extends TileEntityElectricUnit implements IInv
 	
 	public boolean canWash()
 	{
-		if (this.containingItems[1] == null)
+		if (this.containingItems[2] == null)
 		{
 			return false;
 		}
@@ -146,7 +146,7 @@ public class HawkTileEntityWasher extends TileEntityElectricUnit implements IInv
 		{
 			if (this.electricityStored >= this.ELECTRICITY_REQUIRED * 2 && this.waterUnits >= 1.0F)
 			{
-				ItemStack var1 = HawkProcessingRecipes.getWashingResult(this.containingItems[1]);
+				ItemStack var1 = HawkProcessingRecipes.getWashingResult(this.containingItems[2]);
 				if (var1 == null) return false;
 				if (this.containingItems[3] == null || this.containingItems[4] == null || this.containingItems[5] == null) return true;
 				if (!this.containingItems[3].isItemEqual(var1) && !this.containingItems[4].isItemEqual(var1) && !this.containingItems[5].isItemEqual(var1)) return false;
@@ -282,10 +282,9 @@ public class HawkTileEntityWasher extends TileEntityElectricUnit implements IInv
 	public void writeToNBT(NBTTagCompound NBTTag)
 	{
 		super.writeToNBT(NBTTag);
-		
-		NBTTag.setFloat("waterUnits", this.waterUnits);
 		NBTTag.setFloat("electricityStored", this.electricityStored);
 		NBTTag.setInteger("workTicks", this.workTicks);
+		NBTTag.setFloat("waterUnits", this.waterUnits);
 		
 		NBTTagList var2 = new NBTTagList();
 		
@@ -406,7 +405,28 @@ public class HawkTileEntityWasher extends TileEntityElectricUnit implements IInv
 	@Override
 	public float electricityRequest()
 	{
-		return 0;
+		if (!this.isDisabled() && this.canWash() && this.electricityStored + this.ELECTRICITY_REQUIRED <= this.ELECTRICITY_LIMIT)
+		{
+			return this.ELECTRICITY_REQUIRED;
+		}
+		else
+		{
+			if (this.ELECTRICITY_LIMIT != this.electricityStored)
+			{
+				if (this.electricityStored + this.ELECTRICITY_REQUIRED >= this.ELECTRICITY_LIMIT)
+				{
+					return this.ELECTRICITY_LIMIT - this.electricityStored;
+				}
+				else
+				{
+					return this.ELECTRICITY_REQUIRED;
+				}
+			}
+			else
+			{
+				return 0;
+			}
+		}
 	}
 	
 	@Override

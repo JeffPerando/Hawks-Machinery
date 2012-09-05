@@ -67,7 +67,7 @@ public class HawkItemPlating extends Item
 	@Override
 	public void getSubItems(int id, CreativeTabs tabs, List itemList)
 	{
-		for (int counter  = 0; counter <= 3; ++counter)
+		for (int counter = 0; counter <= 3; ++counter)
 		{
 			itemList.add(new ItemStack(this, 1, counter));
 		}

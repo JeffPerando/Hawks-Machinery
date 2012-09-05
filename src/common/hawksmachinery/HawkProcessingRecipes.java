@@ -1,6 +1,7 @@
 
 package hawksmachinery;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -41,8 +42,8 @@ public class HawkProcessingRecipes
 		{
 			switch (processingType)
 			{
-				case 1: grinderRecipes.put(new ItemStack(input.getItem(), 1, input.getItemDamage()), output);
-				case 2: washerRecipes.put(new ItemStack(input.getItem(), 1, input.getItemDamage()), output);
+				case 1: grinderRecipes.put(Arrays.asList(input.getItem(), 1, input.getItemDamage()), output);
+				case 2: washerRecipes.put(Arrays.asList(input.getItem(), 1, input.getItemDamage()), output);
 			}
 		}
 		else
@@ -105,8 +106,8 @@ public class HawkProcessingRecipes
 			{
 				switch (processingType)
 				{
-					case 1: grinderRecipes.put(new ItemStack(ore.getItem(), 1, ore.getItemDamage()), output);
-					case 2: washerRecipes.put(new ItemStack(ore.getItem(), 1, ore.getItemDamage()), output);
+					case 1: grinderRecipes.put(Arrays.asList(ore.getItem(), 1, ore.getItemDamage()), output);
+					case 2: washerRecipes.put(Arrays.asList(ore.getItem(), 1, ore.getItemDamage()), output);
 				}
 			}
 		}
@@ -124,7 +125,7 @@ public class HawkProcessingRecipes
 		{
 			switch (processingType)
 			{
-				case 1: grinderExplosives.put(new ItemStack(input.getItem(), 1, input.getItemDamage()), new Object[]{});
+				case 1: grinderExplosives.put(Arrays.asList(input.getItem(), 1, input.getItemDamage()), new Object[]{});
 			}
 		}
 		else
@@ -139,11 +140,11 @@ public class HawkProcessingRecipes
 		{
 			if (isCommon)
 			{
-				washerSecondaries.put(new ItemStack(input.getItem(), 1, input.getItemDamage()), output);
+				washerSecondaries.put(Arrays.asList(input.getItem(), 1, input.getItemDamage()), output);
 			}
 			else
 			{
-				washerRarities.put(new ItemStack(input.getItem(), 1, input.getItemDamage()), output);
+				washerRarities.put(Arrays.asList(input.getItem(), 1, input.getItemDamage()), output);
 			}
 		}
 		else
@@ -186,7 +187,7 @@ public class HawkProcessingRecipes
 		}
 		else
 		{
-			ItemStack ret = (ItemStack)grinderRecipes.get(new ItemStack(item.getItem(), 1, item.getItemDamage()));
+			ItemStack ret = (ItemStack)grinderRecipes.get(Arrays.asList(item.getItem(), 1, item.getItemDamage()));
 			
 			return ret;
 		}
@@ -200,7 +201,7 @@ public class HawkProcessingRecipes
 		}
 		else
 		{
-			ItemStack ret = (ItemStack)washerRecipes.get(new ItemStack(item.getItem(), 1, item.getItemDamage()));
+			ItemStack ret = (ItemStack)washerRecipes.get(Arrays.asList(item.getItem(), 1, item.getItemDamage()));
 			
 			if (ret != null) 
 			{
@@ -223,7 +224,7 @@ public class HawkProcessingRecipes
 		{
 			if (secondaryChance < 5)
 			{
-				ItemStack ret = (ItemStack)washerRarities.get(new ItemStack(item.getItem(), 1, item.getItemDamage()));
+				ItemStack ret = (ItemStack)washerRarities.get(Arrays.asList(item.getItem(), 1, item.getItemDamage()));
 				
 				if (ret != null) 
 				{
@@ -232,7 +233,7 @@ public class HawkProcessingRecipes
 			}
 			else if (secondaryChance < 10)
 			{
-				ItemStack ret = (ItemStack)washerSecondaries.get(new ItemStack(item.getItem(), 1, item.getItemDamage()));
+				ItemStack ret = (ItemStack)washerSecondaries.get(Arrays.asList(item.getItem(), 1, item.getItemDamage()));
 				
 				if (ret != null) 
 				{
@@ -252,7 +253,7 @@ public class HawkProcessingRecipes
 		}
 		else
 		{
-			ItemStack ret = (ItemStack)grinderExplosives.get(new ItemStack(item.getItem(), 1, item.getItemDamage()));
+			ItemStack ret = (ItemStack)grinderExplosives.get(Arrays.asList(item.getItem(), 1, item.getItemDamage()));
 			
 			if (ret != null) 
 			{

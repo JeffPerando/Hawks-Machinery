@@ -34,6 +34,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.common.registry.VillagerRegistry;
 
 /**
  * 
@@ -145,22 +146,11 @@ public class HawksMachinery implements IFuelHandler
 		generateSilver = HMConfig.getOrCreateBooleanProperty("Generate Silver", Configuration.CATEGORY_GENERAL, true).getBoolean(true);
 		generateEndium = HMConfig.getOrCreateBooleanProperty("Generate Endium", Configuration.CATEGORY_GENERAL, true).getBoolean(true);
 		
-		//enableEndiumTools = HMConfig.getOrCreateBooleanProperty("Enable Endium Tools", Configuration.CATEGORY_GENERAL, false).getBoolean(false);
-		
 		dustRawID = HMConfig.getOrCreateIntProperty("Raw Dusts", Configuration.CATEGORY_ITEM, 24150).getInt(24150);
 		dustRefinedID = HMConfig.getOrCreateIntProperty("Refined Dusts", Configuration.CATEGORY_ITEM, 24151).getInt(24151);
 		ingotsID = HMConfig.getOrCreateIntProperty("Ingots", Configuration.CATEGORY_ITEM, 24152).getInt(24152);
 		partsID = HMConfig.getOrCreateIntProperty("Parts", Configuration.CATEGORY_ITEM, 24153).getInt(24153);
 		platingID = HMConfig.getOrCreateIntProperty("Plating", Configuration.CATEGORY_ITEM, 24154).getInt(24154);
-		
-		endiumSwordID = HMConfig.getOrCreateIntProperty("Endium Sword", Configuration.CATEGORY_ITEM, 25000).getInt(25000);
-		endiumPickID = HMConfig.getOrCreateIntProperty("Endium Pickaxe", Configuration.CATEGORY_ITEM, 25001).getInt(25001);
-		endiumShovelID = HMConfig.getOrCreateIntProperty("Endium Shovel", Configuration.CATEGORY_ITEM, 25002).getInt(25002);
-		endiumAxeID = HMConfig.getOrCreateIntProperty("Endium Axe", Configuration.CATEGORY_ITEM, 25003).getInt(25003);
-		endiumHoeID = HMConfig.getOrCreateIntProperty("Endium Hoe", Configuration.CATEGORY_ITEM, 25004).getInt(25004);
-		endiumBattleaxeID = HMConfig.getOrCreateIntProperty("Endium Battleaxe", Configuration.CATEGORY_ITEM, 25005).getInt(25005);
-		endiumMattockID = HMConfig.getOrCreateIntProperty("Endium Mattock", Configuration.CATEGORY_ITEM, 25006).getInt(25006);
-		endiumKatanaID = HMConfig.getOrCreateIntProperty("Endium Katana", Configuration.CATEGORY_ITEM, 25007).getInt(25007);
 		
 		ACHprospector = HMConfig.getOrCreateIntProperty("ACH Prospector", Configuration.CATEGORY_GENERAL, 1500).getInt(1500);
 		ACHtimeToGrind = HMConfig.getOrCreateIntProperty("ACH Time To Grind", Configuration.CATEGORY_GENERAL, 1501).getInt(1501);
@@ -180,23 +170,12 @@ public class HawksMachinery implements IFuelHandler
 		parts = new HawkItemParts(partsID - 256);
 		plating = new HawkItemPlating(platingID - 256);
 		
-		if (enableEndiumTools)
-		{
-			endiumSword = new HawkItemEndiumSword(endiumSwordID - 256).setItemName("endiumSword").setIconIndex(99);
-			endiumPick = new HawkItemEndiumTool(endiumPickID - 256, 2, ItemPickaxe.blocksEffectiveAgainst).setItemName("endiumPick").setIconIndex(100);
-			endiumAxe = new HawkItemEndiumTool(endiumAxeID - 256, 3, ItemAxe.blocksEffectiveAgainst).setItemName("endiumAxe").setIconIndex(101);
-			endiumShovel = new HawkItemEndiumTool(endiumShovelID - 256, 1, ItemSpade.blocksEffectiveAgainst).setItemName("endiumShovel").setIconIndex(102);
-			endiumHoe = new HawkItemEndiumHoe(endiumHoeID - 256).setItemName("endiumHoe").setIconIndex(103);
-			endiumBattleaxe = new HawkItemEndiumBattleaxe(endiumBattleaxeID - 256).setItemName("endiumBattleaxe").setIconIndex(104);
-			endiumMattock = new HawkItemEndiumTool(endiumMattockID - 256, 3, ObjectArrays.concat(ItemPickaxe.blocksEffectiveAgainst, ItemSpade.blocksEffectiveAgainst, Block.class)).setItemName("endiumMattock").setIconIndex(105);
-			endiumKatana = new HawkItemEndiumKatana(endiumKatanaID - 256).setItemName("endiumKatana").setIconIndex(106);
-		}
-		
 		UniversalElectricity.registerMod(this, "Hawk's Machinery", "0.7.0");
 		NetworkRegistry.instance().registerGuiHandler(this, this.PROXY);
 		GameRegistry.registerWorldGenerator(new HawkOreGenerator());
 		GameRegistry.registerFuelHandler(this);
 		AchievementPage.registerAchievementPage(HawkAchievements.HAWKSPAGE);
+		VillagerRegistry.instance().registerVillageTradeHandler(3, new HawkVillagerTrades());
 		
 		DungeonHooks.addDungeonLoot(new ItemStack(ingots, 1, 0), 075, 1, 4);
 		DungeonHooks.addDungeonLoot(new ItemStack(ingots, 1, 1), 075, 1, 4);
@@ -399,6 +378,10 @@ public class HawksMachinery implements IFuelHandler
 		PROCESS_RECIPES.addHawkExplosive(new ItemStack(Block.tnt), 1);
 		PROCESS_RECIPES.addHawkExplosive(new ItemStack(Item.gunpowder), 1);
 		PROCESS_RECIPES.addHawkExplosive(new ItemStack(Item.fireballCharge), 1);
+		
+		
+		PROCESS_RECIPES.addHawkProcessingRecipe(new ItemStack(dustRaw, 1, 1), new ItemStack(dustRefined, 1, 3), 2);
+		
 	}
 	
 	@Override

@@ -24,28 +24,26 @@ public class HawkContainerWasher extends Container
 	{
 		this.tileEntity = tileEntity;
 		this.addSlotToContainer(new SlotElectricItem(tileEntity, 0, 55, 49));
-		this.addSlotToContainer(new Slot(tileEntity, 1, 55, 25));
+		this.addSlotToContainer(new Slot(tileEntity, 1, 0, 0));
 		this.addSlotToContainer(new Slot(tileEntity, 2, 55, 25));
-		this.addSlotToContainer(new SlotProcessorsOutput(playerInventory.player, tileEntity, 3, 108, 25));
-		this.addSlotToContainer(new SlotProcessorsOutput(playerInventory.player, tileEntity, 4, 108, 40));
-		this.addSlotToContainer(new SlotProcessorsOutput(playerInventory.player, tileEntity, 5, 108, 55));
+		this.addSlotToContainer(new SlotProcessorsOutput(playerInventory.player, tileEntity, 3, 120, 32));
+		this.addSlotToContainer(new SlotProcessorsOutput(playerInventory.player, tileEntity, 4, 138, 32));
+		this.addSlotToContainer(new SlotProcessorsOutput(playerInventory.player, tileEntity, 5, 156, 32));
 		
-		int var3;
-		
-		for (var3 = 0; var3 < 3; ++var3)
+		for (int counter = 0; counter < 3; ++counter)
 		{
 			for (int var4 = 0; var4 < 9; ++var4)
 			{
-				this.addSlotToContainer(new Slot(playerInventory, var4 + var3 * 9 + 9, 8 + var4 * 18, 84 + var3 * 18));
+				this.addSlotToContainer(new Slot(playerInventory, var4 + counter * 9 + 9, 8 + var4 * 18, 84 + counter * 18));
 			}
 		}
 		
-		for (var3 = 0; var3 < 9; ++var3)
+		for (int counter = 0; counter < 9; ++counter)
 		{
-			this.addSlotToContainer(new Slot(playerInventory, var3, 8 + var3 * 18, 142));
+			this.addSlotToContainer(new Slot(playerInventory, counter, 8 + counter * 18, 142));
 		}
+		
 	}
-	
 	
 	@Override
 	public boolean canInteractWith(EntityPlayer var1)

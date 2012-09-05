@@ -16,7 +16,7 @@ import net.minecraftforge.*;
 public class HawkBlock extends Block
 {
 	public static HawksMachinery BASEMOD;
-	private int[] sides = new int[5];
+	private int[] sides = new int[6];
 	
 	public HawkBlock(int id, Material material, int side0, int side1, int side2, int side3, int side4, int side5)
     {

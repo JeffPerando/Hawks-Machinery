@@ -1,11 +1,12 @@
 
 package hawksmachinery;
 
+import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.ClientRegistry;
+import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.ItemStack;
-import net.minecraft.src.ModLoader;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 import net.minecraftforge.client.MinecraftForgeClient;
@@ -20,12 +21,15 @@ public class HMClientProxy extends HMCommonProxy
 {
 	public static HawksMachinery BASEMOD;
 	
+	public static int ENDER_HOPPER_RENDER_ID;
+	
 	@Override
 	public void preInit()
 	{
 		//Preload textures
 		MinecraftForgeClient.preloadTexture(BASEMOD.BLOCK_TEXTURE_FILE);
 		MinecraftForgeClient.preloadTexture(BASEMOD.ITEM_TEXTURE_FILE);
+		
 	}
 	
 	@Override
@@ -59,6 +63,7 @@ public class HMClientProxy extends HMCommonProxy
 	@Override
 	public World getWorld()
 	{
-		return ModLoader.getMinecraftInstance().theWorld;
+		return FMLClientHandler.instance().getClient().theWorld;
 	}
+	
 }
