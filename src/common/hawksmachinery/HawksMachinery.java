@@ -1,6 +1,18 @@
 
 package hawksmachinery;
 
+import hawksmachinery.blocks.HawkBlockGrinder;
+import hawksmachinery.blocks.HawkBlockMetalStorage;
+import hawksmachinery.blocks.HawkBlockOre;
+import hawksmachinery.blocks.HawkBlockWasher;
+import hawksmachinery.items.HawkItemIngots;
+import hawksmachinery.items.HawkItemParts;
+import hawksmachinery.items.HawkItemPlating;
+import hawksmachinery.items.HawkItemRawDust;
+import hawksmachinery.items.HawkItemRefinedDust;
+import hawksmachinery.misc.HawkAchievements;
+import hawksmachinery.misc.HawkOreGenerator;
+import hawksmachinery.misc.HawkVillagerTrades;
 import java.io.File;
 import com.google.common.collect.ObjectArrays;
 import universalelectricity.UniversalElectricity;
@@ -9,7 +21,9 @@ import universalelectricity.basiccomponents.ItemBattery;
 import universalelectricity.network.PacketManager;
 import universalelectricity.recipe.RecipeManager;
 import net.minecraft.src.Block;
+import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.EnumToolMaterial;
+import net.minecraft.src.IInventory;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemAxe;
 import net.minecraft.src.ItemPickaxe;
@@ -21,6 +35,7 @@ import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.DungeonHooks;
 import net.minecraftforge.common.EnumHelper;
 import net.minecraftforge.oredict.OreDictionary;
+import cpw.mods.fml.common.ICraftingHandler;
 import cpw.mods.fml.common.IFuelHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
@@ -44,7 +59,7 @@ import cpw.mods.fml.common.registry.VillagerRegistry;
  */
 @Mod(modid = "HawksMachinery", name = "Hawk's Machinery", version = "Alpha v1.3.0", dependencies = "after:BasicComponents")
 @NetworkMod(channels = {"HawksMachinery"}, clientSideRequired = true, serverSideRequired = false, packetHandler = PacketManager.class)
-public class HawksMachinery implements IFuelHandler
+public class HawksMachinery implements IFuelHandler, ICraftingHandler
 {
 	@Instance
 	public static HawksMachinery INSTANCE;
@@ -174,6 +189,7 @@ public class HawksMachinery implements IFuelHandler
 		NetworkRegistry.instance().registerGuiHandler(this, this.PROXY);
 		GameRegistry.registerWorldGenerator(new HawkOreGenerator());
 		GameRegistry.registerFuelHandler(this);
+		GameRegistry.registerCraftingHandler(this);
 		AchievementPage.registerAchievementPage(HawkAchievements.HAWKSPAGE);
 		VillagerRegistry.instance().registerVillageTradeHandler(3, new HawkVillagerTrades());
 		
@@ -388,6 +404,27 @@ public class HawksMachinery implements IFuelHandler
 	public int getBurnTime(ItemStack fuel)
 	{
 		return 0;
+	}
+	
+	@Override
+	public void onCrafting(EntityPlayer player, ItemStack item, IInventory craftMatrix)
+	{
+		if (item.itemID == blockGrinder.blockID)
+		{
+			player.addStat(HawkAchievements.timeToGrind, 1);
+		}
+		
+		if (item.itemID == blockMetalStorage.blockID)
+		{
+			player.addStat(HawkAchievements.compactCompact, 1);
+		}
+		
+	}
+	
+	@Override
+	public void onSmelting(EntityPlayer player, ItemStack item)
+	{
+		
 	}
 	
 }

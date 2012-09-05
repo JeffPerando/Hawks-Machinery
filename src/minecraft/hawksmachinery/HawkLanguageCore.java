@@ -1,6 +1,14 @@
 
 package hawksmachinery;
 
+import hawksmachinery.itemblocks.HawkItemBlockMetalStorage;
+import hawksmachinery.itemblocks.HawkItemBlockOre;
+import hawksmachinery.items.HawkItemIngots;
+import hawksmachinery.items.HawkItemParts;
+import hawksmachinery.items.HawkItemPlating;
+import hawksmachinery.items.HawkItemRawDust;
+import hawksmachinery.items.HawkItemRefinedDust;
+import hawksmachinery.misc.HawkAchievements;
 import net.minecraft.src.ItemStack;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 

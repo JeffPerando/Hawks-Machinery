@@ -1,6 +1,7 @@
 
-package hawksmachinery;
+package hawksmachinery.misc;
 
+import hawksmachinery.HawksMachinery;
 import net.minecraft.src.Achievement;
 import net.minecraft.src.AchievementList;
 import net.minecraft.src.ItemStack;

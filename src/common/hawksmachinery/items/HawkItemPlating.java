@@ -1,6 +1,7 @@
 
-package hawksmachinery;
+package hawksmachinery.items;
 
+import hawksmachinery.HawksMachinery;
 import java.util.List;
 import net.minecraft.src.CreativeTabs;
 import net.minecraft.src.EnumRarity;

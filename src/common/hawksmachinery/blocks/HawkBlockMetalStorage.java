@@ -1,6 +1,8 @@
 
-package hawksmachinery;
+package hawksmachinery.blocks;
 
+import hawksmachinery.HawksMachinery;
+import hawksmachinery.itemblocks.HawkItemBlockMetalStorage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;

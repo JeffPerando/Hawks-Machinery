@@ -1,34 +1,28 @@
 
-package hawksmachinery;
+package hawksmachinery.blocks;
 
+import hawksmachinery.HawkTileEntityGrinder;
+import hawksmachinery.HawksMachinery;
 import cpw.mods.fml.common.registry.GameRegistry;
-import net.minecraft.src.CreativeTabs;
-import net.minecraft.src.DamageSource;
-import net.minecraft.src.Entity;
-import net.minecraft.src.EntityEnderman;
-import net.minecraft.src.EntityLiving;
-import net.minecraft.src.EntityPlayer;
-import net.minecraft.src.Material;
-import net.minecraft.src.MathHelper;
-import net.minecraft.src.TileEntity;
-import net.minecraft.src.World;
-import net.minecraftforge.common.ForgeDirection;
+import cpw.mods.fml.common.registry.LanguageRegistry;
 import universalelectricity.extend.BlockMachine;
+import net.minecraft.src.*;
+import net.minecraftforge.common.ForgeDirection;
 
 /**
  *
- *
+ * Just the block for the Grinder.
  *
  * @author Elusivehawk
  */
-public class HawkBlockWasher extends BlockMachine
+public class HawkBlockGrinder extends BlockMachine
 {
 	public static HawksMachinery BASEMOD;
-	public HawkTileEntityWasher tileEntity;
+	public HawkTileEntityGrinder tileEntity;
 	
-	public HawkBlockWasher(int id)
+	public HawkBlockGrinder(int id)
 	{
-		super("HMWasher", id, Material.iron);
+		super("HMGrinder", id, Material.iron);
 		setHardness(2.0F);
 		setResistance(20.0F);
 		setRequiresSelfNotify();
@@ -37,7 +31,7 @@ public class HawkBlockWasher extends BlockMachine
 	}
 	
 	@Override
-	public int damageDropped(int metadata)
+	protected int damageDropped(int metadata)
 	{
 		return 0;
 	}
@@ -45,11 +39,9 @@ public class HawkBlockWasher extends BlockMachine
 	@Override
 	public boolean onMachineActivated(World world, int x, int y, int z, EntityPlayer player)
 	{
-		int metadata = world.getBlockMetadata(x, y, z);
-		
 		if (!world.isRemote)
 		{
-			player.openGui(BASEMOD.getModInstance(), 1, world, x, y, z);
+			player.openGui(BASEMOD.getModInstance(), 0, world, x, y, z);
 			return true;
 		}
 		
@@ -57,7 +49,7 @@ public class HawkBlockWasher extends BlockMachine
 	}
 	
 	@Override
-	public boolean onUseWrench(World world, int x, int y, int z, EntityPlayer player)
+	public boolean onUseWrench(World world, int x, int y, int z, EntityPlayer par5EntityPlayer)
 	{
 		switch(world.getBlockMetadata(x, y, z))
 		{
@@ -76,7 +68,7 @@ public class HawkBlockWasher extends BlockMachine
 	{
 		int direction = MathHelper.floor_double((entity.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
 		int newMetadata = 3;
-		
+
 		switch (direction)
 		{
 			case 0: newMetadata = 2; break;
@@ -84,7 +76,7 @@ public class HawkBlockWasher extends BlockMachine
 			case 2: newMetadata = 3; break;
 			case 3: newMetadata = 4; break;
 		}
-		
+
 		world.setBlockMetadataWithNotify(x, y, z, newMetadata);
 	}
 	
@@ -103,7 +95,7 @@ public class HawkBlockWasher extends BlockMachine
 	@Override
 	public TileEntity createNewTileEntity(World world)
 	{
-		this.tileEntity = new HawkTileEntityWasher();
+		this.tileEntity = new HawkTileEntityGrinder(3);
 		return this.tileEntity;
 	}
 	
@@ -114,52 +106,41 @@ public class HawkBlockWasher extends BlockMachine
 		{
 			case 2: switch (side)
 					{
-						case 1: return 36;
-						case 2: return 38;
-						default: return 37;
+						case 1: return 5;
+						case 2: return 6;
+						default: return 7;
 					}
 			case 3: switch (side)
 					{
-						case 1: return 36;
-						case 3: return 38;
-						default: return 37;
+						case 1: return 5;
+						case 3: return 6;
+						default: return 7;
 					}
 			case 4: switch (side)
 					{
-						case 1: return 36;
-						case 4: return 38;
-						default: return 37;
+						case 1: return 23;
+						case 4: return 6;
+						default: return 7;
 					}
 			case 5: switch (side)
 					{
-						case 1: return 36;
-						case 5: return 38;
-						default: return 37;
+						case 1: return 23;
+						case 5: return 6;
+						default: return 7;
 					}
 			default: switch (side)
 					{
-						case 1: return 36;
-						case 3: return 38;
-						default: return 37;
+						case 1: return 5;
+						case 3: return 6;
+						default: return 7;
 					}
 		}
-	}
-	
-	@Override
-	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity)
-	{
-		if (entity instanceof EntityEnderman && this.tileEntity.canWash())
-		{
-			entity.attackEntityFrom(DamageSource.drown, 1);
-		}
-		
-		entity.extinguish();
 	}
 	
 	@Override
 	public boolean isBlockSolidOnSide(World world, int x, int y, int z, ForgeDirection side)
 	{
-		return !(side.ordinal() == 0 || side.ordinal() == world.getBlockMetadata(x, y, z));
+		return !(side.ordinal() == 1 || side.ordinal() == world.getBlockMetadata(x, y, z));
 	}
 	
 }

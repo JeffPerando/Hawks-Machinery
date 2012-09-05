@@ -1,6 +1,7 @@
 
-package hawksmachinery;
+package hawksmachinery.misc;
 
+import hawksmachinery.HawksMachinery;
 import java.util.Random;
 import net.minecraft.src.EntityVillager;
 import net.minecraft.src.Item;
@@ -47,11 +48,10 @@ public class HawkVillagerTrades implements IVillageTradeHandler
 			recipeList.add(new MerchantRecipe(new ItemStack(Item.emerald, 7), new ItemStack(BASEMOD.ingots, 1, 1)));
 			recipeList.add(new MerchantRecipe(new ItemStack(Item.emerald, 8), new ItemStack(BASEMOD.ingots, 1, 1)));
 			
-			recipeList.add(new MerchantRecipe(new ItemStack(Item.emerald, 6), new ItemStack(BASEMOD.ingots, 1, 2)));
-			recipeList.add(new MerchantRecipe(new ItemStack(Item.emerald, 7), new ItemStack(BASEMOD.ingots, 1, 2)));
-			recipeList.add(new MerchantRecipe(new ItemStack(Item.emerald, 8), new ItemStack(BASEMOD.ingots, 1, 2)));
-			
 		}
+		
+		recipeList.add(new MerchantRecipe(new ItemStack(BASEMOD.ingots, 8, 2), new ItemStack(Item.emerald, 1)));
+		recipeList.add(new MerchantRecipe(new ItemStack(BASEMOD.ingots, 9, 2), new ItemStack(Item.emerald, 1)));
 		
 	}
 	

@@ -1,6 +1,9 @@
 
-package hawksmachinery;
+package hawksmachinery.blocks;
 
+import hawksmachinery.HawksMachinery;
+import hawksmachinery.itemblocks.HawkItemBlockOre;
+import hawksmachinery.misc.HawkAchievements;
 import java.util.ArrayList;
 import java.util.List;
 

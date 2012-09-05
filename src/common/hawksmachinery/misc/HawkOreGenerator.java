@@ -1,6 +1,7 @@
 
-package hawksmachinery;
+package hawksmachinery.misc;
 
+import hawksmachinery.HawksMachinery;
 import java.util.Random;
 import net.minecraft.src.BiomeGenBase;
 import net.minecraft.src.ChunkProviderEnd;
