@@ -21,8 +21,6 @@ public class HMClientProxy extends HMCommonProxy
 {
 	public static HawksMachinery BASEMOD;
 	
-	public static int ENDER_HOPPER_RENDER_ID;
-	
 	@Override
 	public void preInit()
 	{

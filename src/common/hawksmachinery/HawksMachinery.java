@@ -269,7 +269,7 @@ public class HawksMachinery implements IFuelHandler
 		RECIPE_GIVER.addSmelting(new ItemStack(dustRefined, 1, 7), new ItemStack(ingots, 1, 0));
 		RECIPE_GIVER.addSmelting(new ItemStack(dustRefined, 1, 8), new ItemStack(ingots, 1, 1));
 		RECIPE_GIVER.addSmelting(new ItemStack(dustRefined, 1, 9), new ItemStack(ingots, 1, 2));
-		RECIPE_GIVER.addSmelting(new ItemStack(dustRaw, 1, 5), new ItemStack(Block.obsidian));
+		RECIPE_GIVER.addSmelting(new ItemStack(dustRaw, 1, 8), new ItemStack(Block.obsidian));
 		RECIPE_GIVER.addSmelting(new ItemStack(blockGrinder, 1, 0), new ItemStack(plating, 0, 6));
 		
 		RECIPE_GIVER.addSmelting(new ItemStack(blockOre, 1, 0), new ItemStack(ingots, 1, 0));
