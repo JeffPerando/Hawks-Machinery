@@ -53,15 +53,13 @@ import cpw.mods.fml.common.registry.VillagerRegistry;
 public class HawksMachinery implements IFuelHandler, ICraftingHandler
 {
 	@Instance
-	public static HawksMachinery INSTANCE;
+	private static HawksMachinery INSTANCE;
 	
 	@SidedProxy(clientSide = "hawksmachinery.HMClientProxy", serverSide = "hawksmachinery.HMCommonProxy")
 	public static HMCommonProxy PROXY;
 	
 	public static RecipeManager RECIPE_GIVER;
 	public static HawkProcessingRecipes PROCESS_RECIPES;
-	
-	public static EnumToolMaterial endiumTool = EnumHelper.addToolMaterial("Endium", 5, 3001, 15.0F, 4, 25);
 	
 	public static int grinderID;
 	public static int oreID;
@@ -82,7 +80,7 @@ public class HawksMachinery implements IFuelHandler, ICraftingHandler
 	public static int ACHtimeToGrind;
 	public static int ACHcompactCompact;
 	public static int ACHminerkiin;
-
+	
 	public static boolean generateTitanium;
 	public static boolean generateAluminum;
 	public static boolean generateSilver;

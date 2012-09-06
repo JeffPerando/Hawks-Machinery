@@ -34,13 +34,13 @@ public class HawkVillagerTrades implements IVillageTradeHandler
 			{
 				if (emeralds <= 17)
 				{
-					recipeList.add(new MerchantRecipe(new ItemStack(Item.emerald, emeralds), new ItemStack(Item.writableBook, 1), new ItemStack(BASEMOD.blueprints, 1, 10)));
+					recipeList.add(new MerchantRecipe(new ItemStack(Item.emerald, emeralds), new ItemStack(Item.writableBook, 1), new ItemStack(BASEMOD.blueprints, 1, 9)));
 					
 				}
 				
 				if (emeralds >= 24 && emeralds <= 32)
 				{
-					for (int meta = 0; meta <= 9; ++meta)
+					for (int meta = 0; meta <= 8; ++meta)
 					{
 						recipeList.add(new MerchantRecipe(new ItemStack(Item.emerald, emeralds), new ItemStack(Item.writableBook, 1), new ItemStack(BASEMOD.blueprints, 1, meta)));
 					}
@@ -49,7 +49,7 @@ public class HawkVillagerTrades implements IVillageTradeHandler
 				
 				if (emeralds >= 52)
 				{
-					recipeList.add(new MerchantRecipe(new ItemStack(Item.emerald, emeralds), new ItemStack(Item.writableBook, 1), new ItemStack(BASEMOD.blueprints, 1, 11)));
+					recipeList.add(new MerchantRecipe(new ItemStack(Item.emerald, emeralds), new ItemStack(Item.writableBook, 1), new ItemStack(BASEMOD.blueprints, 1, 10)));
 				}
 				
 			}

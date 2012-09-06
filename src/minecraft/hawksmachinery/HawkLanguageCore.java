@@ -37,7 +37,7 @@ public class HawkLanguageCore
 		LANG.addStringLocalization(ACH.minerkiin.getName(), "en_US", "Minerkiin");
 		LANG.addStringLocalization(ACH.minerkiin.getName() + ".desc", "en_US", "In their tongue...");
 		
-		for (int counter = 0; counter <= 11; ++counter)
+		for (int counter = 0; counter <= 10; ++counter)
 		{
 			if (counter <= 3)
 			{
@@ -67,12 +67,7 @@ public class HawkLanguageCore
 				
 			}
 			
-			if (counter <= 10)
-			{
-				LANG.addNameForObject(new ItemStack(BASEMOD.dustRefined, 1, counter), "en_US", HawkItemRefinedDust.en_USNames[counter] + " Dust");
-				
-			}
-			
+			LANG.addNameForObject(new ItemStack(BASEMOD.dustRefined, 1, counter), "en_US", HawkItemRefinedDust.en_USNames[counter] + " Dust");
 			LANG.addNameForObject(new ItemStack(BASEMOD.blueprints, 1, counter), "en_US", "Blueprints (" + HawkItemBlueprints.en_USNames[counter] + ")");
 			
 		}
