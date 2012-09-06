@@ -77,8 +77,8 @@ public class HawkItemRawDust extends Item
 			default: effect = 4; break;
 		}
 		
-		((EntityLiving)entity).addPotionEffect(new PotionEffect(Potion.blindness.getId(), effect, 1));
-		((EntityLiving)entity).addPotionEffect(new PotionEffect(Potion.poison.getId(), effect, 1));
+		entity.addPotionEffect(new PotionEffect(Potion.blindness.getId(), effect, 1));
+		entity.addPotionEffect(new PotionEffect(Potion.poison.getId(), effect, 1));
 		
 		--item.stackSize;
 		

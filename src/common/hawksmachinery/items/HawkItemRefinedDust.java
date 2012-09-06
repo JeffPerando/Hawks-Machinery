@@ -81,8 +81,8 @@ public class HawkItemRefinedDust extends Item
 			default: effect = 4; break;
 		}
 		
-		((EntityLiving)entity).addPotionEffect(new PotionEffect(Potion.blindness.getId(), effect, 25));
-		((EntityLiving)entity).addPotionEffect(new PotionEffect(Potion.poison.getId(), effect, 25));
+		entity.addPotionEffect(new PotionEffect(Potion.blindness.getId(), effect, 25));
+		entity.addPotionEffect(new PotionEffect(Potion.poison.getId(), effect, 25));
 		
 		--item.stackSize;
 		

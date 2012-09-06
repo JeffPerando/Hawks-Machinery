@@ -32,7 +32,7 @@ public class HawkTileEntityWasher extends TileEntityElectricUnit implements IInv
 {
 	public int ELECTRICITY_REQUIRED = 10;
 	
-	public int TICKS_REQUIRED = 80;
+	public int TICKS_REQUIRED = 60;
 	
 	public ForgeDirection facingDirection = ForgeDirection.UNKNOWN;
 	
@@ -381,7 +381,7 @@ public class HawkTileEntityWasher extends TileEntityElectricUnit implements IInv
 	@Override
 	public String getInvName()
 	{
-		return "Washer";
+		return "HMWasher";
 	}
 	
 	@Override

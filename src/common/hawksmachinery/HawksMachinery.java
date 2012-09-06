@@ -1,18 +1,9 @@
 
 package hawksmachinery;
 
-import hawksmachinery.blocks.HawkBlockGrinder;
-import hawksmachinery.blocks.HawkBlockMetalStorage;
-import hawksmachinery.blocks.HawkBlockOre;
-import hawksmachinery.blocks.HawkBlockWasher;
-import hawksmachinery.items.HawkItemIngots;
-import hawksmachinery.items.HawkItemParts;
-import hawksmachinery.items.HawkItemPlating;
-import hawksmachinery.items.HawkItemRawDust;
-import hawksmachinery.items.HawkItemRefinedDust;
-import hawksmachinery.misc.HawkAchievements;
-import hawksmachinery.misc.HawkOreGenerator;
-import hawksmachinery.misc.HawkVillagerTrades;
+import hawksmachinery.blocks.*;
+import hawksmachinery.items.*;
+import hawksmachinery.misc.*;
 import java.io.File;
 import com.google.common.collect.ObjectArrays;
 import universalelectricity.UniversalElectricity;
@@ -77,7 +68,7 @@ public class HawksMachinery implements IFuelHandler, ICraftingHandler
 	public static int metalStorageID;
 	public static int washerID;
 	public static int verticalDrillID;
-	public static int endstoneFurnaceID;
+	public static int inductionFurnaceID;
 	
 	public static int dustRawID;
 	public static int dustRefinedID;
@@ -85,15 +76,7 @@ public class HawksMachinery implements IFuelHandler, ICraftingHandler
 	public static int partsID;
 	public static int platingID;
 	public static int drillID;
-	
-	public static int endiumSwordID;
-	public static int endiumPickID;
-	public static int endiumShovelID;
-	public static int endiumAxeID;
-	public static int endiumHoeID;
-	public static int endiumBattleaxeID;
-	public static int endiumMattockID;
-	public static int endiumKatanaID;
+	public static int blueprintID;
 	
 	public static int ACHprospector;
 	public static int ACHtimeToGrind;
@@ -104,7 +87,6 @@ public class HawksMachinery implements IFuelHandler, ICraftingHandler
 	public static boolean generateAluminum;
 	public static boolean generateSilver;
 	public static boolean generateEndium;
-	public static boolean enableEndiumTools;
 	
 	public static final String GUI_PATH = "/hawksmachinery/textures/gui";
 	public static final String BLOCK_TEXTURE_FILE = "/hawksmachinery/textures/blocks.png";
@@ -132,15 +114,7 @@ public class HawksMachinery implements IFuelHandler, ICraftingHandler
 	public static Item ingots;
 	public static Item parts;
 	public static Item plating;
-	
-	public static Item endiumSword;
-	public static Item endiumPick;
-	public static Item endiumShovel;
-	public static Item endiumAxe;
-	public static Item endiumHoe;
-	public static Item endiumBattleaxe;
-	public static Item endiumMattock;
-	public static Item endiumKatana;
+	public static Item blueprints;
 	
 	@PreInit
 	public void preInit(FMLPreInitializationEvent event)
@@ -154,7 +128,7 @@ public class HawksMachinery implements IFuelHandler, ICraftingHandler
 		metalStorageID = HMConfig.getOrCreateBlockIdProperty("Metal Storage Blocks", 3962).getInt(3962);
 		washerID = HMConfig.getOrCreateBlockIdProperty("Washer", 3963).getInt(3963);
 		verticalDrillID = HMConfig.getOrCreateBlockIdProperty("Vertical Mining Drill", 3964).getInt(3964);
-		endstoneFurnaceID = HMConfig.getOrCreateBlockIdProperty("Endstone Furnace", 3965).getInt(3965);
+		inductionFurnaceID = HMConfig.getOrCreateBlockIdProperty("Induction Furnace", 3965).getInt(3965);
 		
 		generateTitanium = HMConfig.getOrCreateBooleanProperty("Generate Titanium", Configuration.CATEGORY_GENERAL, true).getBoolean(true);
 		generateAluminum = HMConfig.getOrCreateBooleanProperty("Generate Aluminum", Configuration.CATEGORY_GENERAL, true).getBoolean(true);
@@ -166,6 +140,7 @@ public class HawksMachinery implements IFuelHandler, ICraftingHandler
 		ingotsID = HMConfig.getOrCreateIntProperty("Ingots", Configuration.CATEGORY_ITEM, 24152).getInt(24152);
 		partsID = HMConfig.getOrCreateIntProperty("Parts", Configuration.CATEGORY_ITEM, 24153).getInt(24153);
 		platingID = HMConfig.getOrCreateIntProperty("Plating", Configuration.CATEGORY_ITEM, 24154).getInt(24154);
+		blueprintID = HMConfig.getOrCreateIntProperty("Blueprints", Configuration.CATEGORY_ITEM, 24155).getInt(24155);
 		
 		ACHprospector = HMConfig.getOrCreateIntProperty("ACH Prospector", Configuration.CATEGORY_GENERAL, 1500).getInt(1500);
 		ACHtimeToGrind = HMConfig.getOrCreateIntProperty("ACH Time To Grind", Configuration.CATEGORY_GENERAL, 1501).getInt(1501);
@@ -184,6 +159,7 @@ public class HawksMachinery implements IFuelHandler, ICraftingHandler
 		ingots = new HawkItemIngots(ingotsID - 256);
 		parts = new HawkItemParts(partsID - 256);
 		plating = new HawkItemPlating(platingID - 256);
+		blueprints = new HawkItemBlueprints(blueprintID - 256);
 		
 		UniversalElectricity.registerMod(this, "Hawk's Machinery", "0.7.0");
 		NetworkRegistry.instance().registerGuiHandler(this, this.PROXY);
@@ -191,7 +167,12 @@ public class HawksMachinery implements IFuelHandler, ICraftingHandler
 		GameRegistry.registerFuelHandler(this);
 		GameRegistry.registerCraftingHandler(this);
 		AchievementPage.registerAchievementPage(HawkAchievements.HAWKSPAGE);
+		VillagerRegistry.instance().registerVillageTradeHandler(0, new HawkVillagerTrades());
+		VillagerRegistry.instance().registerVillageTradeHandler(1, new HawkVillagerTrades());
+		VillagerRegistry.instance().registerVillageTradeHandler(2, new HawkVillagerTrades());
 		VillagerRegistry.instance().registerVillageTradeHandler(3, new HawkVillagerTrades());
+		VillagerRegistry.instance().registerVillageTradeHandler(4, new HawkVillagerTrades());
+		
 		
 		DungeonHooks.addDungeonLoot(new ItemStack(ingots, 1, 0), 075, 1, 4);
 		DungeonHooks.addDungeonLoot(new ItemStack(ingots, 1, 1), 075, 1, 4);
@@ -230,7 +211,7 @@ public class HawksMachinery implements IFuelHandler, ICraftingHandler
 		
 	}
 	
-	public static HawksMachinery getModInstance()
+	public static HawksMachinery getInstance()
 	{
 		return INSTANCE;
 	}
@@ -277,6 +258,7 @@ public class HawksMachinery implements IFuelHandler, ICraftingHandler
 		RECIPE_GIVER.addShapelessRecipe(new ItemStack(ingots, 9, 1), new Object[]{new ItemStack(blockMetalStorage, 1, 1)});
 		RECIPE_GIVER.addShapelessRecipe(new ItemStack(ingots, 9, 2), new Object[]{new ItemStack(blockMetalStorage, 1, 2)});
 		
+		
 		RECIPE_GIVER.addSmelting(new ItemStack(dustRefined, 1, 2), new ItemStack(Block.thinGlass));
 		RECIPE_GIVER.addSmelting(new ItemStack(dustRefined, 1, 3), new ItemStack(Item.ingotIron));
 		RECIPE_GIVER.addSmelting(new ItemStack(dustRefined, 1, 4), new ItemStack(Item.ingotGold));
@@ -286,7 +268,7 @@ public class HawksMachinery implements IFuelHandler, ICraftingHandler
 		RECIPE_GIVER.addSmelting(new ItemStack(dustRefined, 1, 8), new ItemStack(ingots, 1, 1));
 		RECIPE_GIVER.addSmelting(new ItemStack(dustRefined, 1, 9), new ItemStack(ingots, 1, 2));
 		RECIPE_GIVER.addSmelting(new ItemStack(dustRaw, 1, 8), new ItemStack(Block.obsidian));
-		RECIPE_GIVER.addSmelting(new ItemStack(blockGrinder, 1, 0), new ItemStack(plating, 0, 6));
+		RECIPE_GIVER.addSmelting(new ItemStack(blockGrinder, 1, 0), new ItemStack(plating, 6, 0));
 		
 		RECIPE_GIVER.addSmelting(new ItemStack(blockOre, 1, 0), new ItemStack(ingots, 1, 0));
 		RECIPE_GIVER.addSmelting(new ItemStack(blockOre, 1, 1), new ItemStack(ingots, 1, 1));

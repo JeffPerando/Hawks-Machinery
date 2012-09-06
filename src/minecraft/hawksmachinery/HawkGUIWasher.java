@@ -30,8 +30,8 @@ public class HawkGUIWasher extends GuiContainer
 	@Override
 	protected void drawGuiContainerForegroundLayer()
 	{
-		this.fontRenderer.drawString(ElectricUnit.getVoltDisplay((int)this.tileEntity.getVoltage()), 75, 60, 4210752);
-		this.fontRenderer.drawString(ElectricUnit.getWattDisplay(this.tileEntity.electricityStored), 75, 70, 4210752);
+		this.fontRenderer.drawString(ElectricUnit.getVoltDisplay((int)this.tileEntity.getVoltage()), 116, 60, 4210752);
+		this.fontRenderer.drawString(ElectricUnit.getWattDisplay(this.tileEntity.electricityStored), 116, 70, 4210752);
 		
 	}
 	
@@ -53,6 +53,7 @@ public class HawkGUIWasher extends GuiContainer
 	       int scale = this.tileEntity.getWashingStatus(24);
 	       this.drawTexturedModalRect(containerWidth + 77, containerHeight + 24, 176, 0, 23 - scale, 20);
        }
+       
    }
    
 }

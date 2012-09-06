@@ -13,7 +13,7 @@ import cpw.mods.fml.common.registry.VillagerRegistry.IVillageTradeHandler;
 
 /**
  * 
- * Where all trades are done.
+ * Where all trades are handled.
  * 
  * @author Elusivehawk
  */
@@ -30,7 +30,30 @@ public class HawkVillagerTrades implements IVillageTradeHandler
 		
 		if (profession == 1)
 		{
-			//TODO: Make Librarian trades.
+			for (int emeralds = 10; emeralds <= 58; ++emeralds)
+			{
+				if (emeralds <= 17)
+				{
+					recipeList.add(new MerchantRecipe(new ItemStack(Item.emerald, emeralds), new ItemStack(Item.writableBook, 1), new ItemStack(BASEMOD.blueprints, 1, 10)));
+					
+				}
+				
+				if (emeralds >= 24 && emeralds <= 32)
+				{
+					for (int meta = 0; meta <= 9; ++meta)
+					{
+						recipeList.add(new MerchantRecipe(new ItemStack(Item.emerald, emeralds), new ItemStack(Item.writableBook, 1), new ItemStack(BASEMOD.blueprints, 1, meta)));
+					}
+					
+				}
+				
+				if (emeralds >= 52)
+				{
+					recipeList.add(new MerchantRecipe(new ItemStack(Item.emerald, emeralds), new ItemStack(Item.writableBook, 1), new ItemStack(BASEMOD.blueprints, 1, 11)));
+				}
+				
+			}
+			
 		}
 		
 		if (profession == 2)
