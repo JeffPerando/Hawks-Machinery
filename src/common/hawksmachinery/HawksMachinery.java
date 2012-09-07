@@ -28,6 +28,7 @@ import net.minecraftforge.common.EnumHelper;
 import net.minecraftforge.oredict.OreDictionary;
 import cpw.mods.fml.common.ICraftingHandler;
 import cpw.mods.fml.common.IFuelHandler;
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
 import cpw.mods.fml.common.Mod.Instance;
@@ -90,7 +91,7 @@ public class HawksMachinery implements IFuelHandler, ICraftingHandler
 	public static final String BLOCK_TEXTURE_FILE = "/hawksmachinery/textures/blocks.png";
 	public static final String ITEM_TEXTURE_FILE = "/hawksmachinery/textures/items.png";
 	
-	public static Configuration HMConfig = new Configuration(new File("config/HawksMachinery/HMConfig.cfg"));
+	public static Configuration HMConfig = new Configuration(new File(Loader.instance().getConfigDir() + "config/HawksMachinery/HMConfig.cfg"));
 	
 	/**
 	 * Note: DO NOT MOVE THIS! I'm serious, I don't want to see any refactor job move this, due to the fact that doing so is A VERY BAD IDEA!
