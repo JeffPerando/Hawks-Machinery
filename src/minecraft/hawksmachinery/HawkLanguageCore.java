@@ -22,7 +22,7 @@ public class HawkLanguageCore
 	
 	public static void addToolTips()
 	{
-		LANG.addNameForObject(BASEMOD.blockGrinder, "en_US", "Grinder");
+		LANG.addNameForObject(BASEMOD.blockGrinder, "en_US", "Crusher");
 		LANG.addNameForObject(BASEMOD.blockWasher, "en_US", "Washer");
 		
 		LANG.addStringLocalization(ACH.timeToGrind.getName(), "en_US", "Time to Grind!");

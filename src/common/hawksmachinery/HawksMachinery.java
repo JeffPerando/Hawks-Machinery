@@ -16,9 +16,6 @@ import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.EnumToolMaterial;
 import net.minecraft.src.IInventory;
 import net.minecraft.src.Item;
-import net.minecraft.src.ItemAxe;
-import net.minecraft.src.ItemPickaxe;
-import net.minecraft.src.ItemSpade;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.StepSound;
 import net.minecraftforge.common.AchievementPage;
@@ -49,7 +46,7 @@ import cpw.mods.fml.common.registry.VillagerRegistry;
  * 
  * @author Elusivehawk
  */
-@Mod(modid = "HawksMachinery", name = "Hawk's Machinery", version = "Alpha v1.3.0", dependencies = "after:BasicComponents")
+@Mod(modid = "HawksMachinery", name = "Hawk's Machinery", version = "Alpha v1.2.6", dependencies = "after:BasicComponents")
 @NetworkMod(channels = {"HawksMachinery"}, clientSideRequired = true, serverSideRequired = false, packetHandler = PacketManager.class)
 public class HawksMachinery implements IFuelHandler, ICraftingHandler
 {
@@ -91,7 +88,7 @@ public class HawksMachinery implements IFuelHandler, ICraftingHandler
 	public static final String BLOCK_TEXTURE_FILE = "/hawksmachinery/textures/blocks.png";
 	public static final String ITEM_TEXTURE_FILE = "/hawksmachinery/textures/items.png";
 	
-	public static Configuration HMConfig = new Configuration(new File(Loader.instance().getConfigDir() + "config/HawksMachinery/HMConfig.cfg"));
+	public static Configuration HMConfig = new Configuration(new File(Loader.instance().getConfigDir(), "config/HawksMachinery/HMConfig.cfg"));
 	
 	/**
 	 * Note: DO NOT MOVE THIS! I'm serious, I don't want to see any refactor job move this, due to the fact that doing so is A VERY BAD IDEA!
@@ -122,7 +119,7 @@ public class HawksMachinery implements IFuelHandler, ICraftingHandler
 		
 		HMConfig.load();
 		
-		grinderID = HMConfig.getOrCreateBlockIdProperty("Grinder", 3960).getInt(3960);
+		grinderID = HMConfig.getOrCreateBlockIdProperty("Crusher", 3960).getInt(3960);
 		oreID = HMConfig.getOrCreateBlockIdProperty("Ores", 3961).getInt(3961);
 		metalStorageID = HMConfig.getOrCreateBlockIdProperty("Metal Storage Blocks", 3962).getInt(3962);
 		washerID = HMConfig.getOrCreateBlockIdProperty("Washer", 3963).getInt(3963);
@@ -177,7 +174,7 @@ public class HawksMachinery implements IFuelHandler, ICraftingHandler
 		DungeonHooks.addDungeonLoot(new ItemStack(ingots, 1, 1), 075, 1, 4);
 		DungeonHooks.addDungeonLoot(new ItemStack(ingots, 1, 2), 075, 1, 4);
 		
-		GameRegistry.registerTileEntity(HawkTileEntityGrinder.class, "HMGrinder");
+		GameRegistry.registerTileEntity(HawkTileEntityGrinder.class, "HMCrusher");
 		GameRegistry.registerTileEntity(HawkTileEntityWasher.class, "HMWasher");
 		
 		OreDictionary.registerOre("ingotTitanium", new ItemStack(ingots, 1, 0));
@@ -210,7 +207,7 @@ public class HawksMachinery implements IFuelHandler, ICraftingHandler
 		
 	}
 	
-	public static HawksMachinery getInstance()
+	public static HawksMachinery instance()
 	{
 		return INSTANCE;
 	}
@@ -222,9 +219,10 @@ public class HawksMachinery implements IFuelHandler, ICraftingHandler
 	{
 		
 		RECIPE_GIVER.addRecipe(new ItemStack(blockGrinder, 1), new Object[]{"TPT", "TMT", "TBT", 'T', new ItemStack(plating, 1, 0), 'P', Item.pickaxeSteel, 'M', BasicComponents.itemMotor, 'B', (((ItemBattery)BasicComponents.itemBattery).getUnchargedItemStack())});
+		RECIPE_GIVER.addRecipe(new ItemStack(blockGrinder, 1), new Object[]{" CB", "PMb", "TTT", 'T', new ItemStack(plating, 1, 0), 'P', Item.pickaxeSteel, 'M', BasicComponents.itemMotor, 'b', (((ItemBattery)BasicComponents.itemBattery).getUnchargedItemStack()), 'C', new ItemStack(BasicComponents.itemCircuit, 1, 0), 'B', new ItemStack(blueprints, 1, 0)});
 		RECIPE_GIVER.addRecipe(new ItemStack(BasicComponents.itemBattery), new Object[]{" x ", "xrx", "xcx", 'x', BasicComponents.itemTinIngot, 'c', new ItemStack(dustRaw, 1, 0), 'r', Item.redstone});
 		RECIPE_GIVER.addRecipe(new ItemStack(Block.torchWood, 4), new Object[]{"c", "s", 'c', new ItemStack(dustRaw, 1, 0), 's', Item.stick});
-		RECIPE_GIVER.addRecipe(new ItemStack(Block.glass, 4), new Object[]{"GG", "GG", 'G', new ItemStack(dustRefined, 1, 2)});
+		RECIPE_GIVER.addRecipe(new ItemStack(Block.glass, 1), new Object[]{"GG", "GG", 'G', new ItemStack(dustRefined, 1, 2)});
 		
 		RECIPE_GIVER.addRecipe(new ItemStack(blockMetalStorage, 1, 0), new Object[]{"MMM", "MMM", "MMM", 'M', "ingotTitanium"});
 		RECIPE_GIVER.addRecipe(new ItemStack(blockMetalStorage, 1, 1), new Object[]{"MMM", "MMM", "MMM", 'M', "ingotAluminum"});
@@ -232,10 +230,10 @@ public class HawksMachinery implements IFuelHandler, ICraftingHandler
 		RECIPE_GIVER.addRecipe(new ItemStack(blockMetalStorage, 1, 3), new Object[]{"MMM", "MMM", "MMM", 'M', "ingotEndium"});
 		
 		RECIPE_GIVER.addRecipe(new ItemStack(parts, 1, 0), new Object[]{" B ", "PSM", " B ", 'P', BasicComponents.itemSteelPlate, 'S', BasicComponents.itemSteelIngot, 'M', BasicComponents.itemMotor, 'B', Item.blazePowder});
-		RECIPE_GIVER.addRecipe(new ItemStack(parts, 1, 1), new Object[]{"TLT", "TBT", " B ", 'T', "ingotTitanium", 'B', Item.blazeRod, 'L', new ItemStack(parts, 1, 3)});
+		RECIPE_GIVER.addRecipe(new ItemStack(parts, 1, 1), new Object[]{" B ", "RGR", "SLS", 'B', Item.blazePowder, 'R', Item.redstone, 'G', Block.glass, 'S', "ingotSteel", 'L', new ItemStack(parts, 1, 3)});
 		RECIPE_GIVER.addRecipe(new ItemStack(parts, 1, 2), new Object[]{" T ", "TET", " T ", 'T', "ingotTitanium", 'E', Item.enderPearl});
 		RECIPE_GIVER.addRecipe(new ItemStack(parts, 1, 3), new Object[]{" G ", "GBG", "cCc", 'G', Block.thinGlass, 'B', Item.blazeRod, 'c', "ingotCopper", 'C', BasicComponents.blockCopperWire});
-		RECIPE_GIVER.addRecipe(new ItemStack(parts, 1, 4), new Object[]{"CCC", "CCC", 'C', BasicComponents.blockCopperWire});
+		RECIPE_GIVER.addRecipe(new ItemStack(parts, 1, 4), new Object[]{"CC", "CC", 'C', BasicComponents.blockCopperWire});
 		RECIPE_GIVER.addRecipe(new ItemStack(parts, 1, 5), new Object[]{"scs", 's', "ingotSteel", 'c', new ItemStack(parts, 1, 4)});
 		
 		RECIPE_GIVER.addRecipe(new ItemStack(plating, 1, 0), new Object[]{"TT", "TT", 'T', "ingotTitanium"});
@@ -243,14 +241,7 @@ public class HawksMachinery implements IFuelHandler, ICraftingHandler
 		RECIPE_GIVER.addRecipe(new ItemStack(plating, 1, 2), new Object[]{"SS", "SS", 'S', "ingotSilver"});
 		RECIPE_GIVER.addRecipe(new ItemStack(plating, 1, 3), new Object[]{"EE", "EE", 'E', "ingotEndium"});
 		
-		RECIPE_GIVER.addShapelessRecipe(BasicComponents.itemSteelDust, new Object[]{new ItemStack(dustRaw, 1, 0), new ItemStack(dustRefined, 1, 1)});
-		RECIPE_GIVER.addShapelessRecipe(new ItemStack(dustRefined, 2, 3), new Object[]{Item.bucketWater, new ItemStack(dustRaw, 1, 1), new ItemStack(dustRaw, 1, 1)});
-		RECIPE_GIVER.addShapelessRecipe(new ItemStack(dustRefined, 2, 4), new Object[]{Item.bucketWater, new ItemStack(dustRaw, 1, 2), new ItemStack(dustRaw, 1, 2)});
-		RECIPE_GIVER.addShapelessRecipe(new ItemStack(dustRefined, 2, 5), new Object[]{Item.bucketWater, new ItemStack(dustRaw, 1, 3), new ItemStack(dustRaw, 1, 3)});
-		RECIPE_GIVER.addShapelessRecipe(new ItemStack(dustRefined, 2, 6), new Object[]{Item.bucketWater, new ItemStack(dustRaw, 1, 4), new ItemStack(dustRaw, 1, 4)});
-		RECIPE_GIVER.addShapelessRecipe(new ItemStack(dustRefined, 2, 7), new Object[]{Item.bucketWater, new ItemStack(dustRaw, 1, 5), new ItemStack(dustRaw, 1, 5)});
-		RECIPE_GIVER.addShapelessRecipe(new ItemStack(dustRefined, 2, 8), new Object[]{Item.bucketWater, new ItemStack(dustRaw, 1, 6), new ItemStack(dustRaw, 1, 6)});
-		RECIPE_GIVER.addShapelessRecipe(new ItemStack(dustRefined, 2, 9), new Object[]{Item.bucketWater, new ItemStack(dustRaw, 1, 7), new ItemStack(dustRaw, 1, 7)});
+		RECIPE_GIVER.addShapelessRecipe(BasicComponents.itemSteelDust, new Object[]{new ItemStack(dustRaw, 1, 0), new ItemStack(dustRefined, 1, 3)});
 		RECIPE_GIVER.addShapelessRecipe(new ItemStack(Item.fireballCharge, 3), new Object[]{Item.blazePowder, Item.gunpowder, new ItemStack(dustRaw, 1, 0)});
 		
 		RECIPE_GIVER.addShapelessRecipe(new ItemStack(ingots, 9, 0), new Object[]{new ItemStack(blockMetalStorage, 1, 0)});
@@ -267,7 +258,7 @@ public class HawksMachinery implements IFuelHandler, ICraftingHandler
 		RECIPE_GIVER.addSmelting(new ItemStack(dustRefined, 1, 8), new ItemStack(ingots, 1, 1));
 		RECIPE_GIVER.addSmelting(new ItemStack(dustRefined, 1, 9), new ItemStack(ingots, 1, 2));
 		RECIPE_GIVER.addSmelting(new ItemStack(dustRaw, 1, 8), new ItemStack(Block.obsidian));
-		RECIPE_GIVER.addSmelting(new ItemStack(blockGrinder, 1, 0), new ItemStack(plating, 6, 0));
+		RECIPE_GIVER.addSmelting(new ItemStack(blockGrinder, 1, 0), new ItemStack(plating, 3, 0));
 		
 		RECIPE_GIVER.addSmelting(new ItemStack(blockOre, 1, 0), new ItemStack(ingots, 1, 0));
 		RECIPE_GIVER.addSmelting(new ItemStack(blockOre, 1, 1), new ItemStack(ingots, 1, 1));
@@ -376,8 +367,14 @@ public class HawksMachinery implements IFuelHandler, ICraftingHandler
 		PROCESS_RECIPES.addHawkExplosive(new ItemStack(Item.gunpowder), 1);
 		PROCESS_RECIPES.addHawkExplosive(new ItemStack(Item.fireballCharge), 1);
 		
-		
+		//WASHING RECIPES.
 		PROCESS_RECIPES.addHawkProcessingRecipe(new ItemStack(dustRaw, 1, 1), new ItemStack(dustRefined, 1, 3), 2);
+		PROCESS_RECIPES.addHawkProcessingRecipe(new ItemStack(dustRaw, 1, 2), new ItemStack(dustRefined, 1, 4), 2);
+		PROCESS_RECIPES.addHawkProcessingRecipe(new ItemStack(dustRaw, 1, 3), new ItemStack(dustRefined, 1, 5), 2);
+		PROCESS_RECIPES.addHawkProcessingRecipe(new ItemStack(dustRaw, 1, 4), new ItemStack(dustRefined, 1, 6), 2);
+		PROCESS_RECIPES.addHawkProcessingRecipe(new ItemStack(dustRaw, 1, 5), new ItemStack(dustRefined, 1, 7), 2);
+		PROCESS_RECIPES.addHawkProcessingRecipe(new ItemStack(dustRaw, 1, 6), new ItemStack(dustRefined, 1, 8), 2);
+		PROCESS_RECIPES.addHawkProcessingRecipe(new ItemStack(dustRaw, 1, 7), new ItemStack(dustRefined, 1, 9), 2);
 		
 	}
 	

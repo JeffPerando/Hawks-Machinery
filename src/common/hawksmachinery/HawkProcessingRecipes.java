@@ -15,7 +15,7 @@ import net.minecraftforge.oredict.OreDictionary;
  * @author Elusivehawk
  *
  * @notice PROCESSING TYPES:
- * 1 - GRINDING
+ * 1 - CRUSHING
  * 2 - WASHING
  */
 public class HawkProcessingRecipes

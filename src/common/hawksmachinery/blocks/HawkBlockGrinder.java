@@ -41,7 +41,7 @@ public class HawkBlockGrinder extends BlockMachine
 	{
 		if (!world.isRemote)
 		{
-			player.openGui(BASEMOD.getInstance(), 0, world, x, y, z);
+			player.openGui(BASEMOD.instance(), 0, world, x, y, z);
 			return true;
 		}
 		

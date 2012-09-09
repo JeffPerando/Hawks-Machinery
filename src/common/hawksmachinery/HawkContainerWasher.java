@@ -23,9 +23,9 @@ public class HawkContainerWasher extends Container
 	public HawkContainerWasher(InventoryPlayer playerInventory, HawkTileEntityWasher tileEntity)
 	{
 		this.tileEntity = tileEntity;
-		this.addSlotToContainer(new SlotElectricItem(tileEntity, 0, 36, 47));
-		this.addSlotToContainer(new Slot(tileEntity, 1, 58, 52));
-		this.addSlotToContainer(new Slot(tileEntity, 2, 36, 15));
+		this.addSlotToContainer(new SlotElectricItem(tileEntity, 0, 36, 47));//Electric item
+		this.addSlotToContainer(new Slot(tileEntity, 1, 58, 52));//Water input
+		this.addSlotToContainer(new Slot(tileEntity, 2, 36, 15));//Actual input
 		this.addSlotToContainer(new SlotProcessorsOutput(playerInventory.player, tileEntity, 3, 107, 32));
 		this.addSlotToContainer(new SlotProcessorsOutput(playerInventory.player, tileEntity, 4, 125, 32));
 		this.addSlotToContainer(new SlotProcessorsOutput(playerInventory.player, tileEntity, 5, 143, 32));

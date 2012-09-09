@@ -335,7 +335,7 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 	@Override
 	public String getInvName()
 	{
-		return "HMGrinder";
+		return "HMCrusher";
 	}
 	
 	@Override

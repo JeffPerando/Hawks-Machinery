@@ -32,7 +32,7 @@ public class HawkTileEntityWasher extends TileEntityElectricUnit implements IInv
 {
 	public int ELECTRICITY_REQUIRED = 10;
 	
-	public int TICKS_REQUIRED = 60;
+	public int TICKS_REQUIRED = 100;
 	
 	public ForgeDirection facingDirection = ForgeDirection.UNKNOWN;
 	
@@ -79,10 +79,16 @@ public class HawkTileEntityWasher extends TileEntityElectricUnit implements IInv
 				}
 			}
 			
-			if (this.containingItems[1] == new ItemStack(Item.bucketWater, 1) && this.waterUnits <= this.WATER_LIMIT)
+			this.electricityStored += watts;
+			
+			if (this.containingItems[1] != null)
 			{
-				this.waterUnits += 1.0;
-				this.containingItems[1] = null;
+				if (this.containingItems[1].getItem() == Item.bucketWater && this.waterUnits + 1.0F <= this.WATER_LIMIT)
+				{
+					this.waterUnits += 1.0;
+					this.containingItems[1] = new ItemStack(Item.bucketEmpty, 1);
+				}
+				
 			}
 			
 			if (this.canWash())
@@ -95,6 +101,7 @@ public class HawkTileEntityWasher extends TileEntityElectricUnit implements IInv
 				if (this.canWash() && this.workTicks > 0)
 				{
 					this.workTicks -= this.getTickInterval();
+					this.waterUnits -= 0.01F * this.getTickInterval();
 					
 					if (this.workTicks < this.getTickInterval())
 					{
@@ -125,10 +132,10 @@ public class HawkTileEntityWasher extends TileEntityElectricUnit implements IInv
 				this.waterUnits = this.WATER_LIMIT;
 			}
 			
-			if (this.worldObj.getBlockId(this.xCoord, this.yCoord - 1, this.zCoord) == Block.waterStill.blockID && this.waterUnits < this.WATER_LIMIT)
+			if (this.worldObj.getBlockId(this.xCoord, this.yCoord + 1, this.zCoord) == Block.waterStill.blockID && this.waterUnits + 1.0F <= this.WATER_LIMIT)
 			{
 				this.waterUnits += 1.0F;
-				this.worldObj.setBlockWithNotify(this.xCoord, this.yCoord - 1, this.zCoord, 0);
+				this.worldObj.setBlockWithNotify(this.xCoord, this.yCoord + 1, this.zCoord, 0);
 			}
 			
 			PacketManager.sendTileEntityPacket(this, "HawksMachinery", this.workTicks, this.electricityStored, this.waterUnits);
@@ -148,15 +155,10 @@ public class HawkTileEntityWasher extends TileEntityElectricUnit implements IInv
 			{
 				ItemStack var1 = HawkProcessingRecipes.getWashingResult(this.containingItems[2]);
 				if (var1 == null) return false;
-				if (this.containingItems[3] == null || this.containingItems[4] == null || this.containingItems[5] == null) return true;
-				if (!this.containingItems[3].isItemEqual(var1) && !this.containingItems[4].isItemEqual(var1) && !this.containingItems[5].isItemEqual(var1)) return false;
-				
-				int result1 = containingItems[3].stackSize + var1.stackSize;
-				int result2 = containingItems[4].stackSize + var1.stackSize;
-				int result3 = containingItems[5].stackSize + var1.stackSize;
-				
-				return ((result1 <= getInventoryStackLimit() || result2 <= getInventoryStackLimit() || result3 <= getInventoryStackLimit()) && 
-						(result1 <= var1.getMaxStackSize() || result2 <= var1.getMaxStackSize() || result3 <= var1.getMaxStackSize()));
+				if (this.containingItems[3] == null) return true;
+				if (!this.containingItems[3].isItemEqual(var1)) return false;
+				int result = containingItems[3].stackSize + var1.stackSize;
+				return (result <= getInventoryStackLimit() && result <= var1.getMaxStackSize());
 			}
 			else
 			{
@@ -170,38 +172,23 @@ public class HawkTileEntityWasher extends TileEntityElectricUnit implements IInv
 		if (this.canWash())
 		{
 			ItemStack newItem = HawkProcessingRecipes.getWashingResult(this.containingItems[2]);
-			ItemStack secondItem = HawkProcessingRecipes.getWashingSecondaryResult(this.containingItems[2], this.worldObj.rand);
-			boolean isWashed = false;
 			
-			for (int counter = 3; counter <= this.containingItems.length; ++counter)
+			if (this.canWash())
 			{
-				if (this.containingItems[counter] == null)
+				if (this.containingItems[3] == null)
 				{
-					this.containingItems[counter] = newItem.copy();
-					isWashed = true;
+					this.containingItems[3] = newItem.copy();
 				}
-				else if (this.containingItems[counter].isItemEqual(newItem))
+				else if (this.containingItems[3].isItemEqual(newItem))
 				{
-					this.containingItems[counter].stackSize += newItem.stackSize;
-					isWashed = true;
+					++this.containingItems[3].stackSize;
 				}
 				
-				if (isWashed)
+				--this.containingItems[2].stackSize;
+				
+				if (this.containingItems[2].stackSize <= 0)
 				{
-					--this.containingItems[2].stackSize;
-					this.waterUnits -= 1.0F;
-					
-					if (secondItem != null)
-					{
-						this.worldObj.spawnEntityInWorld(new EntityItem(this.worldObj, this.xCoord + 1, this.yCoord, this.zCoord, secondItem));
-					}
-					
-					if (this.containingItems[2].stackSize <= 0)
-					{
-						this.containingItems[2] = null;
-					}
-					
-					break;
+					this.containingItems[2] = null;
 				}
 				
 			}
@@ -222,6 +209,12 @@ public class HawkTileEntityWasher extends TileEntityElectricUnit implements IInv
 		{
 			e.printStackTrace();
 		}	
+	}
+	
+	@Override
+	public int getTickInterval()
+	{
+		return 1;
 	}
 	
 	@Override
@@ -428,7 +421,7 @@ public class HawkTileEntityWasher extends TileEntityElectricUnit implements IInv
 			}
 		}
 	}
-	
+
 	@Override
 	public boolean canReceiveFromSide(ForgeDirection side)
 	{

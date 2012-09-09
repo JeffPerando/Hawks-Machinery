@@ -21,11 +21,11 @@ public class HawkGUIWasher extends GuiContainer
 	private int containerWidth;
 	private int containerHeight;	
 	
-	public HawkGUIWasher(InventoryPlayer par1InventoryPlayer, HawkTileEntityWasher tileEntity)
-    {
-	       super(new HawkContainerWasher(par1InventoryPlayer, tileEntity));
-	       this.tileEntity = tileEntity;
-    }
+	public HawkGUIWasher(InventoryPlayer playerInv, HawkTileEntityWasher tileEntity)
+	{
+		super(new HawkContainerWasher(playerInv, tileEntity));
+		this.tileEntity = tileEntity;
+	}
 	
 	@Override
 	protected void drawGuiContainerForegroundLayer()
@@ -38,22 +38,28 @@ public class HawkGUIWasher extends GuiContainer
 	/**
 	 * Draw the background layer for the GuiContainer (everything behind the items)
 	 */
-   @Override
-   protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3)
-   {
-	   int var4 = this.mc.renderEngine.getTexture(BASEMOD.GUI_PATH + "/Washer.png");
-       GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-       this.mc.renderEngine.bindTexture(var4);
-       this.containerWidth = (this.width - this.xSize) / 2;
-       this.containerHeight = (this.height - this.ySize) / 2;
-       this.drawTexturedModalRect(this.containerWidth, this.containerHeight, 0, 0, this.xSize, this.ySize);
-       
-       if(this.tileEntity.workTicks > 0)
-       {
-	       int scale = this.tileEntity.getWashingStatus(24);
-	       this.drawTexturedModalRect(containerWidth + 77, containerHeight + 24, 176, 0, 23 - scale, 20);
-       }
-       
-   }
-   
+	@Override
+	protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3)
+	{
+		int var4 = this.mc.renderEngine.getTexture(BASEMOD.GUI_PATH + "/Washer.png");
+		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+		this.mc.renderEngine.bindTexture(var4);
+		this.containerWidth = (this.width - this.xSize) / 2;
+		this.containerHeight = (this.height - this.ySize) / 2;
+		this.drawTexturedModalRect(this.containerWidth, this.containerHeight, 0, 0, this.xSize, this.ySize);
+		
+		if (this.tileEntity.workTicks > 0)
+		{
+			int scale = this.tileEntity.getWashingStatus(this.tileEntity.TICKS_REQUIRED);
+			this.drawTexturedModalRect(containerWidth + 52, containerHeight + 28, 176, 0, 52 - scale, 20);
+		}
+		
+		if (this.tileEntity.waterUnits > 0)
+		{
+			int scale = (int)this.tileEntity.waterUnits;
+			this.drawTexturedModalRect(containerWidth + 7, containerHeight + 32 - (scale), 177, 23, 32, (scale * 3));
+		}
+		
+	}
+	
 }
