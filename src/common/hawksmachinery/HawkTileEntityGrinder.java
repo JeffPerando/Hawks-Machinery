@@ -498,42 +498,65 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 	@Override
 	public ItemStack offerItem(Object source, ItemStack offer)
 	{
-		if (HawkProcessingRecipes.getGrindingResult(offer) != null)
+		if (offer != null)
 		{
-			if (this.containingItems[1] == null)
+			if (HawkProcessingRecipes.getGrindingResult(offer) != null)
 			{
-				this.containingItems[1] = offer;
-				return null;
+				if (this.containingItems[1] == null)
+				{
+					this.containingItems[1] = offer;
+					System.out.println("Stuff put into 1!");
+					return null;
+				}
+				else
+				{
+					if (this.containingItems[1].isItemEqual(offer))
+					{
+						if (this.containingItems[1].stackSize + offer.stackSize <= 64)
+						{
+							this.containingItems[1].stackSize += offer.stackSize;
+							System.out.println("Crap put into 1!");
+							return null;
+						}
+						else
+						{
+							int extraAmount = (this.containingItems[1].stackSize + offer.stackSize) - 64;
+							
+							this.containingItems[1].stackSize += offer.stackSize;
+							System.out.println("Dung put into 1!");
+							return new ItemStack(offer.getItem(), extraAmount, offer.getItemDamage());
+						}
+					}
+				}
 			}
 			else
 			{
-				if (this.containingItems[1].isItemEqual(offer))
+				if (offer.getItem() instanceof IItemElectric)
 				{
-					if (this.containingItems[1].stackSize + offer.stackSize <= 64)
+					if (((IItemElectric)offer.getItem()).canProduceElectricity())
 					{
-						this.containingItems[1].stackSize += offer.stackSize;
-						return null;
-					}
-					else
-					{
-						int extraAmount = (this.containingItems[1].stackSize + offer.stackSize) - 64;
+						if (this.containingItems[0] !=null)
+						{
+							this.containingItems[0] = offer;
+							System.out.println("Bittery put into 0!");
+							return null;
+						}
+						else
+						{
+							if (((IItemElectric)offer.getItem()).getElectricityStored(offer) > ((IItemElectric)offer.getItem()).getElectricityStored(this.containingItems[0]))
+							{
+								ItemStack oldElectricItem = this.containingItems[0];
+								
+								this.containingItems[0] = offer;
+								System.out.println("Battery put into 0!");
+								return oldElectricItem;
+							}
+						}
 						
-						this.containingItems[1].stackSize += offer.stackSize;
-						return new ItemStack(offer.getItem(), extraAmount, offer.getItemDamage());
 					}
 				}
 			}
-		}
-		else
-		{
-			if (offer.getItem() instanceof IItemElectric)
-			{
-				if (((IItemElectric)offer.getItem()).canProduceElectricity())
-				{
-					this.containingItems[0] = offer;
-					return null;
-				}
-			}
+			
 		}
 		
 		return offer;
@@ -542,6 +565,7 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 	@Override
 	public ItemStack requestItem(Object source)
 	{
+		System.out.println("Stuff requested!");
 		return this.containingItems[2];
 	}
 	
