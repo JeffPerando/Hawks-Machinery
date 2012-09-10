@@ -50,7 +50,7 @@ public class HMClientProxy extends HMCommonProxy
 			switch (ID)
 			{
 				case 0: return new HawkGUIGrinder(player.inventory, ((HawkTileEntityGrinder)tileEntity));
-				case 1: return new HawkGUIWasher(player.inventory, ((HawkTileEntityWasher)tileEntity));
+				//case 1: return new HawkGUIWasher(player.inventory, ((HawkTileEntityWasher)tileEntity));
 				
 			}
         }

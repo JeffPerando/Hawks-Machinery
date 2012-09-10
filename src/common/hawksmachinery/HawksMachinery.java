@@ -62,20 +62,20 @@ public class HawksMachinery implements IFuelHandler, ICraftingHandler
 	public static int grinderID;
 	public static int oreID;
 	public static int metalStorageID;
-	public static int washerID;
-	public static int verticalDrillID;
-	public static int inductionFurnaceID;
+	//public static int washerID;
+	//public static int verticalDrillID;
+	//public static int inductionFurnaceID;
 	
 	public static int dustRawID;
 	public static int dustRefinedID;
 	public static int ingotsID;
 	public static int partsID;
 	public static int platingID;
-	public static int drillID;
-	public static int blueprintID;
+	//public static int drillID;
+	//public static int blueprintID;
 	
 	public static int ACHprospector;
-	public static int ACHtimeToGrind;
+	public static int ACHtimeToCrush;
 	public static int ACHcompactCompact;
 	public static int ACHminerkiin;
 	
@@ -93,10 +93,10 @@ public class HawksMachinery implements IFuelHandler, ICraftingHandler
 	/**
 	 * Note: DO NOT MOVE THIS! I'm serious, I don't want to see any refactor job move this, due to the fact that doing so is A VERY BAD IDEA!
 	 */
-	public static Block blockGrinder;
+	public static Block blockCrusher;
 	public static Block blockOre;
 	public static Block blockMetalStorage;
-	public static Block blockWasher;
+	//public static Block blockWasher;
 	
 	/**
 	 * Raw dusts! 0 - Coal, 1 - Iron, 2 - Gold, 3 - Copper, 4 - Tin, 5 - Titanium, 6 - Aluminum, 7 - Silver, 8- Obsidian.
@@ -110,7 +110,7 @@ public class HawksMachinery implements IFuelHandler, ICraftingHandler
 	public static Item ingots;
 	public static Item parts;
 	public static Item plating;
-	public static Item blueprints;
+	//public static Item blueprints;
 	
 	@PreInit
 	public void preInit(FMLPreInitializationEvent event)
@@ -122,9 +122,9 @@ public class HawksMachinery implements IFuelHandler, ICraftingHandler
 		grinderID = HMConfig.getOrCreateBlockIdProperty("Crusher", 3960).getInt(3960);
 		oreID = HMConfig.getOrCreateBlockIdProperty("Ores", 3961).getInt(3961);
 		metalStorageID = HMConfig.getOrCreateBlockIdProperty("Metal Storage Blocks", 3962).getInt(3962);
-		washerID = HMConfig.getOrCreateBlockIdProperty("Washer", 3963).getInt(3963);
-		verticalDrillID = HMConfig.getOrCreateBlockIdProperty("Vertical Mining Drill", 3964).getInt(3964);
-		inductionFurnaceID = HMConfig.getOrCreateBlockIdProperty("Induction Furnace", 3965).getInt(3965);
+		//washerID = HMConfig.getOrCreateBlockIdProperty("Washer", 3963).getInt(3963);
+		//verticalDrillID = HMConfig.getOrCreateBlockIdProperty("Vertical Mining Drill", 3964).getInt(3964);
+		//inductionFurnaceID = HMConfig.getOrCreateBlockIdProperty("Induction Furnace", 3965).getInt(3965);
 		
 		generateTitanium = HMConfig.getOrCreateBooleanProperty("Generate Titanium", Configuration.CATEGORY_GENERAL, true).getBoolean(true);
 		generateAluminum = HMConfig.getOrCreateBooleanProperty("Generate Aluminum", Configuration.CATEGORY_GENERAL, true).getBoolean(true);
@@ -136,26 +136,26 @@ public class HawksMachinery implements IFuelHandler, ICraftingHandler
 		ingotsID = HMConfig.getOrCreateIntProperty("Ingots", Configuration.CATEGORY_ITEM, 24152).getInt(24152);
 		partsID = HMConfig.getOrCreateIntProperty("Parts", Configuration.CATEGORY_ITEM, 24153).getInt(24153);
 		platingID = HMConfig.getOrCreateIntProperty("Plating", Configuration.CATEGORY_ITEM, 24154).getInt(24154);
-		blueprintID = HMConfig.getOrCreateIntProperty("Blueprints", Configuration.CATEGORY_ITEM, 24155).getInt(24155);
+		//blueprintID = HMConfig.getOrCreateIntProperty("Blueprints", Configuration.CATEGORY_ITEM, 24155).getInt(24155);
 		
 		ACHprospector = HMConfig.getOrCreateIntProperty("ACH Prospector", Configuration.CATEGORY_GENERAL, 1500).getInt(1500);
-		ACHtimeToGrind = HMConfig.getOrCreateIntProperty("ACH Time To Grind", Configuration.CATEGORY_GENERAL, 1501).getInt(1501);
+		ACHtimeToCrush = HMConfig.getOrCreateIntProperty("ACH Time To Crush", Configuration.CATEGORY_GENERAL, 1501).getInt(1501);
 		ACHcompactCompact = HMConfig.getOrCreateIntProperty("ACH Compact Compact", Configuration.CATEGORY_GENERAL, 1502).getInt(1502);
 		ACHminerkiin = HMConfig.getOrCreateIntProperty("ACH Minerkiin", Configuration.CATEGORY_GENERAL, 1503).getInt(1503);
 		
 		HMConfig.save();
 		
-		blockGrinder = new HawkBlockGrinder(grinderID).setStepSound(Block.soundMetalFootstep);
+		blockCrusher = new HawkBlockGrinder(grinderID).setStepSound(Block.soundMetalFootstep);
 		blockOre = new HawkBlockOre(oreID).setStepSound(Block.soundStoneFootstep);
 		blockMetalStorage = new HawkBlockMetalStorage(metalStorageID).setStepSound(Block.soundMetalFootstep);
-		blockWasher = new HawkBlockWasher(washerID).setStepSound(Block.soundMetalFootstep);
+		//blockWasher = new HawkBlockWasher(washerID).setStepSound(Block.soundMetalFootstep);
 		
 		dustRaw = new HawkItemRawDust(dustRawID - 256);
 		dustRefined = new HawkItemRefinedDust(dustRefinedID - 256);
 		ingots = new HawkItemIngots(ingotsID - 256);
 		parts = new HawkItemParts(partsID - 256);
 		plating = new HawkItemPlating(platingID - 256);
-		blueprints = new HawkItemBlueprints(blueprintID - 256);
+		//blueprints = new HawkItemBlueprints(blueprintID - 256);
 		
 		UniversalElectricity.registerMod(this, "Hawk's Machinery", "0.7.0");
 		NetworkRegistry.instance().registerGuiHandler(this, this.PROXY);
@@ -163,11 +163,11 @@ public class HawksMachinery implements IFuelHandler, ICraftingHandler
 		GameRegistry.registerFuelHandler(this);
 		GameRegistry.registerCraftingHandler(this);
 		AchievementPage.registerAchievementPage(HawkAchievements.HAWKSPAGE);
-		VillagerRegistry.instance().registerVillageTradeHandler(0, new HawkVillagerTrades());
-		VillagerRegistry.instance().registerVillageTradeHandler(1, new HawkVillagerTrades());
-		VillagerRegistry.instance().registerVillageTradeHandler(2, new HawkVillagerTrades());
-		VillagerRegistry.instance().registerVillageTradeHandler(3, new HawkVillagerTrades());
-		VillagerRegistry.instance().registerVillageTradeHandler(4, new HawkVillagerTrades());
+		//VillagerRegistry.instance().registerVillageTradeHandler(0, new HawkVillagerTrades());
+		//VillagerRegistry.instance().registerVillageTradeHandler(1, new HawkVillagerTrades());
+		//VillagerRegistry.instance().registerVillageTradeHandler(2, new HawkVillagerTrades());
+		//VillagerRegistry.instance().registerVillageTradeHandler(3, new HawkVillagerTrades());
+		//VillagerRegistry.instance().registerVillageTradeHandler(4, new HawkVillagerTrades());
 		
 		
 		DungeonHooks.addDungeonLoot(new ItemStack(ingots, 1, 0), 075, 1, 4);
@@ -175,7 +175,7 @@ public class HawksMachinery implements IFuelHandler, ICraftingHandler
 		DungeonHooks.addDungeonLoot(new ItemStack(ingots, 1, 2), 075, 1, 4);
 		
 		GameRegistry.registerTileEntity(HawkTileEntityGrinder.class, "HMCrusher");
-		GameRegistry.registerTileEntity(HawkTileEntityWasher.class, "HMWasher");
+		//GameRegistry.registerTileEntity(HawkTileEntityWasher.class, "HMWasher");
 		
 		OreDictionary.registerOre("ingotTitanium", new ItemStack(ingots, 1, 0));
 		OreDictionary.registerOre("ingotAluminum", new ItemStack(ingots, 1, 1));
@@ -218,8 +218,8 @@ public class HawksMachinery implements IFuelHandler, ICraftingHandler
 	public static void loadRecipes()
 	{
 		
-		RECIPE_GIVER.addRecipe(new ItemStack(blockGrinder, 1), new Object[]{"TPT", "TMT", "TBT", 'T', new ItemStack(plating, 1, 0), 'P', Item.pickaxeSteel, 'M', BasicComponents.itemMotor, 'B', (((ItemBattery)BasicComponents.itemBattery).getUnchargedItemStack())});
-		RECIPE_GIVER.addRecipe(new ItemStack(blockGrinder, 1), new Object[]{" CB", "PMb", "TTT", 'T', new ItemStack(plating, 1, 0), 'P', Item.pickaxeSteel, 'M', BasicComponents.itemMotor, 'b', (((ItemBattery)BasicComponents.itemBattery).getUnchargedItemStack()), 'C', new ItemStack(BasicComponents.itemCircuit, 1, 0), 'B', new ItemStack(blueprints, 1, 0)});
+		RECIPE_GIVER.addRecipe(new ItemStack(blockCrusher, 1), new Object[]{"TPT", "TMT", "TBT", 'T', new ItemStack(plating, 1, 0), 'P', Item.pickaxeSteel, 'M', BasicComponents.itemMotor, 'B', (((ItemBattery)BasicComponents.itemBattery).getUnchargedItemStack())});
+		//RECIPE_GIVER.addRecipe(new ItemStack(blockGrinder, 1), new Object[]{" CB", "PMb", "TTT", 'T', new ItemStack(plating, 1, 0), 'P', Item.pickaxeSteel, 'M', BasicComponents.itemMotor, 'b', (((ItemBattery)BasicComponents.itemBattery).getUnchargedItemStack()), 'C', new ItemStack(BasicComponents.itemCircuit, 1, 0), 'B', new ItemStack(blueprints, 1, 0)});
 		RECIPE_GIVER.addRecipe(new ItemStack(BasicComponents.itemBattery), new Object[]{" x ", "xrx", "xcx", 'x', BasicComponents.itemTinIngot, 'c', new ItemStack(dustRaw, 1, 0), 'r', Item.redstone});
 		RECIPE_GIVER.addRecipe(new ItemStack(Block.torchWood, 4), new Object[]{"c", "s", 'c', new ItemStack(dustRaw, 1, 0), 's', Item.stick});
 		RECIPE_GIVER.addRecipe(new ItemStack(Block.glass, 1), new Object[]{"GG", "GG", 'G', new ItemStack(dustRefined, 1, 2)});
@@ -258,7 +258,7 @@ public class HawksMachinery implements IFuelHandler, ICraftingHandler
 		RECIPE_GIVER.addSmelting(new ItemStack(dustRefined, 1, 8), new ItemStack(ingots, 1, 1));
 		RECIPE_GIVER.addSmelting(new ItemStack(dustRefined, 1, 9), new ItemStack(ingots, 1, 2));
 		RECIPE_GIVER.addSmelting(new ItemStack(dustRaw, 1, 8), new ItemStack(Block.obsidian));
-		RECIPE_GIVER.addSmelting(new ItemStack(blockGrinder, 1, 0), new ItemStack(plating, 3, 0));
+		RECIPE_GIVER.addSmelting(new ItemStack(blockCrusher, 1, 0), new ItemStack(plating, 3, 0));
 		
 		RECIPE_GIVER.addSmelting(new ItemStack(blockOre, 1, 0), new ItemStack(ingots, 1, 0));
 		RECIPE_GIVER.addSmelting(new ItemStack(blockOre, 1, 1), new ItemStack(ingots, 1, 1));
@@ -387,9 +387,9 @@ public class HawksMachinery implements IFuelHandler, ICraftingHandler
 	@Override
 	public void onCrafting(EntityPlayer player, ItemStack item, IInventory craftMatrix)
 	{
-		if (item.itemID == blockGrinder.blockID)
+		if (item.itemID == blockCrusher.blockID)
 		{
-			player.addStat(HawkAchievements.timeToGrind, 1);
+			player.addStat(HawkAchievements.timeToCrush, 1);
 		}
 		
 		if (item.itemID == blockMetalStorage.blockID)

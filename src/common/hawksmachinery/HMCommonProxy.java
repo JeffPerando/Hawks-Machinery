@@ -39,7 +39,7 @@ public class HMCommonProxy extends CommonProxy
 		switch (id)
 		{
 			case 0: return new HawkContainerGrinder(player.inventory, ((HawkTileEntityGrinder)tileEntity));
-			case 1: return new HawkContainerWasher(player.inventory, ((HawkTileEntityWasher)tileEntity));
+			//case 1: return new HawkContainerWasher(player.inventory, ((HawkTileEntityWasher)tileEntity));
 		}
 		
 		return null;

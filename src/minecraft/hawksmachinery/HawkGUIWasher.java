@@ -54,12 +54,6 @@ public class HawkGUIWasher extends GuiContainer
 			this.drawTexturedModalRect(containerWidth + 52, containerHeight + 28, 176, 0, 52 - scale, 20);
 		}
 		
-		if (this.tileEntity.waterUnits > 0)
-		{
-			int scale = (int)this.tileEntity.waterUnits;
-			this.drawTexturedModalRect(containerWidth + 7, containerHeight + 32 - (scale), 177, 23, 32, (scale * 3));
-		}
-		
 	}
 	
 }

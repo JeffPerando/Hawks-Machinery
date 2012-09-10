@@ -22,11 +22,11 @@ public class HawkLanguageCore
 	
 	public static void addToolTips()
 	{
-		LANG.addNameForObject(BASEMOD.blockGrinder, "en_US", "Crusher");
-		LANG.addNameForObject(BASEMOD.blockWasher, "en_US", "Washer");
+		LANG.addNameForObject(BASEMOD.blockCrusher, "en_US", "Crusher");
+		//LANG.addNameForObject(BASEMOD.blockWasher, "en_US", "Washer");
 		
-		LANG.addStringLocalization(ACH.timeToGrind.getName(), "en_US", "Time to Grind!");
-		LANG.addStringLocalization(ACH.timeToGrind.getName() + ".desc", "en_US", "The matriarch of Hawk's Machinery!");
+		LANG.addStringLocalization(ACH.timeToCrush.getName(), "en_US", "Time to Crush!");
+		LANG.addStringLocalization(ACH.timeToCrush.getName() + ".desc", "en_US", "The matriarch of Hawk's Machinery!");
 		
 		LANG.addStringLocalization(ACH.compactCompact.getName(), "en_US", "Compact Compact");
 		LANG.addStringLocalization(ACH.compactCompact.getName() + ".desc", "en_US", "Am I missing, an eyebrow?");
@@ -67,10 +67,12 @@ public class HawkLanguageCore
 				
 			}
 			
+			/*
 			if (counter <= 10)
 			{
 				LANG.addNameForObject(new ItemStack(BASEMOD.blueprints, 1, counter), "en_US", "Blueprints (" + HawkItemBlueprints.en_USNames[counter] + ")");
 			}
+			*/
 			
 			LANG.addNameForObject(new ItemStack(BASEMOD.dustRefined, 1, counter), "en_US", HawkItemRefinedDust.en_USNames[counter] + " Dust");
 			
