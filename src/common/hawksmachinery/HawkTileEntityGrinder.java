@@ -3,6 +3,8 @@ package hawksmachinery;
 
 import java.io.DataInputStream;
 import java.io.IOException;
+import railcraft.common.api.carts.IItemTransfer;
+import railcraft.common.api.core.items.EnumItemType;
 import com.google.common.io.ByteArrayDataInput;
 import universalelectricity.electricity.ElectricityManager;
 import universalelectricity.electricity.TileEntityElectricUnit;
@@ -31,7 +33,7 @@ import universalelectricity.extend.IItemElectric;
  * 
  * @author Elusivehawk
  */
-public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRedstoneReceptor, IInventory, ISidedInventory, IRotatable, IPacketReceiver, ITier
+public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRedstoneReceptor, IInventory, ISidedInventory, IRotatable, IPacketReceiver, ITier, IItemTransfer
 {
 	public int ELECTRICITY_REQUIRED = 10;
 	
@@ -491,6 +493,68 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 	public void setTier(int tier)
 	{
 		this.tier = tier;
+	}
+	
+	@Override
+	public ItemStack offerItem(Object source, ItemStack offer)
+	{
+		if (HawkProcessingRecipes.getGrindingResult(offer) != null)
+		{
+			if (this.containingItems[1] == null)
+			{
+				this.containingItems[1] = offer;
+				return null;
+			}
+			else
+			{
+				if (this.containingItems[1].isItemEqual(offer))
+				{
+					if (this.containingItems[1].stackSize + offer.stackSize <= 64)
+					{
+						this.containingItems[1].stackSize += offer.stackSize;
+						return null;
+					}
+					else
+					{
+						int extraAmount = (this.containingItems[1].stackSize + offer.stackSize) - 64;
+						
+						this.containingItems[1].stackSize += offer.stackSize;
+						return new ItemStack(offer.getItem(), extraAmount, offer.getItemDamage());
+					}
+				}
+			}
+		}
+		else
+		{
+			if (offer.getItem() instanceof IItemElectric)
+			{
+				if (((IItemElectric)offer.getItem()).canProduceElectricity())
+				{
+					this.containingItems[0] = offer;
+					return null;
+				}
+			}
+		}
+		
+		return offer;
+	}
+	
+	@Override
+	public ItemStack requestItem(Object source)
+	{
+		return this.containingItems[2];
+	}
+	
+	@Override
+	public ItemStack requestItem(Object source, ItemStack request)
+	{
+		return this.requestItem(source);
+	}
+	
+	@Override
+	public ItemStack requestItem(Object source, EnumItemType request)
+	{
+		return this.requestItem(source);
 	}
 	
 }

@@ -2,6 +2,8 @@
 package hawksmachinery;
 
 import java.util.Random;
+import railcraft.common.api.carts.IItemTransfer;
+import railcraft.common.api.core.items.EnumItemType;
 import com.google.common.io.ByteArrayDataInput;
 import net.minecraft.src.EntityItem;
 import net.minecraft.src.EntityPlayer;
@@ -28,7 +30,7 @@ import universalelectricity.network.PacketManager;
  * 
  * @author Elusivehawk
  */
-public class HawkTileEntityWasher extends TileEntityElectricUnit implements IInventory, ISidedInventory, IRotatable, IPacketReceiver
+public class HawkTileEntityWasher extends TileEntityElectricUnit implements IInventory, ISidedInventory, IRotatable, IPacketReceiver, IItemTransfer
 {
 	public int ELECTRICITY_REQUIRED = 10;
 	
@@ -421,11 +423,93 @@ public class HawkTileEntityWasher extends TileEntityElectricUnit implements IInv
 			}
 		}
 	}
-
+	
 	@Override
 	public boolean canReceiveFromSide(ForgeDirection side)
 	{
 		return side != ForgeDirection.UP && side != ForgeDirection.getOrientation(this.facingDirection.ordinal());
+	}
+	
+	@Override
+	public ItemStack offerItem(Object source, ItemStack offer)
+	{
+		if (HawkProcessingRecipes.getWashingResult(offer) != null)
+		{
+			if (this.containingItems[2] == null)
+			{
+				this.containingItems[2] = offer;
+				return null;
+			}
+			else
+			{
+				if (this.containingItems[2].isItemEqual(offer))
+				{
+					if (this.containingItems[2].stackSize + offer.stackSize <= 64)
+					{
+						this.containingItems[2].stackSize += offer.stackSize;
+						return null;
+					}
+					else
+					{
+						int extraAmount = (this.containingItems[1].stackSize + offer.stackSize) - 64;
+						
+						this.containingItems[2].stackSize += offer.stackSize;
+						return new ItemStack(offer.getItem(), extraAmount, offer.getItemDamage());
+					}
+				}
+			}
+		}
+		else
+		{
+			if (offer.getItem() instanceof IItemElectric)
+			{
+				if (((IItemElectric)offer.getItem()).canProduceElectricity())
+				{
+					this.containingItems[0] = offer;
+					return null;
+				}
+			}
+			
+			if (offer.getItem() == Item.bucketWater)
+			{
+				if (this.containingItems[1] == null)
+				{
+					this.containingItems[1] = offer;
+					return null;
+				}
+				else
+				{
+					if (this.containingItems[1].getItem() == Item.bucketEmpty)
+					{
+						this.containingItems[1] = offer;
+						return new ItemStack(Item.bucketEmpty, 1);
+					}
+				}
+			}
+		}
+		
+		return offer;
+	}
+
+	@Override
+	public ItemStack requestItem(Object source)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ItemStack requestItem(Object source, ItemStack request)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ItemStack requestItem(Object source, EnumItemType request)
+	{
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

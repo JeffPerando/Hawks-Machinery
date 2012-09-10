@@ -6,10 +6,13 @@ import hawksmachinery.itemblocks.HawkItemBlockOre;
 import hawksmachinery.misc.HawkAchievements;
 import java.util.ArrayList;
 import java.util.List;
+import railcraft.common.api.carts.bore.IBoreHead;
+import railcraft.common.api.carts.bore.IMineable;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.src.Block;
 import net.minecraft.src.CreativeTabs;
+import net.minecraft.src.EntityMinecart;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.Material;
@@ -25,7 +28,7 @@ import net.minecraftforge.oredict.OreDictionary;
  * 
  * @author Elusivehawk
  */
-public class HawkBlockOre extends Block
+public class HawkBlockOre extends Block implements IMineable
 {
 	public static HawksMachinery BASEMOD;
 	
@@ -83,15 +86,26 @@ public class HawkBlockOre extends Block
 	@Override
 	public void onBlockHarvested(World world, int x, int y, int z, int metadata, EntityPlayer player)
 	{
-		
-		if (metadata != 3)
-		{
-			player.addStat(HawkAchievements.prospector, 1);
-		}
-		else
+		if (metadata == 3)
 		{
 			player.addStat(HawkAchievements.minerkiin, 1);
 		}
+		else
+		{
+			player.addStat(HawkAchievements.prospector, 1);
+		}
+		
+	}
+
+	@Override
+	public boolean canMineBlock(World world, int i, int j, int k, EntityMinecart bore, ItemStack head)
+	{
+		if (((IBoreHead)head.getItem()).getHarvestLevel() >= 4)
+		{
+			return true;
+		}
+		
+		return false;
 	}
 	
 }
