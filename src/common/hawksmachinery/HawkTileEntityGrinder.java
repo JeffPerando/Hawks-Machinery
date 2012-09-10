@@ -565,20 +565,19 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 	@Override
 	public ItemStack requestItem(Object source)
 	{
-		System.out.println("Stuff requested!");
 		return this.containingItems[2];
 	}
 	
 	@Override
 	public ItemStack requestItem(Object source, ItemStack request)
 	{
-		return this.requestItem(source);
+		return this.containingItems[1];
 	}
 	
 	@Override
 	public ItemStack requestItem(Object source, EnumItemType request)
 	{
-		return this.requestItem(source);
+		return this.containingItems[1];
 	}
 	
 }
