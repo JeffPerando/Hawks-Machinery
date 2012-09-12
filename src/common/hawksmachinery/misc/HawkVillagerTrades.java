@@ -17,9 +17,9 @@ import cpw.mods.fml.common.registry.VillagerRegistry.IVillageTradeHandler;
  * 
  * @author Elusivehawk
  */
-public class HawkVillagerTrades //implements IVillageTradeHandler
+public class HawkVillagerTrades implements IVillageTradeHandler
 {
-	/*
+	
 	public static HawksMachinery BASEMOD;
 	
 	public HawkVillagerTrades() {}
@@ -78,6 +78,6 @@ public class HawkVillagerTrades //implements IVillageTradeHandler
 		recipeList.add(new MerchantRecipe(new ItemStack(BASEMOD.ingots, 9, 2), new ItemStack(Item.emerald, 1)));
 		
 	} 
-	 */
+	
 	
 }

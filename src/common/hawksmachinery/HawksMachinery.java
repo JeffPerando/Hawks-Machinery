@@ -88,7 +88,7 @@ public class HawksMachinery implements IFuelHandler, ICraftingHandler
 	public static final String BLOCK_TEXTURE_FILE = "/hawksmachinery/textures/blocks.png";
 	public static final String ITEM_TEXTURE_FILE = "/hawksmachinery/textures/items.png";
 	
-	public static Configuration HMConfig = new Configuration(new File(Loader.instance().getConfigDir(), "config/HawksMachinery/HMConfig.cfg"));
+	public static Configuration HMConfig = new Configuration(new File(Loader.instance().getConfigDir(), "HawksMachinery/HMConfig.cfg"));
 	
 	/**
 	 * Note: DO NOT MOVE THIS! I'm serious, I don't want to see any refactor job move this, due to the fact that doing so is A VERY BAD IDEA!
@@ -272,10 +272,10 @@ public class HawksMachinery implements IFuelHandler, ICraftingHandler
 		RECIPE_GIVER.addSmelting(new ItemStack(blockOre, 1, 1), new ItemStack(ingots, 1, 1));
 		RECIPE_GIVER.addSmelting(new ItemStack(blockOre, 1, 2), new ItemStack(ingots, 1, 2));
 		
-		RECIPE_GIVER.addSmelting(new ItemStack(plating, 1, 0), new ItemStack(ingots, 4, 0));
-		RECIPE_GIVER.addSmelting(new ItemStack(plating, 1, 1), new ItemStack(ingots, 4, 1));
-		RECIPE_GIVER.addSmelting(new ItemStack(plating, 1, 2), new ItemStack(ingots, 4, 2));
-		RECIPE_GIVER.addSmelting(new ItemStack(plating, 1, 3), new ItemStack(ingots, 4, 3));
+		RECIPE_GIVER.addSmelting(new ItemStack(plating, 1, 0), new ItemStack(ingots, 3, 0));
+		RECIPE_GIVER.addSmelting(new ItemStack(plating, 1, 1), new ItemStack(ingots, 3, 1));
+		RECIPE_GIVER.addSmelting(new ItemStack(plating, 1, 2), new ItemStack(ingots, 3, 2));
+		RECIPE_GIVER.addSmelting(new ItemStack(plating, 1, 3), new ItemStack(ingots, 3, 3));
 		RECIPE_GIVER.addSmelting(new ItemStack(blockMetalStorage, 1, 0), new ItemStack(ingots, 9, 0));
 		RECIPE_GIVER.addSmelting(new ItemStack(blockMetalStorage, 1, 1), new ItemStack(ingots, 9, 1));
 		RECIPE_GIVER.addSmelting(new ItemStack(blockMetalStorage, 1, 2), new ItemStack(ingots, 9, 2));
