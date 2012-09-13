@@ -1,9 +1,9 @@
 
 package hawksmachinery;
 
+import cpw.mods.fml.common.network.IGuiHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.src.EntityPlayer;
-import net.minecraft.src.ModLoader;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 import universalelectricity.extend.CommonProxy;
@@ -14,16 +14,9 @@ import universalelectricity.extend.CommonProxy;
  * 
  * @author Elusivehawk
  */
-public class HMCommonProxy extends CommonProxy
+public class HMCommonProxy implements IGuiHandler
 {
-	@Override
-	public void preInit() {}
-	
-	@Override
-	public void init() {}
-	
-	@Override
-	public void postInit() {}
+	public void registerRenderInformation(){}
 	
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)
@@ -39,14 +32,9 @@ public class HMCommonProxy extends CommonProxy
 		switch (id)
 		{
 			case 0: return new HawkContainerGrinder(player.inventory, ((HawkTileEntityGrinder)tileEntity));
-			//case 1: return new HawkContainerWasher(player.inventory, ((HawkTileEntityWasher)tileEntity));
+			case 1: return new HawkContainerWasher(player.inventory, ((HawkTileEntityWasher)tileEntity));
 		}
 		
-		return null;
-	}
-	
-	public World getWorld()
-	{
 		return null;
 	}
 	

@@ -79,5 +79,4 @@ public class HawkVillagerTrades implements IVillageTradeHandler
 		
 	} 
 	
-	
 }

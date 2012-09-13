@@ -21,24 +21,13 @@ public class HMClientProxy extends HMCommonProxy
 {
 	public static HawksMachinery BASEMOD;
 	
-	@Override
-	public void preInit()
+	public void registerRenderInformation()
 	{
-		//Preload textures
 		MinecraftForgeClient.preloadTexture(BASEMOD.BLOCK_TEXTURE_FILE);
 		MinecraftForgeClient.preloadTexture(BASEMOD.ITEM_TEXTURE_FILE);
-		
-	}
-	
-	@Override
-	public void init()
-	{
 		HawkLanguageCore.addToolTips();
 		
 	}
-	
-	@Override
-	public void postInit() {}
 	
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)
@@ -56,12 +45,6 @@ public class HMClientProxy extends HMCommonProxy
         }
 		
 		return null;
-	}
-	
-	@Override
-	public World getWorld()
-	{
-		return FMLClientHandler.instance().getClient().theWorld;
 	}
 	
 }
