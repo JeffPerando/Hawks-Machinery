@@ -20,6 +20,7 @@
 !/src/common/hawksmachinery/
 !/src/minecraft/hawksmachinery/
 !/src/common/mcmod.info
+!/src/common/railcraft/
 
 *.bat
 *.sh
