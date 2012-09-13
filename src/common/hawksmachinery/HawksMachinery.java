@@ -214,7 +214,7 @@ public class HawksMachinery implements IFuelHandler, ICraftingHandler
 	{
 		
 		RECIPE_GIVER.addRecipe(new ItemStack(blockCrusher, 1), new Object[]{"TPT", "TMT", "TBT", 'T', new ItemStack(plating, 1, 0), 'P', Item.pickaxeSteel, 'M', BasicComponents.itemMotor, 'B', (((ItemBattery)BasicComponents.itemBattery).getUnchargedItemStack())});
-		//RECIPE_GIVER.addRecipe(new ItemStack(blockCrusher, 1), new Object[]{" CB", "PMb", "TTT", 'T', new ItemStack(plating, 1, 0), 'P', Item.pickaxeSteel, 'M', BasicComponents.itemMotor, 'b', (((ItemBattery)BasicComponents.itemBattery).getUnchargedItemStack()), 'C', new ItemStack(BasicComponents.itemCircuit, 1, 0), 'B', new ItemStack(blueprints, 1, 0)});
+		RECIPE_GIVER.addRecipe(new ItemStack(blockWasher, 1), new Object[]{"ASA", "ASA", "BMD", 'A', new ItemStack(plating, 1, 1), 'S', "ingotSteel", 'B', (((ItemBattery)BasicComponents.itemBattery).getUnchargedItemStack()), 'M', BasicComponents.itemMotor, 'D', Block.dispenser});
 		RECIPE_GIVER.addRecipe(new ItemStack(BasicComponents.itemBattery), new Object[]{" x ", "xrx", "xcx", 'x', BasicComponents.itemTinIngot, 'c', new ItemStack(dustRaw, 1, 0), 'r', Item.redstone});
 		RECIPE_GIVER.addRecipe(new ItemStack(Block.torchWood, 4), new Object[]{"c", "s", 'c', new ItemStack(dustRaw, 1, 0), 's', Item.stick});
 		RECIPE_GIVER.addRecipe(new ItemStack(Block.glass, 1), new Object[]{"GG", "GG", 'G', new ItemStack(dustRefined, 1, 2)});
