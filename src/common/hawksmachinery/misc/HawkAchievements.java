@@ -22,6 +22,7 @@ public class HawkAchievements
 	public static Achievement timeToCrush = new Achievement(BASEMOD.ACHtimeToCrush, "Time to Crush", -2, -3, new ItemStack(BASEMOD.blockCrusher, 1, 0), prospector).registerAchievement().setSpecial();
 	public static Achievement compactCompact = new Achievement(BASEMOD.ACHcompactCompact, "Compact Compact", 0, -2, new ItemStack(BASEMOD.blockMetalStorage, 1, 2), prospector).registerAchievement();
 	public static Achievement minerkiin = new Achievement(BASEMOD.ACHminerkiin, "Minerkiin", -5, 2, new ItemStack(BASEMOD.blockOre, 1, 3), AchievementList.theEnd2).registerAchievement();
+	public static Achievement wash = new Achievement(BASEMOD.ACHwash, "Wash", 0, -4, new ItemStack(BASEMOD.blockWasher, 1, 0), timeToCrush).registerAchievement().setSpecial();
 	
 	public static AchievementPage HAWKSPAGE = new AchievementPage("Hawk's Machinery", timeToCrush, minerkiin, compactCompact, prospector);
 	

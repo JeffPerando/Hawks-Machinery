@@ -78,6 +78,7 @@ public class HawksMachinery implements IFuelHandler, ICraftingHandler
 	public static int ACHtimeToCrush;
 	public static int ACHcompactCompact;
 	public static int ACHminerkiin;
+	public static int ACHwash;
 	
 	public static boolean generateTitanium;
 	public static boolean generateAluminum;
@@ -140,6 +141,7 @@ public class HawksMachinery implements IFuelHandler, ICraftingHandler
 		ACHtimeToCrush = HMConfig.getOrCreateIntProperty("ACH Time To Crush", Configuration.CATEGORY_GENERAL, 1501).getInt(1501);
 		ACHcompactCompact = HMConfig.getOrCreateIntProperty("ACH Compact Compact", Configuration.CATEGORY_GENERAL, 1502).getInt(1502);
 		ACHminerkiin = HMConfig.getOrCreateIntProperty("ACH Minerkiin", Configuration.CATEGORY_GENERAL, 1503).getInt(1503);
+		ACHwash = HMConfig.getOrCreateIntProperty("ACH Wash", Configuration.CATEGORY_GENERAL, 1504).getInt(1504);
 		
 		HMConfig.save();
 		
@@ -213,8 +215,8 @@ public class HawksMachinery implements IFuelHandler, ICraftingHandler
 	public static void loadRecipes()
 	{
 		
-		RECIPE_GIVER.addRecipe(new ItemStack(blockCrusher, 1), new Object[]{"TPT", "TMT", "TBT", 'T', new ItemStack(plating, 1, 0), 'P', Item.pickaxeSteel, 'M', BasicComponents.itemMotor, 'B', (((ItemBattery)BasicComponents.itemBattery).getUnchargedItemStack())});
-		RECIPE_GIVER.addRecipe(new ItemStack(blockWasher, 1), new Object[]{"ASA", "ASA", "BMD", 'A', new ItemStack(plating, 1, 1), 'S', "ingotSteel", 'B', (((ItemBattery)BasicComponents.itemBattery).getUnchargedItemStack()), 'M', BasicComponents.itemMotor, 'D', Block.dispenser});
+		RECIPE_GIVER.addRecipe(new ItemStack(blockCrusher, 1), new Object[]{"TPT", "TMT", "TBT", 'T', new ItemStack(plating, 1, 0), 'P', Item.pickaxeSteel, 'M', BasicComponents.itemMotor, 'B', ((ItemBattery)BasicComponents.itemBattery).getUnchargedItemStack()});
+		RECIPE_GIVER.addRecipe(new ItemStack(blockWasher, 1), new Object[]{"AWA", "BPA", "AbD", 'A', new ItemStack(plating, 1, 1), 'W', Block.cloth, 'P', new ItemStack(parts, 1, 0), 'D', Block.dispenser, 'B', ((ItemBattery)BasicComponents.itemBattery).getUnchargedItemStack(), 'b', Item.bucketEmpty});
 		RECIPE_GIVER.addRecipe(new ItemStack(BasicComponents.itemBattery), new Object[]{" x ", "xrx", "xcx", 'x', BasicComponents.itemTinIngot, 'c', new ItemStack(dustRaw, 1, 0), 'r', Item.redstone});
 		RECIPE_GIVER.addRecipe(new ItemStack(Block.torchWood, 4), new Object[]{"c", "s", 'c', new ItemStack(dustRaw, 1, 0), 's', Item.stick});
 		RECIPE_GIVER.addRecipe(new ItemStack(Block.glass, 1), new Object[]{"GG", "GG", 'G', new ItemStack(dustRefined, 1, 2)});

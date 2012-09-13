@@ -37,6 +37,9 @@ public class HawkLanguageCore
 		LANG.addStringLocalization(ACH.minerkiin.getName(), "en_US", "Minerkiin");
 		LANG.addStringLocalization(ACH.minerkiin.getName() + ".desc", "en_US", "In their tongue...");
 		
+		LANG.addStringLocalization(ACH.wash.getName(), "en_US", "Workin' at the--");
+		LANG.addStringLocalization(ACH.wash.getName() + ".desc", "en_US", "Wait, what?");
+		
 		for (int counter = 0; counter <= 11; ++counter)
 		{
 			if (counter <= 3)
