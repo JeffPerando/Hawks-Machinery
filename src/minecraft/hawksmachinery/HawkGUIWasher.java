@@ -2,7 +2,7 @@
 package hawksmachinery;
 
 import org.lwjgl.opengl.GL11;
-import universalelectricity.electricity.ElectricUnit;
+import universalelectricity.electricity.ElectricInfo;
 import net.minecraft.src.GuiContainer;
 import net.minecraft.src.InventoryPlayer;
 import net.minecraft.src.StatCollector;
@@ -30,8 +30,8 @@ public class HawkGUIWasher extends GuiContainer
 	@Override
 	protected void drawGuiContainerForegroundLayer()
 	{
-		this.fontRenderer.drawString(ElectricUnit.getVoltDisplay((int)this.tileEntity.getVoltage()), 116, 60, 4210752);
-		this.fontRenderer.drawString(ElectricUnit.getWattDisplay(this.tileEntity.electricityStored), 116, 70, 4210752);
+		this.fontRenderer.drawString(ElectricInfo.getDisplayShort(this.tileEntity.getVoltage(), ElectricInfo.ElectricUnit.VOLTAGE), 116, 60, 4210752);
+		this.fontRenderer.drawString(ElectricInfo.getDisplayShort(this.tileEntity.electricityStored, ElectricInfo.ElectricUnit.WATT), 116, 70, 4210752);
 		
 	}
 	

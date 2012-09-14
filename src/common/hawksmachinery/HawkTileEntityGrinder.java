@@ -211,7 +211,7 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 	}
 	
 	@Override
-	public float electricityRequest()
+	public float ampRequest()
 	{
 		if (!this.isDisabled() && (this.canGrind() || this.canExplode()) && this.electricityStored + this.ELECTRICITY_REQUIRED <= this.ELECTRICITY_LIMIT)
 		{
@@ -543,7 +543,7 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 						}
 						else
 						{
-							if (((IItemElectric)offer.getItem()).getElectricityStored(offer) > ((IItemElectric)offer.getItem()).getElectricityStored(this.containingItems[0]))
+							if (((IItemElectric)offer.getItem()).getWattHoursStored(offer) > ((IItemElectric)offer.getItem()).getWattHoursStored(this.containingItems[0]))
 							{
 								ItemStack oldElectricItem = this.containingItems[0];
 								

@@ -398,7 +398,7 @@ public class HawkTileEntityWasher extends TileEntityElectricUnit implements IInv
 	public void closeChest() {}
 	
 	@Override
-	public float electricityRequest()
+	public float ampRequest()
 	{
 		if (!this.isDisabled() && this.canWash() && this.electricityStored + this.ELECTRICITY_REQUIRED <= this.ELECTRICITY_LIMIT)
 		{
@@ -490,25 +490,22 @@ public class HawkTileEntityWasher extends TileEntityElectricUnit implements IInv
 		
 		return offer;
 	}
-
+	
 	@Override
 	public ItemStack requestItem(Object source)
 	{
-		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
 	@Override
 	public ItemStack requestItem(Object source, ItemStack request)
 	{
-		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
 	@Override
 	public ItemStack requestItem(Object source, EnumItemType request)
 	{
-		// TODO Auto-generated method stub
 		return null;
 	}
 	

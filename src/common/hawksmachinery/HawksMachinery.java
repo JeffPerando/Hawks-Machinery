@@ -157,7 +157,7 @@ public class HawksMachinery implements IFuelHandler, ICraftingHandler
 		plating = new HawkItemPlating(platingID - 256);
 		blueprints = new HawkItemBlueprints(blueprintID - 256);
 		
-		UniversalElectricity.registerMod(this, "Hawk's Machinery", "0.7.0");
+		UniversalElectricity.registerMod(this, "Hawk's Machinery", "0.8.1");
 		NetworkRegistry.instance().registerGuiHandler(this, this.PROXY);
 		GameRegistry.registerWorldGenerator(new HawkOreGenerator());
 		GameRegistry.registerFuelHandler(this);
