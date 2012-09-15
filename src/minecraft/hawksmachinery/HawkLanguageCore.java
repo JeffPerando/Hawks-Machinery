@@ -70,7 +70,7 @@ public class HawkLanguageCore
 				
 			}
 			
-			if (counter <= 10)
+			if (counter <= 8)
 			{
 				LANG.addNameForObject(new ItemStack(BASEMOD.blueprints, 1, counter), "en_US", "Blueprints (" + HawkItemBlueprints.en_USNames[counter] + ")");
 			}

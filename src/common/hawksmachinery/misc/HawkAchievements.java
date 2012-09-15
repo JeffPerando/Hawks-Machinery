@@ -24,6 +24,6 @@ public class HawkAchievements
 	public static Achievement minerkiin = new Achievement(BASEMOD.ACHminerkiin, "Minerkiin", -5, 2, new ItemStack(BASEMOD.blockOre, 1, 3), AchievementList.theEnd2).registerAchievement();
 	public static Achievement wash = new Achievement(BASEMOD.ACHwash, "Wash", 0, -4, new ItemStack(BASEMOD.blockWasher, 1, 0), timeToCrush).registerAchievement().setSpecial();
 	
-	public static AchievementPage HAWKSPAGE = new AchievementPage("Hawk's Machinery", timeToCrush, minerkiin, compactCompact, prospector);
+	public static AchievementPage HAWKSPAGE = new AchievementPage("Hawk's Machinery", timeToCrush, minerkiin, compactCompact, prospector, wash);
 	
 }

@@ -17,8 +17,8 @@ import net.minecraft.src.ItemStack;
 public class HawkItemBlueprints extends Item
 {
 	public static HawksMachinery BASEMOD;
-	public static String[] en_USNames = {"Crusher", "Washer", "Compressor", "Cutter", 
-										"Bottler", "Metal Lathe", "Drill Tank", "Mining Well", 
+	public static String[] en_USNames = {"Crusher", "Washer", "Bottler",
+										"Metal Lathe", "Drill Tank", "Mining Well", 
 										"Induction Furnace", "Welding Torch", "HM-E2MM"};
 	
 	public HawkItemBlueprints(int id)
@@ -41,7 +41,7 @@ public class HawkItemBlueprints extends Item
 	@Override
 	public EnumRarity getRarity(ItemStack item)
 	{
-		if (item.getItemDamage() == 10)
+		if (item.getItemDamage() == 8)
 		{
 			return EnumRarity.rare;
 		}
@@ -52,7 +52,7 @@ public class HawkItemBlueprints extends Item
 	@Override
 	public boolean hasEffect(ItemStack item)
 	{
-		if (item.getItemDamage() == 10)
+		if (item.getItemDamage() == 8)
 		{
 			return true;
 		}
@@ -63,7 +63,7 @@ public class HawkItemBlueprints extends Item
 	@Override
 	public void getSubItems(int id, CreativeTabs tabs, List itemList)
 	{
-		for (int counter = 0; counter <= 10; ++counter)
+		for (int counter = 0; counter <= 8; ++counter)
 		{
 			itemList.add(new ItemStack(this, 1, counter));
 		}
