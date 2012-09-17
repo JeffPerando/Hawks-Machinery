@@ -505,7 +505,7 @@ public class HawksMachinery implements ICraftingHandler
 		@Override
 		public void onSpecialButtonClicked()
 		{
-			UpdateManager.openWebpage("http://calclavia.com/forum/index.php/topic,2.0.html");
+			UpdateManager.openWebpage("http://bit.ly/UeISkn");
 		}
 		
 	}
