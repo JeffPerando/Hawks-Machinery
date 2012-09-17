@@ -19,9 +19,11 @@
 /src/common/*
 !/src/common/uristqwerty/
 !/src/common/hawksmachinery/
-!/src/minecraft/hawksmachinery/
 !/src/common/mcmod.info
 !/src/common/railcraft/
+!/src/common/vazkii/
+!/src/minecraft/hawksmachinery/
+!/src/minecraft/vazkii/
 
 *.bat
 *.sh

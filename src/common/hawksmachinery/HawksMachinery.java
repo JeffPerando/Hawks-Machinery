@@ -11,6 +11,12 @@ import universalelectricity.basiccomponents.BasicComponents;
 import universalelectricity.basiccomponents.ItemBattery;
 import universalelectricity.network.PacketManager;
 import universalelectricity.recipe.RecipeManager;
+import vazkii.um.client.ModReleaseType;
+import vazkii.um.client.ModType;
+import vazkii.um.common.ModConverter;
+import vazkii.um.common.UpdateManager;
+import vazkii.um.common.UpdateManagerMod;
+import vazkii.um.common.checking.CheckingMethod;
 import net.minecraft.src.Block;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.EnumToolMaterial;
@@ -24,7 +30,6 @@ import net.minecraftforge.common.DungeonHooks;
 import net.minecraftforge.common.EnumHelper;
 import net.minecraftforge.oredict.OreDictionary;
 import cpw.mods.fml.common.ICraftingHandler;
-import cpw.mods.fml.common.IFuelHandler;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
@@ -46,9 +51,9 @@ import cpw.mods.fml.common.registry.VillagerRegistry;
  * 
  * @author Elusivehawk
  */
-@Mod(modid = "HawksMachinery", name = "Hawk's Machinery", version = "Alpha v1.3.0", dependencies = "after:BasicComponents")
+@Mod(modid = "HawksMachinery", name = "Hawk's Machinery", version = "Alpha v1.3.1", dependencies = "after:BasicComponents")
 @NetworkMod(channels = {"HawksMachinery"}, clientSideRequired = true, serverSideRequired = false, packetHandler = PacketManager.class)
-public class HawksMachinery implements IFuelHandler, ICraftingHandler
+public class HawksMachinery implements ICraftingHandler
 {
 	@Instance
 	private static HawksMachinery INSTANCE;
@@ -84,6 +89,8 @@ public class HawksMachinery implements IFuelHandler, ICraftingHandler
 	public static boolean generateAluminum;
 	public static boolean generateSilver;
 	public static boolean generateEndium;
+	public static boolean enableUpdateChecking;
+	public static boolean enableAutoDL;
 	
 	public static final String GUI_PATH = "/hawksmachinery/textures/gui";
 	public static final String BLOCK_TEXTURE_FILE = "/hawksmachinery/textures/blocks.png";
@@ -129,6 +136,8 @@ public class HawksMachinery implements IFuelHandler, ICraftingHandler
 		generateAluminum = HMConfig.getOrCreateBooleanProperty("Generate Aluminum", Configuration.CATEGORY_GENERAL, true).getBoolean(true);
 		generateSilver = HMConfig.getOrCreateBooleanProperty("Generate Silver", Configuration.CATEGORY_GENERAL, true).getBoolean(true);
 		generateEndium = HMConfig.getOrCreateBooleanProperty("Generate Endium", Configuration.CATEGORY_GENERAL, true).getBoolean(true);
+		enableUpdateChecking = HMConfig.getOrCreateBooleanProperty("Enable Update Checking", Configuration.CATEGORY_GENERAL, true).getBoolean(true);
+		enableAutoDL = HMConfig.getOrCreateBooleanProperty("Enable Auto DL", Configuration.CATEGORY_GENERAL, true).getBoolean(true);
 		
 		dustRawID = HMConfig.getOrCreateIntProperty("Raw Dusts", Configuration.CATEGORY_ITEM, 24150).getInt(24150);
 		dustRefinedID = HMConfig.getOrCreateIntProperty("Refined Dusts", Configuration.CATEGORY_ITEM, 24151).getInt(24151);
@@ -160,7 +169,6 @@ public class HawksMachinery implements IFuelHandler, ICraftingHandler
 		UniversalElectricity.registerMod(this, "Hawk's Machinery", "0.8.1");
 		NetworkRegistry.instance().registerGuiHandler(this, this.PROXY);
 		GameRegistry.registerWorldGenerator(new HawkOreGenerator());
-		GameRegistry.registerFuelHandler(this);
 		GameRegistry.registerCraftingHandler(this);
 		AchievementPage.registerAchievementPage(HawkAchievements.HAWKSPAGE);
 		VillagerRegistry.instance().registerVillageTradeHandler(0, new HawkVillagerTrades());
@@ -186,6 +194,8 @@ public class HawksMachinery implements IFuelHandler, ICraftingHandler
 		OreDictionary.registerOre("oreBauxium", new ItemStack(blockOre, 1, 1));
 		OreDictionary.registerOre("oreSilver", new ItemStack(blockOre, 1, 2));
 		OreDictionary.registerOre("oreEndium", new ItemStack(blockOre, 1, 3));
+		
+		new HMUpdateHandler(ModConverter.getMod(getClass()));
 		
 	}
 	
@@ -384,12 +394,6 @@ public class HawksMachinery implements IFuelHandler, ICraftingHandler
 	}
 	
 	@Override
-	public int getBurnTime(ItemStack fuel)
-	{
-		return 0;
-	}
-	
-	@Override
 	public void onCrafting(EntityPlayer player, ItemStack item, IInventory craftMatrix)
 	{
 		if (item.itemID == blockCrusher.blockID)
@@ -405,8 +409,104 @@ public class HawksMachinery implements IFuelHandler, ICraftingHandler
 	}
 	
 	@Override
-	public void onSmelting(EntityPlayer player, ItemStack item)
+	public void onSmelting(EntityPlayer player, ItemStack item){}
+	
+	public class HMUpdateHandler extends UpdateManagerMod
 	{
+		public HMUpdateHandler(Mod m)
+		{
+			super(m);
+		}
+		
+		@Override
+		public String getModURL()
+		{
+			return "http://bit.ly/TbyBoC";
+		}
+		
+		@Override
+		public String getUpdateURL()
+		{
+			return "https://dl.dropbox.com/u/100525141/HawksMachineryVersion.txt";
+		}
+		
+		@Override
+		public ModType getModType()
+		{
+			return ModType.ADDON;
+		}
+		
+		@Override
+		public String getModName()
+		{
+			return "Hawk's Machinery";
+		}
+		
+		@Override
+		public String getChangelogURL()
+		{
+			return "https://dl.dropbox.com/u/100525141/HawksMachineryAlphav131Changelog.txt";
+		}
+		
+		@Override
+		public String getDirectDownloadURL()
+		{
+			return "https://dl.dropbox.com/u/100525141/HawksMachneryDLLink.txt";
+		}
+		
+		@Override
+		public String getDisclaimerURL()
+		{
+			return "https://dl.dropbox.com/u/100525141/HawksMachineryDisclaimer.txt";
+		}
+		
+		@Override
+		public boolean enableAutoDownload()
+		{
+			return enableAutoDL;
+		}
+		
+		@Override
+		public CheckingMethod getCheckingMethod()
+		{
+			return CheckingMethod.LEXICOGRAPHICAL;
+		}
+		
+		@Override
+		public boolean disableChecks()
+		{
+			return UpdateManager.isDebug ? true : !enableUpdateChecking;
+		}
+		
+		@Override
+		public boolean srcOnly()
+		{
+			return false;
+		}
+		
+		@Override
+		public ModReleaseType getReleaseType()
+		{
+			return ModReleaseType.ALPHA;
+		}
+		
+		@Override
+		public ItemStack getIconStack()
+		{
+			return new ItemStack(blockCrusher);
+		}
+		
+		@Override
+		public String getSpecialButtonName()
+		{
+			return "Calclavia Forum";
+		}
+		
+		@Override
+		public void onSpecialButtonClicked()
+		{
+			UpdateManager.openWebpage("http://calclavia.com/forum/index.php/topic,2.0.html");
+		}
 		
 	}
 	
