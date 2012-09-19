@@ -1,11 +1,14 @@
 
-package hawksmachinery;
+package hawksmachinery.tileentity;
 
+import hawksmachinery.HawkProcessingRecipes;
+import hawksmachinery.HawksMachinery;
 import java.io.DataInputStream;
 import java.io.IOException;
 import railcraft.common.api.carts.IItemTransfer;
 import railcraft.common.api.core.items.EnumItemType;
 import com.google.common.io.ByteArrayDataInput;
+import cpw.mods.fml.common.FMLCommonHandler;
 import universalelectricity.electricity.ElectricityManager;
 import universalelectricity.electricity.TileEntityElectricUnit;
 import universalelectricity.extend.IRedstoneReceptor;
@@ -37,7 +40,7 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 {
 	public int ELECTRICITY_REQUIRED = 10;
 	
-	public int TICKS_REQUIRED = 180;
+	public int TICKS_REQUIRED = FMLCommonHandler.instance().getSide().isServer() ? HawksMachinery.crusherTicks : 180;
 	
 	public ForgeDirection facingDirection = ForgeDirection.UNKNOWN;
 	
@@ -54,6 +57,8 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 	public int ELECTRICITY_LIMIT = 2500;
 	
 	public int tier;
+	
+	public boolean isOpen;
 	
 	public HawkTileEntityGrinder(int tier)
 	{
@@ -124,7 +129,10 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 				this.electricityStored = this.ELECTRICITY_LIMIT;
 			}
 			
-			PacketManager.sendTileEntityPacket(this, "HawksMachinery", this.workTicks, this.electricityStored);
+			if (this.isOpen)
+			{
+				PacketManager.sendTileEntityPacket(this, "HawksMachinery", this.workTicks, this.electricityStored);
+			}
 			
 		}
 	}
@@ -353,10 +361,16 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 	}
 	
 	@Override
-	public void openChest() {}
+	public void openChest()
+	{
+		this.isOpen = true;
+	}
 	
 	@Override
-	public void closeChest() {}
+	public void closeChest()
+	{
+		this.isOpen = false;
+	}
 	
 	@Override
 	public ForgeDirection getDirection()

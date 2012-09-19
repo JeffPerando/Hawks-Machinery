@@ -11,6 +11,7 @@ import vazkii.um.client.CapeHandler;
 import vazkii.um.client.ModType;
 import vazkii.um.client.UMKeyBinding;
 import vazkii.um.common.commands.UpdateManagerCommands;
+import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.KeyBindingRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
@@ -37,7 +38,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 
 		if (client) {
 			CapeHandler.initCapes();
-			ModLoader.getMinecraftInstance();
+			FMLClientHandler.instance().getClient();
 			File f = Minecraft.getAppDir("minecraft/downloadedMods");
 			f.mkdirs();
 		}
@@ -45,8 +46,8 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 		UpdateManager.loadMods();
 		UpdateManager.dumpMods();
 
-		if (client) new ThreadUpdateManager(ModLoader.getMinecraftInstance());
-		else new ThreadUpdateManager(ModLoader.getMinecraftServerInstance());
+		if (client) new ThreadUpdateManager(FMLClientHandler.instance().getClient());
+		else new ThreadUpdateManager(FMLCommonHandler.instance().getMinecraftServerInstance());
 	}
 
 	@Init

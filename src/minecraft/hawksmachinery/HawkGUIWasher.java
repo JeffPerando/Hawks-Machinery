@@ -1,6 +1,7 @@
 
 package hawksmachinery;
 
+import hawksmachinery.tileentity.HawkTileEntityWasher;
 import org.lwjgl.opengl.GL11;
 import universalelectricity.electricity.ElectricInfo;
 import net.minecraft.src.GuiContainer;

@@ -1,8 +1,8 @@
 
 package hawksmachinery.blocks;
 
-import hawksmachinery.HawkTileEntityWasher;
 import hawksmachinery.HawksMachinery;
+import hawksmachinery.tileentity.HawkTileEntityWasher;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.src.CreativeTabs;
 import net.minecraft.src.DamageSource;

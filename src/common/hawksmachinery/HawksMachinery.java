@@ -4,6 +4,7 @@ package hawksmachinery;
 import hawksmachinery.blocks.*;
 import hawksmachinery.items.*;
 import hawksmachinery.misc.*;
+import hawksmachinery.tileentity.*;
 import java.io.File;
 import com.google.common.collect.ObjectArrays;
 import universalelectricity.UniversalElectricity;
@@ -29,6 +30,7 @@ import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.DungeonHooks;
 import net.minecraftforge.common.EnumHelper;
 import net.minecraftforge.oredict.OreDictionary;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.ICraftingHandler;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
@@ -51,7 +53,7 @@ import cpw.mods.fml.common.registry.VillagerRegistry;
  * 
  * @author Elusivehawk
  */
-@Mod(modid = "HawksMachinery", name = "Hawk's Machinery", version = "Alpha v1.3.1", dependencies = "after:BasicComponents")
+@Mod(modid = "HawksMachinery", name = "Hawk's Machinery", version = "Alpha v1.4.0", dependencies = "after:BasicComponents")
 @NetworkMod(channels = {"HawksMachinery"}, clientSideRequired = true, serverSideRequired = false, packetHandler = PacketManager.class)
 public class HawksMachinery implements ICraftingHandler
 {
@@ -70,6 +72,7 @@ public class HawksMachinery implements ICraftingHandler
 	public static int washerID;
 	public static int verticalDrillID;
 	public static int inductionFurnaceID;
+	public static int chunkloaderID;
 	
 	public static int dustRawID;
 	public static int dustRefinedID;
@@ -85,12 +88,16 @@ public class HawksMachinery implements ICraftingHandler
 	public static int ACHminerkiin;
 	public static int ACHwash;
 	
+	public static int crusherTicks;
+	public static int washerTicks;
+	
 	public static boolean generateTitanium;
 	public static boolean generateAluminum;
 	public static boolean generateSilver;
 	public static boolean generateEndium;
 	public static boolean enableUpdateChecking;
 	public static boolean enableAutoDL;
+	public static boolean enableChunkloader;
 	
 	public static final String GUI_PATH = "/hawksmachinery/textures/gui";
 	public static final String BLOCK_TEXTURE_FILE = "/hawksmachinery/textures/blocks.png";
@@ -103,6 +110,7 @@ public class HawksMachinery implements ICraftingHandler
 	public static Block blockOre;
 	public static Block blockMetalStorage;
 	public static Block blockWasher;
+	public static Block blockChunkloader;
 	
 	/**
 	 * Raw dusts! 0 - Coal, 1 - Iron, 2 - Gold, 3 - Copper, 4 - Tin, 5 - Titanium, 6 - Aluminum, 7 - Silver, 8- Obsidian.
@@ -138,6 +146,12 @@ public class HawksMachinery implements ICraftingHandler
 		generateEndium = HMConfig.getOrCreateBooleanProperty("Generate Endium", Configuration.CATEGORY_GENERAL, true).getBoolean(true);
 		enableUpdateChecking = HMConfig.getOrCreateBooleanProperty("Enable Update Checking", Configuration.CATEGORY_GENERAL, true).getBoolean(true);
 		enableAutoDL = HMConfig.getOrCreateBooleanProperty("Enable Auto DL", Configuration.CATEGORY_GENERAL, true).getBoolean(true);
+		enableChunkloader = HMConfig.getOrCreateBooleanProperty("Enable Chunkloader Block", Configuration.CATEGORY_GENERAL, true).getBoolean(true);
+		
+		if (enableChunkloader)
+		{
+			chunkloaderID = HMConfig.getOrCreateBlockIdProperty("Endium Chunkloader", 3966).getInt(3966);
+		}
 		
 		dustRawID = HMConfig.getOrCreateIntProperty("Raw Dusts", Configuration.CATEGORY_ITEM, 24150).getInt(24150);
 		dustRefinedID = HMConfig.getOrCreateIntProperty("Refined Dusts", Configuration.CATEGORY_ITEM, 24151).getInt(24151);
@@ -152,12 +166,23 @@ public class HawksMachinery implements ICraftingHandler
 		ACHminerkiin = HMConfig.getOrCreateIntProperty("ACH Minerkiin", Configuration.CATEGORY_GENERAL, 1503).getInt(1503);
 		ACHwash = HMConfig.getOrCreateIntProperty("ACH Wash", Configuration.CATEGORY_GENERAL, 1504).getInt(1504);
 		
+		if (FMLCommonHandler.instance().getSide().isServer())
+		{
+			crusherTicks = HMConfig.getOrCreateIntProperty("Crusher Ticks", "advanced_settings", 180).getInt(180);
+			washerTicks = HMConfig.getOrCreateIntProperty("Washer Ticks", "advanced_settings", 100).getInt(100);
+			
+		}
+		
 		HMConfig.save();
 		
 		blockCrusher = new HawkBlockGrinder(crusherID).setStepSound(Block.soundMetalFootstep);
 		blockOre = new HawkBlockOre(oreID).setStepSound(Block.soundStoneFootstep);
 		blockMetalStorage = new HawkBlockMetalStorage(metalStorageID).setStepSound(Block.soundMetalFootstep);
 		blockWasher = new HawkBlockWasher(washerID).setStepSound(Block.soundMetalFootstep);
+		if (enableChunkloader)
+		{
+			blockChunkloader = new HawkBlockChunkloader(chunkloaderID);
+		}
 		
 		dustRaw = new HawkItemRawDust(dustRawID - 256);
 		dustRefined = new HawkItemRefinedDust(dustRefinedID - 256);
@@ -183,6 +208,10 @@ public class HawksMachinery implements ICraftingHandler
 		
 		GameRegistry.registerTileEntity(HawkTileEntityGrinder.class, "HMCrusher");
 		GameRegistry.registerTileEntity(HawkTileEntityWasher.class, "HMWasher");
+		if (enableChunkloader)
+		{
+			GameRegistry.registerTileEntity(HawkTileEntityChunkloader.class, "HMChunkloader");
+		}
 		
 		OreDictionary.registerOre("ingotTitanium", new ItemStack(ingots, 1, 0));
 		OreDictionary.registerOre("ingotAluminum", new ItemStack(ingots, 1, 1));
@@ -195,8 +224,6 @@ public class HawksMachinery implements ICraftingHandler
 		OreDictionary.registerOre("oreSilver", new ItemStack(blockOre, 1, 2));
 		OreDictionary.registerOre("oreEndium", new ItemStack(blockOre, 1, 3));
 		
-		new HMUpdateHandler(ModConverter.getMod(getClass()));
-		
 	}
 	
 	@Init
@@ -204,6 +231,7 @@ public class HawksMachinery implements ICraftingHandler
 	{
 		PROXY.registerRenderInformation();
 		loadRecipes();
+		new HMUpdateHandler(ModConverter.getMod(getClass()));
 		
 	}
 	
@@ -227,6 +255,7 @@ public class HawksMachinery implements ICraftingHandler
 		
 		RECIPE_GIVER.addRecipe(new ItemStack(blockCrusher, 1), new Object[]{"TPT", "TMT", "TBT", 'T', new ItemStack(plating, 1, 0), 'P', Item.pickaxeSteel, 'M', BasicComponents.itemMotor, 'B', ((ItemBattery)BasicComponents.itemBattery).getUnchargedItemStack()});
 		RECIPE_GIVER.addRecipe(new ItemStack(blockWasher, 1), new Object[]{"AWA", "BPA", "AbD", 'A', new ItemStack(plating, 1, 1), 'W', Block.cloth, 'P', new ItemStack(parts, 1, 0), 'D', Block.dispenser, 'B', ((ItemBattery)BasicComponents.itemBattery).getUnchargedItemStack(), 'b', Item.bucketEmpty});
+		
 		RECIPE_GIVER.addRecipe(new ItemStack(BasicComponents.itemBattery), new Object[]{" x ", "xrx", "xcx", 'x', BasicComponents.itemTinIngot, 'c', new ItemStack(dustRaw, 1, 0), 'r', Item.redstone});
 		RECIPE_GIVER.addRecipe(new ItemStack(Block.torchWood, 4), new Object[]{"c", "s", 'c', new ItemStack(dustRaw, 1, 0), 's', Item.stick});
 		RECIPE_GIVER.addRecipe(new ItemStack(Block.glass, 1), new Object[]{"GG", "GG", 'G', new ItemStack(dustRefined, 1, 2)});

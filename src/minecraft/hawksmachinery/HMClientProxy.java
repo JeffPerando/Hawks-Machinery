@@ -1,6 +1,7 @@
 
 package hawksmachinery;
 
+import hawksmachinery.tileentity.HawkTileEntityGrinder;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;

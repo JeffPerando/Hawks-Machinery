@@ -1,6 +1,7 @@
 
 package hawksmachinery;
 
+import hawksmachinery.tileentity.HawkTileEntityGrinder;
 import universalelectricity.basiccomponents.SlotElectricItem;
 import universalelectricity.extend.IItemElectric;
 import net.minecraft.src.Container;

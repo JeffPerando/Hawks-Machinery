@@ -35,7 +35,7 @@ public class HawkOreGenerator implements IWorldGenerator
 		}
 		else if (chunkGenerator instanceof ChunkProviderHell)
 		{
-			generateNether(world, random, chunkX << 4, chunkZ << 4);
+			//generateNether(world, random, chunkX << 4, chunkZ << 4);
 		}
 		else if (chunkGenerator instanceof ChunkProviderEnd)
 		{
@@ -134,7 +134,8 @@ public class HawkOreGenerator implements IWorldGenerator
 		}
 	}
 	
-	public void generateNether(World world, Random random, int chunkX, int chunkZ) {}
+	//TODO: Do SOMETHING with the Nether.
+	//public void generateNether(World world, Random random, int chunkX, int chunkZ){}
 	
 	public void generateEnd(World world, Random random, int chunkX, int chunkZ)
 	{

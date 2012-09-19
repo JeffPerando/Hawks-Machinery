@@ -1,6 +1,7 @@
 
 package hawksmachinery;
 
+import hawksmachinery.tileentity.HawkTileEntityGrinder;
 import org.lwjgl.opengl.GL11;
 import universalelectricity.UniversalElectricity;
 import universalelectricity.electricity.ElectricInfo;

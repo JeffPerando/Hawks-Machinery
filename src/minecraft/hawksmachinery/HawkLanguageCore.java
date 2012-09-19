@@ -24,6 +24,10 @@ public class HawkLanguageCore
 	{
 		LANG.addNameForObject(BASEMOD.blockCrusher, "en_US", "Crusher");
 		LANG.addNameForObject(BASEMOD.blockWasher, "en_US", "Washer");
+		if (BASEMOD.enableChunkloader)
+		{
+			LANG.addNameForObject(BASEMOD.blockChunkloader, "en_US", "Endium Chunkloader");
+		}
 		
 		LANG.addStringLocalization(ACH.timeToCrush.getName(), "en_US", "Time to Crush!");
 		LANG.addStringLocalization(ACH.timeToCrush.getName() + ".desc", "en_US", "The matriarch of Hawk's Machinery!");

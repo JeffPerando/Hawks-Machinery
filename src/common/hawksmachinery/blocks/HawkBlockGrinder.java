@@ -1,8 +1,8 @@
 
 package hawksmachinery.blocks;
 
-import hawksmachinery.HawkTileEntityGrinder;
 import hawksmachinery.HawksMachinery;
+import hawksmachinery.tileentity.HawkTileEntityGrinder;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import universalelectricity.extend.BlockMachine;

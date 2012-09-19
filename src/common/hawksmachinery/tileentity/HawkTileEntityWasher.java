@@ -1,10 +1,13 @@
 
-package hawksmachinery;
+package hawksmachinery.tileentity;
 
+import hawksmachinery.HawkProcessingRecipes;
+import hawksmachinery.HawksMachinery;
 import java.util.Random;
 import railcraft.common.api.carts.IItemTransfer;
 import railcraft.common.api.core.items.EnumItemType;
 import com.google.common.io.ByteArrayDataInput;
+import cpw.mods.fml.common.FMLCommonHandler;
 import net.minecraft.src.EntityItem;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.IInventory;
@@ -34,7 +37,7 @@ public class HawkTileEntityWasher extends TileEntityElectricUnit implements IInv
 {
 	public int ELECTRICITY_REQUIRED = 10;
 	
-	public int TICKS_REQUIRED = 100;
+	public int TICKS_REQUIRED = FMLCommonHandler.instance().getSide().isServer() ? HawksMachinery.crusherTicks : 100;
 	
 	public ForgeDirection facingDirection = ForgeDirection.UNKNOWN;
 	
@@ -49,6 +52,8 @@ public class HawkTileEntityWasher extends TileEntityElectricUnit implements IInv
 	public float waterUnits = 0;
 	
 	public float WATER_LIMIT = 25.0F;
+	
+	public boolean isOpen;
 	
 	public HawkTileEntityWasher()
 	{
@@ -140,7 +145,10 @@ public class HawkTileEntityWasher extends TileEntityElectricUnit implements IInv
 				this.worldObj.setBlockWithNotify(this.xCoord, this.yCoord + 1, this.zCoord, 0);
 			}
 			
-			PacketManager.sendTileEntityPacket(this, "HawksMachinery", this.workTicks, this.electricityStored, this.waterUnits);
+			if (this.isOpen)
+			{
+				PacketManager.sendTileEntityPacket(this, "HawksMachinery", this.workTicks, this.electricityStored, this.waterUnits);
+			}
 			
 		}
 	}
@@ -392,10 +400,16 @@ public class HawkTileEntityWasher extends TileEntityElectricUnit implements IInv
 	}
 	
 	@Override
-	public void openChest() {}
+	public void openChest()
+	{
+		this.isOpen = true;
+	}
 	
 	@Override
-	public void closeChest() {}
+	public void closeChest()
+	{
+		this.isOpen = false;
+	}
 	
 	@Override
 	public float ampRequest()
