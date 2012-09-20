@@ -22,7 +22,7 @@ public class HawkItemRefinedDust extends Item
 										"Iron", "Gold", 
 										"Copper", "Tin", 
 										"Titanium", "Aluminum", 
-										"Silver", "Emerald", "Star"};
+										"Silver", "Emerald", "Star", "Endium"};
 	
 	public HawkItemRefinedDust(int id)
 	{
@@ -49,6 +49,7 @@ public class HawkItemRefinedDust extends Item
 			case 9: return 21;
 			case 10: return 58;
 			case 11: return 60;
+			case 12: return 19;
 			default: return 0;
 		}
 	}
@@ -56,7 +57,7 @@ public class HawkItemRefinedDust extends Item
 	@Override
 	public void getSubItems(int id, CreativeTabs tabs, List itemList)
 	{
-		for (int counter  = 0; counter <= 11; ++counter)
+		for (int counter  = 0; counter <= 12; ++counter)
 		{
 			itemList.add(new ItemStack(this, 1, counter));
 		}
@@ -80,6 +81,7 @@ public class HawkItemRefinedDust extends Item
 			case 7: effect = 8; break;
 			case 8: effect = 6; break;
 			case 11: effect = 15; break;
+			case 12: effect = 18; break;
 			default: effect = 4; break;
 		}
 		

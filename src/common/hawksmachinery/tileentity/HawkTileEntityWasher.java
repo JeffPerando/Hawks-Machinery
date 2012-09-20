@@ -1,6 +1,7 @@
 
 package hawksmachinery.tileentity;
 
+import hawksmachinery.HawkEnumProcessing;
 import hawksmachinery.HawkProcessingRecipes;
 import hawksmachinery.HawksMachinery;
 import java.util.Random;
@@ -163,7 +164,7 @@ public class HawkTileEntityWasher extends TileEntityElectricUnit implements IInv
 		{
 			if (this.electricityStored >= this.ELECTRICITY_REQUIRED * 2 && this.waterUnits >= 1.0F)
 			{
-				ItemStack var1 = HawkProcessingRecipes.getWashingResult(this.containingItems[2]);
+				ItemStack var1 = HawkProcessingRecipes.getProcessingResult(this.containingItems[2], HawkEnumProcessing.WASHING);
 				if (var1 == null) return false;
 				if (this.containingItems[3] == null) return true;
 				if (!this.containingItems[3].isItemEqual(var1)) return false;
@@ -181,7 +182,7 @@ public class HawkTileEntityWasher extends TileEntityElectricUnit implements IInv
 	{
 		if (this.canWash())
 		{
-			ItemStack newItem = HawkProcessingRecipes.getWashingResult(this.containingItems[2]);
+			ItemStack newItem = HawkProcessingRecipes.getProcessingResult(this.containingItems[2], HawkEnumProcessing.WASHING);
 			
 			if (this.canWash())
 			{
@@ -447,7 +448,7 @@ public class HawkTileEntityWasher extends TileEntityElectricUnit implements IInv
 	@Override
 	public ItemStack offerItem(Object source, ItemStack offer)
 	{
-		if (HawkProcessingRecipes.getWashingResult(offer) != null)
+		if (HawkProcessingRecipes.getProcessingResult(offer, HawkEnumProcessing.WASHING) != null)
 		{
 			if (this.containingItems[2] == null)
 			{

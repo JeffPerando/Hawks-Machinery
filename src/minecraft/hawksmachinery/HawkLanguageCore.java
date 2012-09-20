@@ -29,6 +29,8 @@ public class HawkLanguageCore
 			LANG.addNameForObject(BASEMOD.blockChunkloader, "en_US", "Endium Chunkloader");
 		}
 		
+		LANG.addNameForObject(BASEMOD.endiumAlloy, "en_US", "Endium Alloy");
+		
 		LANG.addStringLocalization(ACH.timeToCrush.getName(), "en_US", "Time to Crush!");
 		LANG.addStringLocalization(ACH.timeToCrush.getName() + ".desc", "en_US", "The matriarch of Hawk's Machinery!");
 		
@@ -44,7 +46,7 @@ public class HawkLanguageCore
 		LANG.addStringLocalization(ACH.wash.getName(), "en_US", "Workin' at the--");
 		LANG.addStringLocalization(ACH.wash.getName() + ".desc", "en_US", "Wait, what?");
 		
-		for (int counter = 0; counter <= 11; ++counter)
+		for (int counter = 0; counter <= 12; ++counter)
 		{
 			if (counter <= 3)
 			{
@@ -61,7 +63,7 @@ public class HawkLanguageCore
 				
 			}
 			
-			if (counter <= 8)
+			if (counter <= 9)
 			{
 				if (HawkItemRawDust.en_USNames[counter] != "Coal" && HawkItemRawDust.en_USNames[counter] != "Obsidian")
 				{

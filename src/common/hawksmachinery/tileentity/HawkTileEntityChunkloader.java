@@ -14,7 +14,6 @@ import net.minecraft.src.TileEntity;
  */
 public class HawkTileEntityChunkloader extends TileEntity
 {
-	public Chunk chunkInside = this.worldObj.getChunkFromBlockCoords(this.xCoord, this.zCoord);
 	public String ownerUsername;
 	
 	@Override
@@ -29,6 +28,8 @@ public class HawkTileEntityChunkloader extends TileEntity
 	@Override
 	public void readFromNBT(NBTTagCompound NBTTag)
 	{
+		super.readFromNBT(NBTTag);
+		
 		this.ownerUsername = NBTTag.getString("owner");
 	}
 	

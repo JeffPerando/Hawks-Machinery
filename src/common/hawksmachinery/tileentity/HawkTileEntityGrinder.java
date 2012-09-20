@@ -1,6 +1,7 @@
 
 package hawksmachinery.tileentity;
 
+import hawksmachinery.HawkEnumProcessing;
 import hawksmachinery.HawkProcessingRecipes;
 import hawksmachinery.HawksMachinery;
 import java.io.DataInputStream;
@@ -147,7 +148,7 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 		{
 			if (this.electricityStored >= this.ELECTRICITY_REQUIRED * 2)
 			{
-				ItemStack var1 = HawkProcessingRecipes.getGrindingResult(this.containingItems[1]);
+				ItemStack var1 = HawkProcessingRecipes.getProcessingResult(this.containingItems[1], HawkEnumProcessing.CRUSHING);
 				if (var1 == null) return false;
 				if (this.containingItems[2] == null) return true;
 				if (!this.containingItems[2].isItemEqual(var1)) return false;
@@ -171,7 +172,7 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 		{
 			if (this.electricityStored >= this.ELECTRICITY_REQUIRED * 2)
 			{
-				ItemStack var1 = HawkProcessingRecipes.getGrindingExplosive(this.containingItems[1]);
+				ItemStack var1 = HawkProcessingRecipes.getProcessingResult(this.containingItems[1], HawkEnumProcessing.CRUSHING_EXPLOSIVES);
 				
 				if (var1 == null) return false;
 				if (this.containingItems[2] == null) return true;
@@ -190,7 +191,7 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 	{
 		if (this.canGrind())
 		{
-			ItemStack var1 = HawkProcessingRecipes.getGrindingResult(this.containingItems[1]);
+			ItemStack var1 = HawkProcessingRecipes.getProcessingResult(this.containingItems[1], HawkEnumProcessing.CRUSHING);
 			
 			if (this.containingItems[2] == null)
 			{
@@ -514,7 +515,7 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 	{
 		if (offer != null)
 		{
-			if (HawkProcessingRecipes.getGrindingResult(offer) != null)
+			if (HawkProcessingRecipes.getProcessingResult(offer, HawkEnumProcessing.CRUSHING) != null)
 			{
 				if (this.containingItems[1] == null)
 				{

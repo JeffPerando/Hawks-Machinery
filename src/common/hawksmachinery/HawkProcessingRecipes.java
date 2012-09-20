@@ -12,18 +12,16 @@ import net.minecraftforge.oredict.OreDictionary;
 
 
 /**
+ * 
+ * 
+ * 
  * @author Elusivehawk
- *
- * @notice PROCESSING TYPES:
- * 1 - CRUSHING
- * 2 - WASHING
  */
 public class HawkProcessingRecipes
 {
 	private static Map grinderRecipes = new HashMap();
 	private static Map grinderExplosives = new HashMap();
 	
-	private static Map washerRecipes = new HashMap();
 	private static Map washerSecondaries = new HashMap();
 	private static Map washerRarities = new HashMap();
 	
@@ -36,15 +34,11 @@ public class HawkProcessingRecipes
 	 * Output
 	 * Processing Type
 	 */
-	public static void addHawkProcessingRecipe(ItemStack input, ItemStack output, int processingType)
+	public static void addHawkProcessingRecipe(ItemStack input, ItemStack output, HawkEnumProcessing processType)
 	{
-		if (input != null && output != null)
+		if (input != null && output != null && processType != null)
 		{
-			switch (processingType)
-			{
-				case 1: grinderRecipes.put(Arrays.asList(input.getItem(), 1, input.getItemDamage()), output);
-				case 2: washerRecipes.put(Arrays.asList(input.getItem(), 1, input.getItemDamage()), output);
-			}
+			processType.getRecipeList().put(Arrays.asList(input.getItem(), 1, input.getItemDamage()), output);
 		}
 		else
 		{
@@ -57,37 +51,43 @@ public class HawkProcessingRecipes
 			{
 				throw new NullPointerException("Hawk's Machinery: Output cannot be null!");
 			}
+			
+			if (processType == null)
+			{
+				throw new NullPointerException("Hawk's Machinery: Process type cannot be null!");
+			}
+			
 		}
 	}
 	
-	public static void addHawkProcessingRecipe(Item input, ItemStack output, int processingType)
+	public static void addHawkProcessingRecipe(Item input, ItemStack output, HawkEnumProcessing processType)
 	{
-		addHawkProcessingRecipe(new ItemStack(input, 1, 0), output, processingType);
+		addHawkProcessingRecipe(new ItemStack(input, 1, 0), output, processType);
 	}
 	
-	public static void addHawkProcessingRecipe(Item input, Item output, int processingType)
+	public static void addHawkProcessingRecipe(Item input, Item output, HawkEnumProcessing processType)
 	{
-		addHawkProcessingRecipe(new ItemStack(input, 1, 0), new ItemStack(output, 1, 0), processingType);
+		addHawkProcessingRecipe(new ItemStack(input, 1, 0), new ItemStack(output, 1, 0), processType);
 	}
 	
-	public static void addHawkProcessingRecipe(Item input, Block output, int processingType)
+	public static void addHawkProcessingRecipe(Item input, Block output, HawkEnumProcessing processType)
 	{
-		addHawkProcessingRecipe(new ItemStack(input, 1, 0), new ItemStack(output, 1, 0), processingType);
+		addHawkProcessingRecipe(new ItemStack(input, 1, 0), new ItemStack(output, 1, 0), processType);
 	}
 	
-	public static void addHawkProcessingRecipe(Block input, ItemStack output, int processingType)
+	public static void addHawkProcessingRecipe(Block input, ItemStack output, HawkEnumProcessing processType)
 	{
-		addHawkProcessingRecipe(new ItemStack(input, 1, 0), output, processingType);
+		addHawkProcessingRecipe(new ItemStack(input, 1, 0), output, processType);
 	}
 	
-	public static void addHawkProcessingRecipe(Block input, Item output, int processingType)
+	public static void addHawkProcessingRecipe(Block input, Item output, HawkEnumProcessing processType)
 	{
-		addHawkProcessingRecipe(new ItemStack(input, 1, 0), new ItemStack(output, 1, 0), processingType);
+		addHawkProcessingRecipe(new ItemStack(input, 1, 0), new ItemStack(output, 1, 0), processType);
 	}
 	
-	public static void addHawkProcessingRecipe(Block input, Block output, int processingType)
+	public static void addHawkProcessingRecipe(Block input, Block output, HawkEnumProcessing processType)
 	{
-		addHawkProcessingRecipe(new ItemStack(input, 1, 0), new ItemStack(output, 1, 0), processingType);
+		addHawkProcessingRecipe(new ItemStack(input, 1, 0), new ItemStack(output, 1, 0), processType);
 	}
 	
 	/**
@@ -98,39 +98,14 @@ public class HawkProcessingRecipes
 	 * @param output
 	 * @param processingType
 	 */
-	public static void addHawkFoDProcessingRecipe(String input, ItemStack output, int processingType)
+	public static void addHawkFoDProcessingRecipe(String input, ItemStack output, HawkEnumProcessing processType)
 	{
 		for (ItemStack ore : OreDictionary.getOres(input))
 		{
 			if (ore != null)
 			{
-				switch (processingType)
-				{
-					case 1: grinderRecipes.put(Arrays.asList(ore.getItem(), 1, ore.getItemDamage()), output);
-					case 2: washerRecipes.put(Arrays.asList(ore.getItem(), 1, ore.getItemDamage()), output);
-				}
+				processType.getRecipeList().put(Arrays.asList(ore.getItem(), 1, ore.getItemDamage()), output);
 			}
-		}
-	}
-	
-	/**
-	 * Adds an explosive item that explodes a machine when processed in a certain way.
-	 * 
-	 * @param explosive The item/block that explodes once processed.
-	 * @param processingType Determines what machine explodes when processing said item/block.
-	 */
-	public static void addHawkExplosive(ItemStack input, int processingType)
-	{
-		if (input != null)
-		{
-			switch (processingType)
-			{
-				case 1: grinderExplosives.put(Arrays.asList(input.getItem(), 1, input.getItemDamage()), new Object[]{});
-			}
-		}
-		else
-		{
-			throw new NullPointerException("Hawl's Machinery: Explosive input cannot be null!");
 		}
 	}
 	
@@ -162,24 +137,7 @@ public class HawkProcessingRecipes
 		
 	}
 	
-	public static Map getGrindingList()
-	{
-		return grinderRecipes;
-	}
-	
-	public static Map getGrindingExplosivesList()
-	{
-		return grinderExplosives;
-	}
-	
-	public static void reportRecipes()
-	{
-		System.out.println(getGrindingList().size() + " Hawk's Machinery recipes");
-		System.out.println(getGrindingExplosivesList().size() + " Hawk's Machinery explosives");
-		
-	}
-	
-	public static ItemStack getGrindingResult(ItemStack item)
+	public static ItemStack getProcessingResult(ItemStack item, HawkEnumProcessing processType)
 	{
 		if (item == null)
 		{
@@ -187,21 +145,7 @@ public class HawkProcessingRecipes
 		}
 		else
 		{
-			ItemStack ret = (ItemStack)grinderRecipes.get(Arrays.asList(item.getItem(), 1, item.getItemDamage()));
-			
-			return ret;
-		}
-	}
-	
-	public static ItemStack getWashingResult(ItemStack item)
-	{
-		if (item == null)
-		{
-			return null;
-		}
-		else
-		{
-			ItemStack ret = (ItemStack)washerRecipes.get(Arrays.asList(item.getItem(), 1, item.getItemDamage()));
+			ItemStack ret = (ItemStack)processType.getRecipeList().get(Arrays.asList(item.getItem(), 1, item.getItemDamage()));
 			
 			if (ret != null) 
 			{
@@ -239,25 +183,6 @@ public class HawkProcessingRecipes
 				{
 					return ret;
 				}
-			}
-			
-			return null;
-		}
-	}
-	
-	public static ItemStack getGrindingExplosive(ItemStack item)
-	{
-		if (item == null)
-		{
-			return null;
-		}
-		else
-		{
-			ItemStack ret = (ItemStack)grinderExplosives.get(Arrays.asList(item.getItem(), 1, item.getItemDamage()));
-			
-			if (ret != null) 
-			{
-				return ret;
 			}
 			
 			return null;

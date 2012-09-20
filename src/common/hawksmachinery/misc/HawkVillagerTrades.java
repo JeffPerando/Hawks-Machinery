@@ -59,7 +59,11 @@ public class HawkVillagerTrades implements IVillageTradeHandler
 		
 		if (profession == 2)
 		{
-			//TODO: Make Priest trades.
+			if (BASEMOD.enableChunkloader)
+			{
+				recipeList.add(new MerchantRecipe(new ItemStack(BASEMOD.blockChunkloader, 1), new ItemStack(Item.emerald, 12)));
+			}
+			
 		}
 		
 		if (profession == 3)
