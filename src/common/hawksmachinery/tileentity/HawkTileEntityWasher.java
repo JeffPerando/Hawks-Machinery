@@ -150,8 +150,8 @@ public class HawkTileEntityWasher extends TileEntityMachine implements IInventor
 			this.waterUnits += 1.0F;
 			this.worldObj.setBlockWithNotify(this.xCoord, this.yCoord + 1, this.zCoord, 0);
 		}
-
-		if (this.containingItems[2] == null && this.workTicks != 0)
+		
+		if (!this.canWash() && this.workTicks != 0)
 		{
 			this.workTicks = 0;
 		}

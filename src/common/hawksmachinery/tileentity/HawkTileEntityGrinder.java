@@ -133,7 +133,7 @@ public class HawkTileEntityGrinder extends TileEntityMachine implements IRedston
 			this.electricityStored = this.ELECTRICITY_LIMIT;
 		}
 		
-		if (this.containingItems[1] == null && this.workTicks != 0)
+		if ((!this.canGrind() || !this.canExplode()) && this.workTicks != 0)
 		{
 			this.workTicks = 0;
 		}
