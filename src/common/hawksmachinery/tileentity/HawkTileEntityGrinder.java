@@ -37,7 +37,7 @@ import universalelectricity.extend.IItemElectric;
  * 
  * @author Elusivehawk
  */
-public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRedstoneReceptor, IInventory, ISidedInventory, IRotatable, IPacketReceiver, ITier, IItemTransfer
+public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRedstoneReceptor, IInventory, ISidedInventory, IRotatable, IPacketReceiver, IItemTransfer
 {
 	public int ELECTRICITY_REQUIRED = 10;
 	
@@ -57,14 +57,11 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 	
 	public int ELECTRICITY_LIMIT = 2500;
 	
-	public int tier;
-	
 	public boolean isOpen;
 	
-	public HawkTileEntityGrinder(int tier)
+	public HawkTileEntityGrinder()
 	{
 		super();
-		this.setTier(tier);
 	}
 	
 	@Override
@@ -496,18 +493,6 @@ public class HawkTileEntityGrinder extends TileEntityElectricUnit implements IRe
 	private void explodeGrinder(float strength)
 	{
 		this.worldObj.createExplosion(null, this.xCoord, this.yCoord, this.zCoord, strength);
-	}
-	
-	@Override
-	public int getTier()
-	{
-		return this.tier;
-	}
-	
-	@Override
-	public void setTier(int tier)
-	{
-		this.tier = tier;
 	}
 	
 	@Override
