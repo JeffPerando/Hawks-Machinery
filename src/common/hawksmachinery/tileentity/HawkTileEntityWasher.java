@@ -21,7 +21,8 @@ import net.minecraft.src.NetworkManager;
 import net.minecraft.src.Packet250CustomPayload;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.common.ISidedInventory;
-import universalelectricity.electricity.TileEntityElectricUnit;
+import universalelectricity.electricity.ElectricInfo;
+import universalelectricity.electricity.TileEntityMachine;
 import universalelectricity.extend.IItemElectric;
 import universalelectricity.extend.IRedstoneReceptor;
 import universalelectricity.extend.IRotatable;
@@ -34,7 +35,7 @@ import universalelectricity.network.PacketManager;
  * 
  * @author Elusivehawk
  */
-public class HawkTileEntityWasher extends TileEntityElectricUnit implements IInventory, ISidedInventory, IRotatable, IPacketReceiver, IItemTransfer
+public class HawkTileEntityWasher extends TileEntityMachine implements IInventory, ISidedInventory, IRotatable, IPacketReceiver, IItemTransfer
 {
 	public int ELECTRICITY_REQUIRED = 10;
 	
@@ -42,7 +43,7 @@ public class HawkTileEntityWasher extends TileEntityElectricUnit implements IInv
 	
 	public ForgeDirection facingDirection = ForgeDirection.UNKNOWN;
 	
-	public float electricityStored = 0;
+	public double electricityStored = 0;
 	
 	public int workTicks = 0;
 	
@@ -62,96 +63,104 @@ public class HawkTileEntityWasher extends TileEntityElectricUnit implements IInv
 	}
 	
 	@Override
-	public void onUpdate(float watts, float voltage, ForgeDirection side)
+	public void onReceive(double amps, double voltage, ForgeDirection side)
 	{
-		super.onUpdate(watts, voltage, side);
+		super.onReceive(amps, voltage, side);
 		
-		if (!this.worldObj.isRemote)
+		if (voltage > this.getVoltage())
 		{
-			if (voltage > this.getVoltage())
+			this.worldObj.createExplosion(null, this.xCoord, this.yCoord, this.zCoord, 0.7F);
+		}
+		
+		this.electricityStored += ElectricInfo.getWatts(amps, voltage);
+		
+	}
+	
+	@Override
+	public void updateEntity()
+	{
+		
+		if (this.containingItems[0] != null)
+		{
+			if (this.containingItems[0].getItem() instanceof IItemElectric)
 			{
-				this.worldObj.createExplosion(null, this.xCoord, this.yCoord, this.zCoord, 0.7F);
-			}
-			
-			if (this.containingItems[0] != null)
-			{
-				if (this.containingItems[0].getItem() instanceof IItemElectric)
-				{
-					IItemElectric electricItem = (IItemElectric)this.containingItems[0].getItem();
-					
-					if (electricItem.canProduceElectricity() && this.electricityStored + electricItem.getTransferRate() <= this.ELECTRICITY_LIMIT)
-					{
-						double receivedElectricity = electricItem.onUseElectricity(electricItem.getTransferRate(), this.containingItems[0]);
-						this.electricityStored += receivedElectricity;
-					}
-				}
-			}
-			
-			this.electricityStored += watts;
-			
-			if (this.containingItems[1] != null)
-			{
-				if (this.containingItems[1].getItem() == Item.bucketWater && this.waterUnits + 1.0F <= this.WATER_LIMIT)
-				{
-					this.waterUnits += 1.0;
-					this.containingItems[1] = new ItemStack(Item.bucketEmpty, 1);
-				}
+				IItemElectric electricItem = (IItemElectric)this.containingItems[0].getItem();
 				
-			}
-			
-			if (this.canWash())
-			{
-				if (this.containingItems[2] != null && this.workTicks == 0)
+				if (electricItem.canProduceElectricity() && this.electricityStored + electricItem.getTransferRate() <= this.ELECTRICITY_LIMIT)
 				{
-					this.workTicks = this.TICKS_REQUIRED;
-				}
-				
-				if (this.canWash() && this.workTicks > 0)
-				{
-					this.workTicks -= this.getTickInterval();
-					this.waterUnits -= 0.01F * this.getTickInterval();
-					
-					if (this.workTicks < this.getTickInterval())
-					{
-						this.washItem();
-						this.workTicks = 0;
-					}
-					
-					this.electricityStored = this.electricityStored - this.ELECTRICITY_REQUIRED;
-				}
-				else
-				{
-					this.workTicks = 0;
+					double receivedElectricity = electricItem.onUseElectricity(electricItem.getTransferRate(), this.containingItems[0]);
+					this.electricityStored += receivedElectricity;
 				}
 			}
-			
-			if (this.electricityStored <= 0)
+		}
+		
+		if (this.containingItems[1] != null)
+		{
+			if (this.containingItems[1].getItem() == Item.bucketWater && this.waterUnits + 1.0F <= this.WATER_LIMIT)
 			{
-				this.electricityStored = 0;
-			}
-			
-			if (this.electricityStored >= this.ELECTRICITY_LIMIT)
-			{
-				this.electricityStored = this.ELECTRICITY_LIMIT;
-			}
-			
-			if (this.waterUnits > this.WATER_LIMIT)
-			{
-				this.waterUnits = this.WATER_LIMIT;
-			}
-			
-			if (this.worldObj.getBlockId(this.xCoord, this.yCoord + 1, this.zCoord) == Block.waterStill.blockID && this.waterUnits + 1.0F <= this.WATER_LIMIT)
-			{
-				this.waterUnits += 1.0F;
-				this.worldObj.setBlockWithNotify(this.xCoord, this.yCoord + 1, this.zCoord, 0);
-			}
-			
-			if (this.isOpen)
-			{
-				PacketManager.sendTileEntityPacket(this, "HawksMachinery", this.workTicks, this.electricityStored, this.waterUnits);
+				this.waterUnits += 1.0;
+				this.containingItems[1] = new ItemStack(Item.bucketEmpty, 1);
 			}
 			
 		}
+		
+		if (this.canWash())
+		{
+			if (this.containingItems[2] != null && this.workTicks == 0)
+			{
+				this.workTicks = this.TICKS_REQUIRED;
+			}
+			
+			if (this.canWash() && this.workTicks > 0)
+			{
+				this.workTicks -= this.getReceiveInterval();
+				this.waterUnits -= 0.01F * this.getReceiveInterval();
+				
+				if (this.workTicks < this.getReceiveInterval())
+				{
+					this.washItem();
+					this.workTicks = 0;
+				}
+				
+				this.electricityStored = this.electricityStored - this.ELECTRICITY_REQUIRED;
+			}
+			else
+			{
+				this.workTicks = 0;
+			}
+		}
+		
+		if (this.electricityStored <= 0)
+		{
+			this.electricityStored = 0;
+		}
+		
+		if (this.electricityStored >= this.ELECTRICITY_LIMIT)
+		{
+			this.electricityStored = this.ELECTRICITY_LIMIT;
+		}
+		
+		if (this.waterUnits > this.WATER_LIMIT)
+		{
+			this.waterUnits = this.WATER_LIMIT;
+		}
+		
+		if (this.worldObj.getBlockId(this.xCoord, this.yCoord + 1, this.zCoord) == Block.waterStill.blockID && this.waterUnits + 1.0F <= this.WATER_LIMIT)
+		{
+			this.waterUnits += 1.0F;
+			this.worldObj.setBlockWithNotify(this.xCoord, this.yCoord + 1, this.zCoord, 0);
+		}
+
+		if (this.containingItems[2] == null && this.workTicks != 0)
+		{
+			this.workTicks = 0;
+		}
+		
+		if (!this.worldObj.isRemote && this.isOpen)
+		{
+			PacketManager.sendTileEntityPacketWithRange(this, "HawksMachinery", 8, this.workTicks, this.electricityStored, this.waterUnits);
+		}
+		
 	}
 	
 	public boolean canWash()
@@ -164,7 +173,7 @@ public class HawkTileEntityWasher extends TileEntityElectricUnit implements IInv
 		{
 			if (this.electricityStored >= this.ELECTRICITY_REQUIRED * 2 && this.waterUnits >= 1.0F)
 			{
-				ItemStack var1 = HawkProcessingRecipes.getProcessingResult(this.containingItems[2], HawkEnumProcessing.WASHING);
+				ItemStack var1 = HawkProcessingRecipes.getResult(this.containingItems[2], HawkEnumProcessing.WASHING);
 				if (var1 == null) return false;
 				if (this.containingItems[3] == null) return true;
 				if (!this.containingItems[3].isItemEqual(var1)) return false;
@@ -182,7 +191,7 @@ public class HawkTileEntityWasher extends TileEntityElectricUnit implements IInv
 	{
 		if (this.canWash())
 		{
-			ItemStack newItem = HawkProcessingRecipes.getProcessingResult(this.containingItems[2], HawkEnumProcessing.WASHING);
+			ItemStack newItem = HawkProcessingRecipes.getResult(this.containingItems[2], HawkEnumProcessing.WASHING);
 			
 			if (this.canWash())
 			{
@@ -223,7 +232,7 @@ public class HawkTileEntityWasher extends TileEntityElectricUnit implements IInv
 	}
 	
 	@Override
-	public int getTickInterval()
+	public int getReceiveInterval()
 	{
 		return 1;
 	}
@@ -286,7 +295,7 @@ public class HawkTileEntityWasher extends TileEntityElectricUnit implements IInv
 	public void writeToNBT(NBTTagCompound NBTTag)
 	{
 		super.writeToNBT(NBTTag);
-		NBTTag.setFloat("electricityStored", this.electricityStored);
+		NBTTag.setDouble("electricityStored", this.electricityStored);
 		NBTTag.setInteger("workTicks", this.workTicks);
 		NBTTag.setFloat("waterUnits", this.waterUnits);
 		
@@ -413,7 +422,7 @@ public class HawkTileEntityWasher extends TileEntityElectricUnit implements IInv
 	}
 	
 	@Override
-	public float ampRequest()
+	public double wattRequest()
 	{
 		if (!this.isDisabled() && this.canWash() && this.electricityStored + this.ELECTRICITY_REQUIRED <= this.ELECTRICITY_LIMIT)
 		{
@@ -448,7 +457,7 @@ public class HawkTileEntityWasher extends TileEntityElectricUnit implements IInv
 	@Override
 	public ItemStack offerItem(Object source, ItemStack offer)
 	{
-		if (HawkProcessingRecipes.getProcessingResult(offer, HawkEnumProcessing.WASHING) != null)
+		if (HawkProcessingRecipes.getResult(offer, HawkEnumProcessing.WASHING) != null)
 		{
 			if (this.containingItems[2] == null)
 			{

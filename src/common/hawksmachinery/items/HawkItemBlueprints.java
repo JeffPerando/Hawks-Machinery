@@ -27,7 +27,7 @@ public class HawkItemBlueprints extends Item
 		setHasSubtypes(true);
 		setMaxDamage(0);
 		setContainerItem(this);
-		setTabToDisplayOn(CreativeTabs.tabMisc);
+		setCreativeTab(CreativeTabs.tabMisc);
 		setMaxStackSize(1);
 		
 	}

@@ -27,7 +27,7 @@ public class HawkBlockGrinder extends BlockMachine
 		setResistance(20.0F);
 		setRequiresSelfNotify();
 		GameRegistry.registerBlock(this);
-		setCreativeTab(CreativeTabs.tabDeco);
+		setCreativeTab(CreativeTabs.tabDecorations);
 	}
 	
 	@Override

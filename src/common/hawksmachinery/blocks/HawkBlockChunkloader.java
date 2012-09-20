@@ -34,7 +34,7 @@ public class HawkBlockChunkloader extends HawkBlock
 		setResistance(1000000000.0F);
 		setBlockName("endiumChunkloader");
 		setStepSound(Block.soundMetalFootstep);
-		setCreativeTab(CreativeTabs.tabDeco);
+		setCreativeTab(CreativeTabs.tabDecorations);
 		
 	}
 	

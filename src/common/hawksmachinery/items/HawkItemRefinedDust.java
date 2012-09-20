@@ -29,7 +29,7 @@ public class HawkItemRefinedDust extends Item
 		super(id);
 		this.setHasSubtypes(true);
 		this.setMaxDamage(0);
-		setTabToDisplayOn(CreativeTabs.tabMaterials);
+		setCreativeTab(CreativeTabs.tabMaterials);
 	}
 	
 	@Override

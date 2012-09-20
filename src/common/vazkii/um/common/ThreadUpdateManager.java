@@ -82,7 +82,7 @@ public class ThreadUpdateManager extends Thread {
 		if (UpdateManager.online) {
 			UpdateManager.loadMods();
 			if (!UpdateManager.areModsUpdated()) {
-				ms.logWarningMessage("[Mod Update Manager] Detected Outdated Mods.");
+				ms.logWarning("[Mod Update Manager] Detected Outdated Mods.");
 				UpdateManager.warnUsersOfOutdated(true);
 			}
 		}

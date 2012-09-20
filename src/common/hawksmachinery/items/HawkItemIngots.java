@@ -30,7 +30,7 @@ public class HawkItemIngots extends Item
 		super(id);
 		setHasSubtypes(true);
 		setMaxDamage(0);
-		setTabToDisplayOn(CreativeTabs.tabMaterials);
+		setCreativeTab(CreativeTabs.tabMaterials);
 		
 		OreDictionary.registerOre("ingotTitanium", new ItemStack(this, 1, 0));
 		OreDictionary.registerOre("ingotAluminum", new ItemStack(this, 1, 1));

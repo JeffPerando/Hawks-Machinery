@@ -253,7 +253,7 @@ public class UpdateManager {
 	public static void sendChatMessageToPlayer(EntityPlayer player, String msg) {
 		Packet3Chat chatPacket = new Packet3Chat(msg);
 
-		if (player != null) ((EntityPlayerMP) player).serverForThisPlayer.sendPacketToPlayer(chatPacket);
+		if (player != null) ((EntityPlayerMP) player).playerNetServerHandler.sendPacketToPlayer(chatPacket);
 	}
 
 	public static ServerConfigurationManager getServerConfig(MinecraftServer serv) {

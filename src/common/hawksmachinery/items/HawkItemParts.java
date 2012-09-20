@@ -24,7 +24,7 @@ public class HawkItemParts extends Item
 		super(id);
 		setHasSubtypes(true);
 		setMaxDamage(0);
-		setTabToDisplayOn(CreativeTabs.tabMaterials);
+		setCreativeTab(CreativeTabs.tabMaterials);
 	}
 	
 	@Override

@@ -19,8 +19,6 @@ import net.minecraftforge.oredict.OreDictionary;
  */
 public class HawkProcessingRecipes
 {
-	private static Map grinderRecipes = new HashMap();
-	private static Map grinderExplosives = new HashMap();
 	
 	private static Map washerSecondaries = new HashMap();
 	private static Map washerRarities = new HashMap();
@@ -137,7 +135,7 @@ public class HawkProcessingRecipes
 		
 	}
 	
-	public static ItemStack getProcessingResult(ItemStack item, HawkEnumProcessing processType)
+	public static ItemStack getResult(ItemStack item, HawkEnumProcessing processType)
 	{
 		if (item == null)
 		{

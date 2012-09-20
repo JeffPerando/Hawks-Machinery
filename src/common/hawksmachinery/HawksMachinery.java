@@ -6,7 +6,6 @@ import hawksmachinery.items.*;
 import hawksmachinery.misc.*;
 import hawksmachinery.tileentity.*;
 import java.io.File;
-import java.util.Map;
 import com.google.common.collect.ObjectArrays;
 import universalelectricity.UniversalElectricity;
 import universalelectricity.basiccomponents.BasicComponents;
@@ -55,7 +54,7 @@ import cpw.mods.fml.common.registry.VillagerRegistry;
  * 
  * @author Elusivehawk
  */
-@Mod(modid = "HawksMachinery", name = "Hawk's Machinery", version = "Alpha v1.4.0", dependencies = "after:BasicComponents")
+@Mod(modid = "HawksMachinery", name = "Hawk's Machinery", version = "Alpha v1.3.2", dependencies = "after:BasicComponents")
 @NetworkMod(channels = {"HawksMachinery"}, clientSideRequired = true, serverSideRequired = false, packetHandler = PacketManager.class)
 public class HawksMachinery implements ICraftingHandler
 {
@@ -102,7 +101,7 @@ public class HawksMachinery implements ICraftingHandler
 	public static boolean generateEndium;
 	public static boolean enableUpdateChecking;
 	public static boolean enableAutoDL;
-	public static boolean enableChunkloader;
+	public static boolean enableChunkloader = false;
 	
 	public static final String GUI_PATH = "/hawksmachinery/textures/gui";
 	public static final String BLOCK_TEXTURE_FILE = "/hawksmachinery/textures/blocks.png";
@@ -152,7 +151,7 @@ public class HawksMachinery implements ICraftingHandler
 		generateEndium = HMConfig.getOrCreateBooleanProperty("Generate Endium", Configuration.CATEGORY_GENERAL, true).getBoolean(true);
 		enableUpdateChecking = HMConfig.getOrCreateBooleanProperty("Enable Update Checking", Configuration.CATEGORY_GENERAL, true).getBoolean(true);
 		enableAutoDL = HMConfig.getOrCreateBooleanProperty("Enable Auto DL", Configuration.CATEGORY_GENERAL, true).getBoolean(true);
-		enableChunkloader = HMConfig.getOrCreateBooleanProperty("Enable Chunkloader Block", Configuration.CATEGORY_GENERAL, true).getBoolean(true);
+		//enableChunkloader = HMConfig.getOrCreateBooleanProperty("Enable Chunkloader Block", Configuration.CATEGORY_GENERAL, true).getBoolean(true);
 		
 		if (enableChunkloader)
 		{
@@ -197,7 +196,7 @@ public class HawksMachinery implements ICraftingHandler
 		parts = new HawkItemParts(partsID - 256);
 		plating = new HawkItemPlating(platingID - 256);
 		blueprints = new HawkItemBlueprints(blueprintID - 256);
-		endiumAlloy = new HawkItem(endiumAlloyID - 256).setIconIndex(2).setItemName("endiumAlloy").setTabToDisplayOn(CreativeTabs.tabMaterials);
+		endiumAlloy = new HawkItem(endiumAlloyID - 256).setIconIndex(2).setItemName("endiumAlloy").setCreativeTab(CreativeTabs.tabMaterials);
 		
 		UniversalElectricity.registerMod(this, "Hawk's Machinery", "0.8.1");
 		NetworkRegistry.instance().registerGuiHandler(this, this.PROXY);
@@ -296,7 +295,7 @@ public class HawksMachinery implements ICraftingHandler
 		RECIPE_GIVER.addShapelessRecipe(new ItemStack(ingots, 9, 0), new Object[]{new ItemStack(blockMetalStorage, 1, 0)});
 		RECIPE_GIVER.addShapelessRecipe(new ItemStack(ingots, 9, 1), new Object[]{new ItemStack(blockMetalStorage, 1, 1)});
 		RECIPE_GIVER.addShapelessRecipe(new ItemStack(ingots, 9, 2), new Object[]{new ItemStack(blockMetalStorage, 1, 2)});
-		RECIPE_GIVER.addShapelessRecipe(new ItemStack(endiumAlloy, 1), new Object[]{new ItemStack(dustRefined, 1, 12), new ItemStack(dustRefined, 1, 11)});
+		RECIPE_GIVER.addShapelessRecipe(new ItemStack(endiumAlloy, 1), new Object[]{new ItemStack(dustRefined, 1, 12), new ItemStack(dustRefined, 1, 11), new ItemStack(dustRefined, 1, 9)});
 		
 		RECIPE_GIVER.addSmelting(new ItemStack(dustRefined, 1, 2), new ItemStack(Block.thinGlass));
 		RECIPE_GIVER.addSmelting(new ItemStack(dustRefined, 1, 3), new ItemStack(Item.ingotIron));
@@ -372,14 +371,14 @@ public class HawksMachinery implements ICraftingHandler
 		PROCESS_RECIPES.addHawkProcessingRecipe(new ItemStack(Block.stoneBrick, 1, 2), new ItemStack(Block.cobblestoneMossy), CRUSH);
 		PROCESS_RECIPES.addHawkProcessingRecipe(new ItemStack(Block.stoneBrick, 1, 3), new ItemStack(Block.cobblestone), CRUSH);
 		
-		PROCESS_RECIPES.addHawkFoDProcessingRecipe("oreIron", new ItemStack(dustRaw, 1, 1), CRUSH);
-		PROCESS_RECIPES.addHawkFoDProcessingRecipe("oreGold", new ItemStack(dustRaw, 1, 2), CRUSH);
-		PROCESS_RECIPES.addHawkFoDProcessingRecipe("oreCopper", new ItemStack(dustRaw, 1, 3), CRUSH);
-		PROCESS_RECIPES.addHawkFoDProcessingRecipe("oreTin", new ItemStack(dustRaw, 1, 4), CRUSH);
-		PROCESS_RECIPES.addHawkFoDProcessingRecipe("oreAluminum", new ItemStack(dustRaw, 1, 5), CRUSH);
-		PROCESS_RECIPES.addHawkFoDProcessingRecipe("oretitanium", new ItemStack(dustRaw, 1, 6), CRUSH);
-		PROCESS_RECIPES.addHawkFoDProcessingRecipe("oreSilver", new ItemStack(dustRaw, 1, 7), CRUSH);
-		PROCESS_RECIPES.addHawkFoDProcessingRecipe("oreEndium", new ItemStack(dustRaw, 1, 9), CRUSH);
+		PROCESS_RECIPES.addHawkFoDProcessingRecipe("oreIron", new ItemStack(dustRaw, 2, 1), CRUSH);
+		PROCESS_RECIPES.addHawkFoDProcessingRecipe("oreGold", new ItemStack(dustRaw, 2, 2), CRUSH);
+		PROCESS_RECIPES.addHawkFoDProcessingRecipe("oreCopper", new ItemStack(dustRaw, 2, 3), CRUSH);
+		PROCESS_RECIPES.addHawkFoDProcessingRecipe("oreTin", new ItemStack(dustRaw, 2, 4), CRUSH);
+		PROCESS_RECIPES.addHawkFoDProcessingRecipe("oreAluminum", new ItemStack(dustRaw, 2, 5), CRUSH);
+		PROCESS_RECIPES.addHawkFoDProcessingRecipe("oretitanium", new ItemStack(dustRaw, 2, 6), CRUSH);
+		PROCESS_RECIPES.addHawkFoDProcessingRecipe("oreSilver", new ItemStack(dustRaw, 2, 7), CRUSH);
+		PROCESS_RECIPES.addHawkFoDProcessingRecipe("oreEndium", new ItemStack(dustRaw, 2, 9), CRUSH);
 		
 		PROCESS_RECIPES.addHawkFoDProcessingRecipe("ingotCopper", new ItemStack(dustRefined, 1, 5), CRUSH);
 		PROCESS_RECIPES.addHawkFoDProcessingRecipe("ingotTin", new ItemStack(dustRefined, 1, 6), CRUSH);
@@ -454,7 +453,7 @@ public class HawksMachinery implements ICraftingHandler
 		@Override
 		public String getChangelogURL()
 		{
-			return "https://dl.dropbox.com/u/100525141/HawksMachineryAlphav131Changelog.txt";
+			return "https://dl.dropbox.com/u/100525141/HawksMachineryAlphav132Changelog.txt";
 		}
 		
 		@Override
@@ -496,7 +495,7 @@ public class HawksMachinery implements ICraftingHandler
 		@Override
 		public ModReleaseType getReleaseType()
 		{
-			return ModReleaseType.DEVBUILD;
+			return ModReleaseType.ALPHA;
 		}
 		
 		@Override
@@ -515,6 +514,7 @@ public class HawksMachinery implements ICraftingHandler
 		public void onSpecialButtonClicked()
 		{
 			UpdateManager.openWebpage("http://bit.ly/UeISkn");
+			
 		}
 		
 	}

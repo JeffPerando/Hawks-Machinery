@@ -130,7 +130,7 @@ public abstract class CartTools
             return mi.placeCart(owner, cart, world, i, j, k);
         } else if(cart.getItem() instanceof ItemMinecart) {
             try {
-                boolean placed = cart.getItem().tryPlaceIntoWorld(cart, null, world, i, j, k, 0, 0, 0, 0);
+                boolean placed = cart.tryPlaceItemIntoWorld((EntityPlayer)null, world, i, j, k, 0, 0F, 0F, 0F);
                 if(placed) {
                     List<EntityMinecart> carts = getMinecartsAt(world, i, j, k, 0.3f);
                     if(carts.size() > 0) {

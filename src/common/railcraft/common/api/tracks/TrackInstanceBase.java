@@ -135,7 +135,7 @@ public abstract class TrackInstanceBase implements ITrackInstance
         }
 
         BlockRail blockTrack = (BlockRail)getBlock();
-        if(id > 0 && Block.blocksList[id].canProvidePower() && isFlexibleRail() && RailLogic.getNAdjacentTracks(new RailLogic(blockTrack, getWorld(), tileEntity.xCoord, tileEntity.yCoord, tileEntity.zCoord)) == 3) {
+        if(id > 0 && Block.blocksList[id].canProvidePower() && isFlexibleRail() && RailLogic.getAdjacentTracks(new RailLogic(blockTrack, getWorld(), tileEntity.xCoord, tileEntity.yCoord, tileEntity.zCoord)) == 3) {
             switchTrack(false);
         }
         testPower();
