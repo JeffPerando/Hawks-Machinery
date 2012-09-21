@@ -26,7 +26,7 @@ public class NewPlayerNotifier implements IConnectionHandler {
 		if (!Settings.getBoolean("opOnly") || configManager.areCommandsAllowed(((EntityPlayer) player).username)) {
 
 			MinecraftServer.logger.log(Level.INFO, "Warning");
-			UpdateManager.sendChatMessageToPlayer((EntityPlayer) player, "§9Welcome back! Use §e/um§9 to see Update Manager Commands.");
+			UpdateManager.sendChatMessageToPlayer((EntityPlayer) player, "ï¿½9Welcome back! Use ï¿½e/umï¿½9 to see Update Manager Commands.");
 
 			if (UpdateManager.canAlertPlayer((EntityPlayer) player, configManager) && !UpdateManager.areModsUpdated()) UpdateManager.warnUserOfOutdated(((EntityPlayer) player).username);
 		}

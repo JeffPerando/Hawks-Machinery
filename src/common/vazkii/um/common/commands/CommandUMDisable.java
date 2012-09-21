@@ -26,7 +26,7 @@ public class CommandUMDisable extends CommandBase {
 		if (var1.canCommandSenderUseCommand(getCommandName()) || !Settings.getBoolean("opOnly")) {
 			Settings.setBoolean("loginCheck", false);
 			Settings.setInt("checkDelay", 0);
-			UpdateManager.sendChatMessageToPlayer(manager.getPlayerForUsername(var1.getCommandSenderName()), "§9Update Manager has been §cdisabled§9.");
+			UpdateManager.sendChatMessageToPlayer(manager.getPlayerForUsername(var1.getCommandSenderName()), "ï¿½9Update Manager has been ï¿½cdisabledï¿½9.");
 		}
 	}
 

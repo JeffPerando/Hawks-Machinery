@@ -25,7 +25,7 @@ public class GuiUMModSlot extends GuiScrollingList {
 		FontRenderer fr = ModLoader.getMinecraftInstance().fontRenderer;
 		UpdateManagerMod mod = parent.mods.get(listIndex);
 		fr.drawString(fr.trimStringToWidth(mod.getModName(), listWidth - 11), left + 3, var3 + 2, mod.getModType().getHex());
-		fr.drawString(fr.trimStringToWidth(mod.disableChecks() || !UpdateManager.online ? "Not Checking" : ThreadDownloadMod.downloadings.contains(mod.getModName()) ? "§aDownloading..." : UpdateManager.isModUpdated(mod) ? "§aUpdated" : "§cOutdated", listWidth - 11), left + 3, var3 + 12, 0xFFFFFF);
+		fr.drawString(fr.trimStringToWidth(mod.disableChecks() || !UpdateManager.online ? "Not Checking" : ThreadDownloadMod.downloadings.contains(mod.getModName()) ? "ï¿½aDownloading..." : UpdateManager.isModUpdated(mod) ? "ï¿½aUpdated" : "ï¿½cOutdated", listWidth - 11), left + 3, var3 + 12, 0xFFFFFF);
 	}
 
 	@Override

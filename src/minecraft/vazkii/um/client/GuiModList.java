@@ -77,7 +77,7 @@ public class GuiModList extends GuiScreen {
 	public void drawScreen(int par1, int par2, float par3) {
 		modList.drawScreen(par1, par2, par3);
 		int d = updateDownloads();
-		drawCenteredString(fontRenderer, UpdateManager.online ? "Mod Update Manager by Vazkii: " + UpdateManager.getQuantEntries(Boolean.valueOf(true), UpdateManager.loadedModsMap) + "/" + UpdateManager.loadedModsSet.size() + (d > 0 ? " (" + d + " ongoing Downloads)" : ".") : "Mod Update Manager §c(OFFLINE)", width / 2, 16, 0xFFFFFF);
+		drawCenteredString(fontRenderer, UpdateManager.online ? "Mod Update Manager by Vazkii: " + UpdateManager.getQuantEntries(Boolean.valueOf(true), UpdateManager.loadedModsMap) + "/" + UpdateManager.loadedModsSet.size() + (d > 0 ? " (" + d + " ongoing Downloads)" : ".") : "Mod Update Manager ï¿½c(OFFLINE)", width / 2, 16, 0xFFFFFF);
 		if (UpdateManager.online) fontRenderer.drawStringWithShadow(motwWeek == null ? motwWeek = getMotwWeek("https://dl.dropbox.com/u/34938401/Update%20Manager/MotW_Week.txt") : motwWeek, 180, height - 9, 0xFFFFFF);
 		int offset = listWidth + 20;
 		UpdateManagerMod selectedMod;

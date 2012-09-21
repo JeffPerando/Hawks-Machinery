@@ -23,7 +23,7 @@ public class CommandUMViewSettings extends CommandBase {
 		MinecraftServer server = ModLoader.getMinecraftServerInstance();
 		ServerConfigurationManager manager = UpdateManager.getServerConfig(server);
 
-		if (var1.canCommandSenderUseCommand(getCommandName())) UpdateManager.sendChatMessageToPlayer(manager.getPlayerForUsername(var1.getCommandSenderName()), "§bDelay Time: " + Settings.getInt("checkDelay") + " | Ops Only: " + Settings.getBoolean("opOnly") + " |  Login Warn: " + Settings.getBoolean("loginCheck") + ".");
+		if (var1.canCommandSenderUseCommand(getCommandName())) UpdateManager.sendChatMessageToPlayer(manager.getPlayerForUsername(var1.getCommandSenderName()), "ï¿½bDelay Time: " + Settings.getInt("checkDelay") + " | Ops Only: " + Settings.getBoolean("opOnly") + " |  Login Warn: " + Settings.getBoolean("loginCheck") + ".");
 	}
 
 }

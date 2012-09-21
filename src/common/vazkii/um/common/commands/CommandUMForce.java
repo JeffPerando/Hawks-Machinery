@@ -27,7 +27,7 @@ public class CommandUMForce extends CommandBase {
 
 		if (var1.canCommandSenderUseCommand(getCommandName()) || !Settings.getBoolean("opOnly")) {
 			UpdateManager.loadMods();
-			UpdateManager.sendChatMessageToPlayer(manager.getPlayerForUsername(var1.getCommandSenderName()), "§9Update Check has been forced!");
+			UpdateManager.sendChatMessageToPlayer(manager.getPlayerForUsername(var1.getCommandSenderName()), "ï¿½9Update Check has been forced!");
 			MinecraftServer.logger.log(Level.INFO, "[Mod Update Manager] Update Check has been forced!");
 
 			if (!UpdateManager.areModsUpdated()) UpdateManager.warnUserOfOutdated(var1.getCommandSenderName());

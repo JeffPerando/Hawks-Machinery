@@ -40,9 +40,9 @@ public class CommandUMIntSetting extends CommandBase {
 			try {
 				newInt = Integer.parseInt(var2[0]);
 			} catch (NumberFormatException e) {
-				UpdateManager.sendChatMessageToPlayer(manager.getPlayerForUsername(var1.getCommandSenderName()), "§cInvalid Number!");
+				UpdateManager.sendChatMessageToPlayer(manager.getPlayerForUsername(var1.getCommandSenderName()), "ï¿½cInvalid Number!");
 			}
-			if (newInt < 0) UpdateManager.sendChatMessageToPlayer(manager.getPlayerForUsername(var1.getCommandSenderName()), "§cInvalid Number!");
+			if (newInt < 0) UpdateManager.sendChatMessageToPlayer(manager.getPlayerForUsername(var1.getCommandSenderName()), "ï¿½cInvalid Number!");
 
 			Settings.setInt(configTag, newInt);
 			UpdateManager.sendChatMessageToPlayer(manager.getPlayerForUsername(var1.getCommandSenderName()), String.format(displayMsg, oldInt, newInt));

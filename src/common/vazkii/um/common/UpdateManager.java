@@ -268,9 +268,9 @@ public class UpdateManager {
 
 		for (EntityPlayer player : players)
 			if (manager.areCommandsAllowed(player.username)) {
-				sendChatMessageToPlayer(player, "§9[Mod Update Manager] §cYour server is running outdated mods:");
+				sendChatMessageToPlayer(player, "ï¿½9[Mod Update Manager] ï¿½cYour server is running outdated mods:");
 				for (UpdateManagerMod mod : outdatedList)
-					sendChatMessageToPlayer(player, "§e    - §o" + mod.getModName());
+					sendChatMessageToPlayer(player, "ï¿½e    - ï¿½o" + mod.getModName());
 			}
 	}
 
@@ -279,9 +279,9 @@ public class UpdateManager {
 		MinecraftServer ms = ModLoader.getMinecraftServerInstance();
 		EntityPlayer player = getServerConfig(ms).getPlayerForUsername(playerName);
 
-		sendChatMessageToPlayer(player, "§9[Mod Update Manager] §cYour server is running outdated mods:");
+		sendChatMessageToPlayer(player, "ï¿½9[Mod Update Manager] ï¿½cYour server is running outdated mods:");
 		for (UpdateManagerMod mod : outdatedList)
-			sendChatMessageToPlayer(player, "§e    - §o" + mod.getModName());
+			sendChatMessageToPlayer(player, "ï¿½e    - ï¿½o" + mod.getModName());
 	}
 
 }

@@ -27,7 +27,7 @@ public class CommandUMReset extends CommandBase {
 			Settings.setBoolean("loginCheck", true);
 			Settings.setBoolean("opOnly", true);
 			Settings.setInt("checkDelay", 900);
-			UpdateManager.sendChatMessageToPlayer(manager.getPlayerForUsername(var1.getCommandSenderName()), "§9Settings reset!");
+			UpdateManager.sendChatMessageToPlayer(manager.getPlayerForUsername(var1.getCommandSenderName()), "ï¿½9Settings reset!");
 		}
 	}
 

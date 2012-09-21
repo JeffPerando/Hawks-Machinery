@@ -18,9 +18,9 @@ public class UpdateManagerCommands {
 
 		manager.registerCommand(new CommandUM());
 		manager.registerCommand(new CommandUMForce());
-		manager.registerCommand(new CommandUMIntSetting("delay", "checkTime", "§9Changed check time from %s to %s."));
-		manager.registerCommand(new CommandUMBoolSetting("op", "opOnly", "§9Set OP Only Warns to %s."));
-		manager.registerCommand(new CommandUMBoolSetting("login", "loginCheck", "§9Set OP Only Warns to %s."));
+		manager.registerCommand(new CommandUMIntSetting("delay", "checkTime", "ï¿½9Changed check time from %s to %s."));
+		manager.registerCommand(new CommandUMBoolSetting("op", "opOnly", "ï¿½9Set OP Only Warns to %s."));
+		manager.registerCommand(new CommandUMBoolSetting("login", "loginCheck", "ï¿½9Set OP Only Warns to %s."));
 		manager.registerCommand(new CommandUMReset());
 		manager.registerCommand(new CommandUMDisable());
 		manager.registerCommand(new CommandUMViewSettings());
