@@ -54,11 +54,11 @@ import cpw.mods.fml.common.registry.VillagerRegistry;
  * 
  * @author Elusivehawk
  */
-@Mod(modid = "HawksMachinery", name = "Hawk's Machinery", version = "Alpha v1.4.0", dependencies = "after:BasicComponents")
+@Mod(modid = "HawksMachinery", name = "Hawk's Machinery", version = "Alpha v1.3.3", dependencies = "after:BasicComponents")
 @NetworkMod(channels = {"HawksMachinery"}, clientSideRequired = true, serverSideRequired = false, packetHandler = PacketManager.class)
 public class HawksMachinery implements ICraftingHandler
 {
-	@Instance
+	@Instance("HawksMachinery")
 	private static HawksMachinery INSTANCE;
 	
 	@SidedProxy(clientSide = "hawksmachinery.HMClientProxy", serverSide = "hawksmachinery.HMCommonProxy")
@@ -198,7 +198,7 @@ public class HawksMachinery implements ICraftingHandler
 		blueprints = new HawkItemBlueprints(blueprintID - 256);
 		endiumAlloy = new HawkItem(endiumAlloyID - 256).setIconIndex(2).setItemName("endiumAlloy").setCreativeTab(CreativeTabs.tabMaterials);
 		
-		UniversalElectricity.registerMod(this, "Hawk's Machinery", "0.8.1");
+		UniversalElectricity.registerMod(this, "Hawk's Machinery", "0.8.4");
 		NetworkRegistry.instance().registerGuiHandler(this, this.PROXY);
 		GameRegistry.registerWorldGenerator(new HawkOreGenerator());
 		GameRegistry.registerCraftingHandler(this);

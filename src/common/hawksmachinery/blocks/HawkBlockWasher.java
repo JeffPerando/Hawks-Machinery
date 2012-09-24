@@ -15,7 +15,7 @@ import net.minecraft.src.MathHelper;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 import net.minecraftforge.common.ForgeDirection;
-import universalelectricity.extend.BlockMachine;
+import universalelectricity.prefab.BlockMachine;
 
 /**
  *

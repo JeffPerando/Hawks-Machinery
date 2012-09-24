@@ -8,7 +8,6 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
-import universalelectricity.extend.CommonProxy;
 
 /**
  * 

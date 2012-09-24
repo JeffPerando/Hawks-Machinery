@@ -14,12 +14,12 @@ import com.google.common.io.ByteArrayDataInput;
 import cpw.mods.fml.common.FMLCommonHandler;
 import universalelectricity.electricity.ElectricInfo;
 import universalelectricity.electricity.ElectricityManager;
-import universalelectricity.electricity.TileEntityMachine;
-import universalelectricity.extend.IRedstoneReceptor;
-import universalelectricity.extend.IRotatable;
-import universalelectricity.extend.ITier;
+import universalelectricity.implement.IRedstoneReceptor;
+import universalelectricity.implement.IRotatable;
+import universalelectricity.implement.ITier;
 import universalelectricity.network.IPacketReceiver;
 import universalelectricity.network.PacketManager;
+import universalelectricity.prefab.TileEntityElectricityReceiver;
 import net.minecraft.src.Entity;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.IInventory;
@@ -32,7 +32,7 @@ import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.common.ISidedInventory;
-import universalelectricity.extend.IItemElectric;
+import universalelectricity.implement.IItemElectric;
 
 /**
  * 
@@ -40,7 +40,7 @@ import universalelectricity.extend.IItemElectric;
  * 
  * @author Elusivehawk
  */
-public class HawkTileEntityGrinder extends TileEntityMachine implements IRedstoneReceptor, IInventory, ISidedInventory, ISpecialInventory, IRotatable, IPacketReceiver, IItemTransfer
+public class HawkTileEntityGrinder extends TileEntityElectricityReceiver implements IRedstoneReceptor, IInventory, ISidedInventory, ISpecialInventory, IRotatable, IPacketReceiver, IItemTransfer
 {
 	public int ELECTRICITY_REQUIRED = 10;
 	
@@ -68,9 +68,8 @@ public class HawkTileEntityGrinder extends TileEntityMachine implements IRedston
 	}
 	
 	@Override
-	public void onReceive(double amps, double voltage, ForgeDirection side)
+	public void onReceive(TileEntity tileEntity, double amps, double voltage, ForgeDirection side)
 	{
-		super.onReceive(amps, voltage, side);
 		
 		if (voltage > this.getVoltage())
 		{
@@ -107,9 +106,9 @@ public class HawkTileEntityGrinder extends TileEntityMachine implements IRedston
 			
 			if ((this.canGrind() || this.canExplode()) && this.workTicks > 0)
 			{
-				this.workTicks -= this.getReceiveInterval();
+				--this.workTicks;
 				
-				if (this.workTicks < this.getReceiveInterval())
+				if (this.workTicks < 1)
 				{
 					this.grindItem();
 					this.workTicks = 0;

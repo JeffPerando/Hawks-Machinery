@@ -19,13 +19,14 @@ import net.minecraft.src.NBTTagCompound;
 import net.minecraft.src.NBTTagList;
 import net.minecraft.src.NetworkManager;
 import net.minecraft.src.Packet250CustomPayload;
+import net.minecraft.src.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.common.ISidedInventory;
 import universalelectricity.electricity.ElectricInfo;
-import universalelectricity.electricity.TileEntityMachine;
-import universalelectricity.extend.IItemElectric;
-import universalelectricity.extend.IRedstoneReceptor;
-import universalelectricity.extend.IRotatable;
+import universalelectricity.prefab.TileEntityElectricityReceiver;
+import universalelectricity.implement.IItemElectric;
+import universalelectricity.implement.IRedstoneReceptor;
+import universalelectricity.implement.IRotatable;
 import universalelectricity.network.IPacketReceiver;
 import universalelectricity.network.PacketManager;
 
@@ -35,7 +36,7 @@ import universalelectricity.network.PacketManager;
  * 
  * @author Elusivehawk
  */
-public class HawkTileEntityWasher extends TileEntityMachine implements IInventory, ISidedInventory, IRotatable, IPacketReceiver, IItemTransfer
+public class HawkTileEntityWasher extends TileEntityElectricityReceiver implements IInventory, ISidedInventory, IRotatable, IPacketReceiver, IItemTransfer
 {
 	public int ELECTRICITY_REQUIRED = 10;
 	
@@ -63,10 +64,8 @@ public class HawkTileEntityWasher extends TileEntityMachine implements IInventor
 	}
 	
 	@Override
-	public void onReceive(double amps, double voltage, ForgeDirection side)
+	public void onReceive(TileEntity tileEntity, double amps, double voltage, ForgeDirection side)
 	{
-		super.onReceive(amps, voltage, side);
-		
 		if (voltage > this.getVoltage())
 		{
 			this.worldObj.createExplosion(null, this.xCoord, this.yCoord, this.zCoord, 0.7F);
@@ -113,10 +112,10 @@ public class HawkTileEntityWasher extends TileEntityMachine implements IInventor
 			
 			if (this.canWash() && this.workTicks > 0)
 			{
-				this.workTicks -= this.getReceiveInterval();
-				this.waterUnits -= 0.01F * this.getReceiveInterval();
+				--this.workTicks;
+				this.waterUnits -= 0.01F;
 				
-				if (this.workTicks < this.getReceiveInterval())
+				if (this.workTicks == 1)
 				{
 					this.washItem();
 					this.workTicks = 0;
@@ -229,12 +228,6 @@ public class HawkTileEntityWasher extends TileEntityMachine implements IInventor
 		{
 			e.printStackTrace();
 		}	
-	}
-	
-	@Override
-	public int getReceiveInterval()
-	{
-		return 1;
 	}
 	
 	@Override

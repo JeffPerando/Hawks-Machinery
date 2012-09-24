@@ -9,7 +9,7 @@ import net.minecraft.src.ItemStack;
 import net.minecraft.src.Slot;
 import net.minecraft.src.TileEntity;
 import universalelectricity.basiccomponents.SlotElectricItem;
-import universalelectricity.extend.IItemElectric;
+import universalelectricity.implement.IItemElectric;
 
 /**
  * 

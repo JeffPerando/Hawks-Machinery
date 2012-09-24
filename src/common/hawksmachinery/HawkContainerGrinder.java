@@ -3,7 +3,7 @@ package hawksmachinery;
 
 import hawksmachinery.tileentity.HawkTileEntityGrinder;
 import universalelectricity.basiccomponents.SlotElectricItem;
-import universalelectricity.extend.IItemElectric;
+import universalelectricity.implement.IItemElectric;
 import net.minecraft.src.Container;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.FurnaceRecipes;
