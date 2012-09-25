@@ -19,7 +19,6 @@ import net.minecraftforge.oredict.OreDictionary;
  */
 public class HawkProcessingRecipes
 {
-	
 	private static Map washerSecondaries = new HashMap();
 	private static Map washerRarities = new HashMap();
 	
@@ -40,6 +39,11 @@ public class HawkProcessingRecipes
 		}
 		else
 		{
+			if (processType == null)
+			{
+				throw new NullPointerException("Hawk's Machinery: Process type cannot be null!");
+			}
+			
 			if (input == null)
 			{
 				throw new NullPointerException("Hawk's Machinery: Input cannot be null!");
@@ -50,42 +54,37 @@ public class HawkProcessingRecipes
 				throw new NullPointerException("Hawk's Machinery: Output cannot be null!");
 			}
 			
-			if (processType == null)
-			{
-				throw new NullPointerException("Hawk's Machinery: Process type cannot be null!");
-			}
-			
 		}
 	}
 	
 	public static void addHawkProcessingRecipe(Item input, ItemStack output, HawkEnumProcessing processType)
 	{
-		addHawkProcessingRecipe(new ItemStack(input, 1, 0), output, processType);
+		addHawkProcessingRecipe(new ItemStack(input), output, processType);
 	}
 	
 	public static void addHawkProcessingRecipe(Item input, Item output, HawkEnumProcessing processType)
 	{
-		addHawkProcessingRecipe(new ItemStack(input, 1, 0), new ItemStack(output, 1, 0), processType);
+		addHawkProcessingRecipe(new ItemStack(input), new ItemStack(output), processType);
 	}
 	
 	public static void addHawkProcessingRecipe(Item input, Block output, HawkEnumProcessing processType)
 	{
-		addHawkProcessingRecipe(new ItemStack(input, 1, 0), new ItemStack(output, 1, 0), processType);
+		addHawkProcessingRecipe(new ItemStack(input), new ItemStack(output), processType);
 	}
 	
 	public static void addHawkProcessingRecipe(Block input, ItemStack output, HawkEnumProcessing processType)
 	{
-		addHawkProcessingRecipe(new ItemStack(input, 1, 0), output, processType);
+		addHawkProcessingRecipe(new ItemStack(input), output, processType);
 	}
 	
 	public static void addHawkProcessingRecipe(Block input, Item output, HawkEnumProcessing processType)
 	{
-		addHawkProcessingRecipe(new ItemStack(input, 1, 0), new ItemStack(output, 1, 0), processType);
+		addHawkProcessingRecipe(new ItemStack(input), new ItemStack(output), processType);
 	}
 	
 	public static void addHawkProcessingRecipe(Block input, Block output, HawkEnumProcessing processType)
 	{
-		addHawkProcessingRecipe(new ItemStack(input, 1, 0), new ItemStack(output, 1, 0), processType);
+		addHawkProcessingRecipe(new ItemStack(input), new ItemStack(output), processType);
 	}
 	
 	/**
@@ -102,7 +101,7 @@ public class HawkProcessingRecipes
 		{
 			if (ore != null)
 			{
-				processType.getRecipeList().put(Arrays.asList(ore.getItem(), 1, ore.getItemDamage()), output);
+				addHawkProcessingRecipe(ore, output, processType);
 			}
 		}
 	}
@@ -152,6 +151,7 @@ public class HawkProcessingRecipes
 			
 			return null;
 		}
+		
 	}
 	
 	public static ItemStack getWashingSecondaryResult(ItemStack item, Random random)
@@ -185,6 +185,7 @@ public class HawkProcessingRecipes
 			
 			return null;
 		}
+		
 	}
 	
 }

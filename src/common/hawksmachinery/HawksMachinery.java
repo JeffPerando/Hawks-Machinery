@@ -6,11 +6,13 @@ import hawksmachinery.items.*;
 import hawksmachinery.misc.*;
 import hawksmachinery.tileentity.*;
 import java.io.File;
+import java.util.List;
 import com.google.common.collect.ObjectArrays;
 import universalelectricity.UniversalElectricity;
 import universalelectricity.basiccomponents.BasicComponents;
 import universalelectricity.basiccomponents.ItemBattery;
 import universalelectricity.network.PacketManager;
+import universalelectricity.recipe.CraftingRecipe;
 import universalelectricity.recipe.RecipeManager;
 import vazkii.um.client.ModReleaseType;
 import vazkii.um.client.ModType;
@@ -26,10 +28,13 @@ import net.minecraft.src.IInventory;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.StepSound;
+import net.minecraft.src.World;
 import net.minecraftforge.common.AchievementPage;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.DungeonHooks;
 import net.minecraftforge.common.EnumHelper;
+import net.minecraftforge.common.ForgeChunkManager;
+import net.minecraftforge.common.ForgeChunkManager.Ticket;
 import net.minecraftforge.oredict.OreDictionary;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.ICraftingHandler;
@@ -95,6 +100,8 @@ public class HawksMachinery implements ICraftingHandler
 	public static int crusherTicks;
 	public static int washerTicks;
 	
+	public static int maxChunksLoaded;
+	
 	public static boolean generateTitanium;
 	public static boolean generateAluminum;
 	public static boolean generateSilver;
@@ -109,7 +116,6 @@ public class HawksMachinery implements ICraftingHandler
 	
 	public static Configuration HMConfig = new Configuration(new File(Loader.instance().getConfigDir(), "HawksMachinery/HMConfig.cfg"));
 	
-	
 	public static Block blockCrusher;
 	public static Block blockOre;
 	public static Block blockMetalStorage;
@@ -120,7 +126,6 @@ public class HawksMachinery implements ICraftingHandler
 	 * Raw dusts! 0 - Coal, 1 - Iron, 2 - Gold, 3 - Copper, 4 - Tin, 5 - Titanium, 6 - Aluminum, 7 - Silver, 8 - Obsidian, 9 - Endium.
 	 */
 	public static Item dustRaw;
-	
 	/**
 	 * Refined dusts! 0 - Diamond, 1 - Ender, 2 - Glass, 3 - Iron, 4 - Gold, 5 - Copper, 6 - Tin, 7 - Titanium, 8 - Aluminum, 9 - Silver, 10 - Emerald, 11 - Nether Star, 12 - Endium.
 	 */
@@ -156,6 +161,8 @@ public class HawksMachinery implements ICraftingHandler
 		if (enableChunkloader)
 		{
 			chunkloaderID = HMConfig.getOrCreateBlockIdProperty("Endium Chunkloader", 3966).getInt(3966);
+			maxChunksLoaded = HMConfig.getOrCreateIntProperty("Max Chunks Loaded", Configuration.CATEGORY_GENERAL, 25).getInt(25);
+			
 		}
 		
 		dustRawID = HMConfig.getOrCreateIntProperty("Raw Dusts", Configuration.CATEGORY_ITEM, 24150).getInt(24150);
@@ -218,6 +225,8 @@ public class HawksMachinery implements ICraftingHandler
 		if (enableChunkloader)
 		{
 			GameRegistry.registerTileEntity(HawkTileEntityChunkloader.class, "HMChunkloader");
+			ForgeChunkManager.setForcedChunkLoadingCallback(this, new HawkChunkHandler(this, maxChunksLoaded));
+			
 		}
 		
 		OreDictionary.registerOre("ingotTitanium", new ItemStack(ingots, 1, 0));
@@ -283,7 +292,7 @@ public class HawksMachinery implements ICraftingHandler
 		RECIPE_GIVER.addRecipe(new ItemStack(parts, 1, 2), new Object[]{" T ", "TET", " T ", 'T', "ingotTitanium", 'E', Item.enderPearl});
 		RECIPE_GIVER.addRecipe(new ItemStack(parts, 1, 3), new Object[]{" G ", "GBG", "cCc", 'G', Block.thinGlass, 'B', Item.blazeRod, 'c', "ingotCopper", 'C', BasicComponents.blockCopperWire});
 		RECIPE_GIVER.addRecipe(new ItemStack(parts, 1, 4), new Object[]{"CC", "CC", 'C', BasicComponents.blockCopperWire});
-		RECIPE_GIVER.addRecipe(new ItemStack(parts, 1, 5), new Object[]{"scs", 's', "ingotSteel", 'c', new ItemStack(parts, 1, 4)});
+		RECIPE_GIVER.addRecipe(new ItemStack(parts, 1, 5), new Object[]{"ici", 'i', "ingotIron", 'c', new ItemStack(parts, 1, 4)});
 		
 		RECIPE_GIVER.addRecipe(new ItemStack(plating, 1, 0), new Object[]{"TT", "TT", 'T', "ingotTitanium"});
 		RECIPE_GIVER.addRecipe(new ItemStack(plating, 1, 1), new Object[]{"AA", "AA", 'A', "ingotAluminum"});
@@ -517,6 +526,17 @@ public class HawksMachinery implements ICraftingHandler
 			
 		}
 		
+	}
+	
+	/**
+	 * 
+	 * Convenience function for sending a message to a player in SSP.
+	 * 
+	 * @param message The message being sent.
+	 */
+	public static void chatToSSPPlayer(String message)
+	{
+		PROXY.chatToSSPPlayer(message);
 	}
 	
 }

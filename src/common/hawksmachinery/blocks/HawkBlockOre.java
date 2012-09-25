@@ -28,7 +28,7 @@ import net.minecraftforge.oredict.OreDictionary;
  * 
  * @author Elusivehawk
  */
-public class HawkBlockOre extends Block implements IMineable
+public class HawkBlockOre extends HawkBlock implements IMineable
 {
 	public static HawksMachinery BASEMOD;
 	
@@ -38,8 +38,6 @@ public class HawkBlockOre extends Block implements IMineable
 		setHardness(1.0F);
 		setResistance(5.0F);
 		setBlockName("Ore");
-		GameRegistry.registerBlock(this, HawkItemBlockOre.class);
-		setCreativeTab(CreativeTabs.tabBlock);
 		
 		MinecraftForge.setBlockHarvestLevel(this, 3, "pickaxe", 5);
 		
@@ -106,6 +104,13 @@ public class HawkBlockOre extends Block implements IMineable
 		}
 		
 		return false;
+	}
+	
+	@Override
+	public void registerSelf()
+	{
+		GameRegistry.registerBlock(this, HawkItemBlockOre.class);
+		
 	}
 	
 }

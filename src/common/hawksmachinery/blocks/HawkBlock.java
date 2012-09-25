@@ -21,14 +21,8 @@ public abstract class HawkBlock extends Block
 		super(id, mat);
 		setHardness(1.0F);
 		setResistance(5.0F);
-		this.registerSelf();
-		
-	}
-	
-	@Override
-	public String getTextureFile()
-	{
-		return BASEMOD.BLOCK_TEXTURE_FILE;
+		registerSelf();
+		setTextureFile(BASEMOD.BLOCK_TEXTURE_FILE);
 	}
 	
 	public void registerSelf()

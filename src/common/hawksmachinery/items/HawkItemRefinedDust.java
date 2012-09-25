@@ -14,10 +14,8 @@ import net.minecraft.src.*;
  * 
  * @author Elusivehawk
  */
-public class HawkItemRefinedDust extends Item
+public class HawkItemRefinedDust extends HawkItem
 {
-	public static HawksMachinery BASEMOD;
-	
 	public static String[] en_USNames = {"Diamond", "Ender", "Glass", 
 										"Iron", "Gold", 
 										"Copper", "Tin", 
@@ -27,9 +25,9 @@ public class HawkItemRefinedDust extends Item
 	public HawkItemRefinedDust(int id)
 	{
 		super(id);
-		this.setHasSubtypes(true);
-		this.setMaxDamage(0);
-		setCreativeTab(CreativeTabs.tabMaterials);
+		setHasSubtypes(true);
+		setMaxDamage(0);
+		
 	}
 	
 	@Override
@@ -63,11 +61,6 @@ public class HawkItemRefinedDust extends Item
 		}
 	}
 	
-	public String getTextureFile()
-	{
-		return BASEMOD.ITEM_TEXTURE_FILE;
-	}
-	
 	@Override
 	public boolean itemInteractionForEntity(ItemStack item, EntityLiving entity)
 	{
@@ -97,6 +90,11 @@ public class HawkItemRefinedDust extends Item
 	public String getItemNameIS(ItemStack item)
 	{
 		return en_USNames[item.getItemDamage()].toLowerCase() + "Dust";
+	}
+	
+	public void addCreativeTab()
+	{
+		setCreativeTab(CreativeTabs.tabMaterials);
 	}
 	
 }

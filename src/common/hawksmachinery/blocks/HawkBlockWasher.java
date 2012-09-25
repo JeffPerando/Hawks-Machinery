@@ -36,6 +36,7 @@ public class HawkBlockWasher extends BlockMachine
 		setRequiresSelfNotify();
 		GameRegistry.registerBlock(this);
 		setCreativeTab(CreativeTabs.tabDecorations);
+		setTextureFile(BASEMOD.BLOCK_TEXTURE_FILE);
 	}
 	
 	@Override
@@ -88,12 +89,6 @@ public class HawkBlockWasher extends BlockMachine
 		}
 		
 		world.setBlockMetadataWithNotify(x, y, z, newMetadata);
-	}
-	
-	@Override
-	public String getTextureFile()
-	{
-		return BASEMOD.BLOCK_TEXTURE_FILE;
 	}
 	
 	@Override

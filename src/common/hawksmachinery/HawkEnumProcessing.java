@@ -18,7 +18,7 @@ public enum HawkEnumProcessing
 	
 	WASHING("Washing", new HashMap()),
 	
-	INDUCTION_FURNACE("Induction Furnace", new HashMap());
+	SINTERER("Sinterer", new HashMap());
 	
 	private String name;
 	private Map processingList;

@@ -14,10 +14,8 @@ import net.minecraft.src.ItemStack;
  * 
  * @author Elusivehawk
  */
-public class HawkItemPlating extends Item
+public class HawkItemPlating extends HawkItem
 {
-	public static HawksMachinery BASEMOD;
-	
 	public static String[] en_USNames = {"Titanium", "Aluminum", "Silver", "Endium"};
 	public static String[] en_PTNames = {"Better 'n Iron", "Cheap Bullion", "Silver Bullion", "Metal 'o the Tallone"};
 	
@@ -26,7 +24,7 @@ public class HawkItemPlating extends Item
 		super(id);
 		setHasSubtypes(true);
 		setMaxDamage(0);
-		setCreativeTab(CreativeTabs.tabMaterials);
+		
 	}
 	
 	@Override
@@ -60,12 +58,6 @@ public class HawkItemPlating extends Item
 	}
 	
 	@Override
-	public String getTextureFile()
-	{
-		return BASEMOD.ITEM_TEXTURE_FILE;
-	}
-	
-	@Override
 	public void getSubItems(int id, CreativeTabs tabs, List itemList)
 	{
 		for (int counter = 0; counter <= 3; ++counter)
@@ -78,6 +70,11 @@ public class HawkItemPlating extends Item
 	public String getItemNameIS(ItemStack item)
 	{
 		return en_USNames[item.getItemDamage()].toLowerCase() + "Plating";
+	}
+	
+	public void addCreativeTab()
+	{
+		setCreativeTab(CreativeTabs.tabMaterials);
 	}
 	
 }

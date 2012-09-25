@@ -18,10 +18,8 @@ import net.minecraftforge.oredict.OreDictionary;
  * 
  * @author Elusivehawk
  */
-public class HawkItemIngots extends Item
+public class HawkItemIngots extends HawkItem
 {
-	public static HawksMachinery BASEMOD;
-	
 	public static String[] en_USNames = {"Titanium", "Aluminum", "Silver", "Endium"};
 	public static String[] en_PTNames = {"Better 'n Iron", "Cheap Bullion", "Silver Bullion", "Metal 'o the Tallone"};
 	
@@ -30,7 +28,6 @@ public class HawkItemIngots extends Item
 		super(id);
 		setHasSubtypes(true);
 		setMaxDamage(0);
-		setCreativeTab(CreativeTabs.tabMaterials);
 		
 		OreDictionary.registerOre("ingotTitanium", new ItemStack(this, 1, 0));
 		OreDictionary.registerOre("ingotAluminum", new ItemStack(this, 1, 1));
@@ -72,11 +69,6 @@ public class HawkItemIngots extends Item
 		}
 	}
 	
-	public String getTextureFile()
-	{
-		return BASEMOD.ITEM_TEXTURE_FILE;
-	}
-	
 	@Override
 	public void getSubItems(int id, CreativeTabs tabs, List itemList)
 	{
@@ -90,6 +82,11 @@ public class HawkItemIngots extends Item
 	public String getItemNameIS(ItemStack item)
 	{
 		return en_USNames[item.getItemDamage()] + "Ingot";
+	}
+	
+	public void addCreativeTab()
+	{
+		setCreativeTab(CreativeTabs.tabMaterials);
 	}
 	
 }

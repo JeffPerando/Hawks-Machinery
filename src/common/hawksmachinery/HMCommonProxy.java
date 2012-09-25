@@ -39,4 +39,6 @@ public class HMCommonProxy implements IGuiHandler
 		return null;
 	}
 	
+	public void chatToSSPPlayer(String message){}
+	
 }

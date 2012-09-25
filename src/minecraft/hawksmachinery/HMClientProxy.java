@@ -48,4 +48,10 @@ public class HMClientProxy extends HMCommonProxy
 		return null;
 	}
 	
+	@Override
+	public void chatToSSPPlayer(String message)
+	{
+		FMLClientHandler.instance().getClient().thePlayer.addChatMessage(message);
+	}
+	
 }

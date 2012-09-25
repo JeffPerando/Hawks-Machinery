@@ -13,10 +13,8 @@ import net.minecraft.src.ItemStack;
  * 
  * @author Elusivehawk
  */
-public class HawkItemParts extends Item
+public class HawkItemParts extends HawkItem
 {
-	public static HawksMachinery BASEMOD;
-	
 	public static String[] en_USNames = {"Electric Piston", "Laser", "Circular Saw Blade", "Light Bulb", "Heating Coil", "Electric Magnet"};
 	
 	public HawkItemParts(int id)
@@ -24,7 +22,7 @@ public class HawkItemParts extends Item
 		super(id);
 		setHasSubtypes(true);
 		setMaxDamage(0);
-		setCreativeTab(CreativeTabs.tabMaterials);
+		
 	}
 	
 	@Override
@@ -52,12 +50,6 @@ public class HawkItemParts extends Item
 	}
 	
 	@Override
-	public String getTextureFile()
-	{
-		return BASEMOD.ITEM_TEXTURE_FILE;
-	}
-	
-	@Override
 	public String getItemNameIS(ItemStack item)
 	{
 		switch (item.getItemDamage())
@@ -68,9 +60,15 @@ public class HawkItemParts extends Item
 			case 3: return "lightBulb";
 			case 4: return "heatingCoil";
 			case 5: return "electroMagnet";
+			
 		}
 		
 		return null;
+	}
+	
+	public void addCreativeTab()
+	{
+		setCreativeTab(CreativeTabs.tabMaterials);
 	}
 	
 }

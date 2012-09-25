@@ -23,7 +23,7 @@ import net.minecraft.src.World;
  * 
  * @author Elusivehawk
  */
-public class HawkBlockMetalStorage extends Block
+public class HawkBlockMetalStorage extends HawkBlock
 {
 	public static HawksMachinery BASEMOD;
 	
@@ -33,8 +33,8 @@ public class HawkBlockMetalStorage extends Block
 		setHardness(1.5F);
 		setResistance(12.0F);
 		setBlockName("Metal Storage");
-		GameRegistry.registerBlock(this, HawkItemBlockMetalStorage.class);
 		setCreativeTab(CreativeTabs.tabBlock);
+		
 	}
 	
 	@Override
@@ -57,11 +57,6 @@ public class HawkBlockMetalStorage extends Block
 		{
 			itemList.add(new ItemStack(this, 1, counter));
 		}
-	}
-	
-	public String getTextureFile()
-	{
-		return BASEMOD.BLOCK_TEXTURE_FILE;
 	}
 	
 	@Override
@@ -94,6 +89,12 @@ public class HawkBlockMetalStorage extends Block
 			}
 			
 		}
+	}
+	
+	@Override
+	public void registerSelf()
+	{
+		GameRegistry.registerBlock(this, HawkItemBlockMetalStorage.class);
 	}
 	
 }

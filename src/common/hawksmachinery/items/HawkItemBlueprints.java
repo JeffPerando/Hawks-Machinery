@@ -16,7 +16,6 @@ import net.minecraft.src.ItemStack;
  */
 public class HawkItemBlueprints extends Item
 {
-	public static HawksMachinery BASEMOD;
 	public static String[] en_USNames = {"Crusher", "Washer", "Bottler",
 										"Metal Lathe", "Drill Tank", "Mining Well", 
 										"Induction Furnace", "Welding Torch", "HM-E2MM"};

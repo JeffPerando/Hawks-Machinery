@@ -1,10 +1,14 @@
 
 package hawksmachinery.tileentity;
 
+import hawksmachinery.HawksMachinery;
 import net.minecraft.src.Chunk;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.NBTTagCompound;
 import net.minecraft.src.TileEntity;
+import net.minecraftforge.common.ForgeChunkManager;
+import net.minecraftforge.common.ForgeChunkManager.Ticket;
+import net.minecraftforge.common.ForgeChunkManager.Type;
 
 /**
  * 
@@ -14,7 +18,9 @@ import net.minecraft.src.TileEntity;
  */
 public class HawkTileEntityChunkloader extends TileEntity
 {
+	public static HawksMachinery BASEMOD;
 	public String ownerUsername;
+	public Ticket heldChunk;
 	
 	@Override
 	public void writeToNBT(NBTTagCompound NBTTag)
@@ -33,6 +39,16 @@ public class HawkTileEntityChunkloader extends TileEntity
 		this.ownerUsername = NBTTag.getString("owner");
 	}
 	
-	//TODO: Wait for chunkloading hooks.
+	@Override
+	public void invalidate()
+	{
+		this.heldChunk = ForgeChunkManager.requestTicket(BASEMOD, this.worldObj, Type.NORMAL);
+	}
+	
+	@Override
+	public void validate()
+	{
+		ForgeChunkManager.releaseTicket(this.heldChunk);
+	}
 	
 }
