@@ -132,7 +132,7 @@ public class HawkTileEntityGrinder extends TileEntityElectricityReceiver impleme
 			this.electricityStored = this.ELECTRICITY_LIMIT;
 		}
 		
-		if ((!this.canGrind() || !this.canExplode()) && this.workTicks != 0)
+		if (!(this.canGrind() || this.canExplode()) && this.workTicks != 0)
 		{
 			this.workTicks = 0;
 		}
@@ -474,7 +474,7 @@ public class HawkTileEntityGrinder extends TileEntityElectricityReceiver impleme
 		
 		switch (this.grinderStatus)
 		{
-			case 1: return "Grinding";
+			case 1: return "Crushing";
 			case 2: return "Disabled!";
 			default: return "Idle";
 		}

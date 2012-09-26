@@ -9,7 +9,7 @@ import java.io.File;
 import java.util.List;
 import com.google.common.collect.ObjectArrays;
 import universalelectricity.UniversalElectricity;
-import universalelectricity.basiccomponents.BasicComponents;
+import universalelectricity.BasicComponents;
 import universalelectricity.basiccomponents.ItemBattery;
 import universalelectricity.network.PacketManager;
 import universalelectricity.recipe.CraftingRecipe;
@@ -100,7 +100,7 @@ public class HawksMachinery implements ICraftingHandler
 	public static int crusherTicks;
 	public static int washerTicks;
 	
-	public static int maxChunksLoaded;
+	public static int maxChunksLoaded = 100;
 	
 	public static boolean generateTitanium;
 	public static boolean generateAluminum;
@@ -108,7 +108,7 @@ public class HawksMachinery implements ICraftingHandler
 	public static boolean generateEndium;
 	public static boolean enableUpdateChecking;
 	public static boolean enableAutoDL;
-	public static boolean enableChunkloader = false;
+	public static boolean enableChunkloader;
 	
 	public static final String GUI_PATH = "/hawksmachinery/textures/gui";
 	public static final String BLOCK_TEXTURE_FILE = "/hawksmachinery/textures/blocks.png";
@@ -143,46 +143,47 @@ public class HawksMachinery implements ICraftingHandler
 		
 		HMConfig.load();
 		
-		crusherID = HMConfig.getOrCreateBlockIdProperty("Crusher", 3960).getInt(3960);
-		oreID = HMConfig.getOrCreateBlockIdProperty("Ores", 3961).getInt(3961);
-		metalStorageID = HMConfig.getOrCreateBlockIdProperty("Metal Storage Blocks", 3962).getInt(3962);
-		washerID = HMConfig.getOrCreateBlockIdProperty("Washer", 3963).getInt(3963);
-		verticalDrillID = HMConfig.getOrCreateBlockIdProperty("Vertical Mining Drill", 3964).getInt(3964);
-		inductionFurnaceID = HMConfig.getOrCreateBlockIdProperty("Induction Furnace", 3965).getInt(3965);
+		crusherID = HMConfig.getBlock("Crusher", 3960).getInt(3960);
+		oreID = HMConfig.getBlock("Ores", 3961).getInt(3961);
+		metalStorageID = HMConfig.getBlock("Metal Storage Blocks", 3962).getInt(3962);
+		washerID = HMConfig.getBlock("Washer", 3963).getInt(3963);
+		verticalDrillID = HMConfig.getBlock("Vertical Mining Drill", 3964).getInt(3964);
+		inductionFurnaceID = HMConfig.getBlock("Induction Furnace", 3965).getInt(3965);
 		
-		generateTitanium = HMConfig.getOrCreateBooleanProperty("Generate Titanium", Configuration.CATEGORY_GENERAL, true).getBoolean(true);
-		generateAluminum = HMConfig.getOrCreateBooleanProperty("Generate Aluminum", Configuration.CATEGORY_GENERAL, true).getBoolean(true);
-		generateSilver = HMConfig.getOrCreateBooleanProperty("Generate Silver", Configuration.CATEGORY_GENERAL, true).getBoolean(true);
-		generateEndium = HMConfig.getOrCreateBooleanProperty("Generate Endium", Configuration.CATEGORY_GENERAL, true).getBoolean(true);
-		enableUpdateChecking = HMConfig.getOrCreateBooleanProperty("Enable Update Checking", Configuration.CATEGORY_GENERAL, true).getBoolean(true);
-		enableAutoDL = HMConfig.getOrCreateBooleanProperty("Enable Auto DL", Configuration.CATEGORY_GENERAL, true).getBoolean(true);
-		//enableChunkloader = HMConfig.getOrCreateBooleanProperty("Enable Chunkloader Block", Configuration.CATEGORY_GENERAL, true).getBoolean(true);
+		generateTitanium = HMConfig.get(Configuration.CATEGORY_GENERAL,"Generate Titanium", true).getBoolean(true);
+		generateAluminum = HMConfig.get(Configuration.CATEGORY_GENERAL, "Generate Aluminum", true).getBoolean(true);
+		generateSilver = HMConfig.get(Configuration.CATEGORY_GENERAL, "Generate Silver", true).getBoolean(true);
+		generateEndium = HMConfig.get(Configuration.CATEGORY_GENERAL, "Generate Endium", true).getBoolean(true);
+		enableUpdateChecking = HMConfig.get(Configuration.CATEGORY_GENERAL, "Enable Update Checking", true).getBoolean(true);
+		enableAutoDL = HMConfig.get(Configuration.CATEGORY_GENERAL, "Enable Auto DL", true).getBoolean(true);
+		//enableChunkloader = HMConfig.get(Configuration.CATEGORY_GENERAL, "Enable Chunkloader Block", true).getBoolean(true);
 		
 		if (enableChunkloader)
 		{
-			chunkloaderID = HMConfig.getOrCreateBlockIdProperty("Endium Chunkloader", 3966).getInt(3966);
-			maxChunksLoaded = HMConfig.getOrCreateIntProperty("Max Chunks Loaded", Configuration.CATEGORY_GENERAL, 25).getInt(25);
+			chunkloaderID = HMConfig.getBlock("Endium Chunkloader", 3966).getInt(3966);
+			maxChunksLoaded = HMConfig.get("Max Chunks Loaded", Configuration.CATEGORY_GENERAL, 25).getInt(25);
 			
 		}
 		
-		dustRawID = HMConfig.getOrCreateIntProperty("Raw Dusts", Configuration.CATEGORY_ITEM, 24150).getInt(24150);
-		dustRefinedID = HMConfig.getOrCreateIntProperty("Refined Dusts", Configuration.CATEGORY_ITEM, 24151).getInt(24151);
-		ingotsID = HMConfig.getOrCreateIntProperty("Ingots", Configuration.CATEGORY_ITEM, 24152).getInt(24152);
-		partsID = HMConfig.getOrCreateIntProperty("Parts", Configuration.CATEGORY_ITEM, 24153).getInt(24153);
-		platingID = HMConfig.getOrCreateIntProperty("Plating", Configuration.CATEGORY_ITEM, 24154).getInt(24154);
-		blueprintID = HMConfig.getOrCreateIntProperty("Blueprints", Configuration.CATEGORY_ITEM, 24155).getInt(24155);
-		endiumAlloyID = HMConfig.getOrCreateIntProperty("Endium Alloy", Configuration.CATEGORY_ITEM, 24156).getInt(24156);
+		dustRawID = HMConfig.get(Configuration.CATEGORY_ITEM, "Raw Dusts", 24150).getInt(24150);
+		dustRefinedID = HMConfig.get(Configuration.CATEGORY_ITEM, "Refined Dusts", 24151).getInt(24151);
+		ingotsID = HMConfig.get(Configuration.CATEGORY_ITEM, "Ingots", 24152).getInt(24152);
+		partsID = HMConfig.get(Configuration.CATEGORY_ITEM, "Parts", 24153).getInt(24153);
+		platingID = HMConfig.get(Configuration.CATEGORY_ITEM, "Plating", 24154).getInt(24154);
+		blueprintID = HMConfig.get(Configuration.CATEGORY_ITEM, "Blueprints", 24155).getInt(24155);
+		endiumAlloyID = HMConfig.get(Configuration.CATEGORY_ITEM, "Endium Alloy", 24156).getInt(24156);
 		
-		ACHprospector = HMConfig.getOrCreateIntProperty("ACH Prospector", Configuration.CATEGORY_GENERAL, 1500).getInt(1500);
-		ACHtimeToCrush = HMConfig.getOrCreateIntProperty("ACH Time To Crush", Configuration.CATEGORY_GENERAL, 1501).getInt(1501);
-		ACHcompactCompact = HMConfig.getOrCreateIntProperty("ACH Compact Compact", Configuration.CATEGORY_GENERAL, 1502).getInt(1502);
-		ACHminerkiin = HMConfig.getOrCreateIntProperty("ACH Minerkiin", Configuration.CATEGORY_GENERAL, 1503).getInt(1503);
-		ACHwash = HMConfig.getOrCreateIntProperty("ACH Wash", Configuration.CATEGORY_GENERAL, 1504).getInt(1504);
+		ACHprospector = HMConfig.get(Configuration.CATEGORY_GENERAL, "ACH Prospector", 1500).getInt(1500);
+		ACHtimeToCrush = HMConfig.get(Configuration.CATEGORY_GENERAL, "ACH Time To Crush", 1501).getInt(1501);
+		ACHcompactCompact = HMConfig.get(Configuration.CATEGORY_GENERAL, "ACH Compact Compact", 1502).getInt(1502);
+		ACHminerkiin = HMConfig.get(Configuration.CATEGORY_GENERAL, "ACH Minerkiin", 1503).getInt(1503);
+		ACHwash = HMConfig.get(Configuration.CATEGORY_GENERAL, "ACH Wash", 1504).getInt(1504);
 		
 		if (FMLCommonHandler.instance().getSide().isServer())
 		{
-			crusherTicks = HMConfig.getOrCreateIntProperty("Crusher Ticks", "advanced_settings", 180).getInt(180);
-			washerTicks = HMConfig.getOrCreateIntProperty("Washer Ticks", "advanced_settings", 100).getInt(100);
+			crusherTicks = HMConfig.get("advanced_settings", "Crusher Ticks", 180).getInt(180);
+			washerTicks = HMConfig.get("advanced_settings", "Washer Ticks", 100).getInt(100);
+			HMConfig.addCustomCategoryComment("advanced_settings", "Advanced server OP settings, don't be a moron with them.");
 			
 		}
 		
@@ -195,6 +196,8 @@ public class HawksMachinery implements ICraftingHandler
 		if (enableChunkloader)
 		{
 			blockChunkloader = new HawkBlockChunkloader(chunkloaderID);
+			ForgeChunkManager.setForcedChunkLoadingCallback(this, new HawkChunkHandler(this, maxChunksLoaded));
+			
 		}
 		
 		dustRaw = new HawkItemRawDust(dustRawID - 256);
@@ -205,7 +208,6 @@ public class HawksMachinery implements ICraftingHandler
 		blueprints = new HawkItemBlueprints(blueprintID - 256);
 		endiumAlloy = new HawkItem(endiumAlloyID - 256).setIconIndex(2).setItemName("endiumAlloy").setCreativeTab(CreativeTabs.tabMaterials);
 		
-		UniversalElectricity.registerMod(this, "Hawk's Machinery", "0.8.4");
 		NetworkRegistry.instance().registerGuiHandler(this, this.PROXY);
 		GameRegistry.registerWorldGenerator(new HawkOreGenerator());
 		GameRegistry.registerCraftingHandler(this);

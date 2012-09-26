@@ -38,6 +38,7 @@ public class HawkBlockOre extends HawkBlock implements IMineable
 		setHardness(1.0F);
 		setResistance(5.0F);
 		setBlockName("Ore");
+		setCreativeTab(CreativeTabs.tabBlock);
 		
 		MinecraftForge.setBlockHarvestLevel(this, 3, "pickaxe", 5);
 		

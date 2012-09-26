@@ -33,9 +33,9 @@ public class HawkGUIGrinder extends GuiContainer
 	@Override
 	protected void drawGuiContainerForegroundLayer()
 	{
-		this.fontRenderer.drawString("Grinder", 65, 6, 4210752);
+		this.fontRenderer.drawString("Crusher", 65, 6, 4210752);
 		
-		this.fontRenderer.drawString("Grinding:", 10, 28, 4210752);
+		this.fontRenderer.drawString("Crushing:", 10, 28, 4210752);
 		this.fontRenderer.drawString("Battery:", 10, 53, 4210752);
 		
 		this.fontRenderer.drawString("Status: "+this.tileEntity.getGrinderStatus(), 75, 48, 4210752);

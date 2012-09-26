@@ -18,7 +18,6 @@ import net.minecraftforge.common.ForgeChunkManager.Type;
 public class HawkChunkHandler implements LoadingCallback
 {
 	public static HawksMachinery BASEMOD;
-	public static HawkTileEntityChunkloader[] chunkloaders;
 	private static int chunkLimit;
 	
 	public HawkChunkHandler(HawksMachinery Basemod, int limit)
@@ -31,44 +30,20 @@ public class HawkChunkHandler implements LoadingCallback
 	@Override
 	public void ticketsLoaded(List<Ticket> tickets, World world)
 	{
-		
-	}
-	
-	public static Ticket requestHMTicket(HawkTileEntityChunkloader chunkloader, World world, Type type)
-	{
-		chunkloaders[getEarliestChunkloaderNumber()] = chunkloader;
-		return ForgeChunkManager.requestTicket(BASEMOD, world, type);
-		
-	}
-	
-	public static void releaseTicket(HawkTileEntityChunkloader chunkloader, Ticket ticket)
-	{
-		for (HawkTileEntityChunkloader otherChunker : chunkloaders)
+		for (Ticket ticket : tickets)
 		{
-			if (chunkloader == otherChunker)
+			int xPos = ticket.getModData().getInteger("xCoord");
+			int yPos = ticket.getModData().getInteger("yCoord");
+			int zPos = ticket.getModData().getInteger("zCoord");
+			
+			if (world.getBlockTileEntity(xPos, yPos, zPos) instanceof HawkTileEntityChunkloader)
 			{
-				otherChunker = null;
-				chunkloader.heldChunk = null;
-				ForgeChunkManager.releaseTicket(ticket);
+				((HawkTileEntityChunkloader)world.getBlockTileEntity(xPos, yPos, zPos)).forceChunkLoading(ticket);
 				
 			}
 			
 		}
 		
-	}
-	
-	private static int getEarliestChunkloaderNumber()
-	{
-		for (int counter = chunkLimit; counter > 0; --counter)
-		{
-			if (chunkloaders[counter] != null)
-			{
-				return counter;
-			}
-			
-		}
-		
-		return 0;
 	}
 	
 }
