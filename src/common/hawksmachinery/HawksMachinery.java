@@ -59,7 +59,7 @@ import cpw.mods.fml.common.registry.VillagerRegistry;
  * 
  * @author Elusivehawk
  */
-@Mod(modid = "HawksMachinery", name = "Hawk's Machinery", version = "Alpha v1.3.3", dependencies = "after:BasicComponents")
+@Mod(modid = "HawksMachinery", name = "Hawk's Machinery", version = "Alpha v1.4.0", dependencies = "after:BasicComponents")
 @NetworkMod(channels = {"HawksMachinery"}, clientSideRequired = true, serverSideRequired = false, packetHandler = PacketManager.class)
 public class HawksMachinery implements ICraftingHandler
 {
@@ -440,7 +440,7 @@ public class HawksMachinery implements ICraftingHandler
 		@Override
 		public String getModURL()
 		{
-			return "http://bit.ly/TbyBoC";
+			return "http://bit.ly/UeISkn";
 		}
 		
 		@Override
@@ -464,7 +464,7 @@ public class HawksMachinery implements ICraftingHandler
 		@Override
 		public String getChangelogURL()
 		{
-			return "https://dl.dropbox.com/u/100525141/HawksMachineryAlphav132Changelog.txt";
+			return "https://dl.dropbox.com/u/100525141/HawksMachineryAlphav133Changelog.txt";
 		}
 		
 		@Override
@@ -518,13 +518,13 @@ public class HawksMachinery implements ICraftingHandler
 		@Override
 		public String getSpecialButtonName()
 		{
-			return "Calclavia Forum";
+			return "Forge Forum";
 		}
 		
 		@Override
 		public void onSpecialButtonClicked()
 		{
-			UpdateManager.openWebpage("http://bit.ly/UeISkn");
+			UpdateManager.openWebpage("http://bit.ly/TbyBoC");
 			
 		}
 		
