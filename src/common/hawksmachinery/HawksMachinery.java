@@ -228,7 +228,6 @@ public class HawksMachinery implements ICraftingHandler
 		if (enableChunkloader)
 		{
 			GameRegistry.registerTileEntity(HawkTileEntityChunkloader.class, "HMChunkloader");
-			ForgeChunkManager.setForcedChunkLoadingCallback(this, new HawkChunkHandler(this, maxChunksLoaded));
 			
 		}
 		
