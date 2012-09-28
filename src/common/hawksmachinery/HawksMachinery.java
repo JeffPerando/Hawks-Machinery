@@ -212,6 +212,7 @@ public class HawksMachinery implements ICraftingHandler
 		GameRegistry.registerWorldGenerator(new HawkOreGenerator());
 		GameRegistry.registerCraftingHandler(this);
 		AchievementPage.registerAchievementPage(HawkAchievements.HAWKSPAGE);
+		NetworkRegistry.instance().registerConnectionHandler(new HawkCommonConnectionHandler());
 		VillagerRegistry.instance().registerVillageTradeHandler(0, new HawkVillagerTrades());
 		VillagerRegistry.instance().registerVillageTradeHandler(1, new HawkVillagerTrades());
 		VillagerRegistry.instance().registerVillageTradeHandler(2, new HawkVillagerTrades());
