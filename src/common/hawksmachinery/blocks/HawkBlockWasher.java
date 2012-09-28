@@ -23,9 +23,8 @@ import universalelectricity.prefab.BlockMachine;
  *
  * @author Elusivehawk
  */
-public class HawkBlockWasher extends BlockMachine
+public class HawkBlockWasher extends HawkBlockMachine
 {
-	public static HawksMachinery BASEMOD;
 	public HawkTileEntityWasher tileEntity;
 	
 	public HawkBlockWasher(int id)
@@ -34,9 +33,8 @@ public class HawkBlockWasher extends BlockMachine
 		setHardness(2.0F);
 		setResistance(20.0F);
 		setRequiresSelfNotify();
-		GameRegistry.registerBlock(this);
 		setCreativeTab(CreativeTabs.tabDecorations);
-		setTextureFile(BASEMOD.BLOCK_TEXTURE_FILE);
+		
 	}
 	
 	@Override

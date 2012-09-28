@@ -16,19 +16,18 @@ import net.minecraftforge.common.ForgeDirection;
  *
  * @author Elusivehawk
  */
-public class HawkBlockGrinder extends BlockMachine
+public class HawkBlockGrinder extends HawkBlockMachine
 {
-	public static HawksMachinery BASEMOD;
 	public HawkTileEntityGrinder tileEntity;
 	
 	public HawkBlockGrinder(int id)
 	{
-		super("HMGrinder", id, Material.iron);
+		super("HMCrusher", id, Material.iron);
 		setHardness(2.0F);
 		setResistance(20.0F);
 		setRequiresSelfNotify();
-		GameRegistry.registerBlock(this);
 		setCreativeTab(CreativeTabs.tabDecorations);
+		
 	}
 	
 	@Override
@@ -79,12 +78,6 @@ public class HawkBlockGrinder extends BlockMachine
 		}
 
 		world.setBlockMetadataWithNotify(x, y, z, newMetadata);
-	}
-	
-	@Override
-	public String getTextureFile()
-	{
-		return BASEMOD.BLOCK_TEXTURE_FILE;
 	}
 	
 	@Override

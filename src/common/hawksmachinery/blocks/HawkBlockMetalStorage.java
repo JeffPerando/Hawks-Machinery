@@ -25,8 +25,6 @@ import net.minecraft.src.World;
  */
 public class HawkBlockMetalStorage extends HawkBlock
 {
-	public static HawksMachinery BASEMOD;
-	
 	public HawkBlockMetalStorage(int id)
 	{
 		super(id, Material.iron);

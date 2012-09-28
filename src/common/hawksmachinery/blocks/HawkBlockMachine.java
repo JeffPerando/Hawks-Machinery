@@ -3,22 +3,22 @@ package hawksmachinery.blocks;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import hawksmachinery.HawksMachinery;
-import net.minecraft.src.Block;
 import net.minecraft.src.Material;
+import universalelectricity.prefab.BlockMachine;
 
 /**
  * 
- * My personal preferences. Extend this instead of {@link Block} and you'll save yourself some trouble.
+ * Just a wrapper for BlockMachine.
  * 
  * @author Elusivehawk
  */
-public abstract class HawkBlock extends Block
+public abstract class HawkBlockMachine extends BlockMachine
 {
 	public static HawksMachinery BASEMOD;
 	
-	public HawkBlock(int id, Material mat)
+	public HawkBlockMachine(String name, int id, Material mat)
 	{
-		super(id, mat);
+		super(name, id, mat);
 		setHardness(1.0F);
 		setResistance(5.0F);
 		registerSelf();

@@ -79,7 +79,7 @@ public class HawksMachinery implements ICraftingHandler
 	public static int metalStorageID;
 	public static int washerID;
 	public static int verticalDrillID;
-	public static int inductionFurnaceID;
+	public static int smeltingLaserID;
 	public static int chunkloaderID;
 	
 	public static int dustRawID;
@@ -99,7 +99,6 @@ public class HawksMachinery implements ICraftingHandler
 	
 	public static int crusherTicks;
 	public static int washerTicks;
-	
 	public static int maxChunksLoaded = 100;
 	
 	public static boolean generateTitanium;
@@ -147,8 +146,7 @@ public class HawksMachinery implements ICraftingHandler
 		oreID = HMConfig.getBlock("Ores", 3961).getInt(3961);
 		metalStorageID = HMConfig.getBlock("Metal Storage Blocks", 3962).getInt(3962);
 		washerID = HMConfig.getBlock("Washer", 3963).getInt(3963);
-		verticalDrillID = HMConfig.getBlock("Vertical Mining Drill", 3964).getInt(3964);
-		inductionFurnaceID = HMConfig.getBlock("Induction Furnace", 3965).getInt(3965);
+		smeltingLaserID = HMConfig.getBlock("Smelting Laser", 3964).getInt(3964);
 		
 		generateTitanium = HMConfig.get(Configuration.CATEGORY_GENERAL,"Generate Titanium", true).getBoolean(true);
 		generateAluminum = HMConfig.get(Configuration.CATEGORY_GENERAL, "Generate Aluminum", true).getBoolean(true);
@@ -156,7 +154,7 @@ public class HawksMachinery implements ICraftingHandler
 		generateEndium = HMConfig.get(Configuration.CATEGORY_GENERAL, "Generate Endium", true).getBoolean(true);
 		enableUpdateChecking = HMConfig.get(Configuration.CATEGORY_GENERAL, "Enable Update Checking", true).getBoolean(true);
 		enableAutoDL = HMConfig.get(Configuration.CATEGORY_GENERAL, "Enable Auto DL", true).getBoolean(true);
-		//enableChunkloader = HMConfig.get(Configuration.CATEGORY_GENERAL, "Enable Chunkloader Block", true).getBoolean(true);
+		enableChunkloader = HMConfig.get(Configuration.CATEGORY_GENERAL, "Enable Chunkloader Block", true).getBoolean(true);
 		
 		if (enableChunkloader)
 		{
@@ -181,9 +179,9 @@ public class HawksMachinery implements ICraftingHandler
 		
 		if (FMLCommonHandler.instance().getSide().isServer())
 		{
+			HMConfig.addCustomCategoryComment("advanced_settings", "Advanced server OP settings, don't be a moron with them.");
 			crusherTicks = HMConfig.get("advanced_settings", "Crusher Ticks", 180).getInt(180);
 			washerTicks = HMConfig.get("advanced_settings", "Washer Ticks", 100).getInt(100);
-			HMConfig.addCustomCategoryComment("advanced_settings", "Advanced server OP settings, don't be a moron with them.");
 			
 		}
 		
@@ -212,7 +210,7 @@ public class HawksMachinery implements ICraftingHandler
 		GameRegistry.registerWorldGenerator(new HawkOreGenerator());
 		GameRegistry.registerCraftingHandler(this);
 		AchievementPage.registerAchievementPage(HawkAchievements.HAWKSPAGE);
-		NetworkRegistry.instance().registerConnectionHandler(new HawkCommonConnectionHandler());
+		NetworkRegistry.instance().registerConnectionHandler(new HawkConnectionHandler());
 		VillagerRegistry.instance().registerVillageTradeHandler(0, new HawkVillagerTrades());
 		VillagerRegistry.instance().registerVillageTradeHandler(1, new HawkVillagerTrades());
 		VillagerRegistry.instance().registerVillageTradeHandler(2, new HawkVillagerTrades());

@@ -12,27 +12,20 @@ import java.util.Map;
  */
 public enum HawkEnumProcessing
 {
-	CRUSHING("Crushing", new HashMap()),
+	CRUSHING(new HashMap()),
 	
-	CRUSHING_EXPLOSIVES("CrushSplosives", new HashMap()),
+	CRUSHING_EXPLOSIVES(new HashMap()),
 	
-	WASHING("Washing", new HashMap()),
+	WASHING(new HashMap()),
 	
-	SINTERER("Sinterer", new HashMap());
+	SINTERER(new HashMap());
 	
-	private String name;
 	private Map processingList;
 	
-	HawkEnumProcessing(String name, Map recipeList)
+	HawkEnumProcessing(Map recipeList)
 	{
-		this.name = name;
 		this.processingList = recipeList;
 		
-	}
-	
-	public String getName()
-	{
-		return this.name;
 	}
 	
 	public Map getRecipeList()

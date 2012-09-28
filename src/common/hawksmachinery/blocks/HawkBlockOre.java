@@ -30,8 +30,6 @@ import net.minecraftforge.oredict.OreDictionary;
  */
 public class HawkBlockOre extends HawkBlock implements IMineable
 {
-	public static HawksMachinery BASEMOD;
-	
 	public HawkBlockOre(int id)
 	{
 		super(id, Material.rock);
@@ -71,12 +69,6 @@ public class HawkBlockOre extends HawkBlock implements IMineable
 	}
 	
 	@Override
-	public String getTextureFile()
-	{
-		return BASEMOD.BLOCK_TEXTURE_FILE;
-	}
-	
-	@Override
 	public int damageDropped(int meta)
 	{
 		return meta;
@@ -95,11 +87,15 @@ public class HawkBlockOre extends HawkBlock implements IMineable
 		}
 		
 	}
-
+	
 	@Override
 	public boolean canMineBlock(World world, int i, int j, int k, EntityMinecart bore, ItemStack head)
 	{
-		if (((IBoreHead)head.getItem()).getHarvestLevel() >= 4)
+		if (world.getBlockMetadata(i, j, k) == 3 && ((IBoreHead)head.getItem()).getHarvestLevel() >= 5)
+		{
+			return true;
+		}
+		else if (world.getBlockMetadata(i, j, k) != 3 && ((IBoreHead)head.getItem()).getHarvestLevel() >= 4)
 		{
 			return true;
 		}

@@ -15,7 +15,7 @@ import cpw.mods.fml.common.network.Player;
  * 
  * @author Elusivehawk
  */
-public class HawkCommonConnectionHandler implements IConnectionHandler
+public class HawkConnectionHandler implements IConnectionHandler
 {
 	@Override
 	public void playerLoggedIn(Player player, NetHandler netHandler, NetworkManager manager)

@@ -41,7 +41,7 @@ public class ThreadDownloadMod extends Thread {
 
 		setName("Update Manager Download File Thread " + ++amountOfDownloadResourceThreads);
 
-		modName = mod.getModName() + " " + UpdateManager.getWebVersionFor(mod);
+		modName = mod.getModName() + UpdateManager.getWebVersionFor(mod);
 		try {
 			downloadUrl = getUrlFromFile(urlToFind);
 			downloadUrl.openConnection();
