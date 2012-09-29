@@ -112,6 +112,7 @@ public class HawksMachinery implements ICraftingHandler
 	public static final String GUI_PATH = "/hawksmachinery/textures/gui";
 	public static final String BLOCK_TEXTURE_FILE = "/hawksmachinery/textures/blocks.png";
 	public static final String ITEM_TEXTURE_FILE = "/hawksmachinery/textures/items.png";
+	public static final String TEXTURE_PATH = "/hawksmachinery/textures";
 	
 	public static Configuration HMConfig = new Configuration(new File(Loader.instance().getConfigDir(), "HawksMachinery/HMConfig.cfg"));
 	
