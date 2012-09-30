@@ -5,6 +5,7 @@ import hawksmachinery.blocks.*;
 import hawksmachinery.items.*;
 import hawksmachinery.misc.*;
 import hawksmachinery.tileentity.*;
+import hawksmachinery.HawkProcessingRecipes.HawkEnumProcessing;
 import java.io.File;
 import java.util.List;
 import com.google.common.collect.ObjectArrays;
@@ -71,8 +72,8 @@ public class HawksMachinery implements ICraftingHandler
 	
 	public static RecipeManager RECIPE_GIVER;
 	public static HawkProcessingRecipes PROCESS_RECIPES;
-	public static HawkProcessingRecipes.HawkEnumProcessing CRUSH = HawkProcessingRecipes.HawkEnumProcessing.CRUSHING;
-	public static HawkProcessingRecipes.HawkEnumProcessing WASH = HawkProcessingRecipes.HawkEnumProcessing.WASHING;
+	public static HawkEnumProcessing CRUSH = HawkProcessingRecipes.HawkEnumProcessing.CRUSHING;
+	public static HawkEnumProcessing WASH = HawkProcessingRecipes.HawkEnumProcessing.WASHING;
 	
 	public static int crusherID;
 	public static int oreID;

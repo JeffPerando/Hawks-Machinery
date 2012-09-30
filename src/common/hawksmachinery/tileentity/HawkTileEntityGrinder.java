@@ -2,6 +2,7 @@
 package hawksmachinery.tileentity;
 
 import hawksmachinery.HawkProcessingRecipes;
+import hawksmachinery.HawkProcessingRecipes.HawkEnumProcessing;
 import hawksmachinery.HawksMachinery;
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -128,7 +129,7 @@ public class HawkTileEntityGrinder extends HawkTileEntityMachine implements IIte
 		{
 			if (this.electricityStored >= this.ELECTRICITY_REQUIRED * 2)
 			{
-				ItemStack var1 = HawkProcessingRecipes.getResult(this.containingItems[1], HawkProcessingRecipes.HawkEnumProcessing.CRUSHING_EXPLOSIVES);
+				ItemStack var1 = HawkProcessingRecipes.getResult(this.containingItems[1], HawkEnumProcessing.CRUSHING_EXPLOSIVES);
 				
 				if (var1 == null) return false;
 				if (this.containingItems[2] == null) return true;
@@ -448,7 +449,7 @@ public class HawkTileEntityGrinder extends HawkTileEntityMachine implements IIte
 		TICKS_REQUIRED = FMLCommonHandler.instance().getSide().isServer() ? HawksMachinery.crusherTicks : 180;
 		ELECTRICITY_LIMIT = 2500;
 		containingItems = new ItemStack[3];
-		machineEnum = HawkProcessingRecipes.HawkEnumProcessing.CRUSHING;
+		machineEnum = HawkEnumProcessing.CRUSHING;
 		
 	}
 	

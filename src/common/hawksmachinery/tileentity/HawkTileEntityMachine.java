@@ -10,6 +10,7 @@ import universalelectricity.network.IPacketReceiver;
 import universalelectricity.network.PacketManager;
 import universalelectricity.prefab.TileEntityElectricityReceiver;
 import hawksmachinery.HawkProcessingRecipes;
+import hawksmachinery.HawkProcessingRecipes.HawkEnumProcessing;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.NBTTagCompound;
@@ -46,7 +47,7 @@ public abstract class HawkTileEntityMachine extends TileEntityElectricityReceive
 	
 	public double voltage;
 	
-	public HawkProcessingRecipes.HawkEnumProcessing machineEnum;
+	public HawkEnumProcessing machineEnum;
 	
 	public HawkTileEntityMachine()
 	{

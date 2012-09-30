@@ -2,6 +2,7 @@
 package hawksmachinery.tileentity;
 
 import hawksmachinery.HawkProcessingRecipes;
+import hawksmachinery.HawkProcessingRecipes.HawkEnumProcessing;
 import hawksmachinery.HawksMachinery;
 import java.util.Random;
 import railcraft.common.api.carts.IItemTransfer;
@@ -360,7 +361,7 @@ public class HawkTileEntityWasher extends HawkTileEntityMachine implements IItem
 		TICKS_REQUIRED = FMLCommonHandler.instance().getSide().isServer() ? HawksMachinery.crusherTicks : 100;
 		ELECTRICITY_LIMIT = 1200;
 		containingItems = new ItemStack[6];
-		machineEnum = HawkProcessingRecipes.HawkEnumProcessing.WASHING;
+		machineEnum = HawkEnumProcessing.WASHING;
 		
 	}
 	

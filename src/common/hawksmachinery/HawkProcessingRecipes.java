@@ -24,7 +24,7 @@ public class HawkProcessingRecipes
 	
 	/**
 	 * 
-	 * Instead of IDs, processing now uses enums.
+	 * Instead of IDs, processing now uses enums. *NEW* Now found within HawkProcessingRecipes.java!
 	 * 
 	 * @author Elusivehawk
 	 */
@@ -56,13 +56,12 @@ public class HawkProcessingRecipes
 	}
 	
 	/**
+	 * 
 	 * Adds a processing recipe.
 	 * 
-	 * Args:
-	 * 
-	 * Input
-	 * Output
-	 * Processing Type
+	 * @param input The input.
+	 * @param output The output.
+	 * @param processType What type of processing is this recipe for?
 	 */
 	public static void addHawkProcessingRecipe(ItemStack input, ItemStack output, HawkEnumProcessing processType)
 	{
