@@ -1,7 +1,7 @@
 
 package hawksmachinery;
 
-import hawksmachinery.HawkProcessingRecipes.HawkEnumProcessing;;
+import hawksmachinery.HawkProcessingRecipes.HawkEnumProcessing;
 
 /**
  * 
@@ -19,15 +19,15 @@ public enum HawkEnumUpgrades
 	
 	POWER_PACK(null),
 	
-	DUSTY_TALES(HawkProcessingRecipes.HawkEnumProcessing.CRUSHING),
+	DUSTY_TALES(HawkEnumProcessing.CRUSHING),
 	
-	DIRT_TO_DIAMONDS(HawkProcessingRecipes.HawkEnumProcessing.HM_E2MM),
+	DIRT_TO_DIAMONDS(HawkEnumProcessing.HM_E2MM),
 	
-	DEEP_CHILL(HawkProcessingRecipes.HawkEnumProcessing.SINTERER),
+	DEEP_CHILL(HawkEnumProcessing.SINTERER),
 	
-	GOLD_PAN(HawkProcessingRecipes.HawkEnumProcessing.WASHING);
+	GOLD_PAN(HawkEnumProcessing.WASHING);
 	
-	private HawkProcessingRecipes.HawkEnumProcessing machineExclusiveTo;
+	private HawkEnumProcessing machineExclusiveTo;
 	
 	HawkEnumUpgrades(HawkEnumProcessing exclusiveMachine)
 	{
