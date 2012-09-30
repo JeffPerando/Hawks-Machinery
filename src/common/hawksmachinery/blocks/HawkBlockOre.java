@@ -48,14 +48,7 @@ public class HawkBlockOre extends HawkBlock implements IMineable
 	@Override
 	public int getBlockTextureFromSideAndMetadata(int side, int meta)
 	{
-		switch (meta)
-		{
-			case 0: return 25;
-			case 1: return 26;
-			case 2: return 27;
-			case 3: return 28;
-			default: return 0;
-		}
+		return 16 + meta;
 	}
 	
 	@Override

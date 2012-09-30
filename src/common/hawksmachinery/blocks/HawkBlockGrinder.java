@@ -100,33 +100,33 @@ public class HawkBlockGrinder extends HawkBlockMachine
 		{
 			case 2: switch (side)
 					{
-						case 1: return 5;
-						case 2: return 6;
-						default: return 7;
+						case 1: return 0;
+						case 2: return 2;
+						default: return 3;
 					}
 			case 3: switch (side)
 					{
-						case 1: return 5;
-						case 3: return 6;
-						default: return 7;
+						case 1: return 0;
+						case 3: return 2;
+						default: return 3;
 					}
 			case 4: switch (side)
 					{
-						case 1: return 23;
-						case 4: return 6;
-						default: return 7;
+						case 1: return 1;
+						case 4: return 2;
+						default: return 3;
 					}
 			case 5: switch (side)
 					{
-						case 1: return 23;
-						case 5: return 6;
-						default: return 7;
+						case 1: return 1;
+						case 5: return 2;
+						default: return 3;
 					}
 			default: switch (side)
 					{
-						case 1: return 5;
-						case 3: return 6;
-						default: return 7;
+						case 1: return 0;
+						case 3: return 2;
+						default: return 3;
 					}
 		}
 	}

@@ -41,7 +41,7 @@ public class HawkBlockChunkloader extends HawkBlock
 	@Override
 	public int getBlockTextureFromSideAndMetadata(int side, int metadata)
 	{
-		return 24;
+		return 5;
 	}
 	
 	@Override

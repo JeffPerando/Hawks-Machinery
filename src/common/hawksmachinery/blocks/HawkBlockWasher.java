@@ -109,33 +109,33 @@ public class HawkBlockWasher extends HawkBlockMachine
 		{
 			case 2: switch (side)
 					{
-						case 1: return 36;
-						case 2: return 38;
-						default: return 37;
+						case 1: return 48;
+						case 2: return 50;
+						default: return 51;
 					}
 			case 3: switch (side)
 					{
-						case 1: return 36;
-						case 3: return 38;
-						default: return 37;
+						case 1: return 48;
+						case 3: return 50;
+						default: return 51;
 					}
 			case 4: switch (side)
 					{
-						case 1: return 36;
-						case 4: return 38;
-						default: return 37;
+						case 1: return 49;
+						case 4: return 50;
+						default: return 51;
 					}
 			case 5: switch (side)
 					{
-						case 1: return 36;
-						case 5: return 38;
-						default: return 37;
+						case 1: return 49;
+						case 5: return 50;
+						default: return 51;
 					}
 			default: switch (side)
 					{
-						case 1: return 36;
-						case 3: return 38;
-						default: return 37;
+						case 1: return 48;
+						case 3: return 50;
+						default: return 51;
 					}
 		}
 	}

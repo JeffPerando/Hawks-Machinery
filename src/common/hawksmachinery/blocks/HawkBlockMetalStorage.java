@@ -38,14 +38,7 @@ public class HawkBlockMetalStorage extends HawkBlock
 	@Override
 	public int getBlockTextureFromSideAndMetadata(int side, int meta)
 	{
-		switch (meta)
-		{
-			case 0: return 41;
-			case 1: return 42;
-			case 2: return 43;
-			case 3: return 44;
-			default: return 0;
-		}
+		return 32 + meta;
 	}
 	
 	@Override
