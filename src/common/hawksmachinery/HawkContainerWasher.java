@@ -86,7 +86,7 @@ public class HawkContainerWasher extends Container
 						return null;
 					}
 				}
-				else if (HawkProcessingRecipes.getResult(var4, HawkEnumProcessing.WASHING) != null)
+				else if (HawkProcessingRecipes.getResult(var4, HawkProcessingRecipes.HawkEnumProcessing.WASHING) != null)
 				{
 					if (!this.mergeItemStack(var4, 1, 2, false))
 					{

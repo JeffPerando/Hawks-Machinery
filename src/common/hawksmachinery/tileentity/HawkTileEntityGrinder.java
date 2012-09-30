@@ -1,7 +1,6 @@
 
 package hawksmachinery.tileentity;
 
-import hawksmachinery.HawkEnumProcessing;
 import hawksmachinery.HawkProcessingRecipes;
 import hawksmachinery.HawksMachinery;
 import java.io.DataInputStream;
@@ -40,45 +39,11 @@ import universalelectricity.implement.IItemElectric;
  * 
  * @author Elusivehawk
  */
-public class HawkTileEntityGrinder extends TileEntityElectricityReceiver implements IRedstoneReceptor, IInventory, ISidedInventory, ISpecialInventory, IRotatable, IPacketReceiver, IItemTransfer
+public class HawkTileEntityGrinder extends HawkTileEntityMachine implements IItemTransfer
 {
-	public int ELECTRICITY_REQUIRED = 10;
-	
-	public int TICKS_REQUIRED = FMLCommonHandler.instance().getSide().isServer() ? HawksMachinery.crusherTicks : 180;
-	
-	public ForgeDirection facingDirection = ForgeDirection.UNKNOWN;
-	
-	public double electricityStored = 0;
-	
 	public int workTicks = 0;
 	
-	private boolean isBeingPoweredByRedstone;
-	
-	public ItemStack[] containingItems = new ItemStack[3];
-	
 	private int grinderStatus;
-	
-	public int ELECTRICITY_LIMIT = 2500;
-	
-	public boolean isOpen;
-	
-	public HawkTileEntityGrinder()
-	{
-		super();
-	}
-	
-	@Override
-	public void onReceive(TileEntity tileEntity, double amps, double voltage, ForgeDirection side)
-	{
-		
-		if (voltage > this.getVoltage())
-		{
-			this.explodeCrusher(0.7F);
-		}
-		
-		this.electricityStored += ElectricInfo.getWatts(amps, voltage);
-		
-	}
 	
 	@Override
 	public void updateEntity()
@@ -122,24 +87,9 @@ public class HawkTileEntityGrinder extends TileEntityElectricityReceiver impleme
 			}
 		}
 		
-		if (this.electricityStored <= 0)
-		{
-			this.electricityStored = 0;
-		}
-		
-		if (this.electricityStored >= this.ELECTRICITY_LIMIT)
-		{
-			this.electricityStored = this.ELECTRICITY_LIMIT;
-		}
-		
 		if (!(this.canGrind() || this.canExplode()) && this.workTicks != 0)
 		{
 			this.workTicks = 0;
-		}
-		
-		if (!this.worldObj.isRemote && this.isOpen)
-		{
-			PacketManager.sendTileEntityPacketWithRange(this, "HawksMachinery", 8, this.workTicks, this.electricityStored);
 		}
 		
 	}
@@ -154,7 +104,7 @@ public class HawkTileEntityGrinder extends TileEntityElectricityReceiver impleme
 		{
 			if (this.electricityStored >= this.ELECTRICITY_REQUIRED * 2)
 			{
-				ItemStack var1 = HawkProcessingRecipes.getResult(this.containingItems[1], HawkEnumProcessing.CRUSHING);
+				ItemStack var1 = HawkProcessingRecipes.getResult(this.containingItems[1], this.machineEnum);
 				if (var1 == null) return false;
 				if (this.containingItems[2] == null) return true;
 				if (!this.containingItems[2].isItemEqual(var1)) return false;
@@ -178,7 +128,7 @@ public class HawkTileEntityGrinder extends TileEntityElectricityReceiver impleme
 		{
 			if (this.electricityStored >= this.ELECTRICITY_REQUIRED * 2)
 			{
-				ItemStack var1 = HawkProcessingRecipes.getResult(this.containingItems[1], HawkEnumProcessing.CRUSHING_EXPLOSIVES);
+				ItemStack var1 = HawkProcessingRecipes.getResult(this.containingItems[1], HawkProcessingRecipes.HawkEnumProcessing.CRUSHING_EXPLOSIVES);
 				
 				if (var1 == null) return false;
 				if (this.containingItems[2] == null) return true;
@@ -197,7 +147,7 @@ public class HawkTileEntityGrinder extends TileEntityElectricityReceiver impleme
 	{
 		if (this.canGrind())
 		{
-			ItemStack var1 = HawkProcessingRecipes.getResult(this.containingItems[1], HawkEnumProcessing.CRUSHING);
+			ItemStack var1 = HawkProcessingRecipes.getResult(this.containingItems[1], this.machineEnum);
 			
 			if (this.containingItems[2] == null)
 			{
@@ -220,7 +170,7 @@ public class HawkTileEntityGrinder extends TileEntityElectricityReceiver impleme
 			if (this.canExplode())
 			{
 				--this.containingItems[1].stackSize;
-				this.explodeCrusher(2.0F);
+				this.explodeMachine(2.0F);
 			}
 		}
 	}
@@ -281,175 +231,9 @@ public class HawkTileEntityGrinder extends TileEntityElectricityReceiver impleme
 	}
 	
 	@Override
-	public int getSizeInventory()
-	{
-		return this.containingItems.length;
-	}
-	
-	@Override
-	public ItemStack getStackInSlot(int var1)
-	{
-		return this.containingItems[var1];
-	}
-	
-	@Override
-	public ItemStack decrStackSize(int var1, int var2)
-	{
-		if (this.containingItems[var1] != null)
-		{
-			ItemStack var3;
-			
-			if (this.containingItems[var1].stackSize <= var2)
-			{
-				var3 = this.containingItems[var1];
-				this.containingItems[var1] = null;
-				return var3;
-			}
-			else
-			{
-				var3 = this.containingItems[var1].splitStack(var2);
-				
-				if (this.containingItems[var1].stackSize == 0)
-				{
-					this.containingItems[var1] = null;
-				}
-				
-				return var3;
-			}
-		}
-		else
-		{
-			return null;
-		}
-	}
-	
-	@Override
-	public ItemStack getStackInSlotOnClosing(int var1)
-	{
-		if (this.containingItems[var1] != null)
-		{
-			ItemStack var2 = this.containingItems[var1];
-			this.containingItems[var1] = null;
-			return var2;
-		}
-		else
-		{
-			return null;
-		}
-	}
-	
-	@Override
-	public void setInventorySlotContents(int var1, ItemStack var2)
-	{
-		this.containingItems[var1] = var2;
-		
-		if (var2 != null && var2.stackSize > this.getInventoryStackLimit())
-		{
-			var2.stackSize = this.getInventoryStackLimit();
-		}
-	}
-	
-	@Override
 	public String getInvName()
 	{
 		return "HMCrusher";
-	}
-	
-	@Override
-	public int getInventoryStackLimit()
-	{
-		return 64;
-	}
-	
-	@Override
-	public boolean isUseableByPlayer(EntityPlayer var1)
-	{
-		return this.worldObj.getBlockTileEntity(this.xCoord, this.yCoord, this.zCoord) != this ? false : var1.getDistanceSq((double)this.xCoord + 0.5D, (double)this.yCoord + 0.5D, (double)this.zCoord + 0.5D) <= 64.0D;
-	}
-	
-	@Override
-	public void openChest()
-	{
-		this.isOpen = true;
-	}
-	
-	@Override
-	public void closeChest()
-	{
-		this.isOpen = false;
-	}
-	
-	@Override
-	public ForgeDirection getDirection()
-	{
-		return this.facingDirection;
-	}
-	
-	@Override
-	public void setDirection(ForgeDirection facingDirection)
-	{
-		this.facingDirection = facingDirection;
-	}
-	
-	@Override
-	public void readFromNBT(NBTTagCompound NBTTag)
-	{
-		super.readFromNBT(NBTTag);
-		this.electricityStored = NBTTag.getFloat("electricityStored");
-		this.workTicks = NBTTag.getInteger("workTicks");
-		
-		NBTTagList var2 = NBTTag.getTagList("Items");
-		this.containingItems = new ItemStack[this.getSizeInventory()];
-		for (int var3 = 0; var3 < var2.tagCount(); ++var3)
-		{
-			NBTTagCompound var4 = (NBTTagCompound)var2.tagAt(var3);
-			byte var5 = var4.getByte("Slot");
-			if (var5 >= 0 && var5 < this.containingItems.length)
-			{
-				this.containingItems[var5] = ItemStack.loadItemStackFromNBT(var4);
-			}
-		}
-	}
-	
-	@Override
-	public void writeToNBT(NBTTagCompound NBTTag)
-	{
-		super.writeToNBT(NBTTag);
-		NBTTag.setDouble("electricityStored", this.electricityStored);
-		NBTTag.setInteger("workTicks", this.workTicks);
-		
-		NBTTagList var2 = new NBTTagList();
-		
-		for (int counter = 0; counter < this.containingItems.length; ++counter)
-		{
-			if (this.containingItems[counter] != null)
-			{
-				NBTTagCompound var4 = new NBTTagCompound();
-				var4.setByte("Slot", (byte)counter);
-				this.containingItems[counter].writeToNBT(var4);
-				var2.appendTag(var4);
-			}
-		}
-		
-		NBTTag.setTag("Items", var2);
-	}
-	
-	@Override
-	public double getVoltage()
-	{
-		return 120;
-	}
-	
-	@Override
-	public void onPowerOn()
-	{
-		this.isBeingPoweredByRedstone = true;
-	}
-	
-	@Override
-	public void onPowerOff()
-	{
-		this.isBeingPoweredByRedstone = false;
 	}
 	
 	public int getGrindingStatus(int par1)
@@ -481,35 +265,11 @@ public class HawkTileEntityGrinder extends TileEntityElectricityReceiver impleme
 	}
 	
 	@Override
-	public void handlePacketData(NetworkManager network, Packet250CustomPayload packet, EntityPlayer player, ByteArrayDataInput dataStream)
-	{
-		try
-		{
-			this.workTicks = dataStream.readInt();
-			this.electricityStored = dataStream.readFloat();
-			
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}		
-	}
-	
-	/**
-	 * Causes the current Crusher to explode.
-	 * @param strength The strength of the explosion.
-	 */
-	private void explodeCrusher(float strength)
-	{
-		this.worldObj.createExplosion(null, this.xCoord, this.yCoord, this.zCoord, strength);
-	}
-	
-	@Override
 	public ItemStack offerItem(Object source, ItemStack offer)
 	{
 		if (offer != null)
 		{
-			if (HawkProcessingRecipes.getResult(offer, HawkEnumProcessing.CRUSHING) != null)
+			if (HawkProcessingRecipes.getResult(offer, this.machineEnum) != null)
 			{
 				if (this.containingItems[1] == null)
 				{
@@ -630,7 +390,7 @@ public class HawkTileEntityGrinder extends TileEntityElectricityReceiver impleme
 			}
 		}
 		
-		if (from.ordinal() == 1 && HawkProcessingRecipes.getResult(stack, HawkEnumProcessing.CRUSHING) != null)
+		if (from.ordinal() == 1 && HawkProcessingRecipes.getResult(stack, this.machineEnum) != null)
 		{
 			if (this.containingItems[1] == null)
 			{
@@ -680,6 +440,16 @@ public class HawkTileEntityGrinder extends TileEntityElectricityReceiver impleme
 		}
 		
 		return null;
+	}
+	
+	protected void setCustomMachineValues()
+	{
+		ELECTRICITY_REQUIRED = 10;
+		TICKS_REQUIRED = FMLCommonHandler.instance().getSide().isServer() ? HawksMachinery.crusherTicks : 180;
+		ELECTRICITY_LIMIT = 2500;
+		containingItems = new ItemStack[3];
+		machineEnum = HawkProcessingRecipes.HawkEnumProcessing.CRUSHING;
+		
 	}
 	
 }

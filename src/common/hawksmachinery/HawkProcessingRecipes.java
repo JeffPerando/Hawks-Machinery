@@ -23,6 +23,39 @@ public class HawkProcessingRecipes
 	private static Map washerRarities = new HashMap();
 	
 	/**
+	 * 
+	 * Instead of IDs, processing now uses enums.
+	 * 
+	 * @author Elusivehawk
+	 */
+	public enum HawkEnumProcessing
+	{
+		CRUSHING(new HashMap()),
+		
+		CRUSHING_EXPLOSIVES(new HashMap()),
+		
+		WASHING(new HashMap()),
+		
+		SINTERER(new HashMap()),
+		
+		HM_E2MM(new HashMap());
+		
+		private Map processingList;
+		
+		HawkEnumProcessing(Map recipeList)
+		{
+			this.processingList = recipeList;
+			
+		}
+		
+		public Map getRecipeList()
+		{
+			return this.processingList;
+		}
+		
+	}
+	
+	/**
 	 * Adds a processing recipe.
 	 * 
 	 * Args:

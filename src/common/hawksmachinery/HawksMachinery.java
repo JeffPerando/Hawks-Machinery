@@ -71,8 +71,8 @@ public class HawksMachinery implements ICraftingHandler
 	
 	public static RecipeManager RECIPE_GIVER;
 	public static HawkProcessingRecipes PROCESS_RECIPES;
-	public static HawkEnumProcessing CRUSH = HawkEnumProcessing.CRUSHING;
-	public static HawkEnumProcessing WASH = HawkEnumProcessing.WASHING;
+	public static HawkProcessingRecipes.HawkEnumProcessing CRUSH = HawkProcessingRecipes.HawkEnumProcessing.CRUSHING;
+	public static HawkProcessingRecipes.HawkEnumProcessing WASH = HawkProcessingRecipes.HawkEnumProcessing.WASHING;
 	
 	public static int crusherID;
 	public static int oreID;

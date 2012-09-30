@@ -81,7 +81,7 @@ public class HawkContainerGrinder extends Container
 						return null;
 					}
 				}
-				else if (HawkProcessingRecipes.getResult(var4, HawkEnumProcessing.CRUSHING) != null)
+				else if (HawkProcessingRecipes.getResult(var4, HawkProcessingRecipes.HawkEnumProcessing.CRUSHING) != null)
 				{
 					if (!this.mergeItemStack(var4, 1, 2, false))
 					{

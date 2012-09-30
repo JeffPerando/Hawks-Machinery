@@ -1,12 +1,12 @@
 
 package hawksmachinery.tileentity;
 
-import hawksmachinery.HawkEnumProcessing;
 import hawksmachinery.HawkProcessingRecipes;
 import hawksmachinery.HawksMachinery;
 import java.util.Random;
 import railcraft.common.api.carts.IItemTransfer;
 import railcraft.common.api.core.items.EnumItemType;
+import buildcraft.api.core.Orientations;
 import com.google.common.io.ByteArrayDataInput;
 import cpw.mods.fml.common.FMLCommonHandler;
 import net.minecraft.src.EntityItem;
@@ -36,49 +36,15 @@ import universalelectricity.network.PacketManager;
  * 
  * @author Elusivehawk
  */
-public class HawkTileEntityWasher extends TileEntityElectricityReceiver implements IInventory, ISidedInventory, IRotatable, IPacketReceiver, IItemTransfer
+public class HawkTileEntityWasher extends HawkTileEntityMachine implements IItemTransfer
 {
-	public int ELECTRICITY_REQUIRED = 10;
-	
-	public int TICKS_REQUIRED = FMLCommonHandler.instance().getSide().isServer() ? HawksMachinery.crusherTicks : 100;
-	
-	public ForgeDirection facingDirection = ForgeDirection.UNKNOWN;
-	
-	public double electricityStored = 0;
-	
-	public int workTicks = 0;
-	
-	public ItemStack[] containingItems = new ItemStack[6];
-	
-	public int ELECTRICITY_LIMIT = 1200;
-	
 	public float waterUnits = 0;
 	
 	public float WATER_LIMIT = 25.0F;
 	
-	public boolean isOpen;
-	
-	public HawkTileEntityWasher()
-	{
-		super();
-	}
-	
-	@Override
-	public void onReceive(TileEntity tileEntity, double amps, double voltage, ForgeDirection side)
-	{
-		if (voltage > this.getVoltage())
-		{
-			this.worldObj.createExplosion(null, this.xCoord, this.yCoord, this.zCoord, 0.7F);
-		}
-		
-		this.electricityStored += ElectricInfo.getWatts(amps, voltage);
-		
-	}
-	
 	@Override
 	public void updateEntity()
 	{
-		
 		if (this.containingItems[0] != null)
 		{
 			if (this.containingItems[0].getItem() instanceof IItemElectric)
@@ -129,16 +95,6 @@ public class HawkTileEntityWasher extends TileEntityElectricityReceiver implemen
 			}
 		}
 		
-		if (this.electricityStored <= 0)
-		{
-			this.electricityStored = 0;
-		}
-		
-		if (this.electricityStored >= this.ELECTRICITY_LIMIT)
-		{
-			this.electricityStored = this.ELECTRICITY_LIMIT;
-		}
-		
 		if (this.waterUnits > this.WATER_LIMIT)
 		{
 			this.waterUnits = this.WATER_LIMIT;
@@ -155,11 +111,6 @@ public class HawkTileEntityWasher extends TileEntityElectricityReceiver implemen
 			this.workTicks = 0;
 		}
 		
-		if (!this.worldObj.isRemote && this.isOpen)
-		{
-			PacketManager.sendTileEntityPacketWithRange(this, "HawksMachinery", 8, this.workTicks, this.electricityStored, this.waterUnits);
-		}
-		
 	}
 	
 	public boolean canWash()
@@ -172,7 +123,7 @@ public class HawkTileEntityWasher extends TileEntityElectricityReceiver implemen
 		{
 			if (this.electricityStored >= this.ELECTRICITY_REQUIRED * 2 && this.waterUnits >= 1.0F)
 			{
-				ItemStack var1 = HawkProcessingRecipes.getResult(this.containingItems[2], HawkEnumProcessing.WASHING);
+				ItemStack var1 = HawkProcessingRecipes.getResult(this.containingItems[2], this.machineEnum);
 				if (var1 == null) return false;
 				if (this.containingItems[3] == null) return true;
 				if (!this.containingItems[3].isItemEqual(var1)) return false;
@@ -190,7 +141,7 @@ public class HawkTileEntityWasher extends TileEntityElectricityReceiver implemen
 	{
 		if (this.canWash())
 		{
-			ItemStack newItem = HawkProcessingRecipes.getResult(this.containingItems[2], HawkEnumProcessing.WASHING);
+			ItemStack newItem = HawkProcessingRecipes.getResult(this.containingItems[2], this.machineEnum);
 			
 			if (this.canWash())
 			{
@@ -230,18 +181,6 @@ public class HawkTileEntityWasher extends TileEntityElectricityReceiver implemen
 		}	
 	}
 	
-	@Override
-	public ForgeDirection getDirection()
-	{
-		return this.facingDirection;
-	}
-	
-	@Override
-	public void setDirection(ForgeDirection facingDirection)
-	{
-		this.facingDirection = facingDirection;
-	}
-	
 	public int getWashingStatus(int par1)
 	{
 		return this.workTicks * par1 / 200;
@@ -267,45 +206,15 @@ public class HawkTileEntityWasher extends TileEntityElectricityReceiver implemen
 	public void readFromNBT(NBTTagCompound NBTTag)
 	{
 		super.readFromNBT(NBTTag);
-		this.electricityStored = NBTTag.getFloat("electricityStored");
-		this.workTicks = NBTTag.getInteger("workTicks");
 		this.waterUnits = NBTTag.getFloat("waterUnits");
 		
-		NBTTagList var2 = NBTTag.getTagList("Items");
-		this.containingItems = new ItemStack[this.getSizeInventory()];
-		for (int var3 = 0; var3 < var2.tagCount(); ++var3)
-		{
-			NBTTagCompound var4 = (NBTTagCompound)var2.tagAt(var3);
-			byte var5 = var4.getByte("Slot");
-			if (var5 >= 0 && var5 < this.containingItems.length)
-			{
-				this.containingItems[var5] = ItemStack.loadItemStackFromNBT(var4);
-			}
-		}
 	}
 	
 	@Override
 	public void writeToNBT(NBTTagCompound NBTTag)
 	{
 		super.writeToNBT(NBTTag);
-		NBTTag.setDouble("electricityStored", this.electricityStored);
-		NBTTag.setInteger("workTicks", this.workTicks);
 		NBTTag.setFloat("waterUnits", this.waterUnits);
-		
-		NBTTagList var2 = new NBTTagList();
-		
-		for (int var3 = 0; var3 < this.containingItems.length; ++var3)
-		{
-			if (this.containingItems[var3] != null)
-			{
-				NBTTagCompound var4 = new NBTTagCompound();
-				var4.setByte("Slot", (byte)var3);
-				this.containingItems[var3].writeToNBT(var4);
-				var2.appendTag(var4);
-			}
-		}
-		
-		NBTTag.setTag("Items", var2);
 		
 	}
 	
@@ -316,102 +225,9 @@ public class HawkTileEntityWasher extends TileEntityElectricityReceiver implemen
 	}
 	
 	@Override
-	public int getSizeInventory()
-	{
-		return this.containingItems.length;
-	}
-	
-	@Override
-	public ItemStack getStackInSlot(int var1)
-	{
-		return this.containingItems[var1];
-	}
-	
-	@Override
-	public ItemStack decrStackSize(int var1, int var2)
-	{
-		if (this.containingItems[var1] != null)
-		{
-			ItemStack var3;
-			
-			if (this.containingItems[var1].stackSize <= var2)
-			{
-				var3 = this.containingItems[var1];
-				this.containingItems[var1] = null;
-				return var3;
-			}
-			else
-			{
-				var3 = this.containingItems[var1].splitStack(var2);
-				
-				if (this.containingItems[var1].stackSize == 0)
-				{
-					this.containingItems[var1] = null;
-				}
-				
-				return var3;
-			}
-		}
-		else
-		{
-			return null;
-		}
-	}
-	
-	@Override
-	public ItemStack getStackInSlotOnClosing(int var1)
-	{
-		if (this.containingItems[var1] != null)
-		{
-			ItemStack var2 = this.containingItems[var1];
-			this.containingItems[var1] = null;
-			return var2;
-		}
-		else
-		{
-			return null;
-		}
-	}
-	
-	@Override
-	public void setInventorySlotContents(int var1, ItemStack var2)
-	{
-		this.containingItems[var1] = var2;
-		
-		if (var2 != null && var2.stackSize > this.getInventoryStackLimit())
-		{
-			var2.stackSize = this.getInventoryStackLimit();
-		}
-	}
-	
-	@Override
 	public String getInvName()
 	{
 		return "HMWasher";
-	}
-	
-	@Override
-	public int getInventoryStackLimit()
-	{
-		return 64;
-	}
-	
-	@Override
-	public boolean isUseableByPlayer(EntityPlayer var1)
-	{
-		return true;
-	}
-	
-	@Override
-	public void openChest()
-	{
-		this.isOpen = true;
-	}
-	
-	@Override
-	public void closeChest()
-	{
-		this.isOpen = false;
 	}
 	
 	@Override
@@ -450,7 +266,7 @@ public class HawkTileEntityWasher extends TileEntityElectricityReceiver implemen
 	@Override
 	public ItemStack offerItem(Object source, ItemStack offer)
 	{
-		if (HawkProcessingRecipes.getResult(offer, HawkEnumProcessing.WASHING) != null)
+		if (HawkProcessingRecipes.getResult(offer, this.machineEnum) != null)
 		{
 			if (this.containingItems[2] == null)
 			{
@@ -524,6 +340,28 @@ public class HawkTileEntityWasher extends TileEntityElectricityReceiver implemen
 	public ItemStack requestItem(Object source, EnumItemType request)
 	{
 		return null;
+	}
+	
+	@Override
+	public int addItem(ItemStack stack, boolean doAdd, Orientations from)
+	{
+		return 0;
+	}
+	
+	@Override
+	public ItemStack[] extractItem(boolean doRemove, Orientations from, int maxItemCount)
+	{
+		return null;
+	}
+	
+	protected void setCustomMachineValues()
+	{
+		ELECTRICITY_REQUIRED = 10;
+		TICKS_REQUIRED = FMLCommonHandler.instance().getSide().isServer() ? HawksMachinery.crusherTicks : 100;
+		ELECTRICITY_LIMIT = 1200;
+		containingItems = new ItemStack[6];
+		machineEnum = HawkProcessingRecipes.HawkEnumProcessing.WASHING;
+		
 	}
 	
 }
