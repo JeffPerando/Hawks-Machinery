@@ -1,7 +1,7 @@
 package railcraft.common.api.tracks;
 
-import java.util.HashMap;
-import java.util.Map;
+import net.minecraft.src.ItemStack;
+import railcraft.common.api.core.items.ItemRegistry;
 
 /**
  * Each type of Track has a single instance of TrackSpec
@@ -14,33 +14,34 @@ import java.util.Map;
  *
  * TrackSpecs must be registered with the TrackRegistry.
  *
+ * Track Items can be acquired with the ItemRegistry.
+ *
  * @see TrackRegistry
  * @see ITrackInstance
  *
  * @author CovertJaguar <railcraft.wikispaces.com>
-  */
+ */
 public final class TrackSpec
 {
 
-    private final Map<String, String> nameMap = new HashMap<String, String>();
+    public static int blockID = 0;
     private final String tag;
     private final String textureFile;
-    private final int trackId;
+    private final short trackId;
     private final int textureId;
     private final Class<? extends ITrackInstance> instanceClass;
 
     /**
      * Defines a new track spec.
      *
-     * @param trackId A unique identifier for the track type. 0-512 are reserved for Railcraft. Capped at Integer.MAX_VALUE
+     * @param trackId A unique identifier for the track type. 0-512 are reserved for Railcraft. Capped at Short.MAX_VALUE
      * @param tag A unique internal string identifier (ex. "track.speed.transition")
      * @param textureFile See ITextureProvider
      * @param textureId The texture index used by the track's item
      * @param instanceClass The ITrackInstance class that corresponds to this TrackSpec
      * @see ITextureProvider
      */
-    public TrackSpec(int trackId, String tag, String textureFile, int textureId, Class<? extends ITrackInstance> instanceClass)
-    {
+    public TrackSpec(short trackId, String tag, String textureFile, int textureId, Class<? extends ITrackInstance> instanceClass) {
         this.trackId = trackId;
         this.tag = tag;
         this.textureFile = textureFile;
@@ -48,34 +49,38 @@ public final class TrackSpec
         this.instanceClass = instanceClass;
     }
 
-    public String getTrackTag()
-    {
+    public String getTrackTag() {
         return tag;
     }
 
-    public int getTrackId()
-    {
+    public short getTrackId() {
         return trackId;
     }
 
-    public ITrackInstance createInstanceFromSpec()
-    {
-        try {
-            return (ITrackInstance)instanceClass.newInstance();
-        } catch (InstantiationException ex) {
-            throw new RuntimeException("Improper Track Instance Constructor");
-        } catch (IllegalAccessException ex) {
-        }
-        return null;
+    public ItemStack getItem() {
+        return getItem(1);
     }
 
-    public String getTextureFile()
-    {
+    public ItemStack getItem(int qty) {
+        if(blockID <= 0) {
+            return null;
+        }
+        return new ItemStack(blockID, qty, getTrackId());
+    }
+
+    public ITrackInstance createInstanceFromSpec() {
+        try {
+            return (ITrackInstance)instanceClass.newInstance();
+        } catch (Exception ex) {
+            throw new RuntimeException("Improper Track Instance Constructor");
+        }
+    }
+
+    public String getTextureFile() {
         return textureFile;
     }
 
-    public int getTextureIndex()
-    {
+    public int getTextureIndex() {
         return textureId;
     }
 }

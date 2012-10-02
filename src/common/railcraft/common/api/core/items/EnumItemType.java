@@ -1,7 +1,9 @@
 package railcraft.common.api.core.items;
 
 import net.minecraft.src.BlockRail;
+import net.minecraft.src.Item;
 import net.minecraft.src.ItemBlock;
+import net.minecraft.src.ItemFood;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.TileEntityFurnace;
 import net.minecraftforge.common.MinecartRegistry;
@@ -15,7 +17,7 @@ import net.minecraftforge.common.MinecartRegistry;
 public enum EnumItemType
 {
 
-    FUEL, RAIL, MINECART, BALLAST;
+    FUEL, RAIL, MINECART, BALLAST, FOOD;
 
     public static boolean isItemType(ItemStack stack, EnumItemType filter)
     {
@@ -36,6 +38,8 @@ public enum EnumItemType
                 return MinecartRegistry.getCartClassForItem(stack) != null || stack.getItem() instanceof IMinecartItem;
             case BALLAST:
                 return BallastRegistry.isItemBallast(stack);
+            case FOOD:
+                return stack.getItem() instanceof ItemFood || stack.itemID == Item.wheat.shiftedIndex;
             default:
                 return false;
         }

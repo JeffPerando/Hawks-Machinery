@@ -40,4 +40,6 @@ public interface ISignalController
     public World getWorld();
 
     public String getDescription();
+
+    public boolean isInvalid();
 }

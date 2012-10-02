@@ -16,16 +16,15 @@ import railcraft.common.api.core.WorldCoordinate;
  */
 public abstract class SignalTools
 {
+
     private static Map<PairingKey, WorldCoordinate> signalBlockPairingMap = new HashMap<PairingKey, WorldCoordinate>();
     private static Map<PairingKey, WorldCoordinate> controllerReceiverPairingMap = new HashMap<PairingKey, WorldCoordinate>();
 
-    public static boolean isSignalBlockSectionValid(World world, IBlockSignal first, IBlockSignal second)
-    {
+    public static boolean isSignalBlockSectionValid(World world, IBlockSignal first, IBlockSignal second) {
         return RailTools.areDistantRailsConnectedAlongAxis(world, first.getRailX(), first.getRailY(), first.getRailZ(), second.getRailX(), second.getRailY(), second.getRailZ());
     }
 
-    public static boolean isControllerInRangeOfReceiver(ISignalController c, ISignalReceiver r, int range)
-    {
+    public static boolean isControllerInRangeOfReceiver(ISignalController c, ISignalReceiver r, int range) {
         int distX = c.getX() - r.getX();
         int distY = c.getY() - r.getY();
         int distZ = c.getZ() - r.getZ();
@@ -33,8 +32,7 @@ public abstract class SignalTools
         return distance <= range;
     }
 
-    public static void startSignalBlockPairing(EntityPlayer player, ItemStack device, IBlockSignal first)
-    {
+    public static void startSignalBlockPairing(EntityPlayer player, ItemStack device, IBlockSignal first) {
         endSignalBlockPairing(player, device);
         int id = new Random().nextInt(Short.MAX_VALUE);
         device.setItemDamage(id);
@@ -42,13 +40,11 @@ public abstract class SignalTools
         signalBlockPairingMap.put(new PairingKey(player.username, device.getItemDamage()), new WorldCoordinate(first.getDimension(), first.getX(), first.getY(), first.getZ()));
     }
 
-    public static WorldCoordinate getSignalBlockPair(EntityPlayer player, ItemStack device)
-    {
+    public static WorldCoordinate getSignalBlockPair(EntityPlayer player, ItemStack device) {
         return signalBlockPairingMap.get(new PairingKey(player.username, device.getItemDamage()));
     }
 
-    public static void endSignalBlockPairing(EntityPlayer player, ItemStack device)
-    {
+    public static void endSignalBlockPairing(EntityPlayer player, ItemStack device) {
         WorldCoordinate pos = signalBlockPairingMap.remove(new PairingKey(player.username, device.getItemDamage()));
         if(pos != null) {
             TileEntity t = player.worldObj.getBlockTileEntity(pos.x, pos.y, pos.z);
@@ -58,8 +54,7 @@ public abstract class SignalTools
         }
     }
 
-    public static void startControllerReceiverPairing(EntityPlayer player, ItemStack device, ISignalController controller)
-    {
+    public static void startControllerReceiverPairing(EntityPlayer player, ItemStack device, ISignalController controller) {
         endControllerReceiverPairing(player, device);
         int id = new Random().nextInt(Short.MAX_VALUE);
         device.setItemDamage(id);
@@ -67,13 +62,11 @@ public abstract class SignalTools
         controllerReceiverPairingMap.put(new PairingKey(player.username, device.getItemDamage()), new WorldCoordinate(controller.getDimension(), controller.getX(), controller.getY(), controller.getZ()));
     }
 
-    public static WorldCoordinate getSavedController(EntityPlayer player, ItemStack device)
-    {
+    public static WorldCoordinate getSavedController(EntityPlayer player, ItemStack device) {
         return controllerReceiverPairingMap.get(new PairingKey(player.username, device.getItemDamage()));
     }
 
-    public static void endControllerReceiverPairing(EntityPlayer player, ItemStack device)
-    {
+    public static void endControllerReceiverPairing(EntityPlayer player, ItemStack device) {
         WorldCoordinate pos = controllerReceiverPairingMap.remove(new PairingKey(player.username, device.getItemDamage()));
         if(pos != null) {
             TileEntity t = player.worldObj.getBlockTileEntity(pos.x, pos.y, pos.z);
@@ -83,8 +76,7 @@ public abstract class SignalTools
         }
     }
 
-    public static ISignalReceiver getReceiverFor(ISignalController con)
-    {
+    public static ISignalReceiver getReceiverFor(ISignalController con) {
         World world = con.getWorld();
         if(world == null || con.getReceiverY() < 0) {
             return null;
@@ -104,10 +96,12 @@ public abstract class SignalTools
         return null;
     }
 
-    public static ISignalController getControllerFor(ISignalReceiver rec)
-    {
+    public static ISignalController getControllerFor(ISignalReceiver rec) {
+        if(rec.getControllerY() < 0) {
+            return null;
+        }
         World world = rec.getWorld();
-        if(world == null || rec.getControllerY() < 0) {
+        if(world == null) {
             return null;
         }
         int i = rec.getControllerX();
@@ -131,15 +125,13 @@ public abstract class SignalTools
         protected String username;
         protected int id;
 
-        public PairingKey(String username, int id)
-        {
+        public PairingKey(String username, int id) {
             this.username = username;
             this.id = id;
         }
 
         @Override
-        public int hashCode()
-        {
+        public int hashCode() {
             int hash = 3;
             hash = 59 * hash + (this.username != null ? this.username.hashCode() : 0);
             hash = 59 * hash + this.id;
@@ -147,8 +139,7 @@ public abstract class SignalTools
         }
 
         @Override
-        public boolean equals(Object obj)
-        {
+        public boolean equals(Object obj) {
             if(obj == null) {
                 return false;
             }

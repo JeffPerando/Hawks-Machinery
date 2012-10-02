@@ -15,6 +15,7 @@ import net.minecraft.src.MathHelper;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 import net.minecraftforge.common.ForgeDirection;
+import universalelectricity.implement.UEDamageSource;
 import universalelectricity.prefab.BlockMachine;
 
 /**
@@ -143,12 +144,21 @@ public class HawkBlockWasher extends HawkBlockMachine
 	@Override
 	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity)
 	{
-		if (entity instanceof EntityEnderman && this.tileEntity.canWash())
+		if (this.tileEntity.canWash())
 		{
-			entity.attackEntityFrom(DamageSource.drown, 1);
+			if (entity instanceof EntityEnderman)
+			{
+				entity.attackEntityFrom(DamageSource.drown, 1);
+				
+			}
+			else if (entity.isWet())
+			{
+				entity.attackEntityFrom(UEDamageSource.electrocution, 1);
+				
+			}
+			
 		}
 		
-		entity.extinguish();
 	}
 	
 	@Override

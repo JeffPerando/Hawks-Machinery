@@ -4,8 +4,10 @@ import net.minecraft.src.World;
 import net.minecraftforge.common.ForgeDirection;
 
 /**
- * If you want your block to connect to posts (like the Concrete Block does),
+ * If you want your block to connect (or not connect) to posts,
  * implement this interface.
+ *
+ * The result takes priority over any other rules.
  *
  * @author CovertJaguar <railcraft.wikispaces.com>
  */

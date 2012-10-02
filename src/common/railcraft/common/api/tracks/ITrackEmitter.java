@@ -10,7 +10,7 @@ package railcraft.common.api.tracks;
  *
  * @author CovertJaguar <railcraft.wikispaces.com>
  */
-public interface ITrackEmitter
+public interface ITrackEmitter extends ITrackInstance
 {
 
     /**

@@ -9,7 +9,7 @@ import net.minecraft.src.World;
  *
  * @author CovertJaguar <railcraft.wikispaces.com>
  */
-public interface ITrackCustomPlaced
+public interface ITrackCustomPlaced extends ITrackInstance
 {
 
     /**

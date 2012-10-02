@@ -37,5 +37,7 @@ public interface ISignalReceiver
 
     public World getWorld();
 
+    public boolean isInvalid();
+
     public String getDescription();
 }

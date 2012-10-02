@@ -26,7 +26,7 @@ import java.util.logging.Level;
 public class TrackRegistry
 {
 
-    private static Map<Integer, TrackSpec> trackSpecs = new HashMap<Integer, TrackSpec>();
+    private static Map<Short, TrackSpec> trackSpecs = new HashMap<Short, TrackSpec>();
 
     public static void registerTrackSpec(TrackSpec trackSpec)
     {
@@ -43,7 +43,7 @@ public class TrackRegistry
      */
     public static TrackSpec getTrackSpec(int trackId)
     {
-        TrackSpec spec = trackSpecs.get(trackId);
+        TrackSpec spec = trackSpecs.get((short)trackId);
         if(spec == null) {
             FMLCommonHandler.instance().getFMLLogger().log(Level.WARNING, "[Railcraft] Unknown Track Spec ID({0}), reverting to normal track", trackId);
             spec = trackSpecs.get(-1);
@@ -55,7 +55,7 @@ public class TrackRegistry
      * Returns all Registered TrackSpecs.
      * @return list of TrackSpecs
      */
-    public static Map<Integer, TrackSpec> getTrackSpecs()
+    public static Map<Short, TrackSpec> getTrackSpecs()
     {
         return trackSpecs;
     }

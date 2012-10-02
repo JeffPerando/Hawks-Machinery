@@ -3,6 +3,7 @@ package hawksmachinery;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import net.minecraft.src.Block;
@@ -61,13 +62,13 @@ public class HawkProcessingRecipes
 	 * 
 	 * @param input The input.
 	 * @param output The output.
-	 * @param processType What type of processing is this recipe for?
+	 * @param processType What type of processing this recipe is for.
 	 */
 	public static void addHawkProcessingRecipe(ItemStack input, ItemStack output, HawkEnumProcessing processType)
 	{
 		if (input != null && output != null && processType != null)
 		{
-			processType.getRecipeList().put(Arrays.asList(input.getItem(), 1, input.getItemDamage()), output);
+			processType.getRecipeList().put(Arrays.asList(input.getItem(), input.getItemDamage(), input.isItemEnchanted(), input.stackTagCompound != null), output);
 		}
 		else
 		{
@@ -144,11 +145,11 @@ public class HawkProcessingRecipes
 		{
 			if (isCommon)
 			{
-				washerSecondaries.put(Arrays.asList(input.getItem(), 1, input.getItemDamage()), output);
+				washerSecondaries.put(Arrays.asList(input.getItem(), input.getItemDamage()), output);
 			}
 			else
 			{
-				washerRarities.put(Arrays.asList(input.getItem(), 1, input.getItemDamage()), output);
+				washerRarities.put(Arrays.asList(input.getItem(), input.getItemDamage()), output);
 			}
 		}
 		else
@@ -174,7 +175,7 @@ public class HawkProcessingRecipes
 		}
 		else
 		{
-			ItemStack ret = (ItemStack)processType.getRecipeList().get(Arrays.asList(item.getItem(), 1, item.getItemDamage()));
+			ItemStack ret = (ItemStack)processType.getRecipeList().get(Arrays.asList(item.getItem(), item.getItemDamage(), item.isItemEnchanted(), item.stackTagCompound != null));
 			
 			if (ret != null) 
 			{
@@ -198,7 +199,7 @@ public class HawkProcessingRecipes
 		{
 			if (secondaryChance < 5)
 			{
-				ItemStack ret = (ItemStack)washerRarities.get(Arrays.asList(item.getItem(), 1, item.getItemDamage()));
+				ItemStack ret = (ItemStack)washerRarities.get(Arrays.asList(item.getItem(), item.getItemDamage()));
 				
 				if (ret != null) 
 				{
@@ -207,7 +208,7 @@ public class HawkProcessingRecipes
 			}
 			else if (secondaryChance < 10)
 			{
-				ItemStack ret = (ItemStack)washerSecondaries.get(Arrays.asList(item.getItem(), 1, item.getItemDamage()));
+				ItemStack ret = (ItemStack)washerSecondaries.get(Arrays.asList(item.getItem(), item.getItemDamage()));
 				
 				if (ret != null) 
 				{
