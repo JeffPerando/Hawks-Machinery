@@ -41,11 +41,13 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.ICraftingHandler;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.Side;
 import cpw.mods.fml.common.Mod.Init;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.Mod.PostInit;
 import cpw.mods.fml.common.Mod.PreInit;
 import cpw.mods.fml.common.SidedProxy;
+import cpw.mods.fml.common.asm.SideOnly;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -464,7 +466,8 @@ public class HawksMachinery implements ICraftingHandler
 		@Override
 		public String getChangelogURL()
 		{
-			return this.getReleaseType() == ModReleaseType.ALPHA ? "https://dl.dropbox.com/u/100525141/HawksMachineryAlphav133Changelog.txt" : "https://dl.dropbox.com/u/100525141/HawksMachineryDevbuildNotice.txt";
+			return this.getReleaseType() == ModReleaseType.DEVBUILD ? "https://dl.dropbox.com/u/100525141/HawksMachineryDevbuildNotice.txt"
+					: "https://dl.dropbox.com/u/100525141/HawksMachineryAlphav133Changelog.txt" ;
 		}
 		
 		@Override
@@ -536,6 +539,7 @@ public class HawksMachinery implements ICraftingHandler
 	 * 
 	 * @param message The message being sent.
 	 */
+	@SideOnly(Side.CLIENT)
 	public static void chatToSSPPlayer(String message)
 	{
 		PROXY.chatToSSPPlayer(message);
