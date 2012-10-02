@@ -464,7 +464,7 @@ public class HawksMachinery implements ICraftingHandler
 		@Override
 		public String getChangelogURL()
 		{
-			return "https://dl.dropbox.com/u/100525141/HawksMachineryAlphav133Changelog.txt";
+			return this.getReleaseType() == ModReleaseType.ALPHA ? "https://dl.dropbox.com/u/100525141/HawksMachineryAlphav133Changelog.txt" : "https://dl.dropbox.com/u/100525141/HawksMachineryDevbuildNotice.txt";
 		}
 		
 		@Override
