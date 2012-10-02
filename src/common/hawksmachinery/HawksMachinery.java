@@ -506,7 +506,7 @@ public class HawksMachinery implements ICraftingHandler
 		@Override
 		public ModReleaseType getReleaseType()
 		{
-			return ModReleaseType.ALPHA;
+			return ModReleaseType.DEVBUILD;
 		}
 		
 		@Override
