@@ -23,6 +23,7 @@ import vazkii.um.common.UpdateManagerMod;
 import vazkii.um.common.checking.CheckingMethod;
 import net.minecraft.src.Block;
 import net.minecraft.src.CreativeTabs;
+import net.minecraft.src.Enchantment;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.EnumToolMaterial;
 import net.minecraft.src.IInventory;
@@ -375,6 +376,18 @@ public class HawksMachinery implements ICraftingHandler
 		PROCESS_RECIPES.addHawkProcessingRecipe(new ItemStack(Block.stoneBrick, 1, 1), new ItemStack(Block.cobblestone), CRUSH);
 		PROCESS_RECIPES.addHawkProcessingRecipe(new ItemStack(Block.stoneBrick, 1, 2), new ItemStack(Block.cobblestoneMossy), CRUSH);
 		PROCESS_RECIPES.addHawkProcessingRecipe(new ItemStack(Block.stoneBrick, 1, 3), new ItemStack(Block.cobblestone), CRUSH);
+		
+		PROCESS_RECIPES.addHawkProcessingRecipe(new ItemStack(Item.helmetSteel), new ItemStack(dustRefined, 5, 3), CRUSH);
+		PROCESS_RECIPES.addHawkProcessingRecipe(new ItemStack(Item.plateSteel), new ItemStack(dustRefined, 8, 3), CRUSH);
+		PROCESS_RECIPES.addHawkProcessingRecipe(new ItemStack(Item.legsSteel), new ItemStack(dustRefined, 7, 3), CRUSH);
+		PROCESS_RECIPES.addHawkProcessingRecipe(new ItemStack(Item.bootsSteel), new ItemStack(dustRefined, 4, 3), CRUSH);
+		
+		PROCESS_RECIPES.addHawkProcessingRecipe(new ItemStack(Item.swordSteel), new ItemStack(dustRefined, 2, 3), CRUSH);
+		PROCESS_RECIPES.addHawkProcessingRecipe(new ItemStack(Item.pickaxeSteel), new ItemStack(dustRefined, 3, 3), CRUSH);
+		PROCESS_RECIPES.addHawkProcessingRecipe(new ItemStack(Item.shovelSteel), new ItemStack(dustRefined, 1, 3), CRUSH);
+		PROCESS_RECIPES.addHawkProcessingRecipe(new ItemStack(Item.axeSteel), new ItemStack(dustRefined, 3, 3), CRUSH);
+		PROCESS_RECIPES.addHawkProcessingRecipe(new ItemStack(Item.hoeSteel), new ItemStack(dustRefined, 2, 3), CRUSH);
+		PROCESS_RECIPES.addHawkProcessingRecipe(new ItemStack(BasicComponents.itemBattery), new ItemStack(dustRefined, 5, 6), CRUSH);
 		
 		PROCESS_RECIPES.addHawkFoDProcessingRecipe("oreIron", new ItemStack(dustRaw, 2, 1), CRUSH);
 		PROCESS_RECIPES.addHawkFoDProcessingRecipe("oreGold", new ItemStack(dustRaw, 2, 2), CRUSH);

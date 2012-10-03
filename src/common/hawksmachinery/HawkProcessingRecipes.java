@@ -167,22 +167,23 @@ public class HawkProcessingRecipes
 		
 	}
 	
-	public static ItemStack getResult(ItemStack item, HawkEnumProcessing processType)
+	public static ItemStack getResult(ItemStack input, HawkEnumProcessing processType)
 	{
-		if (item == null)
+		if (input == null)
 		{
 			return null;
 		}
 		else
 		{
-			ItemStack ret = (ItemStack)processType.getRecipeList().get(Arrays.asList(item.getItem(), item.isItemStackDamageable() ? 0 : item.getItemDamage(), item.isItemEnchanted(), item.stackTagCompound != null));
+			ItemStack output = (ItemStack)processType.getRecipeList().get(Arrays.asList(input.getItem(), input.isItemStackDamageable() ? 0 : input.getItemDamage(), input.isItemEnchanted(), input.stackTagCompound != null));
 			
-			if (ret != null) 
+			if (input.isItemEqual(output) && input.isItemStackDamageable() && output.isItemStackDamageable())
 			{
-				return ret;
+				output.setItemDamage(input.getItemDamage());
 			}
 			
-			return null;
+			return output;
+			
 		}
 		
 	}
