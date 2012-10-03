@@ -175,7 +175,7 @@ public class HawkProcessingRecipes
 		}
 		else
 		{
-			ItemStack ret = (ItemStack)processType.getRecipeList().get(Arrays.asList(item.getItem(), item.getItemDamage(), item.isItemEnchanted(), item.stackTagCompound != null));
+			ItemStack ret = (ItemStack)processType.getRecipeList().get(Arrays.asList(item.getItem(), item.isItemStackDamageable() ? 0 : item.getItemDamage(), item.isItemEnchanted(), item.stackTagCompound != null));
 			
 			if (ret != null) 
 			{
