@@ -4,7 +4,6 @@ package hawksmachinery;
 import hawksmachinery.tileentity.*;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.ClientRegistry;
-import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.ItemStack;
@@ -26,6 +25,7 @@ public class HMClientProxy extends HMCommonProxy
 	{
 		MinecraftForgeClient.preloadTexture(BASEMOD.BLOCK_TEXTURE_FILE);
 		MinecraftForgeClient.preloadTexture(BASEMOD.ITEM_TEXTURE_FILE);
+		ClientRegistry.bindTileEntitySpecialRenderer(HawkTileEntityGrinder.class, new HawkRenderCrusher());
 		HawkLanguageCore.addToolTips();
 		
 	}

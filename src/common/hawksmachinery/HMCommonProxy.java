@@ -1,6 +1,7 @@
 
 package hawksmachinery;
 
+import hawksmachinery.tileentity.HawkTileEntityChunkloader;
 import hawksmachinery.tileentity.HawkTileEntityGrinder;
 import hawksmachinery.tileentity.HawkTileEntityWasher;
 import cpw.mods.fml.common.network.IGuiHandler;
@@ -17,7 +18,19 @@ import net.minecraft.src.World;
  */
 public class HMCommonProxy implements IGuiHandler
 {
-	public void registerRenderInformation(){}
+	public static HawksMachinery BASEMOD;
+	
+	public void registerRenderInformation()
+	{
+		GameRegistry.registerTileEntity(HawkTileEntityGrinder.class, "HMCrusher");
+		GameRegistry.registerTileEntity(HawkTileEntityWasher.class, "HMWasher");
+		if (BASEMOD.enableChunkloader)
+		{
+			GameRegistry.registerTileEntity(HawkTileEntityChunkloader.class, "HMChunkloader");
+			
+		}
+		
+	}
 	
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)

@@ -225,14 +225,6 @@ public class HawksMachinery implements ICraftingHandler
 		DungeonHooks.addDungeonLoot(new ItemStack(ingots, 1, 1), 075, 1, 4);
 		DungeonHooks.addDungeonLoot(new ItemStack(ingots, 1, 2), 075, 1, 4);
 		
-		GameRegistry.registerTileEntity(HawkTileEntityGrinder.class, "HMCrusher");
-		GameRegistry.registerTileEntity(HawkTileEntityWasher.class, "HMWasher");
-		if (enableChunkloader)
-		{
-			GameRegistry.registerTileEntity(HawkTileEntityChunkloader.class, "HMChunkloader");
-			
-		}
-		
 		OreDictionary.registerOre("ingotTitanium", new ItemStack(ingots, 1, 0));
 		OreDictionary.registerOre("ingotAluminum", new ItemStack(ingots, 1, 1));
 		OreDictionary.registerOre("ingotSilver", new ItemStack(ingots, 1, 2));
