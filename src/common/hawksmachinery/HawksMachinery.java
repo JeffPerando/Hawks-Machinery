@@ -75,16 +75,16 @@ public class HawksMachinery implements ICraftingHandler
 	
 	public static RecipeManager RECIPE_GIVER;
 	public static HawkProcessingRecipes PROCESS_RECIPES;
-	public static HawkEnumProcessing CRUSH = HawkProcessingRecipes.HawkEnumProcessing.CRUSHING;
-	public static HawkEnumProcessing WASH = HawkProcessingRecipes.HawkEnumProcessing.WASHING;
+	public static HawkEnumProcessing CRUSH = HawkEnumProcessing.CRUSHING;
+	public static HawkEnumProcessing WASH = HawkEnumProcessing.WASHING;
 	
 	public static int crusherID;
 	public static int oreID;
 	public static int metalStorageID;
 	public static int washerID;
-	public static int verticalDrillID;
-	public static int smeltingLaserID;
 	public static int chunkloaderID;
+	public static int sintererID;
+	public static int refrigeratorID;
 	
 	public static int dustRawID;
 	public static int dustRefinedID;
@@ -151,7 +151,9 @@ public class HawksMachinery implements ICraftingHandler
 		oreID = HMConfig.getBlock("Ores", 3961).getInt(3961);
 		metalStorageID = HMConfig.getBlock("Metal Storage Blocks", 3962).getInt(3962);
 		washerID = HMConfig.getBlock("Washer", 3963).getInt(3963);
-		smeltingLaserID = HMConfig.getBlock("Smelting Laser", 3964).getInt(3964);
+		//NOTE ID #3964 saved for Endium Chunkloader.
+		sintererID = HMConfig.getBlock("Sinterer", 3965).getInt(3965);
+		refrigeratorID = HMConfig.getBlock("Refrigerator", 3966).getInt(3966);
 		
 		generateTitanium = HMConfig.get(Configuration.CATEGORY_GENERAL,"Generate Titanium", true).getBoolean(true);
 		generateAluminum = HMConfig.get(Configuration.CATEGORY_GENERAL, "Generate Aluminum", true).getBoolean(true);
@@ -163,7 +165,7 @@ public class HawksMachinery implements ICraftingHandler
 		
 		if (enableChunkloader)
 		{
-			chunkloaderID = HMConfig.getBlock("Endium Chunkloader", 3966).getInt(3966);
+			chunkloaderID = HMConfig.getBlock("Endium Chunkloader", 3964).getInt(3964);
 			maxChunksLoaded = HMConfig.get("Max Chunks Loaded", Configuration.CATEGORY_GENERAL, 25).getInt(25);
 			
 		}
@@ -192,7 +194,7 @@ public class HawksMachinery implements ICraftingHandler
 		
 		HMConfig.save();
 		
-		blockCrusher = new HawkBlockGrinder(crusherID).setStepSound(Block.soundMetalFootstep);
+		blockCrusher = new HawkBlockCrusher(crusherID).setStepSound(Block.soundMetalFootstep);
 		blockOre = new HawkBlockOre(oreID).setStepSound(Block.soundStoneFootstep);
 		blockMetalStorage = new HawkBlockMetalStorage(metalStorageID).setStepSound(Block.soundMetalFootstep);
 		blockWasher = new HawkBlockWasher(washerID).setStepSound(Block.soundMetalFootstep);

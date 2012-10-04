@@ -43,6 +43,17 @@ public class HawkTileEntityWasher extends HawkTileEntityMachine implements IItem
 	
 	public float WATER_LIMIT = 25.0F;
 	
+	public HawkTileEntityWasher()
+	{
+		super();
+		ELECTRICITY_REQUIRED = 10;
+		TICKS_REQUIRED = FMLCommonHandler.instance().getSide().isServer() ? HawksMachinery.crusherTicks : 100;
+		ELECTRICITY_LIMIT = 1200;
+		containingItems = new ItemStack[6];
+		machineEnum = HawkEnumProcessing.WASHING;
+		
+	}
+	
 	@Override
 	public void updateEntity()
 	{
@@ -353,16 +364,6 @@ public class HawkTileEntityWasher extends HawkTileEntityMachine implements IItem
 	public ItemStack[] extractItem(boolean doRemove, Orientations from, int maxItemCount)
 	{
 		return null;
-	}
-	
-	protected void setCustomMachineValues()
-	{
-		ELECTRICITY_REQUIRED = 10;
-		TICKS_REQUIRED = FMLCommonHandler.instance().getSide().isServer() ? HawksMachinery.crusherTicks : 100;
-		ELECTRICITY_LIMIT = 1200;
-		containingItems = new ItemStack[6];
-		machineEnum = HawkEnumProcessing.WASHING;
-		
 	}
 	
 }

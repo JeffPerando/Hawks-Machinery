@@ -40,11 +40,22 @@ import universalelectricity.implement.IItemElectric;
  * 
  * @author Elusivehawk
  */
-public class HawkTileEntityGrinder extends HawkTileEntityMachine implements IItemTransfer
+public class HawkTileEntityCrusher extends HawkTileEntityMachine implements IItemTransfer
 {
 	public int workTicks = 0;
 	
-	private int grinderStatus;
+	private int crusherStatus;
+	
+	public HawkTileEntityCrusher()
+	{
+		super();
+		ELECTRICITY_REQUIRED = 10;
+		TICKS_REQUIRED = FMLCommonHandler.instance().getSide().isServer() ? HawksMachinery.crusherTicks : 180;
+		ELECTRICITY_LIMIT = 2500;
+		containingItems = new ItemStack[3];
+		machineEnum = HawkEnumProcessing.CRUSHING;
+		
+	}
 	
 	@Override
 	public void updateEntity()
@@ -63,20 +74,20 @@ public class HawkTileEntityGrinder extends HawkTileEntityMachine implements IIte
 			}
 		}
 		
-		if ((this.canGrind() || this.canExplode()) && !this.isDisabled())
+		if ((this.canCrush() || this.canExplode()) && !this.isDisabled())
 		{
 			if (this.containingItems[1] != null && this.workTicks == 0)
 			{
 				this.workTicks = this.TICKS_REQUIRED;
 			}
 			
-			if ((this.canGrind() || this.canExplode()) && this.workTicks > 0)
+			if ((this.canCrush() || this.canExplode()) && this.workTicks > 0)
 			{
 				--this.workTicks;
 				
 				if (this.workTicks < 1)
 				{
-					this.grindItem();
+					this.crushItem();
 					this.workTicks = 0;
 				}
 				
@@ -88,14 +99,14 @@ public class HawkTileEntityGrinder extends HawkTileEntityMachine implements IIte
 			}
 		}
 		
-		if (!(this.canGrind() || this.canExplode()) && this.workTicks != 0)
+		if (!(this.canCrush() || this.canExplode()) && this.workTicks != 0)
 		{
 			this.workTicks = 0;
 		}
 		
 	}
 	
-	private boolean canGrind()
+	private boolean canCrush()
 	{
 		if (this.containingItems[1] == null)
 		{
@@ -144,9 +155,9 @@ public class HawkTileEntityGrinder extends HawkTileEntityMachine implements IIte
 		}
 	}
 	
-	private void grindItem()
+	private void crushItem()
 	{
-		if (this.canGrind())
+		if (this.canCrush())
 		{
 			ItemStack var1 = HawkProcessingRecipes.getResult(this.containingItems[1], this.machineEnum);
 			
@@ -179,7 +190,7 @@ public class HawkTileEntityGrinder extends HawkTileEntityMachine implements IIte
 	@Override
 	public double wattRequest()
 	{
-		if (!this.isDisabled() && (this.canGrind() || this.canExplode()) && this.electricityStored + this.ELECTRICITY_REQUIRED <= this.ELECTRICITY_LIMIT)
+		if (!this.isDisabled() && (this.canCrush() || this.canExplode()) && this.electricityStored + this.ELECTRICITY_REQUIRED <= this.ELECTRICITY_LIMIT)
 		{
 			return this.ELECTRICITY_REQUIRED;
 		}
@@ -237,27 +248,27 @@ public class HawkTileEntityGrinder extends HawkTileEntityMachine implements IIte
 		return "HMCrusher";
 	}
 	
-	public int getGrindingStatus(int par1)
+	public int calculateCrushingDuration(int par1)
 	{
 		return this.workTicks * par1 / 200;
 	}
 	
-	public String getGrinderStatus()
+	public String getCrusherStatus()
 	{	
 		if (this.isDisabled())
 		{
-			this.grinderStatus = 2;
+			this.crusherStatus = 2;
 		}
 		else if (this.workTicks > 0)
 		{
-			this.grinderStatus = 1;
+			this.crusherStatus = 1;
 		}
 		else
 		{
-			this.grinderStatus =  0;
+			this.crusherStatus =  0;
 		}
 		
-		switch (this.grinderStatus)
+		switch (this.crusherStatus)
 		{
 			case 1: return "Crushing";
 			case 2: return "Disabled!";
@@ -441,16 +452,6 @@ public class HawkTileEntityGrinder extends HawkTileEntityMachine implements IIte
 		}
 		
 		return null;
-	}
-	
-	protected void setCustomMachineValues()
-	{
-		ELECTRICITY_REQUIRED = 10;
-		TICKS_REQUIRED = FMLCommonHandler.instance().getSide().isServer() ? HawksMachinery.crusherTicks : 180;
-		ELECTRICITY_LIMIT = 2500;
-		containingItems = new ItemStack[3];
-		machineEnum = HawkEnumProcessing.CRUSHING;
-		
 	}
 	
 }

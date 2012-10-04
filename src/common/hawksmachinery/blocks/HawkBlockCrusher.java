@@ -2,7 +2,7 @@
 package hawksmachinery.blocks;
 
 import hawksmachinery.HawksMachinery;
-import hawksmachinery.tileentity.HawkTileEntityGrinder;
+import hawksmachinery.tileentity.HawkTileEntityCrusher;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import universalelectricity.basiccomponents.BlockBasicMachine;
@@ -16,11 +16,11 @@ import net.minecraftforge.common.ForgeDirection;
  *
  * @author Elusivehawk
  */
-public class HawkBlockGrinder extends HawkBlockMachine
+public class HawkBlockCrusher extends HawkBlockMachine
 {
-	public HawkTileEntityGrinder tileEntity;
+	public HawkTileEntityCrusher tileEntity;
 	
-	public HawkBlockGrinder(int id)
+	public HawkBlockCrusher(int id)
 	{
 		super("HMCrusher", id, Material.iron);
 		setHardness(2.0F);
@@ -89,7 +89,7 @@ public class HawkBlockGrinder extends HawkBlockMachine
 	@Override
 	public TileEntity createNewTileEntity(World world)
 	{
-		this.tileEntity = new HawkTileEntityGrinder();
+		this.tileEntity = new HawkTileEntityCrusher();
 		return this.tileEntity;
 	}
 	
@@ -135,6 +135,12 @@ public class HawkBlockGrinder extends HawkBlockMachine
 	public boolean isBlockSolidOnSide(World world, int x, int y, int z, ForgeDirection side)
 	{
 		return !(side.ordinal() == 1 || side.ordinal() == world.getBlockMetadata(x, y, z));
+	}
+	
+	@Override
+	public boolean renderAsNormalBlock()
+	{
+		return false;
 	}
 	
 }

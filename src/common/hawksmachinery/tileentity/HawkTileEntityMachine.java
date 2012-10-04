@@ -49,13 +49,6 @@ public abstract class HawkTileEntityMachine extends TileEntityElectricityReceive
 	
 	public HawkEnumProcessing machineEnum;
 	
-	public HawkTileEntityMachine()
-	{
-		super();
-		setCustomMachineValues();
-		
-	}
-	
 	@Override
 	public void onReceive(TileEntity tileEntity, double amps, double voltage, ForgeDirection side)
 	{
@@ -87,11 +80,6 @@ public abstract class HawkTileEntityMachine extends TileEntityElectricityReceive
 		}
 		
 	}
-	
-	/**
-	 * Used to set the values for this particular machine.
-	 */
-	protected void setCustomMachineValues(){}
 	
 	public double getVoltage()
 	{

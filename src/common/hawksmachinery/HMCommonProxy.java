@@ -2,7 +2,7 @@
 package hawksmachinery;
 
 import hawksmachinery.tileentity.HawkTileEntityChunkloader;
-import hawksmachinery.tileentity.HawkTileEntityGrinder;
+import hawksmachinery.tileentity.HawkTileEntityCrusher;
 import hawksmachinery.tileentity.HawkTileEntityWasher;
 import cpw.mods.fml.common.network.IGuiHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -22,7 +22,7 @@ public class HMCommonProxy implements IGuiHandler
 	
 	public void registerRenderInformation()
 	{
-		GameRegistry.registerTileEntity(HawkTileEntityGrinder.class, "HMCrusher");
+		GameRegistry.registerTileEntity(HawkTileEntityCrusher.class, "HMCrusher");
 		GameRegistry.registerTileEntity(HawkTileEntityWasher.class, "HMWasher");
 		if (BASEMOD.enableChunkloader)
 		{
@@ -45,7 +45,7 @@ public class HMCommonProxy implements IGuiHandler
 		
 		switch (id)
 		{
-			case 0: return new HawkContainerGrinder(player.inventory, ((HawkTileEntityGrinder)tileEntity));
+			case 0: return new HawkContainerGrinder(player.inventory, ((HawkTileEntityCrusher)tileEntity));
 			case 1: return new HawkContainerWasher(player.inventory, ((HawkTileEntityWasher)tileEntity));
 		}
 		

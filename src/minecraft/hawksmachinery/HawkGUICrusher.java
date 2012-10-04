@@ -1,7 +1,7 @@
 
 package hawksmachinery;
 
-import hawksmachinery.tileentity.HawkTileEntityGrinder;
+import hawksmachinery.tileentity.HawkTileEntityCrusher;
 import org.lwjgl.opengl.GL11;
 import universalelectricity.UniversalElectricity;
 import universalelectricity.electricity.ElectricInfo;
@@ -16,15 +16,15 @@ import net.minecraft.src.World;
  * 
  * @author Elusivehawk
  */
-public class HawkGUIGrinder extends GuiContainer
+public class HawkGUICrusher extends GuiContainer
 {
 	public static HawksMachinery BASEMOD;
-	private HawkTileEntityGrinder tileEntity;
+	private HawkTileEntityCrusher tileEntity;
 	
 	private int containerWidth;
 	private int containerHeight;	
 	
-	public HawkGUIGrinder(InventoryPlayer par1InventoryPlayer, HawkTileEntityGrinder tileEntity)
+	public HawkGUICrusher(InventoryPlayer par1InventoryPlayer, HawkTileEntityCrusher tileEntity)
 	{
 		super(new HawkContainerGrinder(par1InventoryPlayer, tileEntity));
 		this.tileEntity = tileEntity;
@@ -38,7 +38,7 @@ public class HawkGUIGrinder extends GuiContainer
 		this.fontRenderer.drawString("Crushing:", 10, 28, 4210752);
 		this.fontRenderer.drawString("Battery:", 10, 53, 4210752);
 		
-		this.fontRenderer.drawString("Status: "+this.tileEntity.getGrinderStatus(), 75, 48, 4210752);
+		this.fontRenderer.drawString("Status: "+this.tileEntity.getCrusherStatus(), 75, 48, 4210752);
 		this.fontRenderer.drawString(ElectricInfo.getDisplayShort(this.tileEntity.getVoltage(), ElectricInfo.ElectricUnit.VOLTAGE), 75, 60, 4210752);
 		this.fontRenderer.drawString(ElectricInfo.getDisplayShort(this.tileEntity.electricityStored, ElectricInfo.ElectricUnit.WATT), 75, 70, 4210752);
 		
@@ -51,7 +51,7 @@ public class HawkGUIGrinder extends GuiContainer
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3)
 	{
-		int var4 = this.mc.renderEngine.getTexture(BASEMOD.GUI_PATH + "/Grinder.png");
+		int var4 = this.mc.renderEngine.getTexture(BASEMOD.GUI_PATH + "/Crusher.png");
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		this.mc.renderEngine.bindTexture(var4);
 		this.containerWidth = (this.width - this.xSize) / 2;
@@ -60,7 +60,7 @@ public class HawkGUIGrinder extends GuiContainer
 		
 		if(this.tileEntity.workTicks > 0)
 		{
-			int scale = this.tileEntity.getGrindingStatus(24);
+			int scale = this.tileEntity.calculateCrushingDuration(24);
 			this.drawTexturedModalRect(containerWidth + 77, containerHeight + 24, 176, 0, 23 - scale, 20);
 		}
 	}

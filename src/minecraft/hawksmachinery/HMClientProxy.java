@@ -25,7 +25,7 @@ public class HMClientProxy extends HMCommonProxy
 	{
 		MinecraftForgeClient.preloadTexture(BASEMOD.BLOCK_TEXTURE_FILE);
 		MinecraftForgeClient.preloadTexture(BASEMOD.ITEM_TEXTURE_FILE);
-		ClientRegistry.bindTileEntitySpecialRenderer(HawkTileEntityGrinder.class, new HawkRenderCrusher());
+		ClientRegistry.bindTileEntitySpecialRenderer(HawkTileEntityCrusher.class, new HawkRenderCrusher());
 		HawkLanguageCore.addToolTips();
 		
 	}
@@ -39,7 +39,7 @@ public class HMClientProxy extends HMCommonProxy
         {
 			switch (ID)
 			{
-				case 0: return new HawkGUIGrinder(player.inventory, ((HawkTileEntityGrinder)tileEntity));
+				case 0: return new HawkGUICrusher(player.inventory, ((HawkTileEntityCrusher)tileEntity));
 				case 1: return new HawkGUIWasher(player.inventory, ((HawkTileEntityWasher)tileEntity));
 				
 			}

@@ -1,7 +1,7 @@
 
 package hawksmachinery;
 
-import hawksmachinery.tileentity.HawkTileEntityGrinder;
+import hawksmachinery.tileentity.HawkTileEntityCrusher;
 import universalelectricity.basiccomponents.SlotElectricItem;
 import universalelectricity.implement.IItemElectric;
 import net.minecraft.src.Container;
@@ -18,9 +18,9 @@ import net.minecraft.src.TileEntity;
  */
 public class HawkContainerGrinder extends Container
 {
-	private HawkTileEntityGrinder tileEntity;
+	private HawkTileEntityCrusher tileEntity;
 	
-	public HawkContainerGrinder(InventoryPlayer playerInventory, HawkTileEntityGrinder tileEntity)
+	public HawkContainerGrinder(InventoryPlayer playerInventory, HawkTileEntityCrusher tileEntity)
 	{
 		this.tileEntity = tileEntity;
 		this.addSlotToContainer(new SlotElectricItem(tileEntity, 0, 55, 49));
