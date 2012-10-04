@@ -8,7 +8,7 @@ import universalelectricity.prefab.BlockMachine;
 
 /**
  * 
- * Just a wrapper for BlockMachine.
+ * Just a wrapper for {@link BlockMachine}.
  * 
  * @author Elusivehawk
  */

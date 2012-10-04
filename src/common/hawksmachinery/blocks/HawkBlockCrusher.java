@@ -3,6 +3,7 @@ package hawksmachinery.blocks;
 
 import hawksmachinery.HawksMachinery;
 import hawksmachinery.tileentity.HawkTileEntityCrusher;
+import hawksmachinery.tileentity.HawkTileEntityMachine;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import universalelectricity.basiccomponents.BlockBasicMachine;
@@ -18,7 +19,7 @@ import net.minecraftforge.common.ForgeDirection;
  */
 public class HawkBlockCrusher extends HawkBlockMachine
 {
-	public HawkTileEntityCrusher tileEntity;
+	public HawkTileEntityMachine tileEntity;
 	
 	public HawkBlockCrusher(int id)
 	{
@@ -45,7 +46,8 @@ public class HawkBlockCrusher extends HawkBlockMachine
 			return true;
 		}
 		
-		return true;
+		return false;
+		
 	}
 	
 	@Override

@@ -4,9 +4,11 @@ package hawksmachinery;
 import hawksmachinery.tileentity.HawkTileEntityChunkloader;
 import hawksmachinery.tileentity.HawkTileEntityCrusher;
 import hawksmachinery.tileentity.HawkTileEntityWasher;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.IGuiHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.src.EntityPlayer;
+import net.minecraft.src.Packet3Chat;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 
@@ -51,7 +53,5 @@ public class HMCommonProxy implements IGuiHandler
 		
 		return null;
 	}
-	
-	public void chatToSSPPlayer(String message){}
 	
 }

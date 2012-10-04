@@ -171,4 +171,5 @@ public class HawkBlockChunkloader extends HawkBlock
 	{
 		GameRegistry.registerBlock(this, HawkItemBlockChunkloader.class);
 	}
+	
 }

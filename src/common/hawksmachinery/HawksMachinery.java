@@ -105,10 +105,11 @@ public class HawksMachinery implements ICraftingHandler
 	public static boolean enableAutoDL;
 	public static boolean enableChunkloader;
 	
-	public static final String GUI_PATH = "/hawksmachinery/textures/gui";
-	public static final String BLOCK_TEXTURE_FILE = "/hawksmachinery/textures/blocks.png";
-	public static final String ITEM_TEXTURE_FILE = "/hawksmachinery/textures/items.png";
-	public static final String TEXTURE_PATH = "/hawksmachinery/textures";
+	public static final String GUI_PATH = "/hawksmachinery/resources/gui";
+	public static final String BLOCK_TEXTURE_FILE = "/hawksmachinery/resources/textures/blocks.png";
+	public static final String ITEM_TEXTURE_FILE = "/hawksmachinery/resources/textures/items.png";
+	public static final String TEXTURE_PATH = "/hawksmachinery/resources/textures";
+	public static final String SOUND_PATH = "/hawksmachinery/resources/sounds";
 	
 	public static Configuration HMConfig = new Configuration(new File(Loader.instance().getConfigDir(), "HawksMachinery/HMConfig.cfg"));
 	
@@ -492,18 +493,6 @@ public class HawksMachinery implements ICraftingHandler
 			
 		}
 		
-	}
-	
-	/**
-	 * 
-	 * Convenience function for sending a message to a player in SSP.
-	 * 
-	 * @param message The message being sent.
-	 */
-	@SideOnly(Side.CLIENT)
-	public static void chatToSSPPlayer(String message)
-	{
-		PROXY.chatToSSPPlayer(message);
 	}
 	
 }
