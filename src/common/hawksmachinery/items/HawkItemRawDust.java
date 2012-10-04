@@ -20,8 +20,7 @@ public class HawkItemRawDust extends HawkItem
 	public static String[] en_USNames = {"Coal", 
 										"Iron", "Gold", 
 										"Copper", "Tin", 
-										"Titanium", "Aluminum", 
-										"Silver", "Obsidian", "Endium"};
+										"Obsidian", "Endium"};
 	
 	public HawkItemRawDust(int id)
 	{
@@ -41,19 +40,17 @@ public class HawkItemRawDust extends HawkItem
 			case 2: return 10;
 			case 3: return 12;
 			case 4: return 11;
-			case 5: return 4;
-			case 6: return 8;
-			case 7: return 5;
-			case 8: return 59;
-			case 9: return 3;
+			case 5: return 59;
+			case 6: return 3;
 			default: return 0;
+			
 		}
 	}
     
 	@Override
 	public void getSubItems(int id, CreativeTabs tabs, List itemList)
 	{
-		for (int counter  = 0; counter <= 9; ++counter)
+		for (int counter  = 0; counter <= 6; ++counter)
 		{
 			itemList.add(new ItemStack(this, 1, counter));
 		}
@@ -67,7 +64,7 @@ public class HawkItemRawDust extends HawkItem
 		switch (item.getItemDamage())
 		{
 			case 0: effect = 2; break;
-			case 9: effect = 20; break;
+			case 6: effect = 20; break;
 			default: effect = 4; break;
 		}
 		

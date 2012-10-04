@@ -1,6 +1,7 @@
 
 package hawksmachinery;
 
+import hawksmachinery.HawkProcessingRecipes.HawkEnumProcessing;
 import hawksmachinery.tileentity.HawkTileEntityCrusher;
 import universalelectricity.basiccomponents.SlotElectricItem;
 import universalelectricity.implement.IItemElectric;
@@ -16,11 +17,11 @@ import net.minecraft.src.TileEntity;
  * @author Elusivehawk
  *
  */
-public class HawkContainerGrinder extends Container
+public class HawkContainerCrusher extends Container
 {
 	private HawkTileEntityCrusher tileEntity;
 	
-	public HawkContainerGrinder(InventoryPlayer playerInventory, HawkTileEntityCrusher tileEntity)
+	public HawkContainerCrusher(InventoryPlayer playerInventory, HawkTileEntityCrusher tileEntity)
 	{
 		this.tileEntity = tileEntity;
 		this.addSlotToContainer(new SlotElectricItem(tileEntity, 0, 55, 49));
@@ -47,7 +48,7 @@ public class HawkContainerGrinder extends Container
 		return true;
 	}
 	
-	public TileEntity getGrinderContainer()
+	public TileEntity getCrusherContainer()
 	{
 		return this.tileEntity;
 	}
@@ -81,7 +82,7 @@ public class HawkContainerGrinder extends Container
 						return null;
 					}
 				}
-				else if (HawkProcessingRecipes.getResult(var4, HawkProcessingRecipes.HawkEnumProcessing.CRUSHING) != null)
+				else if (HawkProcessingRecipes.getResult(var4, HawkEnumProcessing.CRUSHING) != null)
 				{
 					if (!this.mergeItemStack(var4, 1, 2, false))
 					{

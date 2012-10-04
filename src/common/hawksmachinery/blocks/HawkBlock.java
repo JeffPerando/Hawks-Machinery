@@ -12,17 +12,22 @@ import net.minecraft.src.Material;
  * 
  * @author Elusivehawk
  */
-public abstract class HawkBlock extends Block
+public class HawkBlock extends Block
 {
 	public static HawksMachinery BASEMOD;
 	
-	public HawkBlock(int id, Material mat)
+	public HawkBlock(int id, Material mat, int textureID)
 	{
 		super(id, mat);
 		setHardness(1.0F);
 		setResistance(5.0F);
 		registerSelf();
 		setTextureFile(BASEMOD.BLOCK_TEXTURE_FILE);
+		
+		if (textureID >= 0)
+		{
+			this.blockIndexInTexture = textureID;
+		}
 		
 	}
 	

@@ -45,7 +45,7 @@ public class HMCommonProxy implements IGuiHandler
 		
 		switch (id)
 		{
-			case 0: return new HawkContainerGrinder(player.inventory, ((HawkTileEntityCrusher)tileEntity));
+			case 0: return new HawkContainerCrusher(player.inventory, ((HawkTileEntityCrusher)tileEntity));
 			case 1: return new HawkContainerWasher(player.inventory, ((HawkTileEntityWasher)tileEntity));
 		}
 		

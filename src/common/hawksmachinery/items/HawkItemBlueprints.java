@@ -16,8 +16,8 @@ import net.minecraft.src.ItemStack;
  */
 public class HawkItemBlueprints extends Item
 {
-	public static String[] en_USNames = {"Crusher", "Washer", "Bottler", "Metal Lathe",
-										"Mini-Drill Tank", "Laser Smelter", "Sinterer",
+	public static String[] en_USNames = {"Crusher", "Washer", "Bottler", "Compressor",
+										"Mini-Drill Tank", "Cutter", "Sinterer",
 										"Rivet Gun", "HM-E2MM"};
 	
 	public HawkItemBlueprints(int id)

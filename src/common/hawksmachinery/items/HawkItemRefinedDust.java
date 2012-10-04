@@ -17,10 +17,9 @@ import net.minecraft.src.*;
 public class HawkItemRefinedDust extends HawkItem
 {
 	public static String[] en_USNames = {"Diamond", "Ender", "Glass", 
-										"Iron", "Gold", 
-										"Copper", "Tin", 
-										"Titanium", "Aluminum", 
-										"Silver", "Emerald", "Star", "Endium"};
+										"Iron", "Gold", "Copper",
+										"Tin", "Emerald", "Star",
+										"Endium"};
 	
 	public HawkItemRefinedDust(int id)
 	{
@@ -42,20 +41,18 @@ public class HawkItemRefinedDust extends HawkItem
 			case 4: return 26;
 			case 5: return 28;
 			case 6: return 27;
-			case 7: return 20;
-			case 8: return 24;
-			case 9: return 21;
-			case 10: return 58;
-			case 11: return 60;
-			case 12: return 19;
+			case 7: return 58;
+			case 8: return 60;
+			case 9: return 19;
 			default: return 0;
+			
 		}
 	}
 	
 	@Override
 	public void getSubItems(int id, CreativeTabs tabs, List itemList)
 	{
-		for (int counter  = 0; counter <= 12; ++counter)
+		for (int counter  = 0; counter <= 9; ++counter)
 		{
 			itemList.add(new ItemStack(this, 1, counter));
 		}
@@ -71,10 +68,8 @@ public class HawkItemRefinedDust extends HawkItem
 			case 0: effect = 12; break;
 			case 1: effect = 9; break;
 			case 2: effect = 3; break;
-			case 7: effect = 8; break;
-			case 8: effect = 6; break;
-			case 11: effect = 15; break;
-			case 12: effect = 18; break;
+			case 8: effect = 15; break;
+			case 9: effect = 18; break;
 			default: effect = 4; break;
 		}
 		

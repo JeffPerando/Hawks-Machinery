@@ -18,6 +18,6 @@ public interface IHawkUpgradesHandler
 	 * @param machine The machine with the upgrade in it.
 	 * @param upgrades All of the upgrades that are in the machine.
 	 */
-	public void doUpgradeTick(HawkTileEntityMachine machine, HawkEnumUpgrades[] upgrades);
+	public void upgradeTick(HawkTileEntityMachine machine, HawkEnumUpgrades[] upgrades);
 	
 }

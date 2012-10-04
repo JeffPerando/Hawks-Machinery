@@ -1,5 +1,5 @@
 
-package hawksmachinery.misc;
+package hawksmachinery;
 
 import java.util.Random;
 import net.minecraft.src.Block;

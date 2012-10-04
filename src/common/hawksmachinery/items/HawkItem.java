@@ -2,12 +2,13 @@
 package hawksmachinery.items;
 
 import hawksmachinery.HawksMachinery;
+import net.minecraft.src.Block;
 import net.minecraft.src.CreativeTabs;
 import net.minecraft.src.Item;
 
 /**
  * 
- * Just some conveniences for me.
+ * My personal preferences. Extend this instead of {@link Item} and you'll save yourself some trouble.
  * 
  * @author Elusivehawk
  */
@@ -19,15 +20,7 @@ public class HawkItem extends Item
 	{
 		super(id);
 		setTextureFile(BASEMOD.ITEM_TEXTURE_FILE);
-		addCreativeTab();
-	}
-	
-	/**
-	 * Override this is you would like to change which Creative mode tab this item appears in.
-	 */
-	public void addCreativeTab()
-	{
-		setCreativeTab(CreativeTabs.tabMisc);
+		
 	}
 	
 }

@@ -30,18 +30,12 @@ public class HawkBlockChunkloader extends HawkBlock
 	
 	public HawkBlockChunkloader(int id)
 	{
-		super(id, Material.iron);
+		super(id, Material.iron, 5);
 		setResistance(1000000000.0F);
 		setBlockName("endiumChunkloader");
 		setStepSound(Block.soundMetalFootstep);
 		setCreativeTab(CreativeTabs.tabDecorations);
 		
-	}
-	
-	@Override
-	public int getBlockTextureFromSideAndMetadata(int side, int metadata)
-	{
-		return 5;
 	}
 	
 	@Override

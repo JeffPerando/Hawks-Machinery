@@ -1,7 +1,6 @@
 
-package hawksmachinery.misc;
+package hawksmachinery;
 
-import hawksmachinery.HawksMachinery;
 import java.util.Random;
 import net.minecraft.src.EntityVillager;
 import net.minecraft.src.Item;
@@ -19,10 +18,7 @@ import cpw.mods.fml.common.registry.VillagerRegistry.IVillageTradeHandler;
  */
 public class HawkVillagerTrades implements IVillageTradeHandler
 {
-	
 	public static HawksMachinery BASEMOD;
-	
-	public HawkVillagerTrades() {}
 	
 	@Override
 	public void manipulateTradesForVillager(EntityVillager villager, MerchantRecipeList recipeList, Random random)
@@ -61,25 +57,15 @@ public class HawkVillagerTrades implements IVillageTradeHandler
 		{
 			if (BASEMOD.enableChunkloader)
 			{
-				recipeList.add(new MerchantRecipe(new ItemStack(BASEMOD.blockChunkloader, 1), new ItemStack(Item.emerald, 12)));
+				recipeList.add(new MerchantRecipe(new ItemStack(BASEMOD.chunkloader, 1), new ItemStack(Item.emerald, 12)));
 			}
 			
 		}
 		
 		if (profession == 3)
 		{
-			recipeList.add(new MerchantRecipe(new ItemStack(Item.emerald, 6), new ItemStack(BASEMOD.ingots, 1, 0)));
-			recipeList.add(new MerchantRecipe(new ItemStack(Item.emerald, 7), new ItemStack(BASEMOD.ingots, 1, 0)));
-			recipeList.add(new MerchantRecipe(new ItemStack(Item.emerald, 8), new ItemStack(BASEMOD.ingots, 1, 0)));
-			
-			recipeList.add(new MerchantRecipe(new ItemStack(Item.emerald, 6), new ItemStack(BASEMOD.ingots, 1, 1)));
-			recipeList.add(new MerchantRecipe(new ItemStack(Item.emerald, 7), new ItemStack(BASEMOD.ingots, 1, 1)));
-			recipeList.add(new MerchantRecipe(new ItemStack(Item.emerald, 8), new ItemStack(BASEMOD.ingots, 1, 1)));
-			
+			//TODO Add Blacksmith trades.
 		}
-		
-		recipeList.add(new MerchantRecipe(new ItemStack(BASEMOD.ingots, 8, 2), new ItemStack(Item.emerald, 1)));
-		recipeList.add(new MerchantRecipe(new ItemStack(BASEMOD.ingots, 9, 2), new ItemStack(Item.emerald, 1)));
 		
 	} 
 	

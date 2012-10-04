@@ -26,7 +26,7 @@ public class HawkGUICrusher extends GuiContainer
 	
 	public HawkGUICrusher(InventoryPlayer par1InventoryPlayer, HawkTileEntityCrusher tileEntity)
 	{
-		super(new HawkContainerGrinder(par1InventoryPlayer, tileEntity));
+		super(new HawkContainerCrusher(par1InventoryPlayer, tileEntity));
 		this.tileEntity = tileEntity;
 	}
 	
