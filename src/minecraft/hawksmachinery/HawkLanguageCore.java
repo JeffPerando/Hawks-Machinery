@@ -16,7 +16,7 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 public class HawkLanguageCore
 {
 	public static HawksMachinery BASEMOD;
-	public static HawkAchievements ACH;
+	public static HawkManager ACH;
 	public static LanguageRegistry LANG = LanguageRegistry.instance();
 	
 	public static void addToolTips()

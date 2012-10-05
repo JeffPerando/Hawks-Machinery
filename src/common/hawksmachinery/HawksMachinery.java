@@ -113,6 +113,8 @@ public class HawksMachinery implements ICraftingHandler
 	
 	public static Configuration HMConfig = new Configuration(new File(Loader.instance().getConfigDir(), "HawksMachinery/HMConfig.cfg"));
 	
+	public static HawkManager MANAGER = new HawkManager(instance(), maxChunksLoaded);
+	
 	public static Block crusher;
 	public static Block washer;
 	public static Block chunkloader;
@@ -183,7 +185,7 @@ public class HawksMachinery implements ICraftingHandler
 		if (enableChunkloader)
 		{
 			chunkloader = new HawkBlockChunkloader(chunkloaderID);
-			ForgeChunkManager.setForcedChunkLoadingCallback(this, new HawkChunkHandler(this, maxChunksLoaded));
+			ForgeChunkManager.setForcedChunkLoadingCallback(this, MANAGER);
 			
 		}
 		
@@ -194,15 +196,15 @@ public class HawksMachinery implements ICraftingHandler
 		endiumItems = new HawkItemEndium(endiumAlloyID - 256);
 		
 		NetworkRegistry.instance().registerGuiHandler(this, this.PROXY);
-		GameRegistry.registerWorldGenerator(new HawkOreGenerator());
+		GameRegistry.registerWorldGenerator(MANAGER);
 		GameRegistry.registerCraftingHandler(this);
-		AchievementPage.registerAchievementPage(HawkAchievements.HAWKSPAGE);
-		NetworkRegistry.instance().registerConnectionHandler(new HawkConnectionHandler());
-		VillagerRegistry.instance().registerVillageTradeHandler(0, new HawkVillagerTrades());
-		VillagerRegistry.instance().registerVillageTradeHandler(1, new HawkVillagerTrades());
-		VillagerRegistry.instance().registerVillageTradeHandler(2, new HawkVillagerTrades());
-		VillagerRegistry.instance().registerVillageTradeHandler(3, new HawkVillagerTrades());
-		VillagerRegistry.instance().registerVillageTradeHandler(4, new HawkVillagerTrades());
+		AchievementPage.registerAchievementPage(MANAGER.HAWKSPAGE);
+		NetworkRegistry.instance().registerConnectionHandler(this.PROXY);
+		VillagerRegistry.instance().registerVillageTradeHandler(0, MANAGER);
+		VillagerRegistry.instance().registerVillageTradeHandler(1, MANAGER);
+		VillagerRegistry.instance().registerVillageTradeHandler(2, MANAGER);
+		VillagerRegistry.instance().registerVillageTradeHandler(3, MANAGER);
+		VillagerRegistry.instance().registerVillageTradeHandler(4, MANAGER);
 		
 		OreDictionary.registerOre("dustCoal", new ItemStack(dustRaw, 1, 0));
 		OreDictionary.registerOre("dustRawIron", new ItemStack(dustRaw, 1, 1));
@@ -380,13 +382,13 @@ public class HawksMachinery implements ICraftingHandler
 	{
 		if (item.itemID == crusher.blockID)
 		{
-			player.addStat(HawkAchievements.timeToCrush, 1);
+			player.addStat(MANAGER.timeToCrush, 1);
 		}
 		
 		/*
 		if (item.itemID == blockMetalStorage.blockID)
 		{
-			player.addStat(HawkAchievements.compactCompact, 1);
+			player.addStat(MANAGER.compactCompact, 1);
 		}
 		*/
 	}
