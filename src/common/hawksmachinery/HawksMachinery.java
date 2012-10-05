@@ -20,6 +20,8 @@ import vazkii.um.common.ModConverter;
 import vazkii.um.common.UpdateManager;
 import vazkii.um.common.UpdateManagerMod;
 import vazkii.um.common.checking.CheckingMethod;
+import net.minecraft.src.Achievement;
+import net.minecraft.src.AchievementList;
 import net.minecraft.src.Block;
 import net.minecraft.src.CreativeTabs;
 import net.minecraft.src.Enchantment;
@@ -42,6 +44,8 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.ICraftingHandler;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.Mod.Metadata;
+import cpw.mods.fml.common.ModMetadata;
 import cpw.mods.fml.common.Side;
 import cpw.mods.fml.common.Mod.Init;
 import cpw.mods.fml.common.Mod.Instance;
@@ -72,6 +76,9 @@ public class HawksMachinery implements ICraftingHandler
 	
 	@SidedProxy(clientSide = "hawksmachinery.HMClientProxy", serverSide = "hawksmachinery.HMCommonProxy")
 	public static HMCommonProxy PROXY;
+	
+	@Metadata("HawksMachinery")
+	public static ModMetadata HAWK_META = new HMDummyContainer().getMetadata();
 	
 	public static final String VERSION = "Alpha v1.4.0";
 	
@@ -104,6 +111,14 @@ public class HawksMachinery implements ICraftingHandler
 	public static Item parts;
 	public static Item blueprints;
 	public static Item endiumItems;
+
+	public static Achievement prospector;
+	public static Achievement timeToCrush;
+	//public static Achievement compactCompact = new Achievement(BASEMOD.ACHcompactCompact, "Compact Compact", 0, -2, new ItemStack(BASEMOD.blockMetalStorage, 1, 2), prospector).registerAchievement();
+	//public static Achievement minerkiin = new Achievement(BASEMOD.ACHminerkiin, "Minerkiin", -5, 2, new ItemStack(BASEMOD.blockOre, 1, 3), AchievementList.theEnd2).registerAchievement();
+	public static Achievement wash;
+	
+	public static AchievementPage HAWKSPAGE;
 	
 	@PreInit
 	public void preInit(FMLPreInitializationEvent event)
@@ -125,11 +140,19 @@ public class HawksMachinery implements ICraftingHandler
 		parts = new HMItemParts(MANAGER.partsID - 256);
 		blueprints = new HMItemBlueprints(MANAGER.blueprintID - 256);
 		endiumItems = new HMItemEndium(MANAGER.endiumAlloyID - 256);
+
+		prospector = new Achievement(MANAGER.ACHprospector, "Prospector", -1, 0, new ItemStack(Item.pickaxeSteel, 1), AchievementList.buildBetterPickaxe).registerAchievement();
+		timeToCrush = new Achievement(MANAGER.ACHtimeToCrush, "Time to Crush", -2, -3, new ItemStack(crusher, 1, 0), prospector).registerAchievement().setSpecial();
+		
+		
+		wash = new Achievement(MANAGER.ACHwash, "Wash", 0, -4, new ItemStack(washer, 1, 0), timeToCrush).registerAchievement().setSpecial();
+		
+		HAWKSPAGE = new AchievementPage("Hawk's Machinery", timeToCrush, prospector, wash);
 		
 		NetworkRegistry.instance().registerGuiHandler(this, this.PROXY);
 		GameRegistry.registerWorldGenerator(MANAGER);
 		GameRegistry.registerCraftingHandler(this);
-		AchievementPage.registerAchievementPage(MANAGER.HAWKSPAGE);
+		AchievementPage.registerAchievementPage(HAWKSPAGE);
 		NetworkRegistry.instance().registerConnectionHandler(this.PROXY);
 		VillagerRegistry.instance().registerVillageTradeHandler(0, MANAGER);
 		VillagerRegistry.instance().registerVillageTradeHandler(1, MANAGER);
@@ -204,13 +227,6 @@ public class HawksMachinery implements ICraftingHandler
 		RECIPE_GIVER.addRecipe(new ItemStack(parts, 1, 3), new Object[]{" G ", "GBG", "cCc", 'G', Block.thinGlass, 'B', Item.blazeRod, 'c', "ingotCopper", 'C', BasicComponents.blockCopperWire});
 		RECIPE_GIVER.addRecipe(new ItemStack(parts, 1, 4), new Object[]{"CC", "CC", 'C', BasicComponents.blockCopperWire});
 		RECIPE_GIVER.addRecipe(new ItemStack(parts, 1, 5), new Object[]{"ici", 'i', "ingotIron", 'c', new ItemStack(parts, 1, 4)});
-		
-		/*
-		for (ItemStack rivet : HawkRivetHandler.getRivetsList())
-		{
-			//TODO Add Rivet recipes.
-		}
-		*/
 		
 		RECIPE_GIVER.addShapelessRecipe(BasicComponents.itemSteelDust, new Object[]{new ItemStack(dustRaw, 1, 0), new ItemStack(dustRefined, 1, 3)});
 		RECIPE_GIVER.addShapelessRecipe(new ItemStack(Item.fireballCharge, 3), new Object[]{Item.blazePowder, Item.gunpowder, new ItemStack(dustRaw, 1, 0)});
@@ -320,7 +336,7 @@ public class HawksMachinery implements ICraftingHandler
 	{
 		if (item.itemID == crusher.blockID)
 		{
-			player.addStat(MANAGER.timeToCrush, 1);
+			player.addStat(timeToCrush, 1);
 		}
 		
 		/*

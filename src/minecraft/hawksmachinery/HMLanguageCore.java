@@ -14,7 +14,6 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 public class HMLanguageCore
 {
 	public static HawksMachinery BASEMOD;
-	public static HMManager ACH;
 	public static LanguageRegistry LANG = LanguageRegistry.instance();
 	
 	public static void addToolTips()
@@ -26,16 +25,16 @@ public class HMLanguageCore
 			LANG.addNameForObject(BASEMOD.chunkloader, "en_US", "Endium Chunkloader");
 		}
 		
-		LANG.addStringLocalization(ACH.timeToCrush.getName(), "en_US", "Time to Crush!");
-		LANG.addStringLocalization(ACH.timeToCrush.getName() + ".desc", "en_US", "The matriarch of Hawk's Machinery!");
+		LANG.addStringLocalization(BASEMOD.timeToCrush.getName(), "en_US", "Time to Crush!");
+		LANG.addStringLocalization(BASEMOD.timeToCrush.getName() + ".desc", "en_US", "The matriarch of Hawk's Machinery!");
 		
-		LANG.addStringLocalization(ACH.prospector.getName(), "en_US", "Prospector");
-		LANG.addStringLocalization(ACH.prospector.getName() + ".desc", "en_US", "There's Emerald in them hills!");
+		LANG.addStringLocalization(BASEMOD.prospector.getName(), "en_US", "Prospector");
+		LANG.addStringLocalization(BASEMOD.prospector.getName() + ".desc", "en_US", "There's Emerald in them hills!");
 		
-		LANG.addStringLocalization(ACH.wash.getName(), "en_US", "Workin' at the--");
-		LANG.addStringLocalization(ACH.wash.getName() + ".desc", "en_US", "Wait, what?");
+		LANG.addStringLocalization(BASEMOD.wash.getName(), "en_US", "Workin' at the--");
+		LANG.addStringLocalization(BASEMOD.wash.getName() + ".desc", "en_US", "Wait, what?");
 		
-		for (int counter = 0; counter <= 12; ++counter)
+		for (int counter = 0; counter <= 9; ++counter)
 		{
 			if (counter <= 5)
 			{
@@ -43,7 +42,7 @@ public class HMLanguageCore
 				
 			}
 			
-			if (counter <= 9)
+			if (counter <= 6)
 			{
 				if (HMItemRawDust.en_USNames[counter] != "Coal" && HMItemRawDust.en_USNames[counter] != "Obsidian")
 				{

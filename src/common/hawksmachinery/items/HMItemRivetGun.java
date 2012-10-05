@@ -1,8 +1,9 @@
 
 package hawksmachinery.items;
 
+import hawksmachinery.interfaces.HMRepairCore.HMEnumRivet;
 import hawksmachinery.interfaces.IHMRepairable;
-import hawksmachinery.interfaces.IHMRivet;
+import net.minecraft.src.Entity;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.EnumAction;
 import net.minecraft.src.EnumMovingObjectType;
@@ -19,13 +20,15 @@ import net.minecraft.src.World;
  */
 public class HMItemRivetGun extends HMItem
 {
-	private ItemStack rivet;
+	private HMEnumRivet rivet;
 	
 	public HMItemRivetGun(int id, int maxRivets)
 	{
 		super(id);
-		setMaxDamage(maxRivets + 1);
+		setMaxDamage(maxRivets);
 		setMaxStackSize(1);
+		setIconIndex(17);
+		setNoRepair();
 		setItemName("rivetGun");
 		
 	}
@@ -33,7 +36,7 @@ public class HMItemRivetGun extends HMItem
 	@Override
 	public ItemStack onItemRightClick(ItemStack item, World world, EntityPlayer player)
 	{
-		if (item.getItemDamage() != this.getMaxDamage() - 1 && ((IHMRivet)this.rivet.getItem()).getRepairAmount(this.rivet) > 0 && player.isSneaking())
+		if (this.rivet.getRepairAmount() > 0 && player.isSneaking())
 		{
 			player.setItemInUse(item, getMaxItemUseDuration(item));
 		}
@@ -44,34 +47,43 @@ public class HMItemRivetGun extends HMItem
 	@Override
 	public ItemStack onFoodEaten(ItemStack item, World world, EntityPlayer player)
 	{
-		if (item.getItemDamage() != getMaxDamage() - 1)
+		MovingObjectPosition locatedBlock = getMovingObjectPositionFromPlayer(world, player, true);
+		
+		if (locatedBlock == null)
 		{
-			MovingObjectPosition locatedBlock = getMovingObjectPositionFromPlayer(world, player, true);
+			return item;
+		}
+		else if (locatedBlock.typeOfHit == EnumMovingObjectType.TILE)
+		{
+			TileEntity hawkTileEntity = world.getBlockTileEntity(locatedBlock.blockX, locatedBlock.blockY, locatedBlock.blockZ);
 			
-			if (locatedBlock == null)
+			if (hawkTileEntity instanceof IHMRepairable)
 			{
-				return item;
-			}
-			if (locatedBlock.typeOfHit == EnumMovingObjectType.TILE)
-			{
-				TileEntity hawkTileEntity = world.getBlockTileEntity(locatedBlock.blockX, locatedBlock.blockY, locatedBlock.blockZ);
-				
-				if (hawkTileEntity instanceof IHMRepairable)
+				for (int counter = 0; counter <= 8; ++counter)
 				{
-					if (((IHMRepairable)hawkTileEntity).attemptRepair(world, locatedBlock.blockX, locatedBlock.blockY, locatedBlock.blockZ, ((IHMRivet)this.rivet.getItem()).getRepairAmount(this.rivet)))
+					ItemStack hotbarItem = player.inventory.mainInventory[counter];
+					
+					if (hotbarItem.isItemEqual(this.rivet.getEndResult()))
 					{
-						//TODO: Add "repair successfull" sound.
-						item.damageItem(1, null);
-						player.addChatMessage("Machine repair successful.");
+						if (((IHMRepairable)hawkTileEntity).attemptRepair(world, locatedBlock.blockX, locatedBlock.blockY, locatedBlock.blockZ, this.rivet.getRepairAmount()))
+						{
+							//TODO: Add "repair successful" sound.
+							item.damageItem(1, null);
+							--hotbarItem.stackSize;
+							player.addChatMessage("Machine repair successful.");
+							
+						}
+						else
+						{
+							//TODO: Add "repair failed" sound.
+							player.addChatMessage("Machine repair failed.");
+							
+						}
+						
+						player.swingItem();
+						break;
 						
 					}
-					else
-					{
-						//TODO: Add "repair failed" sound.
-						player.addChatMessage("Machine repair failed.");
-					}
-					
-					player.swingItem();
 					
 				}
 				
@@ -93,11 +105,28 @@ public class HMItemRivetGun extends HMItem
 	{
 		return 20;
 	}
-
-	public HMItemRivetGun setRivet(ItemStack rivet)
+	
+	@Override
+	public void onCreated(ItemStack item, World world, EntityPlayer player)
+	{
+		item.stackTagCompound.setInteger("Rivet", this.rivet.ordinal());
+		
+	}
+	
+	public HMItemRivetGun setRivet(HMEnumRivet rivet)
 	{
 		this.rivet = rivet;
 		return this;
+	}
+	
+	@Override
+	public void onUpdate(ItemStack item, World world, Entity entity, int par4, boolean par5)
+	{
+		if (this.rivet == null)
+		{
+			this.rivet = HMEnumRivet.getRivetFromNumber(item.stackTagCompound.getInteger("Rivet"));
+		}
+		
 	}
 	
 }

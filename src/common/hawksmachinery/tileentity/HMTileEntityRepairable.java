@@ -127,7 +127,16 @@ public abstract class HMTileEntityRepairable extends HMTileEntityMachine impleme
 	public void readFromNBT(NBTTagCompound NBTTag)
 	{
 		super.readFromNBT(NBTTag);
-		this.machineHealth = NBTTag.getInteger("MachineHP");
+		
+		if (NBTTag.hasKey("MachineHP"))
+		{
+			this.machineHealth = NBTTag.getInteger("MachineHP");
+		}
+		else
+		{
+			this.machineHealth = this.getMaxHP();
+		}
+		
 		this.sapper = ItemStack.loadItemStackFromNBT(NBTTag.getCompoundTag("Sapper"));
 		
 	}

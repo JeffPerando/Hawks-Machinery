@@ -65,14 +65,6 @@ public class HMManager implements LoadingCallback, IWorldGenerator, IVillageTrad
 	public static boolean enableAutoDL;
 	public static boolean enableChunkloader;
 	
-	public static Achievement prospector;
-	public static Achievement timeToCrush;
-	//public static Achievement compactCompact = new Achievement(BASEMOD.ACHcompactCompact, "Compact Compact", 0, -2, new ItemStack(BASEMOD.blockMetalStorage, 1, 2), prospector).registerAchievement();
-	//public static Achievement minerkiin = new Achievement(BASEMOD.ACHminerkiin, "Minerkiin", -5, 2, new ItemStack(BASEMOD.blockOre, 1, 3), AchievementList.theEnd2).registerAchievement();
-	public static Achievement wash;
-	
-	public static AchievementPage HAWKSPAGE;
-	
 	public static Configuration HMConfig = new Configuration(new File(Loader.instance().getConfigDir(), "HawksMachinery/HMConfig.cfg"));
 	
 	public HMManager(HawksMachinery Basemod)
@@ -124,14 +116,6 @@ public class HMManager implements LoadingCallback, IWorldGenerator, IVillageTrad
 		}
 		
 		HMConfig.save();
-		
-		prospector = new Achievement(ACHprospector, "Prospector", -1, 0, new ItemStack(Item.pickaxeSteel, 1), AchievementList.buildBetterPickaxe).registerAchievement();
-		timeToCrush = new Achievement(ACHtimeToCrush, "Time to Crush", -2, -3, new ItemStack(BASEMOD.crusher, 1, 0), prospector).registerAchievement().setSpecial();
-		
-		
-		wash = new Achievement(ACHwash, "Wash", 0, -4, new ItemStack(BASEMOD.washer, 1, 0), timeToCrush).registerAchievement().setSpecial();
-		
-		HAWKSPAGE = new AchievementPage("Hawk's Machinery", timeToCrush, prospector, wash);
 		
 		return crusherID;
 	}
