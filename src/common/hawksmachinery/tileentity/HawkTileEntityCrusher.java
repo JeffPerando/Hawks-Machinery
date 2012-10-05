@@ -40,7 +40,7 @@ import universalelectricity.implement.IItemElectric;
  * 
  * @author Elusivehawk
  */
-public class HawkTileEntityCrusher extends HawkTileEntityMachine implements IItemTransfer
+public class HawkTileEntityCrusher extends HawkTileEntityRepairable implements IItemTransfer
 {
 	public int workTicks = 0;
 	
@@ -60,48 +60,54 @@ public class HawkTileEntityCrusher extends HawkTileEntityMachine implements IIte
 	@Override
 	public void updateEntity()
 	{
-		if (this.containingItems[0] != null)
-		{
-			if (this.containingItems[0].getItem() instanceof IItemElectric)
-			{
-				IItemElectric electricItem = (IItemElectric)this.containingItems[0].getItem();
-				
-				if (electricItem.canProduceElectricity() && this.electricityStored + electricItem.getTransferRate() <= this.ELECTRICITY_LIMIT)
-				{
-					double receivedElectricity = electricItem.onUseElectricity(electricItem.getTransferRate(), this.containingItems[0]);
-					this.electricityStored += receivedElectricity;
-				}
-			}
-		}
+		super.updateEntity();
 		
-		if ((this.canCrush() || this.canExplode()) && !this.isDisabled())
+		if (!this.isDisabled())
 		{
-			if (this.containingItems[1] != null && this.workTicks == 0)
+			if (this.containingItems[0] != null)
 			{
-				this.workTicks = this.TICKS_REQUIRED;
+				if (this.containingItems[0].getItem() instanceof IItemElectric)
+				{
+					IItemElectric electricItem = (IItemElectric)this.containingItems[0].getItem();
+					
+					if (electricItem.canProduceElectricity() && this.electricityStored + electricItem.getTransferRate() <= this.ELECTRICITY_LIMIT)
+					{
+						double receivedElectricity = electricItem.onUseElectricity(electricItem.getTransferRate(), this.containingItems[0]);
+						this.electricityStored += receivedElectricity;
+					}
+				}
 			}
 			
-			if ((this.canCrush() || this.canExplode()) && this.workTicks > 0)
+			if ((this.canCrush() || this.canExplode()) && !this.isDisabled())
 			{
-				--this.workTicks;
-				
-				if (this.workTicks < 1)
+				if (this.containingItems[1] != null && this.workTicks == 0)
 				{
-					this.crushItem();
-					this.workTicks = 0;
+					this.workTicks = this.TICKS_REQUIRED;
 				}
 				
-				this.electricityStored -= this.ELECTRICITY_REQUIRED;
+				if ((this.canCrush() || this.canExplode()) && this.workTicks > 0)
+				{
+					--this.workTicks;
+					
+					if (this.workTicks < 1)
+					{
+						this.crushItem();
+						this.workTicks = 0;
+					}
+					
+					this.electricityStored -= this.ELECTRICITY_REQUIRED;
+				}
+				else
+				{
+					this.workTicks = 0;
+				}
 			}
-			else
+			
+			if (!(this.canCrush() || this.canExplode()) && this.workTicks != 0)
 			{
 				this.workTicks = 0;
 			}
-		}
-		
-		if (!(this.canCrush() || this.canExplode()) && this.workTicks != 0)
-		{
-			this.workTicks = 0;
+			
 		}
 		
 	}
@@ -190,28 +196,39 @@ public class HawkTileEntityCrusher extends HawkTileEntityMachine implements IIte
 	@Override
 	public double wattRequest()
 	{
-		if (!this.isDisabled() && (this.canCrush() || this.canExplode()) && this.electricityStored + this.ELECTRICITY_REQUIRED <= this.ELECTRICITY_LIMIT)
+		if (this.isDisabled())
 		{
-			return this.ELECTRICITY_REQUIRED;
+			return 0;
 		}
 		else
 		{
-			if (this.ELECTRICITY_LIMIT != this.electricityStored)
+			if ((this.canCrush() || this.canExplode()) && this.electricityStored + this.ELECTRICITY_REQUIRED <= this.ELECTRICITY_LIMIT)
 			{
-				if (this.electricityStored + this.ELECTRICITY_REQUIRED >= this.ELECTRICITY_LIMIT)
-				{
-					return this.ELECTRICITY_LIMIT - this.electricityStored;
-				}
-				else
-				{
-					return this.ELECTRICITY_REQUIRED;
-				}
+				return this.ELECTRICITY_REQUIRED;
 			}
 			else
 			{
-				return 0;
+				if (this.ELECTRICITY_LIMIT != this.electricityStored)
+				{
+					if (this.electricityStored + this.ELECTRICITY_REQUIRED >= this.ELECTRICITY_LIMIT)
+					{
+						return this.ELECTRICITY_LIMIT - this.electricityStored;
+					}
+					else
+					{
+						return this.ELECTRICITY_REQUIRED;
+					}
+					
+				}
+				else
+				{
+					return 0;
+				}
+				
 			}
+			
 		}
+		
 	}
 	
 	@Override

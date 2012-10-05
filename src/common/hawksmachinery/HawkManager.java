@@ -40,11 +40,10 @@ public class HawkManager implements LoadingCallback, IWorldGenerator, IVillageTr
 	public static Achievement wash = new Achievement(BASEMOD.ACHwash, "Wash", 0, -4, new ItemStack(BASEMOD.washer, 1, 0), timeToCrush).registerAchievement().setSpecial();
 	
 	public static AchievementPage HAWKSPAGE = new AchievementPage("Hawk's Machinery", timeToCrush, prospector, wash);
-
-	public HawkManager(HawksMachinery Basemod, int limit)
+	
+	public HawkManager(HawksMachinery Basemod)
 	{
 		BASEMOD = Basemod;
-		chunkLimit = limit;
 		
 	}
 	

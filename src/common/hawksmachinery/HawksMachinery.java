@@ -113,7 +113,7 @@ public class HawksMachinery implements ICraftingHandler
 	
 	public static Configuration HMConfig = new Configuration(new File(Loader.instance().getConfigDir(), "HawksMachinery/HMConfig.cfg"));
 	
-	public static HawkManager MANAGER = new HawkManager(instance(), maxChunksLoaded);
+	public static HawkManager MANAGER = new HawkManager(instance());
 	
 	public static Block crusher;
 	public static Block washer;

@@ -58,7 +58,7 @@ public abstract class HawkBlockMachineRepairable extends HawkBlockMachine
 	@Override
 	public boolean onUseWrench(World world, int x, int y, int z, EntityPlayer player)
 	{
-		if (this.tileEntity.isBeingSapped)
+		if (this.tileEntity.isBeingSapped())
 		{
 			return this.tileEntity.attemptToUnSap(player);
 		}
@@ -69,7 +69,7 @@ public abstract class HawkBlockMachineRepairable extends HawkBlockMachine
 	@Override
 	public void randomDisplayTick(World world, int x, int y, int z, Random random)
 	{
-		if (this.tileEntity.isBeingSapped)
+		if (this.tileEntity.isBeingSapped())
 		{
 			if (!((IHawkSapper)this.tileEntity.sapper.getItem()).isSapperSilent(this.tileEntity.sapper))
 			{

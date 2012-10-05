@@ -22,9 +22,10 @@ public interface IHawkRepairable
 	
 	public boolean randomlyDamageSelf();
 	
-	@Deprecated
 	public boolean attemptRepair(World world, int x, int y, int z, int repairAmount);
 	
 	public int getMaxHP();
+	
+	public boolean isBeingSapped();
 	
 }

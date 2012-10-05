@@ -17,18 +17,19 @@ public interface IHawkSapper
 	 * 
 	 * Used to determine if the current damage value counts as a sapper.
 	 * 
-	 * @param item The item.
+	 * @param sapper The sapper.
 	 * @return True if it is, false otherwise.
 	 */
-	public boolean isSapper(ItemStack item);
+	public boolean isSapper(ItemStack sapper);
 	
 	/**
 	 * 
 	 * Used to determine if this sapper is "silent".
 	 * 
+	 * @param sapper The sapper.
 	 * @return True if it is, false otherwise.
 	 */
-	public boolean isSapperSilent(ItemStack item);
+	public boolean isSapperSilent(ItemStack sapper);
 	
 	/**
 	 * 
@@ -36,7 +37,7 @@ public interface IHawkSapper
 	 * 
 	 * @return True if it is, false otherwise.
 	 */
-	public boolean isSapperSingleUse(ItemStack item);
+	public boolean isSapperSingleUse(ItemStack sapper);
 	
 	/**
 	 * 
@@ -45,7 +46,7 @@ public interface IHawkSapper
 	 * @param item The item.
 	 * @return How many Sappers are needed.
 	 */
-	public int getSapperQuantity(ItemStack item);
+	public int getSapperQuantity(ItemStack sapper);
 	
 	/**
 	 * 

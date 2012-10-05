@@ -37,7 +37,7 @@ import universalelectricity.network.PacketManager;
  * 
  * @author Elusivehawk
  */
-public class HawkTileEntityWasher extends HawkTileEntityMachine implements IItemTransfer
+public class HawkTileEntityWasher extends HawkTileEntityRepairable implements IItemTransfer
 {
 	public float waterUnits = 0;
 	
@@ -57,70 +57,76 @@ public class HawkTileEntityWasher extends HawkTileEntityMachine implements IItem
 	@Override
 	public void updateEntity()
 	{
-		if (this.containingItems[0] != null)
+		super.updateEntity();
+		
+		if (!this.isDisabled())
 		{
-			if (this.containingItems[0].getItem() instanceof IItemElectric)
+			if (this.containingItems[0] != null)
 			{
-				IItemElectric electricItem = (IItemElectric)this.containingItems[0].getItem();
-				
-				if (electricItem.canProduceElectricity() && this.electricityStored + electricItem.getTransferRate() <= this.ELECTRICITY_LIMIT)
+				if (this.containingItems[0].getItem() instanceof IItemElectric)
 				{
-					double receivedElectricity = electricItem.onUseElectricity(electricItem.getTransferRate(), this.containingItems[0]);
-					this.electricityStored += receivedElectricity;
+					IItemElectric electricItem = (IItemElectric)this.containingItems[0].getItem();
+					
+					if (electricItem.canProduceElectricity() && this.electricityStored + electricItem.getTransferRate() <= this.ELECTRICITY_LIMIT)
+					{
+						double receivedElectricity = electricItem.onUseElectricity(electricItem.getTransferRate(), this.containingItems[0]);
+						this.electricityStored += receivedElectricity;
+					}
 				}
 			}
-		}
-		
-		if (this.containingItems[1] != null)
-		{
-			if (this.containingItems[1].getItem() == Item.bucketWater && this.waterUnits + 1.0F <= this.WATER_LIMIT)
-			{
-				this.waterUnits += 1.0;
-				this.containingItems[1] = new ItemStack(Item.bucketEmpty, 1);
-			}
 			
-		}
-		
-		if (this.canWash())
-		{
-			if (this.containingItems[2] != null && this.workTicks == 0)
+			if (this.containingItems[1] != null)
 			{
-				this.workTicks = this.TICKS_REQUIRED;
-			}
-			
-			if (this.canWash() && this.workTicks > 0)
-			{
-				--this.workTicks;
-				this.waterUnits -= 0.01F;
-				
-				if (this.workTicks == 1)
+				if (this.containingItems[1].getItem() == Item.bucketWater && this.waterUnits + 1.0F <= this.WATER_LIMIT)
 				{
-					this.washItem();
+					this.waterUnits += 1.0;
+					this.containingItems[1] = new ItemStack(Item.bucketEmpty, 1);
+				}
+				
+			}
+			
+			if (this.canWash())
+			{
+				if (this.containingItems[2] != null && this.workTicks == 0)
+				{
+					this.workTicks = this.TICKS_REQUIRED;
+				}
+				
+				if (this.canWash() && this.workTicks > 0)
+				{
+					--this.workTicks;
+					this.waterUnits -= 0.01F;
+					
+					if (this.workTicks == 1)
+					{
+						this.washItem();
+						this.workTicks = 0;
+					}
+					
+					this.electricityStored = this.electricityStored - this.ELECTRICITY_REQUIRED;
+				}
+				else
+				{
 					this.workTicks = 0;
 				}
-				
-				this.electricityStored = this.electricityStored - this.ELECTRICITY_REQUIRED;
 			}
-			else
+			
+			if (this.waterUnits > this.WATER_LIMIT)
+			{
+				this.waterUnits = this.WATER_LIMIT;
+			}
+			
+			if (this.worldObj.getBlockId(this.xCoord, this.yCoord + 1, this.zCoord) == Block.waterStill.blockID && this.waterUnits + 1.0F <= this.WATER_LIMIT)
+			{
+				this.waterUnits += 1.0F;
+				this.worldObj.setBlockWithNotify(this.xCoord, this.yCoord + 1, this.zCoord, 0);
+			}
+			
+			if (!this.canWash() && this.workTicks != 0)
 			{
 				this.workTicks = 0;
 			}
-		}
-		
-		if (this.waterUnits > this.WATER_LIMIT)
-		{
-			this.waterUnits = this.WATER_LIMIT;
-		}
-		
-		if (this.worldObj.getBlockId(this.xCoord, this.yCoord + 1, this.zCoord) == Block.waterStill.blockID && this.waterUnits + 1.0F <= this.WATER_LIMIT)
-		{
-			this.waterUnits += 1.0F;
-			this.worldObj.setBlockWithNotify(this.xCoord, this.yCoord + 1, this.zCoord, 0);
-		}
-		
-		if (!this.canWash() && this.workTicks != 0)
-		{
-			this.workTicks = 0;
+			
 		}
 		
 	}
@@ -241,32 +247,43 @@ public class HawkTileEntityWasher extends HawkTileEntityMachine implements IItem
 	{
 		return "HMWasher";
 	}
-	
+
 	@Override
 	public double wattRequest()
 	{
-		if (!this.isDisabled() && this.canWash() && this.electricityStored + this.ELECTRICITY_REQUIRED <= this.ELECTRICITY_LIMIT)
+		if (this.isDisabled())
 		{
-			return this.ELECTRICITY_REQUIRED;
+			return 0;
 		}
 		else
 		{
-			if (this.ELECTRICITY_LIMIT != this.electricityStored)
+			if (this.canWash() && this.electricityStored + this.ELECTRICITY_REQUIRED <= this.ELECTRICITY_LIMIT)
 			{
-				if (this.electricityStored + this.ELECTRICITY_REQUIRED >= this.ELECTRICITY_LIMIT)
-				{
-					return this.ELECTRICITY_LIMIT - this.electricityStored;
-				}
-				else
-				{
-					return this.ELECTRICITY_REQUIRED;
-				}
+				return this.ELECTRICITY_REQUIRED;
 			}
 			else
 			{
-				return 0;
+				if (this.ELECTRICITY_LIMIT != this.electricityStored)
+				{
+					if (this.electricityStored + this.ELECTRICITY_REQUIRED >= this.ELECTRICITY_LIMIT)
+					{
+						return this.ELECTRICITY_LIMIT - this.electricityStored;
+					}
+					else
+					{
+						return this.ELECTRICITY_REQUIRED;
+					}
+					
+				}
+				else
+				{
+					return 0;
+				}
+				
 			}
+			
 		}
+		
 	}
 	
 	@Override

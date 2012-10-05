@@ -73,7 +73,7 @@ public abstract class HawkTileEntityMachine extends TileEntityElectricityReceive
 		{
 			this.electricityStored = this.ELECTRICITY_LIMIT;
 		}
-
+		
 		if (!this.worldObj.isRemote && this.isOpen)
 		{
 			this.sendPacket();

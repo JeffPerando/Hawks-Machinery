@@ -19,25 +19,33 @@ import hawksmachinery.interfaces.IHawkSapper;
 public abstract class HawkTileEntityRepairable extends HawkTileEntityMachine implements IHawkRepairable
 {
 	public int machineHealth;
-	public boolean isBeingSapped;
+	private boolean isBeingSapped;
 	public ItemStack sapper;
 	
 	@Override
 	public void updateEntity()
 	{
-		this.isBeingSapped = this.sapper != null;
-
 		super.updateEntity();
 		
-		if (this.isBeingSapped || this.machineHealth <= 0)
+		if (this.isBeingSapped() || this.machineHealth <= 0)
 		{
 			++this.disabledTicks;
-			if (this.isBeingSapped)
+			if (this.isBeingSapped())
 			{
 				this.machineHealth -= ((IHawkSapper)this.sapper.getItem()).getSapRate();
 				((IHawkSapper)this.sapper.getItem()).sapperTick(this);
 			}
 			
+		}
+		
+		if (this.machineHealth > this.getMaxHP())
+		{
+			this.machineHealth = this.getMaxHP();
+		}
+		
+		if (this.machineHealth < 0)
+		{
+			this.machineHealth = 0;
 		}
 		
 	}
@@ -65,7 +73,7 @@ public abstract class HawkTileEntityRepairable extends HawkTileEntityMachine imp
 			
 		}
 		
-		return !this.isBeingSapped;
+		return !this.isBeingSapped();
 	}
 	
 	public boolean randomlyDamageSelf()
@@ -82,14 +90,24 @@ public abstract class HawkTileEntityRepairable extends HawkTileEntityMachine imp
 	
 	public boolean attemptRepair(World world, int x, int y, int z, int repairAmount)
 	{
-		//TODO Wait for Rivet Gun implementation.
+		if (this.machineHealth != this.getMaxHP() && !this.isBeingSapped())
+		{
+			this.machineHealth += repairAmount;
+			return true;
+		}
+		
 		return false;
 	}
 	
 	@Override
 	public boolean isDisabled()
 	{
-		return this.isBeingSapped || this.machineHealth <= 0;
+		return this.isBeingSapped() || this.machineHealth <= 0;
+	}
+	
+	public boolean isBeingSapped()
+	{
+		return this.sapper != null;
 	}
 	
 	public int getMaxHP()
