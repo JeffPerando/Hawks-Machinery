@@ -1,6 +1,7 @@
 
-package hawksmachinery;
+package hawksmachinery.interfaces;
 
+import hawksmachinery.HawkEnumUpgrades;
 import hawksmachinery.tileentity.HawkTileEntityMachine;
 
 /**

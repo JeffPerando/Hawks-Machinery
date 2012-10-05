@@ -1,5 +1,5 @@
 
-package hawksmachinery;
+package hawksmachinery.interfaces;
 
 import java.util.Random;
 import net.minecraft.src.EntityPlayer;
@@ -15,7 +15,6 @@ import net.minecraft.src.World;
 public interface IHawkRepairable
 {
 	int machineHealth = 0;
-	int maxMachineHP = 0;
 	boolean isBeingSapped = false;
 	IHawkSapper sapper = null;
 	
@@ -25,5 +24,7 @@ public interface IHawkRepairable
 	
 	@Deprecated
 	public boolean attemptRepair(World world, int x, int y, int z, int repairAmount);
+	
+	public int getMaxHP();
 	
 }

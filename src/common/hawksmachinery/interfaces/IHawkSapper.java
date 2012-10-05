@@ -1,7 +1,8 @@
 
-package hawksmachinery;
+package hawksmachinery.interfaces;
 
 import hawksmachinery.tileentity.HawkTileEntityRepairable;
+import net.minecraft.src.ItemStack;
 import net.minecraft.src.World;
 
 /**
@@ -14,11 +15,12 @@ public interface IHawkSapper
 {
 	/**
 	 * 
-	 * Used to determine if this sapper is consumed when used.
+	 * Used to determine if the current damage value counts as a sapper.
 	 * 
+	 * @param item The item.
 	 * @return True if it is, false otherwise.
 	 */
-	public boolean isSapperConsumed();
+	public boolean isSapper(ItemStack item);
 	
 	/**
 	 * 
@@ -26,7 +28,24 @@ public interface IHawkSapper
 	 * 
 	 * @return True if it is, false otherwise.
 	 */
-	public boolean isSapperSilent();
+	public boolean isSapperSilent(ItemStack item);
+	
+	/**
+	 * 
+	 * Used to determine if this sapper is dropped when removed.
+	 * 
+	 * @return True if it is, false otherwise.
+	 */
+	public boolean isSapperSingleUse(ItemStack item);
+	
+	/**
+	 * 
+	 * Used to determine the quantity needed for 
+	 * 
+	 * @param item The item.
+	 * @return How many Sappers are needed.
+	 */
+	public int getSapperQuantity(ItemStack item);
 	
 	/**
 	 * 

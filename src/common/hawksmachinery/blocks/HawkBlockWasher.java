@@ -24,7 +24,7 @@ import universalelectricity.prefab.BlockMachine;
  *
  * @author Elusivehawk
  */
-public class HawkBlockWasher extends HawkBlockMachine
+public class HawkBlockWasher extends HawkBlockMachineRepairable
 {
 	public HawkTileEntityWasher tileEntity;
 	
@@ -61,13 +61,17 @@ public class HawkBlockWasher extends HawkBlockMachine
 	@Override
 	public boolean onUseWrench(World world, int x, int y, int z, EntityPlayer player)
 	{
-		switch(world.getBlockMetadata(x, y, z))
+		if (!super.onUseWrench(world, x, y, z, player))
 		{
-			case 2: world.setBlockMetadataWithNotify(x, y, z, 4); break;
-			case 5: world.setBlockMetadataWithNotify(x, y, z, 2); break;
-			case 0: world.setBlockMetadataWithNotify(x, y, z, 5); break;
-			case 3: world.setBlockMetadataWithNotify(x, y, z, 5); break;
-			case 4: world.setBlockMetadataWithNotify(x, y, z, 3); break;
+			switch (world.getBlockMetadata(x, y, z))
+			{
+				case 2: world.setBlockMetadataWithNotify(x, y, z, 4); break;
+				case 5: world.setBlockMetadataWithNotify(x, y, z, 2); break;
+				case 0: world.setBlockMetadataWithNotify(x, y, z, 5); break;
+				case 3: world.setBlockMetadataWithNotify(x, y, z, 5); break;
+				case 4: world.setBlockMetadataWithNotify(x, y, z, 3); break;
+			}
+			
 		}
 		
 		return true;

@@ -2,10 +2,13 @@
 package hawksmachinery.tileentity;
 
 import java.util.Random;
+import net.minecraft.src.EntityItem;
 import net.minecraft.src.EntityPlayer;
+import net.minecraft.src.ItemStack;
+import net.minecraft.src.NBTTagCompound;
 import net.minecraft.src.World;
-import hawksmachinery.IHawkRepairable;
-import hawksmachinery.IHawkSapper;
+import hawksmachinery.interfaces.IHawkRepairable;
+import hawksmachinery.interfaces.IHawkSapper;
 
 /**
  * 
@@ -16,37 +19,48 @@ import hawksmachinery.IHawkSapper;
 public abstract class HawkTileEntityRepairable extends HawkTileEntityMachine implements IHawkRepairable
 {
 	public int machineHealth;
-	public int maxMachineHP;
 	public boolean isBeingSapped;
-	public IHawkSapper sapper;
+	public ItemStack sapper;
 	
 	@Override
 	public void updateEntity()
 	{
+		this.isBeingSapped = this.sapper != null;
+
+		super.updateEntity();
+		
 		if (this.isBeingSapped || this.machineHealth <= 0)
 		{
 			++this.disabledTicks;
-			this.machineHealth -= this.sapper.getSapRate();
+			if (this.isBeingSapped)
+			{
+				this.machineHealth -= ((IHawkSapper)this.sapper.getItem()).getSapRate();
+				((IHawkSapper)this.sapper.getItem()).sapperTick(this);
+			}
+			
 		}
-		
-		this.sapper.sapperTick(this);
-		super.updateEntity();
 		
 	}
 	
 	public boolean attemptToUnSap(EntityPlayer player)
 	{
-		if (this.sapper.getSapperRemovalChance() <= 0)
+		if (((IHawkSapper)this.sapper.getItem()).getSapperRemovalChance() <= 0)
 		{
 			player.addChatMessage("The Sapper cannot be removed.");
 		}
 		else
 		{
-			int randomInt = new Random().nextInt(this.sapper.getSapperRemovalChance());
+			int removeRate = ((IHawkSapper)this.sapper.getItem()).getSapperRemovalChance();
+			int randomInt = new Random().nextInt(removeRate);
 			
-			if (randomInt == 2)
+			if (randomInt == removeRate / 2)
 			{
-				this.isBeingSapped = false;
+				if (!((IHawkSapper)this.sapper.getItem()).isSapperSingleUse(this.sapper))
+				{
+					this.worldObj.spawnEntityInWorld(new EntityItem(this.worldObj, this.xCoord + 0.5, this.yCoord + 1.5, this.zCoord + 0.5, this.sapper));
+				}
+				
+				this.sapper = null;
 			}
 			
 		}
@@ -76,6 +90,29 @@ public abstract class HawkTileEntityRepairable extends HawkTileEntityMachine imp
 	public boolean isDisabled()
 	{
 		return this.isBeingSapped || this.machineHealth <= 0;
+	}
+	
+	public int getMaxHP()
+	{
+		return 20;
+	}
+	
+	@Override
+	public void writeToNBT(NBTTagCompound NBTTag)
+	{
+		super.writeToNBT(NBTTag);
+		NBTTag.setInteger("MachineHP", this.machineHealth);
+		NBTTag.setCompoundTag("Sapper", this.sapper.writeToNBT(new NBTTagCompound()));
+		
+	}
+	
+	@Override
+	public void readFromNBT(NBTTagCompound NBTTag)
+	{
+		super.readFromNBT(NBTTag);
+		this.machineHealth = NBTTag.getInteger("MachineHP");
+		this.sapper = ItemStack.loadItemStackFromNBT(NBTTag.getCompoundTag("Sapper"));
+		
 	}
 	
 }

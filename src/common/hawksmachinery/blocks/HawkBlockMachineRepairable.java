@@ -2,10 +2,11 @@
 package hawksmachinery.blocks;
 
 import java.util.Random;
-import hawksmachinery.IHawkSapper;
+import hawksmachinery.interfaces.IHawkSapper;
 import hawksmachinery.tileentity.HawkTileEntityRepairable;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.Item;
+import net.minecraft.src.ItemStack;
 import net.minecraft.src.Material;
 import net.minecraft.src.World;
 
@@ -19,9 +20,9 @@ public abstract class HawkBlockMachineRepairable extends HawkBlockMachine
 {
 	public HawkTileEntityRepairable tileEntity;
 	
-	public HawkBlockMachineRepairable(String name, int id)
+	public HawkBlockMachineRepairable(String name, int id, Material mat)
 	{
-		super(name, id, Material.iron);
+		super(name, id, mat);
 	}
 	
 	@Override
@@ -29,14 +30,26 @@ public abstract class HawkBlockMachineRepairable extends HawkBlockMachine
 	{
 		if (player.getCurrentEquippedItem().getItem() instanceof IHawkSapper)
 		{
-			this.tileEntity.sapper = (IHawkSapper)player.getCurrentEquippedItem().getItem();
+			ItemStack potentialSapper = player.getCurrentEquippedItem();
 			
-			if (this.tileEntity.sapper.isSapperConsumed() && !player.capabilities.isCreativeMode)
+			if (((IHawkSapper)potentialSapper.getItem()).isSapper(potentialSapper))
 			{
-				--player.getCurrentEquippedItem().stackSize;
+				int quantity = ((IHawkSapper)potentialSapper.getItem()).getSapperQuantity(potentialSapper);
+				
+				if (quantity <= potentialSapper.stackSize)
+				{
+					this.tileEntity.sapper = new ItemStack(potentialSapper.getItem(), quantity, potentialSapper.getItemDamage());
+					
+					if (!player.capabilities.isCreativeMode)
+					{
+						player.getCurrentEquippedItem().stackSize -= quantity;
+					}
+					
+					return true;
+				}
+				
 			}
 			
-			return true;
 		}
 		
 		return false;
@@ -50,7 +63,7 @@ public abstract class HawkBlockMachineRepairable extends HawkBlockMachine
 			return this.tileEntity.attemptToUnSap(player);
 		}
 		
-		return false;
+		return true;
 	}
 	
 	@Override
@@ -58,7 +71,7 @@ public abstract class HawkBlockMachineRepairable extends HawkBlockMachine
 	{
 		if (this.tileEntity.isBeingSapped)
 		{
-			if (!this.tileEntity.sapper.isSapperSilent())
+			if (!((IHawkSapper)this.tileEntity.sapper.getItem()).isSapperSilent(this.tileEntity.sapper))
 			{
 				world.spawnParticle("largesmoke", x + 0.5, y + 2, z + 0.5, 0, 0, 0);
 				world.spawnParticle("largesmoke", x + 0.5, y + 2, z + 0.5, 0, 0, 0);
