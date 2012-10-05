@@ -4,7 +4,7 @@ package hawksmachinery;
 import hawksmachinery.blocks.*;
 import hawksmachinery.items.*;
 import hawksmachinery.tileentity.*;
-import hawksmachinery.HawkProcessingRecipes.HawkEnumProcessing;
+import hawksmachinery.HMProcessingRecipes.HawkEnumProcessing;
 import java.io.File;
 import java.util.List;
 import com.google.common.collect.ObjectArrays;
@@ -63,7 +63,7 @@ import cpw.mods.fml.common.registry.VillagerRegistry;
  * 
  * @author Elusivehawk
  */
-@Mod(modid = "HawksMachinery", name = "Hawk's Machinery", version = "Alpha v1.4.0", dependencies = "after:BasicComponents")
+@Mod(modid = "HawksMachinery", name = "Hawk's Machinery", version = HawksMachinery.VERSION, dependencies = "after:BasicComponents")
 @NetworkMod(channels = {"HawksMachinery"}, clientSideRequired = true, serverSideRequired = false, packetHandler = PacketManager.class)
 public class HawksMachinery implements ICraftingHandler
 {
@@ -73,12 +73,14 @@ public class HawksMachinery implements ICraftingHandler
 	@SidedProxy(clientSide = "hawksmachinery.HMClientProxy", serverSide = "hawksmachinery.HMCommonProxy")
 	public static HMCommonProxy PROXY;
 	
+	public static final String VERSION = "Alpha v1.4.0";
+	
 	public static RecipeManager RECIPE_GIVER;
-	public static HawkProcessingRecipes PROCESS_RECIPES;
+	public static HMProcessingRecipes PROCESS_RECIPES;
 	public static HawkEnumProcessing CRUSH = HawkEnumProcessing.CRUSHING;
 	public static HawkEnumProcessing WASH = HawkEnumProcessing.WASHING;
 	
-	public static HawkManager MANAGER = new HawkManager(instance());
+	public static HMManager MANAGER = new HMManager(instance());
 	
 	public static final String GUI_PATH = "/hawksmachinery/resources/gui";
 	public static final String BLOCK_TEXTURE_FILE = "/hawksmachinery/resources/textures/blocks.png";
@@ -108,21 +110,21 @@ public class HawksMachinery implements ICraftingHandler
 	{
 		INSTANCE = this;
 		
-		crusher = new HawkBlockCrusher(MANAGER.loadConfig()).setStepSound(Block.soundMetalFootstep);
-		endiumOre = new HawkBlock(MANAGER.endiumOreID, Material.rock, 19).setStepSound(Block.soundStoneFootstep);
-		washer = new HawkBlockWasher(MANAGER.washerID).setStepSound(Block.soundMetalFootstep);
+		crusher = new HMBlockCrusher(MANAGER.loadConfig()).setStepSound(Block.soundMetalFootstep);
+		endiumOre = new HMBlock(MANAGER.endiumOreID, Material.rock, 19).setStepSound(Block.soundStoneFootstep);
+		washer = new HMBlockWasher(MANAGER.washerID).setStepSound(Block.soundMetalFootstep);
 		if (MANAGER.enableChunkloader)
 		{
-			chunkloader = new HawkBlockChunkloader(MANAGER.chunkloaderID);
+			chunkloader = new HMBlockChunkloader(MANAGER.chunkloaderID);
 			ForgeChunkManager.setForcedChunkLoadingCallback(this, MANAGER);
 			
 		}
 		
-		dustRaw = new HawkItemRawDust(MANAGER.dustRawID - 256);
-		dustRefined = new HawkItemRefinedDust(MANAGER.dustRefinedID - 256);
-		parts = new HawkItemParts(MANAGER.partsID - 256);
-		blueprints = new HawkItemBlueprints(MANAGER.blueprintID - 256);
-		endiumItems = new HawkItemEndium(MANAGER.endiumAlloyID - 256);
+		dustRaw = new HMItemRawDust(MANAGER.dustRawID - 256);
+		dustRefined = new HMItemRefinedDust(MANAGER.dustRefinedID - 256);
+		parts = new HMItemParts(MANAGER.partsID - 256);
+		blueprints = new HMItemBlueprints(MANAGER.blueprintID - 256);
+		endiumItems = new HMItemEndium(MANAGER.endiumAlloyID - 256);
 		
 		NetworkRegistry.instance().registerGuiHandler(this, this.PROXY);
 		GameRegistry.registerWorldGenerator(MANAGER);

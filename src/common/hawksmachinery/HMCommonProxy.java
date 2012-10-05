@@ -1,9 +1,9 @@
 
 package hawksmachinery;
 
-import hawksmachinery.tileentity.HawkTileEntityChunkloader;
-import hawksmachinery.tileentity.HawkTileEntityCrusher;
-import hawksmachinery.tileentity.HawkTileEntityWasher;
+import hawksmachinery.tileentity.HMTileEntityChunkloader;
+import hawksmachinery.tileentity.HMTileEntityCrusher;
+import hawksmachinery.tileentity.HMTileEntityWasher;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.IConnectionHandler;
 import cpw.mods.fml.common.network.IGuiHandler;
@@ -31,11 +31,11 @@ public class HMCommonProxy implements IGuiHandler, IConnectionHandler
 	
 	public void registerRenderInformation()
 	{
-		GameRegistry.registerTileEntity(HawkTileEntityCrusher.class, "HMCrusher");
-		GameRegistry.registerTileEntity(HawkTileEntityWasher.class, "HMWasher");
+		GameRegistry.registerTileEntity(HMTileEntityCrusher.class, "HMCrusher");
+		GameRegistry.registerTileEntity(HMTileEntityWasher.class, "HMWasher");
 		if (BASEMOD.MANAGER.enableChunkloader)
 		{
-			GameRegistry.registerTileEntity(HawkTileEntityChunkloader.class, "HMChunkloader");
+			GameRegistry.registerTileEntity(HMTileEntityChunkloader.class, "HMChunkloader");
 			
 		}
 		
@@ -54,8 +54,8 @@ public class HMCommonProxy implements IGuiHandler, IConnectionHandler
 		
 		switch (id)
 		{
-			case 0: return new HawkContainerCrusher(player.inventory, ((HawkTileEntityCrusher)tileEntity));
-			case 1: return new HawkContainerWasher(player.inventory, ((HawkTileEntityWasher)tileEntity));
+			case 0: return new HMContainerCrusher(player.inventory, ((HMTileEntityCrusher)tileEntity));
+			case 1: return new HMContainerWasher(player.inventory, ((HMTileEntityWasher)tileEntity));
 		}
 		
 		return null;
