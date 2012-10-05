@@ -14,19 +14,19 @@ import hawksmachinery.interfaces.IHawkRivet;
  */
 public class HawkRivetHandler
 {
-	private static List rivets;
+	private static List<ItemStack> rivets;
 	
 	public static void registerRivet(IHawkRivet rivet, int meta)
 	{
 		if (rivet.isValidRivet(new ItemStack(rivet.getRivet(), 1, meta)))
 		{
-			rivets.add(Arrays.asList(rivet, meta));
+			rivets.add(new ItemStack(rivet.getRivet(), 1, meta));
 			
 		}
 		
 	}
 	
-	public static List getRivetsList()
+	public static List<ItemStack> getRivetsList()
 	{
 		return rivets;
 	}

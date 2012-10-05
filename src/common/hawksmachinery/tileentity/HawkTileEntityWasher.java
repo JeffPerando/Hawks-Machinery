@@ -47,7 +47,7 @@ public class HawkTileEntityWasher extends HawkTileEntityRepairable implements II
 	{
 		super();
 		ELECTRICITY_REQUIRED = 10;
-		TICKS_REQUIRED = FMLCommonHandler.instance().getSide().isServer() ? HawksMachinery.crusherTicks : 100;
+		TICKS_REQUIRED = FMLCommonHandler.instance().getSide().isServer() ? HawksMachinery.MANAGER.crusherTicks : 100;
 		ELECTRICITY_LIMIT = 1200;
 		containingItems = new ItemStack[6];
 		machineEnum = HawkEnumProcessing.WASHING;

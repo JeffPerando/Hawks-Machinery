@@ -65,7 +65,7 @@ public class HawkTileEntityChunkloader extends TileEntity
 				newTicket.getModData().setInteger("xCoord", this.xCoord);
 				newTicket.getModData().setInteger("yCoord", this.yCoord);
 				newTicket.getModData().setInteger("zCoord", this.zCoord);
-				newTicket.setChunkListDepth(BASEMOD.maxChunksLoaded);
+				newTicket.setChunkListDepth(BASEMOD.MANAGER.maxChunksLoaded);
 				this.heldChunk = newTicket;
 				
 			}

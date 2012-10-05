@@ -23,7 +23,7 @@ public class HawkLanguageCore
 	{
 		LANG.addNameForObject(BASEMOD.crusher, "en_US", "Crusher");
 		LANG.addNameForObject(BASEMOD.washer, "en_US", "Washer");
-		if (BASEMOD.enableChunkloader)
+		if (BASEMOD.MANAGER.enableChunkloader)
 		{
 			LANG.addNameForObject(BASEMOD.chunkloader, "en_US", "Endium Chunkloader");
 		}

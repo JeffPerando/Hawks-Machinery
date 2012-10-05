@@ -33,7 +33,7 @@ public class HMCommonProxy implements IGuiHandler, IConnectionHandler
 	{
 		GameRegistry.registerTileEntity(HawkTileEntityCrusher.class, "HMCrusher");
 		GameRegistry.registerTileEntity(HawkTileEntityWasher.class, "HMWasher");
-		if (BASEMOD.enableChunkloader)
+		if (BASEMOD.MANAGER.enableChunkloader)
 		{
 			GameRegistry.registerTileEntity(HawkTileEntityChunkloader.class, "HMChunkloader");
 			

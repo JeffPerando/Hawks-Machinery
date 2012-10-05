@@ -50,7 +50,7 @@ public class HawkTileEntityCrusher extends HawkTileEntityRepairable implements I
 	{
 		super();
 		ELECTRICITY_REQUIRED = 10;
-		TICKS_REQUIRED = FMLCommonHandler.instance().getSide().isServer() ? HawksMachinery.crusherTicks : 180;
+		TICKS_REQUIRED = FMLCommonHandler.instance().getSide().isServer() ? HawksMachinery.MANAGER.crusherTicks : 180;
 		ELECTRICITY_LIMIT = 2500;
 		containingItems = new ItemStack[3];
 		machineEnum = HawkEnumProcessing.CRUSHING;

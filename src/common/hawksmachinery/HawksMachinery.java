@@ -78,42 +78,13 @@ public class HawksMachinery implements ICraftingHandler
 	public static HawkEnumProcessing CRUSH = HawkEnumProcessing.CRUSHING;
 	public static HawkEnumProcessing WASH = HawkEnumProcessing.WASHING;
 	
-	public static int crusherID;
-	public static int endiumOreID;
-	public static int washerID;
-	public static int chunkloaderID;
-	public static int sintererID;
-	public static int refrigeratorID;
-	
-	public static int dustRawID;
-	public static int dustRefinedID;
-	public static int partsID;
-	public static int blueprintID;
-	public static int endiumAlloyID;
-	
-	public static int ACHprospector;
-	public static int ACHtimeToCrush;
-	public static int ACHminerkiin;
-	public static int ACHwash;
-	
-	public static int crusherTicks;
-	public static int washerTicks;
-	public static int maxChunksLoaded = 100;
-	
-	public static boolean generateEndium;
-	public static boolean enableUpdateChecking;
-	public static boolean enableAutoDL;
-	public static boolean enableChunkloader;
+	public static HawkManager MANAGER = new HawkManager(instance());
 	
 	public static final String GUI_PATH = "/hawksmachinery/resources/gui";
 	public static final String BLOCK_TEXTURE_FILE = "/hawksmachinery/resources/textures/blocks.png";
 	public static final String ITEM_TEXTURE_FILE = "/hawksmachinery/resources/textures/items.png";
 	public static final String TEXTURE_PATH = "/hawksmachinery/resources/textures";
 	public static final String SOUND_PATH = "/hawksmachinery/resources/sounds";
-	
-	public static Configuration HMConfig = new Configuration(new File(Loader.instance().getConfigDir(), "HawksMachinery/HMConfig.cfg"));
-	
-	public static HawkManager MANAGER = new HawkManager(instance());
 	
 	public static Block crusher;
 	public static Block washer;
@@ -137,63 +108,21 @@ public class HawksMachinery implements ICraftingHandler
 	{
 		INSTANCE = this;
 		
-		HMConfig.load();
-		
-		crusherID = HMConfig.getBlock("Crusher", 3960).getInt(3960);
-		endiumOreID = HMConfig.getBlock("Endium Ore", 3961).getInt(3961);
-		washerID = HMConfig.getBlock("Washer", 3962).getInt(3962);
-		//NOTE ID #3963 saved for Endium Chunkloader.
-		sintererID = HMConfig.getBlock("Sinterer", 3964).getInt(3965);
-		refrigeratorID = HMConfig.getBlock("Refridgerator", 3965).getInt(3965);
-		
-		generateEndium = HMConfig.get(Configuration.CATEGORY_GENERAL, "Generate Endium", true).getBoolean(true);
-		enableUpdateChecking = HMConfig.get(Configuration.CATEGORY_GENERAL, "Enable Update Checking", true).getBoolean(true);
-		enableAutoDL = HMConfig.get(Configuration.CATEGORY_GENERAL, "Enable Auto DL", true).getBoolean(true);
-		enableChunkloader = HMConfig.get(Configuration.CATEGORY_GENERAL, "Enable Chunkloader Block", true).getBoolean(true);
-		
-		if (enableChunkloader)
+		crusher = new HawkBlockCrusher(MANAGER.loadConfig()).setStepSound(Block.soundMetalFootstep);
+		endiumOre = new HawkBlock(MANAGER.endiumOreID, Material.rock, 19).setStepSound(Block.soundStoneFootstep);
+		washer = new HawkBlockWasher(MANAGER.washerID).setStepSound(Block.soundMetalFootstep);
+		if (MANAGER.enableChunkloader)
 		{
-			chunkloaderID = HMConfig.getBlock("Endium Chunkloader", 3964).getInt(3964);
-			maxChunksLoaded = HMConfig.get("Max Chunks Loaded", Configuration.CATEGORY_GENERAL, 25).getInt(25);
-			
-		}
-		
-		dustRawID = HMConfig.get(Configuration.CATEGORY_ITEM, "Raw Dusts", 24150).getInt(24150);
-		dustRefinedID = HMConfig.get(Configuration.CATEGORY_ITEM, "Refined Dusts", 24151).getInt(24151);
-		partsID = HMConfig.get(Configuration.CATEGORY_ITEM, "Parts", 24152).getInt(24152);
-		blueprintID = HMConfig.get(Configuration.CATEGORY_ITEM, "Blueprints", 24153).getInt(24153);
-		endiumAlloyID = HMConfig.get(Configuration.CATEGORY_ITEM, "Endium Alloy", 24154).getInt(24154);
-		
-		ACHprospector = HMConfig.get(Configuration.CATEGORY_GENERAL, "ACH Prospector", 1500).getInt(1500);
-		ACHtimeToCrush = HMConfig.get(Configuration.CATEGORY_GENERAL, "ACH Time To Crush", 1501).getInt(1501);
-		ACHminerkiin = HMConfig.get(Configuration.CATEGORY_GENERAL, "ACH Minerkiin", 1503).getInt(1503);
-		ACHwash = HMConfig.get(Configuration.CATEGORY_GENERAL, "ACH Wash", 1504).getInt(1504);
-		
-		if (FMLCommonHandler.instance().getSide().isServer())
-		{
-			HMConfig.addCustomCategoryComment("advanced_settings", "Advanced server OP settings, don't be a moron with them.");
-			crusherTicks = HMConfig.get("advanced_settings", "Crusher Ticks", 180).getInt(180);
-			washerTicks = HMConfig.get("advanced_settings", "Washer Ticks", 100).getInt(100);
-			
-		}
-		
-		HMConfig.save();
-		
-		crusher = new HawkBlockCrusher(crusherID).setStepSound(Block.soundMetalFootstep);
-		endiumOre = new HawkBlock(endiumOreID, Material.rock, 19).setStepSound(Block.soundStoneFootstep);
-		washer = new HawkBlockWasher(washerID).setStepSound(Block.soundMetalFootstep);
-		if (enableChunkloader)
-		{
-			chunkloader = new HawkBlockChunkloader(chunkloaderID);
+			chunkloader = new HawkBlockChunkloader(MANAGER.chunkloaderID);
 			ForgeChunkManager.setForcedChunkLoadingCallback(this, MANAGER);
 			
 		}
 		
-		dustRaw = new HawkItemRawDust(dustRawID - 256);
-		dustRefined = new HawkItemRefinedDust(dustRefinedID - 256);
-		parts = new HawkItemParts(partsID - 256);
-		blueprints = new HawkItemBlueprints(blueprintID - 256);
-		endiumItems = new HawkItemEndium(endiumAlloyID - 256);
+		dustRaw = new HawkItemRawDust(MANAGER.dustRawID - 256);
+		dustRefined = new HawkItemRefinedDust(MANAGER.dustRefinedID - 256);
+		parts = new HawkItemParts(MANAGER.partsID - 256);
+		blueprints = new HawkItemBlueprints(MANAGER.blueprintID - 256);
+		endiumItems = new HawkItemEndium(MANAGER.endiumAlloyID - 256);
 		
 		NetworkRegistry.instance().registerGuiHandler(this, this.PROXY);
 		GameRegistry.registerWorldGenerator(MANAGER);
@@ -256,7 +185,7 @@ public class HawksMachinery implements ICraftingHandler
 		
 		//RECIPE_GIVER.addRecipe(new ItemStack(blockCrusher, 1), new Object[]{"TPT", "TMT", "TBT", 'T', new ItemStack(plating, 1, 0), 'P', Item.pickaxeSteel, 'M', BasicComponents.itemMotor, 'B', ((ItemBattery)BasicComponents.itemBattery).getUnchargedItemStack()});
 		//RECIPE_GIVER.addRecipe(new ItemStack(blockWasher, 1), new Object[]{"AWA", "BPA", "AbD", 'A', new ItemStack(plating, 1, 1), 'W', Block.cloth, 'P', new ItemStack(parts, 1, 0), 'D', Block.dispenser, 'B', ((ItemBattery)BasicComponents.itemBattery).getUnchargedItemStack(), 'b', Item.bucketEmpty});
-		if (enableChunkloader)
+		if (MANAGER.enableChunkloader)
 		{
 			//RECIPE_GIVER.addRecipe(new ItemStack(blockChunkloader, 1), new Object[]{"EBE", "BIB", "EBE", 'E', "ingotEndium", 'B', BasicComponents.itemBronzePlate, 'I', Item.eyeOfEnder});
 			//RECIPE_GIVER.addShapelessRecipe(new ItemStack(ingots, 4, 3), new Object[]{blockChunkloader});
@@ -273,6 +202,13 @@ public class HawksMachinery implements ICraftingHandler
 		RECIPE_GIVER.addRecipe(new ItemStack(parts, 1, 3), new Object[]{" G ", "GBG", "cCc", 'G', Block.thinGlass, 'B', Item.blazeRod, 'c', "ingotCopper", 'C', BasicComponents.blockCopperWire});
 		RECIPE_GIVER.addRecipe(new ItemStack(parts, 1, 4), new Object[]{"CC", "CC", 'C', BasicComponents.blockCopperWire});
 		RECIPE_GIVER.addRecipe(new ItemStack(parts, 1, 5), new Object[]{"ici", 'i', "ingotIron", 'c', new ItemStack(parts, 1, 4)});
+		
+		/*
+		for (ItemStack rivet : HawkRivetHandler.getRivetsList())
+		{
+			//TODO Add Rivet recipes.
+		}
+		*/
 		
 		RECIPE_GIVER.addShapelessRecipe(BasicComponents.itemSteelDust, new Object[]{new ItemStack(dustRaw, 1, 0), new ItemStack(dustRefined, 1, 3)});
 		RECIPE_GIVER.addShapelessRecipe(new ItemStack(Item.fireballCharge, 3), new Object[]{Item.blazePowder, Item.gunpowder, new ItemStack(dustRaw, 1, 0)});
@@ -449,7 +385,7 @@ public class HawksMachinery implements ICraftingHandler
 		@Override
 		public boolean enableAutoDownload()
 		{
-			return enableAutoDL;
+			return MANAGER.enableAutoDL;
 		}
 		
 		@Override
@@ -461,7 +397,7 @@ public class HawksMachinery implements ICraftingHandler
 		@Override
 		public boolean disableChecks()
 		{
-			return UpdateManager.isDebug ? true : !enableUpdateChecking;
+			return UpdateManager.isDebug ? true : !MANAGER.enableUpdateChecking;
 		}
 		
 		@Override
