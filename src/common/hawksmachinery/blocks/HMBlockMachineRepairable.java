@@ -2,7 +2,7 @@
 package hawksmachinery.blocks;
 
 import java.util.Random;
-import hawksmachinery.interfaces.IHMSapper;
+import hawksmachinery.interfaces.HMRepairCore.IHMSapper;
 import hawksmachinery.tileentity.HMTileEntityRepairable;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.Item;

@@ -7,8 +7,8 @@ import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.NBTTagCompound;
 import net.minecraft.src.World;
-import hawksmachinery.interfaces.IHMRepairable;
-import hawksmachinery.interfaces.IHMSapper;
+import hawksmachinery.interfaces.HMRepairCore.IHMRepairable;
+import hawksmachinery.interfaces.HMRepairCore.IHMSapper;
 
 /**
  * 

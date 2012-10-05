@@ -2,7 +2,7 @@
 package hawksmachinery.items;
 
 import hawksmachinery.interfaces.HMRepairCore.HMEnumRivet;
-import hawksmachinery.interfaces.IHMRepairable;
+import hawksmachinery.interfaces.HMRepairCore.IHMRepairable;
 import net.minecraft.src.Entity;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.EnumAction;
