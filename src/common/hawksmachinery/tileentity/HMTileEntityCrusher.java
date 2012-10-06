@@ -40,7 +40,7 @@ import universalelectricity.implement.IItemElectric;
  * 
  * @author Elusivehawk
  */
-public class HMTileEntityCrusher extends HMTileEntityRepairable implements ISpecialInventory, IItemTransfer
+public class HMTileEntityCrusher extends HMTileEntityMachine implements ISpecialInventory, IItemTransfer
 {
 	public int workTicks = 0;
 	
@@ -182,8 +182,6 @@ public class HMTileEntityCrusher extends HMTileEntityRepairable implements ISpec
 			{
 				this.containingItems[1] = null;
 			}
-			
-			this.randomlyDamageSelf();
 			
 		}
 		else

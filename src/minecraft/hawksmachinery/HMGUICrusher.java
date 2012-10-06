@@ -63,31 +63,6 @@ public class HMGUICrusher extends GuiContainer
 			this.drawTexturedModalRect(this.containerWidth + 77, this.containerHeight + 24, 176, 0, 23 - scale, 20);
 		}
 		
-		this.mc.renderEngine.bindTexture(this.mc.renderEngine.getTexture(BASEMOD.GUI_PATH + "/DamageMeter.png"));
-		
-		this.drawTexturedModalRect(this.containerWidth - 16, this.containerHeight, 0, 0, 239, 0);
-		
-		int oneFourthMaxHP = this.tileEntity.getMaxHP() / 4;
-		int halfMaxHP = this.tileEntity.getMaxHP() / 2;
-		int threeFourthsMaxHP = oneFourthMaxHP + halfMaxHP;
-		
-		if (threeFourthsMaxHP < this.tileEntity.machineHealth)
-		{
-			
-		}
-		else if (halfMaxHP < this.tileEntity.machineHealth)
-		{
-			
-		}
-		else if (oneFourthMaxHP < this.tileEntity.machineHealth)
-		{
-			
-		}
-		else
-		{
-			
-		}
-		
 	}
 	
 }

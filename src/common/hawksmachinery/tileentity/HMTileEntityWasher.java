@@ -38,7 +38,7 @@ import universalelectricity.network.PacketManager;
  * 
  * @author Elusivehawk
  */
-public class HMTileEntityWasher extends HMTileEntityRepairable implements IItemTransfer
+public class HMTileEntityWasher extends HMTileEntityMachine implements IItemTransfer
 {
 	public float waterUnits = 0;
 	
@@ -179,8 +179,6 @@ public class HMTileEntityWasher extends HMTileEntityRepairable implements IItemT
 				{
 					this.containingItems[2] = null;
 				}
-				
-				this.randomlyDamageSelf();
 				
 			}
 		}

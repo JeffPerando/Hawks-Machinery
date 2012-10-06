@@ -24,7 +24,7 @@ import universalelectricity.prefab.BlockMachine;
  *
  * @author Elusivehawk
  */
-public class HMBlockWasher extends HMBlockMachineRepairable
+public class HMBlockWasher extends HMBlockMachine
 {
 	public HMTileEntityWasher tileEntity;
 	

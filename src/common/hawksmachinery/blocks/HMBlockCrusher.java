@@ -17,7 +17,7 @@ import net.minecraftforge.common.ForgeDirection;
  *
  * @author Elusivehawk
  */
-public class HMBlockCrusher extends HMBlockMachineRepairable
+public class HMBlockCrusher extends HMBlockMachine
 {
 	public HMTileEntityMachine tileEntity;
 	

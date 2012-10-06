@@ -91,8 +91,8 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	
 	protected void explodeMachine(float strength)
 	{
+		System.out.println(this.getVoltage());
 		this.worldObj.createExplosion((Entity)null, this.xCoord, this.yCoord, this.zCoord, strength);
-		this.worldObj.setBlockWithNotify(this.xCoord, this.yCoord, this.zCoord, 0);
 		
 	}
 	
