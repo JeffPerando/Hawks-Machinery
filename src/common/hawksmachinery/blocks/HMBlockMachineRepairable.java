@@ -71,13 +71,17 @@ public abstract class HMBlockMachineRepairable extends HMBlockMachine
 	@Override
 	public void randomDisplayTick(World world, int x, int y, int z, Random random)
 	{
-		if (this.tileEntity.isBeingSapped())
+		if (this.tileEntity != null)
 		{
-			if (!((IHMSapper)this.tileEntity.sapper.getItem()).isSapperSilent(this.tileEntity.sapper))
+			if (this.tileEntity.isBeingSapped())
 			{
-				world.spawnParticle("largesmoke", x + 0.5, y + 2, z + 0.5, 0, 0, 0);
-				world.spawnParticle("largesmoke", x + 0.5, y + 2, z + 0.5, 0, 0, 0);
-				world.spawnParticle("largesmoke", x + 0.5, y + 2, z + 0.5, 0, 0, 0);
+				if (!((IHMSapper)this.tileEntity.sapper.getItem()).isSapperSilent(this.tileEntity.sapper))
+				{
+					world.spawnParticle("largesmoke", x + 0.5, y + 2, z + 0.5, 0, 0, 0);
+					world.spawnParticle("largesmoke", x + 0.5, y + 2, z + 0.5, 0, 0, 0);
+					world.spawnParticle("largesmoke", x + 0.5, y + 2, z + 0.5, 0, 0, 0);
+					
+				}
 				
 			}
 			

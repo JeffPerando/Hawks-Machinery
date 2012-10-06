@@ -119,13 +119,7 @@ public class HMRepairCore
 	
 	public enum HMEnumRivet
 	{
-		COPPER(2, null),
-		GOLD(3, null),
-		BRONZE(4, null),
-		IRON(4, null),
-		STEEL(5, null),
-		DIAMOND(7, null);
-		
+		;
 		private int repairValue;
 		private ItemStack endResult;
 		
@@ -149,6 +143,20 @@ public class HMRepairCore
 		public static HMEnumRivet getRivetFromNumber(int id)
 		{
 			return HMEnumRivet.values()[id];
+		}
+		
+		public boolean healsMoreThan(ItemStack rivet)
+		{
+			for (HMEnumRivet potentialMatch : HMEnumRivet.values())
+			{
+				if (potentialMatch.getEndResult().isItemEqual(rivet))
+				{
+					return this.getRepairAmount() > potentialMatch.getRepairAmount();
+				}
+				
+			}
+			
+			return false;
 		}
 		
 	}

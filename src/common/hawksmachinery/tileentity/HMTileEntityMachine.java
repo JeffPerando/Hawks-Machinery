@@ -12,6 +12,7 @@ import universalelectricity.prefab.TileEntityElectricityReceiver;
 import universalelectricity.prefab.Vector3;
 import hawksmachinery.HMProcessingRecipes;
 import hawksmachinery.HMProcessingRecipes.HawkEnumProcessing;
+import net.minecraft.src.Entity;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.NBTTagCompound;
@@ -56,7 +57,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	{
 		if (voltage > this.getVoltage())
 		{
-			this.explodeMachine(0.7F);
+			this.explodeMachine(20.0F);
 		}
 		
 		this.electricityStored += ElectricInfo.getWatts(amps, voltage);
@@ -90,7 +91,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	
 	protected void explodeMachine(float strength)
 	{
-		this.worldObj.createExplosion(null, this.xCoord, this.yCoord, this.zCoord, strength);
+		this.worldObj.createExplosion((Entity)null, this.xCoord, this.yCoord, this.zCoord, strength);
 		this.worldObj.setBlockWithNotify(this.xCoord, this.yCoord, this.zCoord, 0);
 		
 	}

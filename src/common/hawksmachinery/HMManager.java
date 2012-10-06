@@ -49,7 +49,9 @@ public class HMManager implements LoadingCallback, IWorldGenerator, IVillageTrad
 	public static int dustRefinedID;
 	public static int partsID;
 	public static int blueprintID;
-	public static int endiumAlloyID;
+	public static int endiumItemsID;
+	public static int rivetsID;
+	public static int rivetGunID;
 	
 	public static int ACHprospector;
 	public static int ACHtimeToCrush;
@@ -100,7 +102,9 @@ public class HMManager implements LoadingCallback, IWorldGenerator, IVillageTrad
 		dustRefinedID = HMConfig.get(Configuration.CATEGORY_ITEM, "Refined Dusts", 24151).getInt(24151);
 		partsID = HMConfig.get(Configuration.CATEGORY_ITEM, "Parts", 24152).getInt(24152);
 		blueprintID = HMConfig.get(Configuration.CATEGORY_ITEM, "Blueprints", 24153).getInt(24153);
-		endiumAlloyID = HMConfig.get(Configuration.CATEGORY_ITEM, "Endium Alloy", 24154).getInt(24154);
+		endiumItemsID = HMConfig.get(Configuration.CATEGORY_ITEM, "Endium Items", 24154).getInt(24154);
+		rivetsID = HMConfig.get(Configuration.CATEGORY_ITEM, "Rivets", 24155).getInt(24155);
+		rivetGunID = HMConfig.get(Configuration.CATEGORY_ITEM, "Rivet Gun", 24156).getInt(24156);
 		
 		ACHprospector = HMConfig.get(Configuration.CATEGORY_GENERAL, "ACH Prospector", 1500).getInt(1500);
 		ACHtimeToCrush = HMConfig.get(Configuration.CATEGORY_GENERAL, "ACH Time To Crush", 1501).getInt(1501);

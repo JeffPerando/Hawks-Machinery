@@ -2,6 +2,7 @@
 package hawksmachinery;
 
 import hawksmachinery.blocks.*;
+import hawksmachinery.interfaces.HMRepairCore.HMEnumRivet;
 import hawksmachinery.items.*;
 import hawksmachinery.tileentity.*;
 import hawksmachinery.HMProcessingRecipes.HawkEnumProcessing;
@@ -111,7 +112,9 @@ public class HawksMachinery implements ICraftingHandler
 	public static Item parts;
 	public static Item blueprints;
 	public static Item endiumItems;
-
+	public static Item rivets;
+	public static Item rivetGun;
+	
 	public static Achievement prospector;
 	public static Achievement timeToCrush;
 	//public static Achievement compactCompact = new Achievement(BASEMOD.ACHcompactCompact, "Compact Compact", 0, -2, new ItemStack(BASEMOD.blockMetalStorage, 1, 2), prospector).registerAchievement();
@@ -119,6 +122,13 @@ public class HawksMachinery implements ICraftingHandler
 	public static Achievement wash;
 	
 	public static AchievementPage HAWKSPAGE;
+
+	public static HMEnumRivet COPPER;
+	public static HMEnumRivet GOLD;
+	public static HMEnumRivet BRONZE;
+	public static HMEnumRivet IRON;
+	public static HMEnumRivet STEEL;
+	public static HMEnumRivet ENDIUM;
 	
 	@PreInit
 	public void preInit(FMLPreInitializationEvent event)
@@ -139,8 +149,10 @@ public class HawksMachinery implements ICraftingHandler
 		dustRefined = new HMItemRefinedDust(MANAGER.dustRefinedID - 256);
 		parts = new HMItemParts(MANAGER.partsID - 256);
 		blueprints = new HMItemBlueprints(MANAGER.blueprintID - 256);
-		endiumItems = new HMItemEndium(MANAGER.endiumAlloyID - 256);
-
+		endiumItems = new HMItemEndium(MANAGER.endiumItemsID - 256);
+		rivets = new HMItemRivets(MANAGER.rivetsID - 256);
+		rivetGun = new HMItemRivetGun(MANAGER.rivetGunID - 256, 256);
+		
 		prospector = new Achievement(MANAGER.ACHprospector, "Prospector", -1, 0, new ItemStack(Item.pickaxeSteel, 1), AchievementList.buildBetterPickaxe).registerAchievement();
 		timeToCrush = new Achievement(MANAGER.ACHtimeToCrush, "Time to Crush", -2, -3, new ItemStack(crusher, 1, 0), prospector).registerAchievement().setSpecial();
 		
@@ -178,6 +190,13 @@ public class HawksMachinery implements ICraftingHandler
 		OreDictionary.registerOre("dustEmerald", new ItemStack(dustRefined, 1, 7));
 		OreDictionary.registerOre("dustStar", new ItemStack(dustRefined, 1, 8));
 		OreDictionary.registerOre("dustEndium", new ItemStack(dustRefined, 1, 9));
+		
+		COPPER = EnumHelper.addEnum(HMEnumRivet.class, "COPPER", 2, new ItemStack(rivets, 1, 0));
+		GOLD = EnumHelper.addEnum(HMEnumRivet.class, "GOLD", 3, new ItemStack(rivets, 1, 1));
+		BRONZE = EnumHelper.addEnum(HMEnumRivet.class, "BRONZE", 4, new ItemStack(rivets, 1, 2));
+		IRON = EnumHelper.addEnum(HMEnumRivet.class, "IRON", 4, new ItemStack(rivets, 1, 3));
+		STEEL = EnumHelper.addEnum(HMEnumRivet.class, "STEEL", 5, new ItemStack(rivets, 1, 4));
+		ENDIUM = EnumHelper.addEnum(HMEnumRivet.class, "ENDIUM", 7, new ItemStack(rivets, 1, 5));
 		
 	}
 	
@@ -227,6 +246,9 @@ public class HawksMachinery implements ICraftingHandler
 		RECIPE_GIVER.addRecipe(new ItemStack(parts, 1, 3), new Object[]{" G ", "GBG", "cCc", 'G', Block.thinGlass, 'B', Item.blazeRod, 'c', "ingotCopper", 'C', BasicComponents.blockCopperWire});
 		RECIPE_GIVER.addRecipe(new ItemStack(parts, 1, 4), new Object[]{"CC", "CC", 'C', BasicComponents.blockCopperWire});
 		RECIPE_GIVER.addRecipe(new ItemStack(parts, 1, 5), new Object[]{"ici", 'i', "ingotIron", 'c', new ItemStack(parts, 1, 4)});
+		
+		RECIPE_GIVER.addRecipe(((HMItemRivetGun)rivetGun).setRivet(COPPER), new Object[]{"CLC", "CPC", "C C", 'C', Block.cobblestone, 'L', Block.lever, 'P', Block.pistonBase});
+		RECIPE_GIVER.addRecipe(((HMItemRivetGun)rivetGun).setRivet(BRONZE), new Object[]{"CRC", "CrC", "C C", 'C', "ingotCopper", 'R', Item.redstone, 'r', ((HMItemRivetGun)rivetGun).setRivet(COPPER)});
 		
 		RECIPE_GIVER.addShapelessRecipe(BasicComponents.itemSteelDust, new Object[]{new ItemStack(dustRaw, 1, 0), new ItemStack(dustRefined, 1, 3)});
 		RECIPE_GIVER.addShapelessRecipe(new ItemStack(Item.fireballCharge, 3), new Object[]{Item.blazePowder, Item.gunpowder, new ItemStack(dustRaw, 1, 0)});

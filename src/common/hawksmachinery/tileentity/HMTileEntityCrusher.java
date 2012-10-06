@@ -274,14 +274,15 @@ public class HMTileEntityCrusher extends HMTileEntityRepairable implements ISpec
 	}
 	
 	public String getCrusherStatus()
-	{	
-		if (this.isDisabled())
-		{
-			this.crusherStatus = 2;
-		}
-		else if (this.workTicks > 0)
+	{
+		
+		if (this.workTicks > 0)
 		{
 			this.crusherStatus = 1;
+		}
+		else if (this.isDisabled())
+		{
+			this.crusherStatus = 2;
 		}
 		else
 		{

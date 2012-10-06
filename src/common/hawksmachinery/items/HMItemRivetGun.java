@@ -3,6 +3,7 @@ package hawksmachinery.items;
 
 import hawksmachinery.interfaces.HMRepairCore.HMEnumRivet;
 import hawksmachinery.interfaces.HMRepairCore.IHMRepairable;
+import net.minecraft.src.CreativeTabs;
 import net.minecraft.src.Entity;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.EnumAction;
@@ -30,6 +31,7 @@ public class HMItemRivetGun extends HMItem
 		setIconIndex(17);
 		setNoRepair();
 		setItemName("rivetGun");
+		setCreativeTab(CreativeTabs.tabTools);
 		
 	}
 	
@@ -63,7 +65,7 @@ public class HMItemRivetGun extends HMItem
 				{
 					ItemStack hotbarItem = player.inventory.mainInventory[counter];
 					
-					if (hotbarItem.isItemEqual(this.rivet.getEndResult()))
+					if (hotbarItem.isItemEqual(this.rivet.getEndResult()) || this.rivet.healsMoreThan(hotbarItem))
 					{
 						if (((IHMRepairable)hawkTileEntity).attemptRepair(world, locatedBlock.blockX, locatedBlock.blockY, locatedBlock.blockZ, this.rivet.getRepairAmount()))
 						{
@@ -109,7 +111,11 @@ public class HMItemRivetGun extends HMItem
 	@Override
 	public void onCreated(ItemStack item, World world, EntityPlayer player)
 	{
-		item.stackTagCompound.setInteger("Rivet", this.rivet.ordinal());
+		if (this.rivet != null)
+		{
+			item.stackTagCompound.setInteger("Rivet", this.rivet.ordinal());
+			
+		}
 		
 	}
 	

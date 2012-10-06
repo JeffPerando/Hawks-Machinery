@@ -51,18 +51,43 @@ public class HMGUICrusher extends GuiContainer
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3)
 	{
-		int var4 = this.mc.renderEngine.getTexture(BASEMOD.GUI_PATH + "/Crusher.png");
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		this.mc.renderEngine.bindTexture(var4);
+		this.mc.renderEngine.bindTexture(this.mc.renderEngine.getTexture(BASEMOD.GUI_PATH + "/Crusher.png"));
 		this.containerWidth = (this.width - this.xSize) / 2;
 		this.containerHeight = (this.height - this.ySize) / 2;
 		this.drawTexturedModalRect(this.containerWidth, this.containerHeight, 0, 0, this.xSize, this.ySize);
 		
-		if(this.tileEntity.workTicks > 0)
+		if (this.tileEntity.workTicks > 0)
 		{
 			int scale = this.tileEntity.calculateCrushingDuration(24);
-			this.drawTexturedModalRect(containerWidth + 77, containerHeight + 24, 176, 0, 23 - scale, 20);
+			this.drawTexturedModalRect(this.containerWidth + 77, this.containerHeight + 24, 176, 0, 23 - scale, 20);
 		}
+		
+		this.mc.renderEngine.bindTexture(this.mc.renderEngine.getTexture(BASEMOD.GUI_PATH + "/DamageMeter.png"));
+		
+		this.drawTexturedModalRect(this.containerWidth - 16, this.containerHeight, 0, 0, 239, 0);
+		
+		int oneFourthMaxHP = this.tileEntity.getMaxHP() / 4;
+		int halfMaxHP = this.tileEntity.getMaxHP() / 2;
+		int threeFourthsMaxHP = oneFourthMaxHP + halfMaxHP;
+		
+		if (threeFourthsMaxHP < this.tileEntity.machineHealth)
+		{
+			
+		}
+		else if (halfMaxHP < this.tileEntity.machineHealth)
+		{
+			
+		}
+		else if (oneFourthMaxHP < this.tileEntity.machineHealth)
+		{
+			
+		}
+		else
+		{
+			
+		}
+		
 	}
 	
 }

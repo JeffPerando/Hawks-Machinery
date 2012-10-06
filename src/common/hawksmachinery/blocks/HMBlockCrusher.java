@@ -43,17 +43,16 @@ public class HMBlockCrusher extends HMBlockMachineRepairable
 		if (!world.isRemote)
 		{
 			player.openGui(BASEMOD.instance(), 0, world, x, y, z);
-			return true;
 		}
 		
-		return false;
+		return true;
 		
 	}
 	
 	@Override
 	public boolean onUseWrench(World world, int x, int y, int z, EntityPlayer player)
 	{
-		switch(world.getBlockMetadata(x, y, z))
+		switch (world.getBlockMetadata(x, y, z))
 		{
 			case 2: world.setBlockMetadataWithNotify(x, y, z, 4); break;
 			case 5: world.setBlockMetadataWithNotify(x, y, z, 2); break;

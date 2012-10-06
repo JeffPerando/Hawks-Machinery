@@ -118,8 +118,19 @@ public abstract class HMTileEntityRepairable extends HMTileEntityMachine impleme
 	public void writeToNBT(NBTTagCompound NBTTag)
 	{
 		super.writeToNBT(NBTTag);
+		
+		if (!NBTTag.hasKey("MachineHP"))
+		{
+			this.machineHealth = 20;
+		}
+		
 		NBTTag.setInteger("MachineHP", this.machineHealth);
-		NBTTag.setCompoundTag("Sapper", this.sapper.writeToNBT(new NBTTagCompound()));
+		
+		if (this.sapper != null)
+		{
+			NBTTag.setCompoundTag("Sapper", this.sapper.writeToNBT(new NBTTagCompound()));
+			
+		}
 		
 	}
 	

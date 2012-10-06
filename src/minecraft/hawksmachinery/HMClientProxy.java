@@ -25,6 +25,7 @@ public class HMClientProxy extends HMCommonProxy
 	{
 		MinecraftForgeClient.preloadTexture(BASEMOD.BLOCK_TEXTURE_FILE);
 		MinecraftForgeClient.preloadTexture(BASEMOD.ITEM_TEXTURE_FILE);
+		super.registerRenderInformation();
 		ClientRegistry.bindTileEntitySpecialRenderer(HMTileEntityCrusher.class, new HMRenderCrusher());
 		HMLanguageCore.addToolTips();
 		
