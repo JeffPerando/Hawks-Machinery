@@ -1,7 +1,7 @@
 
 package hawksmachinery;
 
-import hawksmachinery.tileentity.HMTileEntityChunkloader;
+import hawksmachinery.tileentity.HMTileEntityEndiumChunkloader;
 import java.io.File;
 import java.util.List;
 import java.util.Random;
@@ -181,9 +181,9 @@ public class HMManager implements LoadingCallback, IWorldGenerator, IVillageTrad
 			int yPos = ticket.getModData().getInteger("yCoord");
 			int zPos = ticket.getModData().getInteger("zCoord");
 			
-			if (world.getBlockTileEntity(xPos, yPos, zPos) instanceof HMTileEntityChunkloader)
+			if (world.getBlockTileEntity(xPos, yPos, zPos) instanceof HMTileEntityEndiumChunkloader)
 			{
-				((HMTileEntityChunkloader)world.getBlockTileEntity(xPos, yPos, zPos)).forceChunkLoading(ticket);
+				((HMTileEntityEndiumChunkloader)world.getBlockTileEntity(xPos, yPos, zPos)).forceChunkLoading(ticket);
 				
 			}
 			

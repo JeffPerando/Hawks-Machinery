@@ -25,6 +25,8 @@ public class HMLanguageCore
 			LANG.addNameForObject(BASEMOD.chunkloader, "en_US", "Endium Chunkloader");
 		}
 		
+		LANG.addNameForObject(BASEMOD.rivetGun, "en_US", "Rivet Gun");
+		                         
 		LANG.addStringLocalization(BASEMOD.timeToCrush.getName(), "en_US", "Time to Crush!");
 		LANG.addStringLocalization(BASEMOD.timeToCrush.getName() + ".desc", "en_US", "The matriarch of Hawk's Machinery!");
 		
@@ -39,6 +41,7 @@ public class HMLanguageCore
 			if (counter <= 5)
 			{
 				LANG.addNameForObject(new ItemStack(BASEMOD.parts, 1, counter), "en_US", HMItemParts.en_USNames[counter]);
+				LANG.addNameForObject(new ItemStack(BASEMOD.rivets, 1, counter), "en_US", HMItemRivets.en_USNames[counter] + " Rivet");
 				
 			}
 			

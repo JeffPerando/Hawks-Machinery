@@ -1,7 +1,7 @@
 
 package hawksmachinery;
 
-import hawksmachinery.tileentity.HMTileEntityChunkloader;
+import hawksmachinery.tileentity.HMTileEntityEndiumChunkloader;
 import hawksmachinery.tileentity.HMTileEntityCrusher;
 import hawksmachinery.tileentity.HMTileEntityWasher;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -35,7 +35,7 @@ public class HMCommonProxy implements IGuiHandler, IConnectionHandler
 		GameRegistry.registerTileEntity(HMTileEntityWasher.class, "HMWasher");
 		if (BASEMOD.MANAGER.enableChunkloader)
 		{
-			GameRegistry.registerTileEntity(HMTileEntityChunkloader.class, "HMChunkloader");
+			GameRegistry.registerTileEntity(HMTileEntityEndiumChunkloader.class, "HMChunkloader");
 			
 		}
 		

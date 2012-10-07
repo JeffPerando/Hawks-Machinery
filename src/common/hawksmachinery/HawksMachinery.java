@@ -132,7 +132,7 @@ public class HawksMachinery implements ICraftingHandler
 		washer = new HMBlockWasher(MANAGER.washerID).setStepSound(Block.soundMetalFootstep);
 		if (MANAGER.enableChunkloader)
 		{
-			chunkloader = new HMBlockChunkloader(MANAGER.chunkloaderID);
+			chunkloader = new HMBlockEndiumChunkloader(MANAGER.chunkloaderID);
 			ForgeChunkManager.setForcedChunkLoadingCallback(this, MANAGER);
 			
 		}
@@ -142,6 +142,8 @@ public class HawksMachinery implements ICraftingHandler
 		parts = new HMItemParts(MANAGER.partsID - 256);
 		blueprints = new HMItemBlueprints(MANAGER.blueprintID - 256);
 		endiumItems = new HMItemEndium(MANAGER.endiumItemsID - 256);
+		rivets = new HMItemRivets(MANAGER.rivetsID - 256);
+		rivetGun = new HMItemRivetGun(MANAGER.rivetGunID - 256);
 		
 		prospector = new Achievement(MANAGER.ACHprospector, "Prospector", -1, 0, new ItemStack(Item.pickaxeSteel, 1), AchievementList.buildBetterPickaxe).registerAchievement();
 		timeToCrush = new Achievement(MANAGER.ACHtimeToCrush, "Time to Crush", -2, -3, new ItemStack(crusher, 1, 0), prospector).registerAchievement().setSpecial();

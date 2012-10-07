@@ -1,6 +1,7 @@
 
 package hawksmachinery.tileentity;
 
+import java.util.Random;
 import com.google.common.io.ByteArrayDataInput;
 import buildcraft.api.inventory.ISpecialInventory;
 import railcraft.common.api.carts.IItemTransfer;
@@ -12,6 +13,8 @@ import universalelectricity.prefab.TileEntityElectricityReceiver;
 import universalelectricity.prefab.Vector3;
 import hawksmachinery.HMProcessingRecipes;
 import hawksmachinery.HMProcessingRecipes.HawkEnumProcessing;
+import hawksmachinery.interfaces.HMRepairInterfaces.IHMRepairable;
+import hawksmachinery.interfaces.HMRepairInterfaces.IHMSapper;
 import net.minecraft.src.Entity;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.ItemStack;
@@ -30,7 +33,7 @@ import net.minecraftforge.common.ISidedInventory;
  * 
  * @author Elusivehawk
  */
-public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver implements ISidedInventory, IRotatable, IPacketReceiver
+public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver implements ISidedInventory, IRotatable, IPacketReceiver, IHMRepairable
 {
 	public int ELECTRICITY_REQUIRED;
 	
@@ -52,6 +55,10 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	
 	public HawkEnumProcessing machineEnum;
 	
+	private int machineHP;
+	
+	public ItemStack sapper;
+	
 	@Override
 	public void onReceive(TileEntity tileEntity, double amps, double voltage, ForgeDirection side)
 	{
@@ -67,14 +74,24 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	@Override
 	public void updateEntity()
 	{
-		if (this.electricityStored <= 0)
+		if (this.electricityStored < 0)
 		{
 			this.electricityStored = 0;
 		}
 		
-		if (this.electricityStored >= this.ELECTRICITY_LIMIT)
+		if (this.electricityStored > this.ELECTRICITY_LIMIT)
 		{
 			this.electricityStored = this.ELECTRICITY_LIMIT;
+		}
+		
+		if (this.machineHP < 0)
+		{
+			this.machineHP = 0;
+		}
+		
+		if (this.machineHP > this.getMaxHP())
+		{
+			this.machineHP = this.getMaxHP();
 		}
 		
 		if (!this.worldObj.isRemote && this.isOpen)
@@ -91,7 +108,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	
 	protected void explodeMachine(float strength)
 	{
-		System.out.println(this.getVoltage());
+		System.out.println(this.getVoltage()); //TODO Debugging.
 		this.worldObj.createExplosion((Entity)null, this.xCoord, this.yCoord, this.zCoord, strength);
 		
 	}
@@ -237,6 +254,12 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 		super.readFromNBT(NBTTag);
 		this.electricityStored = NBTTag.getFloat("electricityStored");
 		this.workTicks = NBTTag.getInteger("workTicks");
+		this.machineHP = NBTTag.getInteger("MachineHP");
+		
+		if (NBTTag.hasKey("Sapper"))
+		{
+			this.sapper.readFromNBT(NBTTag.getCompoundTag("Sapper"));
+		}
 		
 		if (this.containingItems.length > 0)
 		{
@@ -264,6 +287,21 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 		NBTTag.setDouble("electricityStored", this.electricityStored);
 		NBTTag.setInteger("workTicks", this.workTicks);
 		
+		if (!NBTTag.hasKey("MachineHP"))
+		{
+			this.machineHP = this.getMaxHP();
+		}
+		
+		NBTTag.setInteger("MachineHP", this.machineHP);
+		
+		if (this.sapper != null)
+		{
+			NBTTagCompound sapperTag = new NBTTagCompound();
+			this.sapper.writeToNBT(sapperTag);
+			NBTTag.setCompoundTag("Sapper", sapperTag);
+			
+		}
+		
 		if (this.containingItems.length > 0)
 		{
 			NBTTagList tagList = new NBTTagList();
@@ -284,6 +322,65 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 			
 		}
 		
+	}
+	
+	public void randomlyDamageSelf()
+	{
+		if (new Random().nextInt(10) == 6)
+		{
+			--this.machineHP;
+		}
+		
+	}
+	
+	public boolean attemptToRepair(int repairAmount)
+	{
+		if (this.machineHP != this.getMaxHP() && !this.isBeingSapped())
+		{
+			this.machineHP += repairAmount;
+			return true;
+		}
+		
+		return false;
+	}
+	
+	public boolean setSapper(ItemStack sapper)
+	{
+		if (this.sapper == null)
+		{
+			this.sapper = sapper;
+			return true;
+		}
+		
+		return false;
+	}
+	
+	public boolean attemptToUnSap(EntityPlayer player)
+	{
+		if (this.sapper != null && this.isBeingSapped())
+		{
+			int randomDigit = new Random().nextInt(((IHMSapper)this.sapper.getItem()).getRemovalValue(this.sapper, player));
+			
+			if (randomDigit == ((IHMSapper)this.sapper.getItem()).getRemovalValue(this.sapper, player) / 2)
+			{
+				this.sapper = null;
+				
+				return true;
+			}
+			
+		}
+		
+		return false;
+	}
+	
+	public boolean isBeingSapped()
+	{
+		return this.sapper != null;
+	}
+	
+	public int getMaxHP()
+	{
+		return 20;
 	}
 	
 }

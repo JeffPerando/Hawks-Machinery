@@ -40,7 +40,7 @@ public class HMBlockCrusher extends HMBlockMachine
 	@Override
 	public boolean onMachineActivated(World world, int x, int y, int z, EntityPlayer player)
 	{
-		if (!world.isRemote)
+		if (!world.isRemote && !super.onMachineActivated(world, x, y, z, player))
 		{
 			player.openGui(BASEMOD.instance(), 0, world, x, y, z);
 		}

@@ -4,7 +4,7 @@ package hawksmachinery.blocks;
 import java.util.Random;
 import cpw.mods.fml.common.registry.GameRegistry;
 import hawksmachinery.items.HMItemBlockChunkloader;
-import hawksmachinery.tileentity.HMTileEntityChunkloader;
+import hawksmachinery.tileentity.HMTileEntityEndiumChunkloader;
 import net.minecraft.src.Block;
 import net.minecraft.src.Chunk;
 import net.minecraft.src.CreativeTabs;
@@ -23,12 +23,12 @@ import net.minecraftforge.common.ForgeHooks;
  * 
  * @author Elusivehawk
  */
-public class HMBlockChunkloader extends HMBlock
+public class HMBlockEndiumChunkloader extends HMBlock
 {
-	public HMTileEntityChunkloader tileEntity;
+	public HMTileEntityEndiumChunkloader tileEntity;
 	public String tempUsername;
 	
-	public HMBlockChunkloader(int id)
+	public HMBlockEndiumChunkloader(int id)
 	{
 		super(id, Material.iron, 5);
 		setResistance(1000000000.0F);
@@ -74,7 +74,7 @@ public class HMBlockChunkloader extends HMBlock
 	@Override
 	public TileEntity createTileEntity(World world, int metadata)
 	{
-		this.tileEntity = new HMTileEntityChunkloader();
+		this.tileEntity = new HMTileEntityEndiumChunkloader();
 		if (this.tempUsername != null)
 		{
 			this.tileEntity.ownerUsername = this.tempUsername;

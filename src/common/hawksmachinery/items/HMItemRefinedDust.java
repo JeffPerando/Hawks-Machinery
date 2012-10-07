@@ -52,7 +52,7 @@ public class HMItemRefinedDust extends HMItem
 	@Override
 	public void getSubItems(int id, CreativeTabs tabs, List itemList)
 	{
-		for (int counter  = 0; counter <= 9; ++counter)
+		for (int counter = 0; counter <= 9; ++counter)
 		{
 			itemList.add(new ItemStack(this, 1, counter));
 		}

@@ -17,7 +17,7 @@ import net.minecraftforge.common.ForgeChunkManager.Type;
  * 
  * @author Elusivehawk
  */
-public class HMTileEntityChunkloader extends TileEntity
+public class HMTileEntityEndiumChunkloader extends TileEntity
 {
 	public static HawksMachinery BASEMOD;
 	public String ownerUsername;
