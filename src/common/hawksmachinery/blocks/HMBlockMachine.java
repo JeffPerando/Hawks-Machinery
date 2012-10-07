@@ -5,6 +5,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import hawksmachinery.HawksMachinery;
 import hawksmachinery.interfaces.HMRepairInterfaces.IHMRepairable;
 import hawksmachinery.interfaces.HMRepairInterfaces.IHMSapper;
+import net.minecraft.src.EntityLiving;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.Material;
@@ -69,6 +70,11 @@ public abstract class HMBlockMachine extends BlockMachine
 	public void registerSelf()
 	{
 		GameRegistry.registerBlock(this);
+	}
+	
+	public int getItemBlockIconIndex()
+	{
+		return 0;
 	}
 	
 }

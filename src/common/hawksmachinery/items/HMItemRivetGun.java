@@ -36,7 +36,7 @@ public class HMItemRivetGun extends ItemElectric
 	@Override
 	public ItemStack onItemRightClick(ItemStack item, World world, EntityPlayer player)
 	{
-		if (player.isSneaking() && item.getItemDamage() != this.getMaxDamage())
+		if (player.isSneaking() && item.getItemDamage() <= this.getTransferRate())
 		{
 			player.setItemInUse(item, getMaxItemUseDuration(item));
 		}
@@ -103,7 +103,7 @@ public class HMItemRivetGun extends ItemElectric
 	@Override
 	public int getMaxItemUseDuration(ItemStack item)
 	{
-		return 20;
+		return 25;
 	}
 	
 	@Override

@@ -1,7 +1,9 @@
 
 package hawksmachinery.blocks;
 
+import java.util.Random;
 import hawksmachinery.HawksMachinery;
+import hawksmachinery.items.HMItemBlockMachine;
 import hawksmachinery.tileentity.HMTileEntityCrusher;
 import hawksmachinery.tileentity.HMTileEntityMachine;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -13,7 +15,7 @@ import net.minecraftforge.common.ForgeDirection;
 
 /**
  *
- * Just the block for the Grinder.
+ * Just the block for the Crusher.
  *
  * @author Elusivehawk
  */
@@ -32,9 +34,20 @@ public class HMBlockCrusher extends HMBlockMachine
 	}
 	
 	@Override
+	public int idDropped(int idk, Random random, int idk2)
+	{
+		return this.blockID;
+	}
+	
+	@Override
 	protected int damageDropped(int metadata)
 	{
-		return 0;
+		return this.tileEntity.machineHP;
+	}
+	
+	public void registerSelf()
+	{
+		GameRegistry.registerBlock(this, HMItemBlockMachine.class);
 	}
 	
 	@Override
@@ -136,11 +149,11 @@ public class HMBlockCrusher extends HMBlockMachine
 	{
 		return !(side.ordinal() == 1 && side.ordinal() == world.getBlockMetadata(x, y, z));
 	}
-	
+	/*
 	@Override
 	public boolean renderAsNormalBlock()
 	{
 		return false;
 	}
-	
+	*/
 }

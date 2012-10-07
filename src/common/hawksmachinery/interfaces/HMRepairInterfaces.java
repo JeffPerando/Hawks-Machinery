@@ -52,6 +52,8 @@ public class HMRepairInterfaces
 		
 		public void sapperTick(World world, int x, int y, int z);
 		
+		public void onRemoved(World world, int x, int y, int z);
+		
 	}
 	
 	/**

@@ -2,6 +2,7 @@
 package hawksmachinery.blocks;
 
 import hawksmachinery.HawksMachinery;
+import hawksmachinery.items.HMItemBlockMachine;
 import hawksmachinery.tileentity.HMTileEntityWasher;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.src.CreativeTabs;
@@ -42,6 +43,11 @@ public class HMBlockWasher extends HMBlockMachine
 	public int damageDropped(int metadata)
 	{
 		return 0;
+	}
+
+	public void registerSelf()
+	{
+		GameRegistry.registerBlock(this, HMItemBlockMachine.class);
 	}
 	
 	@Override

@@ -232,12 +232,6 @@ public class HMTileEntityCrusher extends HMTileEntityMachine implements ISpecial
 	}
 	
 	@Override
-	public boolean canReceiveFromSide(ForgeDirection side)
-	{
-		return side != ForgeDirection.UP && side != ForgeDirection.getOrientation(this.facingDirection.ordinal());
-	}
-	
-	@Override
 	public int getStartInventorySide(ForgeDirection side)
 	{
 		if (side == ForgeDirection.UP)

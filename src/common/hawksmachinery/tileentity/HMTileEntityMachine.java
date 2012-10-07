@@ -55,9 +55,15 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	
 	public HawkEnumProcessing machineEnum;
 	
-	private int machineHP;
+	public int machineHP;
 	
 	private ItemStack sapper;
+
+	@Override
+	public boolean canReceiveFromSide(ForgeDirection side)
+	{
+		return side != ForgeDirection.UP && side != this.facingDirection;
+	}
 	
 	@Override
 	public void onReceive(TileEntity tileEntity, double amps, double voltage, ForgeDirection side)
@@ -108,7 +114,6 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	
 	protected void explodeMachine(float strength)
 	{
-		System.out.println(this.getVoltage()); //TODO Debugging.
 		this.worldObj.createExplosion((Entity)null, this.xCoord, this.yCoord, this.zCoord, strength);
 		
 	}
@@ -335,7 +340,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 		
 		if (this.machineHP != this.getMaxHP() && !this.isBeingSapped())
 		{
-			this.machineHP += repairAmount / 2;
+			this.machineHP += repairAmount;
 			return true;
 		}
 		
