@@ -42,8 +42,6 @@ import universalelectricity.implement.IItemElectric;
  */
 public class HMTileEntityCrusher extends HMTileEntityMachine implements ISpecialInventory, IItemTransfer
 {
-	public int workTicks = 0;
-	
 	private int crusherStatus;
 	
 	public HMTileEntityCrusher()
@@ -54,6 +52,7 @@ public class HMTileEntityCrusher extends HMTileEntityMachine implements ISpecial
 		ELECTRICITY_LIMIT = 2500;
 		containingItems = new ItemStack[3];
 		machineEnum = HawkEnumProcessing.CRUSHING;
+		voltage = 120;
 		
 	}
 	

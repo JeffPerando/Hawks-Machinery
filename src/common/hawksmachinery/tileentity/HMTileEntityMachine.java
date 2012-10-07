@@ -57,7 +57,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	
 	private int machineHP;
 	
-	public ItemStack sapper;
+	private ItemStack sapper;
 	
 	@Override
 	public void onReceive(TileEntity tileEntity, double amps, double voltage, ForgeDirection side)
@@ -251,8 +251,9 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	@Override
 	public void readFromNBT(NBTTagCompound NBTTag)
 	{
+		System.out.println("NBT reading executed!");//TODO Debugging
 		super.readFromNBT(NBTTag);
-		this.electricityStored = NBTTag.getFloat("electricityStored");
+		this.electricityStored = NBTTag.getDouble("electricityStored");
 		this.workTicks = NBTTag.getInteger("workTicks");
 		this.machineHP = NBTTag.getInteger("MachineHP");
 		
@@ -283,15 +284,10 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	@Override
 	public void writeToNBT(NBTTagCompound NBTTag)
 	{
+		System.out.println("NBT writing executed!");//TODO Debugging
 		super.writeToNBT(NBTTag);
 		NBTTag.setDouble("electricityStored", this.electricityStored);
 		NBTTag.setInteger("workTicks", this.workTicks);
-		
-		if (!NBTTag.hasKey("MachineHP"))
-		{
-			this.machineHP = this.getMaxHP();
-		}
-		
 		NBTTag.setInteger("MachineHP", this.machineHP);
 		
 		if (this.sapper != null)
@@ -335,9 +331,11 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	
 	public boolean attemptToRepair(int repairAmount)
 	{
+		System.out.println(this.machineHP);//TODO Debugging
+		
 		if (this.machineHP != this.getMaxHP() && !this.isBeingSapped())
 		{
-			this.machineHP += repairAmount;
+			this.machineHP += repairAmount / 2;
 			return true;
 		}
 		

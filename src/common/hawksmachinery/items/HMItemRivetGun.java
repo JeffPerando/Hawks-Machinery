@@ -36,7 +36,7 @@ public class HMItemRivetGun extends ItemElectric
 	@Override
 	public ItemStack onItemRightClick(ItemStack item, World world, EntityPlayer player)
 	{
-		if (player.isSneaking())
+		if (player.isSneaking() && item.getItemDamage() != this.getMaxDamage())
 		{
 			player.setItemInUse(item, getMaxItemUseDuration(item));
 		}
@@ -122,6 +122,12 @@ public class HMItemRivetGun extends ItemElectric
 	public double getVoltage()
 	{
 		return 120;
+	}
+	
+	@Override
+	public boolean isFull3D()
+	{
+		return true;
 	}
 	
 }

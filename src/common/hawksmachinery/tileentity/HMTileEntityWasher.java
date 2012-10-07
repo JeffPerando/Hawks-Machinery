@@ -52,6 +52,7 @@ public class HMTileEntityWasher extends HMTileEntityMachine implements IItemTran
 		ELECTRICITY_LIMIT = 1200;
 		containingItems = new ItemStack[6];
 		machineEnum = HawkEnumProcessing.WASHING;
+		voltage = 120;
 		
 	}
 	

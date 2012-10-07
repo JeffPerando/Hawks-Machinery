@@ -160,7 +160,7 @@ public class HMBlockWasher extends HMBlockMachine
 	@Override
 	public boolean isBlockSolidOnSide(World world, int x, int y, int z, ForgeDirection side)
 	{
-		return !(side.ordinal() == 0 || side.ordinal() == world.getBlockMetadata(x, y, z));
+		return (side.ordinal() != 0 && side.ordinal() != world.getBlockMetadata(x, y, z));
 	}
 	
 }
