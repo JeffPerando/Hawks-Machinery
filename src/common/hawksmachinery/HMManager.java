@@ -42,16 +42,17 @@ public class HMManager implements LoadingCallback, IWorldGenerator, IVillageTrad
 	public static int crusherID;
 	public static int endiumOreID;
 	public static int washerID;
-	public static int chunkloaderID;
-	public static int sintererID;
+	public static int endiumChunkloaderID;
 	
 	public static int dustRawID;
 	public static int dustRefinedID;
 	public static int partsID;
 	public static int blueprintID;
-	public static int endiumItemsID;
+	public static int endiumPlateID;
 	public static int rivetsID;
 	public static int rivetGunID;
+	public static int ingotsID;
+	public static int alloysID;
 	
 	public static int ACHprospector;
 	public static int ACHtimeToCrush;
@@ -84,7 +85,6 @@ public class HMManager implements LoadingCallback, IWorldGenerator, IVillageTrad
 		endiumOreID = HMConfig.getBlock("Endium Ore", 3961).getInt(3961);
 		washerID = HMConfig.getBlock("Washer", 3962).getInt(3962);
 		//NOTE ID #3963 saved for Endium Chunkloader.
-		sintererID = HMConfig.getBlock("Sinterer", 3964).getInt(3965);
 		
 		generateEndium = HMConfig.get(Configuration.CATEGORY_GENERAL, "Generate Endium", true).getBoolean(true);
 		enableUpdateChecking = HMConfig.get(Configuration.CATEGORY_GENERAL, "Enable Update Checking", true).getBoolean(true);
@@ -93,7 +93,7 @@ public class HMManager implements LoadingCallback, IWorldGenerator, IVillageTrad
 		
 		if (enableChunkloader)
 		{
-			chunkloaderID = HMConfig.getBlock("Endium Chunkloader", 3964).getInt(3964);
+			endiumChunkloaderID = HMConfig.getBlock("Endium Chunkloader", 3964).getInt(3964);
 			maxChunksLoaded = HMConfig.get("Max Chunks Loaded", Configuration.CATEGORY_GENERAL, 25).getInt(25);
 			
 		}
@@ -102,9 +102,11 @@ public class HMManager implements LoadingCallback, IWorldGenerator, IVillageTrad
 		dustRefinedID = HMConfig.get(Configuration.CATEGORY_ITEM, "Refined Dusts", 24151).getInt(24151);
 		partsID = HMConfig.get(Configuration.CATEGORY_ITEM, "Parts", 24152).getInt(24152);
 		blueprintID = HMConfig.get(Configuration.CATEGORY_ITEM, "Blueprints", 24153).getInt(24153);
-		endiumItemsID = HMConfig.get(Configuration.CATEGORY_ITEM, "Endium Items", 24154).getInt(24154);
+		endiumPlateID = HMConfig.get(Configuration.CATEGORY_ITEM, "Endium Plate", 24154).getInt(24154);
 		rivetsID = HMConfig.get(Configuration.CATEGORY_ITEM, "Rivets", 24155).getInt(24155);
 		rivetGunID = HMConfig.get(Configuration.CATEGORY_ITEM, "Rivet Gun", 24156).getInt(24156);
+		ingotsID = HMConfig.get(Configuration.CATEGORY_ITEM, "Ingots", 24157).getInt(24157);
+		alloysID = HMConfig.get(Configuration.CATEGORY_ITEM, "Alloys", 24158).getInt(24158);
 		
 		ACHprospector = HMConfig.get(Configuration.CATEGORY_GENERAL, "ACH Prospector", 1500).getInt(1500);
 		ACHtimeToCrush = HMConfig.get(Configuration.CATEGORY_GENERAL, "ACH Time To Crush", 1501).getInt(1501);
@@ -227,7 +229,7 @@ public class HMManager implements LoadingCallback, IWorldGenerator, IVillageTrad
 		{
 			if (enableChunkloader)
 			{
-				recipeList.add(new MerchantRecipe(new ItemStack(BASEMOD.chunkloader, 1), new ItemStack(Item.emerald, 12)));
+				recipeList.add(new MerchantRecipe(new ItemStack(BASEMOD.endiumChunkloader, 1), new ItemStack(Item.emerald, 12)));
 			}
 			
 		}

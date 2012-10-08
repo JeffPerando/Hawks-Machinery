@@ -70,7 +70,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	{
 		if (voltage > this.getVoltage())
 		{
-			this.explodeMachine(20.0F);
+			this.explodeMachine(5.0F);
 		}
 		
 		this.electricityStored += ElectricInfo.getWatts(amps, voltage);
@@ -360,7 +360,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	
 	public boolean attemptToUnSap(EntityPlayer player)
 	{
-		if (this.sapper != null && this.isBeingSapped())
+		if (this.isBeingSapped())
 		{
 			int randomDigit = new Random().nextInt(((IHMSapper)this.sapper.getItem()).getRemovalValue(this.sapper, player));
 			

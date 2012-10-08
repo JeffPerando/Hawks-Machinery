@@ -15,7 +15,7 @@ import net.minecraft.src.ItemStack;
  */
 public class HMItemParts extends HMItem
 {
-	public static String[] en_USNames = {"Electric Piston", "Laser", "Circular Saw Blade", "Light Bulb", "Heating Coil", "Electric Magnet"};
+	public static String[] en_USNames = {"Electric Piston", "Laser", "Circular Saw Blade", "Light Bulb", "Heating Coil", "Electric Magnet", "Engine"};
 	
 	public HMItemParts(int id)
 	{
@@ -36,6 +36,7 @@ public class HMItemParts extends HMItem
 			case 3: return 64;
 			case 4: return 80;
 			case 5: return 96;
+			case 6: return 112;
 			default: return 0;
 		}
 	}
@@ -60,6 +61,7 @@ public class HMItemParts extends HMItem
 			case 3: return "lightBulb";
 			case 4: return "heatingCoil";
 			case 5: return "electroMagnet";
+			case 6: return "engine";
 			
 		}
 		

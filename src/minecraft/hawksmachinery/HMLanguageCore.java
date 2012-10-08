@@ -22,7 +22,7 @@ public class HMLanguageCore
 		LANG.addNameForObject(BASEMOD.washer, "en_US", "Washer");
 		if (BASEMOD.MANAGER.enableChunkloader)
 		{
-			LANG.addNameForObject(BASEMOD.chunkloader, "en_US", "Endium Chunkloader");
+			LANG.addNameForObject(BASEMOD.endiumChunkloader, "en_US", "Endium Chunkloader");
 		}
 		
 		LANG.addNameForObject(BASEMOD.rivetGun, "en_US", "Rivet Gun");
@@ -38,9 +38,15 @@ public class HMLanguageCore
 		
 		for (int counter = 0; counter <= 9; ++counter)
 		{
+			if (counter == 0)
+			{
+				LANG.addNameForObject(new ItemStack(BASEMOD.alloys, 1, counter), "en_US", HMItemAlloys.en_USNames[counter] + " Alloy");
+				LANG.addNameForObject(new ItemStack(BASEMOD.ingots, 1, counter), "en_US", HMItemIngots.en_USNames[counter] + " Ingot");
+				
+			}
+			
 			if (counter <= 5)
 			{
-				LANG.addNameForObject(new ItemStack(BASEMOD.parts, 1, counter), "en_US", HMItemParts.en_USNames[counter]);
 				LANG.addNameForObject(new ItemStack(BASEMOD.rivets, 1, counter), "en_US", HMItemRivets.en_USNames[counter] + " Rivet");
 				
 			}
@@ -55,6 +61,8 @@ public class HMLanguageCore
 				{
 					LANG.addNameForObject(new ItemStack(BASEMOD.dustRaw, 1, counter), "en_US", HMItemRawDust.en_USNames[counter] + " Dust");
 				}
+				
+				LANG.addNameForObject(new ItemStack(BASEMOD.parts, 1, counter), "en_US", HMItemParts.en_USNames[counter]);
 				
 			}
 			

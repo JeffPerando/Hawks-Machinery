@@ -97,7 +97,7 @@ public class HawksMachinery implements ICraftingHandler
 	
 	public static Block crusher;
 	public static Block washer;
-	public static Block chunkloader;
+	public static Block endiumChunkloader;
 	public static Block endiumOre;
 	
 	/**
@@ -110,9 +110,11 @@ public class HawksMachinery implements ICraftingHandler
 	public static Item dustRefined;
 	public static Item parts;
 	public static Item blueprints;
-	public static Item endiumItems;
+	public static Item endiumPlate;
 	public static Item rivets;
 	public static Item rivetGun;
+	public static Item ingots;
+	public static Item alloys;
 	
 	public static Achievement prospector;
 	public static Achievement timeToCrush;
@@ -132,7 +134,7 @@ public class HawksMachinery implements ICraftingHandler
 		washer = new HMBlockWasher(MANAGER.washerID).setStepSound(Block.soundMetalFootstep);
 		if (MANAGER.enableChunkloader)
 		{
-			chunkloader = new HMBlockEndiumChunkloader(MANAGER.chunkloaderID);
+			endiumChunkloader = new HMBlockEndiumChunkloader(MANAGER.endiumChunkloaderID);
 			ForgeChunkManager.setForcedChunkLoadingCallback(this, MANAGER);
 			
 		}
@@ -141,14 +143,16 @@ public class HawksMachinery implements ICraftingHandler
 		dustRefined = new HMItemRefinedDust(MANAGER.dustRefinedID - 256);
 		parts = new HMItemParts(MANAGER.partsID - 256);
 		blueprints = new HMItemBlueprints(MANAGER.blueprintID - 256);
-		endiumItems = new HMItemEndium(MANAGER.endiumItemsID - 256);
+		endiumPlate = new HMItem(MANAGER.endiumPlateID - 256);
 		rivets = new HMItemRivets(MANAGER.rivetsID - 256);
 		rivetGun = new HMItemRivetGun(MANAGER.rivetGunID - 256);
+		ingots = new HMItemIngots(MANAGER.ingotsID - 256);
+		alloys = new HMItemAlloys(MANAGER.alloysID - 256);
 		
 		prospector = new Achievement(MANAGER.ACHprospector, "Prospector", -1, 0, new ItemStack(Item.pickaxeSteel, 1), AchievementList.buildBetterPickaxe).registerAchievement();
 		timeToCrush = new Achievement(MANAGER.ACHtimeToCrush, "Time to Crush", -2, -3, new ItemStack(crusher, 1, 0), prospector).registerAchievement().setSpecial();
-		
-		
+		//TODO Reactivate achievement.
+		//TODO Reactivate achievement.
 		wash = new Achievement(MANAGER.ACHwash, "Wash", 0, -4, new ItemStack(washer, 1, 0), timeToCrush).registerAchievement().setSpecial();
 		
 		HAWKSPAGE = new AchievementPage("Hawk's Machinery", timeToCrush, prospector, wash);
@@ -207,17 +211,17 @@ public class HawksMachinery implements ICraftingHandler
 	}
 	
 	/**
-	 * Loads all of the recipes for Hawk's Machinery, including regular crafting recipes.
+	 * Loads all of the vMC recipes for Hawk's Machinery.
 	 */
 	public static void loadRecipes()
 	{
+		RECIPE_GIVER.addRecipe(new ItemStack(crusher), new Object[]{"IPI", "SES", "SCS", 'I', "ingotIron", 'P', Item.pickaxeSteel, 'S', BasicComponents.itemSteelPlate, 'E', new ItemStack(parts, 1, 6), 'C', BasicComponents.blockCopperWire});
+		RECIPE_GIVER.addRecipe(new ItemStack(washer), new Object[]{"iBi", "IWI", "IEI", 'i', "ingotIron", 'B', Item.bucketEmpty, 'I', Block.blockSteel, 'W', Block.cloth, 'E', new ItemStack(parts, 1, 6)});
 		
-		//RECIPE_GIVER.addRecipe(new ItemStack(blockCrusher, 1), new Object[]{"TPT", "TMT", "TBT", 'T', new ItemStack(plating, 1, 0), 'P', Item.pickaxeSteel, 'M', BasicComponents.itemMotor, 'B', ((ItemBattery)BasicComponents.itemBattery).getUnchargedItemStack()});
-		//RECIPE_GIVER.addRecipe(new ItemStack(blockWasher, 1), new Object[]{"AWA", "BPA", "AbD", 'A', new ItemStack(plating, 1, 1), 'W', Block.cloth, 'P', new ItemStack(parts, 1, 0), 'D', Block.dispenser, 'B', ((ItemBattery)BasicComponents.itemBattery).getUnchargedItemStack(), 'b', Item.bucketEmpty});
 		if (MANAGER.enableChunkloader)
 		{
-			//RECIPE_GIVER.addRecipe(new ItemStack(blockChunkloader, 1), new Object[]{"EBE", "BIB", "EBE", 'E', "ingotEndium", 'B', BasicComponents.itemBronzePlate, 'I', Item.eyeOfEnder});
-			//RECIPE_GIVER.addShapelessRecipe(new ItemStack(ingots, 4, 3), new Object[]{blockChunkloader});
+			RECIPE_GIVER.addRecipe(new ItemStack(endiumChunkloader), new Object[]{"EBE", "B@B", "EBE", 'E', new ItemStack(ingots), 'B', BasicComponents.itemBronzePlate, '@', Item.eyeOfEnder});
+			RECIPE_GIVER.addSmelting(new ItemStack(endiumChunkloader), new ItemStack(ingots, 3));
 			
 		}
 		
@@ -231,10 +235,10 @@ public class HawksMachinery implements ICraftingHandler
 		RECIPE_GIVER.addRecipe(new ItemStack(parts, 1, 3), new Object[]{" G ", "GBG", "cCc", 'G', Block.thinGlass, 'B', Item.blazeRod, 'c', "ingotCopper", 'C', BasicComponents.blockCopperWire});
 		RECIPE_GIVER.addRecipe(new ItemStack(parts, 1, 4), new Object[]{"CC", "CC", 'C', BasicComponents.blockCopperWire});
 		RECIPE_GIVER.addRecipe(new ItemStack(parts, 1, 5), new Object[]{"ici", 'i', "ingotIron", 'c', new ItemStack(parts, 1, 4)});
+		RECIPE_GIVER.addRecipe(new ItemStack(parts, 1, 6), new Object[]{"OOS", "BPb", "OOS", 'O', Block.obsidian, 'S', "ingotSteel", 'B', Item.blazePowder, 'P', new ItemStack(parts), 'b', ((ItemBattery)BasicComponents.itemBattery).getUnchargedItemStack()});
 		
 		RECIPE_GIVER.addShapelessRecipe(BasicComponents.itemSteelDust, new Object[]{new ItemStack(dustRaw, 1, 0), new ItemStack(dustRefined, 1, 3)});
 		RECIPE_GIVER.addShapelessRecipe(new ItemStack(Item.fireballCharge, 3), new Object[]{Item.blazePowder, Item.gunpowder, new ItemStack(dustRaw, 1, 0)});
-		RECIPE_GIVER.addShapelessRecipe(new ItemStack(endiumItems, 1, 2), new Object[]{new ItemStack(dustRefined, 1, 12), new ItemStack(dustRefined, 1, 11), new ItemStack(dustRefined, 1, 9)});
 		
 		RECIPE_GIVER.addSmelting(new ItemStack(dustRefined, 1, 2), new ItemStack(Block.thinGlass));
 		RECIPE_GIVER.addSmelting(new ItemStack(dustRefined, 1, 3), new ItemStack(Item.ingotIron));
@@ -247,7 +251,6 @@ public class HawksMachinery implements ICraftingHandler
 	
 	public static void loadProcessingRecipes()
 	{
-		
 		PROCESS_RECIPES.addHawkProcessingRecipe(Item.diamond, new ItemStack(dustRefined, 1, 0), CRUSH);
 		PROCESS_RECIPES.addHawkProcessingRecipe(Item.enderPearl, new ItemStack(dustRefined, 1, 1), CRUSH);
 		PROCESS_RECIPES.addHawkProcessingRecipe(Block.glass, new ItemStack(dustRefined, 4, 2), CRUSH);
@@ -341,6 +344,11 @@ public class HawksMachinery implements ICraftingHandler
 		if (item.itemID == crusher.blockID)
 		{
 			player.addStat(timeToCrush, 1);
+		}
+		
+		if (item.itemID == washer.blockID)
+		{
+			player.addStat(wash, 1);
 		}
 		
 		/*
