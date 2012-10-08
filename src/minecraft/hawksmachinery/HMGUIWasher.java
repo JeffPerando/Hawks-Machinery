@@ -56,6 +56,35 @@ public class HMGUIWasher extends GuiContainer
 		}
 
 		this.drawTexturedModalRect(this.containerWidth - 32, this.containerHeight - 16, 0, 232, 240, 16);
+
+		if (this.tileEntity.machineHP > 0)
+		{
+			int lightYPos = 0;
+			
+			if (this.tileEntity.machineHP <= 5)
+			{
+				lightYPos = 0;
+			}
+			else if (this.tileEntity.machineHP <= 10)
+			{
+				lightYPos = 10;
+			}
+			else if (this.tileEntity.machineHP <= 15)
+			{
+				lightYPos = 20;
+			}
+			else if (this.tileEntity.machineHP <= 20)
+			{
+				lightYPos = 30;
+			}
+			
+			for (int counter = 0; counter < this.tileEntity.machineHP; ++counter)
+			{
+				this.drawTexturedModalRect((this.containerWidth - 12) + (counter * 10), this.containerHeight - 12, lightYPos, 248, 10, 8);
+				
+			}
+			
+		}
 		
 	}
 	
