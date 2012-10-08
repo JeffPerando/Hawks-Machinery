@@ -60,23 +60,15 @@ public class HMProcessingRecipes
 	 * 
 	 * Adds a processing recipe.
 	 * 
-	 * @param <T>
 	 * @param input The input.
 	 * @param output The output.
 	 * @param processType What type of processing this recipe is for.
 	 */
-	public static <T> void addHawkProcessingRecipe(T input, T output, HawkEnumProcessing processType)
+	public static void addHawkProcessingRecipe(ItemStack input, ItemStack output, HawkEnumProcessing processType)
 	{
 		if (input != null && output != null && processType != null)
 		{
-			if (input instanceof ItemStack)
-			{
-				processType.getRecipeList().put(Arrays.asList(((ItemStack)input).getItem(), ((ItemStack)input).getItemDamage(), ((ItemStack)input).isItemEnchanted(), ((ItemStack)input).stackTagCompound != null), output);
-			}
-			else
-			{
-				processType.getRecipeList().put(input, output);
-			}
+			processType.getRecipeList().put(Arrays.asList(input.getItem(), input.getItemDamage()), output);
 			
 		}
 		else
@@ -184,11 +176,17 @@ public class HMProcessingRecipes
 		}
 		else
 		{
-			ItemStack output = (ItemStack)processType.getRecipeList().get(Arrays.asList(input.getItem(), input.isItemStackDamageable() ? 0 : input.getItemDamage(), input.isItemEnchanted(), input.stackTagCompound != null));
+			ItemStack output = (ItemStack)processType.getRecipeList().get(Arrays.asList(input.getItem(), input.isItemStackDamageable() ? 0 : input.getItemDamage()));
 			
-			if (input.isItemEqual(output) && input.isItemStackDamageable() && output.isItemStackDamageable())
+			if (output != null)
 			{
-				output.setItemDamage(input.getItemDamage());
+				if (input.isItemEqual(output) && input.isItemStackDamageable() && output.isItemStackDamageable())
+				{
+					output.setItemDamage(input.getItemDamage());
+				}
+				
+				System.out.println("I'M AN EMPOLEON, NOT A HUMAN!");
+				
 			}
 			
 			return output;

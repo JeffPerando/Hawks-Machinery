@@ -37,15 +37,19 @@ public abstract class HMBlockMachine extends BlockMachine
 	{
 		ItemStack playerItem = player.getCurrentEquippedItem();
 		
-		if (playerItem.getItem() instanceof IHMSapper)
+		if (playerItem != null)
 		{
-			if (((IHMSapper)playerItem.getItem()).sappersRequired(playerItem) > 0)
+			if (playerItem.getItem() instanceof IHMSapper)
 			{
-				IHMSapper sapper = ((IHMSapper)playerItem.getItem());
-				
-				if (world.getBlockTileEntity(x, y, z) instanceof IHMRepairable)
+				if (((IHMSapper)playerItem.getItem()).sappersRequired(playerItem) > 0)
 				{
-					return ((IHMRepairable)world.getBlockTileEntity(x, y, z)).setSapper(new ItemStack(playerItem.getItem(), sapper.sappersRequired(playerItem), playerItem.getItemDamage()));
+					IHMSapper sapper = ((IHMSapper)playerItem.getItem());
+					
+					if (world.getBlockTileEntity(x, y, z) instanceof IHMRepairable)
+					{
+						return ((IHMRepairable)world.getBlockTileEntity(x, y, z)).setSapper(new ItemStack(playerItem.getItem(), sapper.sappersRequired(playerItem), playerItem.getItemDamage()));
+					}
+					
 				}
 				
 			}

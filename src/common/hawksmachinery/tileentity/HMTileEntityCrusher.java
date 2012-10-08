@@ -164,7 +164,7 @@ public class HMTileEntityCrusher extends HMTileEntityMachine implements ISpecial
 	{
 		if (this.canCrush())
 		{
-			ItemStack var1 = HMProcessingRecipes.getResult(this.containingItems[1], this.machineEnum);
+			ItemStack var1 = HMProcessingRecipes.getResult(this.containingItems[1], machineEnum);
 			
 			if (this.containingItems[2] == null)
 			{
@@ -181,6 +181,8 @@ public class HMTileEntityCrusher extends HMTileEntityMachine implements ISpecial
 			{
 				this.containingItems[1] = null;
 			}
+			
+			this.randomlyDamageSelf();
 			
 		}
 		else

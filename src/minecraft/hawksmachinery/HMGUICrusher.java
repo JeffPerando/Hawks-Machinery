@@ -8,6 +8,7 @@ import universalelectricity.electricity.ElectricInfo;
 import net.minecraft.src.GuiContainer;
 import net.minecraft.src.InventoryPlayer;
 import net.minecraft.src.StatCollector;
+import net.minecraft.src.Tuple;
 import net.minecraft.src.World;
 
 /**
@@ -35,7 +36,7 @@ public class HMGUICrusher extends GuiContainer
 	{
 		this.fontRenderer.drawString("Crusher", 65, 6, 4210752);
 		
-		this.fontRenderer.drawString("Crushing:", 10, 28, 4210752);
+		this.fontRenderer.drawString("Input:", 10, 28, 4210752);
 		this.fontRenderer.drawString("Battery:", 10, 53, 4210752);
 		
 		this.fontRenderer.drawString("Status: "+this.tileEntity.getCrusherStatus(), 75, 48, 4210752);
@@ -43,6 +44,7 @@ public class HMGUICrusher extends GuiContainer
 		this.fontRenderer.drawString(ElectricInfo.getDisplayShort(this.tileEntity.electricityStored, ElectricInfo.ElectricUnit.WATT), 75, 70, 4210752);
 		
 		this.fontRenderer.drawString(StatCollector.translateToLocal("container.inventory"), 8, this.ySize - 96 + 2, 4210752);
+		
 	}
 	
 	/**
@@ -61,6 +63,37 @@ public class HMGUICrusher extends GuiContainer
 		{
 			int scale = this.tileEntity.calculateCrushingDuration(24);
 			this.drawTexturedModalRect(this.containerWidth + 77, this.containerHeight + 24, 176, 0, 23 - scale, 20);
+		}
+		
+		this.drawTexturedModalRect(this.containerWidth - 32, this.containerHeight - 16, 0, 232, 240, 16);
+		
+		if (this.tileEntity.machineHP > 0)
+		{
+			int lightYPos = 0;
+			
+			if (this.tileEntity.machineHP <= 5)
+			{
+				lightYPos = 0;
+			}
+			else if (this.tileEntity.machineHP <= 10)
+			{
+				lightYPos = 10;
+			}
+			else if (this.tileEntity.machineHP <= 15)
+			{
+				lightYPos = 20;
+			}
+			else if (this.tileEntity.machineHP <= 20)
+			{
+				lightYPos = 30;
+			}
+			
+			for (int counter = 0; counter < this.tileEntity.machineHP; ++counter)
+			{
+				this.drawTexturedModalRect((this.containerWidth - 12) + (counter * 10), this.containerHeight - 12, lightYPos, 248, 10, 8);
+				
+			}
+			
 		}
 		
 	}

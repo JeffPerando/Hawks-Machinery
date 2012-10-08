@@ -143,7 +143,7 @@ public class HawksMachinery implements ICraftingHandler
 		dustRefined = new HMItemRefinedDust(MANAGER.dustRefinedID - 256);
 		parts = new HMItemParts(MANAGER.partsID - 256);
 		blueprints = new HMItemBlueprints(MANAGER.blueprintID - 256);
-		endiumPlate = new HMItem(MANAGER.endiumPlateID - 256);
+		endiumPlate = new HMItem(MANAGER.endiumPlateID - 256).setItemName("endiumPlate").setIconIndex(51);
 		rivets = new HMItemRivets(MANAGER.rivetsID - 256);
 		rivetGun = new HMItemRivetGun(MANAGER.rivetGunID - 256);
 		ingots = new HMItemIngots(MANAGER.ingotsID - 256);

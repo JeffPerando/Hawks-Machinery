@@ -72,8 +72,13 @@ public class HMItemRivetGun extends ItemElectric
 									if (((IHMRepairable)foundBlock).attemptToRepair(potentialRepairAmount))
 									{
 										--testedItem.stackSize;
+										if (testedItem.stackSize == 0)
+										{
+											player.inventory.mainInventory[counter] = null;
+										}
+										
 										player.swingItem();
-										item.damageItem((int)this.getTransferRate(), null);
+										item.damageItem(100, null);
 										return item;
 									}
 									

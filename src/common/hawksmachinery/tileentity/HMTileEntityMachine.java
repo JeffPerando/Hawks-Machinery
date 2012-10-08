@@ -105,6 +105,8 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 			this.sendPacket();
 		}
 		
+		this.facingDirection = ForgeDirection.getOrientation(this.worldObj.getBlockMetadata(this.xCoord, this.yCoord, this.zCoord));
+		
 	}
 	
 	public double getVoltage()
@@ -264,7 +266,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 		
 		if (NBTTag.hasKey("Sapper"))
 		{
-			this.sapper.readFromNBT(NBTTag.getCompoundTag("Sapper"));
+			this.sapper = ItemStack.loadItemStackFromNBT(NBTTag.getCompoundTag("Sapper"));
 		}
 		
 		if (this.containingItems.length > 0)
