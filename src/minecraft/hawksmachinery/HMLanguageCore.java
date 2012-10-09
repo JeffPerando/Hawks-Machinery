@@ -40,7 +40,6 @@ public class HMLanguageCore
 		{
 			if (counter == 0)
 			{
-				LANG.addNameForObject(new ItemStack(BASEMOD.alloys, 1, counter), "en_US", HMItemAlloys.en_USNames[counter] + " Alloy");
 				LANG.addNameForObject(new ItemStack(BASEMOD.ingots, 1, counter), "en_US", HMItemIngots.en_USNames[counter] + " Ingot");
 				
 			}

@@ -52,7 +52,6 @@ public class HMManager implements LoadingCallback, IWorldGenerator, IVillageTrad
 	public static int rivetsID;
 	public static int rivetGunID;
 	public static int ingotsID;
-	public static int alloysID;
 	
 	public static int ACHprospector;
 	public static int ACHtimeToCrush;
@@ -106,7 +105,6 @@ public class HMManager implements LoadingCallback, IWorldGenerator, IVillageTrad
 		rivetsID = HMConfig.get(Configuration.CATEGORY_ITEM, "Rivets", 24155).getInt(24155);
 		rivetGunID = HMConfig.get(Configuration.CATEGORY_ITEM, "Rivet Gun", 24156).getInt(24156);
 		ingotsID = HMConfig.get(Configuration.CATEGORY_ITEM, "Ingots", 24157).getInt(24157);
-		alloysID = HMConfig.get(Configuration.CATEGORY_ITEM, "Alloys", 24158).getInt(24158);
 		
 		ACHprospector = HMConfig.get(Configuration.CATEGORY_GENERAL, "ACH Prospector", 1500).getInt(1500);
 		ACHtimeToCrush = HMConfig.get(Configuration.CATEGORY_GENERAL, "ACH Time To Crush", 1501).getInt(1501);

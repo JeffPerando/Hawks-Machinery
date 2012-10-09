@@ -114,7 +114,6 @@ public class HawksMachinery implements ICraftingHandler
 	public static Item rivets;
 	public static Item rivetGun;
 	public static Item ingots;
-	public static Item alloys;
 	
 	public static Achievement prospector;
 	public static Achievement timeToCrush;
@@ -147,7 +146,6 @@ public class HawksMachinery implements ICraftingHandler
 		rivets = new HMItemRivets(MANAGER.rivetsID - 256);
 		rivetGun = new HMItemRivetGun(MANAGER.rivetGunID - 256);
 		ingots = new HMItemIngots(MANAGER.ingotsID - 256);
-		alloys = new HMItemAlloys(MANAGER.alloysID - 256);
 		
 		prospector = new Achievement(MANAGER.ACHprospector, "Prospector", -1, 0, new ItemStack(Item.pickaxeSteel, 1), AchievementList.buildBetterPickaxe).registerAchievement();
 		timeToCrush = new Achievement(MANAGER.ACHtimeToCrush, "Time to Crush", -2, -3, new ItemStack(crusher, 1, 0), prospector).registerAchievement().setSpecial();
@@ -186,6 +184,8 @@ public class HawksMachinery implements ICraftingHandler
 		OreDictionary.registerOre("dustEmerald", new ItemStack(dustRefined, 1, 7));
 		OreDictionary.registerOre("dustStar", new ItemStack(dustRefined, 1, 8));
 		OreDictionary.registerOre("dustEndium", new ItemStack(dustRefined, 1, 9));
+		
+		OreDictionary.registerOre("ingotEndium", new ItemStack(ingots));
 		
 	}
 	
