@@ -130,7 +130,7 @@ public class HawksMachinery implements ICraftingHandler
 		INSTANCE = this;
 		
 		crusher = new HMBlockCrusher(MANAGER.loadConfig()).setStepSound(Block.soundMetalFootstep);
-		endiumOre = new HMBlock(MANAGER.endiumOreID, Material.rock, 19).setStepSound(Block.soundStoneFootstep);
+		endiumOre = new HMBlock(MANAGER.endiumOreID, Material.rock, 23).setStepSound(Block.soundStoneFootstep);
 		washer = new HMBlockWasher(MANAGER.washerID).setStepSound(Block.soundMetalFootstep);
 		if (MANAGER.enableChunkloader)
 		{

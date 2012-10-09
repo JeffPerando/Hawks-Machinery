@@ -112,33 +112,33 @@ public class HMBlockWasher extends HMBlockMachine
 		{
 			case 2: switch (side)
 					{
-						case 1: return 48;
-						case 2: return 50;
-						default: return 51;
+						case 1: return 16;
+						case 2: return 18;
+						default: return 19;
 					}
 			case 3: switch (side)
 					{
-						case 1: return 48;
-						case 3: return 50;
-						default: return 51;
+						case 1: return 16;
+						case 3: return 18;
+						default: return 19;
 					}
 			case 4: switch (side)
 					{
-						case 1: return 49;
-						case 4: return 50;
-						default: return 51;
+						case 1: return 17;
+						case 4: return 18;
+						default: return 19;
 					}
 			case 5: switch (side)
 					{
-						case 1: return 49;
-						case 5: return 50;
-						default: return 51;
+						case 1: return 17;
+						case 5: return 18;
+						default: return 19;
 					}
 			default: switch (side)
 					{
-						case 1: return 48;
-						case 3: return 50;
-						default: return 51;
+						case 1: return 16;
+						case 3: return 18;
+						default: return 19;
 					}
 		}
 	}
