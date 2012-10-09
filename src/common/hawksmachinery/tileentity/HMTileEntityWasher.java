@@ -141,7 +141,7 @@ public class HMTileEntityWasher extends HMTileEntityMachine implements IItemTran
 		}
 		else
 		{
-			if (this.electricityStored >= this.ELECTRICITY_REQUIRED * 2 && this.waterUnits >= 1.0F)
+			if (this.electricityStored >= this.ELECTRICITY_REQUIRED * 2 && this.waterUnits >= 1.0F && !this.isDisabled())
 			{
 				ItemStack var1 = HMProcessingRecipes.getResult(this.containingItems[2], this.machineEnum);
 				if (var1 == null) return false;
@@ -180,6 +180,8 @@ public class HMTileEntityWasher extends HMTileEntityMachine implements IItemTran
 				{
 					this.containingItems[2] = null;
 				}
+				
+				this.randomlyDamageSelf();
 				
 			}
 		}

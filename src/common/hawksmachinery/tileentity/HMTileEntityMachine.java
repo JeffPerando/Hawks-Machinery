@@ -105,7 +105,16 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 			this.sendPacket();
 		}
 		
-		this.facingDirection = ForgeDirection.getOrientation(this.worldObj.getBlockMetadata(this.xCoord, this.yCoord, this.zCoord));
+		if (this.isBeingSapped())
+		{
+			((IHMSapper)this.sapper.getItem()).sapperTick(this.worldObj, this.xCoord, this.yCoord, this.zCoord);
+		}
+		
+		if (this.facingDirection.ordinal() != this.blockMetadata)
+		{
+			this.facingDirection = ForgeDirection.getOrientation(this.blockMetadata);
+			
+		}
 		
 	}
 	
@@ -299,9 +308,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 		
 		if (this.sapper != null)
 		{
-			NBTTagCompound sapperTag = new NBTTagCompound();
-			this.sapper.writeToNBT(sapperTag);
-			NBTTag.setCompoundTag("Sapper", sapperTag);
+			NBTTag.setCompoundTag("Sapper", this.sapper.writeToNBT(new NBTTagCompound()));
 			
 		}
 		
@@ -338,8 +345,6 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	
 	public boolean attemptToRepair(int repairAmount)
 	{
-		System.out.println(this.machineHP);//TODO Debugging
-		
 		if (this.machineHP != this.getMaxHP() && !this.isBeingSapped())
 		{
 			this.machineHP += repairAmount;
@@ -368,8 +373,8 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 			
 			if (randomDigit == ((IHMSapper)this.sapper.getItem()).getRemovalValue(this.sapper, player) / 2)
 			{
+				((IHMSapper)this.sapper.getItem()).onRemoved(this.worldObj, this.xCoord, this.yCoord, this.zCoord);
 				this.sapper = null;
-				
 				return true;
 			}
 			
@@ -381,6 +386,12 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	public boolean isBeingSapped()
 	{
 		return this.sapper != null;
+	}
+	
+	@Override
+	public boolean isDisabled()
+	{
+		return this.isBeingSapped() || this.machineHP == 0;
 	}
 	
 	public int getMaxHP()

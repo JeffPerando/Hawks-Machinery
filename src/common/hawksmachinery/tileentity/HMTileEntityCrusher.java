@@ -119,7 +119,7 @@ public class HMTileEntityCrusher extends HMTileEntityMachine implements ISpecial
 		}
 		else
 		{
-			if (this.electricityStored >= this.ELECTRICITY_REQUIRED * 2)
+			if (this.electricityStored >= this.ELECTRICITY_REQUIRED * 2 && !this.isDisabled())
 			{
 				ItemStack var1 = HMProcessingRecipes.getResult(this.containingItems[1], this.machineEnum);
 				if (var1 == null) return false;
@@ -268,7 +268,6 @@ public class HMTileEntityCrusher extends HMTileEntityMachine implements ISpecial
 	
 	public String getCrusherStatus()
 	{
-		
 		if (this.workTicks > 0)
 		{
 			this.crusherStatus = 1;
