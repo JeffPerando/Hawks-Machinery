@@ -217,6 +217,7 @@ public class HawksMachinery implements ICraftingHandler
 	{
 		RECIPE_GIVER.addRecipe(new ItemStack(crusher), new Object[]{"IPI", "SES", "SCS", 'I', "ingotIron", 'P', Item.pickaxeSteel, 'S', BasicComponents.itemSteelPlate, 'E', new ItemStack(parts, 1, 6), 'C', BasicComponents.blockCopperWire});
 		RECIPE_GIVER.addRecipe(new ItemStack(washer), new Object[]{"iBi", "IWI", "IEI", 'i', "ingotIron", 'B', Item.bucketEmpty, 'I', Block.blockSteel, 'W', Block.cloth, 'E', new ItemStack(parts, 1, 6)});
+		RECIPE_GIVER.addRecipe(((HMItemRivetGun)rivetGun).getUnchargedItemStack(), new Object[]{"SLS", "XBX", "TPT", 'S', "ingotSteel", 'L', Block.lever, 'X', BasicComponents.itemSteelPlate, 'B', ((ItemBattery)BasicComponents.itemBattery).getUnchargedItemStack(), 'T', BasicComponents.itemTinPlate, 'P', Block.pistonBase});
 		
 		if (MANAGER.enableChunkloader)
 		{
