@@ -78,7 +78,7 @@ public class HMItemRivetGun extends ItemElectric
 										}
 										
 										player.swingItem();
-										item.damageItem(100, null);
+										item.damageItem(100, player);
 										return item;
 									}
 									
