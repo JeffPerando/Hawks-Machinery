@@ -22,6 +22,7 @@ public class HMItemParts extends HMItem
 		super(id);
 		setHasSubtypes(true);
 		setMaxDamage(0);
+		setCreativeTab(CreativeTabs.tabMaterials);
 		
 	}
 	
@@ -66,11 +67,6 @@ public class HMItemParts extends HMItem
 		}
 		
 		return null;
-	}
-	
-	public void addCreativeTab()
-	{
-		setCreativeTab(CreativeTabs.tabMaterials);
 	}
 	
 }

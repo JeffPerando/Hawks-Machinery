@@ -26,6 +26,7 @@ public class HMItemRefinedDust extends HMItem
 		super(id);
 		setHasSubtypes(true);
 		setMaxDamage(0);
+		setCreativeTab(CreativeTabs.tabMaterials);
 		
 	}
 	
@@ -85,11 +86,6 @@ public class HMItemRefinedDust extends HMItem
 	public String getItemNameIS(ItemStack item)
 	{
 		return en_USNames[item.getItemDamage()].toLowerCase() + "Dust";
-	}
-	
-	public void addCreativeTab()
-	{
-		setCreativeTab(CreativeTabs.tabMaterials);
 	}
 	
 }

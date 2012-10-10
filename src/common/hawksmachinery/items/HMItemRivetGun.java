@@ -26,7 +26,7 @@ public class HMItemRivetGun extends ItemElectric
 	
 	public HMItemRivetGun(int id)
 	{
-		super(id, CreativeTabs.tabTools);
+		super(id);
 		setTextureFile(BASEMOD.ITEM_TEXTURE_FILE);
 		setItemName("rivetGun");
 		setIconIndex(17);
@@ -36,7 +36,7 @@ public class HMItemRivetGun extends ItemElectric
 	@Override
 	public ItemStack onItemRightClick(ItemStack item, World world, EntityPlayer player)
 	{
-		if (player.isSneaking() && item.getItemDamage() <= this.getTransferRate())
+		if (player.isSneaking() && item.getItemDamage() >= this.getTransferRate())
 		{
 			player.setItemInUse(item, getMaxItemUseDuration(item));
 		}
@@ -78,7 +78,7 @@ public class HMItemRivetGun extends ItemElectric
 										}
 										
 										player.swingItem();
-										item.damageItem(100, player);
+										this.onUseElectricity(this.getTransferRate(), item);
 										return item;
 									}
 									

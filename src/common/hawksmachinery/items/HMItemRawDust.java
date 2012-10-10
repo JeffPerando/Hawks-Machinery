@@ -27,6 +27,7 @@ public class HMItemRawDust extends HMItem
 		super(id);
 		setHasSubtypes(true);
 		setMaxDamage(0);
+		setCreativeTab(CreativeTabs.tabMaterials);
 		
 	}
 	
@@ -80,11 +81,6 @@ public class HMItemRawDust extends HMItem
 	public String getItemNameIS(ItemStack item)
 	{
 		return en_USNames[item.getItemDamage()] + "DustUnref";
-	}
-	
-	public void addCreativeTab()
-	{
-		setCreativeTab(CreativeTabs.tabMaterials);
 	}
 	
 }

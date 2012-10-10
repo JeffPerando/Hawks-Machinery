@@ -1,6 +1,7 @@
 
 package hawksmachinery.items;
 
+import net.minecraft.src.CreativeTabs;
 import net.minecraft.src.ItemStack;
 
 /**
@@ -18,6 +19,7 @@ public class HMItemIngots extends HMItem
 		super(id);
 		setHasSubtypes(true);
 		setMaxDamage(0);
+		setCreativeTab(CreativeTabs.tabMaterials);
 		
 	}
 	

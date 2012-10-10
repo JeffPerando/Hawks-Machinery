@@ -117,8 +117,7 @@ public class HawksMachinery implements ICraftingHandler
 	
 	public static Achievement prospector;
 	public static Achievement timeToCrush;
-	//public static Achievement compactCompact = new Achievement(BASEMOD.ACHcompactCompact, "Compact Compact", 0, -2, new ItemStack(BASEMOD.blockMetalStorage, 1, 2), prospector).registerAchievement();
-	//public static Achievement minerkiin = new Achievement(BASEMOD.ACHminerkiin, "Minerkiin", -5, 2, new ItemStack(BASEMOD.blockOre, 1, 3), AchievementList.theEnd2).registerAchievement();
+	//TODO Reactivate public static Achievement minerkiin = new Achievement(BASEMOD.ACHminerkiin, "Minerkiin", -5, 2, new ItemStack(BASEMOD.blockOre, 1, 3), AchievementList.theEnd2).registerAchievement();
 	public static Achievement wash;
 	
 	public static AchievementPage HAWKSPAGE;

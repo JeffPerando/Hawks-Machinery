@@ -5,7 +5,9 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import hawksmachinery.HawksMachinery;
 import hawksmachinery.interfaces.HMRepairInterfaces.IHMRepairable;
 import hawksmachinery.interfaces.HMRepairInterfaces.IHMSapper;
+import hawksmachinery.tileentity.HMTileEntityMachine;
 import net.minecraft.src.EntityPlayer;
+import net.minecraft.src.IBlockAccess;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.Material;
 import net.minecraft.src.World;
@@ -68,6 +70,13 @@ public abstract class HMBlockMachine extends BlockMachine
 		}
 		
 		return false;
+	}
+	
+	@Override
+	public boolean isBlockSolid(IBlockAccess world, int x, int y, int z, int side)
+	{
+		int facingSide = ((HMTileEntityMachine)world.getBlockTileEntity(x, y, z)).facingDirection.ordinal();
+		return side != facingSide && side != 1;
 	}
 	
 	public void registerSelf()
