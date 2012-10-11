@@ -278,7 +278,6 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	@Override
 	public void readFromNBT(NBTTagCompound NBTTag)
 	{
-		System.out.println("NBT reading executed!");//TODO Debugging
 		super.readFromNBT(NBTTag);
 		this.machineHP = NBTTag.getInteger("MachineHP");
 		this.electricityStored = NBTTag.getDouble("electricityStored");
@@ -307,7 +306,6 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	@Override
 	public void writeToNBT(NBTTagCompound NBTTag)
 	{
-		System.out.println("NBT writing executed!");//TODO Debugging
 		super.writeToNBT(NBTTag);
 		NBTTag.setInteger("MachineHP", this.machineHP);
 		NBTTag.setDouble("electricityStored", this.electricityStored);

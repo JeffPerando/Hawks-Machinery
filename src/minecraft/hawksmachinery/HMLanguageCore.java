@@ -20,6 +20,7 @@ public class HMLanguageCore
 	{
 		LANG.addNameForObject(BASEMOD.crusher, "en_US", "Crusher");
 		LANG.addNameForObject(BASEMOD.washer, "en_US", "Washer");
+		LANG.addNameForObject(BASEMOD.endiumOre, "en_US", "Endium Ore");
 		if (BASEMOD.MANAGER.enableChunkloader)
 		{
 			LANG.addNameForObject(BASEMOD.endiumChunkloader, "en_US", "Endium Chunkloader");
@@ -30,9 +31,6 @@ public class HMLanguageCore
 		
 		LANG.addStringLocalization(BASEMOD.timeToCrush.getName(), "en_US", "Time to Crush!");
 		LANG.addStringLocalization(BASEMOD.timeToCrush.getName() + ".desc", "en_US", "The matriarch of Hawk's Machinery!");
-		
-		LANG.addStringLocalization(BASEMOD.prospector.getName(), "en_US", "Prospector");
-		LANG.addStringLocalization(BASEMOD.prospector.getName() + ".desc", "en_US", "There's Emerald in them hills!");
 		
 		LANG.addStringLocalization(BASEMOD.wash.getName(), "en_US", "Workin' at the--");
 		LANG.addStringLocalization(BASEMOD.wash.getName() + ".desc", "en_US", "Wait, what?");

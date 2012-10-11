@@ -5,6 +5,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import hawksmachinery.HawksMachinery;
 import hawksmachinery.interfaces.HMRepairInterfaces.IHMRepairable;
 import hawksmachinery.interfaces.HMRepairInterfaces.IHMSapper;
+import hawksmachinery.items.HMItemBlockMachine;
 import hawksmachinery.tileentity.HMTileEntityMachine;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.IBlockAccess;
@@ -28,8 +29,8 @@ public abstract class HMBlockMachine extends BlockMachine
 		super(name, id, mat);
 		setHardness(1.0F);
 		setResistance(5.0F);
-		registerSelf();
 		setTextureFile(BASEMOD.BLOCK_TEXTURE_FILE);
+		GameRegistry.registerBlock(this, HMItemBlockMachine.class);
 		
 	}
 	
@@ -65,8 +66,12 @@ public abstract class HMBlockMachine extends BlockMachine
 	{
 		if (world.getBlockTileEntity(x, y, z) instanceof IHMRepairable)
 		{
-			((IHMRepairable)world.getBlockTileEntity(x, y, z)).attemptToUnSap(player);
-			return true;
+			if (((IHMRepairable)world.getBlockTileEntity(x, y, z)).sapper != null)
+			{
+				((IHMRepairable)world.getBlockTileEntity(x, y, z)).attemptToUnSap(player);
+				return true;
+			}
+			
 		}
 		
 		return false;
@@ -75,13 +80,7 @@ public abstract class HMBlockMachine extends BlockMachine
 	@Override
 	public boolean isBlockSolid(IBlockAccess world, int x, int y, int z, int side)
 	{
-		int facingSide = ((HMTileEntityMachine)world.getBlockTileEntity(x, y, z)).facingDirection.ordinal();
-		return side != facingSide && side != 1;
-	}
-	
-	public void registerSelf()
-	{
-		GameRegistry.registerBlock(this);
+		return side != world.getBlockMetadata(x, y, z) && side != 1;
 	}
 	
 }

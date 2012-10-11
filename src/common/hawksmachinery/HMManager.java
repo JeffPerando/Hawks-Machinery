@@ -133,7 +133,7 @@ public class HMManager implements LoadingCallback, IWorldGenerator, IVillageTrad
 		}
 		else if (chunkGenerator instanceof ChunkProviderHell)
 		{
-			//generateNether(world, random, chunkX << 4, chunkZ << 4);
+			generateNether(world, random, chunkX << 4, chunkZ << 4);
 		}
 		else if (chunkGenerator instanceof ChunkProviderEnd)
 		{
@@ -141,20 +141,13 @@ public class HMManager implements LoadingCallback, IWorldGenerator, IVillageTrad
 		}
 	}
 	
-	public void generateSurface(World world, Random random, int chunkX, int chunkZ)
-	{
-		
-	}
+	public void generateSurface(World world, Random random, int chunkX, int chunkZ){}
 	
-	public void generateNether(World world, Random random, int chunkX, int chunkZ)
-	{
-		//TODO: Do SOMETHING with The Nether.
-	}
+	public void generateNether(World world, Random random, int chunkX, int chunkZ){}
 	
 	public void generateEnd(World world, Random random, int chunkX, int chunkZ)
 	{
-		/*
-		if (BASEMOD.generateEndium)
+		if (BASEMOD.MANAGER.generateEndium)
 		{
 			for (int counter = 0; counter <= 16; ++counter)
 			{
@@ -165,11 +158,13 @@ public class HMManager implements LoadingCallback, IWorldGenerator, IVillageTrad
 				
 				if (randAmount > 0 && randPosY < 70)
 				{
-					(new HawkWorldOreBlock(BASEMOD.blockOre.blockID, 3, randAmount)).generate(world, random, randPosX, randPosY, randPosZ);
+					(new HMWorldOreBlock(BASEMOD.endiumOre.blockID, 0, randAmount)).generate(world, random, randPosX, randPosY, randPosZ);
 				}
+				
 			}
+			
 		}
-		*/
+		
 	}
 	
 	@Override
@@ -190,6 +185,7 @@ public class HMManager implements LoadingCallback, IWorldGenerator, IVillageTrad
 		}
 		
 	}
+	
 	@Override
 	public void manipulateTradesForVillager(EntityVillager villager, MerchantRecipeList recipeList, Random random)
 	{

@@ -11,9 +11,9 @@ import net.minecraft.src.ItemStack;
  * 
  * @author Elusivehawk
  */
-public class HMItemBlockChunkloader extends ItemBlock
+public class HMItemBlockEndium extends ItemBlock
 {
-	public HMItemBlockChunkloader(int id)
+	public HMItemBlockEndium(int id)
 	{
 		super(id);
 	}

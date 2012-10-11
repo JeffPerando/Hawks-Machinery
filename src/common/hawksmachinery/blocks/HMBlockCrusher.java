@@ -45,11 +45,6 @@ public class HMBlockCrusher extends HMBlockMachine
 		return this.tileEntity.machineHP;
 	}
 	
-	public void registerSelf()
-	{
-		GameRegistry.registerBlock(this, HMItemBlockMachine.class);
-	}
-	
 	@Override
 	public boolean onMachineActivated(World world, int x, int y, int z, EntityPlayer player)
 	{

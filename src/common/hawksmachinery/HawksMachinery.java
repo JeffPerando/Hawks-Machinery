@@ -40,6 +40,7 @@ import net.minecraftforge.common.DungeonHooks;
 import net.minecraftforge.common.EnumHelper;
 import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.common.ForgeChunkManager.Ticket;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.ICraftingHandler;
@@ -116,7 +117,6 @@ public class HawksMachinery implements ICraftingHandler
 	public static Item rivetGun;
 	public static Item ingots;
 	
-	public static Achievement prospector;
 	public static Achievement timeToCrush;
 	//TODO Reactivate public static Achievement minerkiin = new Achievement(BASEMOD.ACHminerkiin, "Minerkiin", -5, 2, new ItemStack(BASEMOD.blockOre, 1, 3), AchievementList.theEnd2).registerAchievement();
 	public static Achievement wash;
@@ -129,7 +129,7 @@ public class HawksMachinery implements ICraftingHandler
 		INSTANCE = this;
 		
 		crusher = new HMBlockCrusher(MANAGER.loadConfig()).setStepSound(Block.soundMetalFootstep);
-		endiumOre = new HMBlock(MANAGER.endiumOreID, Material.rock, 23).setStepSound(Block.soundStoneFootstep);
+		endiumOre = new HMBlock(MANAGER.endiumOreID, Material.rock, 23).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabs.tabBlock).setBlockName("endiumOre").setHardness(10.0F);
 		washer = new HMBlockWasher(MANAGER.washerID).setStepSound(Block.soundMetalFootstep);
 		if (MANAGER.enableChunkloader)
 		{
@@ -147,17 +147,17 @@ public class HawksMachinery implements ICraftingHandler
 		rivetGun = new HMItemRivetGun(MANAGER.rivetGunID - 256);
 		ingots = new HMItemIngots(MANAGER.ingotsID - 256);
 		
-		prospector = new Achievement(MANAGER.ACHprospector, "Prospector", -1, 0, new ItemStack(Item.pickaxeSteel, 1), AchievementList.buildBetterPickaxe).registerAchievement();
-		timeToCrush = new Achievement(MANAGER.ACHtimeToCrush, "Time to Crush", -2, -3, new ItemStack(crusher, 1, 0), prospector).registerAchievement().setSpecial();
+		timeToCrush = new Achievement(MANAGER.ACHtimeToCrush, "Time to Crush", -2, -3, new ItemStack(crusher, 1, 0), AchievementList.buildBetterPickaxe).registerAchievement().setSpecial();
 		//TODO Reactivate achievement.
 		//TODO Reactivate achievement.
-		wash = new Achievement(MANAGER.ACHwash, "Wash", 0, -4, new ItemStack(washer, 1, 0), timeToCrush).registerAchievement().setSpecial();
+		wash = new Achievement(MANAGER.ACHwash, "Wash", 0, -4, new ItemStack(washer, 1, 0), AchievementList.buildBetterPickaxe).registerAchievement().setSpecial();
 		
-		HAWKSPAGE = new AchievementPage("Hawk's Machinery", timeToCrush, prospector, wash);
+		HAWKSPAGE = new AchievementPage("Hawk's Machinery", timeToCrush, wash);
 		
 		NetworkRegistry.instance().registerGuiHandler(this, this.PROXY);
 		GameRegistry.registerWorldGenerator(MANAGER);
 		GameRegistry.registerCraftingHandler(this);
+		GameRegistry.registerBlock(endiumOre, HMItemBlockEndium.class);
 		AchievementPage.registerAchievementPage(HAWKSPAGE);
 		NetworkRegistry.instance().registerConnectionHandler(this.PROXY);
 		VillagerRegistry.instance().registerVillageTradeHandler(0, MANAGER);
@@ -165,6 +165,8 @@ public class HawksMachinery implements ICraftingHandler
 		VillagerRegistry.instance().registerVillageTradeHandler(2, MANAGER);
 		VillagerRegistry.instance().registerVillageTradeHandler(3, MANAGER);
 		VillagerRegistry.instance().registerVillageTradeHandler(4, MANAGER);
+		
+		MinecraftForge.setBlockHarvestLevel(endiumOre, "pickaxe", 3);
 		
 		OreDictionary.registerOre("dustCoal", new ItemStack(dustRaw, 1, 0));
 		OreDictionary.registerOre("dustRawIron", new ItemStack(dustRaw, 1, 1));
@@ -186,6 +188,7 @@ public class HawksMachinery implements ICraftingHandler
 		OreDictionary.registerOre("dustEndium", new ItemStack(dustRefined, 1, 9));
 		
 		OreDictionary.registerOre("ingotEndium", new ItemStack(ingots));
+		OreDictionary.registerOre("oreEndium", new ItemStack(endiumOre));
 		
 	}
 	
@@ -313,6 +316,8 @@ public class HawksMachinery implements ICraftingHandler
 		PROCESS_RECIPES.addHawkFoDProcessingRecipe("oreTin", new ItemStack(dustRaw, 2, 4), CRUSH);
 		PROCESS_RECIPES.addHawkFoDProcessingRecipe("oreEndium", new ItemStack(dustRaw, 2, 6), CRUSH);
 		
+		PROCESS_RECIPES.addHawkFoDProcessingRecipe("ingotIron", new ItemStack(dustRefined, 1, 3), CRUSH);
+		PROCESS_RECIPES.addHawkFoDProcessingRecipe("ingotGold", new ItemStack(dustRefined, 1, 4), CRUSH);
 		PROCESS_RECIPES.addHawkFoDProcessingRecipe("ingotCopper", new ItemStack(dustRefined, 1, 5), CRUSH);
 		PROCESS_RECIPES.addHawkFoDProcessingRecipe("ingotTin", new ItemStack(dustRefined, 1, 6), CRUSH);
 		PROCESS_RECIPES.addHawkFoDProcessingRecipe("ingotEndium", new ItemStack(dustRefined, 1, 9), CRUSH);

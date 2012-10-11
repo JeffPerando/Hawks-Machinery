@@ -68,7 +68,7 @@ public class HMProcessingRecipes
 	{
 		if (input != null && output != null && processType != null)
 		{
-			processType.getRecipeList().put(Arrays.asList(input.getItem(), input.getItemDamage()), output);
+			processType.getRecipeList().put(Arrays.asList(input.getItem(), input.isItemStackDamageable() ? 0 : input.getItemDamage(), input.isItemEnchanted(), input.stackTagCompound != null), output);
 			
 		}
 		else
@@ -180,7 +180,7 @@ public class HMProcessingRecipes
 		}
 		else
 		{
-			ItemStack output = (ItemStack)processType.getRecipeList().get(Arrays.asList(input.getItem(), input.isItemStackDamageable() ? 0 : input.getItemDamage()));
+			ItemStack output = (ItemStack)processType.getRecipeList().get(Arrays.asList(input.getItem(), input.isItemStackDamageable() ? 0 : input.getItemDamage(), input.isItemEnchanted(), input.stackTagCompound != null));
 			
 			if (output != null)
 			{

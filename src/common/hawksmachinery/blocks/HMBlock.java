@@ -21,7 +21,6 @@ public class HMBlock extends Block
 		super(id, mat);
 		setHardness(1.0F);
 		setResistance(5.0F);
-		registerSelf();
 		setTextureFile(BASEMOD.BLOCK_TEXTURE_FILE);
 		
 		if (textureID >= 0)
@@ -29,11 +28,6 @@ public class HMBlock extends Block
 			this.blockIndexInTexture = textureID;
 		}
 		
-	}
-	
-	public void registerSelf()
-	{
-		GameRegistry.registerBlock(this);
 	}
 	
 }

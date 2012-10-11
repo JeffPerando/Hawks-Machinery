@@ -3,7 +3,7 @@ package hawksmachinery.blocks;
 
 import java.util.Random;
 import cpw.mods.fml.common.registry.GameRegistry;
-import hawksmachinery.items.HMItemBlockChunkloader;
+import hawksmachinery.items.HMItemBlockEndium;
 import hawksmachinery.tileentity.HMTileEntityEndiumChunkloader;
 import net.minecraft.src.Block;
 import net.minecraft.src.Chunk;
@@ -35,6 +35,7 @@ public class HMBlockEndiumChunkloader extends HMBlock
 		setBlockName("endiumChunkloader");
 		setStepSound(Block.soundMetalFootstep);
 		setCreativeTab(CreativeTabs.tabDecorations);
+		GameRegistry.registerBlock(this, HMItemBlockEndium.class);
 		
 	}
 	
@@ -164,12 +165,6 @@ public class HMBlockEndiumChunkloader extends HMBlock
 	public int getLightValue(IBlockAccess world, int x, int y, int z)
 	{
 		return 15;
-	}
-	
-	@Override
-	public void registerSelf()
-	{
-		GameRegistry.registerBlock(this, HMItemBlockChunkloader.class);
 	}
 	
 }

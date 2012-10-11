@@ -42,8 +42,6 @@ import universalelectricity.implement.IItemElectric;
  */
 public class HMTileEntityCrusher extends HMTileEntityMachine implements ISpecialInventory, IItemTransfer
 {
-	private int crusherStatus;
-	
 	public HMTileEntityCrusher()
 	{
 		super();
@@ -270,23 +268,17 @@ public class HMTileEntityCrusher extends HMTileEntityMachine implements ISpecial
 	{
 		if (this.workTicks > 0)
 		{
-			this.crusherStatus = 1;
+			return "Crushing";
 		}
 		else if (this.isDisabled())
 		{
-			this.crusherStatus = 2;
+			return "Disabled";
 		}
 		else
 		{
-			this.crusherStatus =  0;
+			return "Idle";
 		}
 		
-		switch (this.crusherStatus)
-		{
-			case 1: return "Crushing";
-			case 2: return "Disabled!";
-			default: return "Idle";
-		}
 	}
 	
 	@Override
