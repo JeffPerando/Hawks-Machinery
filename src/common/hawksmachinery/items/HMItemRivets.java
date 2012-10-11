@@ -20,7 +20,6 @@ public class HMItemRivets extends HMItem implements IHMRivet
 	{
 		super(id);
 		setHasSubtypes(true);
-		setMaxDamage(0);
 		setCreativeTab(CreativeTabs.tabMaterials);
 		
 	}

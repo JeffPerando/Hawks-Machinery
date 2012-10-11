@@ -100,7 +100,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 			this.machineHP = this.getMaxHP();
 		}
 		
-		if (!this.worldObj.isRemote && this.isOpen)
+		if (!this.worldObj.isRemote)
 		{
 			this.sendPacket();
 		}
@@ -132,7 +132,12 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	@Override
 	public Packet getDescriptionPacket()
 	{
-		return PacketManager.getPacket("HawksMachinery", this, this.workTicks, this.electricityStored);
+		if (this.isOpen)
+		{
+			return PacketManager.getPacket("HawksMachinery", this, this.workTicks, this.electricityStored, this.machineHP);
+		}
+		
+		return PacketManager.getPacket("HawksMachinery", this, this.machineHP);
 	}
 	
 	/**
@@ -148,8 +153,14 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	{
 		try
 		{
-			this.workTicks = dataStream.readInt();
-			this.electricityStored = dataStream.readFloat();
+			if (this.isOpen)
+			{
+				this.workTicks = dataStream.readInt();
+				this.electricityStored = dataStream.readDouble();
+				
+			}
+			
+			this.machineHP = dataStream.readInt();
 			
 		}
 		catch(Exception e)
@@ -269,14 +280,10 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	{
 		System.out.println("NBT reading executed!");//TODO Debugging
 		super.readFromNBT(NBTTag);
+		this.machineHP = NBTTag.getInteger("MachineHP");
 		this.electricityStored = NBTTag.getDouble("electricityStored");
 		this.workTicks = NBTTag.getInteger("workTicks");
-		this.machineHP = NBTTag.getInteger("MachineHP");
-		
-		if (NBTTag.hasKey("Sapper"))
-		{
-			this.sapper = ItemStack.loadItemStackFromNBT(NBTTag.getCompoundTag("Sapper"));
-		}
+		this.sapper = ItemStack.loadItemStackFromNBT(NBTTag.getCompoundTag("Sapper"));
 		
 		if (this.containingItems.length > 0)
 		{
@@ -302,9 +309,9 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	{
 		System.out.println("NBT writing executed!");//TODO Debugging
 		super.writeToNBT(NBTTag);
+		NBTTag.setInteger("MachineHP", this.machineHP);
 		NBTTag.setDouble("electricityStored", this.electricityStored);
 		NBTTag.setInteger("workTicks", this.workTicks);
-		NBTTag.setInteger("MachineHP", this.machineHP);
 		
 		if (this.sapper != null)
 		{

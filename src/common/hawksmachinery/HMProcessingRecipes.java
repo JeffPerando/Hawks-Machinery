@@ -137,7 +137,9 @@ public class HMProcessingRecipes
 			{
 				addHawkProcessingRecipe(ore, output, processType);
 			}
+			
 		}
+		
 	}
 	
 	public static void addHawkWashingSecondary(ItemStack input, Object output, boolean isCommon)
@@ -152,6 +154,7 @@ public class HMProcessingRecipes
 			{
 				washerRarities.put(Arrays.asList(input.getItem(), input.getItemDamage()), output);
 			}
+			
 		}
 		else
 		{
@@ -164,6 +167,7 @@ public class HMProcessingRecipes
 			{
 				throw new NullPointerException("Hawk's Machinery: Output cannot be null!");
 			}
+			
 		}
 		
 	}
@@ -184,8 +188,6 @@ public class HMProcessingRecipes
 				{
 					output.setItemDamage(input.getItemDamage());
 				}
-				
-				System.out.println("I'M AN EMPOLEON, NOT A HUMAN!");
 				
 			}
 			
@@ -213,6 +215,7 @@ public class HMProcessingRecipes
 				{
 					return ret;
 				}
+				
 			}
 			else if (secondaryChance < 10)
 			{
@@ -222,6 +225,7 @@ public class HMProcessingRecipes
 				{
 					return ret;
 				}
+				
 			}
 			
 			return null;

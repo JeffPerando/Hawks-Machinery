@@ -26,7 +26,6 @@ public class HMItemRawDust extends HMItem
 	{
 		super(id);
 		setHasSubtypes(true);
-		setMaxDamage(0);
 		setCreativeTab(CreativeTabs.tabMaterials);
 		
 	}

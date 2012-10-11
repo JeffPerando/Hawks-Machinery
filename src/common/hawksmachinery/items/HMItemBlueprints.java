@@ -24,7 +24,6 @@ public class HMItemBlueprints extends Item
 	{
 		super(id);
 		setHasSubtypes(true);
-		setMaxDamage(0);
 		setContainerItem(this);
 		setCreativeTab(CreativeTabs.tabMisc);
 		setMaxStackSize(1);
@@ -40,23 +39,14 @@ public class HMItemBlueprints extends Item
 	@Override
 	public EnumRarity getRarity(ItemStack item)
 	{
-		if (item.getItemDamage() == 8)
-		{
-			return EnumRarity.rare;
-		}
+		return item.getItemDamage() == 8 ? EnumRarity.rare : EnumRarity.uncommon;
 		
-		return EnumRarity.uncommon;
 	}
 	
 	@Override
 	public boolean hasEffect(ItemStack item)
 	{
-		if (item.getItemDamage() == 8)
-		{
-			return true;
-		}
-		
-		return false;
+		return item.getItemDamage() == 8;
 	}
 	
 	@Override

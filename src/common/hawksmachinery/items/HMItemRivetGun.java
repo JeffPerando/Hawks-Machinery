@@ -36,7 +36,7 @@ public class HMItemRivetGun extends ItemElectric
 	@Override
 	public ItemStack onItemRightClick(ItemStack item, World world, EntityPlayer player)
 	{
-		if (player.isSneaking() && item.getItemDamage() >= this.getTransferRate())
+		if (player.isSneaking() && (item.getItemDamage() < (this.getMaxDamage() - this.getTransferRate()) || !item.isItemDamaged()))
 		{
 			player.setItemInUse(item, getMaxItemUseDuration(item));
 		}
@@ -57,29 +57,31 @@ public class HMItemRivetGun extends ItemElectric
 				
 				if (foundBlock instanceof IHMRepairable)
 				{
-					for (int counter = 0; counter <= 8; ++counter)
+					if (((IHMRepairable)foundBlock).getMaxHP() > 0)
 					{
-						ItemStack testedItem = player.inventory.mainInventory[counter];
-						
-						if (testedItem != null)
+						for (int counter = 0; counter <= 8; ++counter)
 						{
-							if (testedItem.getItem() instanceof IHMRivet)
+							if (player.inventory.mainInventory[counter] != null)
 							{
-								int potentialRepairAmount = ((IHMRivet)testedItem.getItem()).getRepairAmount(testedItem);
-								
-								if (potentialRepairAmount > 0)
+								if (player.inventory.mainInventory[counter].getItem() instanceof IHMRivet)
 								{
-									if (((IHMRepairable)foundBlock).attemptToRepair(potentialRepairAmount))
+									int potentialRepairAmount = ((IHMRivet)player.inventory.mainInventory[counter].getItem()).getRepairAmount(player.inventory.mainInventory[counter]);
+									
+									if (potentialRepairAmount > 0)
 									{
-										--testedItem.stackSize;
-										if (testedItem.stackSize == 0)
+										if (((IHMRepairable)foundBlock).attemptToRepair(potentialRepairAmount))
 										{
-											player.inventory.mainInventory[counter] = null;
+											--player.inventory.mainInventory[counter].stackSize;
+											if (player.inventory.mainInventory[counter].stackSize == 0)
+											{
+												player.inventory.mainInventory[counter] = null;
+											}
+											
+											player.swingItem();
+											this.onUseElectricity(this.getTransferRate(), item);
+											return item;
 										}
 										
-										player.swingItem();
-										this.onUseElectricity(this.getTransferRate(), item);
-										return item;
 									}
 									
 								}
@@ -88,6 +90,10 @@ public class HMItemRivetGun extends ItemElectric
 							
 						}
 						
+					}
+					else
+					{
+						throw new RuntimeException("Hawk's Machinery: Machine machine HP must be >0!");
 					}
 					
 				}

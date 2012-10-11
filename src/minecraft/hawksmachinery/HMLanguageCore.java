@@ -26,7 +26,8 @@ public class HMLanguageCore
 		}
 		
 		LANG.addNameForObject(BASEMOD.rivetGun, "en_US", "Rivet Gun");
-		                         
+		LANG.addNameForObject(new ItemStack(BASEMOD.endiumPlate), "en_US", "Endium Plate");
+		
 		LANG.addStringLocalization(BASEMOD.timeToCrush.getName(), "en_US", "Time to Crush!");
 		LANG.addStringLocalization(BASEMOD.timeToCrush.getName() + ".desc", "en_US", "The matriarch of Hawk's Machinery!");
 		

@@ -2,6 +2,7 @@
 package hawksmachinery.items;
 
 import net.minecraft.src.CreativeTabs;
+import net.minecraft.src.EnumRarity;
 import net.minecraft.src.ItemStack;
 
 /**
@@ -17,20 +18,18 @@ public class HMItemIngots extends HMItem
 	public HMItemIngots(int id)
 	{
 		super(id);
-		setHasSubtypes(true);
-		setMaxDamage(0);
 		setCreativeTab(CreativeTabs.tabMaterials);
+		setRarity(EnumRarity.rare, 0);
+		setItemName("endium", 0);
+		setIconIndex(35, 0);
+		setEffect(0);
 		
 	}
 	
-	public int getIconFromDamage(int dmg)
-	{
-		return 35;
-	}
-	
+	@Override
 	public String getItemNameIS(ItemStack item)
 	{
-		return "endiumIngot";//TODO Make more ingots.
+		return this.itemNames[item.getItemDamage()] + "Ingot";
 	}
 	
 }
