@@ -7,6 +7,7 @@ import hawksmachinery.interfaces.HMRepairInterfaces.IHMRepairable;
 import hawksmachinery.interfaces.HMRepairInterfaces.IHMSapper;
 import hawksmachinery.items.HMItemBlockMachine;
 import hawksmachinery.tileentity.HMTileEntityMachine;
+import net.minecraft.src.EntityLiving;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.IBlockAccess;
 import net.minecraft.src.ItemStack;
@@ -75,6 +76,21 @@ public abstract class HMBlockMachine extends BlockMachine
 		}
 		
 		return false;
+	}
+	
+	@Override
+	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLiving entity)
+	{
+		if (entity != null)
+		{
+			if (entity instanceof EntityPlayer)
+			{
+				((IHMRepairable)world.getBlockTileEntity(x, y, z)).setHP(((EntityPlayer)entity).getCurrentEquippedItem().getItemDamage());
+				
+			}
+			
+		}
+		
 	}
 	
 	@Override

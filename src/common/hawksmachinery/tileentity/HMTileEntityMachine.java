@@ -404,4 +404,9 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 		return 20;
 	}
 	
+	public void setHP(int repairAmount)
+	{
+		this.machineHP = repairAmount;
+	}
+	
 }

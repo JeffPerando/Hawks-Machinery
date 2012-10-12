@@ -25,4 +25,10 @@ public class HMItemBlockMachine extends ItemBlock
 		list.add("Machine Health: " + item.getItemDamage());
 	}
 	
+	@Override
+	public int getItemStackLimit()
+	{
+		return 1;
+	}
+	
 }

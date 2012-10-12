@@ -34,6 +34,8 @@ public class HMRepairInterfaces
 		
 		public int getMaxHP();
 		
+		public void setHP(int repairAmount);
+		
 		void randomlyDamageSelf();
 		
 	}
