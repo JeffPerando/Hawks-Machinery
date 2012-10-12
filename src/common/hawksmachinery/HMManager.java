@@ -34,7 +34,7 @@ import cpw.mods.fml.common.registry.VillagerRegistry.IVillageTradeHandler;
  * 
  * @author Elusivehawk
  */
-public class HMManager implements LoadingCallback, IWorldGenerator, IVillageTradeHandler
+public class HMManager implements LoadingCallback, IVillageTradeHandler
 {
 	public static HawksMachinery BASEMOD;
 	private static int chunkLimit;
@@ -122,49 +122,6 @@ public class HMManager implements LoadingCallback, IWorldGenerator, IVillageTrad
 		HMConfig.save();
 		
 		return crusherID;
-	}
-	
-	@Override
-	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider)
-	{
-		if (chunkGenerator instanceof ChunkProviderGenerate)
-		{
-			generateSurface(world, random, chunkX << 4, chunkZ << 4);
-		}
-		else if (chunkGenerator instanceof ChunkProviderHell)
-		{
-			generateNether(world, random, chunkX << 4, chunkZ << 4);
-		}
-		else if (chunkGenerator instanceof ChunkProviderEnd)
-		{
-			generateEnd(world, random, chunkX << 4, chunkZ << 4);
-		}
-	}
-	
-	public void generateSurface(World world, Random random, int chunkX, int chunkZ){}
-	
-	public void generateNether(World world, Random random, int chunkX, int chunkZ){}
-	
-	public void generateEnd(World world, Random random, int chunkX, int chunkZ)
-	{
-		if (BASEMOD.MANAGER.generateEndium)
-		{
-			for (int counter = 0; counter <= 16; ++counter)
-			{
-				int randPosX = chunkX + random.nextInt(16);
-				int randPosY = random.nextInt(50);
-				int randPosZ = chunkZ + random.nextInt(16);
-				int randAmount = random.nextInt(9);
-				
-				if (randAmount > 0 && randPosY < 70)
-				{
-					(new HMWorldOreBlock(BASEMOD.endiumOre.blockID, 0, randAmount)).generate(world, random, randPosX, randPosY, randPosZ);
-				}
-				
-			}
-			
-		}
-		
 	}
 	
 	@Override

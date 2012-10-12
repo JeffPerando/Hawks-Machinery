@@ -12,6 +12,8 @@ import universalelectricity.UniversalElectricity;
 import universalelectricity.BasicComponents;
 import universalelectricity.basiccomponents.ItemBattery;
 import universalelectricity.network.PacketManager;
+import universalelectricity.ore.OreGenBase;
+import universalelectricity.ore.OreGenerator;
 import universalelectricity.recipe.CraftingRecipe;
 import universalelectricity.recipe.RecipeManager;
 import vazkii.um.client.ModReleaseType;
@@ -155,18 +157,16 @@ public class HawksMachinery implements ICraftingHandler
 		HAWKSPAGE = new AchievementPage("Hawk's Machinery", timeToCrush, wash);
 		
 		NetworkRegistry.instance().registerGuiHandler(this, this.PROXY);
-		GameRegistry.registerWorldGenerator(MANAGER);
 		GameRegistry.registerCraftingHandler(this);
 		GameRegistry.registerBlock(endiumOre, HMItemBlockEndium.class);
 		AchievementPage.registerAchievementPage(HAWKSPAGE);
 		NetworkRegistry.instance().registerConnectionHandler(this.PROXY);
+		OreGenerator.addOre(new HMEndiumOreGen());
 		VillagerRegistry.instance().registerVillageTradeHandler(0, MANAGER);
 		VillagerRegistry.instance().registerVillageTradeHandler(1, MANAGER);
 		VillagerRegistry.instance().registerVillageTradeHandler(2, MANAGER);
 		VillagerRegistry.instance().registerVillageTradeHandler(3, MANAGER);
 		VillagerRegistry.instance().registerVillageTradeHandler(4, MANAGER);
-		
-		MinecraftForge.setBlockHarvestLevel(endiumOre, "pickaxe", 3);
 		
 		OreDictionary.registerOre("dustCoal", new ItemStack(dustRaw, 1, 0));
 		OreDictionary.registerOre("dustRawIron", new ItemStack(dustRaw, 1, 1));
@@ -188,7 +188,6 @@ public class HawksMachinery implements ICraftingHandler
 		OreDictionary.registerOre("dustEndium", new ItemStack(dustRefined, 1, 9));
 		
 		OreDictionary.registerOre("ingotEndium", new ItemStack(ingots));
-		OreDictionary.registerOre("oreEndium", new ItemStack(endiumOre));
 		
 	}
 	
