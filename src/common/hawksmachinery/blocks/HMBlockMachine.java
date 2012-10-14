@@ -67,7 +67,7 @@ public abstract class HMBlockMachine extends BlockMachine
 	{
 		if (world.getBlockTileEntity(x, y, z) instanceof IHMRepairable)
 		{
-			if (((IHMRepairable)world.getBlockTileEntity(x, y, z)).sapper != null)
+			if (((IHMRepairable)world.getBlockTileEntity(x, y, z)).isBeingSapped())
 			{
 				((IHMRepairable)world.getBlockTileEntity(x, y, z)).attemptToUnSap(player);
 				return true;

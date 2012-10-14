@@ -21,9 +21,6 @@ public class HMRepairInterfaces
 	 */
 	public interface IHMRepairable
 	{
-		int machineHP = 0;
-		public ItemStack sapper = null;
-		
 		public boolean attemptToRepair(int repairValue);
 		
 		public boolean setSapper(ItemStack sapper);
@@ -35,8 +32,6 @@ public class HMRepairInterfaces
 		public int getMaxHP();
 		
 		public void setHP(int repairAmount);
-		
-		void randomlyDamageSelf();
 		
 	}
 	
