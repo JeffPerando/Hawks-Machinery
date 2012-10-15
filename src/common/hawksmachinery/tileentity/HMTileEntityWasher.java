@@ -53,6 +53,7 @@ public class HMTileEntityWasher extends HMTileEntityMachine implements IItemTran
 		containingItems = new ItemStack[6];
 		machineEnum = HawkEnumProcessing.WASHING;
 		voltage = 120;
+		isProcessor = true;
 		
 	}
 	

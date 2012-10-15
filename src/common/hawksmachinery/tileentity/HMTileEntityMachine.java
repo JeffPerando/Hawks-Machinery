@@ -58,7 +58,9 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	public int machineHP;
 	
 	private ItemStack sapper;
-
+	
+	protected boolean isProcessor;
+	
 	@Override
 	public boolean canReceiveFromSide(ForgeDirection side)
 	{
@@ -126,7 +128,6 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	protected void explodeMachine(float strength)
 	{
 		this.worldObj.createExplosion((Entity)null, this.xCoord, this.yCoord, this.zCoord, strength);
-		
 	}
 	
 	@Override
@@ -134,10 +135,21 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	{
 		if (this.isOpen)
 		{
-			return PacketManager.getPacket("HawksMachinery", this, this.workTicks, this.electricityStored, this.machineHP);
+			if (this.isProcessor)
+			{
+				return PacketManager.getPacket("HawksMachinery", this, this.workTicks, this.electricityStored, this.machineHP);
+			}
+			
+			return PacketManager.getPacket("HawksMachinery", this, this.electricityStored, this.machineHP);
 		}
 		
 		return PacketManager.getPacket("HawksMachinery", this, this.machineHP);
+	}
+	
+	@Override
+	public String getInvName()
+	{
+		return null;
 	}
 	
 	/**
@@ -155,7 +167,12 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 		{
 			if (this.isOpen)
 			{
-				this.workTicks = dataStream.readInt();
+				if (this.isProcessor)
+				{
+					this.workTicks = dataStream.readInt();
+					
+				}
+				
 				this.electricityStored = dataStream.readDouble();
 				
 			}
@@ -227,6 +244,18 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 			return null;
 		}
 	}
+
+	@Override
+	public int getStartInventorySide(ForgeDirection side)
+	{
+		return 0;
+	}
+	
+	@Override
+	public int getSizeInventorySide(ForgeDirection side)
+	{
+		return 0;
+	}
 	
 	@Override
 	public void setInventorySlotContents(int var1, ItemStack var2)
@@ -262,7 +291,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	{
 		this.isOpen = false;
 	}
-
+	
 	@Override
 	public ForgeDirection getDirection()
 	{
@@ -281,7 +310,11 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 		super.readFromNBT(NBTTag);
 		this.machineHP = NBTTag.getInteger("MachineHP");
 		this.electricityStored = NBTTag.getDouble("electricityStored");
-		this.workTicks = NBTTag.getInteger("workTicks");
+		if (this.isProcessor)
+		{
+			this.workTicks = NBTTag.getInteger("workTicks");
+		}
+		
 		this.sapper = ItemStack.loadItemStackFromNBT(NBTTag.getCompoundTag("Sapper"));
 		
 		if (this.containingItems.length > 0)
@@ -309,7 +342,12 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 		super.writeToNBT(NBTTag);
 		NBTTag.setInteger("MachineHP", this.machineHP);
 		NBTTag.setDouble("electricityStored", this.electricityStored);
-		NBTTag.setInteger("workTicks", this.workTicks);
+		
+		if (this.isProcessor)
+		{
+			NBTTag.setInteger("workTicks", this.workTicks);
+			
+		}
 		
 		if (this.sapper != null)
 		{
@@ -404,9 +442,15 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 		return 20;
 	}
 	
-	public void setHP(int repairAmount)
+	public int getHP()
 	{
-		this.machineHP = repairAmount;
+		return this.machineHP;
+	}
+	
+	@Override
+	public double wattRequest()
+	{
+		return this.electricityStored == this.ELECTRICITY_LIMIT ? 0 : this.ELECTRICITY_REQUIRED * 2;
 	}
 	
 }

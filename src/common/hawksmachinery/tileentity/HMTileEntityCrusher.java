@@ -51,6 +51,45 @@ public class HMTileEntityCrusher extends HMTileEntityMachine implements ISpecial
 		containingItems = new ItemStack[3];
 		machineEnum = HawkEnumProcessing.CRUSHING;
 		voltage = 120;
+		isProcessor = true;
+		
+	}
+	
+	@Override
+	public double wattRequest()
+	{
+		if (this.isDisabled())
+		{
+			return 0;
+		}
+		else
+		{
+			if ((this.canCrush() || this.canExplode()) && this.electricityStored + this.ELECTRICITY_REQUIRED <= this.ELECTRICITY_LIMIT)
+			{
+				return this.ELECTRICITY_REQUIRED;
+			}
+			else
+			{
+				if (this.ELECTRICITY_LIMIT != this.electricityStored)
+				{
+					if (this.electricityStored + this.ELECTRICITY_REQUIRED >= this.ELECTRICITY_LIMIT)
+					{
+						return this.ELECTRICITY_LIMIT - this.electricityStored;
+					}
+					else
+					{
+						return this.ELECTRICITY_REQUIRED;
+					}
+					
+				}
+				else
+				{
+					return 0;
+				}
+				
+			}
+			
+		}
 		
 	}
 	
@@ -191,44 +230,6 @@ public class HMTileEntityCrusher extends HMTileEntityMachine implements ISpecial
 				this.explodeMachine(2.0F);
 			}
 		}
-	}
-	
-	@Override
-	public double wattRequest()
-	{
-		if (this.isDisabled())
-		{
-			return 0;
-		}
-		else
-		{
-			if ((this.canCrush() || this.canExplode()) && this.electricityStored + this.ELECTRICITY_REQUIRED <= this.ELECTRICITY_LIMIT)
-			{
-				return this.ELECTRICITY_REQUIRED;
-			}
-			else
-			{
-				if (this.ELECTRICITY_LIMIT != this.electricityStored)
-				{
-					if (this.electricityStored + this.ELECTRICITY_REQUIRED >= this.ELECTRICITY_LIMIT)
-					{
-						return this.ELECTRICITY_LIMIT - this.electricityStored;
-					}
-					else
-					{
-						return this.ELECTRICITY_REQUIRED;
-					}
-					
-				}
-				else
-				{
-					return 0;
-				}
-				
-			}
-			
-		}
-		
 	}
 	
 	@Override

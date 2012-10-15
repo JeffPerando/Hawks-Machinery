@@ -93,7 +93,7 @@ public class HMItemRivetGun extends ItemElectric
 					}
 					else
 					{
-						throw new RuntimeException("Hawk's Machinery: Machine machine HP must be >0!");
+						throw new RuntimeException("Hawk's Machinery: Maximum machine HP must be >0!");
 					}
 					
 				}

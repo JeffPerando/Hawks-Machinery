@@ -31,6 +31,8 @@ public class HMRepairInterfaces
 		
 		public int getMaxHP();
 		
+		public int getHP();
+		
 	}
 	
 	/**
