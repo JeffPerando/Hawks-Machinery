@@ -34,6 +34,7 @@ import net.minecraft.src.IInventory;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.Material;
+import net.minecraft.src.NBTTagCompound;
 import net.minecraft.src.StepSound;
 import net.minecraft.src.World;
 import net.minecraftforge.common.AchievementPage;
@@ -120,7 +121,7 @@ public class HawksMachinery implements ICraftingHandler
 	public static Item ingots;
 	
 	public static Achievement timeToCrush;
-	//TODO Reactivate public static Achievement minerkiin = new Achievement(BASEMOD.ACHminerkiin, "Minerkiin", -5, 2, new ItemStack(BASEMOD.blockOre, 1, 3), AchievementList.theEnd2).registerAchievement();
+	public static Achievement minerkiin;
 	public static Achievement wash;
 	
 	public static AchievementPage HAWKSPAGE;
@@ -131,7 +132,7 @@ public class HawksMachinery implements ICraftingHandler
 		INSTANCE = this;
 		
 		crusher = new HMBlockCrusher(MANAGER.loadConfig()).setStepSound(Block.soundMetalFootstep);
-		endiumOre = new HMBlock(MANAGER.endiumOreID, Material.rock, 23).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabs.tabBlock).setBlockName("endiumOre").setHardness(10.0F);
+		endiumOre = new HMBlock(MANAGER.endiumOreID, Material.rock, 23, minerkiin).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabs.tabBlock).setBlockName("endiumOre").setHardness(10.0F);
 		washer = new HMBlockWasher(MANAGER.washerID).setStepSound(Block.soundMetalFootstep);
 		if (MANAGER.enableChunkloader)
 		{
@@ -149,12 +150,12 @@ public class HawksMachinery implements ICraftingHandler
 		rivetGun = new HMItemRivetGun(MANAGER.rivetGunID - 256);
 		ingots = new HMItemIngots(MANAGER.ingotsID - 256);
 		
-		timeToCrush = new Achievement(MANAGER.ACHtimeToCrush, "Time to Crush", -2, -3, new ItemStack(crusher, 1, 0), AchievementList.buildBetterPickaxe).registerAchievement().setSpecial();
+		timeToCrush = new Achievement(MANAGER.ACHtimeToCrush, "Time to Crush", -2, -3, new ItemStack(crusher, 1, 0), AchievementList.buildBetterPickaxe).registerAchievement();
+		minerkiin = new Achievement(MANAGER.ACHminerkiin, "Minerkiin", -5, 2, new ItemStack(endiumOre), AchievementList.theEnd2).registerAchievement().setSpecial();
 		//TODO Reactivate achievement.
-		//TODO Reactivate achievement.
-		wash = new Achievement(MANAGER.ACHwash, "Wash", 0, -4, new ItemStack(washer, 1, 0), AchievementList.buildBetterPickaxe).registerAchievement().setSpecial();
+		wash = new Achievement(MANAGER.ACHwash, "Wash", 0, -4, new ItemStack(washer, 1, 0), AchievementList.buildBetterPickaxe).registerAchievement();
 		
-		HAWKSPAGE = new AchievementPage("Hawk's Machinery", timeToCrush, wash);
+		HAWKSPAGE = new AchievementPage("Hawk's Machinery", timeToCrush, minerkiin, wash);
 		
 		NetworkRegistry.instance().registerGuiHandler(this, this.PROXY);
 		GameRegistry.registerCraftingHandler(this);
@@ -219,7 +220,11 @@ public class HawksMachinery implements ICraftingHandler
 	{
 		RECIPE_GIVER.addRecipe(new ItemStack(crusher), new Object[]{"IPI", "SES", "SCS", 'I', "ingotIron", 'P', Item.pickaxeSteel, 'S', BasicComponents.itemSteelPlate, 'E', new ItemStack(parts, 1, 6), 'C', BasicComponents.blockCopperWire});
 		RECIPE_GIVER.addRecipe(new ItemStack(washer), new Object[]{"iBi", "iWi", "IEI", 'i', "ingotIron", 'B', Item.bucketEmpty, 'I', Block.blockSteel, 'W', Block.cloth, 'E', new ItemStack(parts, 1, 6)});
-		RECIPE_GIVER.addRecipe(((HMItemRivetGun)rivetGun).getUnchargedItemStack(), new Object[]{"SLS", "XBX", "TPT", 'S', "ingotSteel", 'L', Block.lever, 'X', BasicComponents.itemSteelPlate, 'B', ((ItemBattery)BasicComponents.itemBattery).getUnchargedItemStack(), 'T', BasicComponents.itemTinPlate, 'P', Block.pistonBase});
+		RECIPE_GIVER.addRecipe(((HMItemRivetGun)rivetGun).getUnchargedItemStack(), new Object[]{"SLS", "XBX", "TPT", 'S', "ingotSteel", 'L', Block.lever, 'X', BasicComponents.itemSteelPlate, 'B', BasicComponents.itemBattery.getUnchargedItemStack(), 'T', BasicComponents.itemTinPlate, 'P', Block.pistonBase});
+		
+		RECIPE_GIVER.addRecipe(new ItemStack(crusher), new Object[]{"IP", "BE", "SS", 'I', "ingotIron", 'P', Item.pickaxeSteel, 'B', new ItemStack(blueprints), 'E', new ItemStack(parts, 1, 6), 'S', BasicComponents.itemSteelPlate});
+		RECIPE_GIVER.addRecipe(new ItemStack(washer), new Object[]{"ibi", "BWi", "iEi", 'i', "ingotIron", 'b', Item.bucketEmpty, 'B', new ItemStack(blueprints, 1, 1), 'W', Block.cloth, 'E', new ItemStack(parts, 1, 6)});
+		RECIPE_GIVER.addRecipe(((HMItemRivetGun)rivetGun).getUnchargedItemStack(), new Object[]{"SL", "XBb", "TP", 'S', "ingotSteel", 'L', Block.lever, 'X', BasicComponents.itemSteelPlate, 'B', BasicComponents.itemBattery.getUnchargedItemStack(), 'b', new ItemStack(blueprints, 1, 8), 'T', BasicComponents.itemTinPlate, 'P', Block.pistonBase});
 		
 		if (MANAGER.enableChunkloader)
 		{
@@ -239,6 +244,13 @@ public class HawksMachinery implements ICraftingHandler
 		RECIPE_GIVER.addRecipe(new ItemStack(parts, 1, 4), new Object[]{"CC", "CC", 'C', BasicComponents.blockCopperWire});
 		RECIPE_GIVER.addRecipe(new ItemStack(parts, 1, 5), new Object[]{"ici", 'i', "ingotIron", 'c', new ItemStack(parts, 1, 4)});
 		RECIPE_GIVER.addRecipe(new ItemStack(parts, 1, 6), new Object[]{"OOS", "BPb", "OOS", 'O', Block.obsidian, 'S', "ingotSteel", 'B', Item.blazePowder, 'P', new ItemStack(parts), 'b', ((ItemBattery)BasicComponents.itemBattery).getUnchargedItemStack()});
+		
+		RECIPE_GIVER.addRecipe(new ItemStack(rivets, 1, 0), new Object[]{"CCC", "BCB", " C ", 'C', "ingotCopper", 'B', Item.blazePowder});
+		RECIPE_GIVER.addRecipe(new ItemStack(rivets, 1, 1), new Object[]{"BBB", "bBb", " B ", 'B', "ingotBronze", 'b', Item.blazePowder});
+		RECIPE_GIVER.addRecipe(new ItemStack(rivets, 1, 2), new Object[]{"III", "BIB", " I ", 'I', "ingotIron", 'B', Item.blazePowder});
+		RECIPE_GIVER.addRecipe(new ItemStack(rivets, 1, 3), new Object[]{"SSS", "BSB", " S ", 'S', "ingotSteel", 'B', Item.blazePowder});
+		RECIPE_GIVER.addRecipe(new ItemStack(rivets, 1, 4), new Object[]{"GGG", "BGB", " G ", 'G', "ingotGold", 'B', Item.blazePowder});
+		RECIPE_GIVER.addRecipe(new ItemStack(rivets, 1, 5), new Object[]{"EEE", "BEB", " E ", 'E', "ingotEndium", 'B', Item.blazePowder});
 		
 		RECIPE_GIVER.addShapelessRecipe(BasicComponents.itemSteelDust, new Object[]{new ItemStack(dustRaw, 1, 0), new ItemStack(dustRefined, 1, 3)});
 		RECIPE_GIVER.addShapelessRecipe(new ItemStack(Item.fireballCharge, 3), new Object[]{Item.blazePowder, Item.gunpowder, new ItemStack(dustRaw, 1, 0)});
@@ -338,19 +350,19 @@ public class HawksMachinery implements ICraftingHandler
 		if (item.itemID == crusher.blockID)
 		{
 			player.addStat(timeToCrush, 1);
+			item.setTagCompound(new NBTTagCompound());
+			item.stackTagCompound.setInteger("MachineHP", 0);
+			
 		}
 		
 		if (item.itemID == washer.blockID)
 		{
 			player.addStat(wash, 1);
+			item.setTagCompound(new NBTTagCompound());
+			item.stackTagCompound.setInteger("MachineHP", 0);
+			
 		}
 		
-		/*
-		if (item.itemID == blockMetalStorage.blockID)
-		{
-			player.addStat(compactCompact, 1);
-		}
-		*/
 	}
 	
 	@Override

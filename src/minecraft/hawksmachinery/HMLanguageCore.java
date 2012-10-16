@@ -30,10 +30,13 @@ public class HMLanguageCore
 		LANG.addNameForObject(new ItemStack(BASEMOD.endiumPlate), "en_US", "Endium Plate");
 		
 		LANG.addStringLocalization(BASEMOD.timeToCrush.getName(), "en_US", "Time to Crush!");
-		LANG.addStringLocalization(BASEMOD.timeToCrush.getName() + ".desc", "en_US", "The matriarch of Hawk's Machinery!");
+		LANG.addStringLocalization(BASEMOD.timeToCrush.getName() + ".desc", "en_US", "Craft a Crusher.");
+		
+		LANG.addStringLocalization(BASEMOD.minerkiin.getName(), "en_US", "Minerkiin");
+		LANG.addStringLocalization(BASEMOD.minerkiin.getName() + ".desc", "en_US", "Mine some Endium.");
 		
 		LANG.addStringLocalization(BASEMOD.wash.getName(), "en_US", "Workin' at the--");
-		LANG.addStringLocalization(BASEMOD.wash.getName() + ".desc", "en_US", "Wait, what?");
+		LANG.addStringLocalization(BASEMOD.wash.getName() + ".desc", "en_US", "Craft a Washer.");
 		
 		for (int counter = 0; counter <= 9; ++counter)
 		{

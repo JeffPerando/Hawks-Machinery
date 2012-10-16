@@ -22,7 +22,7 @@ public class HMItemBlockMachine extends ItemBlock
 	@Override
 	public void addInformation(ItemStack item, List list)
 	{
-		list.add("Machine Health: " + item.getItemDamage());
+		list.add("Machine Health: " + item.stackTagCompound.getInteger("MachineHP"));
 	}
 	
 	@Override

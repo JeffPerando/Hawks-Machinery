@@ -85,7 +85,7 @@ public abstract class HMBlockMachine extends BlockMachine
 		{
 			if (entity instanceof EntityPlayer)
 			{
-				((HMTileEntityMachine)world.getBlockTileEntity(x, y, z)).machineHP = (((EntityPlayer)entity).getCurrentEquippedItem().getItemDamage());
+				((HMTileEntityMachine)world.getBlockTileEntity(x, y, z)).machineHP = (((EntityPlayer)entity).getCurrentEquippedItem().stackTagCompound.getInteger("MachineHP"));
 				
 			}
 			

@@ -106,10 +106,10 @@ public class HMTileEntityCrusher extends HMTileEntityMachine implements ISpecial
 				{
 					IItemElectric electricItem = (IItemElectric)this.containingItems[0].getItem();
 					
-					if (electricItem.canProduceElectricity() && this.electricityStored + electricItem.getTransferRate() <= this.ELECTRICITY_LIMIT)
+					if (electricItem.canProduceElectricity() && this.electricityStored > this.ELECTRICITY_LIMIT)
 					{
-						double receivedElectricity = electricItem.onUseElectricity(electricItem.getTransferRate(), this.containingItems[0]);
-						this.electricityStored += receivedElectricity;
+						double receivedElectricity = electricItem.onUse(Math.min(electricItem.getMaxJoules()*0.01, ElectricInfo.getWattHours(this.ELECTRICITY_REQUIRED)), this.containingItems[0]);
+						this.electricityStored += ElectricInfo.getWatts(receivedElectricity);
 					}
 				}
 			}
@@ -292,7 +292,6 @@ public class HMTileEntityCrusher extends HMTileEntityMachine implements ISpecial
 				if (this.containingItems[1] == null)
 				{
 					this.containingItems[1] = offer;
-					System.out.println("Stuff put into 1!");
 					return null;
 				}
 				else
@@ -302,7 +301,6 @@ public class HMTileEntityCrusher extends HMTileEntityMachine implements ISpecial
 						if (this.containingItems[1].stackSize + offer.stackSize <= 64)
 						{
 							this.containingItems[1].stackSize += offer.stackSize;
-							System.out.println("Crap put into 1!");
 							return null;
 						}
 						else
@@ -310,7 +308,6 @@ public class HMTileEntityCrusher extends HMTileEntityMachine implements ISpecial
 							int extraAmount = (this.containingItems[1].stackSize + offer.stackSize) - 64;
 							
 							this.containingItems[1].stackSize += offer.stackSize;
-							System.out.println("Dung put into 1!");
 							return new ItemStack(offer.getItem(), extraAmount, offer.getItemDamage());
 						}
 					}
@@ -325,17 +322,15 @@ public class HMTileEntityCrusher extends HMTileEntityMachine implements ISpecial
 						if (this.containingItems[0] !=null)
 						{
 							this.containingItems[0] = offer;
-							System.out.println("Bittery put into 0!");
 							return null;
 						}
 						else
 						{
-							if (((IItemElectric)offer.getItem()).getWattHours(offer) > ((IItemElectric)offer.getItem()).getWattHours(this.containingItems[0]))
+							if (((IItemElectric)offer.getItem()).getJoules(offer) > ((IItemElectric)offer.getItem()).getJoules(this.containingItems[0]))
 							{
 								ItemStack oldElectricItem = this.containingItems[0];
 								
 								this.containingItems[0] = offer;
-								System.out.println("Battery put into 0!");
 								return oldElectricItem;
 							}
 						}

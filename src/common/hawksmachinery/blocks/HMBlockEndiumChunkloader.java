@@ -30,7 +30,7 @@ public class HMBlockEndiumChunkloader extends HMBlock
 	
 	public HMBlockEndiumChunkloader(int id)
 	{
-		super(id, Material.iron, 5);
+		super(id, Material.iron, 5, null);
 		setResistance(1000000000.0F);
 		setBlockName("endiumChunkloader");
 		setStepSound(Block.soundMetalFootstep);

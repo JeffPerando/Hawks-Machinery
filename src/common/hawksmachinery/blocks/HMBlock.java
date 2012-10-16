@@ -3,8 +3,11 @@ package hawksmachinery.blocks;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import hawksmachinery.HawksMachinery;
+import net.minecraft.src.Achievement;
 import net.minecraft.src.Block;
+import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.Material;
+import net.minecraft.src.World;
 
 /**
  * 
@@ -15,8 +18,9 @@ import net.minecraft.src.Material;
 public class HMBlock extends Block
 {
 	public static HawksMachinery BASEMOD;
+	private Achievement onBlockBrokenAch;
 	
-	public HMBlock(int id, Material mat, int textureID)
+	public HMBlock(int id, Material mat, int textureID, Achievement onBrokenAch)
 	{
 		super(id, mat);
 		setHardness(1.0F);
@@ -28,6 +32,24 @@ public class HMBlock extends Block
 			this.blockIndexInTexture = textureID;
 		}
 		
+		this.onBlockBrokenAch = onBrokenAch;
+		
+	}
+	
+	@Override
+	public void onBlockHarvested(World world, int x, int y, int z, int meta, EntityPlayer player)
+	{
+		if (this.onBlockBrokenAch != null)
+		{
+			player.addStat(this.onBlockBrokenAch, 1);
+		}
+		
+	}
+	
+	@Override
+	public boolean canDragonDestroy(World world, int x, int y, int z)
+	{
+		return world.getBlockId(x, y, z) != BASEMOD.endiumOre.blockID;
 	}
 	
 }

@@ -36,7 +36,7 @@ public class HMItemRivetGun extends ItemElectric
 	@Override
 	public ItemStack onItemRightClick(ItemStack item, World world, EntityPlayer player)
 	{
-		if (player.isSneaking() && (item.getItemDamage() < (this.getMaxDamage() - this.getTransferRate()) || !item.isItemDamaged()))
+		if (player.isSneaking() && (item.getItemDamage() < (this.getMaxDamage() - 1) || !item.isItemDamaged()))
 		{
 			player.setItemInUse(item, getMaxItemUseDuration(item));
 		}
@@ -78,7 +78,7 @@ public class HMItemRivetGun extends ItemElectric
 											}
 											
 											player.swingItem();
-											this.onUseElectricity(this.getTransferRate(), item);
+											this.onUse(1, item);
 											return item;
 										}
 										
@@ -118,15 +118,9 @@ public class HMItemRivetGun extends ItemElectric
 	}
 	
 	@Override
-	public double getMaxWattHours()
+	public double getMaxJoules()
 	{
-		return 30000;
-	}
-	
-	@Override
-	public double getTransferRate()
-	{
-		return 100;
+		return 300;
 	}
 	
 	@Override

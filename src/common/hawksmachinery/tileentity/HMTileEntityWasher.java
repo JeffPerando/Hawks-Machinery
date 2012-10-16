@@ -70,12 +70,14 @@ public class HMTileEntityWasher extends HMTileEntityMachine implements IItemTran
 				{
 					IItemElectric electricItem = (IItemElectric)this.containingItems[0].getItem();
 					
-					if (electricItem.canProduceElectricity() && this.electricityStored + electricItem.getTransferRate() <= this.ELECTRICITY_LIMIT)
+					if (electricItem.canProduceElectricity() && this.electricityStored > this.ELECTRICITY_LIMIT)
 					{
-						double receivedElectricity = electricItem.onUseElectricity(electricItem.getTransferRate(), this.containingItems[0]);
-						this.electricityStored += receivedElectricity;
+						double receivedElectricity = electricItem.onUse(Math.min(electricItem.getMaxJoules()*0.01, ElectricInfo.getWattHours(this.ELECTRICITY_REQUIRED)), this.containingItems[0]);
+						this.electricityStored += ElectricInfo.getWatts(receivedElectricity);
 					}
+					
 				}
+				
 			}
 			
 			if (this.containingItems[1] != null)
