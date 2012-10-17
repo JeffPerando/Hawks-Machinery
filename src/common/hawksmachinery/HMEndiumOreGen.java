@@ -20,15 +20,10 @@ public class HMEndiumOreGen extends OreGenReplace
 	
 	public HMEndiumOreGen()
 	{
-		super("Endium Ore", "oreEndium", new ItemStack(BASEMOD.endiumOre), 121, 12, 64, 12, 8, "pickaxe", 3);
-		this.generateEnd = BASEMOD.MANAGER.generateEndium;
+		super("Endium Ore", "oreEndium", new ItemStack(BASEMOD.endiumOre), 121, 12, 64, 8, 8, "pickaxe", 3);
+		this.generateEnd = true;
+		this.shouldGenerate = BASEMOD.MANAGER.generateEndium;
 		
-	}
-	
-	@Override
-	public int getBlockTextureFromSide(int side)
-	{
-		return this.oreStack.getIconIndex();
 	}
 	
 }
