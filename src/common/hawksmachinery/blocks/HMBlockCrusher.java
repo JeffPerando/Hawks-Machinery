@@ -146,12 +146,6 @@ public class HMBlockCrusher extends HMBlockMachine
 	}
 	
 	@Override
-	public boolean renderAsNormalBlock()
-	{
-		return false;
-	}
-	
-	@Override
 	protected ItemStack createStackedBlock(int meta)
 	{
 		ItemStack item = new ItemStack(this);
