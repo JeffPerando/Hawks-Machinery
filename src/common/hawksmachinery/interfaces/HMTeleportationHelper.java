@@ -64,10 +64,11 @@ public class HMTeleportationHelper
 	{
 		if (new Random().nextInt(100) > 10)
 		{
-			coords.setDimension(1);
+			player.travelToTheEnd(coords.dimension());
+			return;
 		}
 		
-		
+		//TODO Finish teleporter. ETA: MC v1.4.
 		
 	}
 	

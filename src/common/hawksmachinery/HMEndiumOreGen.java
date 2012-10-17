@@ -20,7 +20,7 @@ public class HMEndiumOreGen extends OreGenReplace
 	
 	public HMEndiumOreGen()
 	{
-		super("Endium Ore", "oreEndium", new ItemStack(BASEMOD.endiumOre), 121, 50, 64, 2, 8, "pickaxe", 3);
+		super("Endium Ore", "oreEndium", new ItemStack(BASEMOD.endiumOre), 121, 12, 64, 12, 8, "pickaxe", 3);
 		this.generateEnd = BASEMOD.MANAGER.generateEndium;
 		
 	}

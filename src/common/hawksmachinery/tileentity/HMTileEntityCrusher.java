@@ -1,8 +1,8 @@
 
 package hawksmachinery.tileentity;
 
-import hawksmachinery.HMProcessingRecipes;
-import hawksmachinery.HMProcessingRecipes.HawkEnumProcessing;
+import hawksmachinery.interfaces.HMProcessingRecipes;
+import hawksmachinery.interfaces.HMProcessingRecipes.HawkEnumProcessing;
 import hawksmachinery.HawksMachinery;
 import java.io.DataInputStream;
 import java.io.IOException;

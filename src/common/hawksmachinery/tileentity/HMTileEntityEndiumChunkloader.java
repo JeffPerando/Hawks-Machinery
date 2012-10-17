@@ -2,10 +2,8 @@
 package hawksmachinery.tileentity;
 
 import hawksmachinery.HawksMachinery;
-import net.minecraft.src.Chunk;
 import net.minecraft.src.ChunkCoordIntPair;
 import net.minecraft.src.EntityPlayer;
-import net.minecraft.src.NBTTagCompound;
 import net.minecraft.src.TileEntity;
 import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.common.ForgeChunkManager.Ticket;
@@ -20,46 +18,31 @@ import net.minecraftforge.common.ForgeChunkManager.Type;
 public class HMTileEntityEndiumChunkloader extends TileEntity
 {
 	public static HawksMachinery BASEMOD;
-	public String ownerUsername;
-	public Ticket heldChunk;
-	
-	@Override
-	public void writeToNBT(NBTTagCompound NBTTag)
-	{
-		super.writeToNBT(NBTTag);
-		
-		NBTTag.setString("owner", this.ownerUsername);
-		
-	}
-	
-	@Override
-	public void readFromNBT(NBTTagCompound NBTTag)
-	{
-		super.readFromNBT(NBTTag);
-		
-		this.ownerUsername = NBTTag.getString("owner");
-	}
+	private Ticket heldChunk;
 	
 	@Override
 	public void invalidate()
 	{
-		this.forceChunkLoading(this.heldChunk);
-		super.invalidate();
-		
+		this.forceChunkLoading(null);
 	}
 	
 	@Override
 	public void validate()
 	{
-		ForgeChunkManager.releaseTicket(this.heldChunk);
-		super.validate();
+		this.forceChunkLoading(null);
 	}
 	
 	public void forceChunkLoading(Ticket ticket)
 	{
-		if (this.heldChunk == null)
+		if (ticket != null)
 		{
-			if (ticket == null)
+			this.heldChunk = ticket;
+			ForgeChunkManager.forceChunk(this.heldChunk, new ChunkCoordIntPair(this.xCoord >> 4, this.zCoord >> 4));
+			
+		}
+		else
+		{
+			if (this.heldChunk == null)
 			{
 				Ticket newTicket = ForgeChunkManager.requestTicket(BASEMOD.instance(), this.worldObj, Type.NORMAL);
 				newTicket.getModData().setInteger("xCoord", this.xCoord);
@@ -67,16 +50,17 @@ public class HMTileEntityEndiumChunkloader extends TileEntity
 				newTicket.getModData().setInteger("zCoord", this.zCoord);
 				newTicket.setChunkListDepth(BASEMOD.MANAGER.maxChunksLoaded);
 				this.heldChunk = newTicket;
+				ForgeChunkManager.forceChunk(this.heldChunk, new ChunkCoordIntPair(this.xCoord >> 4, this.zCoord >> 4));
 				
 			}
 			else
 			{
-				this.heldChunk = ticket;
+				ForgeChunkManager.releaseTicket(this.heldChunk);
+				this.heldChunk = null;
+				
 			}
 			
 		}
-		
-		ForgeChunkManager.forceChunk(this.heldChunk, new ChunkCoordIntPair(this.xCoord >> 4, this.zCoord >> 4));
 		
 	}
 	

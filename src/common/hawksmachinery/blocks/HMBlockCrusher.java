@@ -144,11 +144,20 @@ public class HMBlockCrusher extends HMBlockMachine
 	{
 		return !(side.ordinal() == 1 && side.ordinal() == world.getBlockMetadata(x, y, z));
 	}
-	/*
+	
 	@Override
 	public boolean renderAsNormalBlock()
 	{
 		return false;
 	}
-	*/
+	
+	@Override
+	protected ItemStack createStackedBlock(int meta)
+	{
+		ItemStack item = new ItemStack(this);
+		item.setTagCompound(new NBTTagCompound());
+		item.stackTagCompound.setInteger("MachineHP", this.tileEntity.machineHP);
+		return item;
+	}
+	
 }

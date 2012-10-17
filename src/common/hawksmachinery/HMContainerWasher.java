@@ -1,6 +1,7 @@
 
 package hawksmachinery;
 
+import hawksmachinery.interfaces.HMProcessingRecipes;
 import hawksmachinery.tileentity.HMTileEntityWasher;
 import net.minecraft.src.Container;
 import net.minecraft.src.EntityPlayer;

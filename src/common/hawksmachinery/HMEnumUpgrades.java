@@ -1,7 +1,7 @@
 
 package hawksmachinery;
 
-import hawksmachinery.HMProcessingRecipes.HawkEnumProcessing;
+import hawksmachinery.interfaces.HMProcessingRecipes.HawkEnumProcessing;
 
 /**
  * 

@@ -62,6 +62,7 @@ public class HMRepairInterfaces
 	public interface IHMRivet
 	{
 		public int getRepairAmount(ItemStack rivet);
+		
 	}
 	
 }

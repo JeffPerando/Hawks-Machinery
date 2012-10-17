@@ -30,40 +30,13 @@ public class HMBlockEndiumChunkloader extends HMBlock
 	
 	public HMBlockEndiumChunkloader(int id)
 	{
-		super(id, Material.iron, 5, null);
+		super(id, Material.iron, 96, null);
 		setResistance(1000000000.0F);
 		setBlockName("endiumChunkloader");
 		setStepSound(Block.soundMetalFootstep);
 		setCreativeTab(CreativeTabs.tabDecorations);
 		GameRegistry.registerBlock(this, HMItemBlockEndium.class);
 		
-	}
-	
-	@Override
-	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLiving entity)
-	{
-		if (entity != null)
-		{
-			if (entity instanceof EntityPlayer)
-			{
-				if (this.tileEntity != null)
-				{
-					this.tileEntity.ownerUsername = ((EntityPlayer)entity).username;
-				}
-				else
-				{
-					this.tempUsername = ((EntityPlayer)entity).username;
-				}
-			}
-			
-		}
-		
-	}
-	
-	@Override
-	public float getPlayerRelativeBlockHardness(EntityPlayer pinhead, World world, int x, int y, int z)
-	{
-		return pinhead.username == this.tileEntity.ownerUsername ?  ForgeHooks.blockStrength(this, pinhead, world, x, y, z) : -0.5F;
 	}
 	
 	@Override
@@ -76,34 +49,7 @@ public class HMBlockEndiumChunkloader extends HMBlock
 	public TileEntity createTileEntity(World world, int metadata)
 	{
 		this.tileEntity = new HMTileEntityEndiumChunkloader();
-		if (this.tempUsername != null)
-		{
-			this.tileEntity.ownerUsername = this.tempUsername;
-		}
-		
 		return this.tileEntity;
-	}
-	
-	@Override
-	public void onBlockHarvested(World world, int x, int y, int z, int meta, EntityPlayer dolt)
-	{
-		if (dolt != null)
-		{
-			if (!dolt.capabilities.isCreativeMode)
-			{
-				if (dolt.username != this.tileEntity.ownerUsername)
-				{
-					world.setBlockWithNotify(x, y, z, this.blockID);
-				}
-				
-			}
-			
-		}
-		else
-		{
-			world.setBlockWithNotify(x, y, z, this.blockID);
-		}
-		
 	}
 	
 	@Override

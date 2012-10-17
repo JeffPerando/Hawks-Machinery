@@ -1,5 +1,5 @@
 
-package hawksmachinery;
+package hawksmachinery.interfaces;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -25,7 +25,7 @@ public class HMProcessingRecipes
 	
 	/**
 	 * 
-	 * Instead of IDs, processing now uses enums. *NEW* Now found within HawkProcessingRecipes.java!
+	 * Instead of IDs, processing now uses enums.
 	 * 
 	 * @author Elusivehawk
 	 */
@@ -64,7 +64,7 @@ public class HMProcessingRecipes
 	 * @param output The output.
 	 * @param processType What type of processing this recipe is for.
 	 */
-	public static void addHawkProcessingRecipe(ItemStack input, ItemStack output, HawkEnumProcessing processType)
+	public static void addHMProcessingRecipe(ItemStack input, ItemStack output, HawkEnumProcessing processType)
 	{
 		if (input != null && output != null && processType != null)
 		{
@@ -91,34 +91,34 @@ public class HMProcessingRecipes
 		}
 	}
 	
-	public static void addHawkProcessingRecipe(Item input, ItemStack output, HawkEnumProcessing processType)
+	public static void addHMProcessingRecipe(Item input, ItemStack output, HawkEnumProcessing processType)
 	{
-		addHawkProcessingRecipe(new ItemStack(input), output, processType);
+		addHMProcessingRecipe(new ItemStack(input), output, processType);
 	}
 	
-	public static void addHawkProcessingRecipe(Item input, Item output, HawkEnumProcessing processType)
+	public static void addHMProcessingRecipe(Item input, Item output, HawkEnumProcessing processType)
 	{
-		addHawkProcessingRecipe(new ItemStack(input), new ItemStack(output), processType);
+		addHMProcessingRecipe(new ItemStack(input), new ItemStack(output), processType);
 	}
 	
-	public static void addHawkProcessingRecipe(Item input, Block output, HawkEnumProcessing processType)
+	public static void addHMProcessingRecipe(Item input, Block output, HawkEnumProcessing processType)
 	{
-		addHawkProcessingRecipe(new ItemStack(input), new ItemStack(output), processType);
+		addHMProcessingRecipe(new ItemStack(input), new ItemStack(output), processType);
 	}
 	
-	public static void addHawkProcessingRecipe(Block input, ItemStack output, HawkEnumProcessing processType)
+	public static void addHMProcessingRecipe(Block input, ItemStack output, HawkEnumProcessing processType)
 	{
-		addHawkProcessingRecipe(new ItemStack(input), output, processType);
+		addHMProcessingRecipe(new ItemStack(input), output, processType);
 	}
 	
-	public static void addHawkProcessingRecipe(Block input, Item output, HawkEnumProcessing processType)
+	public static void addHMProcessingRecipe(Block input, Item output, HawkEnumProcessing processType)
 	{
-		addHawkProcessingRecipe(new ItemStack(input), new ItemStack(output), processType);
+		addHMProcessingRecipe(new ItemStack(input), new ItemStack(output), processType);
 	}
 	
-	public static void addHawkProcessingRecipe(Block input, Block output, HawkEnumProcessing processType)
+	public static void addHMProcessingRecipe(Block input, Block output, HawkEnumProcessing processType)
 	{
-		addHawkProcessingRecipe(new ItemStack(input), new ItemStack(output), processType);
+		addHMProcessingRecipe(new ItemStack(input), new ItemStack(output), processType);
 	}
 	
 	/**
@@ -129,20 +129,20 @@ public class HMProcessingRecipes
 	 * @param output
 	 * @param processingType
 	 */
-	public static void addHawkFoDProcessingRecipe(String input, ItemStack output, HawkEnumProcessing processType)
+	public static void addHMFoDProcessingRecipe(String input, ItemStack output, HawkEnumProcessing processType)
 	{
 		for (ItemStack ore : OreDictionary.getOres(input))
 		{
 			if (ore != null)
 			{
-				addHawkProcessingRecipe(ore, output, processType);
+				addHMProcessingRecipe(ore, output, processType);
 			}
 			
 		}
 		
 	}
 	
-	public static void addHawkWashingSecondary(ItemStack input, Object output, boolean isCommon)
+	public static void addHMWashingSecondary(ItemStack input, Object output, boolean isCommon)
 	{
 		if (input != null && output != null)
 		{

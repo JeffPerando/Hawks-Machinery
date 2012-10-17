@@ -60,7 +60,7 @@ public class HMManager implements LoadingCallback, IVillageTradeHandler
 	
 	public static int crusherTicks;
 	public static int washerTicks;
-	public static int maxChunksLoaded = 100;
+	public static int maxChunksLoaded;
 	
 	public static boolean generateEndium;
 	public static boolean enableUpdateChecking;
@@ -83,7 +83,7 @@ public class HMManager implements LoadingCallback, IVillageTradeHandler
 		crusherID = HMConfig.getBlock("Crusher", 3960).getInt(3960);
 		endiumOreID = HMConfig.getBlock("Endium Ore", 3961).getInt(3961);
 		washerID = HMConfig.getBlock("Washer", 3962).getInt(3962);
-		//NOTE ID #3963 saved for Endium Chunkloader.
+		//NOTE ID #3963 saved for the Endium Chunkloader.
 		
 		generateEndium = HMConfig.get(Configuration.CATEGORY_GENERAL, "Generate Endium", true).getBoolean(true);
 		enableUpdateChecking = HMConfig.get(Configuration.CATEGORY_GENERAL, "Enable Update Checking", true).getBoolean(true);
@@ -133,9 +133,13 @@ public class HMManager implements LoadingCallback, IVillageTradeHandler
 			int yPos = ticket.getModData().getInteger("yCoord");
 			int zPos = ticket.getModData().getInteger("zCoord");
 			
-			if (world.getBlockTileEntity(xPos, yPos, zPos) instanceof HMTileEntityEndiumChunkloader)
+			if (world.getBlockTileEntity(xPos, yPos, zPos) != null)
 			{
-				((HMTileEntityEndiumChunkloader)world.getBlockTileEntity(xPos, yPos, zPos)).forceChunkLoading(ticket);
+				if (world.getBlockTileEntity(xPos, yPos, zPos) instanceof HMTileEntityEndiumChunkloader)
+				{
+					((HMTileEntityEndiumChunkloader)world.getBlockTileEntity(xPos, yPos, zPos)).forceChunkLoading(ticket);
+					
+				}
 				
 			}
 			
@@ -187,7 +191,9 @@ public class HMManager implements LoadingCallback, IVillageTradeHandler
 		
 		if (profession == 3)
 		{
-			//TODO Add Blacksmith trades.
+			recipeList.add(new MerchantRecipe(new ItemStack(BASEMOD.ingots, 1, 0), new ItemStack(Item.emerald, 12)));
+			recipeList.add(new MerchantRecipe(new ItemStack(BASEMOD.ingots, 2, 0), new ItemStack(Item.emerald, 12)));
+			
 		}
 		
 	}

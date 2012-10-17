@@ -1,17 +1,21 @@
 
 package hawksmachinery.blocks;
 
+import java.util.List;
 import cpw.mods.fml.common.registry.GameRegistry;
 import hawksmachinery.HawksMachinery;
 import hawksmachinery.interfaces.HMRepairInterfaces.IHMRepairable;
 import hawksmachinery.interfaces.HMRepairInterfaces.IHMSapper;
 import hawksmachinery.items.HMItemBlockMachine;
 import hawksmachinery.tileentity.HMTileEntityMachine;
+import net.minecraft.src.CreativeTabs;
 import net.minecraft.src.EntityLiving;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.IBlockAccess;
+import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.Material;
+import net.minecraft.src.NBTTagCompound;
 import net.minecraft.src.World;
 import universalelectricity.prefab.BlockMachine;
 
@@ -24,6 +28,7 @@ import universalelectricity.prefab.BlockMachine;
 public abstract class HMBlockMachine extends BlockMachine
 {
 	public static HawksMachinery BASEMOD;
+	public HMTileEntityMachine tileEntity;
 	
 	public HMBlockMachine(String name, int id, Material mat)
 	{
@@ -97,6 +102,17 @@ public abstract class HMBlockMachine extends BlockMachine
 	public boolean isBlockSolid(IBlockAccess world, int x, int y, int z, int side)
 	{
 		return side != world.getBlockMetadata(x, y, z) && side != 1;
+	}
+	
+	@Override
+	public void getSubBlocks(int idk, CreativeTabs tab, List list)
+	{
+		ItemStack item = new ItemStack(this);
+		NBTTagCompound newTag = new NBTTagCompound();
+		newTag.setInteger("MachineHP", 0);
+		item.setTagCompound(newTag);
+		list.add(item);
+		
 	}
 	
 }

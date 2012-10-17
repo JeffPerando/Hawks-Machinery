@@ -1,8 +1,8 @@
 
 package hawksmachinery.tileentity;
 
-import hawksmachinery.HMProcessingRecipes;
-import hawksmachinery.HMProcessingRecipes.HawkEnumProcessing;
+import hawksmachinery.interfaces.HMProcessingRecipes;
+import hawksmachinery.interfaces.HMProcessingRecipes.HawkEnumProcessing;
 import hawksmachinery.HawksMachinery;
 import java.util.Random;
 import railcraft.common.api.carts.IItemTransfer;
@@ -189,11 +189,21 @@ public class HMTileEntityWasher extends HMTileEntityMachine implements IItemTran
 			}
 		}
 	}
-	
+
 	@Override
 	public Packet getDescriptionPacket()
 	{
-		return PacketManager.getPacket("HawksMachinery", this, this.workTicks, this.electricityStored, this.waterUnits);
+		if (this.isOpen)
+		{
+			if (this.isProcessor)
+			{
+				return PacketManager.getPacket("HawksMachinery", this, this.workTicks, this.electricityStored, this.machineHP, this.waterUnits);
+			}
+			
+			return PacketManager.getPacket("HawksMachinery", this, this.electricityStored, this.machineHP, this.waterUnits);
+		}
+		
+		return PacketManager.getPacket("HawksMachinery", this, this.machineHP, this.waterUnits);
 	}
 	
 	@Override
@@ -201,8 +211,19 @@ public class HMTileEntityWasher extends HMTileEntityMachine implements IItemTran
 	{
 		try
 		{
-			this.workTicks = dataStream.readInt();
-			this.electricityStored = dataStream.readFloat();
+			if (this.isOpen)
+			{
+				if (this.isProcessor)
+				{
+					this.workTicks = dataStream.readInt();
+					
+				}
+				
+				this.electricityStored = dataStream.readDouble();
+				
+			}
+			
+			this.machineHP = dataStream.readInt();
 			this.waterUnits = dataStream.readFloat();
 			
 		}

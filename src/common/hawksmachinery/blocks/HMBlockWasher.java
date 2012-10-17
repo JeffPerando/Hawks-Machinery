@@ -11,8 +11,10 @@ import net.minecraft.src.Entity;
 import net.minecraft.src.EntityEnderman;
 import net.minecraft.src.EntityLiving;
 import net.minecraft.src.EntityPlayer;
+import net.minecraft.src.ItemStack;
 import net.minecraft.src.Material;
 import net.minecraft.src.MathHelper;
+import net.minecraft.src.NBTTagCompound;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 import net.minecraftforge.common.ForgeDirection;
@@ -162,6 +164,15 @@ public class HMBlockWasher extends HMBlockMachine
 	public boolean isBlockSolidOnSide(World world, int x, int y, int z, ForgeDirection side)
 	{
 		return (side.ordinal() != 0 && side.ordinal() != world.getBlockMetadata(x, y, z));
+	}
+	
+	@Override
+	protected ItemStack createStackedBlock(int meta)
+	{
+		ItemStack item = new ItemStack(this);
+		item.setTagCompound(new NBTTagCompound());
+		item.stackTagCompound.setInteger("MachineHP", this.tileEntity.machineHP);
+		return item;
 	}
 	
 }

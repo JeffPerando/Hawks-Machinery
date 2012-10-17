@@ -1,7 +1,8 @@
 
 package hawksmachinery;
 
-import hawksmachinery.HMProcessingRecipes.HawkEnumProcessing;
+import hawksmachinery.interfaces.HMProcessingRecipes;
+import hawksmachinery.interfaces.HMProcessingRecipes.HawkEnumProcessing;
 import hawksmachinery.tileentity.HMTileEntityCrusher;
 import universalelectricity.basiccomponents.SlotElectricItem;
 import universalelectricity.implement.IItemElectric;
