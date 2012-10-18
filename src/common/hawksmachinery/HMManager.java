@@ -1,6 +1,8 @@
 
 package hawksmachinery;
 
+import hawksmachinery.blocks.HMBlock;
+import hawksmachinery.items.HMItem;
 import hawksmachinery.tileentity.HMTileEntityEndiumChunkloader;
 import java.io.File;
 import java.util.List;
@@ -158,7 +160,7 @@ public class HMManager implements LoadingCallback, IVillageTradeHandler
 			{
 				if (emeralds <= 17)
 				{
-					recipeList.add(new MerchantRecipe(new ItemStack(Item.emerald, emeralds), new ItemStack(Item.writableBook, 1), new ItemStack(BASEMOD.blueprints, 1, 7)));
+					recipeList.add(new MerchantRecipe(new ItemStack(Item.emerald, emeralds), new ItemStack(Item.writableBook, 1), new ItemStack(HMItem.blueprints, 1, 7)));
 					
 				}
 				
@@ -166,14 +168,14 @@ public class HMManager implements LoadingCallback, IVillageTradeHandler
 				{
 					for (int meta = 0; meta <= 6; ++meta)
 					{
-						recipeList.add(new MerchantRecipe(new ItemStack(Item.emerald, emeralds), new ItemStack(Item.writableBook, 1), new ItemStack(BASEMOD.blueprints, 1, meta)));
+						recipeList.add(new MerchantRecipe(new ItemStack(Item.emerald, emeralds), new ItemStack(Item.writableBook, 1), new ItemStack(HMItem.blueprints, 1, meta)));
 					}
 					
 				}
 				
 				if (emeralds >= 52)
 				{
-					recipeList.add(new MerchantRecipe(new ItemStack(Item.emerald, emeralds), new ItemStack(Item.writableBook, 1), new ItemStack(BASEMOD.blueprints, 1, 8)));
+					recipeList.add(new MerchantRecipe(new ItemStack(Item.emerald, emeralds), new ItemStack(Item.writableBook, 1), new ItemStack(HMItem.blueprints, 1, 8)));
 				}
 				
 			}
@@ -184,15 +186,15 @@ public class HMManager implements LoadingCallback, IVillageTradeHandler
 		{
 			if (enableChunkloader)
 			{
-				recipeList.add(new MerchantRecipe(new ItemStack(BASEMOD.endiumChunkloader, 1), new ItemStack(Item.emerald, 12)));
+				recipeList.add(new MerchantRecipe(new ItemStack(HMBlock.endiumChunkloader, 1), new ItemStack(Item.emerald, 12)));
 			}
 			
 		}
 		
 		if (profession == 3)
 		{
-			recipeList.add(new MerchantRecipe(new ItemStack(BASEMOD.ingots, 1, 0), new ItemStack(Item.emerald, 12)));
-			recipeList.add(new MerchantRecipe(new ItemStack(BASEMOD.ingots, 2, 0), new ItemStack(Item.emerald, 12)));
+			recipeList.add(new MerchantRecipe(new ItemStack(HMItem.ingots, 1, 0), new ItemStack(Item.emerald, 12)));
+			recipeList.add(new MerchantRecipe(new ItemStack(HMItem.ingots, 2, 0), new ItemStack(Item.emerald, 12)));
 			
 		}
 		

@@ -1,6 +1,7 @@
 
 package hawksmachinery;
 
+import hawksmachinery.blocks.HMBlock;
 import java.util.Random;
 import net.minecraft.src.ChunkProviderEnd;
 import net.minecraft.src.IChunkProvider;
@@ -20,7 +21,7 @@ public class HMEndiumOreGen extends OreGenReplace
 	
 	public HMEndiumOreGen()
 	{
-		super("Endium Ore", "oreEndium", new ItemStack(BASEMOD.endiumOre), 121, 12, 64, 8, 8, "pickaxe", 3);
+		super("Endium Ore", "oreEndium", new ItemStack(HMBlock.endiumOre), 121, 12, 64, 8, 8, "pickaxe", 3);
 		this.generateEnd = true;
 		this.shouldGenerate = BASEMOD.MANAGER.generateEndium;
 		

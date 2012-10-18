@@ -17,6 +17,11 @@ import net.minecraft.src.World;
  */
 public class HMBlock extends Block
 {
+	public static Block crusher;
+	public static Block washer;
+	public static Block endiumChunkloader;
+	public static Block endiumOre;
+	
 	public static HawksMachinery BASEMOD;
 	private Achievement onBlockBrokenAch;
 	
@@ -49,7 +54,7 @@ public class HMBlock extends Block
 	@Override
 	public boolean canDragonDestroy(World world, int x, int y, int z)
 	{
-		return world.getBlockId(x, y, z) != BASEMOD.endiumOre.blockID;
+		return world.getBlockId(x, y, z) != endiumOre.blockID;
 	}
 	
 }

@@ -1,6 +1,7 @@
 
 package hawksmachinery;
 
+import hawksmachinery.blocks.HMBlock;
 import hawksmachinery.items.*;
 import net.minecraft.src.ItemStack;
 import cpw.mods.fml.common.registry.LanguageRegistry;
@@ -18,16 +19,16 @@ public class HMLanguageCore
 	
 	public static void addToolTips()
 	{
-		LANG.addNameForObject(BASEMOD.crusher, "en_US", "Crusher");
-		LANG.addNameForObject(BASEMOD.washer, "en_US", "Washer");
-		LANG.addNameForObject(BASEMOD.endiumOre, "en_US", "Endium Ore");
+		LANG.addNameForObject(HMBlock.crusher, "en_US", "Crusher");
+		LANG.addNameForObject(HMBlock.washer, "en_US", "Washer");
+		LANG.addNameForObject(HMBlock.endiumOre, "en_US", "Endium Ore");
 		if (BASEMOD.MANAGER.enableChunkloader)
 		{
-			LANG.addNameForObject(BASEMOD.endiumChunkloader, "en_US", "Endium Chunkloader");
+			LANG.addNameForObject(HMBlock.endiumChunkloader, "en_US", "Endium Chunkloader");
 		}
 		
-		LANG.addNameForObject(BASEMOD.rivetGun, "en_US", "Rivet Gun");
-		LANG.addNameForObject(new ItemStack(BASEMOD.endiumPlate), "en_US", "Endium Plate");
+		LANG.addNameForObject(HMItem.rivetGun, "en_US", "Rivet Gun");
+		LANG.addNameForObject(new ItemStack(HMItem.endiumPlate), "en_US", "Endium Plate");
 		
 		LANG.addStringLocalization(BASEMOD.timeToCrush.getName(), "en_US", "Time to Crush!");
 		LANG.addStringLocalization(BASEMOD.timeToCrush.getName() + ".desc", "en_US", "Craft a Crusher.");
@@ -42,13 +43,13 @@ public class HMLanguageCore
 		{
 			if (counter == 0)
 			{
-				LANG.addNameForObject(new ItemStack(BASEMOD.ingots, 1, counter), "en_US", HMItemIngots.en_USNames[counter] + " Ingot");
+				LANG.addNameForObject(new ItemStack(HMItem.ingots, 1, counter), "en_US", HMItemIngots.en_USNames[counter] + " Ingot");
 				
 			}
 			
 			if (counter <= 5)
 			{
-				LANG.addNameForObject(new ItemStack(BASEMOD.rivets, 1, counter), "en_US", HMItemRivets.en_USNames[counter] + " Rivet");
+				LANG.addNameForObject(new ItemStack(HMItem.rivets, 1, counter), "en_US", HMItemRivets.en_USNames[counter] + " Rivet");
 				
 			}
 			
@@ -56,23 +57,23 @@ public class HMLanguageCore
 			{
 				if (HMItemRawDust.en_USNames[counter] != "Coal" && HMItemRawDust.en_USNames[counter] != "Obsidian")
 				{
-					LANG.addNameForObject(new ItemStack(BASEMOD.dustRaw, 1, counter), "en_US", "Unrefined " + HMItemRawDust.en_USNames[counter] + " Dust");
+					LANG.addNameForObject(new ItemStack(HMItem.dustRaw, 1, counter), "en_US", "Unrefined " + HMItemRawDust.en_USNames[counter] + " Dust");
 				}
 				else
 				{
-					LANG.addNameForObject(new ItemStack(BASEMOD.dustRaw, 1, counter), "en_US", HMItemRawDust.en_USNames[counter] + " Dust");
+					LANG.addNameForObject(new ItemStack(HMItem.dustRaw, 1, counter), "en_US", HMItemRawDust.en_USNames[counter] + " Dust");
 				}
 				
-				LANG.addNameForObject(new ItemStack(BASEMOD.parts, 1, counter), "en_US", HMItemParts.en_USNames[counter]);
+				LANG.addNameForObject(new ItemStack(HMItem.parts, 1, counter), "en_US", HMItemParts.en_USNames[counter]);
 				
 			}
 			
 			if (counter <= 8)
 			{
-				LANG.addNameForObject(new ItemStack(BASEMOD.blueprints, 1, counter), "en_US", "Blueprints (" + HMItemBlueprints.en_USNames[counter] + ")");
+				LANG.addNameForObject(new ItemStack(HMItem.blueprints, 1, counter), "en_US", "Blueprints (" + HMItemBlueprints.en_USNames[counter] + ")");
 			}
 			
-			LANG.addNameForObject(new ItemStack(BASEMOD.dustRefined, 1, counter), "en_US", HMItemRefinedDust.en_USNames[counter] + " Dust");
+			LANG.addNameForObject(new ItemStack(HMItem.dustRefined, 1, counter), "en_US", HMItemRefinedDust.en_USNames[counter] + " Dust");
 			
 		}
 		
