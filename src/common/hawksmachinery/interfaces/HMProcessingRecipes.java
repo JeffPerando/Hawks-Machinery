@@ -185,7 +185,7 @@ public class HMProcessingRecipes
 		{
 			ItemStack output = (ItemStack)processType.getRecipeList().get(Arrays.asList(input.getItem(), input.isItemStackDamageable() ? 0 : input.getItemDamage(), input.isItemEnchanted(), input.stackTagCompound != null));
 			
-			if (output.stackSize < (Integer)quantityMapping.get(Arrays.asList(input.getItem(), input.getItemDamage(), processType)))
+			if (input.isStackable() && output.stackSize < (Integer)quantityMapping.get(Arrays.asList(input.getItem(), input.getItemDamage(), processType)))
 			{
 				return null;
 			}
