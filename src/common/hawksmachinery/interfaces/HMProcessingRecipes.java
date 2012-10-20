@@ -23,6 +23,8 @@ public class HMProcessingRecipes
 	private static Map washerSecondaries = new HashMap();
 	private static Map washerRarities = new HashMap();
 	
+	private static Map quantityMapping = new HashMap();
+	
 	/**
 	 * 
 	 * Instead of IDs, processing now uses enums.
@@ -69,6 +71,7 @@ public class HMProcessingRecipes
 		if (input != null && output != null && processType != null)
 		{
 			processType.getRecipeList().put(Arrays.asList(input.getItem(), input.isItemStackDamageable() ? 0 : input.getItemDamage(), input.isItemEnchanted(), input.stackTagCompound != null), output);
+			quantityMapping.put(Arrays.asList(input.getItem(), input.getItemDamage(), processType), (Integer)input.stackSize);
 			
 		}
 		else
@@ -181,6 +184,11 @@ public class HMProcessingRecipes
 		else
 		{
 			ItemStack output = (ItemStack)processType.getRecipeList().get(Arrays.asList(input.getItem(), input.isItemStackDamageable() ? 0 : input.getItemDamage(), input.isItemEnchanted(), input.stackTagCompound != null));
+			
+			if (output.stackSize < (Integer)quantityMapping.get(Arrays.asList(input.getItem(), input.getItemDamage(), processType)))
+			{
+				return null;
+			}
 			
 			if (output != null)
 			{

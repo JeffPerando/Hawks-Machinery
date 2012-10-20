@@ -86,7 +86,7 @@ public class HawksMachinery implements ICraftingHandler
 	@Metadata("HawksMachinery")
 	public static ModMetadata HAWK_META = new HMDummyContainer().getMetadata();
 	
-	public static final String VERSION = "Alpha v1.4.0";
+	public static final String VERSION = "Alpha v1.5.0";
 	
 	public static RecipeManager RECIPE_GIVER;
 	public static HMProcessingRecipes PROCESS_RECIPES;
@@ -383,7 +383,7 @@ public class HawksMachinery implements ICraftingHandler
 		public String getChangelogURL()
 		{
 			return this.getReleaseType() == ModReleaseType.DEVBUILD ? "https://dl.dropbox.com/u/100525141/HawksMachineryDevbuildNotice.txt"
-					: "https://dl.dropbox.com/u/100525141/HawksMachineryAlphav133Changelog.txt" ;
+					: "https://dl.dropbox.com/u/100525141/HawksMachineryAlphav150Changelog.txt" ;
 		}
 		
 		@Override
