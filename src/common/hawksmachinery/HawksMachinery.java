@@ -3,7 +3,7 @@ package hawksmachinery;
 
 import hawksmachinery.blocks.*;
 import hawksmachinery.interfaces.HMProcessingRecipes;
-import hawksmachinery.interfaces.HMProcessingRecipes.HawkEnumProcessing;
+import hawksmachinery.interfaces.HMProcessingRecipes.HMEnumProcessing;
 import hawksmachinery.items.*;
 import hawksmachinery.tileentity.*;
 import java.io.File;
@@ -90,8 +90,8 @@ public class HawksMachinery implements ICraftingHandler
 	
 	public static RecipeManager RECIPE_GIVER;
 	public static HMProcessingRecipes PROCESS_RECIPES;
-	public static HawkEnumProcessing CRUSH = HawkEnumProcessing.CRUSHING;
-	public static HawkEnumProcessing WASH = HawkEnumProcessing.WASHING;
+	public static HMEnumProcessing CRUSH = HMEnumProcessing.CRUSHING;
+	public static HMEnumProcessing WASH = HMEnumProcessing.WASHING;
 	
 	public static HMManager MANAGER = new HMManager(instance());
 	
@@ -219,7 +219,7 @@ public class HawksMachinery implements ICraftingHandler
 		
 		RECIPE_GIVER.addRecipe(new ItemStack(HMItem.parts, 1, 0), new Object[]{" B ", "PSM", " B ", 'P', BasicComponents.itemSteelPlate, 'S', BasicComponents.itemSteelIngot, 'M', BasicComponents.itemMotor, 'B', Item.blazePowder});
 		RECIPE_GIVER.addRecipe(new ItemStack(HMItem.parts, 1, 1), new Object[]{" B ", "RGR", "SLS", 'B', Item.blazePowder, 'R', Item.redstone, 'G', Block.glass, 'S', "ingotSteel", 'L', new ItemStack(HMItem.parts, 1, 3)});
-		RECIPE_GIVER.addRecipe(new ItemStack(HMItem.parts, 1, 2), new Object[]{" T ", "TET", " T ", 'T', "ingotTitanium", 'E', Item.enderPearl});
+		RECIPE_GIVER.addRecipe(new ItemStack(HMItem.parts, 1, 2), new Object[]{" T ", "TET", " T ", 'T', "ingotIron", 'E', Item.enderPearl});
 		RECIPE_GIVER.addRecipe(new ItemStack(HMItem.parts, 1, 3), new Object[]{" G ", "GBG", "cCc", 'G', Block.thinGlass, 'B', Item.blazeRod, 'c', "ingotCopper", 'C', BasicComponents.blockCopperWire});
 		RECIPE_GIVER.addRecipe(new ItemStack(HMItem.parts, 1, 4), new Object[]{"CC", "CC", 'C', BasicComponents.blockCopperWire});
 		RECIPE_GIVER.addRecipe(new ItemStack(HMItem.parts, 1, 5), new Object[]{"ici", 'i', "ingotIron", 'c', new ItemStack(HMItem.parts, 1, 4)});
@@ -315,7 +315,6 @@ public class HawksMachinery implements ICraftingHandler
 		PROCESS_RECIPES.addHMFoDProcessingRecipe("ingotSteel", new ItemStack(BasicComponents.itemSteelDust), CRUSH);
 		PROCESS_RECIPES.addHMFoDProcessingRecipe("ingotBronze", new ItemStack(BasicComponents.itemBronzeDust), CRUSH);
 		
-		//WASHING RECIPES
 		PROCESS_RECIPES.addHMProcessingRecipe(new ItemStack(HMItem.dustRaw, 1, 1), new ItemStack(HMItem.dustRefined, 1, 3), WASH);
 		PROCESS_RECIPES.addHMProcessingRecipe(new ItemStack(HMItem.dustRaw, 1, 2), new ItemStack(HMItem.dustRefined, 1, 4), WASH);
 		PROCESS_RECIPES.addHMProcessingRecipe(new ItemStack(HMItem.dustRaw, 1, 3), new ItemStack(HMItem.dustRefined, 1, 5), WASH);

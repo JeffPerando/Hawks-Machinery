@@ -2,7 +2,7 @@
 package hawksmachinery.tileentity;
 
 import hawksmachinery.interfaces.HMProcessingRecipes;
-import hawksmachinery.interfaces.HMProcessingRecipes.HawkEnumProcessing;
+import hawksmachinery.interfaces.HMProcessingRecipes.HMEnumProcessing;
 import hawksmachinery.HawksMachinery;
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -49,7 +49,7 @@ public class HMTileEntityCrusher extends HMTileEntityMachine implements ISpecial
 		TICKS_REQUIRED = FMLCommonHandler.instance().getSide().isServer() ? HawksMachinery.MANAGER.crusherTicks : 180;
 		ELECTRICITY_LIMIT = 2500;
 		containingItems = new ItemStack[3];
-		machineEnum = HawkEnumProcessing.CRUSHING;
+		machineEnum = HMEnumProcessing.CRUSHING;
 		voltage = 120;
 		isProcessor = true;
 		
@@ -182,7 +182,7 @@ public class HMTileEntityCrusher extends HMTileEntityMachine implements ISpecial
 		{
 			if (this.electricityStored >= this.ELECTRICITY_REQUIRED * 2)
 			{
-				ItemStack var1 = HMProcessingRecipes.getResult(this.containingItems[1], HawkEnumProcessing.CRUSHING_EXPLOSIVES);
+				ItemStack var1 = HMProcessingRecipes.getResult(this.containingItems[1], HMEnumProcessing.CRUSHING_EXPLOSIVES);
 				
 				if (var1 == null) return false;
 				if (this.containingItems[2] == null) return true;
@@ -201,18 +201,18 @@ public class HMTileEntityCrusher extends HMTileEntityMachine implements ISpecial
 	{
 		if (this.canCrush())
 		{
-			ItemStack var1 = HMProcessingRecipes.getResult(this.containingItems[1], machineEnum);
+			ItemStack newItem = HMProcessingRecipes.getResult(this.containingItems[1], this.machineEnum);
 			
 			if (this.containingItems[2] == null)
 			{
-				this.containingItems[2] = var1.copy();
+				this.containingItems[2] = newItem.copy();
 			}
-			else if (this.containingItems[2].isItemEqual(var1))
+			else if (this.containingItems[2].isItemEqual(newItem))
 			{
-				++this.containingItems[2].stackSize;
+				this.containingItems[2].stackSize += newItem.stackSize;
 			}
 			
-			--this.containingItems[1].stackSize;
+			this.containingItems[1].stackSize -= HMProcessingRecipes.getQuantity(this.containingItems[1], this.machineEnum);
 			
 			if (this.containingItems[1].stackSize <= 0)
 			{

@@ -31,7 +31,7 @@ public class HMProcessingRecipes
 	 * 
 	 * @author Elusivehawk
 	 */
-	public enum HawkEnumProcessing
+	public enum HMEnumProcessing
 	{
 		CRUSHING(new HashMap()),
 		
@@ -45,7 +45,7 @@ public class HMProcessingRecipes
 		
 		private Map processingList;
 		
-		HawkEnumProcessing(Map recipeList)
+		HMEnumProcessing(Map recipeList)
 		{
 			this.processingList = recipeList;
 			
@@ -66,7 +66,7 @@ public class HMProcessingRecipes
 	 * @param output The output.
 	 * @param processType What type of processing this recipe is for.
 	 */
-	public static void addHMProcessingRecipe(ItemStack input, ItemStack output, HawkEnumProcessing processType)
+	public static void addHMProcessingRecipe(ItemStack input, ItemStack output, HMEnumProcessing processType)
 	{
 		if (input != null && output != null && processType != null)
 		{
@@ -94,32 +94,32 @@ public class HMProcessingRecipes
 		}
 	}
 	
-	public static void addHMProcessingRecipe(Item input, ItemStack output, HawkEnumProcessing processType)
+	public static void addHMProcessingRecipe(Item input, ItemStack output, HMEnumProcessing processType)
 	{
 		addHMProcessingRecipe(new ItemStack(input), output, processType);
 	}
 	
-	public static void addHMProcessingRecipe(Item input, Item output, HawkEnumProcessing processType)
+	public static void addHMProcessingRecipe(Item input, Item output, HMEnumProcessing processType)
 	{
 		addHMProcessingRecipe(new ItemStack(input), new ItemStack(output), processType);
 	}
 	
-	public static void addHMProcessingRecipe(Item input, Block output, HawkEnumProcessing processType)
+	public static void addHMProcessingRecipe(Item input, Block output, HMEnumProcessing processType)
 	{
 		addHMProcessingRecipe(new ItemStack(input), new ItemStack(output), processType);
 	}
 	
-	public static void addHMProcessingRecipe(Block input, ItemStack output, HawkEnumProcessing processType)
+	public static void addHMProcessingRecipe(Block input, ItemStack output, HMEnumProcessing processType)
 	{
 		addHMProcessingRecipe(new ItemStack(input), output, processType);
 	}
 	
-	public static void addHMProcessingRecipe(Block input, Item output, HawkEnumProcessing processType)
+	public static void addHMProcessingRecipe(Block input, Item output, HMEnumProcessing processType)
 	{
 		addHMProcessingRecipe(new ItemStack(input), new ItemStack(output), processType);
 	}
 	
-	public static void addHMProcessingRecipe(Block input, Block output, HawkEnumProcessing processType)
+	public static void addHMProcessingRecipe(Block input, Block output, HMEnumProcessing processType)
 	{
 		addHMProcessingRecipe(new ItemStack(input), new ItemStack(output), processType);
 	}
@@ -132,7 +132,7 @@ public class HMProcessingRecipes
 	 * @param output
 	 * @param processingType
 	 */
-	public static void addHMFoDProcessingRecipe(String input, ItemStack output, HawkEnumProcessing processType)
+	public static void addHMFoDProcessingRecipe(String input, ItemStack output, HMEnumProcessing processType)
 	{
 		for (ItemStack ore : OreDictionary.getOres(input))
 		{
@@ -175,7 +175,7 @@ public class HMProcessingRecipes
 		
 	}
 	
-	public static ItemStack getResult(ItemStack input, HawkEnumProcessing processType)
+	public static ItemStack getResult(ItemStack input, HMEnumProcessing processType)
 	{
 		if (input == null)
 		{
@@ -203,6 +203,11 @@ public class HMProcessingRecipes
 			
 		}
 		
+	}
+	
+	public static int getQuantity(ItemStack item, HMEnumProcessing processType)
+	{
+		return (Integer)quantityMapping.get(Arrays.asList(item.getItem(), item.getItemDamage(), processType));
 	}
 	
 	public static ItemStack getWashingSecondaryResult(ItemStack item, Random random)

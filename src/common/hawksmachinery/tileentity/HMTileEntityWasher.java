@@ -2,7 +2,7 @@
 package hawksmachinery.tileentity;
 
 import hawksmachinery.interfaces.HMProcessingRecipes;
-import hawksmachinery.interfaces.HMProcessingRecipes.HawkEnumProcessing;
+import hawksmachinery.interfaces.HMProcessingRecipes.HMEnumProcessing;
 import hawksmachinery.HawksMachinery;
 import java.util.Random;
 import railcraft.common.api.carts.IItemTransfer;
@@ -51,7 +51,7 @@ public class HMTileEntityWasher extends HMTileEntityMachine implements IItemTran
 		TICKS_REQUIRED = FMLCommonHandler.instance().getSide().isServer() ? HawksMachinery.MANAGER.crusherTicks : 100;
 		ELECTRICITY_LIMIT = 1200;
 		containingItems = new ItemStack[6];
-		machineEnum = HawkEnumProcessing.WASHING;
+		machineEnum = HMEnumProcessing.WASHING;
 		voltage = 120;
 		isProcessor = true;
 		
@@ -166,28 +166,26 @@ public class HMTileEntityWasher extends HMTileEntityMachine implements IItemTran
 		{
 			ItemStack newItem = HMProcessingRecipes.getResult(this.containingItems[2], this.machineEnum);
 			
-			if (this.canWash())
+			if (this.containingItems[3] == null)
 			{
-				if (this.containingItems[3] == null)
-				{
-					this.containingItems[3] = newItem.copy();
-				}
-				else if (this.containingItems[3].isItemEqual(newItem))
-				{
-					++this.containingItems[3].stackSize;
-				}
-				
-				--this.containingItems[2].stackSize;
-				
-				if (this.containingItems[2].stackSize <= 0)
-				{
-					this.containingItems[2] = null;
-				}
-				
-				this.randomlyDamageSelf();
-				
+				this.containingItems[3] = newItem.copy();
 			}
+			else if (this.containingItems[3].isItemEqual(newItem))
+			{
+				this.containingItems[3].stackSize += newItem.stackSize;
+			}
+			
+			this.containingItems[2].stackSize -= HMProcessingRecipes.getQuantity(this.containingItems[2], this.machineEnum);
+			
+			if (this.containingItems[2].stackSize <= 0)
+			{
+				this.containingItems[2] = null;
+			}
+			
+			this.randomlyDamageSelf();
+			
 		}
+		
 	}
 
 	@Override

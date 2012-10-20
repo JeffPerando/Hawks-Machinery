@@ -87,7 +87,7 @@ public class HMContainerWasher extends Container
 						return null;
 					}
 				}
-				else if (HMProcessingRecipes.getResult(var4, HMProcessingRecipes.HawkEnumProcessing.WASHING) != null)
+				else if (HMProcessingRecipes.getResult(var4, HMProcessingRecipes.HMEnumProcessing.WASHING) != null)
 				{
 					if (!this.mergeItemStack(var4, 1, 2, false))
 					{

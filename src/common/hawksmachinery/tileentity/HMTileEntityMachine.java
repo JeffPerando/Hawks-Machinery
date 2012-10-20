@@ -12,7 +12,7 @@ import universalelectricity.network.PacketManager;
 import universalelectricity.prefab.TileEntityElectricityReceiver;
 import universalelectricity.prefab.Vector3;
 import hawksmachinery.interfaces.HMProcessingRecipes;
-import hawksmachinery.interfaces.HMProcessingRecipes.HawkEnumProcessing;
+import hawksmachinery.interfaces.HMProcessingRecipes.HMEnumProcessing;
 import hawksmachinery.interfaces.HMRepairInterfaces.IHMRepairable;
 import hawksmachinery.interfaces.HMRepairInterfaces.IHMSapper;
 import net.minecraft.src.Entity;
@@ -53,7 +53,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	
 	public double voltage;
 	
-	public HawkEnumProcessing machineEnum;
+	public HMEnumProcessing machineEnum;
 	
 	public int machineHP;
 	

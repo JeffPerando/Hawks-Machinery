@@ -2,7 +2,7 @@
 package hawksmachinery;
 
 import hawksmachinery.interfaces.HMProcessingRecipes;
-import hawksmachinery.interfaces.HMProcessingRecipes.HawkEnumProcessing;
+import hawksmachinery.interfaces.HMProcessingRecipes.HMEnumProcessing;
 import hawksmachinery.tileentity.HMTileEntityCrusher;
 import universalelectricity.basiccomponents.SlotElectricItem;
 import universalelectricity.implement.IItemElectric;
@@ -83,7 +83,7 @@ public class HMContainerCrusher extends Container
 						return null;
 					}
 				}
-				else if (HMProcessingRecipes.getResult(var4, HawkEnumProcessing.CRUSHING) != null)
+				else if (HMProcessingRecipes.getResult(var4, HMEnumProcessing.CRUSHING) != null)
 				{
 					if (!this.mergeItemStack(var4, 1, 2, false))
 					{
