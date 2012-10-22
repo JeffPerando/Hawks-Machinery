@@ -39,12 +39,6 @@ public class SlotProcessorsOutput extends Slot
     }
     
     @Override
-    public void onPickupFromSlot(ItemStack par1ItemStack)
-    {
-        super.onPickupFromSlot(par1ItemStack);
-    }
-    
-    @Override
     protected void onCrafting(ItemStack item, int i)
     {
     	this.field_48437_b += i;

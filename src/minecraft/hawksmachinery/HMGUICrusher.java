@@ -32,7 +32,7 @@ public class HMGUICrusher extends GuiContainer
 	}
 	
 	@Override
-	protected void drawGuiContainerForegroundLayer()
+	protected void drawGuiContainerForegroundLayer(int par1, int par2)
 	{
 		this.fontRenderer.drawString("Crusher", 65, 6, 4210752);
 		

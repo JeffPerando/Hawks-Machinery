@@ -5,8 +5,6 @@ import hawksmachinery.interfaces.HMProcessingRecipes;
 import hawksmachinery.interfaces.HMProcessingRecipes.HMEnumProcessing;
 import hawksmachinery.HawksMachinery;
 import java.util.Random;
-import railcraft.common.api.carts.IItemTransfer;
-import railcraft.common.api.core.items.EnumItemType;
 import buildcraft.api.core.Orientations;
 import com.google.common.io.ByteArrayDataInput;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -18,7 +16,7 @@ import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.NBTTagCompound;
 import net.minecraft.src.NBTTagList;
-import net.minecraft.src.NetworkManager;
+import net.minecraft.src.INetworkManager;
 import net.minecraft.src.Packet;
 import net.minecraft.src.Packet250CustomPayload;
 import net.minecraft.src.TileEntity;
@@ -38,7 +36,7 @@ import universalelectricity.network.PacketManager;
  * 
  * @author Elusivehawk
  */
-public class HMTileEntityWasher extends HMTileEntityMachine implements IItemTransfer
+public class HMTileEntityWasher extends HMTileEntityMachine
 {
 	public float waterUnits = 0;
 	
@@ -205,7 +203,7 @@ public class HMTileEntityWasher extends HMTileEntityMachine implements IItemTran
 	}
 	
 	@Override
-	public void handlePacketData(NetworkManager network, int type, Packet250CustomPayload packet, EntityPlayer player, ByteArrayDataInput dataStream)
+	public void handlePacketData(INetworkManager network, int type, Packet250CustomPayload packet, EntityPlayer player, ByteArrayDataInput dataStream)
 	{
 		try
 		{
@@ -324,6 +322,7 @@ public class HMTileEntityWasher extends HMTileEntityMachine implements IItemTran
 		return side != ForgeDirection.UP && side != ForgeDirection.getOrientation(this.facingDirection.ordinal());
 	}
 	
+	/*
 	@Override
 	public ItemStack offerItem(Object source, ItemStack offer)
 	{
@@ -402,5 +401,6 @@ public class HMTileEntityWasher extends HMTileEntityMachine implements IItemTran
 	{
 		return null;
 	}
+	*/
 	
 }

@@ -4,7 +4,6 @@ package hawksmachinery.tileentity;
 import java.util.Random;
 import com.google.common.io.ByteArrayDataInput;
 import buildcraft.api.inventory.ISpecialInventory;
-import railcraft.common.api.carts.IItemTransfer;
 import universalelectricity.electricity.ElectricInfo;
 import universalelectricity.implement.IRotatable;
 import universalelectricity.network.IPacketReceiver;
@@ -20,7 +19,7 @@ import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.NBTTagCompound;
 import net.minecraft.src.NBTTagList;
-import net.minecraft.src.NetworkManager;
+import net.minecraft.src.INetworkManager;
 import net.minecraft.src.Packet;
 import net.minecraft.src.Packet250CustomPayload;
 import net.minecraft.src.TileEntity;
@@ -127,7 +126,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	
 	protected void explodeMachine(float strength)
 	{
-		this.worldObj.createExplosion((Entity)null, this.xCoord, this.yCoord, this.zCoord, strength);
+		this.worldObj.createExplosion((Entity)null, this.xCoord, this.yCoord, this.zCoord, strength, true);
 	}
 	
 	@Override
@@ -161,7 +160,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	}
 	
 	@Override
-	public void handlePacketData(NetworkManager network, int type, Packet250CustomPayload packet, EntityPlayer player, ByteArrayDataInput dataStream)
+	public void handlePacketData(INetworkManager network, int type, Packet250CustomPayload packet, EntityPlayer player, ByteArrayDataInput dataStream)
 	{
 		try
 		{

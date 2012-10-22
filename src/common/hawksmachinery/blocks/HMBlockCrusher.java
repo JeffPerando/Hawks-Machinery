@@ -40,12 +40,6 @@ public class HMBlockCrusher extends HMBlockMachine
 	}
 	
 	@Override
-	protected int damageDropped(int metadata)
-	{
-		return this.tileEntity.machineHP;
-	}
-	
-	@Override
 	public boolean onMachineActivated(World world, int x, int y, int z, EntityPlayer player)
 	{
 		if (!world.isRemote && !super.onMachineActivated(world, x, y, z, player))

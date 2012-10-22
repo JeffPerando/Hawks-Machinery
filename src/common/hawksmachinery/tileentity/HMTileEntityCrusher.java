@@ -6,8 +6,6 @@ import hawksmachinery.interfaces.HMProcessingRecipes.HMEnumProcessing;
 import hawksmachinery.HawksMachinery;
 import java.io.DataInputStream;
 import java.io.IOException;
-import railcraft.common.api.carts.IItemTransfer;
-import railcraft.common.api.core.items.EnumItemType;
 import buildcraft.api.core.Orientations;
 import buildcraft.api.inventory.ISpecialInventory;
 import com.google.common.io.ByteArrayDataInput;
@@ -26,7 +24,7 @@ import net.minecraft.src.IInventory;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.NBTTagCompound;
 import net.minecraft.src.NBTTagList;
-import net.minecraft.src.NetworkManager;
+import net.minecraft.src.INetworkManager;
 import net.minecraft.src.Packet250CustomPayload;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
@@ -40,7 +38,7 @@ import universalelectricity.implement.IItemElectric;
  * 
  * @author Elusivehawk
  */
-public class HMTileEntityCrusher extends HMTileEntityMachine implements ISpecialInventory, IItemTransfer
+public class HMTileEntityCrusher extends HMTileEntityMachine implements ISpecialInventory
 {
 	public HMTileEntityCrusher()
 	{
@@ -281,7 +279,7 @@ public class HMTileEntityCrusher extends HMTileEntityMachine implements ISpecial
 		}
 		
 	}
-	
+	/*
 	@Override
 	public ItemStack offerItem(Object source, ItemStack offer)
 	{
@@ -344,6 +342,7 @@ public class HMTileEntityCrusher extends HMTileEntityMachine implements ISpecial
 		return offer;
 	}
 	
+	
 	@Override
 	public ItemStack requestItem(Object source)
 	{
@@ -361,6 +360,7 @@ public class HMTileEntityCrusher extends HMTileEntityMachine implements ISpecial
 	{
 		return this.containingItems[1];
 	}
+	*/
 	
 	@Override
 	public int addItem(ItemStack stack, boolean doAdd, Orientations from)

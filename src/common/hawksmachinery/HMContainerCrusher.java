@@ -55,7 +55,7 @@ public class HMContainerCrusher extends Container
 	}
 	
 	@Override
-	public ItemStack transferStackInSlot(int par1)
+	public ItemStack func_82846_b(EntityPlayer player, int par1)
 	{
 		ItemStack var2 = null;
 		Slot var3 = (Slot)this.inventorySlots.get(par1);
@@ -121,7 +121,7 @@ public class HMContainerCrusher extends Container
 				return null;
 			}
 			
-			var3.onPickupFromSlot(var4);
+			var3.func_82870_a(player, var4);
 		}
 		
 		return var2;

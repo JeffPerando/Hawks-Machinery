@@ -1,6 +1,7 @@
 
 package hawksmachinery.items;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import net.minecraft.src.CreativeTabs;
 import net.minecraft.src.EnumRarity;
 import net.minecraft.src.ItemStack;
@@ -19,10 +20,14 @@ public class HMItemIngots extends HMItem
 	{
 		super(id);
 		setCreativeTab(CreativeTabs.tabMaterials);
-		setRarity(EnumRarity.rare, 0);
 		setItemName("endium", 0);
 		setIconIndex(35, 0);
 		setEffect(0);
+		
+		if (FMLCommonHandler.instance().getSide().isClient())
+		{
+			setRarity(EnumRarity.rare, 0);
+		}
 		
 	}
 	

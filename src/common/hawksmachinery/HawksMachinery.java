@@ -86,7 +86,7 @@ public class HawksMachinery implements ICraftingHandler
 	@Metadata("HawksMachinery")
 	public static ModMetadata HAWK_META = new HMDummyContainer().getMetadata();
 	
-	public static final String VERSION = "Alpha v1.5.0";
+	public static final String VERSION = "Alpha v1.4.2";
 	
 	public static RecipeManager RECIPE_GIVER;
 	public static HMProcessingRecipes PROCESS_RECIPES;
@@ -126,10 +126,17 @@ public class HawksMachinery implements ICraftingHandler
 		HMItem.dustRefined = new HMItemRefinedDust(MANAGER.dustRefinedID - 256);
 		HMItem.parts = new HMItemParts(MANAGER.partsID - 256);
 		HMItem.blueprints = new HMItemBlueprints(MANAGER.blueprintID - 256);
-		HMItem.endiumPlate = new HMItem(MANAGER.endiumPlateID - 256).setIconIndex(51, 0).setEffect(0).setRarity(EnumRarity.rare, 0).setItemName("endiumPlate", 0).setCreativeTab(CreativeTabs.tabMaterials);
-		HMItem.rivets = new HMItemRivets(MANAGER.rivetsID - 256).setEffect(5).setRarity(EnumRarity.rare, 5);
+		HMItem.endiumPlate = new HMItem(MANAGER.endiumPlateID - 256).setIconIndex(51, 0).setEffect(0).setItemName("endiumPlate", 0).setCreativeTab(CreativeTabs.tabMaterials);
+		HMItem.rivets = new HMItemRivets(MANAGER.rivetsID - 256).setEffect(5);
 		HMItem.rivetGun = new HMItemRivetGun(MANAGER.rivetGunID - 256);
 		HMItem.ingots = new HMItemIngots(MANAGER.ingotsID - 256);
+		
+		if (FMLCommonHandler.instance().getSide().isClient())
+		{
+			((HMItem)HMItem.endiumPlate).setRarity(EnumRarity.rare, 0);
+			((HMItem)HMItem.rivets).setRarity(EnumRarity.rare, 5);
+			
+		}
 		
 		timeToCrush = new Achievement(MANAGER.ACHtimeToCrush, "Time to Crush", -2, -3, new ItemStack(HMBlock.crusher, 1, 0), AchievementList.buildBetterPickaxe).registerAchievement();
 		minerkiin = new Achievement(MANAGER.ACHminerkiin, "Minerkiin", -5, 2, new ItemStack(HMBlock.endiumOre), AchievementList.theEnd2).registerAchievement().setSpecial();
@@ -382,7 +389,7 @@ public class HawksMachinery implements ICraftingHandler
 		public String getChangelogURL()
 		{
 			return this.getReleaseType() == ModReleaseType.DEVBUILD ? "https://dl.dropbox.com/u/100525141/HawksMachineryDevbuildNotice.txt"
-					: "https://dl.dropbox.com/u/100525141/HawksMachineryAlphav150Changelog.txt" ;
+					: "https://dl.dropbox.com/u/100525141/HawksMachineryAlphav142Changelog.txt" ;
 		}
 		
 		@Override
@@ -424,7 +431,7 @@ public class HawksMachinery implements ICraftingHandler
 		@Override
 		public ModReleaseType getReleaseType()
 		{
-			return ModReleaseType.DEVBUILD;
+			return ModReleaseType.ALPHA;
 		}
 		
 		@Override

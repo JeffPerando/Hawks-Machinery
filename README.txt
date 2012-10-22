@@ -1,1 +1,0 @@
-Hawk's Machinery: Adding automation-enabling machines since 2012!

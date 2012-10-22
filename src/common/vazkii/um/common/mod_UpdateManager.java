@@ -10,7 +10,6 @@ import net.minecraft.src.ModLoader;
 import vazkii.um.client.CapeHandler;
 import vazkii.um.client.ModType;
 import vazkii.um.client.UMKeyBinding;
-import vazkii.um.common.commands.UpdateManagerCommands;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.KeyBindingRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -146,7 +145,6 @@ public class mod_UpdateManager
 	{
 		NetworkRegistry.instance().registerConnectionHandler(
 				new NewPlayerNotifier());
-		UpdateManagerCommands.init();
 	}
 	
 	public static String localize(String string, String locale)

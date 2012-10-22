@@ -3,8 +3,13 @@ package hawksmachinery.interfaces;
 
 import java.util.List;
 import java.util.Random;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.src.Entity;
 import net.minecraft.src.EntityPlayer;
+import net.minecraft.src.EntityPlayerMP;
+import net.minecraft.src.ServerConfigurationManager;
+import net.minecraft.src.World;
+import net.minecraftforge.common.DimensionManager;
 
 /**
  * 
@@ -60,15 +65,36 @@ public class HMTeleportationHelper
 		return null;
 	}
 	
-	public void teleportEntity(EntityPlayer player, HMEndiumTeleporterCoords coords)
+	public void teleportEntity(Entity entity, HMEndiumTeleporterCoords coords)
 	{
 		if (new Random().nextInt(100) > 10)
 		{
-			player.travelToTheEnd(coords.dimension());
+			entity.travelToTheEnd(entity.dimension);
 			return;
 		}
 		
-		//TODO Finish teleporter. ETA: MC v1.4.
+		if (!entity.worldObj.isRemote)
+		{
+			if (coords.dimension() != entity.dimension)
+			{
+				ServerConfigurationManager manager = MinecraftServer.getServer().getConfigurationManager();
+				
+				if (entity instanceof EntityPlayerMP)
+				{
+					manager.transferPlayerToDimension(((EntityPlayerMP)entity), coords.dimension());
+					
+				}
+				else
+				{
+					manager.func_82448_a(entity, coords.dimension(), DimensionManager.getWorld(entity.dimension), DimensionManager.getWorld(coords.dimension()));
+					
+				}
+				
+			}
+			
+			entity.setPosition(coords.x() - 0.5, coords.y(), coords.z() - 0.5);
+			
+		}
 		
 	}
 	

@@ -2,6 +2,9 @@
 package hawksmachinery.items;
 
 import java.util.List;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.Side;
+import cpw.mods.fml.common.asm.SideOnly;
 import hawksmachinery.HawksMachinery;
 import net.minecraft.src.Block;
 import net.minecraft.src.CreativeTabs;
@@ -33,7 +36,8 @@ public class HMItem extends Item
 	public static Item ingots;
 	
 	public static HawksMachinery BASEMOD;
-	protected EnumRarity[] rarity = new EnumRarity[16];
+	@SideOnly(Side.CLIENT)
+	protected EnumRarity[] rarity;
 	protected boolean[] hasEffect = new boolean[16];
 	protected String[] itemNames = new String[16];
 	protected int[] iconIndexes = new int[16];
@@ -44,11 +48,17 @@ public class HMItem extends Item
 		setTextureFile(BASEMOD.ITEM_TEXTURE_FILE);
 		setHasSubtypes(this.itemNames[1] != null);
 		
-		for (int counter = 0; counter < 16; ++counter)
+		if (FMLCommonHandler.instance().getSide().isClient())
 		{
-			if (this.rarity[counter] == null)
+			this.rarity = new EnumRarity[16];
+			
+			for (int counter = 0; counter < 16; ++counter)
 			{
-				this.rarity[counter] = EnumRarity.common;
+				if (this.rarity[counter] == null)
+				{
+					this.rarity[counter] = EnumRarity.common;
+				}
+				
 			}
 			
 		}
@@ -90,6 +100,7 @@ public class HMItem extends Item
 	
 //--------------------------------------------SETTERS START-------------------------------------------
 	
+	@SideOnly(Side.CLIENT)
 	public HMItem setRarity(EnumRarity rarity, int meta)
 	{
 		this.rarity[meta] = rarity;
