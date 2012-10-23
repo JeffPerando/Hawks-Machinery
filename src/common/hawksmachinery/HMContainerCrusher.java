@@ -41,17 +41,13 @@ public class HMContainerCrusher extends Container
 		{
 			this.addSlotToContainer(new Slot(playerInventory, counter, 8 + counter * 18, 142));
 		}
+		
 	}
 	
 	@Override
 	public boolean canInteractWith(EntityPlayer var1)
 	{
 		return true;
-	}
-	
-	public TileEntity getCrusherContainer()
-	{
-		return this.tileEntity;
 	}
 	
 	@Override

@@ -56,6 +56,8 @@ public class HMCommonProxy implements IGuiHandler, IConnectionHandler
 		{
 			case 0: return new HMContainerCrusher(player.inventory, ((HMTileEntityCrusher)tileEntity));
 			case 1: return new HMContainerWasher(player.inventory, ((HMTileEntityWasher)tileEntity));
+			case 2: return new HMContainerTeleporter(player.inventory);
+			
 		}
 		
 		return null;

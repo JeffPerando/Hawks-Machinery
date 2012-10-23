@@ -42,6 +42,7 @@ public class HMClientProxy extends HMCommonProxy
 			{
 				case 0: return new HMGUICrusher(player.inventory, ((HMTileEntityCrusher)tileEntity));
 				case 1: return new HMGUIWasher(player.inventory, ((HMTileEntityWasher)tileEntity));
+				case 2: return new HMGUIEndiumTeleSender(player.inventory, ((HMTileEntityTeleporterSender)tileEntity));
 				
 			}
         }

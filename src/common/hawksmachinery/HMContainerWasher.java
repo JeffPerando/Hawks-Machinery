@@ -53,11 +53,6 @@ public class HMContainerWasher extends Container
 		return true;
 	}
 	
-	public TileEntity getGrinderContainer()
-	{
-		return this.tileEntity;
-	}
-	
 	@Override
 	public ItemStack func_82846_b(EntityPlayer player, int par1)
 	{
