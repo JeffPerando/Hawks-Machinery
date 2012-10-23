@@ -24,6 +24,13 @@ public class HMTileEntityTeleporterSender extends HMTileEntityMachine
 		
 	}
 	
+	@Override
+	public void updateEntity()
+	{
+		super.updateEntity();
+		
+	}
+	
 	public boolean isReadyToTeleport()
 	{
 		return this.electricityStored == this.ELECTRICITY_REQUIRED && this.worldObj.isBlockIndirectlyGettingPowered(this.xCoord, this.yCoord, this.zCoord) && this.coords != null;
