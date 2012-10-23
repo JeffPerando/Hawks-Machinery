@@ -18,7 +18,7 @@ import net.minecraftforge.common.ForgeChunkManager.Type;
 public class HMTileEntityEndiumChunkloader extends TileEntity
 {
 	public static HawksMachinery BASEMOD;
-	private Ticket heldChunk;
+	public Ticket heldChunk;
 	
 	@Override
 	public void invalidate()

@@ -15,6 +15,7 @@ import net.minecraft.src.IBlockAccess;
 import net.minecraft.src.Material;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
+import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.common.ForgeHooks;
 
 /**
@@ -26,7 +27,6 @@ import net.minecraftforge.common.ForgeHooks;
 public class HMBlockEndiumChunkloader extends HMBlock
 {
 	public HMTileEntityEndiumChunkloader tileEntity;
-	public String tempUsername;
 	
 	public HMBlockEndiumChunkloader(int id)
 	{
@@ -111,6 +111,13 @@ public class HMBlockEndiumChunkloader extends HMBlock
 	public int getLightValue(IBlockAccess world, int x, int y, int z)
 	{
 		return 15;
+	}
+	
+	@Override
+	public void onBlockHarvested(World par1World, int par2, int par3, int par4, int par5, EntityPlayer par6EntityPlayer)
+	{
+		ForgeChunkManager.releaseTicket(this.tileEntity.heldChunk);
+		
 	}
 	
 }

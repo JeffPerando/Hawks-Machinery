@@ -76,7 +76,7 @@ import cpw.mods.fml.common.registry.VillagerRegistry;
  */
 @Mod(modid = "HawksMachinery", name = "Hawk's Machinery", version = HawksMachinery.VERSION, dependencies = "after:UniversalElectricity")
 @NetworkMod(channels = {"HawksMachinery"}, clientSideRequired = true, serverSideRequired = false, packetHandler = PacketManager.class)
-public class HawksMachinery implements ICraftingHandler
+public class HawksMachinery
 {
 	@Instance("HawksMachinery")
 	private static HawksMachinery INSTANCE;
@@ -161,7 +161,7 @@ public class HawksMachinery implements ICraftingHandler
 		HAWKSPAGE = new AchievementPage("Hawk's Machinery", timeToCrush, minerkiin, wash);
 		
 		NetworkRegistry.instance().registerGuiHandler(this, this.PROXY);
-		GameRegistry.registerCraftingHandler(this);
+		GameRegistry.registerCraftingHandler(MANAGER);
 		GameRegistry.registerBlock(HMBlock.endiumOre, HMItemBlockEndium.class);
 		AchievementPage.registerAchievementPage(HAWKSPAGE);
 		NetworkRegistry.instance().registerConnectionHandler(this.PROXY);
@@ -345,30 +345,6 @@ public class HawksMachinery implements ICraftingHandler
 		PROCESS_RECIPES.addHMProcessingRecipe(new ItemStack(HMItem.dustRaw, 1, 6), new ItemStack(HMItem.dustRefined, 1, 9), WASH);
 		
 	}
-	
-	@Override
-	public void onCrafting(EntityPlayer player, ItemStack item, IInventory craftMatrix)
-	{
-		if (item.itemID == HMBlock.crusher.blockID)
-		{
-			player.addStat(timeToCrush, 1);
-			item.setTagCompound(new NBTTagCompound());
-			item.stackTagCompound.setInteger("MachineHP", 0);
-			
-		}
-		
-		if (item.itemID == HMBlock.washer.blockID)
-		{
-			player.addStat(wash, 1);
-			item.setTagCompound(new NBTTagCompound());
-			item.stackTagCompound.setInteger("MachineHP", 0);
-			
-		}
-		
-	}
-	
-	@Override
-	public void onSmelting(EntityPlayer player, ItemStack item){}
 	
 	public class HMUpdateHandler extends UpdateManagerMod
 	{

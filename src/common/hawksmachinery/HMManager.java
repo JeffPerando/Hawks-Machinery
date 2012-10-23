@@ -12,12 +12,15 @@ import net.minecraft.src.AchievementList;
 import net.minecraft.src.ChunkProviderEnd;
 import net.minecraft.src.ChunkProviderGenerate;
 import net.minecraft.src.ChunkProviderHell;
+import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.EntityVillager;
 import net.minecraft.src.IChunkProvider;
+import net.minecraft.src.IInventory;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.MerchantRecipe;
 import net.minecraft.src.MerchantRecipeList;
+import net.minecraft.src.NBTTagCompound;
 import net.minecraft.src.World;
 import net.minecraftforge.client.event.sound.SoundLoadEvent;
 import net.minecraftforge.common.AchievementPage;
@@ -26,6 +29,7 @@ import net.minecraftforge.common.ForgeChunkManager.LoadingCallback;
 import net.minecraftforge.common.ForgeChunkManager.Ticket;
 import net.minecraftforge.event.ForgeSubscribe;
 import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.ICraftingHandler;
 import cpw.mods.fml.common.IWorldGenerator;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.VillagerRegistry.IVillageTradeHandler;
@@ -36,7 +40,7 @@ import cpw.mods.fml.common.registry.VillagerRegistry.IVillageTradeHandler;
  * 
  * @author Elusivehawk
  */
-public class HMManager implements LoadingCallback, IVillageTradeHandler
+public class HMManager implements LoadingCallback, IVillageTradeHandler, ICraftingHandler
 {
 	public static HawksMachinery BASEMOD;
 	private static int chunkLimit;
@@ -199,5 +203,29 @@ public class HMManager implements LoadingCallback, IVillageTradeHandler
 		}
 		
 	}
+	
+	@Override
+	public void onCrafting(EntityPlayer player, ItemStack item, IInventory craftMatrix)
+	{
+		if (item.itemID == HMBlock.crusher.blockID)
+		{
+			player.addStat(BASEMOD.timeToCrush, 1);
+			item.setTagCompound(new NBTTagCompound());
+			item.stackTagCompound.setInteger("MachineHP", 0);
+			
+		}
+		
+		if (item.itemID == HMBlock.washer.blockID)
+		{
+			player.addStat(BASEMOD.wash, 1);
+			item.setTagCompound(new NBTTagCompound());
+			item.stackTagCompound.setInteger("MachineHP", 0);
+			
+		}
+		
+	}
+	
+	@Override
+	public void onSmelting(EntityPlayer player, ItemStack item){}
 	
 }
