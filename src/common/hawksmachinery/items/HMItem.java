@@ -28,6 +28,9 @@ public class HMItem extends Item
 	 * Refined dusts! 0 - Diamond, 1 - Ender, 2 - Glass, 3 - Iron, 4 - Gold, 5 - Copper, 6 - Tin, 7 - Emerald, 8 - Nether Star, 9 - Endium.
 	 */
 	public static Item dustRefined;
+	/**
+	 * Parts! 0 - Electric Pistons, 1 - Laser, 2 - Being Redone, 3 - Light Bulb, 4 - Heating Coil, 5 - Electric Magnet, 6 - Engine.
+	 */
 	public static Item parts;
 	public static Item blueprints;
 	public static Item endiumPlate;
