@@ -1,5 +1,5 @@
 
-package hawksmachinery.interfaces;
+package hawksmachinery.api;
 
 import java.util.Arrays;
 import java.util.HashMap;

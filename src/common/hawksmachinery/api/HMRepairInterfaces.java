@@ -1,5 +1,5 @@
 
-package hawksmachinery.interfaces;
+package hawksmachinery.api;
 
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.ItemStack;

@@ -1,9 +1,10 @@
 
 package hawksmachinery;
 
+import hawksmachinery.api.HMContent;
+import hawksmachinery.api.HMProcessingRecipes;
+import hawksmachinery.api.HMProcessingRecipes.HMEnumProcessing;
 import hawksmachinery.blocks.*;
-import hawksmachinery.interfaces.HMProcessingRecipes;
-import hawksmachinery.interfaces.HMProcessingRecipes.HMEnumProcessing;
 import hawksmachinery.items.*;
 import hawksmachinery.tileentity.*;
 import java.io.File;
@@ -115,9 +116,15 @@ public class HawksMachinery implements ICraftingHandler
 		HMBlock.crusher = new HMBlockCrusher(MANAGER.loadConfig()).setStepSound(Block.soundMetalFootstep);
 		HMBlock.endiumOre = new HMBlock(MANAGER.endiumOreID, Material.rock, 23, minerkiin).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabs.tabBlock).setBlockName("endiumOre").setHardness(10.0F);
 		HMBlock.washer = new HMBlockWasher(MANAGER.washerID).setStepSound(Block.soundMetalFootstep);
+		
+		HMContent.crusher = HMBlock.crusher;
+		HMContent.endiumOre = HMBlock.endiumOre;
+		HMContent.washer = HMBlock.washer;
+		
 		if (MANAGER.enableChunkloader)
 		{
 			HMBlock.endiumChunkloader = new HMBlockEndiumChunkloader(MANAGER.endiumChunkloaderID);
+			HMContent.endiumChunkloader = HMBlock.endiumChunkloader;
 			ForgeChunkManager.setForcedChunkLoadingCallback(this, MANAGER);
 			
 		}
@@ -137,6 +144,15 @@ public class HawksMachinery implements ICraftingHandler
 			((HMItem)HMItem.rivets).setRarity(EnumRarity.rare, 5);
 			
 		}
+		
+		HMContent.dustRaw = HMItem.dustRaw;
+		HMContent.dustRefined = HMItem.dustRefined;
+		HMContent.parts = HMItem.parts;
+		HMContent.blueprints = HMItem.blueprints;
+		HMContent.endiumPlate = HMItem.endiumPlate;
+		HMContent.rivets = HMItem.rivets;
+		HMContent.rivetGun = HMItem.rivetGun;
+		HMContent.ingots = HMItem.ingots;
 		
 		timeToCrush = new Achievement(MANAGER.ACHtimeToCrush, "Time to Crush", -2, -3, new ItemStack(HMBlock.crusher, 1, 0), AchievementList.buildBetterPickaxe).registerAchievement();
 		minerkiin = new Achievement(MANAGER.ACHminerkiin, "Minerkiin", -5, 2, new ItemStack(HMBlock.endiumOre), AchievementList.theEnd2).registerAchievement().setSpecial();

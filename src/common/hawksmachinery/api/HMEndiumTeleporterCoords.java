@@ -1,5 +1,5 @@
 
-package hawksmachinery.interfaces;
+package hawksmachinery.api;
 
 /**
  * 

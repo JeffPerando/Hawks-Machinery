@@ -1,8 +1,8 @@
 
 package hawksmachinery.tileentity;
 
-import hawksmachinery.interfaces.HMEndiumTeleporterCoords;
-import hawksmachinery.interfaces.HMTeleportationHelper;
+import hawksmachinery.api.HMEndiumTeleporterCoords;
+import hawksmachinery.api.HMTeleportationHelper;
 import net.minecraft.src.Entity;
 import net.minecraftforge.common.ForgeDirection;
 

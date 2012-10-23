@@ -1,5 +1,5 @@
 
-package hawksmachinery.interfaces;
+package hawksmachinery.api;
 
 import java.util.List;
 import java.util.Random;

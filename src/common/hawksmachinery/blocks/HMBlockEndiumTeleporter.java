@@ -3,7 +3,7 @@ package hawksmachinery.blocks;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import hawksmachinery.HawksMachinery;
-import hawksmachinery.interfaces.HMTeleportationHelper;
+import hawksmachinery.api.HMTeleportationHelper;
 import hawksmachinery.items.HMItemBlockEndium;
 import hawksmachinery.tileentity.HMTileEntityTeleporterSender;
 import net.minecraft.src.BlockContainer;

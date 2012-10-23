@@ -2,8 +2,8 @@
 package hawksmachinery.items;
 
 import hawksmachinery.HawksMachinery;
-import hawksmachinery.interfaces.HMRepairInterfaces.IHMRepairable;
-import hawksmachinery.interfaces.HMRepairInterfaces.IHMRivet;
+import hawksmachinery.api.HMRepairInterfaces.IHMRepairable;
+import hawksmachinery.api.HMRepairInterfaces.IHMRivet;
 import universalelectricity.prefab.ItemElectric;
 import net.minecraft.src.CreativeTabs;
 import net.minecraft.src.EntityPlayer;

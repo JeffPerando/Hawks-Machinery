@@ -4,7 +4,7 @@ package hawksmachinery.items;
 import java.util.List;
 import net.minecraft.src.CreativeTabs;
 import net.minecraft.src.ItemStack;
-import hawksmachinery.interfaces.HMRepairInterfaces.IHMRivet;
+import hawksmachinery.api.HMRepairInterfaces.IHMRivet;
 
 /**
  * 
