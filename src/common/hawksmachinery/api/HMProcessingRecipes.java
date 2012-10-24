@@ -39,7 +39,9 @@ public class HMProcessingRecipes
 		
 		WASHING(new HashMap()),
 		
-		SINTERER(new HashMap()),
+		STAR_FORGE(new HashMap()),
+		
+		ENDIUM_FORGE(new HashMap()),
 		
 		HM_E2MM(new HashMap());
 		
@@ -68,30 +70,9 @@ public class HMProcessingRecipes
 	 */
 	public static void addHMProcessingRecipe(ItemStack input, ItemStack output, HMEnumProcessing processType)
 	{
-		if (input != null && output != null && processType != null)
-		{
-			processType.getRecipeList().put(Arrays.asList(input.getItem(), input.isItemStackDamageable() ? 0 : input.getItemDamage(), input.isItemEnchanted(), input.stackTagCompound != null), output);
-			quantityMapping.put(Arrays.asList(input.getItem(), input.getItemDamage(), processType), (Integer)input.stackSize);
-			
-		}
-		else
-		{
-			if (processType == null)
-			{
-				throw new NullPointerException("Hawk's Machinery: Process type cannot be null!");
-			}
-			
-			if (input == null)
-			{
-				throw new NullPointerException("Hawk's Machinery: Input cannot be null!");
-			}
-			
-			if (output == null)
-			{
-				throw new NullPointerException("Hawk's Machinery: Output cannot be null!");
-			}
-			
-		}
+		processType.getRecipeList().put(Arrays.asList(input.getItem(), input.isItemStackDamageable() ? 0 : input.getItemDamage(), input.isItemEnchanted(), input.stackTagCompound != null), output);
+		quantityMapping.put(Arrays.asList(input.getItem(), input.getItemDamage(), processType), (Integer)input.stackSize);
+		
 	}
 	
 	public static void addHMProcessingRecipe(Item input, ItemStack output, HMEnumProcessing processType)
@@ -145,32 +126,42 @@ public class HMProcessingRecipes
 		
 	}
 	
-	public static void addHMWashingSecondary(ItemStack input, Object output, boolean isCommon)
+	public static void addHMObjectRecipe(Object[] input, ItemStack output, HMEnumProcessing processType)
 	{
-		if (input != null && output != null)
+		Object[] assembledRecipe;
+		
+		if (input[0] instanceof String)
 		{
-			if (isCommon)
+			for (int x = 0; x < (int)Math.sqrt(input.length); ++x)
 			{
-				washerSecondaries.put(Arrays.asList(input.getItem(), input.getItemDamage()), output);
-			}
-			else
-			{
-				washerRarities.put(Arrays.asList(input.getItem(), input.getItemDamage()), output);
+				for (int z = 0; z < (int)Math.sqrt(input.length); ++z)
+				{
+					//TODO Finish this!
+					{
+						
+					}
+					
+				}
+				
 			}
 			
 		}
 		else
 		{
-			if (input == null)
-			{
-				throw new NullPointerException("Hawk's Machinery: Input cannot be null!");
-			}
-			
-			if (output == null)
-			{
-				throw new NullPointerException("Hawk's Machinery: Output cannot be null!");
-			}
-			
+			processType.getRecipeList().put(input, output);
+		}
+		
+	}
+	
+	public static void addHMWashingSecondary(ItemStack input, Object output, boolean isCommon)
+	{
+		if (isCommon)
+		{
+			washerSecondaries.put(Arrays.asList(input.getItem(), input.getItemDamage()), output);
+		}
+		else
+		{
+			washerRarities.put(Arrays.asList(input.getItem(), input.getItemDamage()), output);
 		}
 		
 	}
