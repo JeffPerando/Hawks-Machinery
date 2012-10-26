@@ -25,6 +25,7 @@ import vazkii.um.common.checking.CheckingMethod;
 import net.minecraft.src.Achievement;
 import net.minecraft.src.AchievementList;
 import net.minecraft.src.Block;
+import net.minecraft.src.CraftingManager;
 import net.minecraft.src.CreativeTabs;
 import net.minecraft.src.Enchantment;
 import net.minecraft.src.EntityPlayer;
@@ -46,6 +47,7 @@ import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.common.ForgeChunkManager.Ticket;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.ICraftingHandler;
 import cpw.mods.fml.common.Loader;
@@ -90,7 +92,6 @@ public class HawksMachinery
 	
 	public static final String VERSION = "Alpha v1.5.0";
 	
-	public static GameRegistry RECIPE_GIVER;
 	public static HMProcessingRecipes PROCESS_RECIPES;
 	public static HMEnumProcessing CRUSH = HMEnumProcessing.CRUSHING;
 	public static HMEnumProcessing WASH = HMEnumProcessing.WASHING;
@@ -161,11 +162,11 @@ public class HawksMachinery
 		
 		HAWKSPAGE = new AchievementPage("Hawk's Machinery", timeToCrush, minerkiin, wash);
 		
-		NetworkRegistry.instance().registerGuiHandler(this, this.PROXY);
+		NetworkRegistry.instance().registerGuiHandler(this, PROXY);
 		GameRegistry.registerCraftingHandler(MANAGER);
 		GameRegistry.registerBlock(HMBlock.endiumOre, HMItemBlockEndium.class);
 		AchievementPage.registerAchievementPage(HAWKSPAGE);
-		NetworkRegistry.instance().registerConnectionHandler(this.PROXY);
+		NetworkRegistry.instance().registerConnectionHandler(PROXY);
 		VillagerRegistry.instance().registerVillageTradeHandler(0, MANAGER);
 		VillagerRegistry.instance().registerVillageTradeHandler(1, MANAGER);
 		VillagerRegistry.instance().registerVillageTradeHandler(2, MANAGER);
@@ -222,40 +223,40 @@ public class HawksMachinery
 	 */
 	public static void loadRecipes()
 	{
-		RECIPE_GIVER.addRecipe(new ItemStack(HMBlock.crusher), new Object[]{"IPI", "SES", "SCS", 'I', "ingotIron", 'P', Item.pickaxeSteel, 'S', "plateSteel", 'E', new ItemStack(HMItem.parts, 1, 6), 'C', "copperWire"}); //FIXME Replace recipe with non-BC reliant version.
-		RECIPE_GIVER.addRecipe(new ItemStack(HMBlock.washer), new Object[]{"iBi", "iWi", "IEI", 'i', "ingotIron", 'B', Item.bucketEmpty, 'I', Block.blockSteel, 'W', Block.cloth, 'E', new ItemStack(HMItem.parts, 1, 6)});
-		RECIPE_GIVER.addRecipe(((HMItemRivetGun)HMItem.rivetGun).getUncharged(), new Object[]{"SLS", "XBX", "TPT", 'S', "ingotSteel", 'L', Block.lever, 'X', "plateSteel", 'B', "battery", 'T', "plateTin", 'P', Block.pistonBase}); //FIXME Replace recipe with non-BC reliant version.
+		CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(new ItemStack(HMBlock.crusher), new Object[]{"IPI", "SES", "SCS", 'I', "ingotIron", 'P', Item.pickaxeSteel, 'S', "plateSteel", 'E', new ItemStack(HMItem.parts, 1, 6), 'C', "copperWire"}));
+		CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(new ItemStack(HMBlock.washer), new Object[]{"iBi", "iWi", "IEI", 'i', "ingotIron", 'B', Item.bucketEmpty, 'I', Block.blockSteel, 'W', Block.cloth, 'E', new ItemStack(HMItem.parts, 1, 6)}));
+		CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(((HMItemRivetGun)HMItem.rivetGun).getUncharged(), new Object[]{"SLS", "XBX", "TPT", 'S', "ingotSteel", 'L', Block.lever, 'X', "plateSteel", 'B', "battery", 'T', "plateTin", 'P', Block.pistonBase}));
 		
-		RECIPE_GIVER.addRecipe(new ItemStack(HMBlock.crusher), new Object[]{"IP", "BE", "SS", 'I', "ingotIron", 'P', Item.pickaxeSteel, 'B', new ItemStack(HMItem.blueprints), 'E', new ItemStack(HMItem.parts, 1, 6), 'S', "plateSteel"});
-		RECIPE_GIVER.addRecipe(new ItemStack(HMBlock.washer), new Object[]{"ibi", "BWi", "iEi", 'i', "ingotIron", 'b', Item.bucketEmpty, 'B', new ItemStack(HMItem.blueprints, 1, 1), 'W', Block.cloth, 'E', new ItemStack(HMItem.parts, 1, 6)});
-		RECIPE_GIVER.addRecipe(((HMItemRivetGun)HMItem.rivetGun).getUncharged(), new Object[]{"SL ", "XBb", "TP ", 'S', "ingotSteel", 'L', Block.lever, 'X', "plateSteel", 'B', "battery", 'b', new ItemStack(HMItem.blueprints, 1, 8), 'T', "plateTin", 'P', Block.pistonBase}); //FIXME Replace recipe with non-BC reliant version.
+		CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(new ItemStack(HMBlock.crusher), new Object[]{"IP", "BE", "SS", 'I', "ingotIron", 'P', Item.pickaxeSteel, 'B', new ItemStack(HMItem.blueprints), 'E', new ItemStack(HMItem.parts, 1, 6), 'S', "plateSteel"}));
+		CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(new ItemStack(HMBlock.washer), new Object[]{"ibi", "BWi", "iEi", 'i', "ingotIron", 'b', Item.bucketEmpty, 'B', new ItemStack(HMItem.blueprints, 1, 1), 'W', Block.cloth, 'E', new ItemStack(HMItem.parts, 1, 6)}));
+		CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(((HMItemRivetGun)HMItem.rivetGun).getUncharged(), new Object[]{"SL ", "XBb", "TP ", 'S', "ingotSteel", 'L', Block.lever, 'X', "plateSteel", 'B', "battery", 'b', new ItemStack(HMItem.blueprints, 1, 8), 'T', "plateTin", 'P', Block.pistonBase}));
 		
 		if (MANAGER.enableChunkloader)
 		{
-			RECIPE_GIVER.addRecipe(new ItemStack(HMBlock.endiumChunkloader), new Object[]{"EBE", "B@B", "EBE", 'E', new ItemStack(HMItem.ingots), 'B', "plateBronze", '@', Item.eyeOfEnder}); //FIXME Replace recipe with non-BC reliant version.
-			RECIPE_GIVER.addSmelting(HMBlock.endiumChunkloader.blockID, new ItemStack(HMItem.ingots, 3), 2.0F);
+			CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(new ItemStack(HMBlock.endiumChunkloader), new Object[]{"EBE", "B@B", "EBE", 'E', new ItemStack(HMItem.ingots), 'B', "plateBronze", '@', Item.eyeOfEnder}));
+			GameRegistry.addSmelting(HMBlock.endiumChunkloader.blockID, new ItemStack(HMItem.ingots, 3), 2.0F);
 			
 		}
 		
-		RECIPE_GIVER.addRecipe(new ItemStack(Block.torchWood, 4), new Object[]{"c", "s", 'c', new ItemStack(HMItem.dustRaw, 1, 0), 's', Item.stick});
-		RECIPE_GIVER.addRecipe(new ItemStack(Block.glass, 1), new Object[]{"GG", "GG", 'G', new ItemStack(HMItem.dustRefined, 1, 2)});
+		GameRegistry.addRecipe(new ItemStack(Block.torchWood, 4), new Object[]{"c", "s", 'c', new ItemStack(HMItem.dustRaw, 1, 0), 's', Item.stick});
+		GameRegistry.addRecipe(new ItemStack(Block.glass, 1), new Object[]{"GG", "GG", 'G', new ItemStack(HMItem.dustRefined, 1, 2)});
 		
-		RECIPE_GIVER.addRecipe(new ItemStack(HMItem.parts, 1, 0), new Object[]{" B ", "PSM", " B ", 'P', "plateSteel", 'S', "ingotSteel", 'M', "motor", 'B', Item.blazePowder}); //FIXME Replace recipe with non-BC reliant version.
-		RECIPE_GIVER.addRecipe(new ItemStack(HMItem.parts, 1, 1), new Object[]{" B ", "RGR", "SLS", 'B', Item.blazePowder, 'R', Item.redstone, 'G', Block.glass, 'S', "ingotSteel", 'L', new ItemStack(HMItem.parts, 1, 3)});
-		RECIPE_GIVER.addRecipe(new ItemStack(HMItem.parts, 1, 2), new Object[]{" T ", "TET", " T ", 'T', "ingotIron", 'E', Item.enderPearl});
-		RECIPE_GIVER.addRecipe(new ItemStack(HMItem.parts, 1, 3), new Object[]{" G ", "GBG", "cCc", 'G', Block.thinGlass, 'B', Item.blazeRod, 'c', "ingotCopper", 'C', "copperWire"});
-		RECIPE_GIVER.addRecipe(new ItemStack(HMItem.parts, 1, 4), new Object[]{"CC", "CC", 'C', "copperWire"}); //FIXME Replace recipe with non-BC reliant version.
-		RECIPE_GIVER.addRecipe(new ItemStack(HMItem.parts, 1, 5), new Object[]{"ici", 'i', "ingotIron", 'c', new ItemStack(HMItem.parts, 1, 4)});
-		RECIPE_GIVER.addRecipe(new ItemStack(HMItem.parts, 1, 6), new Object[]{"OOS", "BPb", "OOS", 'O', Block.obsidian, 'S', "ingotSteel", 'B', Item.blazePowder, 'P', new ItemStack(HMItem.parts), 'b', "ingotGold"});
+		CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(new ItemStack(HMItem.parts, 1, 0), new Object[]{" B ", "PSM", " B ", 'P', "plateSteel", 'S', "ingotSteel", 'M', "motor", 'B', Item.blazePowder}));
+		CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(new ItemStack(HMItem.parts, 1, 1), new Object[]{" B ", "RGR", "SLS", 'B', Item.blazePowder, 'R', Item.redstone, 'G', Block.glass, 'S', "ingotSteel", 'L', new ItemStack(HMItem.parts, 1, 3)}));
+		CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(new ItemStack(HMItem.parts, 1, 2), new Object[]{" T ", "TET", " T ", 'T', "ingotIron", 'E', Item.enderPearl}));
+		CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(new ItemStack(HMItem.parts, 1, 3), new Object[]{" G ", "GBG", "cCc", 'G', Block.thinGlass, 'B', Item.blazeRod, 'c', "ingotCopper", 'C', "copperWire"}));
+		CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(new ItemStack(HMItem.parts, 1, 4), new Object[]{"CC", "CC", 'C', "copperWire"}));
+		CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(new ItemStack(HMItem.parts, 1, 5), new Object[]{"ici", 'i', "ingotIron", 'c', new ItemStack(HMItem.parts, 1, 4)}));
+		CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(new ItemStack(HMItem.parts, 1, 6), new Object[]{"OOS", "BPb", "OOS", 'O', Block.obsidian, 'S', "ingotSteel", 'B', Item.blazePowder, 'P', new ItemStack(HMItem.parts), 'b', "ingotGold"}));
 		
-		RECIPE_GIVER.addRecipe(new ItemStack(HMItem.rivets, 10, 0), new Object[]{"CCC", "BCB", " C ", 'C', "ingotCopper", 'B', Item.blazePowder});
-		RECIPE_GIVER.addRecipe(new ItemStack(HMItem.rivets, 10, 1), new Object[]{"BBB", "bBb", " B ", 'B', "ingotBronze", 'b', Item.blazePowder});
-		RECIPE_GIVER.addRecipe(new ItemStack(HMItem.rivets, 10, 2), new Object[]{"III", "BIB", " I ", 'I', "ingotIron", 'B', Item.blazePowder});
-		RECIPE_GIVER.addRecipe(new ItemStack(HMItem.rivets, 10, 3), new Object[]{"SSS", "BSB", " S ", 'S', "ingotSteel", 'B', Item.blazePowder});
-		RECIPE_GIVER.addRecipe(new ItemStack(HMItem.rivets, 10, 4), new Object[]{"GGG", "BGB", " G ", 'G', "ingotGold", 'B', Item.blazePowder});
-		RECIPE_GIVER.addRecipe(new ItemStack(HMItem.rivets, 10, 5), new Object[]{"EEE", "BEB", " E ", 'E', "ingotEndium", 'B', Item.blazePowder});
+		CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(new ItemStack(HMItem.rivets, 10, 0), new Object[]{"CCC", "BCB", " C ", 'C', "ingotCopper", 'B', Item.blazePowder}));
+		CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(new ItemStack(HMItem.rivets, 10, 1), new Object[]{"BBB", "bBb", " B ", 'B', "ingotBronze", 'b', Item.blazePowder}));
+		CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(new ItemStack(HMItem.rivets, 10, 2), new Object[]{"III", "BIB", " I ", 'I', "ingotIron", 'B', Item.blazePowder}));
+		CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(new ItemStack(HMItem.rivets, 10, 3), new Object[]{"SSS", "BSB", " S ", 'S', "ingotSteel", 'B', Item.blazePowder}));
+		CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(new ItemStack(HMItem.rivets, 10, 4), new Object[]{"GGG", "BGB", " G ", 'G', "ingotGold", 'B', Item.blazePowder}));
+		CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(new ItemStack(HMItem.rivets, 10, 5), new Object[]{"EEE", "BEB", " E ", 'E', "ingotEndium", 'B', Item.blazePowder}));
 		
-		RECIPE_GIVER.addShapelessRecipe(new ItemStack(Item.fireballCharge, 3), new Object[]{Item.blazePowder, Item.gunpowder, new ItemStack(HMItem.dustRaw, 1, 0)});
+		GameRegistry.addShapelessRecipe(new ItemStack(Item.fireballCharge, 3), new Object[]{Item.blazePowder, Item.gunpowder, new ItemStack(HMItem.dustRaw, 1, 0)});
 		
 		FurnaceRecipes.smelting().addSmelting(HMItem.dustRefined.shiftedIndex, 2, new ItemStack(Block.thinGlass));
 		FurnaceRecipes.smelting().addSmelting(HMItem.dustRefined.shiftedIndex, 3, new ItemStack(Item.ingotIron));
