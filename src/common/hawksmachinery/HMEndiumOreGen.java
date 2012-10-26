@@ -7,7 +7,7 @@ import net.minecraft.src.ChunkProviderEnd;
 import net.minecraft.src.IChunkProvider;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.World;
-import universalelectricity.ore.OreGenReplace;
+import universalelectricity.prefab.ore.OreGenReplace;
 
 /**
  * 

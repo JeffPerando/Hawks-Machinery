@@ -27,8 +27,8 @@ import universalelectricity.prefab.TileEntityElectricityReceiver;
 import universalelectricity.implement.IItemElectric;
 import universalelectricity.implement.IRedstoneReceptor;
 import universalelectricity.implement.IRotatable;
-import universalelectricity.network.IPacketReceiver;
-import universalelectricity.network.PacketManager;
+import universalelectricity.prefab.network.IPacketReceiver;
+import universalelectricity.prefab.network.PacketManager;
 
 /**
  * 

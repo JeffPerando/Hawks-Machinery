@@ -3,13 +3,12 @@ package hawksmachinery.tileentity;
 
 import java.util.Random;
 import com.google.common.io.ByteArrayDataInput;
-import buildcraft.api.inventory.ISpecialInventory;
 import universalelectricity.electricity.ElectricInfo;
 import universalelectricity.implement.IRotatable;
-import universalelectricity.network.IPacketReceiver;
-import universalelectricity.network.PacketManager;
 import universalelectricity.prefab.TileEntityElectricityReceiver;
-import universalelectricity.prefab.Vector3;
+import universalelectricity.prefab.network.IPacketReceiver;
+import universalelectricity.prefab.network.PacketManager;
+import universalelectricity.core.Vector3;
 import hawksmachinery.api.HMProcessingRecipes;
 import hawksmachinery.api.HMProcessingRecipes.HMEnumProcessing;
 import hawksmachinery.api.HMRepairInterfaces.IHMRepairable;

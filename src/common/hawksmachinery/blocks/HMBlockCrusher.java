@@ -8,7 +8,6 @@ import hawksmachinery.tileentity.HMTileEntityCrusher;
 import hawksmachinery.tileentity.HMTileEntityMachine;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
-import universalelectricity.basiccomponents.BlockBasicMachine;
 import universalelectricity.prefab.BlockMachine;
 import net.minecraft.src.*;
 import net.minecraftforge.common.ForgeDirection;

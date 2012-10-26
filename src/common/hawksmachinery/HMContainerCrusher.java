@@ -4,7 +4,7 @@ package hawksmachinery;
 import hawksmachinery.api.HMProcessingRecipes;
 import hawksmachinery.api.HMProcessingRecipes.HMEnumProcessing;
 import hawksmachinery.tileentity.HMTileEntityCrusher;
-import universalelectricity.basiccomponents.SlotElectricItem;
+import universalelectricity.prefab.SlotElectricItem;
 import universalelectricity.implement.IItemElectric;
 import net.minecraft.src.Container;
 import net.minecraft.src.EntityPlayer;

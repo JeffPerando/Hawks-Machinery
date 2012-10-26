@@ -10,14 +10,12 @@ import hawksmachinery.tileentity.*;
 import java.io.File;
 import java.util.List;
 import com.google.common.collect.ObjectArrays;
-import universalelectricity.UniversalElectricity;
-import universalelectricity.BasicComponents;
-import universalelectricity.basiccomponents.ItemBattery;
-import universalelectricity.network.PacketManager;
-import universalelectricity.ore.OreGenBase;
-import universalelectricity.ore.OreGenerator;
-import universalelectricity.recipe.CraftingRecipe;
-import universalelectricity.recipe.RecipeManager;
+import universalelectricity.core.UniversalElectricity;
+import universalelectricity.prefab.ItemElectric;
+import universalelectricity.prefab.network.ConnectionHandler;
+import universalelectricity.prefab.network.PacketManager;
+import universalelectricity.prefab.ore.OreGenBase;
+import universalelectricity.prefab.ore.OreGenerator;
 import vazkii.um.client.ModReleaseType;
 import vazkii.um.client.ModType;
 import vazkii.um.common.ModConverter;
@@ -32,6 +30,7 @@ import net.minecraft.src.Enchantment;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.EnumRarity;
 import net.minecraft.src.EnumToolMaterial;
+import net.minecraft.src.FurnaceRecipes;
 import net.minecraft.src.IInventory;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
@@ -74,8 +73,8 @@ import cpw.mods.fml.common.registry.VillagerRegistry;
  * 
  * @author Elusivehawk
  */
-@Mod(modid = "HawksMachinery", name = "Hawk's Machinery", version = HawksMachinery.VERSION, dependencies = "after:UniversalElectricity")
-@NetworkMod(channels = {"HawksMachinery"}, clientSideRequired = true, serverSideRequired = false, packetHandler = PacketManager.class)
+@Mod(modid = "HawksMachinery", name = "Hawk's Machinery", version = HawksMachinery.VERSION, useMetadata = true)
+@NetworkMod(channels = {"HawksMachinery"}, clientSideRequired = true, serverSideRequired = false, connectionHandler = ConnectionHandler.class, packetHandler = PacketManager.class)
 public class HawksMachinery
 {
 	@Instance("HawksMachinery")
@@ -84,12 +83,14 @@ public class HawksMachinery
 	@SidedProxy(clientSide = "hawksmachinery.HMClientProxy", serverSide = "hawksmachinery.HMCommonProxy")
 	public static HMCommonProxy PROXY;
 	
+	/*
 	@Metadata("HawksMachinery")
 	public static ModMetadata HAWK_META = new HMDummyContainer().getMetadata();
+	*/
 	
 	public static final String VERSION = "Alpha v1.5.0";
 	
-	public static RecipeManager RECIPE_GIVER;
+	public static GameRegistry RECIPE_GIVER;
 	public static HMProcessingRecipes PROCESS_RECIPES;
 	public static HMEnumProcessing CRUSH = HMEnumProcessing.CRUSHING;
 	public static HMEnumProcessing WASH = HMEnumProcessing.WASHING;
@@ -221,32 +222,31 @@ public class HawksMachinery
 	 */
 	public static void loadRecipes()
 	{
-		RECIPE_GIVER.addRecipe(new ItemStack(HMBlock.crusher), new Object[]{"IPI", "SES", "SCS", 'I', "ingotIron", 'P', Item.pickaxeSteel, 'S', BasicComponents.itemSteelPlate, 'E', new ItemStack(HMItem.parts, 1, 6), 'C', BasicComponents.blockCopperWire});
+		RECIPE_GIVER.addRecipe(new ItemStack(HMBlock.crusher), new Object[]{"IPI", "SES", "SCS", 'I', "ingotIron", 'P', Item.pickaxeSteel, 'S', "plateSteel", 'E', new ItemStack(HMItem.parts, 1, 6), 'C', "copperWire"}); //FIXME Replace recipe with non-BC reliant version.
 		RECIPE_GIVER.addRecipe(new ItemStack(HMBlock.washer), new Object[]{"iBi", "iWi", "IEI", 'i', "ingotIron", 'B', Item.bucketEmpty, 'I', Block.blockSteel, 'W', Block.cloth, 'E', new ItemStack(HMItem.parts, 1, 6)});
-		RECIPE_GIVER.addRecipe(((HMItemRivetGun)HMItem.rivetGun).getUnchargedItemStack(), new Object[]{"SLS", "XBX", "TPT", 'S', "ingotSteel", 'L', Block.lever, 'X', BasicComponents.itemSteelPlate, 'B', BasicComponents.itemBattery.getUnchargedItemStack(), 'T', BasicComponents.itemTinPlate, 'P', Block.pistonBase});
+		RECIPE_GIVER.addRecipe(((HMItemRivetGun)HMItem.rivetGun).getUncharged(), new Object[]{"SLS", "XBX", "TPT", 'S', "ingotSteel", 'L', Block.lever, 'X', "plateSteel", 'B', "battery", 'T', "plateTin", 'P', Block.pistonBase}); //FIXME Replace recipe with non-BC reliant version.
 		
-		RECIPE_GIVER.addRecipe(new ItemStack(HMBlock.crusher), new Object[]{"IP", "BE", "SS", 'I', "ingotIron", 'P', Item.pickaxeSteel, 'B', new ItemStack(HMItem.blueprints), 'E', new ItemStack(HMItem.parts, 1, 6), 'S', BasicComponents.itemSteelPlate});
+		RECIPE_GIVER.addRecipe(new ItemStack(HMBlock.crusher), new Object[]{"IP", "BE", "SS", 'I', "ingotIron", 'P', Item.pickaxeSteel, 'B', new ItemStack(HMItem.blueprints), 'E', new ItemStack(HMItem.parts, 1, 6), 'S', "plateSteel"});
 		RECIPE_GIVER.addRecipe(new ItemStack(HMBlock.washer), new Object[]{"ibi", "BWi", "iEi", 'i', "ingotIron", 'b', Item.bucketEmpty, 'B', new ItemStack(HMItem.blueprints, 1, 1), 'W', Block.cloth, 'E', new ItemStack(HMItem.parts, 1, 6)});
-		RECIPE_GIVER.addRecipe(((HMItemRivetGun)HMItem.rivetGun).getUnchargedItemStack(), new Object[]{"SL ", "XBb", "TP ", 'S', "ingotSteel", 'L', Block.lever, 'X', BasicComponents.itemSteelPlate, 'B', BasicComponents.itemBattery.getUnchargedItemStack(), 'b', new ItemStack(HMItem.blueprints, 1, 8), 'T', BasicComponents.itemTinPlate, 'P', Block.pistonBase});
+		RECIPE_GIVER.addRecipe(((HMItemRivetGun)HMItem.rivetGun).getUncharged(), new Object[]{"SL ", "XBb", "TP ", 'S', "ingotSteel", 'L', Block.lever, 'X', "plateSteel", 'B', "battery", 'b', new ItemStack(HMItem.blueprints, 1, 8), 'T', "plateTin", 'P', Block.pistonBase}); //FIXME Replace recipe with non-BC reliant version.
 		
 		if (MANAGER.enableChunkloader)
 		{
-			RECIPE_GIVER.addRecipe(new ItemStack(HMBlock.endiumChunkloader), new Object[]{"EBE", "B@B", "EBE", 'E', new ItemStack(HMItem.ingots), 'B', BasicComponents.itemBronzePlate, '@', Item.eyeOfEnder});
-			RECIPE_GIVER.addSmelting(new ItemStack(HMBlock.endiumChunkloader), new ItemStack(HMItem.ingots, 3));
+			RECIPE_GIVER.addRecipe(new ItemStack(HMBlock.endiumChunkloader), new Object[]{"EBE", "B@B", "EBE", 'E', new ItemStack(HMItem.ingots), 'B', "plateBronze", '@', Item.eyeOfEnder}); //FIXME Replace recipe with non-BC reliant version.
+			RECIPE_GIVER.addSmelting(HMBlock.endiumChunkloader.blockID, new ItemStack(HMItem.ingots, 3), 2.0F);
 			
 		}
 		
-		RECIPE_GIVER.addRecipe(new ItemStack(BasicComponents.itemBattery), new Object[]{" x ", "xrx", "xcx", 'x', BasicComponents.itemTinIngot, 'c', new ItemStack(HMItem.dustRaw, 1, 0), 'r', Item.redstone});
 		RECIPE_GIVER.addRecipe(new ItemStack(Block.torchWood, 4), new Object[]{"c", "s", 'c', new ItemStack(HMItem.dustRaw, 1, 0), 's', Item.stick});
 		RECIPE_GIVER.addRecipe(new ItemStack(Block.glass, 1), new Object[]{"GG", "GG", 'G', new ItemStack(HMItem.dustRefined, 1, 2)});
 		
-		RECIPE_GIVER.addRecipe(new ItemStack(HMItem.parts, 1, 0), new Object[]{" B ", "PSM", " B ", 'P', BasicComponents.itemSteelPlate, 'S', BasicComponents.itemSteelIngot, 'M', BasicComponents.itemMotor, 'B', Item.blazePowder});
+		RECIPE_GIVER.addRecipe(new ItemStack(HMItem.parts, 1, 0), new Object[]{" B ", "PSM", " B ", 'P', "plateSteel", 'S', "ingotSteel", 'M', "motor", 'B', Item.blazePowder}); //FIXME Replace recipe with non-BC reliant version.
 		RECIPE_GIVER.addRecipe(new ItemStack(HMItem.parts, 1, 1), new Object[]{" B ", "RGR", "SLS", 'B', Item.blazePowder, 'R', Item.redstone, 'G', Block.glass, 'S', "ingotSteel", 'L', new ItemStack(HMItem.parts, 1, 3)});
 		RECIPE_GIVER.addRecipe(new ItemStack(HMItem.parts, 1, 2), new Object[]{" T ", "TET", " T ", 'T', "ingotIron", 'E', Item.enderPearl});
-		RECIPE_GIVER.addRecipe(new ItemStack(HMItem.parts, 1, 3), new Object[]{" G ", "GBG", "cCc", 'G', Block.thinGlass, 'B', Item.blazeRod, 'c', "ingotCopper", 'C', BasicComponents.blockCopperWire});
-		RECIPE_GIVER.addRecipe(new ItemStack(HMItem.parts, 1, 4), new Object[]{"CC", "CC", 'C', BasicComponents.blockCopperWire});
+		RECIPE_GIVER.addRecipe(new ItemStack(HMItem.parts, 1, 3), new Object[]{" G ", "GBG", "cCc", 'G', Block.thinGlass, 'B', Item.blazeRod, 'c', "ingotCopper", 'C', "copperWire"});
+		RECIPE_GIVER.addRecipe(new ItemStack(HMItem.parts, 1, 4), new Object[]{"CC", "CC", 'C', "copperWire"}); //FIXME Replace recipe with non-BC reliant version.
 		RECIPE_GIVER.addRecipe(new ItemStack(HMItem.parts, 1, 5), new Object[]{"ici", 'i', "ingotIron", 'c', new ItemStack(HMItem.parts, 1, 4)});
-		RECIPE_GIVER.addRecipe(new ItemStack(HMItem.parts, 1, 6), new Object[]{"OOS", "BPb", "OOS", 'O', Block.obsidian, 'S', "ingotSteel", 'B', Item.blazePowder, 'P', new ItemStack(HMItem.parts), 'b', ((ItemBattery)BasicComponents.itemBattery).getUnchargedItemStack()});
+		RECIPE_GIVER.addRecipe(new ItemStack(HMItem.parts, 1, 6), new Object[]{"OOS", "BPb", "OOS", 'O', Block.obsidian, 'S', "ingotSteel", 'B', Item.blazePowder, 'P', new ItemStack(HMItem.parts), 'b', "ingotGold"});
 		
 		RECIPE_GIVER.addRecipe(new ItemStack(HMItem.rivets, 10, 0), new Object[]{"CCC", "BCB", " C ", 'C', "ingotCopper", 'B', Item.blazePowder});
 		RECIPE_GIVER.addRecipe(new ItemStack(HMItem.rivets, 10, 1), new Object[]{"BBB", "bBb", " B ", 'B', "ingotBronze", 'b', Item.blazePowder});
@@ -255,15 +255,12 @@ public class HawksMachinery
 		RECIPE_GIVER.addRecipe(new ItemStack(HMItem.rivets, 10, 4), new Object[]{"GGG", "BGB", " G ", 'G', "ingotGold", 'B', Item.blazePowder});
 		RECIPE_GIVER.addRecipe(new ItemStack(HMItem.rivets, 10, 5), new Object[]{"EEE", "BEB", " E ", 'E', "ingotEndium", 'B', Item.blazePowder});
 		
-		RECIPE_GIVER.addShapelessRecipe(BasicComponents.itemSteelDust, new Object[]{new ItemStack(HMItem.dustRaw, 1, 0), new ItemStack(HMItem.dustRefined, 1, 3)});
 		RECIPE_GIVER.addShapelessRecipe(new ItemStack(Item.fireballCharge, 3), new Object[]{Item.blazePowder, Item.gunpowder, new ItemStack(HMItem.dustRaw, 1, 0)});
 		
-		RECIPE_GIVER.addSmelting(new ItemStack(HMItem.dustRefined, 1, 2), new ItemStack(Block.thinGlass));
-		RECIPE_GIVER.addSmelting(new ItemStack(HMItem.dustRefined, 1, 3), new ItemStack(Item.ingotIron));
-		RECIPE_GIVER.addSmelting(new ItemStack(HMItem.dustRefined, 1, 4), new ItemStack(Item.ingotGold));
-		RECIPE_GIVER.addSmelting(new ItemStack(HMItem.dustRefined, 1, 5), new ItemStack(BasicComponents.itemCopperIngot));
-		RECIPE_GIVER.addSmelting(new ItemStack(HMItem.dustRefined, 1, 6), new ItemStack(BasicComponents.itemTinIngot));
-		RECIPE_GIVER.addSmelting(new ItemStack(HMItem.dustRaw, 1, 8), new ItemStack(Block.obsidian));
+		FurnaceRecipes.smelting().addSmelting(HMItem.dustRefined.shiftedIndex, 2, new ItemStack(Block.thinGlass));
+		FurnaceRecipes.smelting().addSmelting(HMItem.dustRefined.shiftedIndex, 3, new ItemStack(Item.ingotIron));
+		FurnaceRecipes.smelting().addSmelting(HMItem.dustRefined.shiftedIndex, 4, new ItemStack(Item.ingotGold));
+		FurnaceRecipes.smelting().addSmelting(HMItem.dustRaw.shiftedIndex, 8, new ItemStack(Block.obsidian));
 		
 	}
 	
@@ -322,7 +319,6 @@ public class HawksMachinery
 		PROCESS_RECIPES.addHMProcessingRecipe(new ItemStack(Item.shovelSteel), new ItemStack(HMItem.dustRefined, 1, 3), CRUSH);
 		PROCESS_RECIPES.addHMProcessingRecipe(new ItemStack(Item.axeSteel), new ItemStack(HMItem.dustRefined, 3, 3), CRUSH);
 		PROCESS_RECIPES.addHMProcessingRecipe(new ItemStack(Item.hoeSteel), new ItemStack(HMItem.dustRefined, 2, 3), CRUSH);
-		PROCESS_RECIPES.addHMProcessingRecipe(new ItemStack(BasicComponents.itemBattery), new ItemStack(HMItem.dustRefined, 5, 6), CRUSH);
 		PROCESS_RECIPES.addHMProcessingRecipe(new ItemStack(Item.field_82792_bS), new ItemStack(HMItem.dustRefined, 3, 8), CRUSH);
 		
 		PROCESS_RECIPES.addHMFoDProcessingRecipe("oreIron", new ItemStack(HMItem.dustRaw, 2, 1), CRUSH);
@@ -336,8 +332,6 @@ public class HawksMachinery
 		PROCESS_RECIPES.addHMFoDProcessingRecipe("ingotCopper", new ItemStack(HMItem.dustRefined, 1, 5), CRUSH);
 		PROCESS_RECIPES.addHMFoDProcessingRecipe("ingotTin", new ItemStack(HMItem.dustRefined, 1, 6), CRUSH);
 		PROCESS_RECIPES.addHMFoDProcessingRecipe("ingotEndium", new ItemStack(HMItem.dustRefined, 1, 9), CRUSH);
-		PROCESS_RECIPES.addHMFoDProcessingRecipe("ingotSteel", new ItemStack(BasicComponents.itemSteelDust), CRUSH);
-		PROCESS_RECIPES.addHMFoDProcessingRecipe("ingotBronze", new ItemStack(BasicComponents.itemBronzeDust), CRUSH);
 		
 		PROCESS_RECIPES.addHMProcessingRecipe(new ItemStack(HMItem.dustRaw, 1, 1), new ItemStack(HMItem.dustRefined, 1, 3), WASH);
 		PROCESS_RECIPES.addHMProcessingRecipe(new ItemStack(HMItem.dustRaw, 1, 2), new ItemStack(HMItem.dustRefined, 1, 4), WASH);

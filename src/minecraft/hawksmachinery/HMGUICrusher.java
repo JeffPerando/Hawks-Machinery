@@ -3,7 +3,6 @@ package hawksmachinery;
 
 import hawksmachinery.tileentity.HMTileEntityCrusher;
 import org.lwjgl.opengl.GL11;
-import universalelectricity.UniversalElectricity;
 import universalelectricity.electricity.ElectricInfo;
 import net.minecraft.src.GuiContainer;
 import net.minecraft.src.InventoryPlayer;
