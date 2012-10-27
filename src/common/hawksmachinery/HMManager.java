@@ -49,6 +49,7 @@ public class HMManager implements LoadingCallback, IVillageTradeHandler, ICrafti
 	public static int endiumOreID;
 	public static int washerID;
 	public static int endiumChunkloaderID;
+	public static int endiumTeleporterID;
 	
 	public static int dustRawID;
 	public static int dustRefinedID;
@@ -89,7 +90,8 @@ public class HMManager implements LoadingCallback, IVillageTradeHandler, ICrafti
 		crusherID = HMConfig.getBlock("Crusher", 3960).getInt(3960);
 		endiumOreID = HMConfig.getBlock("Endium Ore", 3961).getInt(3961);
 		washerID = HMConfig.getBlock("Washer", 3962).getInt(3962);
-		//NOTE ID #3963 saved for the Endium Chunkloader.
+		//NOTE ID #3964 saved for the Endium Chunkloader.
+		endiumTeleporterID = HMConfig.getBlock("Endium Teleporter", 3965).getInt(3965);
 		
 		generateEndium = HMConfig.get(Configuration.CATEGORY_GENERAL, "Generate Endium", true).getBoolean(true);
 		enableUpdateChecking = HMConfig.get(Configuration.CATEGORY_GENERAL, "Enable Update Checking", true).getBoolean(true);

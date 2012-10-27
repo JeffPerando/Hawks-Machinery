@@ -118,10 +118,12 @@ public class HawksMachinery
 		HMBlock.crusher = new HMBlockCrusher(MANAGER.loadConfig()).setStepSound(Block.soundMetalFootstep);
 		HMBlock.endiumOre = new HMBlock(MANAGER.endiumOreID, Material.rock, 23, minerkiin).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabs.tabBlock).setBlockName("endiumOre").setHardness(10.0F);
 		HMBlock.washer = new HMBlockWasher(MANAGER.washerID).setStepSound(Block.soundMetalFootstep);
+		HMBlock.endiumTeleporter = new HMBlockEndiumTeleporter(MANAGER.endiumTeleporterID);
 		
 		HMContent.crusher = HMBlock.crusher;
 		HMContent.endiumOre = HMBlock.endiumOre;
 		HMContent.washer = HMBlock.washer;
+		HMContent.endiumTeleporter = HMBlock.endiumTeleporter;
 		
 		if (MANAGER.enableChunkloader)
 		{

@@ -353,23 +353,27 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 			
 		}
 		
-		if (this.containingItems.length > 0)
+		if (this.isProcessor)
 		{
-			NBTTagList tagList = new NBTTagList();
-			
-			for (int counter = 0; counter < this.containingItems.length; ++counter)
+			if (this.containingItems.length > 0)
 			{
-				if (this.containingItems[counter] != null)
+				NBTTagList tagList = new NBTTagList();
+				
+				for (int counter = 0; counter < this.containingItems.length; ++counter)
 				{
-					NBTTagCompound newTag = new NBTTagCompound();
-					newTag.setByte("Slot", (byte)counter);
-					this.containingItems[counter].writeToNBT(newTag);
-					tagList.appendTag(newTag);
+					if (this.containingItems[counter] != null)
+					{
+						NBTTagCompound newTag = new NBTTagCompound();
+						newTag.setByte("Slot", (byte)counter);
+						this.containingItems[counter].writeToNBT(newTag);
+						tagList.appendTag(newTag);
+					}
+					
 				}
 				
+				NBTTag.setTag("Items", tagList);
+				
 			}
-			
-			NBTTag.setTag("Items", tagList);
 			
 		}
 		

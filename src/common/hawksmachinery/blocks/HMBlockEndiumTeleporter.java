@@ -6,8 +6,11 @@ import hawksmachinery.HawksMachinery;
 import hawksmachinery.api.HMTeleportationHelper;
 import hawksmachinery.items.HMItemBlockEndium;
 import hawksmachinery.tileentity.HMTileEntityTeleporterSender;
+import net.minecraft.src.Block;
 import net.minecraft.src.BlockContainer;
+import net.minecraft.src.CreativeTabs;
 import net.minecraft.src.Entity;
+import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.Material;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
@@ -30,6 +33,8 @@ public class HMBlockEndiumTeleporter extends BlockContainer
 		setHardness(5.0F);
 		setResistance(100.0F);
 		setTextureFile(BASEMOD.BLOCK_TEXTURE_FILE);
+		setStepSound(Block.soundMetalFootstep);
+		setCreativeTab(CreativeTabs.tabDecorations);
 		MinecraftForge.setBlockHarvestLevel(this, "pickaxe", 3);
 		GameRegistry.registerBlock(this, HMItemBlockEndium.class);
 		
@@ -40,8 +45,8 @@ public class HMBlockEndiumTeleporter extends BlockContainer
 	{
 		switch (side)
 		{
-			case 0: return (meta == 0) ? 112 : 113;
-			case 1: return 115;
+			case 0: return 115;
+			case 1: return (meta == 0) ? 112 : 113;
 			default: return 114;
 		}
 		
@@ -58,6 +63,18 @@ public class HMBlockEndiumTeleporter extends BlockContainer
 	{
 		this.tileEntity = new HMTileEntityTeleporterSender();
 		return this.tileEntity;
+	}
+	
+	@Override
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int idk, float idk2, float idk3, float idk4)
+	{
+		if (!world.isRemote)
+		{
+			player.openGui(BASEMOD.instance(), 2, world, x, y, z);
+		}
+		
+		return true;
+		
 	}
 	
 	@Override

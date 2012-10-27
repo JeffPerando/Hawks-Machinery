@@ -21,6 +21,7 @@ public class HMBlock extends Block
 	public static Block washer;
 	public static Block endiumChunkloader;
 	public static Block endiumOre;
+	public static Block endiumTeleporter;
 	
 	public static HawksMachinery BASEMOD;
 	private Achievement onBlockBrokenAch;

@@ -139,23 +139,23 @@ public class HMModelCrusher extends ModelBase
 	{
 		super.render(entity, f, f1, f2, f3, f4, f5);
 		setRotationAngles(f, f1, f2, f3, f4, f5, null);
-		BASE.render(f5);
-		CRUSHING_CHAMBER.render(f5);
-		INTAKE_1.render(f5);
-		INTAKE_PANEL_1.render(f5);
-		INTAKE_PANEL_2.render(f5);
-		INTAKE_PANEL_3.render(f5);
-		INTAKE_PANEL_4.render(f5);
-		CRUSHING_BLADES_1_ROT.render(f5);
-		CRUSHING_BLADES_2_ROT.render(f5);
-		POWER_INTAKE.render(f5);
-		RESIDUE_OUTLET_CHIMNEY_1.render(f5);
-		RESIDUE_OUTLET_CHIMNEY_2.render(f5);
-		MATERIAL_OUTLET_1.render(f5);
-		MAIN_OUTLET.render(f5);
-		MATERIAL_OUTLET_2.render(f5);
-		SUPPORT.render(f5);
-		FINAL.render(f5);
+		BASE.render(0.0625F);
+		CRUSHING_CHAMBER.render(0.0625F);
+		INTAKE_1.render(0.0625F);
+		INTAKE_PANEL_1.render(0.0625F);
+		INTAKE_PANEL_2.render(0.0625F);
+		INTAKE_PANEL_3.render(0.0625F);
+		INTAKE_PANEL_4.render(0.0625F);
+		CRUSHING_BLADES_1_ROT.render(0.0625F);
+		CRUSHING_BLADES_2_ROT.render(0.0625F);
+		POWER_INTAKE.render(0.0625F);
+		RESIDUE_OUTLET_CHIMNEY_1.render(0.0625F);
+		RESIDUE_OUTLET_CHIMNEY_2.render(0.0625F);
+		MATERIAL_OUTLET_1.render(0.0625F);
+		MAIN_OUTLET.render(0.0625F);
+		MATERIAL_OUTLET_2.render(0.0625F);
+		SUPPORT.render(0.0625F);
+		FINAL.render(0.0625F);
 	}
 	
 	private void setRotation(ModelRenderer model, float x, float y, float z)
