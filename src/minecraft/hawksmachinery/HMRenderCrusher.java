@@ -28,7 +28,7 @@ public class HMRenderCrusher extends TileEntitySpecialRenderer
 		GL11.glPushMatrix();
         GL11.glTranslatef((float) var2 + 0.5F, (float) var3 + 1.5F, (float) var4 + 0.5F);
         GL11.glScalef(1.0F, -1F, -1F);
-        model.render(null, 0, 0, 0, 0, 0, 0.625F);
+        model.render(null, 0, 0, 0, 0, 0, 0.0625F);
         GL11.glPopMatrix();
         
 	}
