@@ -9,6 +9,7 @@ import hawksmachinery.items.*;
 import hawksmachinery.tileentity.*;
 import java.io.File;
 import java.util.List;
+import obsidian.api.ItemRetriever;
 import com.google.common.collect.ObjectArrays;
 import universalelectricity.core.UniversalElectricity;
 import universalelectricity.prefab.ItemElectric;
@@ -118,12 +119,12 @@ public class HawksMachinery
 		HMBlock.crusher = new HMBlockCrusher(MANAGER.loadConfig()).setStepSound(Block.soundMetalFootstep);
 		HMBlock.endiumOre = new HMBlock(MANAGER.endiumOreID, Material.rock, 23, minerkiin).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabs.tabBlock).setBlockName("endiumOre").setHardness(10.0F);
 		HMBlock.washer = new HMBlockWasher(MANAGER.washerID).setStepSound(Block.soundMetalFootstep);
-		HMBlock.endiumTeleporter = new HMBlockEndiumTeleporter(MANAGER.endiumTeleporterID);
+		//HMBlock.endiumTeleporter = new HMBlockEndiumTeleporter(MANAGER.endiumTeleporterID);
 		
 		HMContent.crusher = HMBlock.crusher;
 		HMContent.endiumOre = HMBlock.endiumOre;
 		HMContent.washer = HMBlock.washer;
-		HMContent.endiumTeleporter = HMBlock.endiumTeleporter;
+		//HMContent.endiumTeleporter = HMBlock.endiumTeleporter;
 		
 		if (MANAGER.enableChunkloader)
 		{
@@ -245,7 +246,7 @@ public class HawksMachinery
 		
 		CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(new ItemStack(HMItem.parts, 1, 0), new Object[]{" B ", "PSM", " B ", 'P', "plateSteel", 'S', "ingotSteel", 'M', "motor", 'B', Item.blazePowder}));
 		CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(new ItemStack(HMItem.parts, 1, 1), new Object[]{" B ", "RGR", "SLS", 'B', Item.blazePowder, 'R', Item.redstone, 'G', Block.glass, 'S', "ingotSteel", 'L', new ItemStack(HMItem.parts, 1, 3)}));
-		CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(new ItemStack(HMItem.parts, 1, 2), new Object[]{" T ", "TET", " T ", 'T', "ingotIron", 'E', Item.enderPearl}));
+		//CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(new ItemStack(HMItem.parts, 1, 2), new Object[]{" T ", "TET", " T ", 'T', "ingotIron", 'E', Item.enderPearl}));
 		CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(new ItemStack(HMItem.parts, 1, 3), new Object[]{" G ", "GBG", "cCc", 'G', Block.thinGlass, 'B', Item.blazeRod, 'c', "ingotCopper", 'C', "copperWire"}));
 		CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(new ItemStack(HMItem.parts, 1, 4), new Object[]{"CC", "CC", 'C', "copperWire"}));
 		CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(new ItemStack(HMItem.parts, 1, 5), new Object[]{"ici", 'i', "ingotIron", 'c', new ItemStack(HMItem.parts, 1, 4)}));
@@ -289,7 +290,15 @@ public class HawksMachinery
 		PROCESS_RECIPES.addHMProcessingRecipe(Block.enchantmentTable, new ItemStack(Item.diamond, 2), CRUSH);
 		PROCESS_RECIPES.addHMProcessingRecipe(Item.brewingStand, new ItemStack(Item.blazeRod, 1), CRUSH);
 		PROCESS_RECIPES.addHMProcessingRecipe(Block.sandStone, new ItemStack(Block.sand, 4), CRUSH);
-		PROCESS_RECIPES.addHMProcessingRecipe(Block.obsidian, new ItemStack(HMItem.dustRaw, 1, 5), CRUSH);
+		
+		if (Loader.isModLoaded("ObsidianIngots"))
+		{
+			PROCESS_RECIPES.addHMProcessingRecipe(ItemRetriever.getItem("obsidianDust"), new ItemStack(HMItem.dustRaw, 1, 5), CRUSH);
+		}
+		else
+		{
+			PROCESS_RECIPES.addHMProcessingRecipe(Block.obsidian, new ItemStack(HMItem.dustRaw, 1, 5), CRUSH);
+		}
 		PROCESS_RECIPES.addHMProcessingRecipe(Item.glassBottle, new ItemStack(HMItem.dustRefined, 4, 2), CRUSH);
 		PROCESS_RECIPES.addHMProcessingRecipe(Block.thinGlass, new ItemStack(HMItem.dustRefined, 1, 2), CRUSH);
 		
@@ -421,7 +430,7 @@ public class HawksMachinery
 		@Override
 		public ModReleaseType getReleaseType()
 		{
-			return ModReleaseType.DEVBUILD;
+			return ModReleaseType.ALPHA;
 		}
 		
 		@Override

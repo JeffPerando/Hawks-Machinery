@@ -21,10 +21,10 @@
 /src/common/*
 !/src/common/hawksmachinery/
 !/src/common/mcmod.info
-!/src/common/uristqwerty/
 !/src/common/vazkii/
 !/src/minecraft/hawksmachinery/
 !/src/minecraft/vazkii/
+!/src/common/obsidian/
 
 *.bat
 *.sh

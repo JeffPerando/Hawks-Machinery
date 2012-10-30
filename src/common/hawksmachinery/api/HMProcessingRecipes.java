@@ -126,33 +126,6 @@ public class HMProcessingRecipes
 		
 	}
 	
-	public static void addHMObjectRecipe(Object[] input, ItemStack output, HMEnumProcessing processType)
-	{
-		Object[] assembledRecipe;
-		
-		if (input[0] instanceof String)
-		{
-			for (int x = 0; x < (int)Math.sqrt(input.length); ++x)
-			{
-				for (int z = 0; z < (int)Math.sqrt(input.length); ++z)
-				{
-					//TODO Finish this!
-					{
-						
-					}
-					
-				}
-				
-			}
-			
-		}
-		else
-		{
-			processType.getRecipeList().put(input, output);
-		}
-		
-	}
-	
 	public static void addHMWashingSecondary(ItemStack input, Object output, boolean isCommon)
 	{
 		if (isCommon)
