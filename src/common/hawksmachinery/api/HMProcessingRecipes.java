@@ -68,10 +68,14 @@ public class HMProcessingRecipes
 	 * @param output The output.
 	 * @param processType What type of processing this recipe is for.
 	 */
-	public static void addHMProcessingRecipe(ItemStack input, ItemStack output, HMEnumProcessing processType)
+	public static void addHMProcessingRecipe(Object input, ItemStack output, HMEnumProcessing processType)
 	{
-		processType.getRecipeList().put(Arrays.asList(input.getItem(), input.isItemStackDamageable() ? 0 : input.getItemDamage(), input.isItemEnchanted(), input.stackTagCompound != null), output);
-		quantityMapping.put(Arrays.asList(input.getItem(), input.getItemDamage(), processType), (Integer)input.stackSize);
+		if (input instanceof ItemStack)
+		{
+			processType.getRecipeList().put(Arrays.asList(((ItemStack)input).getItem(), ((ItemStack)input).isItemStackDamageable() ? 0 : ((ItemStack)input).getItemDamage(), ((ItemStack)input).isItemEnchanted(), ((ItemStack)input).stackTagCompound != null), output);
+			quantityMapping.put(Arrays.asList(((ItemStack)input).getItem(), ((ItemStack)input).getItemDamage(), processType), (Integer)((ItemStack)input).stackSize);
+			
+		}
 		
 	}
 	
