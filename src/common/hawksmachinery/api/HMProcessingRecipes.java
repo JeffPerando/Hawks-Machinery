@@ -25,6 +25,8 @@ public class HMProcessingRecipes
 	
 	private static Map quantityMapping = new HashMap();
 	
+	private static List<IHMRecipeHandler> recipeHandlers;
+	
 	/**
 	 * 
 	 * Instead of IDs, processing now uses enums.
@@ -60,6 +62,12 @@ public class HMProcessingRecipes
 		
 	}
 	
+	public interface IHMRecipeHandler
+	{
+		public ItemStack isValidRecipe(HMEnumProcessing processType, Object... input);
+		
+	}
+	
 	/**
 	 * 
 	 * Adds a processing recipe.
@@ -68,7 +76,7 @@ public class HMProcessingRecipes
 	 * @param output The output.
 	 * @param processType What type of processing this recipe is for.
 	 */
-	public static void addHMProcessingRecipe(Object input, ItemStack output, HMEnumProcessing processType)
+	public static <T> void addHMProcessingRecipe(T input, ItemStack output, HMEnumProcessing processType)
 	{
 		if (input instanceof ItemStack)
 		{
@@ -159,6 +167,10 @@ public class HMProcessingRecipes
 				{
 					output.setItemDamage(input.getItemDamage());
 				}
+				
+			}
+			else
+			{
 				
 			}
 			
