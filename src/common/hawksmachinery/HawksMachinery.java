@@ -86,10 +86,8 @@ public class HawksMachinery
 	@SidedProxy(clientSide = "hawksmachinery.HMClientProxy", serverSide = "hawksmachinery.HMCommonProxy")
 	public static HMCommonProxy PROXY;
 	
-	/*
 	@Metadata("HawksMachinery")
 	public static ModMetadata HAWK_META = new HMDummyContainer().getMetadata();
-	*/
 	
 	public static final String VERSION = "Alpha v1.5.0";
 	
