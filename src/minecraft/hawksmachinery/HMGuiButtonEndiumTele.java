@@ -28,7 +28,7 @@ public class HMGuiButtonEndiumTele extends GuiButton
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             this.field_82253_i = par2 >= this.xPosition && par3 >= this.yPosition && par2 < this.xPosition + this.width && par3 < this.yPosition + this.height;
             int var5 = this.getHoverState(this.field_82253_i);
-            this.drawTexturedModalRect(this.xPosition, this.yPosition, 0, 46 + var5 * 20, this.width / 2, this.height);
+            //this.drawTexturedModalRect(this.xPosition, this.yPosition, 0, 46 + var5 * 20, this.width / 2, this.height);
             this.drawTexturedModalRect(this.xPosition + this.width / 2, this.yPosition, 200 - this.width / 2, 46 + var5 * 20, this.width / 2, this.height);
             this.mouseDragged(par1Minecraft, par2, par3);
             int var6 = 14737632;

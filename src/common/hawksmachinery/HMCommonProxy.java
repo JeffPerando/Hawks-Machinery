@@ -3,7 +3,7 @@ package hawksmachinery;
 
 import hawksmachinery.tileentity.HMTileEntityEndiumChunkloader;
 import hawksmachinery.tileentity.HMTileEntityCrusher;
-import hawksmachinery.tileentity.HMTileEntityTeleporterSender;
+import hawksmachinery.tileentity.HMTileEntityTeleporter;
 import hawksmachinery.tileentity.HMTileEntityWasher;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.IConnectionHandler;
@@ -35,7 +35,7 @@ public class HMCommonProxy implements IGuiHandler, IConnectionHandler
 		GameRegistry.registerTileEntity(HMTileEntityCrusher.class, "HMCrusher");
 		GameRegistry.registerTileEntity(HMTileEntityWasher.class, "HMWasher");
 		if (BASEMOD.MANAGER.enableChunkloader) GameRegistry.registerTileEntity(HMTileEntityEndiumChunkloader.class, "HMChunkloader");
-		GameRegistry.registerTileEntity(HMTileEntityTeleporterSender.class, "HMTeleSender");
+		GameRegistry.registerTileEntity(HMTileEntityTeleporter.class, "HMTeleSender");
 		
 	}
 	

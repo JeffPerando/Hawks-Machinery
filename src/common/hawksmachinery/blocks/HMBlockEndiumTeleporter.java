@@ -5,7 +5,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import hawksmachinery.HawksMachinery;
 import hawksmachinery.api.HMTeleportationHelper;
 import hawksmachinery.items.HMItemBlockEndium;
-import hawksmachinery.tileentity.HMTileEntityTeleporterSender;
+import hawksmachinery.tileentity.HMTileEntityTeleporter;
 import net.minecraft.src.Block;
 import net.minecraft.src.BlockContainer;
 import net.minecraft.src.CreativeTabs;
@@ -25,7 +25,7 @@ import net.minecraftforge.common.MinecraftForge;
 public class HMBlockEndiumTeleporter extends BlockContainer
 {
 	public static HawksMachinery BASEMOD;
-	public HMTileEntityTeleporterSender tileEntity;
+	public HMTileEntityTeleporter tileEntity;
 	
 	public HMBlockEndiumTeleporter(int id)
 	{
@@ -33,7 +33,6 @@ public class HMBlockEndiumTeleporter extends BlockContainer
 		setHardness(5.0F);
 		setResistance(100.0F);
 		setTextureFile(BASEMOD.BLOCK_TEXTURE_FILE);
-		setStepSound(Block.soundMetalFootstep);
 		setCreativeTab(CreativeTabs.tabDecorations);
 		MinecraftForge.setBlockHarvestLevel(this, "pickaxe", 3);
 		GameRegistry.registerBlock(this, HMItemBlockEndium.class);
@@ -55,13 +54,13 @@ public class HMBlockEndiumTeleporter extends BlockContainer
 	@Override
 	public boolean hasTileEntity(int meta)
 	{
-		return meta == 0;
+		return true;
 	}
 	
 	@Override
-	public TileEntity createNewTileEntity(World world, int meta)
+	public TileEntity createNewTileEntity(World world)
 	{
-		this.tileEntity = new HMTileEntityTeleporterSender();
+		this.tileEntity = new HMTileEntityTeleporter();
 		return this.tileEntity;
 	}
 	
@@ -90,12 +89,6 @@ public class HMBlockEndiumTeleporter extends BlockContainer
 			
 		}
 		
-	}
-	
-	@Override
-	public TileEntity createNewTileEntity(World var1)
-	{
-		return null;
 	}
 	
 }
