@@ -24,11 +24,6 @@ public class HMItemIngots extends HMItem
 		setIconIndex(35, 0);
 		setEffect(0);
 		
-		if (FMLCommonHandler.instance().getSide().isClient())
-		{
-			setRarity(EnumRarity.rare, 0);
-		}
-		
 	}
 	
 	@Override

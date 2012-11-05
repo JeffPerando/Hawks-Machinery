@@ -31,7 +31,21 @@ public class HMGUIEndiumTeleSender extends GuiContainer
 	@Override
 	public void initGui()
 	{
-		this.controlList.add(new GuiButton(0, this.containerHeight - 9, this.containerWidth - 9, 16, 16, null));
+		super.initGui();
+		this.containerWidth = (this.width - this.xSize) / 2;
+		this.containerHeight = (this.height - this.ySize) / 2;
+		
+		Integer slotNumber = 1;
+		
+		for (int y = 0; y < 4; ++y)
+		{
+			for (int x = 0; x < 4; ++x)
+			{
+				this.controlList.add(new HMGuiButtonEndiumTele(slotNumber, this.containerWidth + (9 + (16 * x)), this.containerHeight + (9 + (16 * y)), 16, 16, slotNumber.toString()));
+				++slotNumber;
+			}
+			
+		}
 		
 	}
 	
@@ -40,8 +54,6 @@ public class HMGUIEndiumTeleSender extends GuiContainer
 	{
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		this.mc.renderEngine.bindTexture(this.mc.renderEngine.getTexture(BASEMOD.GUI_PATH + "/EndiumTeleporter.png"));
-		this.containerWidth = (this.width - this.xSize) / 2;
-		this.containerHeight = (this.height - this.ySize) / 2;
 		this.drawTexturedModalRect(this.containerWidth, this.containerHeight, 0, 0, this.xSize, this.ySize);
 		
 	}

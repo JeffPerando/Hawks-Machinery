@@ -39,8 +39,6 @@ public class HMItem extends Item
 	public static Item ingots;
 	
 	public static HawksMachinery BASEMOD;
-	@SideOnly(Side.CLIENT)
-	protected EnumRarity[] rarity;
 	protected boolean[] hasEffect = new boolean[16];
 	protected String[] itemNames = new String[16];
 	protected int[] iconIndexes = new int[16];
@@ -51,27 +49,6 @@ public class HMItem extends Item
 		setTextureFile(BASEMOD.ITEM_TEXTURE_FILE);
 		setHasSubtypes(this.itemNames[1] != null);
 		
-		if (FMLCommonHandler.instance().getSide().isClient())
-		{
-			this.rarity = new EnumRarity[16];
-			
-			for (int counter = 0; counter < 16; ++counter)
-			{
-				if (this.rarity[counter] == null)
-				{
-					this.rarity[counter] = EnumRarity.common;
-				}
-				
-			}
-			
-		}
-		
-	}
-	
-	@Override
-	public EnumRarity getRarity(ItemStack item)
-	{
-		return this.rarity[item.getItemDamage()];
 	}
 	
 	@Override
@@ -102,13 +79,6 @@ public class HMItem extends Item
 	}
 	
 //--------------------------------------------SETTERS START-------------------------------------------
-	
-	@SideOnly(Side.CLIENT)
-	public HMItem setRarity(EnumRarity rarity, int meta)
-	{
-		this.rarity[meta] = rarity;
-		return this;
-	}
 	
 	public HMItem setEffect(int meta)
 	{

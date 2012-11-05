@@ -315,7 +315,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 		
 		this.sapper = ItemStack.loadItemStackFromNBT(NBTTag.getCompoundTag("Sapper"));
 		
-		if (this.containingItems.length > 0)
+		if (this.containingItems != null)
 		{
 			NBTTagList tagList = NBTTag.getTagList("Items");
 			this.containingItems = new ItemStack[this.getSizeInventory()];

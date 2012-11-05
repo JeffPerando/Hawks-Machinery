@@ -141,13 +141,6 @@ public class HawksMachinery
 		HMItem.rivetGun = new HMItemRivetGun(MANAGER.rivetGunID - 256);
 		HMItem.ingots = new HMItemIngots(MANAGER.ingotsID - 256);
 		
-		if (FMLCommonHandler.instance().getSide().isClient())
-		{
-			((HMItem)HMItem.endiumPlate).setRarity(EnumRarity.rare, 0);
-			((HMItem)HMItem.rivets).setRarity(EnumRarity.rare, 5);
-			
-		}
-		
 		HMContent.dustRaw = HMItem.dustRaw;
 		HMContent.dustRefined = HMItem.dustRefined;
 		HMContent.parts = HMItem.parts;
