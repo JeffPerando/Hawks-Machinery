@@ -8,6 +8,7 @@ import net.minecraft.src.Entity;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.EntityPlayerMP;
 import net.minecraft.src.ServerConfigurationManager;
+import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 import net.minecraftforge.common.DimensionManager;
 
@@ -20,6 +21,7 @@ import net.minecraftforge.common.DimensionManager;
 public class HMTeleportationHelper
 {
 	private List<HMEndiumTeleporterCoords> coordsList;
+	private List<TileEntity> teWhitelist;
 	private static HMTeleportationHelper INSTANCE;
 	
 	public HMTeleportationHelper()
@@ -75,27 +77,50 @@ public class HMTeleportationHelper
 		
 		if (!entity.worldObj.isRemote)
 		{
-			if (coords.dimension() != entity.dimension)
+			if (coords.dim() != entity.dimension)
 			{
 				ServerConfigurationManager manager = MinecraftServer.getServer().getConfigurationManager();
 				
 				if (entity instanceof EntityPlayerMP)
 				{
-					manager.transferPlayerToDimension(((EntityPlayerMP)entity), coords.dimension());
+					manager.transferPlayerToDimension(((EntityPlayerMP)entity), coords.dim());
 					
 				}
 				else
 				{
-					manager.func_82448_a(entity, coords.dimension(), DimensionManager.getWorld(entity.dimension), DimensionManager.getWorld(coords.dimension()));
+					manager.func_82448_a(entity, coords.dim(), DimensionManager.getWorld(entity.dimension), DimensionManager.getWorld(coords.dim()));
 					
 				}
 				
 			}
 			
-			entity.setPosition(coords.x() - 0.5, coords.y(), coords.z() - 0.5);
+			entity.setPosition(coords.x() - 0.5, coords.y() + 1, coords.z() - 0.5);
 			
 		}
 		
+	}
+	
+	public boolean addTileEntityToWhitelist(TileEntity allowedTE)
+	{
+		return this.teWhitelist.add(allowedTE);
+	}
+	
+	public boolean isTileEntityWhitelisted(TileEntity potenTE)
+	{
+		if (potenTE != null)
+		{
+			for (TileEntity te : this.teWhitelist)
+			{
+				if (te.equals(potenTE))
+				{
+					return true;
+				}
+				
+			}
+			
+		}
+		
+		return false;
 	}
 	
 	public static HMTeleportationHelper instance()

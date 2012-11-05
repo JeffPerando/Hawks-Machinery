@@ -77,7 +77,7 @@ public class HMEndiumTeleporterCoords
 		return this.symbolC;
 	}
 	
-	public int dimension()
+	public int dim()
 	{
 		return this.dimensionID;
 	}

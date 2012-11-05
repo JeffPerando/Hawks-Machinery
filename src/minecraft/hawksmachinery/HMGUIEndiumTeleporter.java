@@ -35,17 +35,21 @@ public class HMGUIEndiumTeleporter extends GuiContainer
 		this.containerWidth = (this.width - this.xSize) / 2;
 		this.containerHeight = (this.height - this.ySize) / 2;
 		
-		Integer slotNumber = 1; //TODO Remove text on buttons.
+		this.controlList.add(new GuiButton(0, this.containerWidth + 104, this.containerHeight + 34, 32, 14, "Reset"));
+		
+		int slotNumber = 1;
 		
 		for (int y = 0; y < 4; ++y)
 		{
 			for (int x = 0; x < 4; ++x)
 			{
-				this.controlList.add(new HMGuiButtonEndiumTele(slotNumber, this.containerWidth + (9 + (16 * x)), this.containerHeight + (9 + (16 * y)), 16, 16, slotNumber.toString()));
+				this.controlList.add(new HMGuiButtonEndiumTele(slotNumber, this.containerWidth + (9 + (16 * x)), this.containerHeight + (9 + (16 * y)), 16, 16, null));
 				++slotNumber;
 			}
 			
 		}
+		
+		this.controlList.add(new GuiButton(17, this.containerWidth + 104, this.containerHeight + 48, 32, 14, "Done"));
 		
 	}
 	
@@ -58,7 +62,7 @@ public class HMGUIEndiumTeleporter extends GuiContainer
 		
 		for (int counter = 0; counter < 3; ++counter)
 		{
-			switch (this.tileEntity.coordArray[counter])
+			switch (this.tileEntity.coordsArray[counter])
 			{
 				case 1: this.drawTexturedModalRect(this.containerWidth + (95 + (16 * counter)), this.containerHeight + 14, 176, 0, 16, 16); break;
 				case 2: this.drawTexturedModalRect(this.containerWidth + (95 + (16 * counter)), this.containerHeight + 14, 192, 0, 16, 16); break;
@@ -86,7 +90,20 @@ public class HMGUIEndiumTeleporter extends GuiContainer
 	@Override
 	protected void actionPerformed(GuiButton button)
 	{
-		if (button.id == 0){this.tileEntity.wipeCoords();} else {this.tileEntity.updateCoords(button.id);};
+		if (button.id == 0)
+		{
+			this.tileEntity.wipeCoords();
+			
+		}
+		else if (button.id == 17)
+		{
+			this.tileEntity.registerCoords();
+		}
+		else
+		{
+			this.tileEntity.updateCoords(button.id);
+			
+		}
 		
 	}
 	

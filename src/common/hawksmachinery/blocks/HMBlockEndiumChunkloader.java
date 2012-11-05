@@ -3,9 +3,11 @@ package hawksmachinery.blocks;
 
 import java.util.Random;
 import cpw.mods.fml.common.registry.GameRegistry;
+import hawksmachinery.HawksMachinery;
 import hawksmachinery.items.HMItemBlockEndium;
 import hawksmachinery.tileentity.HMTileEntityEndiumChunkloader;
 import net.minecraft.src.Block;
+import net.minecraft.src.BlockContainer;
 import net.minecraft.src.Chunk;
 import net.minecraft.src.CreativeTabs;
 import net.minecraft.src.EntityLiving;
@@ -24,14 +26,16 @@ import net.minecraftforge.common.ForgeHooks;
  * 
  * @author Elusivehawk
  */
-public class HMBlockEndiumChunkloader extends HMBlock
+public class HMBlockEndiumChunkloader extends BlockContainer
 {
+	public HawksMachinery BASEMOD;
 	public HMTileEntityEndiumChunkloader tileEntity;
 	
 	public HMBlockEndiumChunkloader(int id)
 	{
-		super(id, Material.iron, 96, null);
+		super(id, 96, Material.iron);
 		setResistance(1000000000.0F);
+		setTextureFile(BASEMOD.BLOCK_TEXTURE_FILE);
 		setBlockName("endiumChunkloader");
 		setStepSound(Block.soundMetalFootstep);
 		setCreativeTab(CreativeTabs.tabDecorations);
@@ -46,7 +50,7 @@ public class HMBlockEndiumChunkloader extends HMBlock
 	}
 	
 	@Override
-	public TileEntity createTileEntity(World world, int metadata)
+	public TileEntity createNewTileEntity(World world)
 	{
 		this.tileEntity = new HMTileEntityEndiumChunkloader();
 		return this.tileEntity;
@@ -114,9 +118,10 @@ public class HMBlockEndiumChunkloader extends HMBlock
 	}
 	
 	@Override
-	public void onBlockHarvested(World par1World, int par2, int par3, int par4, int par5, EntityPlayer par6EntityPlayer)
+	public void breakBlock(World par1World, int par2, int par3, int par4, int par5, int par6)
 	{
 		ForgeChunkManager.releaseTicket(this.tileEntity.heldChunk);
+		super.breakBlock(par1World, par2, par3, par4, par5, par6);
 		
 	}
 	

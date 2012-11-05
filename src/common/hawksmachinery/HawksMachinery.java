@@ -89,7 +89,7 @@ public class HawksMachinery
 	@Metadata("HawksMachinery")
 	public static ModMetadata HAWK_META = new HMDummyContainer().getMetadata();
 	
-	public static final String VERSION = "Alpha v1.5.0";
+	public static final String VERSION = "Alpha v1.5.1";
 	
 	public static HMProcessingRecipes PROCESS_RECIPES;
 	public static HMEnumProcessing CRUSH = HMEnumProcessing.CRUSHING;
@@ -278,7 +278,6 @@ public class HawksMachinery
 		PROCESS_RECIPES.addHMProcessingRecipe(Block.thinGlass, new ItemStack(HMItem.dustRefined, 1, 2), CRUSH);
 		PROCESS_RECIPES.addHMProcessingRecipe(Block.glowStone, new ItemStack(Item.lightStoneDust, 4), CRUSH);
 		PROCESS_RECIPES.addHMProcessingRecipe(Block.redstoneLampIdle, new ItemStack(Item.lightStoneDust, 4), CRUSH);
-		PROCESS_RECIPES.addHMProcessingRecipe(Block.enchantmentTable, new ItemStack(Item.diamond, 2), CRUSH);
 		PROCESS_RECIPES.addHMProcessingRecipe(Item.brewingStand, new ItemStack(Item.blazeRod, 1), CRUSH);
 		PROCESS_RECIPES.addHMProcessingRecipe(Block.sandStone, new ItemStack(Block.sand, 4), CRUSH);
 		

@@ -34,6 +34,7 @@ public class HMBlockEndiumTeleporter extends BlockContainer
 		setResistance(100.0F);
 		setTextureFile(BASEMOD.BLOCK_TEXTURE_FILE);
 		setCreativeTab(CreativeTabs.tabDecorations);
+		setBlockName("endiumTeleporter");
 		MinecraftForge.setBlockHarvestLevel(this, "pickaxe", 3);
 		GameRegistry.registerBlock(this, HMItemBlockEndium.class);
 		
@@ -67,6 +68,11 @@ public class HMBlockEndiumTeleporter extends BlockContainer
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int idk, float idk2, float idk3, float idk4)
 	{
+		if (player.isSneaking())
+		{
+			return false;
+		}
+		
 		if (!world.isRemote)
 		{
 			player.openGui(BASEMOD.instance(), 2, world, x, y, z);
@@ -79,13 +85,9 @@ public class HMBlockEndiumTeleporter extends BlockContainer
 	@Override
 	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity)
 	{
-		if (world.getBlockTileEntity(x, y, z) != null)
+		if (this.tileEntity.isReadyToTeleport())
 		{
-			if (this.tileEntity.isReadyToTeleport())
-			{
-				this.tileEntity.teleportEntity(entity);
-				
-			}
+			this.tileEntity.teleportEntity(entity);
 			
 		}
 		
