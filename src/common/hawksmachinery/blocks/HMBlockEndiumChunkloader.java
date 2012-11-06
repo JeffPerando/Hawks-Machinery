@@ -33,7 +33,7 @@ public class HMBlockEndiumChunkloader extends BlockContainer
 	
 	public HMBlockEndiumChunkloader(int id)
 	{
-		super(id, 96, Material.iron);
+		super(id, 208, Material.iron);
 		setResistance(1000000000.0F);
 		setTextureFile(BASEMOD.BLOCK_TEXTURE_FILE);
 		setBlockName("endiumChunkloader");

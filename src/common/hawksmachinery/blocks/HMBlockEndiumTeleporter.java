@@ -46,9 +46,9 @@ public class HMBlockEndiumTeleporter extends HMBlockMachine
 	{
 		switch (side)
 		{
-			case 0: return 115;
-			case 1: return (meta == 0) ? 112 : 113;
-			default: return 114;
+			case 0: return meta == 0 ? 67 : 243;
+			case 1: return meta == 0 ? 64 : 65;
+			default: return 66;
 		}
 		
 	}
