@@ -53,6 +53,7 @@ public class HMTileEntityTeleporter extends HMTileEntityMachine
 					this.worldObj.setBlockAndMetadata(this.xCoord, this.yCoord, this.zCoord, 0, 0);
 					this.doTeleportationSpecialEffects();
 					this.electricityStored = 0;
+					--this.machineHP;
 					
 				}
 				
@@ -64,14 +65,19 @@ public class HMTileEntityTeleporter extends HMTileEntityMachine
 	
 	public boolean isReadyToTeleport()
 	{
-		return this.electricityStored == this.ELECTRICITY_LIMIT && this.worldObj.isBlockIndirectlyGettingPowered(this.xCoord, this.yCoord, this.zCoord) && this.coords != null && this.blockMetadata == 0;
+		return this.electricityStored == this.ELECTRICITY_LIMIT && this.worldObj.isBlockIndirectlyGettingPowered(this.xCoord, this.yCoord, this.zCoord) && this.coords != null && this.blockMetadata == 0 && !this.isDisabled();
 	}
 	
-	public void teleportEntity(Entity entity)
+	public void tryTeleportEntity(Entity entity)
 	{
-		HMTeleportationHelper.instance().teleportEntity(entity, this.coords);
-		this.doTeleportationSpecialEffects();
-		this.electricityStored = 0;
+		if (this.isReadyToTeleport())
+		{
+			HMTeleportationHelper.instance().teleportEntity(entity, this.coords);
+			this.doTeleportationSpecialEffects();
+			this.electricityStored = 0;
+			--this.machineHP;
+			
+		}
 		
 	}
 	

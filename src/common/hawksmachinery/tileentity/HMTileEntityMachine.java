@@ -188,13 +188,13 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	@Override
 	public int getSizeInventory()
 	{
-		return this.containingItems.length;
+		return this.containingItems != null ? this.containingItems.length : 0;
 	}
 	
 	@Override
 	public ItemStack getStackInSlot(int var1)
 	{
-		return this.containingItems[var1];
+		return this.containingItems != null ? this.containingItems[var1] : null;
 	}
 	
 	@Override

@@ -24,4 +24,10 @@ public class HMItemBlockEndium extends ItemBlock
 		return EnumRarity.rare;
 	}
 	
+	@Override
+	public int getMetadata(int meta)
+	{
+		return meta;
+	}
+	
 }

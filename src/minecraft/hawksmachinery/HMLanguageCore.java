@@ -3,6 +3,7 @@ package hawksmachinery;
 
 import hawksmachinery.blocks.HMBlock;
 import hawksmachinery.items.*;
+import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
@@ -26,16 +27,16 @@ public class HMLanguageCore
 		{
 			LANG.addNameForObject(HMBlock.endiumChunkloader, "en_US", "Endium Chunkloader");
 		}
+		LANG.addNameForObject(new ItemStack(HMBlock.endiumTeleporter), "en_US", "Endium Teleporter (Send)");
+		LANG.addNameForObject(new ItemStack(HMBlock.endiumTeleporter, 1, 1), "en_US", "Endium Teleporter (Receive)");
 		
 		LANG.addNameForObject(HMItem.rivetGun, "en_US", "Rivet Gun");
 		LANG.addNameForObject(new ItemStack(HMItem.endiumPlate), "en_US", "Endium Plate");
 		
 		LANG.addStringLocalization(BASEMOD.timeToCrush.getName(), "en_US", "Time to Crush!");
 		LANG.addStringLocalization(BASEMOD.timeToCrush.getName() + ".desc", "en_US", "Craft a Crusher.");
-		
 		LANG.addStringLocalization(BASEMOD.minerkiin.getName(), "en_US", "Minerkiin");
 		LANG.addStringLocalization(BASEMOD.minerkiin.getName() + ".desc", "en_US", "Mine some Endium.");
-		
 		LANG.addStringLocalization(BASEMOD.wash.getName(), "en_US", "Workin' at the--");
 		LANG.addStringLocalization(BASEMOD.wash.getName() + ".desc", "en_US", "Craft a Washer.");
 		

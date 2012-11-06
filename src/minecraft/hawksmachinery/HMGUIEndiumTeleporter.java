@@ -2,10 +2,12 @@
 package hawksmachinery;
 
 import org.lwjgl.opengl.GL11;
+import universalelectricity.electricity.ElectricInfo;
 import hawksmachinery.tileentity.HMTileEntityTeleporter;
 import net.minecraft.src.GuiButton;
 import net.minecraft.src.GuiContainer;
 import net.minecraft.src.InventoryPlayer;
+import net.minecraft.src.StatCollector;
 
 /**
  * 
@@ -84,6 +86,44 @@ public class HMGUIEndiumTeleporter extends GuiContainer
 			}
 			
 		}
+
+		this.drawTexturedModalRect(this.containerWidth - 32, this.containerHeight - 16, 0, 232, 240, 16);
+		
+		if (this.tileEntity.machineHP > 0)
+		{
+			int lightYPos = 0;
+			
+			if (this.tileEntity.machineHP <= 5)
+			{
+				lightYPos = 0;
+			}
+			else if (this.tileEntity.machineHP <= 10)
+			{
+				lightYPos = 10;
+			}
+			else if (this.tileEntity.machineHP <= 15)
+			{
+				lightYPos = 20;
+			}
+			else if (this.tileEntity.machineHP <= 20)
+			{
+				lightYPos = 30;
+			}
+			
+			for (int counter = 0; counter < this.tileEntity.machineHP; ++counter)
+			{
+				this.drawTexturedModalRect((this.containerWidth - 12) + (counter * 10), this.containerHeight - 12, lightYPos, 248, 10, 8);
+				
+			}
+			
+		}
+		
+	}
+
+	@Override
+	protected void drawGuiContainerForegroundLayer(int par1, int par2)
+	{
+		this.fontRenderer.drawString("Ready: " + (this.tileEntity.isReadyToTeleport() ? "Yes" : "No"), 97, 70, 4210752);
 		
 	}
 	
@@ -98,6 +138,7 @@ public class HMGUIEndiumTeleporter extends GuiContainer
 		else if (button.id == 17)
 		{
 			this.tileEntity.registerCoords();
+			
 		}
 		else
 		{

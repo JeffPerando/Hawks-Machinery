@@ -1,16 +1,19 @@
 
 package hawksmachinery.blocks;
 
+import java.util.List;
 import cpw.mods.fml.common.registry.GameRegistry;
 import hawksmachinery.HawksMachinery;
 import hawksmachinery.api.HMTeleportationHelper;
-import hawksmachinery.items.HMItemBlockEndium;
+import hawksmachinery.items.HMItemBlockTeleporter;
 import hawksmachinery.tileentity.HMTileEntityTeleporter;
 import net.minecraft.src.Block;
 import net.minecraft.src.BlockContainer;
 import net.minecraft.src.CreativeTabs;
 import net.minecraft.src.Entity;
 import net.minecraft.src.EntityPlayer;
+import net.minecraft.src.IBlockAccess;
+import net.minecraft.src.ItemStack;
 import net.minecraft.src.Material;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
@@ -22,21 +25,19 @@ import net.minecraftforge.common.MinecraftForge;
  * 
  * @author Elusivehawk
  */
-public class HMBlockEndiumTeleporter extends BlockContainer
+public class HMBlockEndiumTeleporter extends HMBlockMachine
 {
 	public static HawksMachinery BASEMOD;
 	public HMTileEntityTeleporter tileEntity;
 	
 	public HMBlockEndiumTeleporter(int id)
 	{
-		super(id, Material.iron);
+		super(null, id, Material.iron);
 		setHardness(5.0F);
 		setResistance(100.0F);
-		setTextureFile(BASEMOD.BLOCK_TEXTURE_FILE);
 		setCreativeTab(CreativeTabs.tabDecorations);
-		setBlockName("endiumTeleporter");
 		MinecraftForge.setBlockHarvestLevel(this, "pickaxe", 3);
-		GameRegistry.registerBlock(this, HMItemBlockEndium.class);
+		GameRegistry.registerBlock(this, HMItemBlockTeleporter.class);
 		
 	}
 	
@@ -85,11 +86,21 @@ public class HMBlockEndiumTeleporter extends BlockContainer
 	@Override
 	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity)
 	{
-		if (this.tileEntity.isReadyToTeleport())
-		{
-			this.tileEntity.teleportEntity(entity);
-			
-		}
+		this.tileEntity.tryTeleportEntity(entity);
+		
+	}
+	
+	@Override
+	public boolean isBlockSolid(IBlockAccess world, int x, int y, int z, int side)
+	{
+		return true;
+	}
+	
+	@Override
+	public void getSubBlocks(int id, CreativeTabs tab, List list)
+	{
+		list.add(new ItemStack(this, 1, 0));
+		list.add(new ItemStack(this, 1, 1));
 		
 	}
 	

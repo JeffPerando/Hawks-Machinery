@@ -124,5 +124,11 @@ public class HMBlockEndiumChunkloader extends BlockContainer
 		super.breakBlock(par1World, par2, par3, par4, par5, par6);
 		
 	}
+
+	@Override
+	public boolean isBlockSolid(IBlockAccess world, int x, int y, int z, int side)
+	{
+		return true;
+	}
 	
 }

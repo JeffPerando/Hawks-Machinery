@@ -33,12 +33,6 @@ public class HMBlockCrusher extends HMBlockMachine
 	}
 	
 	@Override
-	public int idDropped(int idk, Random random, int idk2)
-	{
-		return this.blockID;
-	}
-	
-	@Override
 	public boolean onMachineActivated(World world, int x, int y, int z, EntityPlayer player)
 	{
 		if (!world.isRemote && !super.onMachineActivated(world, x, y, z, player))
