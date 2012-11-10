@@ -1,7 +1,8 @@
 
 package hawksmachinery;
 
-import hawksmachinery.blocks.HMBlock;
+import java.lang.reflect.Array;
+import hawksmachinery.blocks.*;
 import hawksmachinery.items.*;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
@@ -17,6 +18,7 @@ public class HMLanguageCore
 {
 	public static HawksMachinery BASEMOD;
 	public static LanguageRegistry LANG = LanguageRegistry.instance();
+	public static final String[] langs = new String[]{"en_US"};
 	
 	public static void addToolTips()
 	{
@@ -40,49 +42,78 @@ public class HMLanguageCore
 		LANG.addStringLocalization(BASEMOD.wash.getName(), "en_US", "Workin' at the--");
 		LANG.addStringLocalization(BASEMOD.wash.getName() + ".desc", "en_US", "Craft a Washer.");
 		
-		
-		for (int counter = 0; counter < 16; ++counter)
+		for (String lang : langs)
 		{
-			if (counter < HMItemIngots.en_USNames.length)
+			for (int counter = 0; counter < 16; ++counter)
 			{
-				LANG.addNameForObject(new ItemStack(HMItem.ingots, 1, counter), "en_US", HMItemIngots.en_USNames[counter] + " Ingot");
-				
-			}
-			
-			if (counter < HMItemRivets.en_USNames.length)
-			{
-				LANG.addNameForObject(new ItemStack(HMItem.rivets, 1, counter), "en_US", HMItemRivets.en_USNames[counter] + " Rivet");
-				
-			}
-			
-			if (counter < HMItemRawDust.en_USNames.length)
-			{
-				if (HMItemRawDust.en_USNames[counter] != "Coal" && HMItemRawDust.en_USNames[counter] != "Obsidian")
+				try
 				{
-					LANG.addNameForObject(new ItemStack(HMItem.dustRaw, 1, counter), "en_US", "Unrefined " + HMItemRawDust.en_USNames[counter] + " Dust");
+					if (counter < Array.getLength(HMItemIngots.class.getField(lang + "Names").get(Array.class)))
+					{
+						LANG.addNameForObject(new ItemStack(HMItem.ingots, 1, counter), lang, HMItemIngots.en_USNames[counter] + " Ingot");
+						
+					}
+					
+					if (counter < Array.getLength(HMItemRivets.class.getField(lang + "Names").get(Array.class)))
+					{
+						LANG.addNameForObject(new ItemStack(HMItem.rivets, 1, counter), lang, HMItemRivets.en_USNames[counter] + " Rivet");
+						
+					}
+					
+					if (counter < Array.getLength(HMItemRawDust.class.getField(lang + "Names").get(Array.class)))
+					{
+						if (HMItemRawDust.en_USNames[counter] != "Coal" && HMItemRawDust.en_USNames[counter] != "Obsidian")
+						{
+							LANG.addNameForObject(new ItemStack(HMItem.dustRaw, 1, counter), lang, "Unrefined " + HMItemRawDust.en_USNames[counter] + " Dust");
+						}
+						else
+						{
+							LANG.addNameForObject(new ItemStack(HMItem.dustRaw, 1, counter), lang, HMItemRawDust.en_USNames[counter] + " Dust");
+						}
+						
+					}
+					
+					if (counter < Array.getLength(HMItemParts.class.getField(lang + "Names").get(Array.class)))
+					{
+						LANG.addNameForObject(new ItemStack(HMItem.parts, 1, counter), lang, HMItemParts.en_USNames[counter]);
+						
+					}
+					
+					if (counter < Array.getLength(HMItemBlueprints.class.getField(lang + "Names").get(Array.class)))
+					{
+						LANG.addNameForObject(new ItemStack(HMItem.blueprints, 1, counter), lang, "Blueprints (" + HMItemBlueprints.en_USNames[counter] + ")");
+						
+					}
+					
+					if (counter < Array.getLength(HMItemRefinedDust.class.getField(lang + "Names").get(Array.class)))
+					{
+						LANG.addNameForObject(new ItemStack(HMItem.dustRefined, 1, counter), lang, HMItemRefinedDust.en_USNames[counter] + " Dust");
+						
+					}
+					
+					if (counter < Array.getLength(HMBlockOre.class.getField(lang + "Names").get(Array.class)))
+					{
+						LANG.addNameForObject(new ItemStack(HMBlock.endiumOre, 1, counter), lang, HMBlockOre.en_USNames[counter]);
+						
+					}
+					
 				}
-				else
+				catch (IllegalArgumentException e)
 				{
-					LANG.addNameForObject(new ItemStack(HMItem.dustRaw, 1, counter), "en_US", HMItemRawDust.en_USNames[counter] + " Dust");
+					e.printStackTrace();
 				}
-				
-			}
-			
-			if (counter < HMItemParts.en_USNames.length)
-			{
-				LANG.addNameForObject(new ItemStack(HMItem.parts, 1, counter), "en_US", HMItemParts.en_USNames[counter]);
-				
-			}
-			
-			if (counter < HMItemBlueprints.en_USNames.length)
-			{
-				LANG.addNameForObject(new ItemStack(HMItem.blueprints, 1, counter), "en_US", "Blueprints (" + HMItemBlueprints.en_USNames[counter] + ")");
-				
-			}
-			
-			if (counter < HMItemRefinedDust.en_USNames.length)
-			{
-				LANG.addNameForObject(new ItemStack(HMItem.dustRefined, 1, counter), "en_US", HMItemRefinedDust.en_USNames[counter] + " Dust");
+				catch (SecurityException e)
+				{
+					e.printStackTrace();
+				}
+				catch (NoSuchFieldException e)
+				{
+					e.printStackTrace();
+				}
+				catch (IllegalAccessException e)
+				{
+					e.printStackTrace();
+				}
 				
 			}
 			
