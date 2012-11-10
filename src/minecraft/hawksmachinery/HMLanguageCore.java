@@ -40,21 +40,22 @@ public class HMLanguageCore
 		LANG.addStringLocalization(BASEMOD.wash.getName(), "en_US", "Workin' at the--");
 		LANG.addStringLocalization(BASEMOD.wash.getName() + ".desc", "en_US", "Craft a Washer.");
 		
-		for (int counter = 0; counter <= 9; ++counter)
+		
+		for (int counter = 0; counter < 16; ++counter)
 		{
-			if (counter == 0)
+			if (counter < HMItemIngots.en_USNames.length)
 			{
 				LANG.addNameForObject(new ItemStack(HMItem.ingots, 1, counter), "en_US", HMItemIngots.en_USNames[counter] + " Ingot");
 				
 			}
 			
-			if (counter <= 5)
+			if (counter < HMItemRivets.en_USNames.length)
 			{
 				LANG.addNameForObject(new ItemStack(HMItem.rivets, 1, counter), "en_US", HMItemRivets.en_USNames[counter] + " Rivet");
 				
 			}
 			
-			if (counter <= 6)
+			if (counter < HMItemRawDust.en_USNames.length)
 			{
 				if (HMItemRawDust.en_USNames[counter] != "Coal" && HMItemRawDust.en_USNames[counter] != "Obsidian")
 				{
@@ -65,16 +66,25 @@ public class HMLanguageCore
 					LANG.addNameForObject(new ItemStack(HMItem.dustRaw, 1, counter), "en_US", HMItemRawDust.en_USNames[counter] + " Dust");
 				}
 				
+			}
+			
+			if (counter < HMItemParts.en_USNames.length)
+			{
 				LANG.addNameForObject(new ItemStack(HMItem.parts, 1, counter), "en_US", HMItemParts.en_USNames[counter]);
 				
 			}
 			
-			if (counter <= 8)
+			if (counter < HMItemBlueprints.en_USNames.length)
 			{
 				LANG.addNameForObject(new ItemStack(HMItem.blueprints, 1, counter), "en_US", "Blueprints (" + HMItemBlueprints.en_USNames[counter] + ")");
+				
 			}
 			
-			LANG.addNameForObject(new ItemStack(HMItem.dustRefined, 1, counter), "en_US", HMItemRefinedDust.en_USNames[counter] + " Dust");
+			if (counter < HMItemRefinedDust.en_USNames.length)
+			{
+				LANG.addNameForObject(new ItemStack(HMItem.dustRefined, 1, counter), "en_US", HMItemRefinedDust.en_USNames[counter] + " Dust");
+				
+			}
 			
 		}
 		

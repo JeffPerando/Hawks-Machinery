@@ -45,7 +45,7 @@ public abstract class HMBlockMachine extends BlockMachine
 	{
 		ItemStack playerItem = player.getCurrentEquippedItem();
 		
-		if (playerItem != null)
+		if (playerItem != null && !player.isSneaking())
 		{
 			if (playerItem.getItem() instanceof IHMSapper)
 			{

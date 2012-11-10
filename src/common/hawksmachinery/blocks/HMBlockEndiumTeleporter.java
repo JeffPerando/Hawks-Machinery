@@ -3,12 +3,8 @@ package hawksmachinery.blocks;
 
 import java.util.List;
 import cpw.mods.fml.common.registry.GameRegistry;
-import hawksmachinery.HawksMachinery;
-import hawksmachinery.api.HMTeleportationHelper;
 import hawksmachinery.items.HMItemBlockTeleporter;
 import hawksmachinery.tileentity.HMTileEntityTeleporter;
-import net.minecraft.src.Block;
-import net.minecraft.src.BlockContainer;
 import net.minecraft.src.CreativeTabs;
 import net.minecraft.src.Entity;
 import net.minecraft.src.EntityPlayer;
@@ -27,7 +23,6 @@ import net.minecraftforge.common.MinecraftForge;
  */
 public class HMBlockEndiumTeleporter extends HMBlockMachine
 {
-	public static HawksMachinery BASEMOD;
 	public HMTileEntityTeleporter tileEntity;
 	
 	public HMBlockEndiumTeleporter(int id)
@@ -67,14 +62,9 @@ public class HMBlockEndiumTeleporter extends HMBlockMachine
 	}
 	
 	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int idk, float idk2, float idk3, float idk4)
+	public boolean onMachineActivated(World world, int x, int y, int z, EntityPlayer player)
 	{
-		if (player.isSneaking())
-		{
-			return false;
-		}
-		
-		if (!world.isRemote)
+		if (!world.isRemote && !super.onMachineActivated(world, x, y, z, player))
 		{
 			player.openGui(BASEMOD.instance(), 2, world, x, y, z);
 		}

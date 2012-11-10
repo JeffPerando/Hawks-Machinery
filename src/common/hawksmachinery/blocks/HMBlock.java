@@ -55,7 +55,7 @@ public class HMBlock extends Block
 	@Override
 	public boolean canDragonDestroy(World world, int x, int y, int z)
 	{
-		return world.getBlockId(x, y, z) != endiumOre.blockID;
+		return world.getBlockId(x, y, z) != endiumOre.blockID && world.getBlockMetadata(x, y, z) == 0;
 	}
 	
 }

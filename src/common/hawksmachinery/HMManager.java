@@ -29,6 +29,7 @@ import net.minecraftforge.common.ForgeChunkManager.LoadingCallback;
 import net.minecraftforge.common.ForgeChunkManager.Ticket;
 import net.minecraftforge.event.ForgeSubscribe;
 import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.ICraftingHandler;
 import cpw.mods.fml.common.IWorldGenerator;
 import cpw.mods.fml.common.Loader;
@@ -84,7 +85,6 @@ public class HMManager implements LoadingCallback, IVillageTradeHandler, ICrafti
 	
 	public int loadConfig()
 	{
-
 		HMConfig.load();
 		
 		crusherID = HMConfig.getBlock("Crusher", 3960).getInt(3960);
@@ -190,10 +190,6 @@ public class HMManager implements LoadingCallback, IVillageTradeHandler, ICrafti
 		
 		if (profession == 2)
 		{
-			if (enableChunkloader)
-			{
-				recipeList.add(new MerchantRecipe(new ItemStack(HMBlock.endiumChunkloader, 1), new ItemStack(Item.emerald, 12)));
-			}
 			
 		}
 		
