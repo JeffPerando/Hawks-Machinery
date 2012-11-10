@@ -5,6 +5,7 @@ import java.util.List;
 import cpw.mods.fml.common.registry.GameRegistry;
 import hawksmachinery.items.HMItemBlockTeleporter;
 import hawksmachinery.tileentity.HMTileEntityTeleporter;
+import net.minecraft.src.Block;
 import net.minecraft.src.CreativeTabs;
 import net.minecraft.src.Entity;
 import net.minecraft.src.EntityPlayer;
@@ -30,6 +31,7 @@ public class HMBlockEndiumTeleporter extends HMBlockMachine
 		super(null, id, Material.iron);
 		setHardness(5.0F);
 		setResistance(100.0F);
+		setStepSound(Block.soundMetalFootstep);
 		setCreativeTab(CreativeTabs.tabDecorations);
 		MinecraftForge.setBlockHarvestLevel(this, "pickaxe", 3);
 		GameRegistry.registerBlock(this, HMItemBlockTeleporter.class);

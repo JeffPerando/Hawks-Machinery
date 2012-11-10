@@ -8,6 +8,7 @@ import hawksmachinery.api.HMRepairInterfaces.IHMRepairable;
 import hawksmachinery.api.HMRepairInterfaces.IHMSapper;
 import hawksmachinery.items.HMItemBlockMachine;
 import hawksmachinery.tileentity.HMTileEntityMachine;
+import net.minecraft.src.Block;
 import net.minecraft.src.CreativeTabs;
 import net.minecraft.src.EntityLiving;
 import net.minecraft.src.EntityPlayer;
@@ -35,6 +36,7 @@ public abstract class HMBlockMachine extends BlockMachine
 		super(name, id, mat);
 		setHardness(1.0F);
 		setResistance(5.0F);
+		setStepSound(Block.soundMetalFootstep);
 		setTextureFile(BASEMOD.BLOCK_TEXTURE_FILE);
 		GameRegistry.registerBlock(this, HMItemBlockMachine.class);
 		

@@ -24,7 +24,7 @@ public class HMLanguageCore
 	{
 		LANG.addNameForObject(HMBlock.crusher, "en_US", "Crusher");
 		LANG.addNameForObject(HMBlock.washer, "en_US", "Washer");
-		LANG.addNameForObject(HMBlock.endiumOre, "en_US", "Endium Ore");
+		LANG.addNameForObject(HMBlock.ore, "en_US", "Endium Ore");
 		if (BASEMOD.MANAGER.enableChunkloader)
 		{
 			LANG.addNameForObject(HMBlock.endiumChunkloader, "en_US", "Endium Chunkloader");
@@ -93,7 +93,7 @@ public class HMLanguageCore
 					
 					if (counter < Array.getLength(HMBlockOre.class.getField(lang + "Names").get(Array.class)))
 					{
-						LANG.addNameForObject(new ItemStack(HMBlock.endiumOre, 1, counter), lang, HMBlockOre.en_USNames[counter]);
+						LANG.addNameForObject(new ItemStack(HMBlock.ore, 1, counter), lang, HMBlockOre.en_USNames[counter]);
 						
 					}
 					

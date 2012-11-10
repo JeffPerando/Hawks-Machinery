@@ -35,7 +35,7 @@ public class HMContent
 	public static Block crusher;
 	public static Block washer;
 	public static Block endiumChunkloader;
-	public static Block endiumOre;
+	public static Block ore;
 	public static Block endiumTeleporter;
 	
 }

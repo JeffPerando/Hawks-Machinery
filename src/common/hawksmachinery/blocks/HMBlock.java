@@ -20,7 +20,7 @@ public class HMBlock extends Block
 	public static Block crusher;
 	public static Block washer;
 	public static Block endiumChunkloader;
-	public static Block endiumOre;
+	public static Block ore;
 	public static Block endiumTeleporter;
 	
 	public static HawksMachinery BASEMOD;
@@ -49,13 +49,11 @@ public class HMBlock extends Block
 		{
 			player.addStat(this.onBlockBrokenAch, 1);
 		}
+		else if (world.getBlockId(x, y, z) == ore.blockID && world.getBlockMetadata(x, y, z) == 0)
+		{
+			player.addStat(BASEMOD.minerkiin, 1);
+		}
 		
-	}
-	
-	@Override
-	public boolean canDragonDestroy(World world, int x, int y, int z)
-	{
-		return world.getBlockId(x, y, z) != endiumOre.blockID && world.getBlockMetadata(x, y, z) == 0;
 	}
 	
 }

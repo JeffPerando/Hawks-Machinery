@@ -114,13 +114,13 @@ public class HawksMachinery
 	{
 		INSTANCE = this;
 		
-		HMBlock.crusher = new HMBlockCrusher(MANAGER.loadConfig()).setStepSound(Block.soundMetalFootstep);
-		HMBlock.endiumOre = new HMBlock(MANAGER.endiumOreID, Material.rock, 227, minerkiin).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabs.tabBlock).setBlockName("endiumOre").setHardness(10.0F);
-		HMBlock.washer = new HMBlockWasher(MANAGER.washerID).setStepSound(Block.soundMetalFootstep);
-		HMBlock.endiumTeleporter = new HMBlockEndiumTeleporter(MANAGER.endiumTeleporterID).setStepSound(Block.soundMetalFootstep);
+		HMBlock.crusher = new HMBlockCrusher(MANAGER.loadConfig());
+		HMBlock.ore = new HMBlockOre(MANAGER.endiumOreID);
+		HMBlock.washer = new HMBlockWasher(MANAGER.washerID);
+		HMBlock.endiumTeleporter = new HMBlockEndiumTeleporter(MANAGER.endiumTeleporterID);
 		
 		HMContent.crusher = HMBlock.crusher;
-		HMContent.endiumOre = HMBlock.endiumOre;
+		HMContent.ore = HMBlock.ore;
 		HMContent.washer = HMBlock.washer;
 		HMContent.endiumTeleporter = HMBlock.endiumTeleporter;
 		
@@ -151,14 +151,14 @@ public class HawksMachinery
 		HMContent.ingots = HMItem.ingots;
 		
 		timeToCrush = new Achievement(MANAGER.ACHtimeToCrush, "Time to Crush", -2, -3, new ItemStack(HMBlock.crusher, 1, 0), AchievementList.buildBetterPickaxe).registerAchievement();
-		minerkiin = new Achievement(MANAGER.ACHminerkiin, "Minerkiin", -5, 2, new ItemStack(HMBlock.endiumOre), AchievementList.theEnd2).registerAchievement().setSpecial();
+		minerkiin = new Achievement(MANAGER.ACHminerkiin, "Minerkiin", -5, 2, new ItemStack(HMBlock.ore), AchievementList.theEnd2).registerAchievement().setSpecial();
 		wash = new Achievement(MANAGER.ACHwash, "Wash", 0, -4, new ItemStack(HMBlock.washer, 1, 0), AchievementList.buildBetterPickaxe).registerAchievement();
 		
 		HAWKSPAGE = new AchievementPage("Hawk's Machinery", timeToCrush, minerkiin, wash);
 		
 		NetworkRegistry.instance().registerGuiHandler(this, PROXY);
 		GameRegistry.registerCraftingHandler(MANAGER);
-		GameRegistry.registerBlock(HMBlock.endiumOre, HMItemBlockEndium.class);
+		GameRegistry.registerBlock(HMBlock.ore, HMItemBlockEndium.class);
 		AchievementPage.registerAchievementPage(HAWKSPAGE);
 		NetworkRegistry.instance().registerConnectionHandler(PROXY);
 		VillagerRegistry.instance().registerVillageTradeHandler(0, MANAGER);
