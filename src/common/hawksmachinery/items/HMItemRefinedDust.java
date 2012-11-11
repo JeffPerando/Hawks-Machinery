@@ -21,10 +21,7 @@ public class HMItemRefinedDust extends HMItem
 		super(id);
 		setHasSubtypes(true);
 		setCreativeTab(CreativeTabs.tabMaterials);
-		//this.en_USNames = new String[]{"Diamond", "Ender", "Glass", 
-		//		"Iron", "Gold", "Copper",
-		//		"Tin", "Emerald", "Star",
-		//		"Endium"};
+		
 	}
 	
 	@Override
@@ -59,7 +56,7 @@ public class HMItemRefinedDust extends HMItem
 	@Override
 	public String getItemNameIS(ItemStack item)
 	{
-		return null; //en_USNames[item.getItemDamage()].toLowerCase() + "Dust";
+		return "dust" + item.getItemDamage();
 	}
 	
 }

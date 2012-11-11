@@ -2,7 +2,6 @@
 package hawksmachinery.blocks;
 
 import hawksmachinery.HawksMachinery;
-import hawksmachinery.items.HMItemBlockMachine;
 import hawksmachinery.tileentity.HMTileEntityWasher;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.src.CreativeTabs;
@@ -143,16 +142,20 @@ public class HMBlockWasher extends HMBlockMachine
 	@Override
 	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity)
 	{
-		if (this.tileEntity.canWash())
+		if (this.tileEntity != null)
 		{
-			if (entity instanceof EntityEnderman)
+			if (this.tileEntity.canWash())
 			{
-				entity.attackEntityFrom(DamageSource.drown, 1);
-				
-			}
-			else if (entity.isWet())
-			{
-				entity.attackEntityFrom(UEDamageSource.electrocution, 1);
+				if (entity instanceof EntityEnderman)
+				{
+					entity.attackEntityFrom(DamageSource.drown, 1);
+					
+				}
+				else if (entity.isWet())
+				{
+					entity.attackEntityFrom(UEDamageSource.electrocution, 1);
+					
+				}
 				
 			}
 			
@@ -164,15 +167,6 @@ public class HMBlockWasher extends HMBlockMachine
 	public boolean isBlockSolidOnSide(World world, int x, int y, int z, ForgeDirection side)
 	{
 		return (side.ordinal() != 0 && side.ordinal() != world.getBlockMetadata(x, y, z));
-	}
-	
-	@Override
-	protected ItemStack createStackedBlock(int meta)
-	{
-		ItemStack item = new ItemStack(this);
-		item.setTagCompound(new NBTTagCompound());
-		item.stackTagCompound.setInteger("MachineHP", this.tileEntity.machineHP);
-		return item;
 	}
 	
 }

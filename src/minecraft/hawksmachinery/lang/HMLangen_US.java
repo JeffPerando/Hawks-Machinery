@@ -41,6 +41,10 @@ public class HMLangen_US implements IHMLangHandler
 	public static final String[] rivetLang = new String[]{"Copper Rivet", "Bronze Rivet", "Iron Rivet", "Steel Rivet",
 		"Gold Rivet", "Endium Rivet", "Cobalt Rivet"};
 	
+	public static final String[] ingotLang = new String[]{"Endium Ingot", "Cobalt Ingot"};
+	
+	public static final String[] platingLang = new String[]{"Endium Plating", "Cobalt Plating"};
+	
 	public void addToolTips(String lang)
 	{
 		langFile.load();
@@ -51,8 +55,8 @@ public class HMLangen_US implements IHMLangHandler
 		LANG.addNameForObject(new ItemStack(HMBlock.endiumTeleporter), "en_US", langFile.get(catBlock, "block.telesend", "Endium Teleporter (Send)", Type.STRING).value);
 		LANG.addNameForObject(new ItemStack(HMBlock.endiumTeleporter, 1, 1), "en_US", langFile.get(catBlock, "block.telereceive", "Endium Teleporter (Receive)", Type.STRING).value);
 		
-		LANG.addNameForObject(new ItemStack(HMBlock.ore), "en_US", langFile.get(catBlock, "block.endiumore", "Endium Ore", Type.STRING).value);
-		LANG.addNameForObject(new ItemStack(HMBlock.ore, 1, 1), "en_US", langFile.get(catBlock, "block.endiumore", "Cobalt Ore", Type.STRING).value);
+		LANG.addNameForObject(new ItemStack(HMBlock.ore), "en_US", langFile.get(catBlock, "block.ore0", "Endium Ore", Type.STRING).value);
+		LANG.addNameForObject(new ItemStack(HMBlock.ore, 1, 1), "en_US", langFile.get(catBlock, "block.ore1", "Cobalt Ore", Type.STRING).value);
 		
 		LANG.addNameForObject(HMItem.rivetGun, "en_US", langFile.get(catItem, "item.rivetgun", "Rivet Gun", Type.STRING).value);
 		LANG.addNameForObject(HMItem.fishFood, "en_US", langFile.get(catItem, "item.fishfood", "Fish Food", Type.STRING).value);
@@ -94,6 +98,16 @@ public class HMLangen_US implements IHMLangHandler
 			{
 				LANG.addNameForObject(new ItemStack(HMItem.rivets, 1, counter), lang, langFile.get(catItem, "item.rivet" + counter, rivetLang[counter]).value);
 				
+			}
+			
+			if (counter < ingotLang.length)
+			{
+				LANG.addNameForObject(new ItemStack(HMItem.ingots, 1, counter), lang, langFile.get(catItem, "item.ingot" + counter, ingotLang[counter]).value);
+			}
+
+			if (counter < platingLang.length)
+			{
+				LANG.addNameForObject(new ItemStack(HMItem.plating, 1, counter), lang, langFile.get(catItem, "item.plating" + counter, platingLang[counter]).value);
 			}
 			
 		}

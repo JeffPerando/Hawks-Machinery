@@ -23,13 +23,7 @@ public class HMItemBlockOre extends ItemBlock
 	@Override
 	public String getItemNameIS(ItemStack item)
 	{
-		switch (item.getItemDamage())
-		{
-			case 0: return "oreEndium";
-			case 1: return "oreCobalt";
-			default: return null;
-		}
-		
+		return "ore" + ((Integer)item.getItemDamage()).toString();
 	}
 	
 	@Override

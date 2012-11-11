@@ -120,14 +120,14 @@ public class HawksMachinery
 		HMBlock.endiumChunkloader = new HMBlockEndiumChunkloader(MANAGER.endiumChunkloaderID);
 		HMBlock.endiumTeleporter = new HMBlockEndiumTeleporter(MANAGER.endiumTeleporterID);
 		
-		HMItem.dustRaw = new HMItemRawDust(MANAGER.dustRawID - 256);
-		HMItem.dustRefined = new HMItemRefinedDust(MANAGER.dustRefinedID - 256);
-		HMItem.parts = new HMItemParts(MANAGER.partsID - 256);
-		HMItem.blueprints = new HMItemBlueprints(MANAGER.blueprintID - 256);
-		HMItem.plating = new HMItemPlating(MANAGER.platingID - 256);
-		HMItem.rivets = new HMItemRivets(MANAGER.rivetsID - 256);
+		HMItem.dustRaw = new HMItemRawDust(MANAGER.dustRawID - 256).registerMaxDamage(7);
+		HMItem.dustRefined = new HMItemRefinedDust(MANAGER.dustRefinedID - 256).registerMaxDamage(10);
+		HMItem.parts = new HMItemParts(MANAGER.partsID - 256).registerMaxDamage(6);
+		HMItem.blueprints = new HMItemBlueprints(MANAGER.blueprintID - 256).registerMaxDamage(9);
+		HMItem.plating = new HMItemPlating(MANAGER.platingID - 256).registerMaxDamage(1);
+		HMItem.rivets = new HMItemRivets(MANAGER.rivetsID - 256).registerMaxDamage(6);
 		HMItem.rivetGun = new HMItemRivetGun(MANAGER.rivetGunID - 256);
-		HMItem.ingots = new HMItemIngots(MANAGER.ingotsID - 256);
+		HMItem.ingots = new HMItemIngots(MANAGER.ingotsID - 256).registerMaxDamage(1);
 		HMItem.fishFood = new HMItem(MANAGER.fishFoodID - 256).setIconIndex(88).setItemName("fishFood").setCreativeTab(CreativeTabs.tabFood);
 		
 		timeToCrush = new Achievement(MANAGER.ACHtimeToCrush, "Crush", -2, -3, new ItemStack(HMBlock.crusher, 1, 0), AchievementList.buildBetterPickaxe).registerAchievement();

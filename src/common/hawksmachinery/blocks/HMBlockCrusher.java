@@ -3,7 +3,6 @@ package hawksmachinery.blocks;
 
 import java.util.Random;
 import hawksmachinery.HawksMachinery;
-import hawksmachinery.items.HMItemBlockMachine;
 import hawksmachinery.tileentity.HMTileEntityCrusher;
 import hawksmachinery.tileentity.HMTileEntityMachine;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -137,15 +136,6 @@ public class HMBlockCrusher extends HMBlockMachine
 	public boolean isBlockSolidOnSide(World world, int x, int y, int z, ForgeDirection side)
 	{
 		return !(side.ordinal() == 1 && side.ordinal() == world.getBlockMetadata(x, y, z));
-	}
-	
-	@Override
-	protected ItemStack createStackedBlock(int meta)
-	{
-		ItemStack item = new ItemStack(this);
-		item.setTagCompound(new NBTTagCompound());
-		item.stackTagCompound.setInteger("MachineHP", this.tileEntity.machineHP);
-		return item;
 	}
 	
 }

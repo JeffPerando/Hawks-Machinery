@@ -43,7 +43,7 @@ public class HMItemPlating extends HMItem
 	@Override
 	public String getItemNameIS(ItemStack item)
 	{
-		return "plating" + item.getItemDamage();
+		return "plating" + ((Integer)item.getItemDamage()).toString();
 	}
 	
 }

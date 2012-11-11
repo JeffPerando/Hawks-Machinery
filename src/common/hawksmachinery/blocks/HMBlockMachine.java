@@ -6,7 +6,6 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import hawksmachinery.HawksMachinery;
 import hawksmachinery.api.HMRepairInterfaces.IHMRepairable;
 import hawksmachinery.api.HMRepairInterfaces.IHMSapper;
-import hawksmachinery.items.HMItemBlockMachine;
 import hawksmachinery.tileentity.HMTileEntityMachine;
 import net.minecraft.src.Block;
 import net.minecraft.src.CreativeTabs;
@@ -38,7 +37,7 @@ public abstract class HMBlockMachine extends BlockMachine
 		setResistance(5.0F);
 		setStepSound(Block.soundMetalFootstep);
 		setTextureFile(BASEMOD.BLOCK_TEXTURE_FILE);
-		GameRegistry.registerBlock(this, HMItemBlockMachine.class);
+		GameRegistry.registerBlock(this);
 		
 	}
 	
@@ -86,39 +85,9 @@ public abstract class HMBlockMachine extends BlockMachine
 	}
 	
 	@Override
-	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLiving entity)
-	{
-		if (entity != null)
-		{
-			if (entity instanceof EntityPlayer)
-			{
-				if (((EntityPlayer)entity).getCurrentEquippedItem().stackTagCompound != null)
-				{
-					((HMTileEntityMachine)world.getBlockTileEntity(x, y, z)).machineHP = (((EntityPlayer)entity).getCurrentEquippedItem().stackTagCompound.getInteger("MachineHP"));
-					
-				}
-				
-			}
-			
-		}
-		
-	}
-	
-	@Override
 	public boolean isBlockSolid(IBlockAccess world, int x, int y, int z, int side)
 	{
 		return side != world.getBlockMetadata(x, y, z) && side != 1;
-	}
-	
-	@Override
-	public void getSubBlocks(int idk, CreativeTabs tab, List list)
-	{
-		ItemStack item = new ItemStack(this);
-		NBTTagCompound newTag = new NBTTagCompound();
-		newTag.setInteger("MachineHP", 0);
-		item.setTagCompound(newTag);
-		list.add(item);
-		
 	}
 	
 }

@@ -37,6 +37,7 @@ public class HMItem extends Item
 	public static Item fishFood;
 	
 	public static HawksMachinery BASEMOD;
+	private int maxDmg;
 	
 	public HMItem(int id)
 	{
@@ -45,14 +46,21 @@ public class HMItem extends Item
 		
 	}
 	
+	public HMItem registerMaxDamage(int dmg)
+	{
+		this.maxDmg = dmg;
+		return this;
+	}
+	
 	@Override
 	public void getSubItems(int id, CreativeTabs tabs, List itemList)
 	{
 		if (this.hasSubtypes)
 		{
-			for (int counter = 0; this.getItemNameIS(new ItemStack(this, 1, counter)) != null; ++counter)
+			for (int counter = 0; this.getItemNameIS(new ItemStack(this, 1, counter)) != null && counter <= this.maxDmg; ++counter)
 			{
 				itemList.add(new ItemStack(this, 1, counter));
+				
 			}
 			
 		}
