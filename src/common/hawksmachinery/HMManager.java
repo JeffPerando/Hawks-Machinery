@@ -47,19 +47,21 @@ public class HMManager implements LoadingCallback, IVillageTradeHandler, ICrafti
 	private static int chunkLimit;
 	
 	public static int crusherID;
-	public static int endiumOreID;
+	public static int oreID;
 	public static int washerID;
 	public static int endiumChunkloaderID;
 	public static int endiumTeleporterID;
+	public static int fisherID;
 	
 	public static int dustRawID;
 	public static int dustRefinedID;
 	public static int partsID;
 	public static int blueprintID;
-	public static int endiumPlateID;
+	public static int platingID;
 	public static int rivetsID;
 	public static int rivetGunID;
 	public static int ingotsID;
+	public static int fishFoodID;
 	
 	public static int ACHprospector;
 	public static int ACHtimeToCrush;
@@ -88,31 +90,27 @@ public class HMManager implements LoadingCallback, IVillageTradeHandler, ICrafti
 		HMConfig.load();
 		
 		crusherID = HMConfig.getBlock("Crusher", 3960).getInt(3960);
-		endiumOreID = HMConfig.getBlock("Endium Ore", 3961).getInt(3961);
+		oreID = HMConfig.getBlock("Ore", 3961).getInt(3961);
 		washerID = HMConfig.getBlock("Washer", 3962).getInt(3962);
-		//NOTE ID #3964 saved for the Endium Chunkloader.
+		endiumChunkloaderID = HMConfig.getBlock("Endium Chunkloader", 3964).getInt(3964);
 		endiumTeleporterID = HMConfig.getBlock("Endium Teleporter", 3965).getInt(3965);
+		fisherID = HMConfig.getBlock("Fisher", 3966).getInt(3966);
 		
 		generateEndium = HMConfig.get(Configuration.CATEGORY_GENERAL, "Generate Endium", true).getBoolean(true);
 		enableUpdateChecking = HMConfig.get(Configuration.CATEGORY_GENERAL, "Enable Update Checking", true).getBoolean(true);
 		enableAutoDL = HMConfig.get(Configuration.CATEGORY_GENERAL, "Enable Auto DL", true).getBoolean(true);
-		enableChunkloader = HMConfig.get(Configuration.CATEGORY_GENERAL, "Enable Chunkloader Block", true).getBoolean(true);
-		
-		if (enableChunkloader)
-		{
-			endiumChunkloaderID = HMConfig.getBlock("Endium Chunkloader", 3964).getInt(3964);
-			maxChunksLoaded = HMConfig.get("Max Chunks Loaded", Configuration.CATEGORY_GENERAL, 25).getInt(25);
-			
-		}
+		enableChunkloader = HMConfig.get(Configuration.CATEGORY_GENERAL, "Enable Chunkloader Crafting", true).getBoolean(true);
+		maxChunksLoaded = HMConfig.get("Max Chunks Loaded", Configuration.CATEGORY_GENERAL, 25).getInt(25);
 		
 		dustRawID = HMConfig.get(Configuration.CATEGORY_ITEM, "Raw Dusts", 24150).getInt(24150);
 		dustRefinedID = HMConfig.get(Configuration.CATEGORY_ITEM, "Refined Dusts", 24151).getInt(24151);
 		partsID = HMConfig.get(Configuration.CATEGORY_ITEM, "Parts", 24152).getInt(24152);
 		blueprintID = HMConfig.get(Configuration.CATEGORY_ITEM, "Blueprints", 24153).getInt(24153);
-		endiumPlateID = HMConfig.get(Configuration.CATEGORY_ITEM, "Endium Plate", 24154).getInt(24154);
+		platingID = HMConfig.get(Configuration.CATEGORY_ITEM, "Plating", 24154).getInt(24154);
 		rivetsID = HMConfig.get(Configuration.CATEGORY_ITEM, "Rivets", 24155).getInt(24155);
 		rivetGunID = HMConfig.get(Configuration.CATEGORY_ITEM, "Rivet Gun", 24156).getInt(24156);
 		ingotsID = HMConfig.get(Configuration.CATEGORY_ITEM, "Ingots", 24157).getInt(24157);
+		fishFoodID = HMConfig.get(Configuration.CATEGORY_ITEM, "Fish Food", 24158).getInt(24158);
 		
 		ACHprospector = HMConfig.get(Configuration.CATEGORY_GENERAL, "ACH Prospector", 1500).getInt(1500);
 		ACHtimeToCrush = HMConfig.get(Configuration.CATEGORY_GENERAL, "ACH Time To Crush", 1501).getInt(1501);
@@ -203,25 +201,7 @@ public class HMManager implements LoadingCallback, IVillageTradeHandler, ICrafti
 	}
 	
 	@Override
-	public void onCrafting(EntityPlayer player, ItemStack item, IInventory craftMatrix)
-	{
-		if (item.itemID == HMBlock.crusher.blockID)
-		{
-			player.addStat(BASEMOD.timeToCrush, 1);
-			item.setTagCompound(new NBTTagCompound());
-			item.stackTagCompound.setInteger("MachineHP", 0);
-			
-		}
-		
-		if (item.itemID == HMBlock.washer.blockID)
-		{
-			player.addStat(BASEMOD.wash, 1);
-			item.setTagCompound(new NBTTagCompound());
-			item.stackTagCompound.setInteger("MachineHP", 0);
-			
-		}
-		
-	}
+	public void onCrafting(EntityPlayer player, ItemStack item, IInventory craftMatrix){}
 	
 	@Override
 	public void onSmelting(EntityPlayer player, ItemStack item){}

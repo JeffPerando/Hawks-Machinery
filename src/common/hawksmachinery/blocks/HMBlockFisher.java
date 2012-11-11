@@ -1,6 +1,7 @@
 
 package hawksmachinery.blocks;
 
+import hawksmachinery.tileentity.HMTileEntityFisher;
 import net.minecraft.src.CreativeTabs;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.Material;
@@ -47,7 +48,7 @@ public class HMBlockFisher extends HMBlockMachine
 	@Override
 	public TileEntity createNewTileEntity(World world)
 	{
-		//TODO Add tile entity.
+		this.tileEntity = new HMTileEntityFisher();
 		return this.tileEntity;
 	}
 

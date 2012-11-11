@@ -12,34 +12,22 @@ import net.minecraft.src.ItemStack;
  * 
  * @author Elusivehawk
  */
-public class HMItemIngots extends HMItem
+public class HMItemPlating extends HMItem
 {
-	public HMItemIngots(int id)
+	public HMItemPlating(int id)
 	{
 		super(id);
-		setCreativeTab(CreativeTabs.tabMaterials);
 		setHasSubtypes(true);
+		//this.en_USNames = new String[]{"Endium", "Cobalt"};
 		
 	}
 
 	@Override
 	public int getIconFromDamage(int dmg)
 	{
-		return 32 + dmg;
+		return 48 + dmg;
 	}
-	
-	@Override
-	public String getItemNameIS(ItemStack item)
-	{
-		switch (item.getItemDamage())
-		{
-			case 0: return "endiumIngot";
-			case 1: return "cobaltIngot";
-			default: return null;
-		}
-		
-	}
-	
+
 	@Override
 	public boolean hasEffect(ItemStack item)
 	{
@@ -50,6 +38,12 @@ public class HMItemIngots extends HMItem
 	public EnumRarity getRarity(ItemStack item)
 	{
 		return item.getItemDamage() == 0 ? EnumRarity.rare : EnumRarity.common;
+	}
+	
+	@Override
+	public String getItemNameIS(ItemStack item)
+	{
+		return null; //en_USNames[item.getItemDamage()].toLowerCase() + "Plating";
 	}
 	
 }

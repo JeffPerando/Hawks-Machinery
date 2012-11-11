@@ -3,6 +3,7 @@ package hawksmachinery.items;
 
 import java.util.List;
 import net.minecraft.src.CreativeTabs;
+import net.minecraft.src.EnumRarity;
 import net.minecraft.src.ItemStack;
 import hawksmachinery.api.HMRepairInterfaces.IHMRivet;
 
@@ -14,20 +15,19 @@ import hawksmachinery.api.HMRepairInterfaces.IHMRivet;
  */
 public class HMItemRivets extends HMItem implements IHMRivet
 {
-	public static String[] en_USNames = {"Copper", "Bronze", "Iron", "Steel", "Gold", "Endium"};
-	
 	public HMItemRivets(int id)
 	{
 		super(id);
 		setHasSubtypes(true);
 		setCreativeTab(CreativeTabs.tabMaterials);
+		//this.en_USNames = new String[]{"Copper", "Bronze", "Iron", "Steel", "Gold", "Endium", "Cobalt"};
 		
 	}
 	
 	@Override
 	public int getIconFromDamage(int dmg)
 	{
-		return 67 + dmg;
+		return 41 + dmg;
 	}
 	
 	public int getRepairAmount(ItemStack rivet)
@@ -40,6 +40,7 @@ public class HMItemRivets extends HMItem implements IHMRivet
 			case 3: return 5;
 			case 4: return 3;
 			case 5: return 10;
+			case 6: return 6;
 			default: return 0;
 		}
 		
@@ -56,18 +57,22 @@ public class HMItemRivets extends HMItem implements IHMRivet
 			case 3: return "steelRivet";
 			case 4: return "goldRivet";
 			case 5: return "endiumRivet";
+			case 6: return "cobaltRivet";
 			default: return null;
 		}
 		
 	}
 	
 	@Override
-	public void getSubItems(int id, CreativeTabs tabs, List itemList)
+	public boolean hasEffect(ItemStack item)
 	{
-		for (int counter = 0; counter <= 5; ++counter)
-		{
-			itemList.add(new ItemStack(this, 1, counter));
-		}
+		return item.getItemDamage() == 5;
+	}
+
+	@Override
+	public EnumRarity getRarity(ItemStack item)
+	{
+		return item.getItemDamage() == 5 ? EnumRarity.rare : EnumRarity.common;
 	}
 	
 }

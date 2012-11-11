@@ -16,46 +16,21 @@ import net.minecraft.src.*;
  */
 public class HMItemRefinedDust extends HMItem
 {
-	public static String[] en_USNames = {"Diamond", "Ender", "Glass", 
-										"Iron", "Gold", "Copper",
-										"Tin", "Emerald", "Star",
-										"Endium"};
-	
 	public HMItemRefinedDust(int id)
 	{
 		super(id);
 		setHasSubtypes(true);
 		setCreativeTab(CreativeTabs.tabMaterials);
-		
+		//this.en_USNames = new String[]{"Diamond", "Ender", "Glass", 
+		//		"Iron", "Gold", "Copper",
+		//		"Tin", "Emerald", "Star",
+		//		"Endium"};
 	}
 	
 	@Override
 	public int getIconFromDamage(int dmg)
 	{
-		switch (dmg)
-		{
-			case 0: return 42;
-			case 1: return 43;
-			case 2: return 44;
-			case 3: return 25;
-			case 4: return 26;
-			case 5: return 28;
-			case 6: return 27;
-			case 7: return 58;
-			case 8: return 60;
-			case 9: return 19;
-			default: return 0;
-			
-		}
-	}
-	
-	@Override
-	public void getSubItems(int id, CreativeTabs tabs, List itemList)
-	{
-		for (int counter = 0; counter <= 9; ++counter)
-		{
-			itemList.add(new ItemStack(this, 1, counter));
-		}
+		return 16 + dmg;
 	}
 	
 	@Override
@@ -84,7 +59,7 @@ public class HMItemRefinedDust extends HMItem
 	@Override
 	public String getItemNameIS(ItemStack item)
 	{
-		return en_USNames[item.getItemDamage()].toLowerCase() + "Dust";
+		return null; //en_USNames[item.getItemDamage()].toLowerCase() + "Dust";
 	}
 	
 }

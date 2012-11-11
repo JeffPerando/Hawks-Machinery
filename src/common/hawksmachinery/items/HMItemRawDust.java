@@ -17,43 +17,21 @@ import net.minecraft.src.*;
  */
 public class HMItemRawDust extends HMItem
 {
-	public static String[] en_USNames = {"Coal", 
-										"Iron", "Gold", 
-										"Copper", "Tin", 
-										"Obsidian", "Endium"};
-	
 	public HMItemRawDust(int id)
 	{
 		super(id);
 		setHasSubtypes(true);
 		setCreativeTab(CreativeTabs.tabMaterials);
-		
+		//this.en_USNames = new String[]{"Coal", 
+		//		"Iron", "Gold", 
+		//		"Copper", "Tin", 
+		//		"Obsidian", "Endium"};
 	}
 	
 	@Override
 	public int getIconFromDamage(int dmg)
 	{
-		switch (dmg)
-		{
-			case 0: return 57;
-			case 1: return 9;
-			case 2: return 10;
-			case 3: return 12;
-			case 4: return 11;
-			case 5: return 59;
-			case 6: return 3;
-			default: return 0;
-			
-		}
-	}
-    
-	@Override
-	public void getSubItems(int id, CreativeTabs tabs, List itemList)
-	{
-		for (int counter = 0; counter <= 6; ++counter)
-		{
-			itemList.add(new ItemStack(this, 1, counter));
-		}
+		return 1 + dmg;
 	}
     
 	@Override
@@ -79,7 +57,7 @@ public class HMItemRawDust extends HMItem
 	@Override
 	public String getItemNameIS(ItemStack item)
 	{
-		return en_USNames[item.getItemDamage()] + "DustUnref";
+		return null; //en_USNames[item.getItemDamage()] + "DustUnref";
 	}
 	
 }

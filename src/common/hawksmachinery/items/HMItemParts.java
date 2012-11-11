@@ -15,39 +15,19 @@ import net.minecraft.src.ItemStack;
  */
 public class HMItemParts extends HMItem
 {
-	public static String[] en_USNames = {"Electric Piston", "Laser", "Circular Saw Blade", "Light Bulb", "Heating Coil", "Electric Magnet", "Engine"};
-	
 	public HMItemParts(int id)
 	{
 		super(id);
 		setHasSubtypes(true);
 		setCreativeTab(CreativeTabs.tabMaterials);
+		//this.en_USNames = new String[]{"Electric Piston", "Laser", "I have NO idea!", "Light Bulb", "Heating Coil", "Electric Magnet", "Engine"};
 		
 	}
 	
 	@Override
 	public int getIconFromDamage(int dmg)
 	{
-		switch (dmg)
-		{
-			case 0: return 16;
-			case 1: return 32;
-			case 2: return 48;
-			case 3: return 64;
-			case 4: return 80;
-			case 5: return 96;
-			case 6: return 112;
-			default: return 0;
-		}
-	}
-	
-	@Override
-	public void getSubItems(int id, CreativeTabs tabs, List itemList)
-	{
-		for (int counter  = 0; counter <= 5; ++counter)
-		{
-			itemList.add(new ItemStack(this, 1, counter));
-		}
+		return 64 + dmg;
 	}
 	
 	@Override
@@ -57,7 +37,7 @@ public class HMItemParts extends HMItem
 		{
 			case 0: return "electricPiston";
 			case 1: return "laser";
-			case 2: return "circularSawBlade";
+			case 2: return "idk";//TODO Add a new part.
 			case 3: return "lightBulb";
 			case 4: return "heatingCoil";
 			case 5: return "electroMagnet";

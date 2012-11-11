@@ -115,50 +115,29 @@ public class HawksMachinery
 		INSTANCE = this;
 		
 		HMBlock.crusher = new HMBlockCrusher(MANAGER.loadConfig());
-		HMBlock.ore = new HMBlockOre(MANAGER.endiumOreID);
+		HMBlock.ore = new HMBlockOre(MANAGER.oreID);
 		HMBlock.washer = new HMBlockWasher(MANAGER.washerID);
+		HMBlock.endiumChunkloader = new HMBlockEndiumChunkloader(MANAGER.endiumChunkloaderID);
 		HMBlock.endiumTeleporter = new HMBlockEndiumTeleporter(MANAGER.endiumTeleporterID);
-		
-		HMContent.crusher = HMBlock.crusher;
-		HMContent.ore = HMBlock.ore;
-		HMContent.washer = HMBlock.washer;
-		HMContent.endiumTeleporter = HMBlock.endiumTeleporter;
-		
-		if (MANAGER.enableChunkloader)
-		{
-			HMBlock.endiumChunkloader = new HMBlockEndiumChunkloader(MANAGER.endiumChunkloaderID);
-			HMContent.endiumChunkloader = HMBlock.endiumChunkloader;
-			ForgeChunkManager.setForcedChunkLoadingCallback(this, MANAGER);
-			
-		}
 		
 		HMItem.dustRaw = new HMItemRawDust(MANAGER.dustRawID - 256);
 		HMItem.dustRefined = new HMItemRefinedDust(MANAGER.dustRefinedID - 256);
 		HMItem.parts = new HMItemParts(MANAGER.partsID - 256);
 		HMItem.blueprints = new HMItemBlueprints(MANAGER.blueprintID - 256);
-		HMItem.endiumPlate = new HMItem(MANAGER.endiumPlateID - 256).setIconIndex(51, 0).setEffect(0).setItemName("endiumPlate", 0).setCreativeTab(CreativeTabs.tabMaterials);
-		HMItem.rivets = new HMItemRivets(MANAGER.rivetsID - 256).setEffect(5);
+		HMItem.plating = new HMItemPlating(MANAGER.platingID - 256);
+		HMItem.rivets = new HMItemRivets(MANAGER.rivetsID - 256);
 		HMItem.rivetGun = new HMItemRivetGun(MANAGER.rivetGunID - 256);
 		HMItem.ingots = new HMItemIngots(MANAGER.ingotsID - 256);
+		HMItem.fishFood = new HMItem(MANAGER.fishFoodID - 256).setIconIndex(88).setItemName("fishFood").setCreativeTab(CreativeTabs.tabFood);
 		
-		HMContent.dustRaw = HMItem.dustRaw;
-		HMContent.dustRefined = HMItem.dustRefined;
-		HMContent.parts = HMItem.parts;
-		HMContent.blueprints = HMItem.blueprints;
-		HMContent.endiumPlate = HMItem.endiumPlate;
-		HMContent.rivets = HMItem.rivets;
-		HMContent.rivetGun = HMItem.rivetGun;
-		HMContent.ingots = HMItem.ingots;
-		
-		timeToCrush = new Achievement(MANAGER.ACHtimeToCrush, "Time to Crush", -2, -3, new ItemStack(HMBlock.crusher, 1, 0), AchievementList.buildBetterPickaxe).registerAchievement();
+		timeToCrush = new Achievement(MANAGER.ACHtimeToCrush, "Crush", -2, -3, new ItemStack(HMBlock.crusher, 1, 0), AchievementList.buildBetterPickaxe).registerAchievement();
 		minerkiin = new Achievement(MANAGER.ACHminerkiin, "Minerkiin", -5, 2, new ItemStack(HMBlock.ore), AchievementList.theEnd2).registerAchievement().setSpecial();
 		wash = new Achievement(MANAGER.ACHwash, "Wash", 0, -4, new ItemStack(HMBlock.washer, 1, 0), AchievementList.buildBetterPickaxe).registerAchievement();
-		
 		HAWKSPAGE = new AchievementPage("Hawk's Machinery", timeToCrush, minerkiin, wash);
 		
+		new HMContent();
 		NetworkRegistry.instance().registerGuiHandler(this, PROXY);
 		GameRegistry.registerCraftingHandler(MANAGER);
-		GameRegistry.registerBlock(HMBlock.ore, HMItemBlockEndium.class);
 		AchievementPage.registerAchievementPage(HAWKSPAGE);
 		NetworkRegistry.instance().registerConnectionHandler(PROXY);
 		VillagerRegistry.instance().registerVillageTradeHandler(0, MANAGER);
@@ -166,34 +145,13 @@ public class HawksMachinery
 		VillagerRegistry.instance().registerVillageTradeHandler(2, MANAGER);
 		VillagerRegistry.instance().registerVillageTradeHandler(3, MANAGER);
 		VillagerRegistry.instance().registerVillageTradeHandler(4, MANAGER);
-		
-		OreDictionary.registerOre("dustCoal", new ItemStack(HMItem.dustRaw, 1, 0));
-		OreDictionary.registerOre("dustRawIron", new ItemStack(HMItem.dustRaw, 1, 1));
-		OreDictionary.registerOre("dustRawGold", new ItemStack(HMItem.dustRaw, 1, 2));
-		OreDictionary.registerOre("dustRawCopper", new ItemStack(HMItem.dustRaw, 1, 3));
-		OreDictionary.registerOre("dustRawTin", new ItemStack(HMItem.dustRaw, 1, 4));
-		OreDictionary.registerOre("dustObsidian", new ItemStack(HMItem.dustRaw, 1, 5));
-		OreDictionary.registerOre("dustRawEndium", new ItemStack(HMItem.dustRaw, 1, 6));
-		
-		OreDictionary.registerOre("dustDiamond", new ItemStack(HMItem.dustRefined, 1, 0));
-		OreDictionary.registerOre("dustEnder", new ItemStack(HMItem.dustRefined, 1, 1));
-		OreDictionary.registerOre("dustGlass", new ItemStack(HMItem.dustRefined, 1, 2));
-		OreDictionary.registerOre("dustIron", new ItemStack(HMItem.dustRefined, 1, 3));
-		OreDictionary.registerOre("dustGold", new ItemStack(HMItem.dustRefined, 1, 4));
-		OreDictionary.registerOre("dustCopper", new ItemStack(HMItem.dustRefined, 1, 5));
-		OreDictionary.registerOre("dustTin", new ItemStack(HMItem.dustRefined, 1, 6));
-		OreDictionary.registerOre("dustEmerald", new ItemStack(HMItem.dustRefined, 1, 7));
-		OreDictionary.registerOre("dustStar", new ItemStack(HMItem.dustRefined, 1, 8));
-		OreDictionary.registerOre("dustEndium", new ItemStack(HMItem.dustRefined, 1, 9));
-		
-		OreDictionary.registerOre("ingotEndium", new ItemStack(HMItem.ingots));
+		ForgeChunkManager.setForcedChunkLoadingCallback(this, MANAGER);
 		
 	}
 	
 	@Init
 	public void load(FMLInitializationEvent event)
 	{
-		PROXY.registerRenderInformation();
 		loadRecipes();
 		new HMUpdateHandler(ModConverter.getMod(getClass()));
 		OreGenerator.addOre(new HMEndiumOreGen());
@@ -203,6 +161,7 @@ public class HawksMachinery
 	@PostInit
 	public void modsLoaded(FMLPostInitializationEvent event)
 	{
+		PROXY.registerRenderInformation();
 		loadProcessingRecipes();
 		
 	}
@@ -217,38 +176,38 @@ public class HawksMachinery
 	 */
 	public static void loadRecipes()
 	{
-		CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(new ItemStack(HMBlock.crusher), new Object[]{"IPI", "SES", "SCS", 'I', "ingotIron", 'P', Item.pickaxeSteel, 'S', "plateSteel", 'E', new ItemStack(HMItem.parts, 1, 6), 'C', "copperWire"}));
-		CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(new ItemStack(HMBlock.washer), new Object[]{"iBi", "iWi", "IEI", 'i', "ingotIron", 'B', Item.bucketEmpty, 'I', Block.blockSteel, 'W', Block.cloth, 'E', new ItemStack(HMItem.parts, 1, 6)}));
-		CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(((HMItemRivetGun)HMItem.rivetGun).getUncharged(), new Object[]{"SLS", "XBX", "TPT", 'S', "ingotSteel", 'L', Block.lever, 'X', "plateSteel", 'B', "battery", 'T', "plateTin", 'P', Block.pistonBase}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMBlock.crusher), new Object[]{"IPI", "SES", "SCS", 'I', "ingotIron", 'P', Item.pickaxeSteel, 'S', "plateSteel", 'E', new ItemStack(HMItem.parts, 1, 6), 'C', "copperWire"}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMBlock.washer), new Object[]{"iBi", "iWi", "IEI", 'i', "ingotIron", 'B', Item.bucketEmpty, 'I', Block.blockSteel, 'W', Block.cloth, 'E', new ItemStack(HMItem.parts, 1, 6)}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(((HMItemRivetGun)HMItem.rivetGun).getUncharged(), new Object[]{"SLS", "XBX", "TPT", 'S', "ingotSteel", 'L', Block.lever, 'X', "plateSteel", 'B', "battery", 'T', "plateTin", 'P', Block.pistonBase}));
 		
-		CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(new ItemStack(HMBlock.crusher), new Object[]{"IP", "BE", "SS", 'I', "ingotIron", 'P', Item.pickaxeSteel, 'B', new ItemStack(HMItem.blueprints), 'E', new ItemStack(HMItem.parts, 1, 6), 'S', "plateSteel"}));
-		CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(new ItemStack(HMBlock.washer), new Object[]{"ibi", "BWi", "iEi", 'i', "ingotIron", 'b', Item.bucketEmpty, 'B', new ItemStack(HMItem.blueprints, 1, 1), 'W', Block.cloth, 'E', new ItemStack(HMItem.parts, 1, 6)}));
-		CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(((HMItemRivetGun)HMItem.rivetGun).getUncharged(), new Object[]{"SL ", "XBb", "TP ", 'S', "ingotSteel", 'L', Block.lever, 'X', "plateSteel", 'B', "battery", 'b', new ItemStack(HMItem.blueprints, 1, 8), 'T', "plateTin", 'P', Block.pistonBase}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMBlock.crusher), new Object[]{"IP", "BE", "SS", 'I', "ingotIron", 'P', Item.pickaxeSteel, 'B', new ItemStack(HMItem.blueprints), 'E', new ItemStack(HMItem.parts, 1, 6), 'S', "plateSteel"}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMBlock.washer), new Object[]{"ibi", "BWi", "iEi", 'i', "ingotIron", 'b', Item.bucketEmpty, 'B', new ItemStack(HMItem.blueprints, 1, 1), 'W', Block.cloth, 'E', new ItemStack(HMItem.parts, 1, 6)}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(((HMItemRivetGun)HMItem.rivetGun).getUncharged(), new Object[]{"SL ", "XBb", "TP ", 'S', "ingotSteel", 'L', Block.lever, 'X', "plateSteel", 'B', "battery", 'b', new ItemStack(HMItem.blueprints, 1, 8), 'T', "plateTin", 'P', Block.pistonBase}));
 		
 		if (MANAGER.enableChunkloader)
 		{
-			CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(new ItemStack(HMBlock.endiumChunkloader), new Object[]{"EBE", "B@B", "EBE", 'E', new ItemStack(HMItem.ingots), 'B', "plateBronze", '@', Item.eyeOfEnder}));
-			GameRegistry.addSmelting(HMBlock.endiumChunkloader.blockID, new ItemStack(HMItem.ingots, 3), 2.0F);
+			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMBlock.endiumChunkloader), new Object[]{"EBE", "B@B", "EBE", 'E', new ItemStack(HMItem.ingots), 'B', "plateBronze", '@', Item.eyeOfEnder}));
+			GameRegistry.addSmelting(HMBlock.endiumChunkloader.blockID, new ItemStack(HMItem.ingots, 3), 0);
 			
 		}
 		
 		GameRegistry.addRecipe(new ItemStack(Block.torchWood, 4), new Object[]{"c", "s", 'c', new ItemStack(HMItem.dustRaw, 1, 0), 's', Item.stick});
 		GameRegistry.addRecipe(new ItemStack(Block.glass, 1), new Object[]{"GG", "GG", 'G', new ItemStack(HMItem.dustRefined, 1, 2)});
 		
-		CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(new ItemStack(HMItem.parts, 1, 0), new Object[]{" B ", "PSM", " B ", 'P', "plateSteel", 'S', "ingotSteel", 'M', "motor", 'B', Item.blazePowder}));
-		CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(new ItemStack(HMItem.parts, 1, 1), new Object[]{" B ", "RGR", "SLS", 'B', Item.blazePowder, 'R', Item.redstone, 'G', Block.glass, 'S', "ingotSteel", 'L', new ItemStack(HMItem.parts, 1, 3)}));
-		//CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(new ItemStack(HMItem.parts, 1, 2), new Object[]{" T ", "TET", " T ", 'T', "ingotIron", 'E', Item.enderPearl}));
-		CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(new ItemStack(HMItem.parts, 1, 3), new Object[]{" G ", "GBG", "cCc", 'G', Block.thinGlass, 'B', Item.blazeRod, 'c', "ingotCopper", 'C', "copperWire"}));
-		CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(new ItemStack(HMItem.parts, 1, 4), new Object[]{"CC", "CC", 'C', "copperWire"}));
-		CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(new ItemStack(HMItem.parts, 1, 5), new Object[]{"ici", 'i', "ingotIron", 'c', new ItemStack(HMItem.parts, 1, 4)}));
-		CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(new ItemStack(HMItem.parts, 1, 6), new Object[]{"OOS", "BPb", "OOS", 'O', Block.obsidian, 'S', "ingotSteel", 'B', Item.blazePowder, 'P', new ItemStack(HMItem.parts), 'b', "ingotGold"}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMItem.parts, 1, 0), new Object[]{" B ", "PSM", " B ", 'P', "plateSteel", 'S', "ingotSteel", 'M', "motor", 'B', Item.blazePowder}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMItem.parts, 1, 1), new Object[]{" B ", "RGR", "SLS", 'B', Item.blazePowder, 'R', Item.redstone, 'G', Block.glass, 'S', "ingotSteel", 'L', new ItemStack(HMItem.parts, 1, 3)}));
+		//GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMItem.parts, 1, 2), new Object[]{" T ", "TET", " T ", 'T', "ingotIron", 'E', Item.enderPearl}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMItem.parts, 1, 3), new Object[]{" G ", "GBG", "cCc", 'G', Block.thinGlass, 'B', Item.blazeRod, 'c', "ingotCopper", 'C', "copperWire"}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMItem.parts, 1, 4), new Object[]{"CC", "CC", 'C', "copperWire"}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMItem.parts, 1, 5), new Object[]{"ici", 'i', "ingotIron", 'c', new ItemStack(HMItem.parts, 1, 4)}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMItem.parts, 1, 6), new Object[]{"OOS", "BPb", "OOS", 'O', Block.obsidian, 'S', "ingotSteel", 'B', Item.blazePowder, 'P', new ItemStack(HMItem.parts), 'b', "ingotGold"}));
 		
-		CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(new ItemStack(HMItem.rivets, 10, 0), new Object[]{"CCC", "BCB", " C ", 'C', "ingotCopper", 'B', Item.blazePowder}));
-		CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(new ItemStack(HMItem.rivets, 10, 1), new Object[]{"BBB", "bBb", " B ", 'B', "ingotBronze", 'b', Item.blazePowder}));
-		CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(new ItemStack(HMItem.rivets, 10, 2), new Object[]{"III", "BIB", " I ", 'I', "ingotIron", 'B', Item.blazePowder}));
-		CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(new ItemStack(HMItem.rivets, 10, 3), new Object[]{"SSS", "BSB", " S ", 'S', "ingotSteel", 'B', Item.blazePowder}));
-		CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(new ItemStack(HMItem.rivets, 10, 4), new Object[]{"GGG", "BGB", " G ", 'G', "ingotGold", 'B', Item.blazePowder}));
-		CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(new ItemStack(HMItem.rivets, 10, 5), new Object[]{"EEE", "BEB", " E ", 'E', "ingotEndium", 'B', Item.blazePowder}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMItem.rivets, 10, 0), new Object[]{"CCC", "BCB", " C ", 'C', "ingotCopper", 'B', Item.blazePowder}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMItem.rivets, 10, 1), new Object[]{"BBB", "bBb", " B ", 'B', "ingotBronze", 'b', Item.blazePowder}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMItem.rivets, 10, 2), new Object[]{"III", "BIB", " I ", 'I', "ingotIron", 'B', Item.blazePowder}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMItem.rivets, 10, 3), new Object[]{"SSS", "BSB", " S ", 'S', "ingotSteel", 'B', Item.blazePowder}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMItem.rivets, 10, 4), new Object[]{"GGG", "BGB", " G ", 'G', "ingotGold", 'B', Item.blazePowder}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMItem.rivets, 10, 5), new Object[]{"EEE", "BEB", " E ", 'E', "ingotEndium", 'B', Item.blazePowder}));
 		
 		GameRegistry.addShapelessRecipe(new ItemStack(Item.fireballCharge, 3), new Object[]{Item.blazePowder, Item.gunpowder, new ItemStack(HMItem.dustRaw, 1, 0)});
 		

@@ -14,12 +14,8 @@ import net.minecraft.src.ItemStack;
  * 
  * @author Elusivehawk
  */
-public class HMItemBlueprints extends Item
+public class HMItemBlueprints extends HMItem
 {
-	public static String[] en_USNames = {"Crusher", "Washer", "Bottler", "Compressor",
-										"Mini-Drill Tank", "Cutter", "Sinterer",
-										"Rivet Gun", "HM-E2MM"};
-	
 	public HMItemBlueprints(int id)
 	{
 		super(id);
@@ -27,6 +23,10 @@ public class HMItemBlueprints extends Item
 		setContainerItem(this);
 		setCreativeTab(CreativeTabs.tabMisc);
 		setMaxStackSize(1);
+		setTextureFile("/gui/items.png");
+		//this.en_USNames = new String[]{"Crusher", "Washer", "Bottler", "Compressor",
+		//		"Mini-Drill Tank", "Cutter", "Sinterer",
+		//		"Rivet Gun", "HM-E2MM"};
 		
 	}
 	
@@ -50,15 +50,6 @@ public class HMItemBlueprints extends Item
 	}
 	
 	@Override
-	public void getSubItems(int id, CreativeTabs tabs, List itemList)
-	{
-		for (int counter = 0; counter <= 8; ++counter)
-		{
-			itemList.add(new ItemStack(this, 1, counter));
-		}
-	}
-	
-	@Override
 	public boolean doesContainerItemLeaveCraftingGrid(ItemStack item)
 	{
 		return false;
@@ -67,7 +58,7 @@ public class HMItemBlueprints extends Item
 	@Override
 	public String getItemNameIS(ItemStack item)
 	{
-		return en_USNames[item.getItemDamage()].toLowerCase() + "Blueprint";
+		return null; //en_USNames[item.getItemDamage()].toLowerCase() + "Blueprint";
 	}
 	
 }
