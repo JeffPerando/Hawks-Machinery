@@ -24,9 +24,6 @@ public class HMItemBlueprints extends HMItem
 		setCreativeTab(CreativeTabs.tabMisc);
 		setMaxStackSize(1);
 		setTextureFile("/gui/items.png");
-		//this.en_USNames = new String[]{"Crusher", "Washer", "Bottler", "Compressor",
-		//		"Mini-Drill Tank", "Cutter", "Sinterer",
-		//		"Rivet Gun", "HM-E2MM"};
 		
 	}
 	

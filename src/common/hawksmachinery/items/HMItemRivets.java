@@ -20,7 +20,6 @@ public class HMItemRivets extends HMItem implements IHMRivet
 		super(id);
 		setHasSubtypes(true);
 		setCreativeTab(CreativeTabs.tabMaterials);
-		//this.en_USNames = new String[]{"Copper", "Bronze", "Iron", "Steel", "Gold", "Endium", "Cobalt"};
 		
 	}
 	
@@ -49,18 +48,7 @@ public class HMItemRivets extends HMItem implements IHMRivet
 	@Override
 	public String getItemNameIS(ItemStack item)
 	{
-		switch (item.getItemDamage())
-		{
-			case 0: return "copperRivet";
-			case 1: return "bronzeRivet";
-			case 2: return "ironRivet";
-			case 3: return "steelRivet";
-			case 4: return "goldRivet";
-			case 5: return "endiumRivet";
-			case 6: return "cobaltRivet";
-			default: return null;
-		}
-		
+		return "rivet" + item.getItemDamage();
 	}
 	
 	@Override

@@ -22,10 +22,7 @@ public class HMItemRawDust extends HMItem
 		super(id);
 		setHasSubtypes(true);
 		setCreativeTab(CreativeTabs.tabMaterials);
-		//this.en_USNames = new String[]{"Coal", 
-		//		"Iron", "Gold", 
-		//		"Copper", "Tin", 
-		//		"Obsidian", "Endium"};
+		
 	}
 	
 	@Override
@@ -57,7 +54,7 @@ public class HMItemRawDust extends HMItem
 	@Override
 	public String getItemNameIS(ItemStack item)
 	{
-		return null; //en_USNames[item.getItemDamage()] + "DustUnref";
+		return "dustUnref" + item.getItemDamage();
 	}
 	
 }

@@ -146,6 +146,7 @@ public class HawksMachinery
 		VillagerRegistry.instance().registerVillageTradeHandler(3, MANAGER);
 		VillagerRegistry.instance().registerVillageTradeHandler(4, MANAGER);
 		ForgeChunkManager.setForcedChunkLoadingCallback(this, MANAGER);
+		PROXY.addVanillaLangHandlers();
 		
 	}
 	
@@ -155,13 +156,13 @@ public class HawksMachinery
 		loadRecipes();
 		new HMUpdateHandler(ModConverter.getMod(getClass()));
 		OreGenerator.addOre(new HMEndiumOreGen());
+		PROXY.registerRenderInformation();
 		
 	}
 	
 	@PostInit
 	public void modsLoaded(FMLPostInitializationEvent event)
 	{
-		PROXY.registerRenderInformation();
 		loadProcessingRecipes();
 		
 	}

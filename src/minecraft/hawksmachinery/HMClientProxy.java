@@ -1,6 +1,8 @@
 
 package hawksmachinery;
 
+import hawksmachinery.api.HMLanguageCore;
+import hawksmachinery.lang.HMLangen_US;
 import hawksmachinery.tileentity.*;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.ClientRegistry;
@@ -20,6 +22,12 @@ import net.minecraftforge.client.MinecraftForgeClient;
 public class HMClientProxy extends HMCommonProxy
 {
 	public static HawksMachinery BASEMOD;
+	
+	public void addVanillaLangHandlers()
+	{
+		HMLanguageCore.registerLangHandler(new HMLangen_US(), "en_US");
+		
+	}
 	
 	public void registerRenderInformation()
 	{

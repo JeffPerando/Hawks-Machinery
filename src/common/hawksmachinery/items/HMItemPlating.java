@@ -18,7 +18,7 @@ public class HMItemPlating extends HMItem
 	{
 		super(id);
 		setHasSubtypes(true);
-		//this.en_USNames = new String[]{"Endium", "Cobalt"};
+		setCreativeTab(CreativeTabs.tabMaterials);
 		
 	}
 
@@ -43,7 +43,7 @@ public class HMItemPlating extends HMItem
 	@Override
 	public String getItemNameIS(ItemStack item)
 	{
-		return null; //en_USNames[item.getItemDamage()].toLowerCase() + "Plating";
+		return "plating" + item.getItemDamage();
 	}
 	
 }

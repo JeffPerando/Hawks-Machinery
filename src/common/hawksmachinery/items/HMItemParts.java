@@ -20,7 +20,6 @@ public class HMItemParts extends HMItem
 		super(id);
 		setHasSubtypes(true);
 		setCreativeTab(CreativeTabs.tabMaterials);
-		//this.en_USNames = new String[]{"Electric Piston", "Laser", "I have NO idea!", "Light Bulb", "Heating Coil", "Electric Magnet", "Engine"};
 		
 	}
 	
@@ -33,19 +32,7 @@ public class HMItemParts extends HMItem
 	@Override
 	public String getItemNameIS(ItemStack item)
 	{
-		switch (item.getItemDamage())
-		{
-			case 0: return "electricPiston";
-			case 1: return "laser";
-			case 2: return "idk";//TODO Add a new part.
-			case 3: return "lightBulb";
-			case 4: return "heatingCoil";
-			case 5: return "electroMagnet";
-			case 6: return "engine";
-			
-		}
-		
-		return null;
+		return "part" + item.getItemDamage();
 	}
 	
 }

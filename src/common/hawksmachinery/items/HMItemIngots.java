@@ -31,13 +31,7 @@ public class HMItemIngots extends HMItem
 	@Override
 	public String getItemNameIS(ItemStack item)
 	{
-		switch (item.getItemDamage())
-		{
-			case 0: return "endiumIngot";
-			case 1: return "cobaltIngot";
-			default: return null;
-		}
-		
+		return "ingot" + item.getItemDamage();
 	}
 	
 	@Override

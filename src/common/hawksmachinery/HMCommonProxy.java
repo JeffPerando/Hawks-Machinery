@@ -30,6 +30,8 @@ public class HMCommonProxy implements IGuiHandler, IConnectionHandler
 {
 	public static HawksMachinery BASEMOD;
 	
+	public void addVanillaLangHandlers(){}
+	
 	public void registerRenderInformation()
 	{
 		GameRegistry.registerTileEntity(HMTileEntityCrusher.class, "HMCrusher");
