@@ -28,7 +28,7 @@ public class HMTeleportationHelper
 		{
 			if (otherCoords != null)
 			{
-				if (otherCoords.isEqual(coords.symA(), coords.symB(), coords.symC()))
+				if (otherCoords.isEqual(coords.symA(), coords.symB(), coords.symC()) && !otherCoords.isEqualXYZ(coords.x(), coords.y(), coords.z()))
 				{
 					return false;
 				}

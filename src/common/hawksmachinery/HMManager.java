@@ -75,6 +75,7 @@ public class HMManager implements LoadingCallback, IVillageTradeHandler, ICrafti
 	public static int maxChunksLoaded;
 	
 	public static boolean generateEndium;
+	public static boolean generateCobalt;
 	public static boolean enableUpdateChecking;
 	public static boolean enableAutoDL;
 	public static boolean enableChunkloader;
@@ -100,6 +101,7 @@ public class HMManager implements LoadingCallback, IVillageTradeHandler, ICrafti
 		metalBlockID = HMConfig.getBlock("Metal Block", 3967).getInt(3967);
 		
 		generateEndium = HMConfig.get(Configuration.CATEGORY_GENERAL, "Generate Endium", true).getBoolean(true);
+		generateCobalt = HMConfig.get(Configuration.CATEGORY_GENERAL, "Generate Cobalt", true).getBoolean(true);
 		enableUpdateChecking = HMConfig.get(Configuration.CATEGORY_GENERAL, "Enable Update Checking", true).getBoolean(true);
 		enableAutoDL = HMConfig.get(Configuration.CATEGORY_GENERAL, "Enable Auto DL", true).getBoolean(true);
 		enableChunkloader = HMConfig.get(Configuration.CATEGORY_GENERAL, "Enable Chunkloader Crafting", true).getBoolean(true);
@@ -203,6 +205,11 @@ public class HMManager implements LoadingCallback, IVillageTradeHandler, ICrafti
 		{
 			recipeList.add(new MerchantRecipe(new ItemStack(HMItem.ingots, 1, 0), new ItemStack(Item.emerald, 12)));
 			recipeList.add(new MerchantRecipe(new ItemStack(HMItem.ingots, 2, 0), new ItemStack(Item.emerald, 12)));
+			
+			recipeList.add(new MerchantRecipe(new ItemStack(Item.emerald, 4), new ItemStack(HMItem.ingots, 2, 1)));
+			recipeList.add(new MerchantRecipe(new ItemStack(Item.emerald, 5), new ItemStack(HMItem.ingots, 2, 1)));
+			recipeList.add(new MerchantRecipe(new ItemStack(Item.emerald, 4), new ItemStack(HMItem.ingots, 3, 1)));
+			recipeList.add(new MerchantRecipe(new ItemStack(Item.emerald, 5), new ItemStack(HMItem.ingots, 3, 1)));
 			
 		}
 		

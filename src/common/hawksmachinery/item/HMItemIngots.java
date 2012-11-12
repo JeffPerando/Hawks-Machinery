@@ -31,7 +31,7 @@ public class HMItemIngots extends HMItem
 	@Override
 	public String getItemNameIS(ItemStack item)
 	{
-		return "ingot" + item.getItemDamage();
+		return "HMingot" + item.getItemDamage();
 	}
 	
 	@Override

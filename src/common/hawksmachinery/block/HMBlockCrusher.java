@@ -131,11 +131,17 @@ public class HMBlockCrusher extends HMBlockMachine
 		}
 		
 	}
+
+	@Override
+	public boolean isOpaqueCube()
+	{
+		return false;
+	}
 	
 	@Override
 	public boolean isBlockSolidOnSide(World world, int x, int y, int z, ForgeDirection side)
 	{
-		return !(side.ordinal() == 1 && side.ordinal() == world.getBlockMetadata(x, y, z));
+		return false;
 	}
 	
 	@Override

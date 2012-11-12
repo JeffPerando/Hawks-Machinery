@@ -3,6 +3,7 @@ package hawksmachinery.block;
 
 import java.util.List;
 import cpw.mods.fml.common.registry.GameRegistry;
+import hawksmachinery.api.HMTeleportationHelper;
 import hawksmachinery.item.HMItemBlockTeleporter;
 import hawksmachinery.tileentity.HMTileEntityTeleporter;
 import net.minecraft.src.Block;
@@ -15,6 +16,7 @@ import net.minecraft.src.Material;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 import net.minecraftforge.common.ForgeChunkManager;
+import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.common.MinecraftForge;
 
 /**
@@ -82,11 +84,11 @@ public class HMBlockEndiumTeleporter extends HMBlockMachine
 		this.tileEntity.tryTeleportEntity(entity);
 		
 	}
-	
+
 	@Override
-	public boolean isBlockSolid(IBlockAccess world, int x, int y, int z, int side)
+	public boolean isBlockSolidOnSide(World world, int x, int y, int z, ForgeDirection side)
 	{
-		return true;
+		return side != ForgeDirection.UP;
 	}
 	
 	@Override
@@ -101,6 +103,7 @@ public class HMBlockEndiumTeleporter extends HMBlockMachine
 	public void breakBlock(World par1World, int par2, int par3, int par4, int par5, int par6)
 	{
 		ForgeChunkManager.releaseTicket(this.tileEntity.heldChunk);
+		HMTeleportationHelper.instance().removeCoords(this.tileEntity.coords);
 		super.breakBlock(par1World, par2, par3, par4, par5, par6);
 		
 	}

@@ -54,7 +54,7 @@ public class HMItemRawDust extends HMItem
 	@Override
 	public String getItemNameIS(ItemStack item)
 	{
-		return "dustUnref" + item.getItemDamage();
+		return "HMdustUnref" + item.getItemDamage();
 	}
 	
 	@Override

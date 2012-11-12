@@ -32,7 +32,7 @@ public class HMItemParts extends HMItem
 	@Override
 	public String getItemNameIS(ItemStack item)
 	{
-		return "part" + item.getItemDamage();
+		return "HMpart" + item.getItemDamage();
 	}
 	
 }

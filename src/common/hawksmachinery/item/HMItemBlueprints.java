@@ -55,7 +55,7 @@ public class HMItemBlueprints extends HMItem
 	@Override
 	public String getItemNameIS(ItemStack item)
 	{
-		return "blueprint" + item.getItemDamage();
+		return "HMblueprint" + item.getItemDamage();
 	}
 	
 }

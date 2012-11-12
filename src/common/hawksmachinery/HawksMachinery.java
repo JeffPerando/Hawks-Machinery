@@ -159,6 +159,7 @@ public class HawksMachinery
 		loadRecipes();
 		new HMUpdateHandler(ModConverter.getMod(getClass()));
 		OreGenerator.addOre(new HMEndiumOreGen());
+		OreGenerator.addOre(new HMCobaltOreGen());
 		PROXY.registerRenderInformation();
 		
 	}
@@ -390,7 +391,7 @@ public class HawksMachinery
 		@Override
 		public ModReleaseType getReleaseType()
 		{
-			return ModReleaseType.DEVBUILD;
+			return ModReleaseType.ALPHA;
 		}
 		
 		@Override

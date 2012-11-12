@@ -28,7 +28,7 @@ public class HMItemRivetGun extends ItemElectric
 	{
 		super(id);
 		setTextureFile(BASEMOD.ITEM_TEXTURE_FILE);
-		setItemName("rivetGun");
+		setItemName("HMrivetGun");
 		setIconIndex(40);
 		
 	}

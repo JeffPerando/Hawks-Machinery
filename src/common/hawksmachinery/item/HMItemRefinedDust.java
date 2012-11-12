@@ -56,7 +56,7 @@ public class HMItemRefinedDust extends HMItem
 	@Override
 	public String getItemNameIS(ItemStack item)
 	{
-		return "dust" + item.getItemDamage();
+		return "HMdust" + item.getItemDamage();
 	}
 	
 	@Override

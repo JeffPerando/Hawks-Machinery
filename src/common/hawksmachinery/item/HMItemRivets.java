@@ -48,7 +48,7 @@ public class HMItemRivets extends HMItem implements IHMRivet
 	@Override
 	public String getItemNameIS(ItemStack item)
 	{
-		return "rivet" + item.getItemDamage();
+		return "HMrivet" + item.getItemDamage();
 	}
 	
 	@Override

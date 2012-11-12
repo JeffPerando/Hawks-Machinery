@@ -65,6 +65,8 @@ public class HMGUIEndiumTeleporter extends GuiContainer
 		
 		for (int counter = 0; counter < 3; ++counter)
 		{
+			//TODO Write an algorithm for this.
+			
 			switch (this.tileEntity.coordsArray[counter])
 			{
 				case 1: this.drawTexturedModalRect(this.containerWidth + (95 + (16 * counter)), this.containerHeight + 14, 176, 0, 16, 16); break;
@@ -120,7 +122,7 @@ public class HMGUIEndiumTeleporter extends GuiContainer
 		}
 		
 	}
-
+	
 	@Override
 	protected void drawGuiContainerForegroundLayer(int par1, int par2)
 	{
@@ -138,7 +140,11 @@ public class HMGUIEndiumTeleporter extends GuiContainer
 		}
 		else if (button.id == 17)
 		{
-			this.tileEntity.registerCoords();
+			if (!this.tileEntity.registerCoords())
+			{
+				this.tileEntity.wipeCoords();
+				
+			}
 			
 		}
 		else

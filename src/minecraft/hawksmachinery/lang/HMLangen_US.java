@@ -87,7 +87,7 @@ public class HMLangen_US implements IHMLangHandler
 			
 			if (counter < blueprintLang.length)
 			{
-				LANG.addNameForObject(new ItemStack(HMItem.blueprints, 1, counter), lang, langFile.get(catItem, "item.blueprint" + counter, blueprintLang[counter]).value);
+				LANG.addNameForObject(new ItemStack(HMItem.blueprints, 1, counter), lang, blueprintLang[counter]);
 				
 			}
 			

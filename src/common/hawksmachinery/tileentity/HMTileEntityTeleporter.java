@@ -50,18 +50,23 @@ public class HMTileEntityTeleporter extends HMTileEntityMachine
 			{
 				TileEntity potenTileEntity = this.worldObj.getBlockTileEntity(this.xCoord, this.yCoord + 1, this.zCoord);
 				
-				if (HMTeleportationHelper.instance().isTileEntityWhitelisted(potenTileEntity))
+				if (potenTileEntity != null)
 				{
-					int blockID = this.worldObj.getBlockId(this.xCoord, this.yCoord + 1, this.zCoord);
-					int meta = this.worldObj.getBlockMetadata(this.xCoord, this.yCoord + 1, this.zCoord);
-					
-					receivingDim.setBlockAndMetadataWithUpdate(this.coords.x(), this.coords.y() + 1, this.coords.z(), blockID, meta, true);
-					this.worldObj.setBlockAndMetadata(this.xCoord, this.yCoord, this.zCoord, 0, 0);
-					this.doTeleportationSpecialEffects();
-					this.electricityStored = 0;
-					--this.machineHP;
+					if (!HMTeleportationHelper.instance().isTileEntityWhitelisted(potenTileEntity))
+					{
+						return;
+					}
 					
 				}
+				
+				int blockID = this.worldObj.getBlockId(this.xCoord, this.yCoord + 1, this.zCoord);
+				int meta = this.worldObj.getBlockMetadata(this.xCoord, this.yCoord + 1, this.zCoord);
+				
+				receivingDim.setBlockAndMetadataWithUpdate(this.coords.x(), this.coords.y() + 1, this.coords.z(), blockID, meta, true);
+				this.worldObj.setBlockAndMetadata(this.xCoord, this.yCoord, this.zCoord, 0, 0);
+				this.doTeleportationSpecialEffects();
+				this.electricityStored = 0;
+				--this.machineHP;
 				
 			}
 			
@@ -104,13 +109,14 @@ public class HMTileEntityTeleporter extends HMTileEntityMachine
 		
 	}
 	
-	public void registerCoords()
+	public boolean registerCoords()
 	{
 		if (this.coordsArray[0] != 0 && this.coordsArray[1] != 0 && this.coordsArray[2] != 0)
 		{
 			if (this.blockMetadata == 0)
 			{
 				this.coords = HMTeleportationHelper.instance().getCoordsFromSymbols(this.coordsArray[0], this.coordsArray[1], this.coordsArray[2]);
+				return true;
 				
 			}
 			else if (this.blockMetadata == 1)
@@ -120,6 +126,7 @@ public class HMTileEntityTeleporter extends HMTileEntityMachine
 				if (HMTeleportationHelper.instance().registerCoords(newCoords))
 				{
 					this.coords = newCoords;
+					return true;
 					
 				}
 				
@@ -127,6 +134,7 @@ public class HMTileEntityTeleporter extends HMTileEntityMachine
 			
 		}
 		
+		return false;
 	}
 	
 	public void doTeleportationSpecialEffects()

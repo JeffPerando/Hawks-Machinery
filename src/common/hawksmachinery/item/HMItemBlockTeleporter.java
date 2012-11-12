@@ -21,7 +21,7 @@ public class HMItemBlockTeleporter extends HMItemBlockEndium
 	@Override
 	public String getItemNameIS(ItemStack item)
 	{
-		return item.getItemDamage() == 0 ? "endiumTeleSender" : "endiumTeleReceiver";
+		return "HMteleporter" + item.getItemDamage();
 	}
 	
 }
