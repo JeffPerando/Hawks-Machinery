@@ -1,9 +1,10 @@
 
 package hawksmachinery;
 
-import hawksmachinery.blocks.HMBlock;
-import hawksmachinery.items.HMItem;
+import hawksmachinery.block.HMBlock;
+import hawksmachinery.item.HMItem;
 import hawksmachinery.tileentity.HMTileEntityEndiumChunkloader;
+import hawksmachinery.tileentity.HMTileEntityTeleporter;
 import java.io.File;
 import java.util.List;
 import java.util.Random;
@@ -52,6 +53,7 @@ public class HMManager implements LoadingCallback, IVillageTradeHandler, ICrafti
 	public static int endiumChunkloaderID;
 	public static int endiumTeleporterID;
 	public static int fisherID;
+	public static int metalBlockID;
 	
 	public static int dustRawID;
 	public static int dustRefinedID;
@@ -95,6 +97,7 @@ public class HMManager implements LoadingCallback, IVillageTradeHandler, ICrafti
 		endiumChunkloaderID = HMConfig.getBlock("Endium Chunkloader", 3964).getInt(3964);
 		endiumTeleporterID = HMConfig.getBlock("Endium Teleporter", 3965).getInt(3965);
 		fisherID = HMConfig.getBlock("Fisher", 3966).getInt(3966);
+		metalBlockID = HMConfig.getBlock("Metal Block", 3967).getInt(3967);
 		
 		generateEndium = HMConfig.get(Configuration.CATEGORY_GENERAL, "Generate Endium", true).getBoolean(true);
 		enableUpdateChecking = HMConfig.get(Configuration.CATEGORY_GENERAL, "Enable Update Checking", true).getBoolean(true);
@@ -144,6 +147,11 @@ public class HMManager implements LoadingCallback, IVillageTradeHandler, ICrafti
 				if (world.getBlockTileEntity(xPos, yPos, zPos) instanceof HMTileEntityEndiumChunkloader)
 				{
 					((HMTileEntityEndiumChunkloader)world.getBlockTileEntity(xPos, yPos, zPos)).forceChunkLoading(ticket);
+					
+				}
+				else if (world.getBlockTileEntity(xPos, yPos, zPos) instanceof HMTileEntityTeleporter)
+				{
+					((HMTileEntityTeleporter)world.getBlockTileEntity(xPos, yPos, zPos)).forceChunkLoading(ticket);
 					
 				}
 				

@@ -1,8 +1,13 @@
 
 package hawksmachinery;
 
+import hawksmachinery.container.HMContainerCrusher;
+import hawksmachinery.container.HMContainerFisher;
+import hawksmachinery.container.HMContainerTeleporter;
+import hawksmachinery.container.HMContainerWasher;
 import hawksmachinery.tileentity.HMTileEntityEndiumChunkloader;
 import hawksmachinery.tileentity.HMTileEntityCrusher;
+import hawksmachinery.tileentity.HMTileEntityFisher;
 import hawksmachinery.tileentity.HMTileEntityTeleporter;
 import hawksmachinery.tileentity.HMTileEntityWasher;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -38,6 +43,7 @@ public class HMCommonProxy implements IGuiHandler, IConnectionHandler
 		GameRegistry.registerTileEntity(HMTileEntityWasher.class, "HMWasher");
 		if (BASEMOD.MANAGER.enableChunkloader) GameRegistry.registerTileEntity(HMTileEntityEndiumChunkloader.class, "HMChunkloader");
 		GameRegistry.registerTileEntity(HMTileEntityTeleporter.class, "HMTeleporter");
+		GameRegistry.registerTileEntity(HMTileEntityFisher.class, "HMFisher");
 		
 	}
 	
@@ -57,6 +63,7 @@ public class HMCommonProxy implements IGuiHandler, IConnectionHandler
 			case 0: return new HMContainerCrusher(player.inventory, ((HMTileEntityCrusher)tileEntity));
 			case 1: return new HMContainerWasher(player.inventory, ((HMTileEntityWasher)tileEntity));
 			case 2: return new HMContainerTeleporter(player.inventory);
+			case 3: return new HMContainerFisher(player.inventory, (HMTileEntityFisher)tileEntity);
 			
 		}
 		

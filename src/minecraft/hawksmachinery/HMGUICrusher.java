@@ -1,6 +1,7 @@
 
 package hawksmachinery;
 
+import hawksmachinery.container.HMContainerCrusher;
 import hawksmachinery.tileentity.HMTileEntityCrusher;
 import org.lwjgl.opengl.GL11;
 import universalelectricity.electricity.ElectricInfo;

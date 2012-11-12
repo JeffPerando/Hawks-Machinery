@@ -1,7 +1,7 @@
 
 package hawksmachinery.api;
 
-import hawksmachinery.items.HMItem;
+import hawksmachinery.item.HMItem;
 import net.minecraft.src.Block;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
@@ -22,13 +22,15 @@ public class HMContent
 	public static Block endiumChunkloader;
 	public static Block ore;
 	public static Block endiumTeleporter;
+	public static Block fisher;
+	public static Block metalBlock;
 	
 	/**
-	 * Raw dusts! 0 - Coal, 1 - Iron, 2 - Gold, 3 - Copper, 4 - Tin, 5 - Obsidian, 6 - Endium.
+	 * Raw dusts! 0 - Coal, 1 - Iron, 2 - Gold, 3 - Copper, 4 - Tin, 5 - Obsidian, 6 - Endium, 7 - Cobalt.
 	 */
 	public static Item dustRaw;
 	/**
-	 * Refined dusts! 0 - Diamond, 1 - Ender, 2 - Glass, 3 - Iron, 4 - Gold, 5 - Copper, 6 - Tin, 7 - Emerald, 8 - Nether Star, 9 - Endium.
+	 * Refined dusts! 0 - Diamond, 1 - Ender, 2 - Glass, 3 - Iron, 4 - Gold, 5 - Copper, 6 - Tin, 7 - Emerald, 8 - Nether Star, 9 - Endium, 10 - Cobalt.
 	 */
 	public static Item dustRefined;
 	/**
@@ -40,25 +42,28 @@ public class HMContent
 	public static Item rivets;
 	public static Item rivetGun;
 	public static Item ingots;
+	public static Item fishFood;
 	
 	public HMContent()
 	{
 		try
 		{
-			crusher = (Block)Class.forName("hawksmachinery.blocks.HMBlock").getField("crusher").get(Block.class);
-			washer = (Block)Class.forName("hawksmachinery.blocks.HMBlock").getField("washer").get(Block.class);
-			endiumChunkloader = (Block)Class.forName("hawksmachinery.blocks.HMBlock").getField("endiumChunkloader").get(Block.class);
-			ore = (Block)Class.forName("hawksmachinery.blocks.HMBlock").getField("ore").get(Block.class);
-			endiumTeleporter = (Block)Class.forName("hawksmachinery.blocks.HMBlock").getField("endiumTeleporter").get(Block.class);
+			crusher = (Block)Class.forName("hawksmachinery.block.HMBlock").getField("crusher").get(Block.class);
+			washer = (Block)Class.forName("hawksmachinery.block.HMBlock").getField("washer").get(Block.class);
+			endiumChunkloader = (Block)Class.forName("hawksmachinery.block.HMBlock").getField("endiumChunkloader").get(Block.class);
+			ore = (Block)Class.forName("hawksmachinery.block.HMBlock").getField("ore").get(Block.class);
+			endiumTeleporter = (Block)Class.forName("hawksmachinery.block.HMBlock").getField("endiumTeleporter").get(Block.class);
+			fisher = (Block)Class.forName("hawksmachinery.block.HMBlock").getField("fisher").get(Block.class);
 			
-			dustRaw = (Item)Class.forName("hawksmachinery.items.HMItem").getField("dustRaw").get(Item.class);
-			dustRefined = (Item)Class.forName("hawksmachinery.items.HMItem").getField("dustRefined").get(Item.class);
-			parts = (Item)Class.forName("hawksmachinery.items.HMItem").getField("parts").get(Item.class);
-			blueprints = (Item)Class.forName("hawksmachinery.items.HMItem").getField("blueprints").get(Item.class);
-			plating = (Item)Class.forName("hawksmachinery.items.HMItem").getField("plating").get(Item.class);
-			rivets = (Item)Class.forName("hawksmachinery.items.HMItem").getField("rivets").get(Item.class);
-			rivetGun = (Item)Class.forName("hawksmachinery.items.HMItem").getField("rivetGun").get(Item.class);
-			ingots = (Item)Class.forName("hawksmachinery.items.HMItem").getField("ingots").get(Item.class);
+			dustRaw = (Item)Class.forName("hawksmachinery.item.HMItem").getField("dustRaw").get(Item.class);
+			dustRefined = (Item)Class.forName("hawksmachinery.item.HMItem").getField("dustRefined").get(Item.class);
+			parts = (Item)Class.forName("hawksmachinery.item.HMItem").getField("parts").get(Item.class);
+			blueprints = (Item)Class.forName("hawksmachinery.item.HMItem").getField("blueprints").get(Item.class);
+			plating = (Item)Class.forName("hawksmachinery.item.HMItem").getField("plating").get(Item.class);
+			rivets = (Item)Class.forName("hawksmachinery.item.HMItem").getField("rivets").get(Item.class);
+			rivetGun = (Item)Class.forName("hawksmachinery.item.HMItem").getField("rivetGun").get(Item.class);
+			ingots = (Item)Class.forName("hawksmachinery.item.HMItem").getField("ingots").get(Item.class);
+			fishFood = (Item)Class.forName("hawksmachinery.item.HMItem").getField("fishFood").get(Item.class);
 			
 		}
 		catch (IllegalArgumentException e)

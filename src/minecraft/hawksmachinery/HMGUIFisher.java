@@ -3,6 +3,7 @@ package hawksmachinery;
 
 import org.lwjgl.opengl.GL11;
 import universalelectricity.electricity.ElectricInfo;
+import hawksmachinery.container.HMContainerFisher;
 import hawksmachinery.tileentity.HMTileEntityFisher;
 import net.minecraft.src.Container;
 import net.minecraft.src.GuiContainer;
@@ -25,7 +26,7 @@ public class HMGUIFisher extends GuiContainer
 	
 	public HMGUIFisher(InventoryPlayer playerInv, HMTileEntityFisher tileEntity)
 	{
-		super(null);//TODO Make HMContainerFisher.
+		super(new HMContainerFisher(playerInv, tileEntity));
 		this.tileEntity = tileEntity;
 		
 	}
@@ -33,10 +34,10 @@ public class HMGUIFisher extends GuiContainer
 	@Override
 	protected void drawGuiContainerForegroundLayer(int par1, int par2)
 	{
-		this.fontRenderer.drawString("Fisher", 65, 6, 4210752);
-		this.fontRenderer.drawString(ElectricInfo.getDisplayShort(this.tileEntity.electricityStored, ElectricInfo.ElectricUnit.WATT), 75, 70, 4210752);
+		this.fontRenderer.drawString("Fisher", 72, 4, 4210752);
+		this.fontRenderer.drawString(ElectricInfo.getDisplayShort(this.tileEntity.electricityStored, ElectricInfo.ElectricUnit.WATT), 80, 62, 4210752);
 		
-		this.fontRenderer.drawString(StatCollector.translateToLocal("container.inventory"), 8, this.ySize - 96 + 2, 4210752);
+		this.fontRenderer.drawString(StatCollector.translateToLocal("container.inventory"), 110, this.ySize - 94, 4210752);
 		
 	}
 	

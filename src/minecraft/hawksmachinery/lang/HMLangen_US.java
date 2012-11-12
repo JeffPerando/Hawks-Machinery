@@ -8,8 +8,8 @@ import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.Property.Type;
 import hawksmachinery.HawksMachinery;
 import hawksmachinery.api.HMLanguageCore.IHMLangHandler;
-import hawksmachinery.blocks.HMBlock;
-import hawksmachinery.items.HMItem;
+import hawksmachinery.block.HMBlock;
+import hawksmachinery.item.HMItem;
 
 /**
  * 
@@ -31,7 +31,7 @@ public class HMLangen_US implements IHMLangHandler
 		"Gold Dust", "Copper Dust", "Tin Dust", "Emerald Dust",
 		"Star Dust", "Endium Dust", "Cobalt Dust"};
 	
-	public static final String[] blueprintLang = new String[]{"Bluepinrt (Crusher)", "Bluepinrt (Washer)", "Blueprint (Bottler)", "Blueprint (Compressor)",
+	public static final String[] blueprintLang = new String[]{"Bluepinrt (Crusher)", "Bluepinrt (Washer)", "Blueprint (Bottler)", "Blueprint (Fisher)",
 		"Blueprint (Mini-Drill Tank)", "Blueprint (Cutter)", "Blueprint (Sinterer)", "Blueprint (Rivet Gun)",
 		"Blueprint (HM-E2MM)"};
 	
@@ -54,6 +54,9 @@ public class HMLangen_US implements IHMLangHandler
 		LANG.addNameForObject(HMBlock.endiumChunkloader, "en_US", langFile.get(catBlock, "block.chunkloader", "Endium Chunkloader", Type.STRING).value);
 		LANG.addNameForObject(new ItemStack(HMBlock.endiumTeleporter), "en_US", langFile.get(catBlock, "block.telesend", "Endium Teleporter (Send)", Type.STRING).value);
 		LANG.addNameForObject(new ItemStack(HMBlock.endiumTeleporter, 1, 1), "en_US", langFile.get(catBlock, "block.telereceive", "Endium Teleporter (Receive)", Type.STRING).value);
+		LANG.addNameForObject(HMBlock.fisher, "en_US", "Fisher");
+		LANG.addNameForObject(new ItemStack(HMBlock.metalBlock, 1, 0), "en_US", "Endium Block");
+		LANG.addNameForObject(new ItemStack(HMBlock.metalBlock, 1, 1), "en_US", "Cobalt Block");
 		
 		LANG.addNameForObject(new ItemStack(HMBlock.ore), "en_US", langFile.get(catBlock, "block.ore0", "Endium Ore", Type.STRING).value);
 		LANG.addNameForObject(new ItemStack(HMBlock.ore, 1, 1), "en_US", langFile.get(catBlock, "block.ore1", "Cobalt Ore", Type.STRING).value);

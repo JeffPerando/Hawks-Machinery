@@ -311,6 +311,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 		if (this.isProcessor)
 		{
 			this.workTicks = NBTTag.getInteger("workTicks");
+			
 		}
 		
 		this.sapper = ItemStack.loadItemStackFromNBT(NBTTag.getCompoundTag("Sapper"));
@@ -353,27 +354,23 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 			
 		}
 		
-		if (this.isProcessor)
+		if (this.containingItems != null)
 		{
-			if (this.containingItems.length > 0)
+			NBTTagList tagList = new NBTTagList();
+			
+			for (int counter = 0; counter < this.containingItems.length; ++counter)
 			{
-				NBTTagList tagList = new NBTTagList();
-				
-				for (int counter = 0; counter < this.containingItems.length; ++counter)
+				if (this.containingItems[counter] != null)
 				{
-					if (this.containingItems[counter] != null)
-					{
-						NBTTagCompound newTag = new NBTTagCompound();
-						newTag.setByte("Slot", (byte)counter);
-						this.containingItems[counter].writeToNBT(newTag);
-						tagList.appendTag(newTag);
-					}
-					
+					NBTTagCompound newTag = new NBTTagCompound();
+					newTag.setByte("Slot", (byte)counter);
+					this.containingItems[counter].writeToNBT(newTag);
+					tagList.appendTag(newTag);
 				}
 				
-				NBTTag.setTag("Items", tagList);
-				
 			}
+			
+			NBTTag.setTag("Items", tagList);
 			
 		}
 		

@@ -3,6 +3,7 @@ package hawksmachinery;
 
 import org.lwjgl.opengl.GL11;
 import universalelectricity.electricity.ElectricInfo;
+import hawksmachinery.container.HMContainerTeleporter;
 import hawksmachinery.tileentity.HMTileEntityTeleporter;
 import net.minecraft.src.GuiButton;
 import net.minecraft.src.GuiContainer;

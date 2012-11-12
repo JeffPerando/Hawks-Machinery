@@ -1,6 +1,7 @@
 
 package hawksmachinery;
 
+import hawksmachinery.container.HMContainerWasher;
 import hawksmachinery.tileentity.HMTileEntityWasher;
 import org.lwjgl.opengl.GL11;
 import universalelectricity.electricity.ElectricInfo;

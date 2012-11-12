@@ -1,7 +1,7 @@
 
 package hawksmachinery;
 
-import hawksmachinery.blocks.HMBlock;
+import hawksmachinery.block.HMBlock;
 import java.util.Random;
 import net.minecraft.src.ChunkProviderEnd;
 import net.minecraft.src.IChunkProvider;

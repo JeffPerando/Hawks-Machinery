@@ -1,15 +1,13 @@
 
 package hawksmachinery.api;
 
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Random;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.src.Entity;
-import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.EntityPlayerMP;
 import net.minecraft.src.ServerConfigurationManager;
 import net.minecraft.src.TileEntity;
-import net.minecraft.src.World;
 import net.minecraftforge.common.DimensionManager;
 
 /**
@@ -20,26 +18,21 @@ import net.minecraftforge.common.DimensionManager;
  */
 public class HMTeleportationHelper
 {
-	private List<HMEndiumTeleporterCoords> coordsList;
-	private List<TileEntity> teWhitelist;
-	private static HMTeleportationHelper INSTANCE;
-	
-	public HMTeleportationHelper()
-	{
-		INSTANCE = this;
-	}
+	private ArrayList<HMEndiumTeleporterCoords> coordsList = new ArrayList<HMEndiumTeleporterCoords>();
+	private ArrayList<TileEntity> teWhitelist = new ArrayList<TileEntity>();
+	private static HMTeleportationHelper INSTANCE = new HMTeleportationHelper();
 	
 	public boolean registerCoords(HMEndiumTeleporterCoords coords)
 	{
 		for (HMEndiumTeleporterCoords otherCoords : this.coordsList)
 		{
-			if (otherCoords.isEqual(coords.symA(), coords.symB(), coords.symC()))
+			if (otherCoords != null)
 			{
-				return false;
-			}
-			else
-			{
-				continue;
+				if (otherCoords.isEqual(coords.symA(), coords.symB(), coords.symC()))
+				{
+					return false;
+				}
+				
 			}
 			
 		}
@@ -57,9 +50,13 @@ public class HMTeleportationHelper
 	{
 		for (HMEndiumTeleporterCoords coords : this.coordsList)
 		{
-			if (coords.isEqual(sym1, sym2, sym3))
+			if (coords != null)
 			{
-				return coords;
+				if (coords.isEqual(sym1, sym2, sym3))
+				{
+					return coords;
+				}
+				
 			}
 			
 		}
@@ -94,7 +91,7 @@ public class HMTeleportationHelper
 				
 			}
 			
-			entity.setPosition(coords.x() - 0.5, coords.y() + 1, coords.z() - 0.5);
+			entity.setPosition(coords.x() + 0.5, coords.y() + 1, coords.z() + 0.5);
 			
 		}
 		

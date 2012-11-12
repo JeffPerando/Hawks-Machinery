@@ -7,8 +7,9 @@ import universalelectricity.implement.IItemElectric;
 import net.minecraft.src.Block;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
+import net.minecraftforge.common.ForgeDirection;
 import hawksmachinery.api.HMProcessingRecipes.HMEnumProcessing;
-import hawksmachinery.items.HMItem;
+import hawksmachinery.item.HMItem;
 
 /**
  * 
@@ -49,9 +50,10 @@ public class HMTileEntityFisher extends HMTileEntityMachine
 				}
 			}
 			
-			if (this.worldObj.getBlockId(this.xCoord, this.yCoord + 1, this.zCoord) == Block.waterStill.blockID && this.canFish())
+			if (this.worldObj.getBlockId(this.xCoord, this.yCoord - 1, this.zCoord) == Block.waterStill.blockID && this.canFish())
 			{
-				this.worldObj.setBlock(this.xCoord, this.yCoord + 1, this.zCoord, 0);
+				this.worldObj.setBlock(this.xCoord, this.yCoord - 1, this.zCoord, 0);
+				this.electricityStored -= this.ELECTRICITY_REQUIRED;
 				
 				if (new Random().nextInt(100) > 5)
 				{
@@ -63,6 +65,12 @@ public class HMTileEntityFisher extends HMTileEntityMachine
 			
 		}
 		
+	}
+	
+	@Override
+	public boolean canReceiveFromSide(ForgeDirection side)
+	{
+		return side == ForgeDirection.UP;
 	}
 	
 	public boolean canFish()
@@ -93,7 +101,7 @@ public class HMTileEntityFisher extends HMTileEntityMachine
 			
 		}
 		
-		return fullStacks != 9 && hasFood;
+		return fullStacks != 9 && hasFood && this.electricityStored >= (this.ELECTRICITY_REQUIRED * 2);
 	}
 	
 	public void addFishAndRemoveFood()

@@ -12,10 +12,8 @@
   ],
   "credits": "Please consult this mod's URL for a full list of credits.",
   "logoFile": "/hawksmachinery/resources/HMLogo.png",
-  "screenshots": [
-  ],
-  "parent":"",
-  "dependencies": [
-  ]
+  "screenshots": [],
+  "parent": "Minecraft Forge",
+  "dependencies": ["Minecraft Forge"]
 }
 ]

@@ -26,11 +26,22 @@ public class HMRenderCrusher extends TileEntitySpecialRenderer
 	{
 		bindTextureByName(BASEMOD.TEXTURE_PATH + "/Crusher.png");
 		GL11.glPushMatrix();
-        GL11.glTranslatef((float) var2 + 0.5F, (float) var3 + 1.5F, (float) var4 + 0.5F);
-        GL11.glScalef(1.0F, -1F, -1F);
-        model.render(null, 0, 0, 0, 0, 0, 0.0625F);
-        GL11.glPopMatrix();
-        
+		GL11.glTranslatef((float) var2 + 0.5F, (float) var3 + 1.5F, (float) var4 + 0.5F);
+		GL11.glScalef(1.0F, -1F, -1F);
+		
+		int rotation = 0;
+		
+		switch (var1.blockMetadata)
+		{
+			case 2: rotation = 1;
+			case 3: rotation = 2;
+			case 4: rotation = 3;
+			case 5: rotation = 0;
+		}
+		
+		this.model.render(null, 0, 0, 0, 0, 0, 0.0625F);
+		GL11.glPopMatrix();
+		
 	}
 	
 }

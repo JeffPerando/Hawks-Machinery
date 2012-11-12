@@ -1,15 +1,20 @@
 
 package hawksmachinery.tileentity;
 
+import hawksmachinery.HawksMachinery;
 import hawksmachinery.api.HMEndiumTeleporterCoords;
 import hawksmachinery.api.HMTeleportationHelper;
+import net.minecraft.src.ChunkCoordIntPair;
 import net.minecraft.src.Entity;
 import net.minecraft.src.NBTTagCompound;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.TileEntityEnderChest;
 import net.minecraft.src.WorldServer;
 import net.minecraftforge.common.DimensionManager;
+import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.ForgeChunkManager.Ticket;
+import net.minecraftforge.common.ForgeChunkManager.Type;
 
 /**
  * 
@@ -20,6 +25,7 @@ import net.minecraftforge.common.ForgeDirection;
 public class HMTileEntityTeleporter extends HMTileEntityMachine
 {
 	public HMEndiumTeleporterCoords coords;
+	public Ticket heldChunk;
 	
 	public int[] coordsArray = new int[3];
 	
@@ -131,7 +137,7 @@ public class HMTileEntityTeleporter extends HMTileEntityMachine
 	@Override
 	public boolean canReceiveFromSide(ForgeDirection side)
 	{
-		return side.ordinal() == 0;
+		return side == ForgeDirection.DOWN && this.blockMetadata == 0;
 	}
 	
 	@Override
@@ -143,13 +149,57 @@ public class HMTileEntityTeleporter extends HMTileEntityMachine
 		this.registerCoords();
 		
 	}
-
+	
 	@Override
 	public void writeToNBT(NBTTagCompound NBTTag)
 	{
 		super.writeToNBT(NBTTag);
 		
 		NBTTag.setIntArray("coords", this.coordsArray);
+		
+	}
+	
+	@Override
+	public void invalidate()
+	{
+		this.forceChunkLoading(null);
+	}
+	
+	@Override
+	public void validate()
+	{
+		this.forceChunkLoading(null);
+	}
+	
+	public void forceChunkLoading(Ticket ticket)
+	{
+		if (ticket != null)
+		{
+			this.heldChunk = ticket;
+			ForgeChunkManager.forceChunk(this.heldChunk, new ChunkCoordIntPair(this.xCoord >> 4, this.zCoord >> 4));
+			
+		}
+		else
+		{
+			if (this.heldChunk == null)
+			{
+				Ticket newTicket = ForgeChunkManager.requestTicket(HawksMachinery.instance(), this.worldObj, Type.NORMAL);
+				newTicket.getModData().setInteger("xCoord", this.xCoord);
+				newTicket.getModData().setInteger("yCoord", this.yCoord);
+				newTicket.getModData().setInteger("zCoord", this.zCoord);
+				newTicket.setChunkListDepth(HawksMachinery.MANAGER.maxChunksLoaded);
+				this.heldChunk = newTicket;
+				ForgeChunkManager.forceChunk(this.heldChunk, new ChunkCoordIntPair(this.xCoord >> 4, this.zCoord >> 4));
+				
+			}
+			else
+			{
+				ForgeChunkManager.releaseTicket(this.heldChunk);
+				this.heldChunk = null;
+				
+			}
+			
+		}
 		
 	}
 	
