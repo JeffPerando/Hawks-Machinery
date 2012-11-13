@@ -45,9 +45,10 @@ public class HMBlockMetalStorage extends HMBlock
 	@Override
 	public void randomDisplayTick(World world, int x, int y, int z, Random random)
 	{
-		if (world.getBlockMetadata(x, y, z) == 0 && world.isBlockIndirectlyGettingPowered(x, y, z))
+		if (world.getBlockMetadata(x, y, z) == 0 && world.isBlockGettingPowered(x, y, z))
 		{
 			world.spawnParticle("portal", x + 0.5, y + 1, z + 0.5, 0, 0.5, 0);
+			
 		}
 		
 	}

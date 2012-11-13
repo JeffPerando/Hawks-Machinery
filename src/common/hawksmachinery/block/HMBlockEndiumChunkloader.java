@@ -19,6 +19,7 @@ import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.common.ForgeHooks;
+import net.minecraftforge.common.MinecraftForge;
 
 /**
  * 
@@ -34,12 +35,14 @@ public class HMBlockEndiumChunkloader extends BlockContainer
 	public HMBlockEndiumChunkloader(int id)
 	{
 		super(id, 208, Material.iron);
+		setHardness(5.0F);
 		setResistance(1000000000.0F);
 		setTextureFile(BASEMOD.BLOCK_TEXTURE_FILE);
 		setBlockName("endiumChunkloader");
 		setStepSound(Block.soundMetalFootstep);
 		setCreativeTab(CreativeTabs.tabDecorations);
 		GameRegistry.registerBlock(this, HMItemBlockEndium.class);
+		MinecraftForge.setBlockHarvestLevel(this, "pickaxe", 3);
 		
 	}
 	

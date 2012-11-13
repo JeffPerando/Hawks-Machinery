@@ -118,7 +118,7 @@ public class HMItemRivetGun extends ItemElectric
 	}
 	
 	@Override
-	public double getMaxJoules()
+	public double getMaxJoules(Object... data)
 	{
 		return 300;
 	}

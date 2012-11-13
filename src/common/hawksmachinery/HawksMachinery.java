@@ -289,7 +289,7 @@ public class HawksMachinery
 		PROCESS_RECIPES.addHMProcessingRecipe(new ItemStack(Item.shovelSteel), new ItemStack(HMItem.dustRefined, 1, 3), CRUSH);
 		PROCESS_RECIPES.addHMProcessingRecipe(new ItemStack(Item.axeSteel), new ItemStack(HMItem.dustRefined, 3, 3), CRUSH);
 		PROCESS_RECIPES.addHMProcessingRecipe(new ItemStack(Item.hoeSteel), new ItemStack(HMItem.dustRefined, 2, 3), CRUSH);
-		PROCESS_RECIPES.addHMProcessingRecipe(new ItemStack(Item.field_82792_bS), new ItemStack(HMItem.dustRefined, 3, 8), CRUSH);
+		PROCESS_RECIPES.addHMProcessingRecipe(new ItemStack(Item.netherStar), new ItemStack(HMItem.dustRefined, 3, 8), CRUSH);
 		
 		PROCESS_RECIPES.addHMFoDProcessingRecipe("oreIron", new ItemStack(HMItem.dustRaw, 2, 1), CRUSH);
 		PROCESS_RECIPES.addHMFoDProcessingRecipe("oreGold", new ItemStack(HMItem.dustRaw, 2, 2), CRUSH);

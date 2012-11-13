@@ -145,7 +145,7 @@ public class HMTileEntityCrusher extends HMTileEntityMachine
 		
 	}
 	
-	private boolean canCrush()
+	public boolean canCrush()
 	{
 		if (this.containingItems[1] == null)
 		{

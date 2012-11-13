@@ -68,7 +68,7 @@ public class HMTeleportationHelper
 	{
 		if (new Random().nextInt(100) > 10)
 		{
-			entity.travelToTheEnd(entity.dimension);
+			entity.travelToDimension(1);
 			return;
 		}
 		
@@ -85,7 +85,7 @@ public class HMTeleportationHelper
 				}
 				else
 				{
-					manager.func_82448_a(entity, coords.dim(), DimensionManager.getWorld(entity.dimension), DimensionManager.getWorld(coords.dim()));
+					manager.transferEntityToWorld(entity, coords.dim(), DimensionManager.getWorld(entity.dimension), DimensionManager.getWorld(coords.dim()));
 					
 				}
 				

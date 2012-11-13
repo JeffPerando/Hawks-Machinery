@@ -19,8 +19,6 @@ import net.minecraftforge.common.ForgeDirection;
  */
 public class HMBlockCrusher extends HMBlockMachine
 {
-	public HMTileEntityMachine tileEntity;
-	
 	public HMBlockCrusher(int id)
 	{
 		super("HMCrusher", id, Material.iron);
@@ -70,8 +68,9 @@ public class HMBlockCrusher extends HMBlockMachine
 			case 2: newMetadata = 3; break;
 			case 3: newMetadata = 4; break;
 		}
-
+		
 		world.setBlockMetadataWithNotify(x, y, z, newMetadata);
+		
 	}
 	
 	@Override
@@ -83,8 +82,7 @@ public class HMBlockCrusher extends HMBlockMachine
 	@Override
 	public TileEntity createNewTileEntity(World world)
 	{
-		this.tileEntity = new HMTileEntityCrusher();
-		return this.tileEntity;
+		return new HMTileEntityCrusher();
 	}
 	
 	@Override
@@ -148,6 +146,24 @@ public class HMBlockCrusher extends HMBlockMachine
 	public int getRenderType()
 	{
 		return -1;
+	}
+	
+	@Override
+	public void randomDisplayTick(World world, int x, int y, int z, Random random)
+	{
+		if (((HMTileEntityCrusher)world.getBlockTileEntity(x, y, z)).canCrush())
+		{
+			switch (world.getBlockMetadata(x, y, z))
+			{
+				case 2: world.spawnParticle("smoke", x + 0.5, y + 1, z + 0.8, 0, 0.1, 0); break;
+				case 3: world.spawnParticle("smoke", x + 0.5, y + 1, z + 0.2, 0, 0.1, 0); break;
+				case 4: world.spawnParticle("smoke", x + 0.8, y + 1, z + 0.5, 0, 0.1, 0); break;
+				case 5: world.spawnParticle("smoke", x + 0.2, y + 1, z + 0.5, 0, 0.1, 0); break;
+				
+			}
+			
+		}
+		
 	}
 	
 }

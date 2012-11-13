@@ -1,6 +1,7 @@
 
 package hawksmachinery.block;
 
+import java.util.Random;
 import hawksmachinery.HawksMachinery;
 import hawksmachinery.tileentity.HMTileEntityWasher;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -97,8 +98,7 @@ public class HMBlockWasher extends HMBlockMachine
 	@Override
 	public TileEntity createNewTileEntity(World world)
 	{
-		this.tileEntity = new HMTileEntityWasher();
-		return this.tileEntity;
+		return new HMTileEntityWasher();
 	}
 	
 	@Override
@@ -142,20 +142,16 @@ public class HMBlockWasher extends HMBlockMachine
 	@Override
 	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity)
 	{
-		if (this.tileEntity != null)
+		if (((HMTileEntityWasher)world.getBlockTileEntity(x, y, z)).canWash())
 		{
-			if (this.tileEntity.canWash())
+			if (entity instanceof EntityEnderman)
 			{
-				if (entity instanceof EntityEnderman)
-				{
-					entity.attackEntityFrom(DamageSource.drown, 1);
-					
-				}
-				else if (entity.isWet())
-				{
-					entity.attackEntityFrom(UEDamageSource.electrocution, 1);
-					
-				}
+				entity.attackEntityFrom(DamageSource.drown, 1);
+				
+			}
+			else if (entity.isWet())
+			{
+				entity.attackEntityFrom(UEDamageSource.electrocution, 1);
 				
 			}
 			
@@ -179,6 +175,18 @@ public class HMBlockWasher extends HMBlockMachine
 	public int getRenderType()
 	{
 		return -1;
+	}
+	
+	@Override
+	public void randomDisplayTick(World world, int x, int y, int z, Random random)
+	{
+		if (((HMTileEntityWasher)world.getBlockTileEntity(x, y, z)).canWash())
+		{
+			world.spawnParticle("splash", x + 0.5, y + 1, z + 0.5, 0, 0.1, 0);
+			world.spawnParticle("splash", x + 0.5, y + 1, z + 0.5, 0, 0.1, 0);
+			
+		}
+		
 	}
 	
 }
