@@ -20,11 +20,13 @@
 /src/minecraft_server/*
 /src/common/*
 !/src/common/hawksmachinery/
-!/src/common/mcmod.info
-!/src/common/vazkii/
+!/src/common/updatemanager/
 !/src/minecraft/hawksmachinery/
-!/src/minecraft/vazkii/
+!/src/minecraft/updatemanager/
+!/src/common/buildcraft/
+!/src/common/dan200/
 !/src/common/obsidian/
+!/src/common/universalelectricity/
 
 *.bat
 *.sh
