@@ -1,6 +1,7 @@
 
 package hawksmachinery;
 
+import hawksmachinery.api.HMTeleportationHelper;
 import hawksmachinery.block.HMBlock;
 import hawksmachinery.item.HMItem;
 import hawksmachinery.tileentity.HMTileEntityEndiumChunkloader;
@@ -29,9 +30,11 @@ import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.ForgeChunkManager.LoadingCallback;
 import net.minecraftforge.common.ForgeChunkManager.Ticket;
 import net.minecraftforge.event.ForgeSubscribe;
+import net.minecraftforge.event.world.WorldEvent;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.ICraftingHandler;
+import cpw.mods.fml.common.IFuelHandler;
 import cpw.mods.fml.common.IWorldGenerator;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.VillagerRegistry.IVillageTradeHandler;
@@ -42,7 +45,7 @@ import cpw.mods.fml.common.registry.VillagerRegistry.IVillageTradeHandler;
  * 
  * @author Elusivehawk
  */
-public class HMManager implements LoadingCallback, IVillageTradeHandler, ICraftingHandler
+public class HMManager implements LoadingCallback, IVillageTradeHandler, ICraftingHandler, IFuelHandler
 {
 	public static HawksMachinery BASEMOD;
 	private static int chunkLimit;
@@ -220,5 +223,27 @@ public class HMManager implements LoadingCallback, IVillageTradeHandler, ICrafti
 	
 	@Override
 	public void onSmelting(EntityPlayer player, ItemStack item){}
+
+	@Override
+	public int getBurnTime(ItemStack fuel)
+	{
+		if (fuel.isItemEqual(new ItemStack(HMItem.dustRaw, 1, 0)))
+		{
+			return 1600;
+		}
+		
+		return 0;
+	}
+	
+	@ForgeSubscribe
+	public void Save(WorldEvent event)
+	{
+		if (!event.world.isRemote)
+		{
+			HMTeleportationHelper.instance().deleteAllCoords();
+			
+		}
+		
+	}
 	
 }

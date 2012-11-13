@@ -35,7 +35,7 @@ public class HMLangen_US implements IHMLangHandler
 		"Blueprint (Mini-Drill Tank)", "Blueprint (Cutter)", "Blueprint (Sinterer)", "Blueprint (Rivet Gun)",
 		"Blueprint (HM-E2MM)"};
 	
-	public static final String[] partLang = new String[]{"Electric Piston", "Laser", "I have NO idea!", "Light Bulb",
+	public static final String[] partLang = new String[]{"Electric Piston", "Laser", "Gear Axle", "Light Bulb",
 		"Heating Coil", "Electric Magnet", "Engine"};
 	
 	public static final String[] rivetLang = new String[]{"Copper Rivet", "Bronze Rivet", "Iron Rivet", "Steel Rivet",

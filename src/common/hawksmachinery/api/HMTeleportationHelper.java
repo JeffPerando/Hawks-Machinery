@@ -120,6 +120,12 @@ public class HMTeleportationHelper
 		return false;
 	}
 	
+	public void deleteAllCoords()
+	{
+		this.coordsList.clear();
+		
+	}
+	
 	public static HMTeleportationHelper instance()
 	{
 		return INSTANCE;

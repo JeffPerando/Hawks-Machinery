@@ -316,12 +316,6 @@ public class HMTileEntityWasher extends HMTileEntityMachine
 		
 	}
 	
-	@Override
-	public boolean canReceiveFromSide(ForgeDirection side)
-	{
-		return side != ForgeDirection.UP && side != ForgeDirection.getOrientation(this.facingDirection.ordinal());
-	}
-	
 	/*
 	@Override
 	public ItemStack offerItem(Object source, ItemStack offer)
