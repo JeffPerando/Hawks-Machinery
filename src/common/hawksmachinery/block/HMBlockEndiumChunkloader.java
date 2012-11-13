@@ -30,7 +30,6 @@ import net.minecraftforge.common.MinecraftForge;
 public class HMBlockEndiumChunkloader extends BlockContainer
 {
 	public HawksMachinery BASEMOD;
-	public HMTileEntityEndiumChunkloader tileEntity;
 	
 	public HMBlockEndiumChunkloader(int id)
 	{
@@ -55,8 +54,7 @@ public class HMBlockEndiumChunkloader extends BlockContainer
 	@Override
 	public TileEntity createNewTileEntity(World world)
 	{
-		this.tileEntity = new HMTileEntityEndiumChunkloader();
-		return this.tileEntity;
+		return new HMTileEntityEndiumChunkloader();
 	}
 	
 	@Override
@@ -121,10 +119,10 @@ public class HMBlockEndiumChunkloader extends BlockContainer
 	}
 	
 	@Override
-	public void breakBlock(World par1World, int par2, int par3, int par4, int par5, int par6)
+	public void breakBlock(World world, int x, int y, int z, int par5, int par6)
 	{
-		ForgeChunkManager.releaseTicket(this.tileEntity.heldChunk);
-		super.breakBlock(par1World, par2, par3, par4, par5, par6);
+		ForgeChunkManager.releaseTicket(((HMTileEntityEndiumChunkloader)world.getBlockTileEntity(x, y, z)).heldChunk);
+		super.breakBlock(world, x, y, z, par5, par6);
 		
 	}
 	

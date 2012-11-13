@@ -29,8 +29,6 @@ import universalelectricity.prefab.BlockMachine;
  */
 public class HMBlockWasher extends HMBlockMachine
 {
-	public HMTileEntityWasher tileEntity;
-	
 	public HMBlockWasher(int id)
 	{
 		super("HMWasher", id, Material.iron);

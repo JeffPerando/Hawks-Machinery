@@ -47,8 +47,7 @@ public class HMBlockFisher extends HMBlockMachine
 	@Override
 	public TileEntity createNewTileEntity(World world)
 	{
-		this.tileEntity = new HMTileEntityFisher();
-		return this.tileEntity;
+		return new HMTileEntityFisher();
 	}
 
 	@Override

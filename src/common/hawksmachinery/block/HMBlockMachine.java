@@ -28,7 +28,6 @@ import universalelectricity.prefab.BlockMachine;
 public abstract class HMBlockMachine extends BlockMachine
 {
 	public static HawksMachinery BASEMOD;
-	public HMTileEntityMachine tileEntity;
 	
 	public HMBlockMachine(String name, int id, Material mat)
 	{

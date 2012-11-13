@@ -76,12 +76,21 @@ public class HMTileEntityTeleporter extends HMTileEntityMachine
 	
 	public boolean isReadyToTeleport()
 	{
-		return this.electricityStored == this.ELECTRICITY_LIMIT && this.worldObj.isBlockIndirectlyGettingPowered(this.xCoord, this.yCoord, this.zCoord) && this.coords != null && this.blockMetadata == 0 && !this.isDisabled();
+		if (this.worldObj.getBlockMetadata(this.xCoord, this.yCoord, this.zCoord) == 0)
+		{
+			return this.electricityStored == this.ELECTRICITY_LIMIT && this.coords != null && !this.isDisabled();
+			
+		}
+		else
+		{
+			return this.coords != null;
+		}
+		
 	}
 	
 	public void tryTeleportEntity(Entity entity)
 	{
-		if (this.isReadyToTeleport())
+		if (this.isReadyToTeleport() && this.worldObj.isBlockIndirectlyGettingPowered(this.xCoord, this.yCoord, this.zCoord))
 		{
 			HMTeleportationHelper.instance().teleportEntity(entity, this.coords);
 			this.doTeleportationSpecialEffects();
@@ -113,13 +122,13 @@ public class HMTileEntityTeleporter extends HMTileEntityMachine
 	{
 		if (this.coordsArray[0] != 0 && this.coordsArray[1] != 0 && this.coordsArray[2] != 0)
 		{
-			if (this.blockMetadata == 0)
+			if (this.worldObj.getBlockMetadata(this.xCoord, this.yCoord, this.zCoord) == 0)
 			{
 				this.coords = HMTeleportationHelper.instance().getCoordsFromSymbols(this.coordsArray[0], this.coordsArray[1], this.coordsArray[2]);
 				return true;
 				
 			}
-			else if (this.blockMetadata == 1)
+			else if (this.worldObj.getBlockMetadata(this.xCoord, this.yCoord, this.zCoord) == 1)
 			{
 				HMEndiumTeleporterCoords newCoords = new HMEndiumTeleporterCoords(this.xCoord, this.yCoord, this.zCoord, this.worldObj.getWorldInfo().getDimension(), this.coordsArray[0], this.coordsArray[1], this.coordsArray[2]);
 				
@@ -145,7 +154,7 @@ public class HMTileEntityTeleporter extends HMTileEntityMachine
 	@Override
 	public boolean canReceiveFromSide(ForgeDirection side)
 	{
-		return side == ForgeDirection.DOWN && this.blockMetadata == 0;
+		return side == ForgeDirection.DOWN && this.worldObj.getBlockMetadata(this.xCoord, this.yCoord, this.zCoord) == 0;
 	}
 	
 	@Override

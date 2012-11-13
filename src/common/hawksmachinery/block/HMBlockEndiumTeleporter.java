@@ -27,8 +27,6 @@ import net.minecraftforge.common.MinecraftForge;
  */
 public class HMBlockEndiumTeleporter extends HMBlockMachine
 {
-	public HMTileEntityTeleporter tileEntity;
-	
 	public HMBlockEndiumTeleporter(int id)
 	{
 		super(null, id, Material.iron);
@@ -62,8 +60,7 @@ public class HMBlockEndiumTeleporter extends HMBlockMachine
 	@Override
 	public TileEntity createNewTileEntity(World world)
 	{
-		this.tileEntity = new HMTileEntityTeleporter();
-		return this.tileEntity;
+		return new HMTileEntityTeleporter();
 	}
 	
 	@Override
@@ -81,7 +78,7 @@ public class HMBlockEndiumTeleporter extends HMBlockMachine
 	@Override
 	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity)
 	{
-		this.tileEntity.tryTeleportEntity(entity);
+		((HMTileEntityTeleporter)world.getBlockTileEntity(x, y, z)).tryTeleportEntity(entity);
 		
 	}
 
@@ -100,11 +97,11 @@ public class HMBlockEndiumTeleporter extends HMBlockMachine
 	}
 	
 	@Override
-	public void breakBlock(World par1World, int par2, int par3, int par4, int par5, int par6)
+	public void breakBlock(World world, int x, int y, int z, int par5, int par6)
 	{
-		ForgeChunkManager.releaseTicket(this.tileEntity.heldChunk);
-		HMTeleportationHelper.instance().removeCoords(this.tileEntity.coords);
-		super.breakBlock(par1World, par2, par3, par4, par5, par6);
+		ForgeChunkManager.releaseTicket(((HMTileEntityTeleporter)world.getBlockTileEntity(x, y, z)).heldChunk);
+		HMTeleportationHelper.instance().removeCoords(((HMTileEntityTeleporter)world.getBlockTileEntity(x, y, z)).coords);
+		super.breakBlock(world, x, y, z, par5, par6);
 		
 	}
 	

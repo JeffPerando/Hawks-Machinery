@@ -62,7 +62,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	@Override
 	public boolean canReceiveFromSide(ForgeDirection side)
 	{
-		return side != ForgeDirection.UP && side != this.facingDirection;
+		return side == this.facingDirection.getOpposite();
 	}
 	
 	@Override
@@ -116,20 +116,15 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 			
 		}
 		
-		if (this.worldObj.getBlockMetadata(this.xCoord, this.yCoord, this.zCoord) != this.blockMetadata)
+		if (this.facingDirection.ordinal() != this.worldObj.getBlockMetadata(this.xCoord, this.yCoord, this.zCoord))
 		{
-			this.blockMetadata = this.worldObj.getBlockMetadata(this.xCoord, this.yCoord, this.zCoord);
-			
-		}
-		
-		if (this.facingDirection.ordinal() != this.blockMetadata)
-		{
-			this.facingDirection = ForgeDirection.getOrientation(this.blockMetadata);
+			this.facingDirection = ForgeDirection.getOrientation(this.worldObj.getBlockMetadata(this.xCoord, this.yCoord, this.zCoord));
 			
 		}
 		
 	}
 	
+	@Override
 	public double getVoltage()
 	{
 		return voltage;
