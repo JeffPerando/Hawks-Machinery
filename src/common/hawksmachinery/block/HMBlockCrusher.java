@@ -62,7 +62,7 @@ public class HMBlockCrusher extends HMBlockMachine
 	{
 		int direction = MathHelper.floor_double((entity.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
 		int newMetadata = 3;
-
+		
 		switch (direction)
 		{
 			case 0: newMetadata = 2; break;
@@ -131,7 +131,7 @@ public class HMBlockCrusher extends HMBlockMachine
 		}
 		
 	}
-
+	
 	@Override
 	public boolean isOpaqueCube()
 	{

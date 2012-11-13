@@ -83,31 +83,43 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 		if (this.electricityStored < 0)
 		{
 			this.electricityStored = 0;
+			
 		}
 		
 		if (this.electricityStored > this.ELECTRICITY_LIMIT)
 		{
 			this.electricityStored = this.ELECTRICITY_LIMIT;
+			
 		}
 		
 		if (this.machineHP < 0)
 		{
 			this.machineHP = 0;
+			
 		}
 		
 		if (this.machineHP > this.getMaxHP())
 		{
 			this.machineHP = this.getMaxHP();
+			
 		}
 		
 		if (!this.worldObj.isRemote)
 		{
 			this.sendPacket();
+			
 		}
 		
 		if (this.isBeingSapped())
 		{
 			((IHMSapper)this.sapper.getItem()).sapperTick(this.worldObj, this.xCoord, this.yCoord, this.zCoord);
+			
+		}
+		
+		if (this.worldObj.getBlockMetadata(this.xCoord, this.yCoord, this.zCoord) != this.blockMetadata)
+		{
+			this.blockMetadata = this.worldObj.getBlockMetadata(this.xCoord, this.yCoord, this.zCoord);
+			
 		}
 		
 		if (this.facingDirection.ordinal() != this.blockMetadata)

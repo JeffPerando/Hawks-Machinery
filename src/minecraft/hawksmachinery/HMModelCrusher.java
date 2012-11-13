@@ -156,6 +156,7 @@ public class HMModelCrusher extends ModelBase
 		MATERIAL_OUTLET_2.render(0.0625F);
 		SUPPORT.render(0.0625F);
 		FINAL.render(0.0625F);
+		
 	}
 	
 	private void setRotation(ModelRenderer model, float x, float y, float z)

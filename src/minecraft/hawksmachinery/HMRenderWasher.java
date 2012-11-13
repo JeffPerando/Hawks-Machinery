@@ -11,21 +11,21 @@ import net.minecraft.src.TileEntitySpecialRenderer;
  * 
  * @author Elusivehawk
  */
-public class HMRenderCrusher extends TileEntitySpecialRenderer
+public class HMRenderWasher extends TileEntitySpecialRenderer
 {
 	public static HawksMachinery BASEMOD;
-	private HMModelCrusher model;
+	private HMModelWasher model;
 	
-	public HMRenderCrusher()
+	public HMRenderWasher()
 	{
-		this.model = new HMModelCrusher();
+		this.model = new HMModelWasher();
 		
 	}
 	
 	@Override
 	public void renderTileEntityAt(TileEntity var1, double var2, double var3, double var4, float var5)
 	{
-		bindTextureByName(BASEMOD.TEXTURE_PATH + "/Crusher.png");
+		bindTextureByName(BASEMOD.TEXTURE_PATH + "/Washer.png");
 		GL11.glPushMatrix();
 		GL11.glTranslatef((float) var2 + 0.5F, (float) var3 + 1.5F, (float) var4 + 0.5F);
 		switch (var1.blockMetadata)
