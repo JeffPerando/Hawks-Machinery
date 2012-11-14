@@ -3,6 +3,7 @@ package hawksmachinery.block;
 
 import java.util.Random;
 import hawksmachinery.HawksMachinery;
+import hawksmachinery.item.HMItemBlockCrusher;
 import hawksmachinery.tileentity.HMTileEntityCrusher;
 import hawksmachinery.tileentity.HMTileEntityMachine;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -26,6 +27,8 @@ public class HMBlockCrusher extends HMBlockMachine
 		setResistance(20.0F);
 		setRequiresSelfNotify();
 		setCreativeTab(CreativeTabs.tabDecorations);
+		GameRegistry.registerBlock(this, HMItemBlockCrusher.class);
+		setTextureFile(BASEMOD.ITEM_TEXTURE_FILE);
 		
 	}
 	

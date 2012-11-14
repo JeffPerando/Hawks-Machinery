@@ -19,7 +19,7 @@ import net.minecraftforge.common.DimensionManager;
 public class HMTeleportationHelper
 {
 	private ArrayList<HMEndiumTeleporterCoords> coordsList = new ArrayList<HMEndiumTeleporterCoords>();
-	private ArrayList<TileEntity> teWhitelist = new ArrayList<TileEntity>();
+	private ArrayList<Class<? extends TileEntity>> teWhitelist = new ArrayList<Class<? extends TileEntity>>();
 	private static HMTeleportationHelper INSTANCE = new HMTeleportationHelper();
 	
 	public boolean registerCoords(HMEndiumTeleporterCoords coords)
@@ -97,7 +97,7 @@ public class HMTeleportationHelper
 		
 	}
 	
-	public boolean addTileEntityToWhitelist(TileEntity allowedTE)
+	public boolean addTileEntityToWhitelist(Class<? extends TileEntity> allowedTE)
 	{
 		return this.teWhitelist.add(allowedTE);
 	}
@@ -106,7 +106,7 @@ public class HMTeleportationHelper
 	{
 		if (potenTE != null)
 		{
-			for (TileEntity te : this.teWhitelist)
+			for (Class<? extends TileEntity> te : this.teWhitelist)
 			{
 				if (te.equals(potenTE))
 				{

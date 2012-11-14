@@ -3,6 +3,7 @@ package hawksmachinery.block;
 
 import java.util.Random;
 import hawksmachinery.HawksMachinery;
+import hawksmachinery.item.HMItemBlockWasher;
 import hawksmachinery.tileentity.HMTileEntityWasher;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.src.CreativeTabs;
@@ -36,6 +37,8 @@ public class HMBlockWasher extends HMBlockMachine
 		setResistance(20.0F);
 		setRequiresSelfNotify();
 		setCreativeTab(CreativeTabs.tabDecorations);
+		GameRegistry.registerBlock(this, HMItemBlockWasher.class);
+		setTextureFile(BASEMOD.ITEM_TEXTURE_FILE);
 		
 	}
 	
