@@ -90,7 +90,7 @@ public class HawksMachinery
 	@Metadata("HawksMachinery")
 	public static ModMetadata HAWK_META = new HMDummyContainer().getMetadata();
 	
-	public static final String VERSION = "Alpha v1.5.1";
+	public static final String VERSION = "Alpha v1.6.0";
 	
 	public static HMProcessingRecipes PROCESS_RECIPES;
 	public static HMEnumProcessing CRUSH = HMEnumProcessing.CRUSHING;
@@ -331,7 +331,7 @@ public class HawksMachinery
 		@Override
 		public String getModURL()
 		{
-			return "http://bit.ly/UeISkn";
+			return "http://bit.ly/TFrC6z";
 		}
 		
 		@Override
@@ -355,8 +355,7 @@ public class HawksMachinery
 		@Override
 		public String getChangelogURL()
 		{
-			return this.getReleaseType() == ModReleaseType.DEVBUILD ? "https://dl.dropbox.com/u/100525141/HawksMachineryDevbuildNotice.txt"
-					: "https://dl.dropbox.com/u/100525141/HawksMachineryAlphav150Changelog.txt" ;
+			return "https://dl.dropbox.com/u/100525141/HawksMachineryAlphav151Changelog.txt";
 		}
 		
 		@Override
@@ -405,19 +404,6 @@ public class HawksMachinery
 		public ItemStack getIconStack()
 		{
 			return new ItemStack(HMBlock.crusher);
-		}
-		
-		@Override
-		public String getSpecialButtonName()
-		{
-			return "Forge Forum";
-		}
-		
-		@Override
-		public void onSpecialButtonClicked()
-		{
-			UpdateManager.openWebpage("http://bit.ly/TbyBoC");
-			
 		}
 		
 	}
