@@ -1,15 +1,15 @@
 
 package hawksmachinery.lang;
 
-import java.io.File;
-import cpw.mods.fml.common.Loader;
-import net.minecraft.src.ItemStack;
-import net.minecraftforge.common.Configuration;
-import net.minecraftforge.common.Property.Type;
 import hawksmachinery.HawksMachinery;
 import hawksmachinery.api.HMLanguageCore.IHMLangHandler;
 import hawksmachinery.block.HMBlock;
 import hawksmachinery.item.HMItem;
+import java.io.File;
+import net.minecraft.src.ItemStack;
+import net.minecraftforge.common.Configuration;
+import net.minecraftforge.common.Property.Type;
+import cpw.mods.fml.common.Loader;
 
 /**
  * 

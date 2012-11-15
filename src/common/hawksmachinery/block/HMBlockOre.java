@@ -4,7 +4,6 @@ package hawksmachinery.block;
 import java.util.List;
 import hawksmachinery.item.HMItemBlockOre;
 import cpw.mods.fml.common.registry.GameRegistry;
-import net.minecraft.src.Achievement;
 import net.minecraft.src.Block;
 import net.minecraft.src.CreativeTabs;
 import net.minecraft.src.ItemStack;

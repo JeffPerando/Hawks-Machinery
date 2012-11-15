@@ -3,7 +3,6 @@ package hawksmachinery.tileentity;
 
 import hawksmachinery.HawksMachinery;
 import net.minecraft.src.ChunkCoordIntPair;
-import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.TileEntity;
 import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.common.ForgeChunkManager.Ticket;

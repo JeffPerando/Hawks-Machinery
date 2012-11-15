@@ -1,7 +1,6 @@
 
 package hawksmachinery.api;
 
-import hawksmachinery.item.HMItem;
 import net.minecraft.src.Block;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;

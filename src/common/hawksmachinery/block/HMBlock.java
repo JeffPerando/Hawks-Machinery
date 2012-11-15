@@ -1,7 +1,6 @@
 
 package hawksmachinery.block;
 
-import cpw.mods.fml.common.registry.GameRegistry;
 import hawksmachinery.HawksMachinery;
 import net.minecraft.src.Achievement;
 import net.minecraft.src.Block;

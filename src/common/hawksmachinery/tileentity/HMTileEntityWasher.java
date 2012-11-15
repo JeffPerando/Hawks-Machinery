@@ -1,34 +1,23 @@
 
 package hawksmachinery.tileentity;
 
+import hawksmachinery.HawksMachinery;
 import hawksmachinery.api.HMProcessingRecipes;
 import hawksmachinery.api.HMProcessingRecipes.HMEnumProcessing;
-import hawksmachinery.HawksMachinery;
-import java.util.Random;
-import buildcraft.api.core.Orientations;
-import com.google.common.io.ByteArrayDataInput;
-import cpw.mods.fml.common.FMLCommonHandler;
-import net.minecraft.src.EntityItem;
-import net.minecraft.src.EntityPlayer;
-import net.minecraft.src.IInventory;
 import net.minecraft.src.Block;
+import net.minecraft.src.EntityPlayer;
+import net.minecraft.src.INetworkManager;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.NBTTagCompound;
-import net.minecraft.src.NBTTagList;
-import net.minecraft.src.INetworkManager;
 import net.minecraft.src.Packet;
 import net.minecraft.src.Packet250CustomPayload;
-import net.minecraft.src.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
-import net.minecraftforge.common.ISidedInventory;
 import universalelectricity.electricity.ElectricInfo;
-import universalelectricity.prefab.TileEntityElectricityReceiver;
 import universalelectricity.implement.IItemElectric;
-import universalelectricity.implement.IRedstoneReceptor;
-import universalelectricity.implement.IRotatable;
-import universalelectricity.prefab.network.IPacketReceiver;
 import universalelectricity.prefab.network.PacketManager;
+import com.google.common.io.ByteArrayDataInput;
+import cpw.mods.fml.common.FMLCommonHandler;
 
 /**
  * 

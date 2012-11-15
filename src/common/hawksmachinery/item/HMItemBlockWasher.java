@@ -2,7 +2,6 @@
 package hawksmachinery.item;
 
 import hawksmachinery.HawksMachinery;
-import net.minecraft.src.Block;
 import net.minecraft.src.ItemBlock;
 
 /**

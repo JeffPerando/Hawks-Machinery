@@ -1,8 +1,6 @@
 
 package hawksmachinery.item;
 
-import hawksmachinery.block.HMBlockOre;
-import net.minecraft.src.Block;
 import net.minecraft.src.EnumRarity;
 import net.minecraft.src.ItemBlock;
 import net.minecraft.src.ItemStack;

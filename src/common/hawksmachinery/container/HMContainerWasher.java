@@ -9,7 +9,6 @@ import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.InventoryPlayer;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.Slot;
-import net.minecraft.src.TileEntity;
 import universalelectricity.prefab.SlotElectricItem;
 import universalelectricity.implement.IItemElectric;
 

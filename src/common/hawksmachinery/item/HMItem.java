@@ -3,9 +3,7 @@ package hawksmachinery.item;
 
 import java.util.List;
 import hawksmachinery.HawksMachinery;
-import net.minecraft.src.Block;
 import net.minecraft.src.CreativeTabs;
-import net.minecraft.src.EnumRarity;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
 

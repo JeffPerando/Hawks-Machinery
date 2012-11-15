@@ -2,13 +2,9 @@
 package hawksmachinery.block;
 
 import java.util.Random;
-import hawksmachinery.HawksMachinery;
 import hawksmachinery.item.HMItemBlockCrusher;
 import hawksmachinery.tileentity.HMTileEntityCrusher;
-import hawksmachinery.tileentity.HMTileEntityMachine;
 import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.LanguageRegistry;
-import universalelectricity.prefab.BlockMachine;
 import net.minecraft.src.*;
 import net.minecraftforge.common.ForgeDirection;
 

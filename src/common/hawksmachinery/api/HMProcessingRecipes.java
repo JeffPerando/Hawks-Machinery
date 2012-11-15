@@ -10,7 +10,6 @@ import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
-
 /**
  * 
  * 

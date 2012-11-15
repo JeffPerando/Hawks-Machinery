@@ -5,7 +5,6 @@ import hawksmachinery.HawksMachinery;
 import hawksmachinery.api.HMRepairInterfaces.IHMRepairable;
 import hawksmachinery.api.HMRepairInterfaces.IHMRivet;
 import universalelectricity.prefab.ItemElectric;
-import net.minecraft.src.CreativeTabs;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.EnumAction;
 import net.minecraft.src.EnumMovingObjectType;

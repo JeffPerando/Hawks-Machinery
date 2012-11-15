@@ -1,16 +1,8 @@
 
 package hawksmachinery;
 
-import hawksmachinery.container.HMContainerCrusher;
-import hawksmachinery.container.HMContainerFisher;
-import hawksmachinery.container.HMContainerTeleporter;
-import hawksmachinery.container.HMContainerWasher;
-import hawksmachinery.tileentity.HMTileEntityEndiumChunkloader;
-import hawksmachinery.tileentity.HMTileEntityCrusher;
-import hawksmachinery.tileentity.HMTileEntityFisher;
-import hawksmachinery.tileentity.HMTileEntityTeleporter;
-import hawksmachinery.tileentity.HMTileEntityWasher;
-import cpw.mods.fml.common.FMLCommonHandler;
+import hawksmachinery.container.*;
+import hawksmachinery.tileentity.*;
 import cpw.mods.fml.common.network.IConnectionHandler;
 import cpw.mods.fml.common.network.IGuiHandler;
 import cpw.mods.fml.common.network.Player;

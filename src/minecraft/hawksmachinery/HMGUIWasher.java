@@ -3,11 +3,10 @@ package hawksmachinery;
 
 import hawksmachinery.container.HMContainerWasher;
 import hawksmachinery.tileentity.HMTileEntityWasher;
-import org.lwjgl.opengl.GL11;
-import universalelectricity.electricity.ElectricInfo;
 import net.minecraft.src.GuiContainer;
 import net.minecraft.src.InventoryPlayer;
-import net.minecraft.src.StatCollector;
+import org.lwjgl.opengl.GL11;
+import universalelectricity.electricity.ElectricInfo;
 
 /**
  * 
@@ -43,9 +42,8 @@ public class HMGUIWasher extends GuiContainer
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3)
 	{
-		int var4 = this.mc.renderEngine.getTexture(BASEMOD.GUI_PATH + "/Washer.png");
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		this.mc.renderEngine.bindTexture(var4);
+		this.mc.renderEngine.bindTexture(this.mc.renderEngine.getTexture(BASEMOD.GUI_PATH + "/Washer.png"));
 		this.containerWidth = (this.width - this.xSize) / 2;
 		this.containerHeight = (this.height - this.ySize) / 2;
 		this.drawTexturedModalRect(this.containerWidth, this.containerHeight, 0, 0, this.xSize, this.ySize);

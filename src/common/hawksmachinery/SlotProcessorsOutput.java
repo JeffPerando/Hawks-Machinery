@@ -2,7 +2,6 @@
 package hawksmachinery;
 
 import net.minecraft.src.*;
-import net.minecraftforge.*;
 
 /**
  * 

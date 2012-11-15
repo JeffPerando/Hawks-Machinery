@@ -1,13 +1,12 @@
 
 package hawksmachinery.item;
 
-import hawksmachinery.HawksMachinery;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
-import cpw.mods.fml.common.registry.LanguageRegistry;
-import net.minecraft.src.*;
+import net.minecraft.src.CreativeTabs;
+import net.minecraft.src.EntityLiving;
+import net.minecraft.src.EnumRarity;
+import net.minecraft.src.ItemStack;
+import net.minecraft.src.Potion;
+import net.minecraft.src.PotionEffect;
 
 /**
  * 

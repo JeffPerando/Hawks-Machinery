@@ -1,29 +1,28 @@
 
 package hawksmachinery.tileentity;
 
-import java.util.Random;
-import com.google.common.io.ByteArrayDataInput;
-import universalelectricity.electricity.ElectricInfo;
-import universalelectricity.implement.IRotatable;
-import universalelectricity.prefab.TileEntityElectricityReceiver;
-import universalelectricity.prefab.network.IPacketReceiver;
-import universalelectricity.prefab.network.PacketManager;
-import universalelectricity.core.Vector3;
-import hawksmachinery.api.HMProcessingRecipes;
 import hawksmachinery.api.HMProcessingRecipes.HMEnumProcessing;
 import hawksmachinery.api.HMRepairInterfaces.IHMRepairable;
 import hawksmachinery.api.HMRepairInterfaces.IHMSapper;
+import java.util.Random;
 import net.minecraft.src.Entity;
 import net.minecraft.src.EntityPlayer;
+import net.minecraft.src.INetworkManager;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.NBTTagCompound;
 import net.minecraft.src.NBTTagList;
-import net.minecraft.src.INetworkManager;
 import net.minecraft.src.Packet;
 import net.minecraft.src.Packet250CustomPayload;
 import net.minecraft.src.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.common.ISidedInventory;
+import universalelectricity.core.Vector3;
+import universalelectricity.electricity.ElectricInfo;
+import universalelectricity.implement.IRotatable;
+import universalelectricity.prefab.TileEntityElectricityReceiver;
+import universalelectricity.prefab.network.IPacketReceiver;
+import universalelectricity.prefab.network.PacketManager;
+import com.google.common.io.ByteArrayDataInput;
 
 /**
  * 

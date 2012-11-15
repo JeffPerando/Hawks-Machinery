@@ -1,21 +1,15 @@
 
 package hawksmachinery.block;
 
-import java.util.List;
 import cpw.mods.fml.common.registry.GameRegistry;
 import hawksmachinery.HawksMachinery;
 import hawksmachinery.api.HMRepairInterfaces.IHMRepairable;
 import hawksmachinery.api.HMRepairInterfaces.IHMSapper;
-import hawksmachinery.tileentity.HMTileEntityMachine;
 import net.minecraft.src.Block;
-import net.minecraft.src.CreativeTabs;
-import net.minecraft.src.EntityLiving;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.IBlockAccess;
-import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.Material;
-import net.minecraft.src.NBTTagCompound;
 import net.minecraft.src.World;
 import universalelectricity.prefab.BlockMachine;
 

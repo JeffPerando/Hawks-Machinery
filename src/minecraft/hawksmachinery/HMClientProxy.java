@@ -3,15 +3,15 @@ package hawksmachinery;
 
 import hawksmachinery.api.HMLanguageCore;
 import hawksmachinery.lang.HMLangen_US;
-import hawksmachinery.tileentity.*;
-import cpw.mods.fml.client.FMLClientHandler;
-import cpw.mods.fml.client.registry.ClientRegistry;
-import cpw.mods.fml.common.registry.LanguageRegistry;
+import hawksmachinery.tileentity.HMTileEntityCrusher;
+import hawksmachinery.tileentity.HMTileEntityFisher;
+import hawksmachinery.tileentity.HMTileEntityTeleporter;
+import hawksmachinery.tileentity.HMTileEntityWasher;
 import net.minecraft.src.EntityPlayer;
-import net.minecraft.src.ItemStack;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 import net.minecraftforge.client.MinecraftForgeClient;
+import cpw.mods.fml.client.registry.ClientRegistry;
 
 /**
  * 

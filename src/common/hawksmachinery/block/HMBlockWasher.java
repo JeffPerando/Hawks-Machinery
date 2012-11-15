@@ -2,7 +2,6 @@
 package hawksmachinery.block;
 
 import java.util.Random;
-import hawksmachinery.HawksMachinery;
 import hawksmachinery.item.HMItemBlockWasher;
 import hawksmachinery.tileentity.HMTileEntityWasher;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -12,15 +11,12 @@ import net.minecraft.src.Entity;
 import net.minecraft.src.EntityEnderman;
 import net.minecraft.src.EntityLiving;
 import net.minecraft.src.EntityPlayer;
-import net.minecraft.src.ItemStack;
 import net.minecraft.src.Material;
 import net.minecraft.src.MathHelper;
-import net.minecraft.src.NBTTagCompound;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 import net.minecraftforge.common.ForgeDirection;
 import universalelectricity.implement.UEDamageSource;
-import universalelectricity.prefab.BlockMachine;
 
 /**
  *

@@ -2,11 +2,7 @@
 package hawksmachinery;
 
 import hawksmachinery.block.HMBlock;
-import java.util.Random;
-import net.minecraft.src.ChunkProviderEnd;
-import net.minecraft.src.IChunkProvider;
 import net.minecraft.src.ItemStack;
-import net.minecraft.src.World;
 import universalelectricity.prefab.ore.OreGenReplace;
 
 /**

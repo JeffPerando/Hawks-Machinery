@@ -1,9 +1,9 @@
 package hawksmachinery;
 
-import org.lwjgl.opengl.GL11;
 import net.minecraft.client.Minecraft;
 import net.minecraft.src.FontRenderer;
 import net.minecraft.src.GuiButton;
+import org.lwjgl.opengl.GL11;
 
 /**
  * 

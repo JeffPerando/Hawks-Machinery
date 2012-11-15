@@ -1,15 +1,14 @@
 
 package hawksmachinery.tileentity;
 
+import hawksmachinery.item.HMItem;
 import java.util.Random;
-import universalelectricity.electricity.ElectricInfo;
-import universalelectricity.implement.IItemElectric;
 import net.minecraft.src.Block;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
 import net.minecraftforge.common.ForgeDirection;
-import hawksmachinery.api.HMProcessingRecipes.HMEnumProcessing;
-import hawksmachinery.item.HMItem;
+import universalelectricity.electricity.ElectricInfo;
+import universalelectricity.implement.IItemElectric;
 
 /**
  * 
