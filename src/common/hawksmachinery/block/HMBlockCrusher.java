@@ -19,12 +19,11 @@ public class HMBlockCrusher extends HMBlockMachine
 	public HMBlockCrusher(int id)
 	{
 		super("HMCrusher", id, Material.iron);
-		setHardness(2.0F);
+		setHardness(5.0F);
 		setResistance(20.0F);
 		setRequiresSelfNotify();
 		setCreativeTab(CreativeTabs.tabDecorations);
 		GameRegistry.registerBlock(this, HMItemBlockCrusher.class);
-		setTextureFile(BASEMOD.ITEM_TEXTURE_FILE);
 		
 	}
 	

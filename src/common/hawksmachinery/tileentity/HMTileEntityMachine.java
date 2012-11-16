@@ -115,11 +115,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 			
 		}
 		
-		if (this.facingDirection.ordinal() != this.worldObj.getBlockMetadata(this.xCoord, this.yCoord, this.zCoord))
-		{
-			this.facingDirection = ForgeDirection.getOrientation(this.worldObj.getBlockMetadata(this.xCoord, this.yCoord, this.zCoord));
-			
-		}
+		this.facingDirection = ForgeDirection.getOrientation(this.worldObj.getBlockMetadata(this.xCoord, this.yCoord, this.zCoord));
 		
 	}
 	
@@ -314,11 +310,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 		super.readFromNBT(NBTTag);
 		this.machineHP = NBTTag.getInteger("MachineHP");
 		this.electricityStored = NBTTag.getDouble("electricityStored");
-		if (this.isProcessor)
-		{
-			this.workTicks = NBTTag.getInteger("workTicks");
-			
-		}
+		if (this.isProcessor) this.workTicks = NBTTag.getInteger("workTicks");
 		
 		this.sapper = ItemStack.loadItemStackFromNBT(NBTTag.getCompoundTag("Sapper"));
 		
@@ -348,17 +340,9 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 		NBTTag.setInteger("MachineHP", this.machineHP);
 		NBTTag.setDouble("electricityStored", this.electricityStored);
 		
-		if (this.isProcessor)
-		{
-			NBTTag.setInteger("workTicks", this.workTicks);
-			
-		}
+		if (this.isProcessor) NBTTag.setInteger("workTicks", this.workTicks);
 		
-		if (this.sapper != null)
-		{
-			NBTTag.setCompoundTag("Sapper", this.sapper.writeToNBT(new NBTTagCompound()));
-			
-		}
+		if (this.sapper != null) NBTTag.setCompoundTag("Sapper", this.sapper.writeToNBT(new NBTTagCompound()));
 		
 		if (this.containingItems != null)
 		{
