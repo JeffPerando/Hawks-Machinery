@@ -6,8 +6,8 @@ import hawksmachinery.api.HMProcessingRecipes;
 import hawksmachinery.api.HMProcessingRecipes.HMEnumProcessing;
 import net.minecraft.src.ItemStack;
 import net.minecraftforge.common.ForgeDirection;
-import universalelectricity.electricity.ElectricInfo;
-import universalelectricity.implement.IItemElectric;
+import universalelectricity.core.electricity.ElectricInfo;
+import universalelectricity.core.implement.IItemElectric;
 import cpw.mods.fml.common.FMLCommonHandler;
 
 /**
@@ -145,7 +145,9 @@ public class HMTileEntityCrusher extends HMTileEntityMachine
 			{
 				return false;
 			}
+			
 		}
+		
 	}
 	
 	private boolean canExplode()
@@ -339,6 +341,12 @@ public class HMTileEntityCrusher extends HMTileEntityMachine
 		return this.containingItems[1];
 	}
 	*/
+
+	@Override
+	public void onInventoryChanged()
+	{
+		
+	}
 	
 	/*
 	@Override

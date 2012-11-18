@@ -66,7 +66,7 @@ public class HMProcessingRecipes
 	 * @param output The output.
 	 * @param processType What type of processing this recipe is for.
 	 */
-	public static <T> void addHMProcessingRecipe(T input, ItemStack output, HMEnumProcessing processType)
+	public static void addHMProcessingRecipe(Object input, ItemStack output, HMEnumProcessing processType)
 	{
 		if (input instanceof ItemStack)
 		{

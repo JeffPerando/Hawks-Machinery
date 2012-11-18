@@ -72,28 +72,24 @@ public class HMTeleportationHelper
 			return;
 		}
 		
-		if (!entity.worldObj.isRemote)
+		if (coords.dim() != entity.dimension)
 		{
-			if (coords.dim() != entity.dimension)
+			ServerConfigurationManager manager = MinecraftServer.getServer().getConfigurationManager();
+			
+			if (entity instanceof EntityPlayerMP)
 			{
-				ServerConfigurationManager manager = MinecraftServer.getServer().getConfigurationManager();
+				manager.transferPlayerToDimension(((EntityPlayerMP)entity), coords.dim());
 				
-				if (entity instanceof EntityPlayerMP)
-				{
-					manager.transferPlayerToDimension(((EntityPlayerMP)entity), coords.dim());
-					
-				}
-				else
-				{
-					manager.transferEntityToWorld(entity, coords.dim(), DimensionManager.getWorld(entity.dimension), DimensionManager.getWorld(coords.dim()));
-					
-				}
+			}
+			else
+			{
+				manager.transferEntityToWorld(entity, coords.dim(), DimensionManager.getWorld(entity.dimension), DimensionManager.getWorld(coords.dim()));
 				
 			}
 			
-			entity.setPosition(coords.x() + 0.5, coords.y() + 1, coords.z() + 0.5);
-			
 		}
+		
+		entity.setPosition(coords.x() + 0.5, coords.y() + 1, coords.z() + 0.5);
 		
 	}
 	

@@ -4,9 +4,35 @@ package hawksmachinery;
 import hawksmachinery.api.HMContent;
 import hawksmachinery.api.HMProcessingRecipes;
 import hawksmachinery.api.HMProcessingRecipes.HMEnumProcessing;
-import hawksmachinery.block.*;
-import hawksmachinery.item.*;
-import hawksmachinery.tileentity.*;
+import hawksmachinery.block.HMBlock;
+import hawksmachinery.block.HMBlockCrusher;
+import hawksmachinery.block.HMBlockEndiumChunkloader;
+import hawksmachinery.block.HMBlockEndiumTeleporter;
+import hawksmachinery.block.HMBlockFisher;
+import hawksmachinery.block.HMBlockMetalStorage;
+import hawksmachinery.block.HMBlockOre;
+import hawksmachinery.block.HMBlockWasher;
+import hawksmachinery.item.HMItem;
+import hawksmachinery.item.HMItemBlueprints;
+import hawksmachinery.item.HMItemIngots;
+import hawksmachinery.item.HMItemParts;
+import hawksmachinery.item.HMItemPlating;
+import hawksmachinery.item.HMItemRawDust;
+import hawksmachinery.item.HMItemRefinedDust;
+import hawksmachinery.item.HMItemRivetGun;
+import hawksmachinery.item.HMItemRivets;
+import net.minecraft.src.Achievement;
+import net.minecraft.src.AchievementList;
+import net.minecraft.src.Block;
+import net.minecraft.src.CreativeTabs;
+import net.minecraft.src.FurnaceRecipes;
+import net.minecraft.src.Item;
+import net.minecraft.src.ItemStack;
+import net.minecraftforge.common.AchievementPage;
+import net.minecraftforge.common.ForgeChunkManager;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.oredict.ShapedOreRecipe;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
 import obsidian.api.ItemRetriever;
 import universalelectricity.prefab.network.ConnectionHandler;
 import universalelectricity.prefab.network.PacketManager;
@@ -17,28 +43,14 @@ import updatemanager.common.ModConverter;
 import updatemanager.common.UpdateManager;
 import updatemanager.common.UpdateManagerMod;
 import updatemanager.common.checking.CheckingMethod;
-import net.minecraft.src.Achievement;
-import net.minecraft.src.AchievementList;
-import net.minecraft.src.Block;
-import net.minecraft.src.CreativeTabs;
-import net.minecraft.src.FurnaceRecipes;
-import net.minecraft.src.Item;
-import net.minecraft.src.ItemStack;
-import net.minecraftforge.common.AchievementPage;
-import net.minecraftforge.common.ForgeChunkManager;
-import net.minecraftforge.common.ForgeChunkManager.Ticket;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.oredict.ShapedOreRecipe;
-import net.minecraftforge.oredict.ShapelessOreRecipe;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.Mod.Metadata;
-import cpw.mods.fml.common.ModMetadata;
-import cpw.mods.fml.common.Side;
 import cpw.mods.fml.common.Mod.Init;
 import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.Mod.Metadata;
 import cpw.mods.fml.common.Mod.PostInit;
 import cpw.mods.fml.common.Mod.PreInit;
+import cpw.mods.fml.common.ModMetadata;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
@@ -67,7 +79,7 @@ public class HawksMachinery
 	@Metadata("HawksMachinery")
 	public static ModMetadata HAWK_META = new HMDummyContainer().getMetadata();
 	
-	public static final String VERSION = "Alpha v1.6.0";
+	public static final String VERSION = "Alpha v1.5.2";
 	
 	public static HMProcessingRecipes PROCESS_RECIPES;
 	public static HMEnumProcessing CRUSH = HMEnumProcessing.CRUSHING;
@@ -332,7 +344,7 @@ public class HawksMachinery
 		@Override
 		public String getChangelogURL()
 		{
-			return "https://dl.dropbox.com/u/100525141/HawksMachineryAlphav151Changelog.txt";
+			return "https://dl.dropbox.com/u/100525141/HawksMachinery" + VERSION.replaceAll(".", "").replaceAll(" ", "") + "Changelog.txt";
 		}
 		
 		@Override

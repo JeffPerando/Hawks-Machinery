@@ -26,13 +26,14 @@ public class HMTileEntityTeleporter extends HMTileEntityMachine
 	public HMEndiumTeleporterCoords coords;
 	public Ticket heldChunk;
 	
-	public int[] coordsArray = new int[3];
+	public int[] coordsArray;
 	
 	public HMTileEntityTeleporter()
 	{
 		ELECTRICITY_LIMIT = 100000;
 		ELECTRICITY_REQUIRED = 200;
 		voltage = 120;
+		this.coordsArray = new int[3];
 		
 	}
 	
@@ -41,7 +42,7 @@ public class HMTileEntityTeleporter extends HMTileEntityMachine
 	{
 		super.updateEntity();
 		
-		if (this.isReadyToTeleport() && this.worldObj.getBlockId(this.xCoord, this.yCoord + 1, this.zCoord) != 0)
+		if (this.isReadyToTeleport() && this.worldObj.getBlockId(this.xCoord, this.yCoord + 1, this.zCoord) != 0 && this.getBlockMetadata() == 0)
 		{
 			WorldServer receivingDim = DimensionManager.getWorld(this.coords.dim());
 			
@@ -62,7 +63,7 @@ public class HMTileEntityTeleporter extends HMTileEntityMachine
 				int meta = this.worldObj.getBlockMetadata(this.xCoord, this.yCoord + 1, this.zCoord);
 				
 				receivingDim.setBlockAndMetadataWithUpdate(this.coords.x(), this.coords.y() + 1, this.coords.z(), blockID, meta, true);
-				this.worldObj.setBlockAndMetadata(this.xCoord, this.yCoord, this.zCoord, 0, 0);
+				this.worldObj.setBlockAndMetadata(this.xCoord, this.yCoord + 1, this.zCoord, 0, 0);
 				this.doTeleportationSpecialEffects();
 				this.electricityStored = 0;
 				--this.machineHP;
@@ -73,11 +74,55 @@ public class HMTileEntityTeleporter extends HMTileEntityMachine
 		
 	}
 	
+	@Override
+	public boolean isDisabled()
+	{
+		return this.isBeingSapped() || (this.machineHP == 0 && this.getMaxHP() > 0);
+	}
+	
+	@Override
+	public double wattRequest()
+	{
+		if (this.isDisabled())
+		{
+			return 0;
+		}
+		else
+		{
+			if (this.electricityStored + this.ELECTRICITY_REQUIRED <= this.ELECTRICITY_LIMIT)
+			{
+				return this.ELECTRICITY_REQUIRED;
+			}
+			else
+			{
+				if (this.ELECTRICITY_LIMIT != this.electricityStored)
+				{
+					if (this.electricityStored + this.ELECTRICITY_REQUIRED >= this.ELECTRICITY_LIMIT)
+					{
+						return this.ELECTRICITY_LIMIT - this.electricityStored;
+					}
+					else
+					{
+						return this.ELECTRICITY_REQUIRED;
+					}
+					
+				}
+				else
+				{
+					return 0;
+				}
+				
+			}
+			
+		}
+		
+	}
+	
 	public boolean isReadyToTeleport()
 	{
-		if (this.worldObj.getBlockMetadata(this.xCoord, this.yCoord, this.zCoord) == 0)
+		if (this.getBlockMetadata() == 0)
 		{
-			return this.electricityStored == this.ELECTRICITY_LIMIT && this.coords != null && !this.isDisabled();
+			return this.coords != null && !this.isDisabled();
 			
 		}
 		else
@@ -89,7 +134,7 @@ public class HMTileEntityTeleporter extends HMTileEntityMachine
 	
 	public void tryTeleportEntity(Entity entity)
 	{
-		if (this.isReadyToTeleport() && this.worldObj.isBlockIndirectlyGettingPowered(this.xCoord, this.yCoord, this.zCoord))
+		if (this.isReadyToTeleport() && this.worldObj.isBlockGettingPowered(this.xCoord, this.yCoord, this.zCoord))
 		{
 			HMTeleportationHelper.instance().teleportEntity(entity, this.coords);
 			this.doTeleportationSpecialEffects();
@@ -121,13 +166,18 @@ public class HMTileEntityTeleporter extends HMTileEntityMachine
 	{
 		if (this.coordsArray[0] != 0 && this.coordsArray[1] != 0 && this.coordsArray[2] != 0)
 		{
-			if (this.worldObj.getBlockMetadata(this.xCoord, this.yCoord, this.zCoord) == 0)
+			if (this.getBlockMetadata() == 0)
 			{
-				this.coords = HMTeleportationHelper.instance().getCoordsFromSymbols(this.coordsArray[0], this.coordsArray[1], this.coordsArray[2]);
-				return true;
+				HMEndiumTeleporterCoords newCoords = HMTeleportationHelper.instance().getCoordsFromSymbols(this.coordsArray[0], this.coordsArray[1], this.coordsArray[2]);
+				
+				if (newCoords != null)
+				{
+					this.coords = newCoords;
+					return true;
+				}
 				
 			}
-			else if (this.worldObj.getBlockMetadata(this.xCoord, this.yCoord, this.zCoord) == 1)
+			else if (this.getBlockMetadata() == 1)
 			{
 				HMEndiumTeleporterCoords newCoords = new HMEndiumTeleporterCoords(this.xCoord, this.yCoord, this.zCoord, this.worldObj.getWorldInfo().getDimension(), this.coordsArray[0], this.coordsArray[1], this.coordsArray[2]);
 				
@@ -135,7 +185,6 @@ public class HMTileEntityTeleporter extends HMTileEntityMachine
 				{
 					this.coords = newCoords;
 					return true;
-					
 				}
 				
 			}
@@ -161,7 +210,9 @@ public class HMTileEntityTeleporter extends HMTileEntityMachine
 	{
 		super.readFromNBT(NBTTag);
 		
-		this.coordsArray = NBTTag.getIntArray("coords");
+		this.coordsArray[0] = NBTTag.getInteger("coords1");
+		this.coordsArray[1] = NBTTag.getInteger("coords2");
+		this.coordsArray[2] = NBTTag.getInteger("coords3");
 		this.registerCoords();
 		
 	}
@@ -171,7 +222,9 @@ public class HMTileEntityTeleporter extends HMTileEntityMachine
 	{
 		super.writeToNBT(NBTTag);
 		
-		NBTTag.setIntArray("coords", this.coordsArray);
+		NBTTag.setInteger("coords1", this.coordsArray[0]);
+		NBTTag.setInteger("coords2", this.coordsArray[1]);
+		NBTTag.setInteger("coords3", this.coordsArray[2]);
 		
 	}
 	

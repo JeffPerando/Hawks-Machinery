@@ -5,6 +5,7 @@ import hawksmachinery.HawksMachinery;
 import hawksmachinery.api.HMRepairInterfaces.IHMRepairable;
 import hawksmachinery.api.HMRepairInterfaces.IHMRivet;
 import universalelectricity.prefab.ItemElectric;
+import net.minecraft.src.CreativeTabs;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.EnumAction;
 import net.minecraft.src.EnumMovingObjectType;
@@ -29,6 +30,7 @@ public class HMItemRivetGun extends ItemElectric
 		setTextureFile(BASEMOD.ITEM_TEXTURE_FILE);
 		setItemName("HMrivetGun");
 		setIconIndex(40);
+		setCreativeTab(CreativeTabs.tabTools);
 		
 	}
 	
@@ -89,10 +91,6 @@ public class HMItemRivetGun extends ItemElectric
 							
 						}
 						
-					}
-					else
-					{
-						throw new RuntimeException("Hawk's Machinery: Maximum machine HP must be >0!");
 					}
 					
 				}

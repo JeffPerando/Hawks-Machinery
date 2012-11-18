@@ -7,8 +7,8 @@ import net.minecraft.src.Block;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
 import net.minecraftforge.common.ForgeDirection;
-import universalelectricity.electricity.ElectricInfo;
-import universalelectricity.implement.IItemElectric;
+import universalelectricity.core.electricity.ElectricInfo;
+import universalelectricity.core.implement.IItemElectric;
 
 /**
  * 
@@ -18,6 +18,8 @@ import universalelectricity.implement.IItemElectric;
  */
 public class HMTileEntityFisher extends HMTileEntityMachine
 {
+	private Random random = new Random();
+	
 	public HMTileEntityFisher()
 	{
 		super();
@@ -31,32 +33,36 @@ public class HMTileEntityFisher extends HMTileEntityMachine
 	@Override
 	public void updateEntity()
 	{
-		super.updateEntity();
-		
-		if (!this.isDisabled())
+		if (this.worldObj.getTotalWorldTime() % 20L == 0L)
 		{
-			if (this.containingItems[0] != null)
+			super.updateEntity();
+			
+			if (!this.isDisabled())
 			{
-				if (this.containingItems[0].getItem() instanceof IItemElectric)
+				if (this.containingItems[0] != null)
 				{
-					IItemElectric electricItem = (IItemElectric)this.containingItems[0].getItem();
-					
-					if (electricItem.canProduceElectricity() && this.electricityStored > this.ELECTRICITY_LIMIT)
+					if (this.containingItems[0].getItem() instanceof IItemElectric)
 					{
-						double receivedElectricity = electricItem.onUse(Math.min(electricItem.getMaxJoules()*0.01, ElectricInfo.getWattHours(this.ELECTRICITY_REQUIRED)), this.containingItems[0]);
-						this.electricityStored += ElectricInfo.getWatts(receivedElectricity);
+						IItemElectric electricItem = (IItemElectric)this.containingItems[0].getItem();
+						
+						if (electricItem.canProduceElectricity() && this.electricityStored > this.ELECTRICITY_LIMIT)
+						{
+							double receivedElectricity = electricItem.onUse(Math.min(electricItem.getMaxJoules()*0.01, ElectricInfo.getWattHours(this.ELECTRICITY_REQUIRED)), this.containingItems[0]);
+							this.electricityStored += ElectricInfo.getWatts(receivedElectricity);
+						}
 					}
 				}
-			}
-			
-			if (this.worldObj.getBlockId(this.xCoord, this.yCoord - 1, this.zCoord) == Block.waterStill.blockID && this.canFish())
-			{
-				this.worldObj.setBlock(this.xCoord, this.yCoord - 1, this.zCoord, 0);
-				this.electricityStored -= this.ELECTRICITY_REQUIRED;
 				
-				if (new Random().nextInt(100) > 5)
+				if (this.worldObj.getBlockId(this.xCoord, this.yCoord - 1, this.zCoord) == Block.waterStill.blockID && this.canFish())
 				{
-					this.addFishAndRemoveFood();
+					this.worldObj.setBlockWithNotify(this.xCoord, this.yCoord - 1, this.zCoord, 0);
+					this.electricityStored -= this.ELECTRICITY_REQUIRED;
+					
+					if (this.random.nextInt(100) < 5)
+					{
+						this.addFishAndRemoveFood();
+						
+					}
 					
 				}
 				
@@ -83,11 +89,11 @@ public class HMTileEntityFisher extends HMTileEntityMachine
 			{
 				if (this.containingItems[counter].stackSize < this.containingItems[counter].getMaxStackSize())
 				{
-					continue;
+					++fullStacks;
 				}
 				else
 				{
-					++fullStacks;
+					continue;
 					
 				}
 				
@@ -112,7 +118,23 @@ public class HMTileEntityFisher extends HMTileEntityMachine
 			
 			for (int counter = 1; counter < 10; ++counter)
 			{
-				if (!addedFish)
+				if (this.containingItems[counter + 9] != null && !removedFood)
+				{
+					if (this.containingItems[counter + 9].isItemEqual(new ItemStack(HMItem.fishFood)) && this.containingItems[counter + 9].stackSize > 0)
+					{
+						--this.containingItems[counter + 9].stackSize;
+						if (this.containingItems[counter + 9].stackSize == 0)
+						{
+							this.containingItems[counter + 9] = null;
+						}
+						
+						removedFood = true;
+						
+					}
+					
+				}
+				
+				if (!addedFish && removedFood)
 				{
 					if (this.containingItems[counter] != null)
 					{
@@ -133,26 +155,6 @@ public class HMTileEntityFisher extends HMTileEntityMachine
 					
 				}
 				
-				if (this.containingItems[counter + 9] != null && !removedFood)
-				{
-					if (this.containingItems[counter + 9].isItemEqual(new ItemStack(HMItem.fishFood)))
-					{
-						if (this.containingItems[counter + 9].stackSize > 0)
-						{
-							--this.containingItems[counter + 9].stackSize;
-							if (this.containingItems[counter + 9].stackSize == 0)
-							{
-								this.containingItems[counter + 9] = null;
-							}
-							
-							removedFood = true;
-							
-						}
-						
-					}
-					
-				}
-				
 				if (addedFish && removedFood)
 				{
 					break;
@@ -162,6 +164,11 @@ public class HMTileEntityFisher extends HMTileEntityMachine
 			
 		}
 		
+	}
+	
+	public int getMaxHP()
+	{
+		return 0;
 	}
 	
 }

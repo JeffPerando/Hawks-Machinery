@@ -7,7 +7,7 @@ import net.minecraft.src.GuiContainer;
 import net.minecraft.src.InventoryPlayer;
 import net.minecraft.src.StatCollector;
 import org.lwjgl.opengl.GL11;
-import universalelectricity.electricity.ElectricInfo;
+import universalelectricity.core.electricity.ElectricInfo;
 
 /**
  * 
@@ -34,7 +34,7 @@ public class HMGUIFisher extends GuiContainer
 	protected void drawGuiContainerForegroundLayer(int par1, int par2)
 	{
 		this.fontRenderer.drawString("Fisher", 72, 4, 4210752);
-		this.fontRenderer.drawString(ElectricInfo.getDisplayShort(this.tileEntity.electricityStored, ElectricInfo.ElectricUnit.WATT), 80, 62, 4210752);
+		this.fontRenderer.drawString("Watts: " + ElectricInfo.getDisplayShort(this.tileEntity.electricityStored, ElectricInfo.ElectricUnit.WATT), 60, 62, 4210752);
 		
 		this.fontRenderer.drawString(StatCollector.translateToLocal("container.inventory"), 110, this.ySize - 94, 4210752);
 		

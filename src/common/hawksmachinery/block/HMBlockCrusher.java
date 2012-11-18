@@ -24,6 +24,7 @@ public class HMBlockCrusher extends HMBlockMachine
 		setRequiresSelfNotify();
 		setCreativeTab(CreativeTabs.tabDecorations);
 		GameRegistry.registerBlock(this, HMItemBlockCrusher.class);
+		setTextureFile(BASEMOD.ITEM_TEXTURE_FILE);
 		
 	}
 	

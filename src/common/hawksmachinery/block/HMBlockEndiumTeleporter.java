@@ -75,12 +75,16 @@ public class HMBlockEndiumTeleporter extends HMBlockMachine
 	}
 	
 	@Override
-	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity)
+	public void onEntityWalking(World world, int x, int y, int z, Entity entity)
 	{
-		((HMTileEntityTeleporter)world.getBlockTileEntity(x, y, z)).tryTeleportEntity(entity);
+		if (entity != null)
+		{
+			((HMTileEntityTeleporter)world.getBlockTileEntity(x, y, z)).tryTeleportEntity(entity);
+			
+		}
 		
 	}
-
+	
 	@Override
 	public boolean isBlockSolidOnSide(World world, int x, int y, int z, ForgeDirection side)
 	{

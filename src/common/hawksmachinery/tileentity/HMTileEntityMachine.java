@@ -16,12 +16,12 @@ import net.minecraft.src.Packet250CustomPayload;
 import net.minecraft.src.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.common.ISidedInventory;
-import universalelectricity.core.Vector3;
-import universalelectricity.electricity.ElectricInfo;
-import universalelectricity.implement.IRotatable;
-import universalelectricity.prefab.TileEntityElectricityReceiver;
+import universalelectricity.core.electricity.ElectricInfo;
+import universalelectricity.core.vector.Vector3;
+import universalelectricity.prefab.implement.IRotatable;
 import universalelectricity.prefab.network.IPacketReceiver;
 import universalelectricity.prefab.network.PacketManager;
+import universalelectricity.prefab.tile.TileEntityElectricityReceiver;
 import com.google.common.io.ByteArrayDataInput;
 
 /**
@@ -371,6 +371,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 		if (new Random().nextInt(10) == 6)
 		{
 			--this.machineHP;
+			
 		}
 		
 	}
@@ -423,7 +424,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	@Override
 	public boolean isDisabled()
 	{
-		return this.isBeingSapped() || this.machineHP == 0;
+		return (this.isBeingSapped() || (this.machineHP == 0 && this.getMaxHP() > 0)) || this.worldObj.isBlockIndirectlyGettingPowered(this.xCoord, this.yCoord, this.zCoord);
 	}
 	
 	public int getMaxHP()
