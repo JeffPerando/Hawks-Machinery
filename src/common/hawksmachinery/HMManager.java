@@ -197,10 +197,7 @@ public class HMManager implements LoadingCallback, IVillageTradeHandler, ICrafti
 			recipeList.add(new MerchantRecipe(new ItemStack(HMItem.ingots, 1, 0), new ItemStack(Item.emerald, 12)));
 			recipeList.add(new MerchantRecipe(new ItemStack(HMItem.ingots, 2, 0), new ItemStack(Item.emerald, 12)));
 			
-			recipeList.add(new MerchantRecipe(new ItemStack(Item.emerald, 4), new ItemStack(HMItem.ingots, 2, 1)));
-			recipeList.add(new MerchantRecipe(new ItemStack(Item.emerald, 5), new ItemStack(HMItem.ingots, 2, 1)));
-			recipeList.add(new MerchantRecipe(new ItemStack(Item.emerald, 4), new ItemStack(HMItem.ingots, 3, 1)));
-			recipeList.add(new MerchantRecipe(new ItemStack(Item.emerald, 5), new ItemStack(HMItem.ingots, 3, 1)));
+			recipeList.add(new MerchantRecipe(new ItemStack(Item.emerald), new ItemStack(HMItem.ingots, 1, 1)));
 			
 		}
 		

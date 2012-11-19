@@ -50,6 +50,7 @@ public class HMBlockEndiumTeleporter extends HMBlockMachine
 		
 	}
 	
+	/*
 	@Override
 	public boolean hasTileEntity(int meta)
 	{
@@ -84,6 +85,7 @@ public class HMBlockEndiumTeleporter extends HMBlockMachine
 		}
 		
 	}
+	*/
 	
 	@Override
 	public boolean isBlockSolidOnSide(World world, int x, int y, int z, ForgeDirection side)
@@ -99,6 +101,7 @@ public class HMBlockEndiumTeleporter extends HMBlockMachine
 		
 	}
 	
+	/*
 	@Override
 	public void breakBlock(World world, int x, int y, int z, int par5, int par6)
 	{
@@ -107,5 +110,5 @@ public class HMBlockEndiumTeleporter extends HMBlockMachine
 		super.breakBlock(world, x, y, z, par5, par6);
 		
 	}
-	
+	*/
 }

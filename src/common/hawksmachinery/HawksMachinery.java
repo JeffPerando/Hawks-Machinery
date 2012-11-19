@@ -1,26 +1,10 @@
 
 package hawksmachinery;
 
-import hawksmachinery.api.HMContent;
-import hawksmachinery.api.HMProcessingRecipes;
+import hawksmachinery.api.*;
 import hawksmachinery.api.HMProcessingRecipes.HMEnumProcessing;
-import hawksmachinery.block.HMBlock;
-import hawksmachinery.block.HMBlockCrusher;
-import hawksmachinery.block.HMBlockEndiumChunkloader;
-import hawksmachinery.block.HMBlockEndiumTeleporter;
-import hawksmachinery.block.HMBlockFisher;
-import hawksmachinery.block.HMBlockMetalStorage;
-import hawksmachinery.block.HMBlockOre;
-import hawksmachinery.block.HMBlockWasher;
-import hawksmachinery.item.HMItem;
-import hawksmachinery.item.HMItemBlueprints;
-import hawksmachinery.item.HMItemIngots;
-import hawksmachinery.item.HMItemParts;
-import hawksmachinery.item.HMItemPlating;
-import hawksmachinery.item.HMItemRawDust;
-import hawksmachinery.item.HMItemRefinedDust;
-import hawksmachinery.item.HMItemRivetGun;
-import hawksmachinery.item.HMItemRivets;
+import hawksmachinery.block.*;
+import hawksmachinery.item.*;
 import net.minecraft.src.Achievement;
 import net.minecraft.src.AchievementList;
 import net.minecraft.src.Block;
@@ -220,6 +204,8 @@ public class HawksMachinery
 		FurnaceRecipes.smelting().addSmelting(HMItem.dustRefined.shiftedIndex, 3, new ItemStack(Item.ingotIron), 0.0F);
 		FurnaceRecipes.smelting().addSmelting(HMItem.dustRefined.shiftedIndex, 4, new ItemStack(Item.ingotGold), 0.0F);
 		FurnaceRecipes.smelting().addSmelting(HMItem.dustRaw.shiftedIndex, 8, new ItemStack(Block.obsidian), 0.0F);
+		FurnaceRecipes.smelting().addSmelting(HMItem.plating.shiftedIndex, 0, new ItemStack(HMItem.ingots, 4, 0), 0.0F);
+		FurnaceRecipes.smelting().addSmelting(HMItem.plating.shiftedIndex, 1, new ItemStack(HMItem.ingots, 4, 1), 0.0F);
 		
 	}
 	
