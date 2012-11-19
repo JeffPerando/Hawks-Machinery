@@ -159,10 +159,6 @@ public class HMProcessingRecipes
 				}
 				
 			}
-			else
-			{
-				
-			}
 			
 			return output;
 			

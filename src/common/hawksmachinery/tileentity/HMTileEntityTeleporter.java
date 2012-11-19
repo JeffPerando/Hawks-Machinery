@@ -26,14 +26,14 @@ public class HMTileEntityTeleporter extends HMTileEntityMachine
 	public HMEndiumTeleporterCoords coords;
 	public Ticket heldChunk;
 	
-	public int[] coordsArray;
+	public int[] coordsArray = new int[3];
 	
 	public HMTileEntityTeleporter()
 	{
+		super();
 		ELECTRICITY_LIMIT = 100000;
 		ELECTRICITY_REQUIRED = 200;
 		voltage = 120;
-		this.coordsArray = new int[3];
 		
 	}
 	
@@ -213,7 +213,6 @@ public class HMTileEntityTeleporter extends HMTileEntityMachine
 		this.coordsArray[0] = NBTTag.getInteger("coords1");
 		this.coordsArray[1] = NBTTag.getInteger("coords2");
 		this.coordsArray[2] = NBTTag.getInteger("coords3");
-		this.registerCoords();
 		
 	}
 	
@@ -270,6 +269,11 @@ public class HMTileEntityTeleporter extends HMTileEntityMachine
 			
 		}
 		
+	}
+	
+	public int getMaxHP()
+	{
+		return this.getBlockMetadata() == 0 ? 20 : 0;
 	}
 	
 }

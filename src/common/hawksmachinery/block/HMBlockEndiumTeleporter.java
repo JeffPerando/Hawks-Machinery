@@ -96,8 +96,10 @@ public class HMBlockEndiumTeleporter extends HMBlockMachine
 	@Override
 	public void getSubBlocks(int id, CreativeTabs tab, List list)
 	{
+		/*
 		list.add(new ItemStack(this, 1, 0));
 		list.add(new ItemStack(this, 1, 1));
+		*/
 		
 	}
 	
@@ -111,4 +113,5 @@ public class HMBlockEndiumTeleporter extends HMBlockMachine
 		
 	}
 	*/
+	
 }
