@@ -37,7 +37,7 @@ public class HMGUICrusher extends GuiContainer
 		this.fontRenderer.drawString("Input:", 10, 28, 4210752);
 		this.fontRenderer.drawString("Battery:", 10, 53, 4210752);
 		
-		this.fontRenderer.drawString("Status: "+this.tileEntity.getCrusherStatus(), 75, 48, 4210752);
+		this.fontRenderer.drawString("Status: " + this.tileEntity.getCrusherStatus(), 75, 48, 4210752);
 		this.fontRenderer.drawString(ElectricInfo.getDisplayShort(this.tileEntity.getVoltage(), ElectricInfo.ElectricUnit.VOLTAGE), 75, 60, 4210752);
 		this.fontRenderer.drawString(ElectricInfo.getDisplayShort(this.tileEntity.electricityStored, ElectricInfo.ElectricUnit.WATT), 75, 70, 4210752);
 		

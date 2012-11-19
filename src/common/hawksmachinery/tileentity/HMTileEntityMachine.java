@@ -72,50 +72,54 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 			this.explodeMachine(5.0F);
 		}
 		
-		this.electricityStored += ElectricInfo.getWatts(amps, voltage);
+		this.electricityStored += ElectricInfo.getJoules(amps, voltage);
 		
 	}
 	
 	@Override
 	public void updateEntity()
 	{
-		if (this.electricityStored < 0)
-		{
-			this.electricityStored = 0;
-			
-		}
-		
-		if (this.electricityStored > this.ELECTRICITY_LIMIT)
-		{
-			this.electricityStored = this.ELECTRICITY_LIMIT;
-			
-		}
-		
-		if (this.machineHP < 0)
-		{
-			this.machineHP = 0;
-			
-		}
-		
-		if (this.machineHP > this.getMaxHP())
-		{
-			this.machineHP = this.getMaxHP();
-			
-		}
-		
 		if (!this.worldObj.isRemote)
 		{
-			this.sendPacket();
+			if (this.electricityStored < 0)
+			{
+				this.electricityStored = 0;
+				
+			}
+			
+			if (this.electricityStored > this.ELECTRICITY_LIMIT)
+			{
+				this.electricityStored = this.ELECTRICITY_LIMIT;
+				
+			}
+			
+			if (this.machineHP < 0)
+			{
+				this.machineHP = 0;
+				
+			}
+			
+			if (this.machineHP > this.getMaxHP())
+			{
+				this.machineHP = this.getMaxHP();
+				
+			}
+			
+			if (this.worldObj.getTotalWorldTime() % 3L == 0L)
+			{
+				PacketManager.sendPacketToClients(this.getDescriptionPacket(), this.worldObj, Vector3.get(this), 8);
+				
+			}
+			
+			if (this.isBeingSapped())
+			{
+				((IHMSapper)this.sapper.getItem()).sapperTick(this.worldObj, this.xCoord, this.yCoord, this.zCoord);
+				
+			}
+			
+			this.facingDirection = ForgeDirection.getOrientation(this.worldObj.getBlockMetadata(this.xCoord, this.yCoord, this.zCoord));
 			
 		}
-		
-		if (this.isBeingSapped())
-		{
-			((IHMSapper)this.sapper.getItem()).sapperTick(this.worldObj, this.xCoord, this.yCoord, this.zCoord);
-			
-		}
-		
-		this.facingDirection = ForgeDirection.getOrientation(this.worldObj.getBlockMetadata(this.xCoord, this.yCoord, this.zCoord));
 		
 	}
 	
@@ -150,14 +154,6 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	public String getInvName()
 	{
 		return null;
-	}
-	
-	/**
-	 * Override this if you want to put more into 1 packet.
-	 */
-	private void sendPacket()
-	{
-		PacketManager.sendPacketToClients(this.getDescriptionPacket(), this.worldObj, Vector3.get(this), 8);
 	}
 	
 	@Override
