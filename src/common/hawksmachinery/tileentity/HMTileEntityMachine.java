@@ -113,7 +113,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 			
 			if (this.isBeingSapped())
 			{
-				((IHMSapper)this.sapper.getItem()).sapperTick(this.worldObj, this.xCoord, this.yCoord, this.zCoord);
+				((IHMSapper)this.sapper.getItem()).sapperTick(this.worldObj, this.xCoord, this.yCoord, this.zCoord, this.sapper);
 				
 			}
 			
@@ -280,12 +280,14 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	public void openChest()
 	{
 		this.isOpen = true;
+		
 	}
 	
 	@Override
 	public void closeChest()
 	{
 		this.isOpen = false;
+		
 	}
 	
 	@Override
@@ -298,6 +300,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	public void setDirection(ForgeDirection facingDirection)
 	{
 		this.facingDirection = facingDirection;
+		
 	}
 	
 	@Override
@@ -321,6 +324,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 				if (slot >= 0 && slot < this.containingItems.length)
 				{
 					this.containingItems[slot] = ItemStack.loadItemStackFromNBT(newTag);
+					
 				}
 				
 			}

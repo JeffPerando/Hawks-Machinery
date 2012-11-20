@@ -47,7 +47,7 @@ public class HMRepairInterfaces
 		
 		public int getRemovalValue(ItemStack sapper, EntityPlayer player);
 		
-		public void sapperTick(World world, int x, int y, int z);
+		public void sapperTick(World world, int x, int y, int z, ItemStack item);
 		
 		public void onRemoved(World world, int x, int y, int z);
 		

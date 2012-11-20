@@ -24,6 +24,7 @@ public class HMContainerCrusher extends Container
 	public HMContainerCrusher(InventoryPlayer playerInv, HMTileEntityCrusher tileEntity)
 	{
 		this.tileEntity = tileEntity;
+		this.tileEntity.openChest();
 		this.addSlotToContainer(new SlotElectricItem(tileEntity, 0, 55, 49));
 		this.addSlotToContainer(new Slot(tileEntity, 1, 55, 25));
 		this.addSlotToContainer(new SlotProcessorsOutput(playerInv.player, tileEntity, 2, 108, 25));
@@ -121,5 +122,12 @@ public class HMContainerCrusher extends Container
 		
 		return var2;
 	}
+	
+	@Override
+	public void onCraftGuiClosed(EntityPlayer par1EntityPlayer)
+    {
+        super.onCraftGuiClosed(par1EntityPlayer);
+        this.tileEntity.closeChest();
+    }
 	
 }

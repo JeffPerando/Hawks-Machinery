@@ -25,6 +25,7 @@ public class HMContainerWasher extends Container
 	public HMContainerWasher(InventoryPlayer playerInventory, HMTileEntityWasher tileEntity)
 	{
 		this.tileEntity = tileEntity;
+		this.tileEntity.openChest();
 		this.addSlotToContainer(new SlotElectricItem(tileEntity, 0, 36, 47));//Electric item
 		this.addSlotToContainer(new Slot(tileEntity, 1, 58, 52));//Water input
 		this.addSlotToContainer(new Slot(tileEntity, 2, 36, 15));//Actual input
@@ -125,5 +126,12 @@ public class HMContainerWasher extends Container
 		
 		return var2;
 	}
+	
+	@Override
+	public void onCraftGuiClosed(EntityPlayer par1EntityPlayer)
+    {
+        super.onCraftGuiClosed(par1EntityPlayer);
+        this.tileEntity.closeChest();
+    }
 	
 }

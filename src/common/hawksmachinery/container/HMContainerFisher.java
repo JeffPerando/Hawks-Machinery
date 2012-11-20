@@ -21,6 +21,7 @@ public class HMContainerFisher extends Container
 	public HMContainerFisher(InventoryPlayer playerInv, HMTileEntityFisher tileEntity)
 	{
 		this.tileEntity = tileEntity;
+		this.tileEntity.openChest();
 		this.addSlotToContainer(new SlotElectricItem(tileEntity, 0, 34, 61));
 		
 		for (int counter = 1; counter < 10; ++counter)
@@ -50,5 +51,12 @@ public class HMContainerFisher extends Container
 	{
 		return true;
 	}
+	
+	@Override
+	public void onCraftGuiClosed(EntityPlayer par1EntityPlayer)
+    {
+        super.onCraftGuiClosed(par1EntityPlayer);
+        this.tileEntity.closeChest();
+    }
 	
 }
