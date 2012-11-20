@@ -180,15 +180,10 @@ public class HMTileEntityWasher extends HMTileEntityMachine
 	{
 		if (this.isOpen)
 		{
-			if (this.isProcessor)
-			{
-				return PacketManager.getPacket("HawksMachinery", this, this.workTicks, this.electricityStored, this.machineHP, this.waterUnits);
-			}
-			
-			return PacketManager.getPacket("HawksMachinery", this, this.electricityStored, this.machineHP, this.waterUnits);
+			return PacketManager.getPacket("HawksMachinery", this, this.workTicks, this.electricityStored, this.machineHP, this.waterUnits);
 		}
 		
-		return PacketManager.getPacket("HawksMachinery", this, this.machineHP, this.waterUnits);
+		return PacketManager.getPacket("HawksMachinery", this, this.electricityStored, this.machineHP, this.waterUnits);
 	}
 	
 	@Override

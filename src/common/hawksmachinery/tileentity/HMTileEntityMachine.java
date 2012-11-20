@@ -137,17 +137,12 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	@Override
 	public Packet getDescriptionPacket()
 	{
-		if (this.isOpen)
+		if (this.isProcessor)
 		{
-			if (this.isProcessor)
-			{
-				return PacketManager.getPacket("HawksMachinery", this, this.workTicks, this.electricityStored, this.machineHP);
-			}
-			
-			return PacketManager.getPacket("HawksMachinery", this, this.electricityStored, this.machineHP);
+			return PacketManager.getPacket("HawksMachinery", this, this.workTicks, this.electricityStored, this.machineHP);
 		}
 		
-		return PacketManager.getPacket("HawksMachinery", this, this.machineHP);
+		return PacketManager.getPacket("HawksMachinery", this, this.electricityStored, this.machineHP);
 	}
 	
 	@Override

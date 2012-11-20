@@ -330,7 +330,7 @@ public class HawksMachinery
 		@Override
 		public String getChangelogURL()
 		{
-			return "https://dl.dropbox.com/u/100525141/HawksMachinery" + VERSION.replaceAll(".", "").replaceAll(" ", "") + "Changelog.txt";
+			return "https://dl.dropbox.com/u/100525141/HawksMachinery" + VERSION.replaceAll(".", "").replaceAll(" ", "").toString() + "Changelog.txt";
 		}
 		
 		@Override
