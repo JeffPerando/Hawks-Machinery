@@ -12,7 +12,6 @@
 /temp/*
 /UniversalElectricity/*
 /tempsrc/*
-/NitroModelThingy/*
 /CHANGELOG
 /LICENSE.txt
 
@@ -24,3 +23,4 @@
 
 *.bat
 *.sh
+!PackageHM.bat

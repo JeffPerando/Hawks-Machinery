@@ -63,7 +63,7 @@ public class HawksMachinery
 	@Metadata("HawksMachinery")
 	public static ModMetadata HAWK_META = new HMDummyContainer().getMetadata();
 	
-	public static final String VERSION = "Alpha v1.5.2";
+	public static final String VERSION = "Beta v1.0.0";
 	
 	public static HMProcessingRecipes PROCESS_RECIPES;
 	public static HMEnumProcessing CRUSH = HMEnumProcessing.CRUSHING;
@@ -330,7 +330,7 @@ public class HawksMachinery
 		@Override
 		public String getChangelogURL()
 		{
-			return "https://dl.dropbox.com/u/100525141/HawksMachinery" + VERSION.replaceAll(".", "").replaceAll(" ", "").toString() + "Changelog.txt";
+			return "https://dl.dropbox.com/u/100525141/HawksMachinery" + VERSION.replace(".", "").replace(" ", "") + "Changelog.txt";
 		}
 		
 		@Override
@@ -372,7 +372,7 @@ public class HawksMachinery
 		@Override
 		public ModReleaseType getReleaseType()
 		{
-			return ModReleaseType.ALPHA;
+			return ModReleaseType.BETA;
 		}
 		
 		@Override
