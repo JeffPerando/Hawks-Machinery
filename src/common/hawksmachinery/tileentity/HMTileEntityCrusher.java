@@ -21,51 +21,13 @@ public class HMTileEntityCrusher extends HMTileEntityMachine
 	public HMTileEntityCrusher()
 	{
 		super();
-		ELECTRICITY_REQUIRED = 10;
+		ELECTRICITY_REQUIRED = 5;
 		TICKS_REQUIRED = FMLCommonHandler.instance().getSide().isServer() ? HawksMachinery.MANAGER.crusherTicks : 180;
 		ELECTRICITY_LIMIT = 2500;
 		containingItems = new ItemStack[3];
 		machineEnum = HMEnumProcessing.CRUSHING;
 		voltage = 120;
 		isProcessor = true;
-		
-	}
-	
-	@Override
-	public double wattRequest()
-	{
-		if (this.isDisabled())
-		{
-			return 0;
-		}
-		else
-		{
-			if ((this.canCrush() || this.canExplode()) && this.electricityStored + this.ELECTRICITY_REQUIRED <= this.ELECTRICITY_LIMIT)
-			{
-				return this.ELECTRICITY_REQUIRED;
-			}
-			else
-			{
-				if (this.ELECTRICITY_LIMIT != this.electricityStored)
-				{
-					if (this.electricityStored + this.ELECTRICITY_REQUIRED >= this.ELECTRICITY_LIMIT)
-					{
-						return this.ELECTRICITY_LIMIT - this.electricityStored;
-					}
-					else
-					{
-						return this.ELECTRICITY_REQUIRED;
-					}
-					
-				}
-				else
-				{
-					return 0;
-				}
-				
-			}
-			
-		}
 		
 	}
 	

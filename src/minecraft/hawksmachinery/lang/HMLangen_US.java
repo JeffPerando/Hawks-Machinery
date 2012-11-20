@@ -19,11 +19,6 @@ import cpw.mods.fml.common.Loader;
  */
 public class HMLangen_US implements IHMLangHandler
 {
-	public static Configuration langFile = new Configuration(new File(Loader.instance().getConfigDir() + "/HawksMachinery/lang/en_US.cfg"));
-	public static final String catBlock = "Blocks";
-	public static final String catItem = "Items";
-	public static final String catAch = "Achievements";
-	
 	public static final String[] dustUnrefLang = new String[]{"Coal Dust", "Unrefined Iron Dust", "Unrefined Gold Dust", "Unrefined Copper Dust",
 		"Unrefined Tin Dust", "Obsidian Dust", "Unrefined Endium Dust", "Unrefined Cobalt Dust"};
 	
@@ -47,41 +42,39 @@ public class HMLangen_US implements IHMLangHandler
 	
 	public void addToolTips(String lang)
 	{
-		langFile.load();
-		
-		LANG.addNameForObject(HMBlock.crusher, "en_US", langFile.get(catBlock, "block.crusher", "Crusher", Type.STRING).value);
-		LANG.addNameForObject(HMBlock.washer, "en_US", langFile.get(catBlock, "block.washer", "Washer", Type.STRING).value);
-		LANG.addNameForObject(HMBlock.endiumChunkloader, "en_US", langFile.get(catBlock, "block.chunkloader", "Endium Chunkloader", Type.STRING).value);
-		LANG.addNameForObject(new ItemStack(HMBlock.endiumTeleporter), "en_US", langFile.get(catBlock, "block.telesend", "Endium Teleporter (Send)", Type.STRING).value);
-		LANG.addNameForObject(new ItemStack(HMBlock.endiumTeleporter, 1, 1), "en_US", langFile.get(catBlock, "block.telereceive", "Endium Teleporter (Receive)", Type.STRING).value);
+		LANG.addNameForObject(HMBlock.crusher, "en_US", "Crusher");
+		LANG.addNameForObject(HMBlock.washer, "en_US", "Washer");
+		LANG.addNameForObject(HMBlock.endiumChunkloader, "en_US", "Endium Chunkloader");
+		LANG.addNameForObject(new ItemStack(HMBlock.endiumTeleporter), "en_US", "Endium Teleporter (Send)");
+		LANG.addNameForObject(new ItemStack(HMBlock.endiumTeleporter, 1, 1), "en_US", "Endium Teleporter (Receive)");
 		LANG.addNameForObject(HMBlock.fisher, "en_US", "Fisher");
 		LANG.addNameForObject(new ItemStack(HMBlock.metalBlock, 1, 0), "en_US", "Endium Block");
 		LANG.addNameForObject(new ItemStack(HMBlock.metalBlock, 1, 1), "en_US", "Cobalt Block");
 		
-		LANG.addNameForObject(new ItemStack(HMBlock.ore), "en_US", langFile.get(catBlock, "block.ore0", "Endium Ore", Type.STRING).value);
-		LANG.addNameForObject(new ItemStack(HMBlock.ore, 1, 1), "en_US", langFile.get(catBlock, "block.ore1", "Cobalt Ore", Type.STRING).value);
+		LANG.addNameForObject(new ItemStack(HMBlock.ore), "en_US", "Endium Ore");
+		LANG.addNameForObject(new ItemStack(HMBlock.ore, 1, 1), "en_US", "Cobalt Ore");
 		
-		LANG.addNameForObject(HMItem.rivetGun, "en_US", langFile.get(catItem, "item.rivetgun", "Rivet Gun", Type.STRING).value);
-		LANG.addNameForObject(HMItem.fishFood, "en_US", langFile.get(catItem, "item.fishfood", "Fish Food", Type.STRING).value);
+		LANG.addNameForObject(HMItem.rivetGun, "en_US", "Rivet Gun");
+		LANG.addNameForObject(HMItem.fishFood, "en_US", "Fish Food");
 		
-		LANG.addStringLocalization(HawksMachinery.timeToCrush.getName(), "en_US", langFile.get(catAch, "ach.crush", "Time to Crush!", Type.STRING).value);
-		LANG.addStringLocalization(HawksMachinery.timeToCrush.getName() + ".desc", "en_US", langFile.get(catAch, "ach.crush.desc", "Craft a Crusher", Type.STRING).value);
-		LANG.addStringLocalization(HawksMachinery.minerkiin.getName(), "en_US", langFile.get(catAch, "ach.minerkiin", "Minerkiin", Type.STRING).value);
-		LANG.addStringLocalization(HawksMachinery.minerkiin.getName() + ".desc", "en_US", langFile.get(catBlock, "ach.minerkiin.desc", "Mine some Endium", Type.STRING).value);
-		LANG.addStringLocalization(HawksMachinery.wash.getName(), "en_US", langFile.get(catAch, "ach.wash", "Workin' at the--", Type.STRING).value);
-		LANG.addStringLocalization(HawksMachinery.wash.getName() + ".desc", "en_US", langFile.get(catBlock, "ach.wash.desc", "Craft a Washer", Type.STRING).value);
+		LANG.addStringLocalization(HawksMachinery.timeToCrush.getName(), "en_US", "Time to Crush!");
+		LANG.addStringLocalization(HawksMachinery.timeToCrush.getName() + ".desc", "en_US", "Craft a Crusher");
+		LANG.addStringLocalization(HawksMachinery.minerkiin.getName(), "en_US", "Minerkiin");
+		LANG.addStringLocalization(HawksMachinery.minerkiin.getName() + ".desc", "en_US", "Mine some Endium");
+		LANG.addStringLocalization(HawksMachinery.wash.getName(), "en_US", "Workin' at the--");
+		LANG.addStringLocalization(HawksMachinery.wash.getName() + ".desc", "en_US", "Craft a Washer");
 		
 		for (int counter = 0; counter < 16; ++counter)
 		{
 			if (counter < dustUnrefLang.length)
 			{
-				LANG.addNameForObject(new ItemStack(HMItem.dustRaw, 1, counter), lang, langFile.get(catItem, "item.dustunref" + counter, dustUnrefLang[counter]).value);
+				LANG.addNameForObject(new ItemStack(HMItem.dustRaw, 1, counter), lang, dustUnrefLang[counter]);
 				
 			}
 			
 			if (counter < dustRefLang.length)
 			{
-				LANG.addNameForObject(new ItemStack(HMItem.dustRefined, 1, counter), lang, langFile.get(catItem, "item.dustref" + counter, dustRefLang[counter]).value);
+				LANG.addNameForObject(new ItemStack(HMItem.dustRefined, 1, counter), lang, dustRefLang[counter]);
 				
 			}
 			
@@ -93,29 +86,29 @@ public class HMLangen_US implements IHMLangHandler
 			
 			if (counter < partLang.length)
 			{
-				LANG.addNameForObject(new ItemStack(HMItem.parts, 1, counter), lang, langFile.get(catItem, "item.part" + counter, partLang[counter]).value);
+				LANG.addNameForObject(new ItemStack(HMItem.parts, 1, counter), lang, partLang[counter]);
 				
 			}
 			
 			if (counter < rivetLang.length)
 			{
-				LANG.addNameForObject(new ItemStack(HMItem.rivets, 1, counter), lang, langFile.get(catItem, "item.rivet" + counter, rivetLang[counter]).value);
+				LANG.addNameForObject(new ItemStack(HMItem.rivets, 1, counter), lang, rivetLang[counter]);
 				
 			}
 			
 			if (counter < ingotLang.length)
 			{
-				LANG.addNameForObject(new ItemStack(HMItem.ingots, 1, counter), lang, langFile.get(catItem, "item.ingot" + counter, ingotLang[counter]).value);
+				LANG.addNameForObject(new ItemStack(HMItem.ingots, 1, counter), lang, ingotLang[counter]);
+				
 			}
 
 			if (counter < platingLang.length)
 			{
-				LANG.addNameForObject(new ItemStack(HMItem.plating, 1, counter), lang, langFile.get(catItem, "item.plating" + counter, platingLang[counter]).value);
+				LANG.addNameForObject(new ItemStack(HMItem.plating, 1, counter), lang, platingLang[counter]);
+				
 			}
 			
 		}
-		
-		langFile.save();
 		
 	}
 	

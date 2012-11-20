@@ -261,44 +261,6 @@ public class HMTileEntityWasher extends HMTileEntityMachine
 	{
 		return "HMWasher";
 	}
-
-	@Override
-	public double wattRequest()
-	{
-		if (this.isDisabled())
-		{
-			return 0;
-		}
-		else
-		{
-			if (this.canWash() && this.electricityStored + this.ELECTRICITY_REQUIRED <= this.ELECTRICITY_LIMIT)
-			{
-				return this.ELECTRICITY_REQUIRED;
-			}
-			else
-			{
-				if (this.ELECTRICITY_LIMIT != this.electricityStored)
-				{
-					if (this.electricityStored + this.ELECTRICITY_REQUIRED >= this.ELECTRICITY_LIMIT)
-					{
-						return this.ELECTRICITY_LIMIT - this.electricityStored;
-					}
-					else
-					{
-						return this.ELECTRICITY_REQUIRED;
-					}
-					
-				}
-				else
-				{
-					return 0;
-				}
-				
-			}
-			
-		}
-		
-	}
 	
 	/*
 	@Override
