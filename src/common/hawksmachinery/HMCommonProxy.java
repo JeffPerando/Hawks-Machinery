@@ -36,6 +36,7 @@ public class HMCommonProxy implements IGuiHandler, IConnectionHandler
 		GameRegistry.registerTileEntity(HMTileEntityEndiumChunkloader.class, "HMChunkloader");
 		GameRegistry.registerTileEntity(HMTileEntityTeleporter.class, "HMTeleporter");
 		GameRegistry.registerTileEntity(HMTileEntityFisher.class, "HMFisher");
+		GameRegistry.registerTileEntity(HMTileEntityFireBlock.class, "HMFireBlock");
 		
 	}
 	

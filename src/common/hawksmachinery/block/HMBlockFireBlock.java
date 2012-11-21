@@ -1,7 +1,6 @@
 
 package hawksmachinery.block;
 
-import hawksmachinery.tileentity.HMTileEntityCrusher;
 import hawksmachinery.tileentity.HMTileEntityFireBlock;
 import net.minecraft.src.Material;
 import net.minecraft.src.TileEntity;
