@@ -3,6 +3,7 @@ package hawksmachinery.tileentity;
 
 import hawksmachinery.item.HMItem;
 import java.util.Random;
+import net.minecraft.src.BiomeGenBase;
 import net.minecraft.src.Block;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
@@ -169,6 +170,13 @@ public class HMTileEntityFisher extends HMTileEntityMachine
 	public int getMaxHP()
 	{
 		return 0;
+	}
+	
+	@Override
+	public boolean isDisabled()
+	{
+		BiomeGenBase currentBiome = this.worldObj.getBiomeGenForCoords(this.xCoord, this.zCoord);
+		return (this.isBeingSapped() || (this.machineHP == 0 && this.getMaxHP() > 0)) || this.worldObj.isBlockIndirectlyGettingPowered(this.xCoord, this.yCoord, this.zCoord) || (currentBiome != BiomeGenBase.ocean && currentBiome != BiomeGenBase.river && currentBiome != BiomeGenBase.frozenRiver && currentBiome != BiomeGenBase.frozenOcean);
 	}
 	
 }
