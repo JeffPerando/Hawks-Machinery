@@ -89,16 +89,16 @@ public class HMModelFireBlock extends ModelBase
 	{
 		super.render(entity, f, f1, f2, f3, f4, f5);
 		setRotationAngles(f, f1, f2, f3, f4, f5);
-		Base.render(f5);
-		Plating1.render(f5);
-		Plating2.render(f5);
-		Plating3.render(f5);
-		Plating4.render(f5);
-		Tube1.render(f5);
-		Tube2.render(f5);
-		Tube3.render(f5);
-		Tube4.render(f5);
-		TubeHolder.render(f5);
+		Base.render(0.0625F);
+		Plating1.render(0.0625F);
+		Plating2.render(0.0625F);
+		Plating3.render(0.0625F);
+		Plating4.render(0.0625F);
+		Tube1.render(0.0625F);
+		Tube2.render(0.0625F);
+		Tube3.render(0.0625F);
+		Tube4.render(0.0625F);
+		TubeHolder.render(0.0625F);
 	}
 	
 	private void setRotation(ModelRenderer model, float x, float y, float z)

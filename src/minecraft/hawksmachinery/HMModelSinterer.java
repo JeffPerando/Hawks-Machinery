@@ -76,14 +76,14 @@ public class HMModelSinterer extends ModelBase
 	{
 		super.render(entity, f, f1, f2, f3, f4, f5);
 		setRotationAngles(f, f1, f2, f3, f4, f5);
-		BASE.render(f5);
-		MAIN_CHAMBER.render(f5);
-		TEMPERATURE_CONTROL.render(f5);
-		CONTROL_CPU.render(f5);
-		KEYBOARD_LEG.render(f5);
-		KEYBOARD.render(f5);
-		TOP_HATCH_1_ROT.render(f5);
-		TOP_HATCH_2_ROT.render(f5);
+		BASE.render(0.0625F);
+		MAIN_CHAMBER.render(0.0625F);
+		TEMPERATURE_CONTROL.render(0.0625F);
+		CONTROL_CPU.render(0.0625F);
+		KEYBOARD_LEG.render(0.0625F);
+		KEYBOARD.render(0.0625F);
+		TOP_HATCH_1_ROT.render(0.0625F);
+		TOP_HATCH_2_ROT.render(0.0625F);
 	}
 	
 	private void setRotation(ModelRenderer model, float x, float y, float z)
