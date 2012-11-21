@@ -73,12 +73,6 @@ public class HMTileEntityFisher extends HMTileEntityMachine
 		
 	}
 	
-	@Override
-	public boolean canReceiveFromSide(ForgeDirection side)
-	{
-		return side == ForgeDirection.UP;
-	}
-	
 	public boolean canFish()
 	{
 		int fullStacks = 0;

@@ -36,7 +36,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	
 	public int TICKS_REQUIRED;
 	
-	public ForgeDirection facingDirection = ForgeDirection.UNKNOWN;
+	private ForgeDirection facingDirection = ForgeDirection.UNKNOWN;
 	
 	public double electricityStored;
 	
@@ -57,6 +57,8 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	private ItemStack sapper;
 	
 	protected boolean isProcessor;
+	
+	protected boolean canSendPackets = true;
 	
 	@Override
 	public boolean canReceiveFromSide(ForgeDirection side)
@@ -81,31 +83,12 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	{
 		if (!this.worldObj.isRemote)
 		{
-			if (this.electricityStored < 0)
-			{
-				this.electricityStored = 0;
-				
-			}
+			this.electricityStored = Math.min(this.electricityStored, this.ELECTRICITY_LIMIT);
+			this.electricityStored = Math.max(this.electricityStored, 0);
+			this.machineHP = Math.min(this.machineHP, this.getMaxHP());
+			this.machineHP = Math.max(this.machineHP, 0);
 			
-			if (this.electricityStored > this.ELECTRICITY_LIMIT)
-			{
-				this.electricityStored = this.ELECTRICITY_LIMIT;
-				
-			}
-			
-			if (this.machineHP < 0)
-			{
-				this.machineHP = 0;
-				
-			}
-			
-			if (this.machineHP > this.getMaxHP())
-			{
-				this.machineHP = this.getMaxHP();
-				
-			}
-			
-			if (this.worldObj.getTotalWorldTime() % 3L == 0L)
+			if (this.worldObj.getTotalWorldTime() % 3L == 0L && this.canSendPackets)
 			{
 				PacketManager.sendPacketToClients(this.getDescriptionPacket(), this.worldObj, Vector3.get(this), 8);
 				
@@ -116,8 +99,6 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 				((IHMSapper)this.sapper.getItem()).sapperTick(this.worldObj, this.xCoord, this.yCoord, this.zCoord, this.sapper);
 				
 			}
-			
-			this.facingDirection = ForgeDirection.getOrientation(this.worldObj.getBlockMetadata(this.xCoord, this.yCoord, this.zCoord));
 			
 		}
 		
@@ -156,18 +137,13 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	{
 		try
 		{
-			if (this.isOpen)
+			if (this.isProcessor)
 			{
-				if (this.isProcessor)
-				{
-					this.workTicks = dataStream.readInt();
-					
-				}
-				
-				this.electricityStored = dataStream.readDouble();
+				this.workTicks = dataStream.readInt();
 				
 			}
 			
+			this.electricityStored = dataStream.readDouble();
 			this.machineHP = dataStream.readInt();
 			
 		}
@@ -235,7 +211,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 			return null;
 		}
 	}
-
+	
 	@Override
 	public int getStartInventorySide(ForgeDirection side)
 	{
@@ -264,7 +240,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	{
 		return 64;
 	}
-
+	
 	@Override
 	public boolean isUseableByPlayer(EntityPlayer player)
 	{
@@ -304,9 +280,15 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 		super.readFromNBT(NBTTag);
 		this.machineHP = NBTTag.getInteger("MachineHP");
 		this.electricityStored = NBTTag.getDouble("electricityStored");
+		this.facingDirection = ForgeDirection.getOrientation(this.getBlockMetadata());
+		
 		if (this.isProcessor) this.workTicks = NBTTag.getInteger("workTicks");
 		
-		this.sapper = ItemStack.loadItemStackFromNBT(NBTTag.getCompoundTag("Sapper"));
+		if (NBTTag.hasKey("Sapper"))
+		{
+			this.sapper = ItemStack.loadItemStackFromNBT(NBTTag.getCompoundTag("Sapper"));
+			
+		}
 		
 		if (this.containingItems != null)
 		{
@@ -334,9 +316,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 		super.writeToNBT(NBTTag);
 		NBTTag.setInteger("MachineHP", this.machineHP);
 		NBTTag.setDouble("electricityStored", this.electricityStored);
-		
 		if (this.isProcessor) NBTTag.setInteger("workTicks", this.workTicks);
-		
 		if (this.sapper != null) NBTTag.setCompoundTag("Sapper", this.sapper.writeToNBT(new NBTTagCompound()));
 		
 		if (this.containingItems != null)

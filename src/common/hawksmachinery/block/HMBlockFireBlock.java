@@ -2,6 +2,7 @@
 package hawksmachinery.block;
 
 import hawksmachinery.tileentity.HMTileEntityCrusher;
+import hawksmachinery.tileentity.HMTileEntityFireBlock;
 import net.minecraft.src.Material;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
@@ -29,13 +30,11 @@ public class HMBlockFireBlock extends HMBlockMachine
 		return true;
 	}
 	
-	/*
 	@Override
 	public TileEntity createNewTileEntity(World world)
 	{
-		return new HMTileEntityCrusher();
+		return new HMTileEntityFireBlock();
 	}
-	 */
 	
 	@Override
 	public boolean isOpaqueCube()

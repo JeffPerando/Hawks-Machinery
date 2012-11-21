@@ -77,36 +77,6 @@ public class HMProcessingRecipes
 		
 	}
 	
-	public static void addHMProcessingRecipe(Item input, ItemStack output, HMEnumProcessing processType)
-	{
-		addHMProcessingRecipe(new ItemStack(input), output, processType);
-	}
-	
-	public static void addHMProcessingRecipe(Item input, Item output, HMEnumProcessing processType)
-	{
-		addHMProcessingRecipe(new ItemStack(input), new ItemStack(output), processType);
-	}
-	
-	public static void addHMProcessingRecipe(Item input, Block output, HMEnumProcessing processType)
-	{
-		addHMProcessingRecipe(new ItemStack(input), new ItemStack(output), processType);
-	}
-	
-	public static void addHMProcessingRecipe(Block input, ItemStack output, HMEnumProcessing processType)
-	{
-		addHMProcessingRecipe(new ItemStack(input), output, processType);
-	}
-	
-	public static void addHMProcessingRecipe(Block input, Item output, HMEnumProcessing processType)
-	{
-		addHMProcessingRecipe(new ItemStack(input), new ItemStack(output), processType);
-	}
-	
-	public static void addHMProcessingRecipe(Block input, Block output, HMEnumProcessing processType)
-	{
-		addHMProcessingRecipe(new ItemStack(input), new ItemStack(output), processType);
-	}
-	
 	/**
 	 * 
 	 * Forge Ore Dictionary supported version.
