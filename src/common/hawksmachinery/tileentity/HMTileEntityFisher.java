@@ -34,36 +34,32 @@ public class HMTileEntityFisher extends HMTileEntityMachine
 	@Override
 	public void updateEntity()
 	{
-		if (this.worldObj.getTotalWorldTime() % 20L == 0L)
+		super.updateEntity();
+		
+		if (this.worldObj.getTotalWorldTime() % 20L == 0L && !this.isDisabled())
 		{
-			super.updateEntity();
-			
-			if (!this.isDisabled())
+			if (this.containingItems[0] != null)
 			{
-				if (this.containingItems[0] != null)
+				if (this.containingItems[0].getItem() instanceof IItemElectric)
 				{
-					if (this.containingItems[0].getItem() instanceof IItemElectric)
+					IItemElectric electricItem = (IItemElectric)this.containingItems[0].getItem();
+					
+					if (electricItem.canProduceElectricity() && this.electricityStored > this.ELECTRICITY_LIMIT)
 					{
-						IItemElectric electricItem = (IItemElectric)this.containingItems[0].getItem();
-						
-						if (electricItem.canProduceElectricity() && this.electricityStored > this.ELECTRICITY_LIMIT)
-						{
-							double receivedElectricity = electricItem.onUse(Math.min(electricItem.getMaxJoules()*0.01, ElectricInfo.getWattHours(this.ELECTRICITY_REQUIRED)), this.containingItems[0]);
-							this.electricityStored += ElectricInfo.getWatts(receivedElectricity);
-						}
+						double receivedElectricity = electricItem.onUse(Math.min(electricItem.getMaxJoules()*0.01, ElectricInfo.getWattHours(this.ELECTRICITY_REQUIRED)), this.containingItems[0]);
+						this.electricityStored += ElectricInfo.getWatts(receivedElectricity);
 					}
 				}
+			}
+			
+			if (this.worldObj.getBlockId(this.xCoord, this.yCoord - 1, this.zCoord) == Block.waterStill.blockID && this.canFish())
+			{
+				this.worldObj.setBlockWithNotify(this.xCoord, this.yCoord - 1, this.zCoord, 0);
+				this.electricityStored -= this.ELECTRICITY_REQUIRED;
 				
-				if (this.worldObj.getBlockId(this.xCoord, this.yCoord - 1, this.zCoord) == Block.waterStill.blockID && this.canFish())
+				if (this.random.nextInt(100) < 5)
 				{
-					this.worldObj.setBlockWithNotify(this.xCoord, this.yCoord - 1, this.zCoord, 0);
-					this.electricityStored -= this.ELECTRICITY_REQUIRED;
-					
-					if (this.random.nextInt(100) < 5)
-					{
-						this.addFishAndRemoveFood();
-						
-					}
+					this.addFishAndRemoveFood();
 					
 				}
 				

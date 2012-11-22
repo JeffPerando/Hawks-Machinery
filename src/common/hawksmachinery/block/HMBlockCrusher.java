@@ -22,7 +22,6 @@ public class HMBlockCrusher extends HMBlockMachine
 		setHardness(5.0F);
 		setResistance(20.0F);
 		setRequiresSelfNotify();
-		setCreativeTab(CreativeTabs.tabDecorations);
 		GameRegistry.registerBlock(this, HMItemBlockCrusher.class);
 		setTextureFile(BASEMOD.ITEM_TEXTURE_FILE);
 		
@@ -49,6 +48,7 @@ public class HMBlockCrusher extends HMBlockMachine
 			case 5: world.setBlockMetadataWithNotify(x, y, z, 2); break;
 			case 3: world.setBlockMetadataWithNotify(x, y, z, 5); break;
 			case 4: world.setBlockMetadataWithNotify(x, y, z, 3); break;
+			
 		}
 		
 		return true;

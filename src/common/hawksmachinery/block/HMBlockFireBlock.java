@@ -3,6 +3,7 @@ package hawksmachinery.block;
 
 import hawksmachinery.tileentity.HMTileEntityFireBlock;
 import net.minecraft.src.EntityLiving;
+import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.Material;
 import net.minecraft.src.MathHelper;
 import net.minecraft.src.TileEntity;
@@ -62,6 +63,22 @@ public class HMBlockFireBlock extends HMBlockMachine
 			
 		}
 		
+	}
+	
+	@Override
+	public boolean onUseWrench(World world, int x, int y, int z, EntityPlayer player)
+	{
+		switch (world.getBlockMetadata(x, y, z))
+		{
+			case 1: world.setBlockMetadataWithNotify(x, y, z, 4); break;
+			case 2: world.setBlockMetadataWithNotify(x, y, z, 1); break;
+			case 5: world.setBlockMetadataWithNotify(x, y, z, 2); break;
+			case 3: world.setBlockMetadataWithNotify(x, y, z, 5); break;
+			case 4: world.setBlockMetadataWithNotify(x, y, z, 3); break;
+			
+		}
+		
+		return true;
 	}
 	
 	@Override

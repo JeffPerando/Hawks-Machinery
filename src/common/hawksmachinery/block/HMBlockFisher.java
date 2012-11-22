@@ -2,7 +2,6 @@
 package hawksmachinery.block;
 
 import hawksmachinery.tileentity.HMTileEntityFisher;
-import net.minecraft.src.CreativeTabs;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.Material;
 import net.minecraft.src.TileEntity;
@@ -22,7 +21,6 @@ public class HMBlockFisher extends HMBlockMachine
 		setHardness(2.0F);
 		setResistance(20.0F);
 		setRequiresSelfNotify();
-		setCreativeTab(CreativeTabs.tabDecorations);
 		
 	}
 
