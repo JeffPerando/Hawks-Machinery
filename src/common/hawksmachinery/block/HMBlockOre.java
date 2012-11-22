@@ -2,6 +2,7 @@
 package hawksmachinery.block;
 
 import java.util.List;
+import universalelectricity.prefab.UETab;
 import hawksmachinery.item.HMItemBlockOre;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.src.Block;
@@ -24,7 +25,7 @@ public class HMBlockOre extends HMBlock
 		setHardness(2.0F);
 		setResistance(10.0F);
 		setStepSound(Block.soundStoneFootstep);
-		setCreativeTab(CreativeTabs.tabBlock);
+		setCreativeTab(UETab.INSTANCE);
 		GameRegistry.registerBlock(this, HMItemBlockOre.class);
 		
 	}

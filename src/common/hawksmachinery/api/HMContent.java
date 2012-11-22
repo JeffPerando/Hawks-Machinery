@@ -1,6 +1,7 @@
 
 package hawksmachinery.api;
 
+import cpw.mods.fml.common.Loader;
 import net.minecraft.src.Block;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
@@ -45,68 +46,72 @@ public class HMContent
 	
 	public HMContent()
 	{
-		try
+		if (Loader.isModLoaded("HawksMachinery"))
 		{
-			crusher = (Block)Class.forName("hawksmachinery.block.HMBlock").getField("crusher").get(Block.class);
-			washer = (Block)Class.forName("hawksmachinery.block.HMBlock").getField("washer").get(Block.class);
-			endiumChunkloader = (Block)Class.forName("hawksmachinery.block.HMBlock").getField("endiumChunkloader").get(Block.class);
-			ore = (Block)Class.forName("hawksmachinery.block.HMBlock").getField("ore").get(Block.class);
-			endiumTeleporter = (Block)Class.forName("hawksmachinery.block.HMBlock").getField("endiumTeleporter").get(Block.class);
-			fisher = (Block)Class.forName("hawksmachinery.block.HMBlock").getField("fisher").get(Block.class);
+			try
+			{
+				crusher = (Block)Class.forName("hawksmachinery.block.HMBlock").getField("crusher").get(Block.class);
+				washer = (Block)Class.forName("hawksmachinery.block.HMBlock").getField("washer").get(Block.class);
+				endiumChunkloader = (Block)Class.forName("hawksmachinery.block.HMBlock").getField("endiumChunkloader").get(Block.class);
+				ore = (Block)Class.forName("hawksmachinery.block.HMBlock").getField("ore").get(Block.class);
+				endiumTeleporter = (Block)Class.forName("hawksmachinery.block.HMBlock").getField("endiumTeleporter").get(Block.class);
+				fisher = (Block)Class.forName("hawksmachinery.block.HMBlock").getField("fisher").get(Block.class);
+				
+				dustRaw = (Item)Class.forName("hawksmachinery.item.HMItem").getField("dustRaw").get(Item.class);
+				dustRefined = (Item)Class.forName("hawksmachinery.item.HMItem").getField("dustRefined").get(Item.class);
+				parts = (Item)Class.forName("hawksmachinery.item.HMItem").getField("parts").get(Item.class);
+				blueprints = (Item)Class.forName("hawksmachinery.item.HMItem").getField("blueprints").get(Item.class);
+				plating = (Item)Class.forName("hawksmachinery.item.HMItem").getField("plating").get(Item.class);
+				rivets = (Item)Class.forName("hawksmachinery.item.HMItem").getField("rivets").get(Item.class);
+				rivetGun = (Item)Class.forName("hawksmachinery.item.HMItem").getField("rivetGun").get(Item.class);
+				ingots = (Item)Class.forName("hawksmachinery.item.HMItem").getField("ingots").get(Item.class);
+				fishFood = (Item)Class.forName("hawksmachinery.item.HMItem").getField("fishFood").get(Item.class);
+				
+			}
+			catch (IllegalArgumentException e)
+			{
+				e.printStackTrace();
+			}
+			catch (SecurityException e)
+			{
+				e.printStackTrace();
+			}
+			catch (IllegalAccessException e)
+			{
+				e.printStackTrace();
+			}
+			catch (NoSuchFieldException e)
+			{
+				e.printStackTrace();
+			}
+			catch (ClassNotFoundException e)
+			{
+				e.printStackTrace();
+			}
 			
-			dustRaw = (Item)Class.forName("hawksmachinery.item.HMItem").getField("dustRaw").get(Item.class);
-			dustRefined = (Item)Class.forName("hawksmachinery.item.HMItem").getField("dustRefined").get(Item.class);
-			parts = (Item)Class.forName("hawksmachinery.item.HMItem").getField("parts").get(Item.class);
-			blueprints = (Item)Class.forName("hawksmachinery.item.HMItem").getField("blueprints").get(Item.class);
-			plating = (Item)Class.forName("hawksmachinery.item.HMItem").getField("plating").get(Item.class);
-			rivets = (Item)Class.forName("hawksmachinery.item.HMItem").getField("rivets").get(Item.class);
-			rivetGun = (Item)Class.forName("hawksmachinery.item.HMItem").getField("rivetGun").get(Item.class);
-			ingots = (Item)Class.forName("hawksmachinery.item.HMItem").getField("ingots").get(Item.class);
-			fishFood = (Item)Class.forName("hawksmachinery.item.HMItem").getField("fishFood").get(Item.class);
+			OreDictionary.registerOre("dustCoal", new ItemStack(dustRaw, 1, 0));
+			OreDictionary.registerOre("dustRawIron", new ItemStack(dustRaw, 1, 1));
+			OreDictionary.registerOre("dustRawGold", new ItemStack(dustRaw, 1, 2));
+			OreDictionary.registerOre("dustRawCopper", new ItemStack(dustRaw, 1, 3));
+			OreDictionary.registerOre("dustRawTin", new ItemStack(dustRaw, 1, 4));
+			OreDictionary.registerOre("dustObsidian", new ItemStack(dustRaw, 1, 5));
+			OreDictionary.registerOre("dustRawEndium", new ItemStack(dustRaw, 1, 6));
+			
+			OreDictionary.registerOre("dustDiamond", new ItemStack(dustRefined, 1, 0));
+			OreDictionary.registerOre("dustEnder", new ItemStack(dustRefined, 1, 1));
+			OreDictionary.registerOre("dustGlass", new ItemStack(dustRefined, 1, 2));
+			OreDictionary.registerOre("dustIron", new ItemStack(dustRefined, 1, 3));
+			OreDictionary.registerOre("dustGold", new ItemStack(dustRefined, 1, 4));
+			OreDictionary.registerOre("dustCopper", new ItemStack(dustRefined, 1, 5));
+			OreDictionary.registerOre("dustTin", new ItemStack(dustRefined, 1, 6));
+			OreDictionary.registerOre("dustEmerald", new ItemStack(dustRefined, 1, 7));
+			OreDictionary.registerOre("dustStar", new ItemStack(dustRefined, 1, 8));
+			OreDictionary.registerOre("dustEndium", new ItemStack(dustRefined, 1, 9));
+			
+			OreDictionary.registerOre("ingotEndium", new ItemStack(ingots, 1, 0));
+			OreDictionary.registerOre("ingotCobalt", new ItemStack(ingots, 1, 1));
 			
 		}
-		catch (IllegalArgumentException e)
-		{
-			e.printStackTrace();
-		}
-		catch (SecurityException e)
-		{
-			e.printStackTrace();
-		}
-		catch (IllegalAccessException e)
-		{
-			e.printStackTrace();
-		}
-		catch (NoSuchFieldException e)
-		{
-			e.printStackTrace();
-		}
-		catch (ClassNotFoundException e)
-		{
-			e.printStackTrace();
-		}
-		
-		OreDictionary.registerOre("dustCoal", new ItemStack(dustRaw, 1, 0));
-		OreDictionary.registerOre("dustRawIron", new ItemStack(dustRaw, 1, 1));
-		OreDictionary.registerOre("dustRawGold", new ItemStack(dustRaw, 1, 2));
-		OreDictionary.registerOre("dustRawCopper", new ItemStack(dustRaw, 1, 3));
-		OreDictionary.registerOre("dustRawTin", new ItemStack(dustRaw, 1, 4));
-		OreDictionary.registerOre("dustObsidian", new ItemStack(dustRaw, 1, 5));
-		OreDictionary.registerOre("dustRawEndium", new ItemStack(dustRaw, 1, 6));
-		
-		OreDictionary.registerOre("dustDiamond", new ItemStack(dustRefined, 1, 0));
-		OreDictionary.registerOre("dustEnder", new ItemStack(dustRefined, 1, 1));
-		OreDictionary.registerOre("dustGlass", new ItemStack(dustRefined, 1, 2));
-		OreDictionary.registerOre("dustIron", new ItemStack(dustRefined, 1, 3));
-		OreDictionary.registerOre("dustGold", new ItemStack(dustRefined, 1, 4));
-		OreDictionary.registerOre("dustCopper", new ItemStack(dustRefined, 1, 5));
-		OreDictionary.registerOre("dustTin", new ItemStack(dustRefined, 1, 6));
-		OreDictionary.registerOre("dustEmerald", new ItemStack(dustRefined, 1, 7));
-		OreDictionary.registerOre("dustStar", new ItemStack(dustRefined, 1, 8));
-		OreDictionary.registerOre("dustEndium", new ItemStack(dustRefined, 1, 9));
-		
-		OreDictionary.registerOre("ingotEndium", new ItemStack(ingots, 1, 0));
-		OreDictionary.registerOre("ingotCobalt", new ItemStack(ingots, 1, 1));
 		
 	}
 	

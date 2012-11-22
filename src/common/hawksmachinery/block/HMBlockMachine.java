@@ -13,6 +13,7 @@ import net.minecraft.src.ItemStack;
 import net.minecraft.src.Material;
 import net.minecraft.src.World;
 import universalelectricity.prefab.BlockMachine;
+import universalelectricity.prefab.UETab;
 
 /**
  * 
@@ -31,7 +32,7 @@ public abstract class HMBlockMachine extends BlockMachine
 		setResistance(5.0F);
 		setStepSound(Block.soundMetalFootstep);
 		setTextureFile(BASEMOD.BLOCK_TEXTURE_FILE);
-		setCreativeTab(CreativeTabs.tabDecorations);
+		setCreativeTab(UETab.INSTANCE);
 		GameRegistry.registerBlock(this);
 		
 	}

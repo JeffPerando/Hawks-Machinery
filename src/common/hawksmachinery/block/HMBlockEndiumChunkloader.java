@@ -2,6 +2,7 @@
 package hawksmachinery.block;
 
 import java.util.Random;
+import universalelectricity.prefab.UETab;
 import cpw.mods.fml.common.registry.GameRegistry;
 import hawksmachinery.HawksMachinery;
 import hawksmachinery.item.HMItemBlockEndium;
@@ -34,8 +35,7 @@ public class HMBlockEndiumChunkloader extends BlockContainer
 		setResistance(1000000000.0F);
 		setTextureFile(BASEMOD.BLOCK_TEXTURE_FILE);
 		setBlockName("endiumChunkloader");
-		setStepSound(Block.soundMetalFootstep);
-		setCreativeTab(CreativeTabs.tabDecorations);
+		setCreativeTab(UETab.INSTANCE);
 		GameRegistry.registerBlock(this, HMItemBlockEndium.class);
 		MinecraftForge.setBlockHarvestLevel(this, "pickaxe", 3);
 		

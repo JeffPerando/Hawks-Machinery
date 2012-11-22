@@ -31,7 +31,6 @@ public class HMBlockEndiumTeleporter extends HMBlockMachine
 		super(null, id, Material.iron);
 		setHardness(5.0F);
 		setResistance(100.0F);
-		setStepSound(Block.soundMetalFootstep);
 		MinecraftForge.setBlockHarvestLevel(this, "pickaxe", 3);
 		GameRegistry.registerBlock(this, HMItemBlockTeleporter.class);
 		
