@@ -10,6 +10,8 @@ import net.minecraft.src.ItemStack;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.Property.Type;
 import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.Side;
+import cpw.mods.fml.common.asm.SideOnly;
 
 /**
  * 
@@ -17,6 +19,7 @@ import cpw.mods.fml.common.Loader;
  * 
  * @author Elusivehawk
  */
+@SideOnly(Side.CLIENT)
 public class HMLangen_US implements IHMLangHandler
 {
 	public static final String[] dustUnrefLang = new String[]{"Coal Dust", "Unrefined Iron Dust", "Unrefined Gold Dust", "Unrefined Copper Dust",
