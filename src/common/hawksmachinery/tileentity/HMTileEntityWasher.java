@@ -125,26 +125,8 @@ public class HMTileEntityWasher extends HMTileEntityMachine
 	
 	public boolean canWash()
 	{
-		if (this.containingItems[2] == null)
-		{
-			return false;
-		}
-		else
-		{
-			if (this.electricityStored >= this.ELECTRICITY_REQUIRED * 2 && this.waterUnits >= 1.0F && !this.isDisabled())
-			{
-				ItemStack var1 = HMRecipes.getResult(this.containingItems[2], this.machineEnum);
-				if (var1 == null) return false;
-				if (this.containingItems[3] == null) return true;
-				if (!this.containingItems[3].isItemEqual(var1)) return false;
-				int result = containingItems[3].stackSize + var1.stackSize;
-				return (result <= getInventoryStackLimit() && result <= var1.getMaxStackSize());
-			}
-			else
-			{
-				return false;
-			}
-		}
+		ItemStack output = HMRecipes.getResult(this.containingItems[2], this.machineEnum);
+		return output != null && (this.electricityStored >= (this.ELECTRICITY_REQUIRED * 2) && this.waterUnits >= 1.0F) && (this.containingItems[3] == null || (output.isItemEqual(this.containingItems[3]) && output.stackSize + this.containingItems[3].stackSize <= output.getMaxStackSize()));
 	}
 	
 	private void washItem()

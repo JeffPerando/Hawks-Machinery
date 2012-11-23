@@ -52,14 +52,14 @@ public class HMTileEntityCrusher extends HMTileEntityMachine
 				}
 			}
 			
-			if ((this.canCrush() || this.canExplode()) && !this.isDisabled())
+			if (this.canCrush())
 			{
 				if (this.containingItems[1] != null && this.workTicks == 0)
 				{
 					this.workTicks = this.TICKS_REQUIRED;
 				}
 				
-				if ((this.canCrush() || this.canExplode()) && this.workTicks > 0)
+				if (this.canCrush() && this.workTicks > 0)
 				{
 					--this.workTicks;
 					
@@ -77,7 +77,7 @@ public class HMTileEntityCrusher extends HMTileEntityMachine
 				}
 			}
 			
-			if (!(this.canCrush() || this.canExplode()) && this.workTicks != 0)
+			if (!this.canCrush() && this.workTicks != 0)
 			{
 				this.workTicks = 0;
 			}
@@ -86,55 +86,16 @@ public class HMTileEntityCrusher extends HMTileEntityMachine
 		
 	}
 	
-	public boolean canCrush()
+	@Override
+	public void onInventoryChanged()
 	{
-		if (this.containingItems[1] == null)
-		{
-			return false;
-		}
-		else
-		{
-			if (this.electricityStored >= this.ELECTRICITY_REQUIRED * 2 && !this.isDisabled())
-			{
-				ItemStack var1 = HMRecipes.getResult(this.containingItems[1], this.machineEnum);
-				if (var1 == null) return false;
-				if (this.containingItems[2] == null) return true;
-				if (!this.containingItems[2].isItemEqual(var1)) return false;
-				int result = containingItems[2].stackSize + var1.stackSize;
-				return (result <= getInventoryStackLimit() && result <= var1.getMaxStackSize());
-			}
-			else
-			{
-				return false;
-			}
-			
-		}
 		
 	}
 	
-	private boolean canExplode()
+	public boolean canCrush()
 	{
-		if (this.containingItems[1] == null)
-		{
-			return false;
-		}
-		else
-		{
-			if (this.electricityStored >= this.ELECTRICITY_REQUIRED * 2)
-			{
-				ItemStack var1 = HMRecipes.getResult(this.containingItems[1], HMEnumProcessing.CRUSHING_EXPLOSIVES);
-				
-				if (var1 == null) return false;
-				if (this.containingItems[2] == null) return true;
-				if (!this.containingItems[2].isItemEqual(var1)) return false;
-				int result = containingItems[2].stackSize + var1.stackSize;
-				return (result <= getInventoryStackLimit() && result <= var1.getMaxStackSize());
-			}
-			else
-			{
-				return false;
-			}
-		}
+		ItemStack output = HMRecipes.getResult(this.containingItems[1], this.machineEnum);
+		return output != null && (this.electricityStored >= (this.ELECTRICITY_REQUIRED * 2)) && (this.containingItems[2] == null || (output.isItemEqual(this.containingItems[2]) && output.stackSize + this.containingItems[2].stackSize <= output.getMaxStackSize()));
 	}
 	
 	private void crushItem()
@@ -162,14 +123,7 @@ public class HMTileEntityCrusher extends HMTileEntityMachine
 			this.randomlyDamageSelf();
 			
 		}
-		else
-		{
-			if (this.canExplode())
-			{
-				--this.containingItems[1].stackSize;
-				this.explodeMachine(2.0F);
-			}
-		}
+		
 	}
 	
 	@Override
@@ -302,15 +256,7 @@ public class HMTileEntityCrusher extends HMTileEntityMachine
 	{
 		return this.containingItems[1];
 	}
-	*/
-
-	@Override
-	public void onInventoryChanged()
-	{
-		
-	}
 	
-	/*
 	@Override
 	public int addItem(ItemStack stack, boolean doAdd, Orientations from)
 	{

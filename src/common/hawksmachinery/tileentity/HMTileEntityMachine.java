@@ -36,7 +36,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	
 	public int TICKS_REQUIRED;
 	
-	private ForgeDirection facingDirection = ForgeDirection.UNKNOWN;
+	private ForgeDirection facingDirection = ForgeDirection.DOWN;
 	
 	public double electricityStored;
 	
@@ -63,7 +63,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	@Override
 	public boolean canReceiveFromSide(ForgeDirection side)
 	{
-		return side == this.facingDirection.getOpposite();
+		return side == this.facingDirection.getOpposite() || side == ForgeDirection.DOWN;
 	}
 	
 	@Override
@@ -81,6 +81,8 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	@Override
 	public void updateEntity()
 	{
+		this.facingDirection = ForgeDirection.getOrientation(this.getBlockMetadata());
+		
 		if (!this.worldObj.isRemote)
 		{
 			this.electricityStored = Math.min(this.electricityStored, this.ELECTRICITY_LIMIT);
@@ -101,6 +103,12 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 			}
 			
 		}
+		
+	}
+	
+	@Override
+	public void onInventoryChanged()
+	{
 		
 	}
 	
@@ -280,7 +288,6 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 		super.readFromNBT(NBTTag);
 		this.machineHP = NBTTag.getInteger("MachineHP");
 		this.electricityStored = NBTTag.getDouble("electricityStored");
-		this.facingDirection = ForgeDirection.getOrientation(this.getBlockMetadata());
 		
 		if (this.isProcessor) this.workTicks = NBTTag.getInteger("workTicks");
 		
