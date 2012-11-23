@@ -51,7 +51,7 @@ public class HMTileEntityWasher extends HMTileEntityMachine
 		
 		if (!this.isDisabled())
 		{
-			Math.min(this.waterUnits, this.WATER_LIMIT);
+			this.waterUnits = Math.min(this.waterUnits, this.WATER_LIMIT);
 			
 			if (this.worldObj.getBlockId(this.xCoord, this.yCoord + 1, this.zCoord) == Block.waterStill.blockID && this.waterUnits + 1.0F <= this.WATER_LIMIT)
 			{
