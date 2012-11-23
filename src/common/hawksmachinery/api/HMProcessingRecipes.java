@@ -37,10 +37,6 @@ public class HMProcessingRecipes
 		
 		WASHING(new HashMap()),
 		
-		STAR_FORGE(new HashMap()),
-		
-		ENDIUM_FORGE(new HashMap()),
-		
 		HM_E2MM(new HashMap());
 		
 		private Map processingList;
