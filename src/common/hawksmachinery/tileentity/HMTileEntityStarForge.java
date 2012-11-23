@@ -33,6 +33,31 @@ public class HMTileEntityStarForge extends HMTileEntityMachine
 	{
 		super.updateEntity();
 		
+		if (!this.isDisabled())
+		{
+			if (this.canForge())
+			{
+				if (this.workTicks == 0)
+				{
+					this.workTicks = this.TICKS_REQUIRED;
+					
+				}
+				else
+				{
+					--this.workTicks;
+					
+				}
+				
+			}
+			
+		}
+		
+	}
+	
+	public void setForgeResult(ItemStack item)
+	{
+		this.output = item;
+		
 	}
 	
 	public boolean canForge()

@@ -2,6 +2,8 @@
 package hawksmachinery.container;
 
 import hawksmachinery.HMInventoryCrafting;
+import hawksmachinery.api.HMRecipes;
+import hawksmachinery.tileentity.HMTileEntityStarForge;
 import net.minecraft.src.Container;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.IInventory;
@@ -18,11 +20,11 @@ import net.minecraft.src.SlotFurnace;
 public class HMContainerStarForge extends Container
 {
 	public HMInventoryCrafting matrix = new HMInventoryCrafting("Star Forge", this, 3, 3);
-	//public HMTileEntityStarForge tileEntity;
+	public HMTileEntityStarForge tileEntity;
 	
-	public HMContainerStarForge(InventoryPlayer playerInv)
+	public HMContainerStarForge(InventoryPlayer playerInv, HMTileEntityStarForge tileEntity)
 	{
-		//this.tileEntity = tileEntity;
+		this.tileEntity = tileEntity;
 		int slotNumber = 0;
 		
 		for (int width = 0; width < this.matrix.getInvWidth(); ++width)
@@ -64,7 +66,7 @@ public class HMContainerStarForge extends Container
 	@Override
 	public void onCraftMatrixChanged(IInventory inventory)
 	{
-		//this.tileEntity.setForgeResult(HMRecipes.getForgeResult(this.matrix, this.tileEntity.worldObj));
+		this.tileEntity.setForgeResult(HMRecipes.getForgeResult(this.matrix, this.tileEntity.worldObj));
 		
 	}
 	

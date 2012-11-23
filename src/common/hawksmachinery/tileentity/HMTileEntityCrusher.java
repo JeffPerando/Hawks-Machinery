@@ -47,39 +47,39 @@ public class HMTileEntityCrusher extends HMTileEntityMachine
 					if (electricItem.canProduceElectricity() && this.electricityStored > this.ELECTRICITY_LIMIT)
 					{
 						double receivedElectricity = electricItem.onUse(Math.min(electricItem.getMaxJoules()*0.01, ElectricInfo.getWattHours(this.ELECTRICITY_REQUIRED)), this.containingItems[0]);
-						this.electricityStored += ElectricInfo.getWatts(receivedElectricity);
+						this.electricityStored += ElectricInfo.getJoules(receivedElectricity, 1);
+						
 					}
+					
 				}
+				
 			}
 			
 			if (this.canCrush())
 			{
-				if (this.containingItems[1] != null && this.workTicks == 0)
+				if (this.workTicks == 0)
 				{
 					this.workTicks = this.TICKS_REQUIRED;
-				}
-				
-				if (this.canCrush() && this.workTicks > 0)
-				{
-					--this.workTicks;
 					
-					if (this.workTicks < 1)
-					{
-						this.crushItem();
-						this.workTicks = 0;
-					}
-					
-					this.electricityStored -= this.ELECTRICITY_REQUIRED;
 				}
 				else
 				{
-					this.workTicks = 0;
+					--this.workTicks;
+					this.electricityStored -= this.ELECTRICITY_REQUIRED;
+					
+					if (this.workTicks == 1)
+					{
+						this.crushItem();
+						
+					}
+					
 				}
+				
 			}
-			
-			if (!this.canCrush() && this.workTicks != 0)
+			else
 			{
 				this.workTicks = 0;
+				
 			}
 			
 		}
@@ -89,6 +89,11 @@ public class HMTileEntityCrusher extends HMTileEntityMachine
 	@Override
 	public void onInventoryChanged()
 	{
+		if (!this.canCrush())
+		{
+			this.workTicks = 0;
+			
+		}
 		
 	}
 	
