@@ -48,6 +48,17 @@ public class HMTileEntityStarForge extends HMTileEntityMachine
 					
 				}
 				
+				if (this.workTicks == 1)
+				{
+					this.forgeItem();
+					this.workTicks = 0;
+					
+				}
+				
+			}
+			else
+			{
+				this.workTicks = 0;
 			}
 			
 		}
@@ -63,6 +74,35 @@ public class HMTileEntityStarForge extends HMTileEntityMachine
 	public boolean canForge()
 	{
 		return this.output != null && (this.electricityStored >= this.ELECTRICITY_REQUIRED * 2 && !this.isDisabled()) && (this.containingItems[9] == null || (this.output.isItemEqual(this.containingItems[9]) && this.output.stackSize + this.containingItems[9].stackSize <= this.output.getMaxStackSize()));
+	}
+	
+	public void forgeItem()
+	{
+		if (this.containingItems[9] == null)
+		{
+			this.containingItems[9] = this.output;
+			
+		}
+		else
+		{
+			if (this.containingItems[9].isItemEqual(this.output) && this.output.stackSize + this.containingItems[9].stackSize <= this.output.getMaxStackSize())
+			{
+				this.containingItems[9].stackSize += this.output.stackSize;
+				
+			}
+			
+		}
+		
+		for (int counter = 0; counter < 9; ++counter)
+		{
+			--this.containingItems[counter].stackSize;
+			
+			if (this.containingItems[counter].stackSize == 0) this.containingItems[counter] = null;
+			
+		}
+		
+		this.randomlyDamageSelf();
+		
 	}
 	
 }

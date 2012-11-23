@@ -65,15 +65,17 @@ public class HMTileEntityCrusher extends HMTileEntityMachine
 				else
 				{
 					--this.workTicks;
-					this.electricityStored -= this.ELECTRICITY_REQUIRED;
 					
 					if (this.workTicks == 1)
 					{
 						this.crushItem();
+						this.workTicks = 0;
 						
 					}
 					
 				}
+				
+				this.electricityStored -= this.ELECTRICITY_REQUIRED;
 				
 			}
 			else
@@ -105,29 +107,25 @@ public class HMTileEntityCrusher extends HMTileEntityMachine
 	
 	private void crushItem()
 	{
-		if (this.canCrush())
+		ItemStack newItem = HMRecipes.getResult(this.containingItems[1], this.machineEnum);
+		
+		if (this.containingItems[2] == null)
 		{
-			ItemStack newItem = HMRecipes.getResult(this.containingItems[1], this.machineEnum);
-			
-			if (this.containingItems[2] == null)
-			{
-				this.containingItems[2] = newItem.copy();
-			}
-			else if (this.containingItems[2].isItemEqual(newItem))
-			{
-				this.containingItems[2].stackSize += newItem.stackSize;
-			}
-			
-			this.containingItems[1].stackSize -= HMRecipes.getQuantity(this.containingItems[1], this.machineEnum);
-			
-			if (this.containingItems[1].stackSize <= 0)
-			{
-				this.containingItems[1] = null;
-			}
-			
-			this.randomlyDamageSelf();
-			
+			this.containingItems[2] = newItem.copy();
 		}
+		else if (this.containingItems[2].isItemEqual(newItem))
+		{
+			this.containingItems[2].stackSize += newItem.stackSize;
+		}
+		
+		this.containingItems[1].stackSize -= HMRecipes.getQuantity(this.containingItems[1], this.machineEnum);
+		
+		if (this.containingItems[1].stackSize <= 0)
+		{
+			this.containingItems[1] = null;
+		}
+		
+		this.randomlyDamageSelf();
 		
 	}
 	

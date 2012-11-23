@@ -66,6 +66,7 @@ public class HMContainerStarForge extends Container
 	@Override
 	public void onCraftMatrixChanged(IInventory inventory)
 	{
+		super.onCraftMatrixChanged(inventory);
 		this.tileEntity.setForgeResult(HMRecipes.getForgeResult(this.matrix, this.tileEntity.worldObj));
 		
 	}

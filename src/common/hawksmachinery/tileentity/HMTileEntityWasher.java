@@ -34,7 +34,7 @@ public class HMTileEntityWasher extends HMTileEntityMachine
 	public HMTileEntityWasher()
 	{
 		super();
-		ELECTRICITY_REQUIRED = 10;
+		ELECTRICITY_REQUIRED = 5;
 		TICKS_REQUIRED = FMLCommonHandler.instance().getSide().isServer() ? HawksMachinery.MANAGER.crusherTicks : 100;
 		ELECTRICITY_LIMIT = 1200;
 		containingItems = new ItemStack[6];
@@ -51,6 +51,15 @@ public class HMTileEntityWasher extends HMTileEntityMachine
 		
 		if (!this.isDisabled())
 		{
+			Math.min(this.waterUnits, this.WATER_LIMIT);
+			
+			if (this.worldObj.getBlockId(this.xCoord, this.yCoord + 1, this.zCoord) == Block.waterStill.blockID && this.waterUnits + 1.0F <= this.WATER_LIMIT)
+			{
+				this.waterUnits += 1.0F;
+				this.worldObj.setBlockWithNotify(this.xCoord, this.yCoord + 1, this.zCoord, 0);
+				
+			}
+			
 			if (this.containingItems[0] != null)
 			{
 				if (this.containingItems[0].getItem() instanceof IItemElectric)
@@ -61,6 +70,7 @@ public class HMTileEntityWasher extends HMTileEntityMachine
 					{
 						double receivedElectricity = electricItem.onUse(Math.min(electricItem.getMaxJoules()*0.01, ElectricInfo.getWattHours(this.ELECTRICITY_REQUIRED)), this.containingItems[0]);
 						this.electricityStored += ElectricInfo.getWatts(receivedElectricity);
+						
 					}
 					
 				}
@@ -73,18 +83,19 @@ public class HMTileEntityWasher extends HMTileEntityMachine
 				{
 					this.waterUnits += 1.0;
 					this.containingItems[1] = new ItemStack(Item.bucketEmpty, 1);
+					
 				}
 				
 			}
 			
 			if (this.canWash())
 			{
-				if (this.containingItems[2] != null && this.workTicks == 0)
+				if (this.workTicks == 0)
 				{
 					this.workTicks = this.TICKS_REQUIRED;
+					
 				}
-				
-				if (this.canWash() && this.workTicks > 0)
+				else
 				{
 					--this.workTicks;
 					this.waterUnits -= 0.01F;
@@ -95,29 +106,22 @@ public class HMTileEntityWasher extends HMTileEntityMachine
 						this.workTicks = 0;
 					}
 					
-					this.electricityStored = this.electricityStored - this.ELECTRICITY_REQUIRED;
 				}
-				else
-				{
-					this.workTicks = 0;
-				}
+				
+				this.electricityStored -= this.ELECTRICITY_REQUIRED;
+				
 			}
 			
-			if (this.waterUnits > this.WATER_LIMIT)
-			{
-				this.waterUnits = this.WATER_LIMIT;
-			}
-			
-			if (this.worldObj.getBlockId(this.xCoord, this.yCoord + 1, this.zCoord) == Block.waterStill.blockID && this.waterUnits + 1.0F <= this.WATER_LIMIT)
-			{
-				this.waterUnits += 1.0F;
-				this.worldObj.setBlockWithNotify(this.xCoord, this.yCoord + 1, this.zCoord, 0);
-			}
-			
-			if (!this.canWash() && this.workTicks != 0)
-			{
-				this.workTicks = 0;
-			}
+		}
+		
+	}
+	
+	@Override
+	public void onInventoryChanged()
+	{
+		if (!this.canWash())
+		{
+			this.workTicks = 0;
 			
 		}
 		
