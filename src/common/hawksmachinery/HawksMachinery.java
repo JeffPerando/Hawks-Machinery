@@ -2,7 +2,7 @@
 package hawksmachinery;
 
 import hawksmachinery.api.*;
-import hawksmachinery.api.HMProcessingRecipes.HMEnumProcessing;
+import hawksmachinery.api.HMRecipes.HMEnumProcessing;
 import hawksmachinery.block.*;
 import hawksmachinery.item.*;
 import net.minecraft.src.Achievement;
@@ -65,7 +65,7 @@ public class HawksMachinery
 	
 	public static final String VERSION = "Beta v1.0.0";
 	
-	public static HMProcessingRecipes PROCESS_RECIPES;
+	public static HMRecipes PROCESS_RECIPES;
 	public static HMEnumProcessing CRUSH = HMEnumProcessing.CRUSHING;
 	public static HMEnumProcessing WASH = HMEnumProcessing.WASHING;
 	

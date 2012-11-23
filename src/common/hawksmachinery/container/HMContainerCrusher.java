@@ -2,8 +2,8 @@
 package hawksmachinery.container;
 
 import hawksmachinery.SlotProcessorsOutput;
-import hawksmachinery.api.HMProcessingRecipes;
-import hawksmachinery.api.HMProcessingRecipes.HMEnumProcessing;
+import hawksmachinery.api.HMRecipes;
+import hawksmachinery.api.HMRecipes.HMEnumProcessing;
 import hawksmachinery.tileentity.HMTileEntityCrusher;
 import net.minecraft.src.Container;
 import net.minecraft.src.EntityPlayer;
@@ -79,7 +79,7 @@ public class HMContainerCrusher extends Container
 						return null;
 					}
 				}
-				else if (HMProcessingRecipes.getResult(var4, HMEnumProcessing.CRUSHING) != null)
+				else if (HMRecipes.getResult(var4, HMEnumProcessing.CRUSHING) != null)
 				{
 					if (!this.mergeItemStack(var4, 1, 2, false))
 					{

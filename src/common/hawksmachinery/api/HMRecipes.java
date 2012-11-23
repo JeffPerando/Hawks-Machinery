@@ -1,13 +1,17 @@
 
+
 package hawksmachinery.api;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import net.minecraft.src.Block;
-import net.minecraft.src.Item;
+import net.minecraft.src.IRecipe;
+import net.minecraft.src.InventoryCrafting;
 import net.minecraft.src.ItemStack;
+import net.minecraft.src.World;
 import net.minecraftforge.oredict.OreDictionary;
 
 /**
@@ -16,12 +20,12 @@ import net.minecraftforge.oredict.OreDictionary;
  * 
  * @author Elusivehawk
  */
-public class HMProcessingRecipes
+public class HMRecipes
 {
 	private static Map washerSecondaries = new HashMap();
 	private static Map washerRarities = new HashMap();
-	
 	private static Map quantityMapping = new HashMap();
+	private static List forgeRecipes = new ArrayList();
 	
 	/**
 	 * 
@@ -107,6 +111,11 @@ public class HMProcessingRecipes
 		
 	}
 	
+	public static void addHMForgeRecipe(IRecipe recipe)
+	{
+		forgeRecipes.add(recipe);
+	}
+	
 	public static ItemStack getResult(ItemStack input, HMEnumProcessing processType)
 	{
 		if (input == null)
@@ -130,6 +139,22 @@ public class HMProcessingRecipes
 			
 		}
 		
+	}
+	
+	public static ItemStack getForgeResult(InventoryCrafting matrix, World world)
+	{
+		for (int counter = 0; counter < forgeRecipes.size(); ++counter)
+		{
+			IRecipe recipe = (IRecipe)forgeRecipes.get(counter);
+			
+			if (recipe.matches(matrix, world))
+			{
+				return recipe.getCraftingResult(matrix);
+			}
+			
+		}
+		
+		return null;
 	}
 	
 	public static int getQuantity(ItemStack item, HMEnumProcessing processType)

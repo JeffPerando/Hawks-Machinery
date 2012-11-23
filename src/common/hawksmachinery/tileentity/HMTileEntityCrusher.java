@@ -2,8 +2,8 @@
 package hawksmachinery.tileentity;
 
 import hawksmachinery.HawksMachinery;
-import hawksmachinery.api.HMProcessingRecipes;
-import hawksmachinery.api.HMProcessingRecipes.HMEnumProcessing;
+import hawksmachinery.api.HMRecipes;
+import hawksmachinery.api.HMRecipes.HMEnumProcessing;
 import net.minecraft.src.ItemStack;
 import net.minecraftforge.common.ForgeDirection;
 import universalelectricity.core.electricity.ElectricInfo;
@@ -96,7 +96,7 @@ public class HMTileEntityCrusher extends HMTileEntityMachine
 		{
 			if (this.electricityStored >= this.ELECTRICITY_REQUIRED * 2 && !this.isDisabled())
 			{
-				ItemStack var1 = HMProcessingRecipes.getResult(this.containingItems[1], this.machineEnum);
+				ItemStack var1 = HMRecipes.getResult(this.containingItems[1], this.machineEnum);
 				if (var1 == null) return false;
 				if (this.containingItems[2] == null) return true;
 				if (!this.containingItems[2].isItemEqual(var1)) return false;
@@ -122,7 +122,7 @@ public class HMTileEntityCrusher extends HMTileEntityMachine
 		{
 			if (this.electricityStored >= this.ELECTRICITY_REQUIRED * 2)
 			{
-				ItemStack var1 = HMProcessingRecipes.getResult(this.containingItems[1], HMEnumProcessing.CRUSHING_EXPLOSIVES);
+				ItemStack var1 = HMRecipes.getResult(this.containingItems[1], HMEnumProcessing.CRUSHING_EXPLOSIVES);
 				
 				if (var1 == null) return false;
 				if (this.containingItems[2] == null) return true;
@@ -141,7 +141,7 @@ public class HMTileEntityCrusher extends HMTileEntityMachine
 	{
 		if (this.canCrush())
 		{
-			ItemStack newItem = HMProcessingRecipes.getResult(this.containingItems[1], this.machineEnum);
+			ItemStack newItem = HMRecipes.getResult(this.containingItems[1], this.machineEnum);
 			
 			if (this.containingItems[2] == null)
 			{
@@ -152,7 +152,7 @@ public class HMTileEntityCrusher extends HMTileEntityMachine
 				this.containingItems[2].stackSize += newItem.stackSize;
 			}
 			
-			this.containingItems[1].stackSize -= HMProcessingRecipes.getQuantity(this.containingItems[1], this.machineEnum);
+			this.containingItems[1].stackSize -= HMRecipes.getQuantity(this.containingItems[1], this.machineEnum);
 			
 			if (this.containingItems[1].stackSize <= 0)
 			{

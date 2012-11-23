@@ -2,8 +2,8 @@
 package hawksmachinery.tileentity;
 
 import hawksmachinery.HawksMachinery;
-import hawksmachinery.api.HMProcessingRecipes;
-import hawksmachinery.api.HMProcessingRecipes.HMEnumProcessing;
+import hawksmachinery.api.HMRecipes;
+import hawksmachinery.api.HMRecipes.HMEnumProcessing;
 import net.minecraft.src.Block;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.INetworkManager;
@@ -133,7 +133,7 @@ public class HMTileEntityWasher extends HMTileEntityMachine
 		{
 			if (this.electricityStored >= this.ELECTRICITY_REQUIRED * 2 && this.waterUnits >= 1.0F && !this.isDisabled())
 			{
-				ItemStack var1 = HMProcessingRecipes.getResult(this.containingItems[2], this.machineEnum);
+				ItemStack var1 = HMRecipes.getResult(this.containingItems[2], this.machineEnum);
 				if (var1 == null) return false;
 				if (this.containingItems[3] == null) return true;
 				if (!this.containingItems[3].isItemEqual(var1)) return false;
@@ -151,7 +151,7 @@ public class HMTileEntityWasher extends HMTileEntityMachine
 	{
 		if (this.canWash())
 		{
-			ItemStack newItem = HMProcessingRecipes.getResult(this.containingItems[2], this.machineEnum);
+			ItemStack newItem = HMRecipes.getResult(this.containingItems[2], this.machineEnum);
 			
 			if (this.containingItems[3] == null)
 			{
@@ -162,7 +162,7 @@ public class HMTileEntityWasher extends HMTileEntityMachine
 				this.containingItems[3].stackSize += newItem.stackSize;
 			}
 			
-			this.containingItems[2].stackSize -= HMProcessingRecipes.getQuantity(this.containingItems[2], this.machineEnum);
+			this.containingItems[2].stackSize -= HMRecipes.getQuantity(this.containingItems[2], this.machineEnum);
 			
 			if (this.containingItems[2].stackSize <= 0)
 			{

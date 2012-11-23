@@ -1,7 +1,7 @@
 
 package hawksmachinery.tileentity;
 
-import hawksmachinery.api.HMProcessingRecipes.HMEnumProcessing;
+import hawksmachinery.api.HMRecipes.HMEnumProcessing;
 import hawksmachinery.api.HMRepairInterfaces.IHMRepairable;
 import hawksmachinery.api.HMRepairInterfaces.IHMSapper;
 import java.util.Random;
