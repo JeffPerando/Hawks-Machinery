@@ -99,61 +99,9 @@ public class HMBlockWasher extends HMBlockMachine
 	@Override
 	public int getBlockTextureFromSideAndMetadata(int side, int metadata)
 	{
-		switch (metadata)
-		{
-			case 2: switch (side)
-					{
-						case 1: return 16;
-						case 2: return 18;
-						default: return 19;
-					}
-			case 3: switch (side)
-					{
-						case 1: return 16;
-						case 3: return 18;
-						default: return 19;
-					}
-			case 4: switch (side)
-					{
-						case 1: return 17;
-						case 4: return 18;
-						default: return 19;
-					}
-			case 5: switch (side)
-					{
-						case 1: return 17;
-						case 5: return 18;
-						default: return 19;
-					}
-			default: switch (side)
-					{
-						case 1: return 16;
-						case 3: return 18;
-						default: return 19;
-					}
-		}
+		return 105;
 	}
 	
-	@Override
-	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity)
-	{
-		if (((HMTileEntityWasher)world.getBlockTileEntity(x, y, z)).canWash())
-		{
-			if (entity instanceof EntityEnderman)
-			{
-				entity.attackEntityFrom(DamageSource.drown, 1);
-				
-			}
-			else if (entity.isWet())
-			{
-				entity.attackEntityFrom(UEDamageSource.electrocution, 1);
-				
-			}
-			
-		}
-		
-	}
-
 	@Override
 	public boolean isOpaqueCube()
 	{
@@ -177,8 +125,8 @@ public class HMBlockWasher extends HMBlockMachine
 	{
 		if (((HMTileEntityWasher)world.getBlockTileEntity(x, y, z)).canWash())
 		{
-			world.spawnParticle("splash", x + 0.5, y + 1, z + 0.5, 0, 0.1, 0);
-			world.spawnParticle("splash", x + 0.5, y + 1, z + 0.5, 0, 0.1, 0);
+			world.spawnParticle("bubble", x + 0.5, y + 1, z + 0.5, 0, 0.1, 0);
+			world.spawnParticle("bubble", x + 0.5, y + 1, z + 0.5, 0, 0.1, 0);
 			
 		}
 		

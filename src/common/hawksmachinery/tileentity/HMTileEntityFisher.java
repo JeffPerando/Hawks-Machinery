@@ -32,6 +32,12 @@ public class HMTileEntityFisher extends HMTileEntityMachine
 	}
 	
 	@Override
+	public boolean canReceiveFromSide(ForgeDirection side)
+	{
+		return side == ForgeDirection.UP;
+	}
+	
+	@Override
 	public void updateEntity()
 	{
 		super.updateEntity();

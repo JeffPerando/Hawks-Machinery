@@ -63,7 +63,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	@Override
 	public boolean canReceiveFromSide(ForgeDirection side)
 	{
-		return side == this.facingDirection.getOpposite() || side == ForgeDirection.DOWN;
+		return side == ForgeDirection.getOrientation(this.worldObj.getBlockMetadata(this.xCoord, this.yCoord, this.zCoord)).getOpposite() || side == ForgeDirection.DOWN;
 	}
 	
 	@Override

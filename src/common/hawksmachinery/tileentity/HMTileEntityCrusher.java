@@ -91,11 +91,6 @@ public class HMTileEntityCrusher extends HMTileEntityMachine
 	@Override
 	public void onInventoryChanged()
 	{
-		if (!this.canCrush())
-		{
-			this.workTicks = 0;
-			
-		}
 		
 	}
 	

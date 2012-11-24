@@ -7,6 +7,7 @@ import hawksmachinery.tileentity.HMTileEntityWasher;
 import net.minecraft.src.Container;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.InventoryPlayer;
+import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.Slot;
 import universalelectricity.core.implement.IItemElectric;
@@ -78,14 +79,21 @@ public class HMContainerWasher extends Container
 			{
 				if (var4.getItem() instanceof IItemElectric)
 				{
-					if (!this.mergeItemStack(var4, 0, 1, false))
+					if (!this.mergeItemStack(var4, 0, 3, false))
 					{
 						return null;
 					}
 				}
 				else if (HMRecipes.getResult(var4, HMRecipes.HMEnumProcessing.WASHING) != null)
 				{
-					if (!this.mergeItemStack(var4, 1, 2, false))
+					if (!this.mergeItemStack(var4, 2, 3, false))
+					{
+						return null;
+					}
+				}
+				else if (var4.getItem() == Item.bucketWater)
+				{
+					if (!this.mergeItemStack(var4, 1, 3, false))
 					{
 						return null;
 					}
@@ -97,14 +105,7 @@ public class HMContainerWasher extends Container
 						return null;
 					}
 				}
-				else if (par1 >= 30 && par1 < 39 && !this.mergeItemStack(var4, 3, 30, false))
-				{
-					return null;
-				}
-			}
-			else if (!this.mergeItemStack(var4, 3, 39, false))
-			{
-				return null;
+				
 			}
 			
 			if (var4.stackSize == 0)

@@ -49,16 +49,19 @@ public class HMTileEntityWasher extends HMTileEntityMachine
 	{
 		super.updateEntity();
 		
+		this.waterUnits = Math.min(this.waterUnits, this.WATER_LIMIT);
+		//this.worldObj.notifyBlocksOfNeighborChange(this.xCoord, this.yCoord + 1, this.zCoord, this.worldObj.getBlockId(this.xCoord, this.yCoord + 1, this.zCoord));
+		
+		if (this.worldObj.getTotalWorldTime() % 3L == 0L && this.worldObj.getBlockId(this.xCoord, this.yCoord + 1, this.zCoord) == Block.waterStill.blockID && this.waterUnits + 1.0F <= this.WATER_LIMIT)
+		{
+			this.waterUnits += 1.0F;
+			this.worldObj.setBlockAndMetadataWithUpdate(this.xCoord, this.yCoord + 1, this.zCoord, 0, 0, true);
+			this.worldObj.notifyBlocksOfNeighborChange(this.xCoord, this.yCoord + 1, this.zCoord, 0);
+			
+		}
+		
 		if (!this.isDisabled())
 		{
-			this.waterUnits = Math.min(this.waterUnits, this.WATER_LIMIT);
-			
-			if (this.worldObj.getBlockId(this.xCoord, this.yCoord + 1, this.zCoord) == Block.waterStill.blockID && this.waterUnits + 1.0F <= this.WATER_LIMIT)
-			{
-				this.waterUnits += 1.0F;
-				this.worldObj.setBlockWithNotify(this.xCoord, this.yCoord + 1, this.zCoord, 0);
-				
-			}
 			
 			if (this.containingItems[0] != null)
 			{
@@ -111,6 +114,11 @@ public class HMTileEntityWasher extends HMTileEntityMachine
 				this.electricityStored -= this.ELECTRICITY_REQUIRED;
 				
 			}
+			else
+			{
+				this.workTicks = 0;
+				
+			}
 			
 		}
 		
@@ -119,11 +127,6 @@ public class HMTileEntityWasher extends HMTileEntityMachine
 	@Override
 	public void onInventoryChanged()
 	{
-		if (!this.canWash())
-		{
-			this.workTicks = 0;
-			
-		}
 		
 	}
 	
@@ -169,7 +172,7 @@ public class HMTileEntityWasher extends HMTileEntityMachine
 			return PacketManager.getPacket("HawksMachinery", this, this.workTicks, this.electricityStored, this.machineHP, this.waterUnits);
 		}
 		
-		return PacketManager.getPacket("HawksMachinery", this, this.machineHP, this.waterUnits);
+		return PacketManager.getPacket("HawksMachinery", this, this.electricityStored, this.machineHP, this.waterUnits);
 	}
 	
 	@Override
@@ -180,10 +183,10 @@ public class HMTileEntityWasher extends HMTileEntityMachine
 			if (this.isOpen)
 			{
 				this.workTicks = dataStream.readInt();
-				this.electricityStored = dataStream.readDouble();
 				
 			}
 			
+			this.electricityStored = dataStream.readDouble();
 			this.machineHP = dataStream.readInt();
 			this.waterUnits = dataStream.readFloat();
 			
@@ -197,22 +200,6 @@ public class HMTileEntityWasher extends HMTileEntityMachine
 	public int getWashingStatus(int par1)
 	{
 		return this.workTicks * par1 / 200;
-	}
-	
-	@Override
-	public int getStartInventorySide(ForgeDirection side)
-	{
-		if (side == ForgeDirection.UP)
-		{
-			return 1;
-		}
-		
-		if (side == ForgeDirection.DOWN)
-		{
-			return 0;
-		}
-		
-		return 2;
 	}
 	
 	@Override
@@ -234,7 +221,17 @@ public class HMTileEntityWasher extends HMTileEntityMachine
 	@Override
 	public int getSizeInventorySide(ForgeDirection side)
 	{
-		return 1;
+		return this.getStartInventorySide(side) == 3 ? 3 : 1;
+	}
+
+	@Override
+	public int getStartInventorySide(ForgeDirection side)
+	{
+		if (side == ForgeDirection.UP) return 1;
+		if (side == ForgeDirection.DOWN) return 0;
+		if (side == this.getDirection()) return 2;
+		
+		return 3;
 	}
 	
 	@Override
