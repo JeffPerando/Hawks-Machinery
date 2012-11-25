@@ -5,6 +5,7 @@ import hawksmachinery.HawksMachinery;
 import hawksmachinery.api.HMRepairInterfaces.IHMRepairable;
 import hawksmachinery.api.HMRepairInterfaces.IHMRivet;
 import universalelectricity.prefab.ItemElectric;
+import universalelectricity.prefab.multiblock.TileEntityMulti;
 import net.minecraft.src.CreativeTabs;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.EnumAction;
@@ -55,6 +56,12 @@ public class HMItemRivetGun extends ItemElectric
 			if (locatedBlock.typeOfHit == EnumMovingObjectType.TILE);
 			{
 				TileEntity foundBlock = world.getBlockTileEntity(locatedBlock.blockX, locatedBlock.blockY, locatedBlock.blockZ);
+				
+				if (foundBlock instanceof TileEntityMulti)
+				{
+					foundBlock = ((TileEntityMulti)foundBlock).mainBlockPosition.getTileEntity(world);
+					
+				}
 				
 				if (foundBlock instanceof IHMRepairable)
 				{

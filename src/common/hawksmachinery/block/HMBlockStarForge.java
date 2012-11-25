@@ -111,7 +111,7 @@ public class HMBlockStarForge extends HMBlockMachine
 			{
 				if (!super.canPlaceBlockAt(world, x + x2, y, z + z2))
 				{
-					System.out.println("MEH"); return false;
+					return false;
 				}
 				
 			}
