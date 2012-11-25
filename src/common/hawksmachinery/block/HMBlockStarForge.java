@@ -1,6 +1,7 @@
 
 package hawksmachinery.block;
 
+import universalelectricity.core.vector.Vector3;
 import hawksmachinery.tileentity.HMTileEntityStarForge;
 import net.minecraft.src.EntityLiving;
 import net.minecraft.src.EntityPlayer;
@@ -8,6 +9,7 @@ import net.minecraft.src.Material;
 import net.minecraft.src.MathHelper;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
+import net.minecraftforge.common.ForgeDirection;
 
 /**
  * 
@@ -30,51 +32,62 @@ public class HMBlockStarForge extends HMBlockMachine
 	@Override
 	public boolean onMachineActivated(World world, int x, int y, int z, EntityPlayer player)
 	{
-		if (!world.isRemote && !super.onMachineActivated(world, x, y, z, player))
+		if (super.onMachineActivated(world, x, y, z, player))
+		{
+			return false;
+		}
+		
+		if (!world.isRemote)
 		{
 			player.openGui(BASEMOD.instance(), 4, world, x, y, z);
 			
 		}
 		
 		return true;
-		
 	}
 	
 	@Override
 	public boolean onUseWrench(World world, int x, int y, int z, EntityPlayer player)
 	{
-		/*
-		switch (world.getBlockMetadata(x, y, z))
-		{
-			case 2: world.setBlockMetadataWithNotify(x, y, z, 4); break;
-			case 5: world.setBlockMetadataWithNotify(x, y, z, 2); break;
-			case 3: world.setBlockMetadataWithNotify(x, y, z, 5); break;
-			case 4: world.setBlockMetadataWithNotify(x, y, z, 3); break;
-			
-		}
-		
-		return true;*/
 		return false;
 	}
 	
 	@Override
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLiving entity)
 	{
-		/*
-		int direction = MathHelper.floor_double((entity.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
-		int newMetadata = 3;
+		((HMTileEntityStarForge)world.getBlockTileEntity(x, y, z)).onCreate(new Vector3(x, y, z));
 		
-		switch (direction)
-		{
-			case 0: newMetadata = 2; break;
-			case 1: newMetadata = 5; break;
-			case 2: newMetadata = 3; break;
-			case 3: newMetadata = 4; break;
-		}
+	}
+	@Override
+	public void breakBlock(World world, int x, int y, int z, int par5, int par6)
+	{
+		((HMTileEntityStarForge)world.getBlockTileEntity(x, y, z)).onDestroy(world.getBlockTileEntity(x, y, z));
+		super.breakBlock(world, x, y, z, par5, par6);
 		
-		world.setBlockMetadataWithNotify(x, y, z, newMetadata);
-		*/
-		
+	}
+	
+	@Override
+	public int getRenderType()
+	{
+		return -1;
+	}
+	
+	@Override
+	public int getBlockTextureFromSideAndMetadata(int side, int metadata)
+	{
+		return 106;
+	}
+	
+	@Override
+	public boolean isOpaqueCube()
+	{
+		return false;
+	}
+	
+	@Override
+	public boolean isBlockSolidOnSide(World world, int x, int y, int z, ForgeDirection side)
+	{
+		return false;
 	}
 	
 	@Override
@@ -87,6 +100,25 @@ public class HMBlockStarForge extends HMBlockMachine
 	public TileEntity createTileEntity(World world, int meta)
 	{
 		return new HMTileEntityStarForge();
+	}
+	
+	@Override
+	public boolean canPlaceBlockAt(World world, int x, int y, int z)
+	{
+		for (int x2 = -1; x2 < 2; ++x2)
+		{
+			for (int z2 = -1; z2 < 2; ++z2)
+			{
+				if (!super.canPlaceBlockAt(world, x + x2, y, z + z2))
+				{
+					System.out.println("MEH"); return false;
+				}
+				
+			}
+			
+		}
+		
+		return true;
 	}
 	
 }

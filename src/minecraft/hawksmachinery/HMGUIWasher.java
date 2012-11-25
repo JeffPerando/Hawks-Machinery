@@ -53,7 +53,7 @@ public class HMGUIWasher extends GuiContainer
 			int scale = this.tileEntity.getWashingStatus(this.tileEntity.TICKS_REQUIRED);
 			this.drawTexturedModalRect(containerWidth + 52, containerHeight + 28, 176, 0, 52 - scale, 20);
 		}
-
+		
 		this.drawTexturedModalRect(this.containerWidth - 32, this.containerHeight - 16, 0, 232, 240, 16);
 
 		if (this.tileEntity.machineHP > 0)

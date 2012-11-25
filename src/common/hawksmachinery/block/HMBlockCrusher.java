@@ -22,7 +22,6 @@ public class HMBlockCrusher extends HMBlockMachine
 		setHardness(5.0F);
 		setResistance(20.0F);
 		setRequiresSelfNotify();
-		GameRegistry.registerBlock(this, HMItemBlockCrusher.class);
 		setTextureFile(BASEMOD.ITEM_TEXTURE_FILE);
 		
 	}
@@ -33,11 +32,11 @@ public class HMBlockCrusher extends HMBlockMachine
 		if (!world.isRemote && !super.onMachineActivated(world, x, y, z, player))
 		{
 			player.openGui(BASEMOD.instance(), 0, world, x, y, z);
+			return true;
 			
 		}
 		
-		return true;
-		
+		return false;
 	}
 	
 	@Override

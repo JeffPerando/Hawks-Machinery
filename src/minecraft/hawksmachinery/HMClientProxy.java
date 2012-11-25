@@ -3,10 +3,7 @@ package hawksmachinery;
 
 import hawksmachinery.api.HMLanguageCore;
 import hawksmachinery.lang.HMLangen_US;
-import hawksmachinery.tileentity.HMTileEntityCrusher;
-import hawksmachinery.tileentity.HMTileEntityFisher;
-import hawksmachinery.tileentity.HMTileEntityTeleporter;
-import hawksmachinery.tileentity.HMTileEntityWasher;
+import hawksmachinery.tileentity.*;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
@@ -31,11 +28,15 @@ public class HMClientProxy extends HMCommonProxy
 	
 	public void registerRenderInformation()
 	{
+		super.registerRenderInformation();
+		
 		MinecraftForgeClient.preloadTexture(BASEMOD.BLOCK_TEXTURE_FILE);
 		MinecraftForgeClient.preloadTexture(BASEMOD.ITEM_TEXTURE_FILE);
-		super.registerRenderInformation();
+		
 		ClientRegistry.bindTileEntitySpecialRenderer(HMTileEntityCrusher.class, new HMRenderCrusher());
 		ClientRegistry.bindTileEntitySpecialRenderer(HMTileEntityWasher.class, new HMRenderWasher());
+		ClientRegistry.bindTileEntitySpecialRenderer(HMTileEntityStarForge.class, new HMRenderStarForge());
+		
 		HMLanguageCore.addToolTips();
 		
 	}
@@ -53,6 +54,7 @@ public class HMClientProxy extends HMCommonProxy
 				case 1: return new HMGUIWasher(player.inventory, ((HMTileEntityWasher)tileEntity));
 				case 2: return new HMGUIEndiumTeleporter(player.inventory, ((HMTileEntityTeleporter)tileEntity));
 				case 3: return new HMGUIFisher(player.inventory, (HMTileEntityFisher)tileEntity);
+				case 4: return new HMGUIStarForge(player.inventory, (HMTileEntityStarForge)tileEntity);
 				default: return null;
 				
 			}

@@ -8,7 +8,9 @@ import universalelectricity.prefab.multiblock.IMultiBlock;
 import net.minecraft.src.Block;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.ItemStack;
+import net.minecraft.src.NBTTagCompound;
 import net.minecraft.src.TileEntity;
+import net.minecraftforge.common.ForgeDirection;
 
 /**
  * 
@@ -36,37 +38,40 @@ public class HMTileEntityStarForge extends HMTileEntityMachine implements IMulti
 	}
 	
 	@Override
+	public boolean canReceiveFromSide(ForgeDirection side)
+	{
+		return side == ForgeDirection.DOWN;
+	}
+	
+	@Override
 	public void updateEntity()
 	{
 		super.updateEntity();
 		
-		if (!this.isDisabled())
+		if (this.canForge())
 		{
-			if (this.canForge())
+			if (this.workTicks == 0)
 			{
-				if (this.workTicks == 0)
-				{
-					this.workTicks = this.TICKS_REQUIRED;
-					
-				}
-				else
-				{
-					--this.workTicks;
-					
-				}
-				
-				if (this.workTicks == 1)
-				{
-					this.forgeItem();
-					this.workTicks = 0;
-					
-				}
+				this.workTicks = this.TICKS_REQUIRED;
 				
 			}
 			else
 			{
-				this.workTicks = 0;
+				--this.workTicks;
+				
 			}
+			
+			if (this.workTicks == 1)
+			{
+				this.forgeItem();
+				this.workTicks = 0;
+				
+			}
+			
+		}
+		else
+		{
+			this.workTicks = 0;
 			
 		}
 		
@@ -115,6 +120,7 @@ public class HMTileEntityStarForge extends HMTileEntityMachine implements IMulti
 	@Override
 	public boolean onActivated(EntityPlayer player)
 	{
+		if (player.isSneaking()) return false;
 		return ((HMBlockStarForge)Block.blocksList[this.worldObj.getBlockId(this.xCoord, this.yCoord, this.zCoord)]).onMachineActivated(this.worldObj, this.xCoord, this.yCoord, this.zCoord, player);
 	}
 	
@@ -125,9 +131,9 @@ public class HMTileEntityStarForge extends HMTileEntityMachine implements IMulti
 		{
 			for (int z = -1; z < 2; ++z)
 			{
-				if (x != 0 && z != 0)
+				if (x != 0 || z != 0)
 				{
-					HMBlock.starForgeTechnical.makeFakeBlock(worldObj, new Vector3(this.xCoord + x, this.yCoord, this.zCoord + z), placedPosition);
+					HMBlock.starForgeTechnical.makeFakeBlock(this.worldObj, new Vector3(this.xCoord + x, this.yCoord, this.zCoord + z), placedPosition);
 					
 				}
 				
@@ -144,9 +150,9 @@ public class HMTileEntityStarForge extends HMTileEntityMachine implements IMulti
 		{
 			for (int z = -1; z < 2; ++z)
 			{
-				if (x != 0 && z != 0)
+				if (x != 0 || z != 0)
 				{
-					this.worldObj.setBlockWithNotify(x, this.yCoord, z, 0);
+					this.worldObj.setBlockWithNotify(this.xCoord + x, this.yCoord, this.zCoord + z, 0);
 					
 				}
 				
@@ -154,7 +160,7 @@ public class HMTileEntityStarForge extends HMTileEntityMachine implements IMulti
 			
 		}
 		
-		this.worldObj.setBlockWithNotify(this.xCoord, this.yCoord, this.zCoord, 0);
+		this.worldObj.setBlockWithNotify(xCoord, yCoord, zCoord, 0);
 		this.invalidate();
 		
 	}

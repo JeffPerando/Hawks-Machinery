@@ -32,7 +32,7 @@ public class HMBlockEndiumTeleporter extends HMBlockMachine
 		setHardness(5.0F);
 		setResistance(100.0F);
 		MinecraftForge.setBlockHarvestLevel(this, "pickaxe", 3);
-		GameRegistry.registerBlock(this, HMItemBlockTeleporter.class);
+		//GameRegistry.registerBlock(this, HMItemBlockTeleporter.class);
 		
 	}
 	

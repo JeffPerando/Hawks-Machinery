@@ -142,22 +142,6 @@ public class HMRecipes
 		
 	}
 	
-	public static ItemStack getForgeResult(InventoryCrafting matrix, World world)
-	{
-		for (int counter = 0; counter < forgeRecipes.size(); ++counter)
-		{
-			IRecipe recipe = (IRecipe)forgeRecipes.get(counter);
-			
-			if (recipe.matches(matrix, world))
-			{
-				return recipe.getCraftingResult(matrix);
-			}
-			
-		}
-		
-		return null;
-	}
-	
 	public static int getQuantity(ItemStack item, HMEnumProcessing processType)
 	{
 		return (Integer)quantityMapping.get(Arrays.asList(item.getItem(), item.getItemDamage(), processType));
@@ -197,6 +181,26 @@ public class HMRecipes
 			return null;
 		}
 		
+	}
+	
+	public static ItemStack getForgeResult(InventoryCrafting matrix, World world)
+	{
+		for (int counter = 0; counter < forgeRecipes.size(); ++counter)
+		{
+			IRecipe recipe = (IRecipe)forgeRecipes.get(counter);
+			
+			if (recipe != null)
+			{
+				if (recipe.matches(matrix, world))
+				{
+					return recipe.getCraftingResult(matrix);
+				}
+				
+			}
+			
+		}
+		
+		return null;
 	}
 	
 }

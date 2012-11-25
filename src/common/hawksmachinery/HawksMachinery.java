@@ -100,7 +100,7 @@ public class HawksMachinery
 		HMBlock.fisher = new HMBlockFisher(MANAGER.getBlockID("Fisher", 3965));
 		HMBlock.metalBlock = new HMBlockMetalStorage(MANAGER.getBlockID("Metal Block", 3967));
 		HMBlock.starForge = new HMBlockStarForge(MANAGER.getBlockID("Star Forge", 3968));
-		HMBlock.starForgeTechnical = new BlockMulti(MANAGER.getBlockID("Star Forge Technical", 3969));
+		HMBlock.starForgeTechnical = new HMBlockMulti(MANAGER.getBlockID("Star Forge Technical", 3969));
 		
 		HMItem.dustRaw = new HMItemRawDust(MANAGER.getItemID("Raw Dusts", 24150)).registerMaxDamage(7);
 		HMItem.dustRefined = new HMItemRefinedDust(MANAGER.getItemID("Refined Dusts", 24151)).registerMaxDamage(10);

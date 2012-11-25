@@ -31,7 +31,6 @@ public class HMBlockWasher extends HMBlockMachine
 		setHardness(2.0F);
 		setResistance(20.0F);
 		setRequiresSelfNotify();
-		GameRegistry.registerBlock(this, HMItemBlockWasher.class);
 		setTextureFile(BASEMOD.ITEM_TEXTURE_FILE);
 		
 	}
@@ -48,9 +47,10 @@ public class HMBlockWasher extends HMBlockMachine
 		if (!world.isRemote && !super.onMachineActivated(world, x, y, z, player))
 		{
 			player.openGui(BASEMOD.instance(), 1, world, x, y, z);
+			return true;
 		}
 		
-		return true;
+		return false;
 	}
 	
 	@Override
