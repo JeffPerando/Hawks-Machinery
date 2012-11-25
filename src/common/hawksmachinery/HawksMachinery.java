@@ -19,6 +19,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import obsidian.api.ItemRetriever;
+import universalelectricity.prefab.multiblock.BlockMulti;
 import universalelectricity.prefab.network.ConnectionHandler;
 import universalelectricity.prefab.network.PacketManager;
 import universalelectricity.prefab.ore.OreGenerator;
@@ -98,6 +99,8 @@ public class HawksMachinery
 		HMBlock.endiumTeleporter = new HMBlockEndiumTeleporter(MANAGER.getBlockID("Endium Teleporter", 3964));
 		HMBlock.fisher = new HMBlockFisher(MANAGER.getBlockID("Fisher", 3965));
 		HMBlock.metalBlock = new HMBlockMetalStorage(MANAGER.getBlockID("Metal Block", 3967));
+		HMBlock.starForge = new HMBlockStarForge(MANAGER.getBlockID("Star Forge", 3968));
+		HMBlock.starForgeTechnical = new BlockMulti(MANAGER.getBlockID("Star Forge Technical", 3969));
 		
 		HMItem.dustRaw = new HMItemRawDust(MANAGER.getItemID("Raw Dusts", 24150)).registerMaxDamage(7);
 		HMItem.dustRefined = new HMItemRefinedDust(MANAGER.getItemID("Refined Dusts", 24151)).registerMaxDamage(10);
@@ -183,14 +186,14 @@ public class HawksMachinery
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMItem.parts, 6, 2), new Object[]{"C", "C", "C", 'C', "ingotCobalt"}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMItem.parts, 1, 3), new Object[]{" G ", "GBG", "CCC", 'G', Block.thinGlass, 'B', Item.blazeRod, 'C', Item.goldNugget}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMItem.parts, 1, 4), new Object[]{"CC", "CC", 'C', Block.fenceIron}));
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMItem.parts, 1, 5), new Object[]{"ici", 'i', "ingotIron", 'c', new ItemStack(HMItem.parts, 1, 4)}));
+		GameRegistry.addRecipe(new ItemStack(HMItem.parts, 1, 5), new Object[]{"ici", 'i', Item.ingotIron, 'c', new ItemStack(HMItem.parts, 1, 4)});
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMItem.parts, 1, 6), new Object[]{"OOS", "BPb", "OOS", 'O', Block.obsidian, 'S', "ingotCobalt", 'B', Item.blazePowder, 'P', new ItemStack(HMItem.parts), 'b', "ingotGold"}));
 		
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMItem.rivets, 10, 0), new Object[]{"CCC", "BCB", " C ", 'C', "ingotCopper", 'B', Item.blazePowder}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMItem.rivets, 10, 1), new Object[]{"BBB", "bBb", " B ", 'B', "ingotBronze", 'b', Item.blazePowder}));
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMItem.rivets, 10, 2), new Object[]{"III", "BIB", " I ", 'I', "ingotIron", 'B', Item.blazePowder}));
+		GameRegistry.addRecipe(new ItemStack(HMItem.rivets, 10, 2), new Object[]{"III", "BIB", " I ", 'I', Item.ingotIron, 'B', Item.blazePowder});
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMItem.rivets, 10, 3), new Object[]{"SSS", "BSB", " S ", 'S', "ingotSteel", 'B', Item.blazePowder}));
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMItem.rivets, 10, 4), new Object[]{"GGG", "BGB", " G ", 'G', "ingotGold", 'B', Item.blazePowder}));
+		GameRegistry.addRecipe(new ItemStack(HMItem.rivets, 10, 4), new Object[]{"GGG", "BGB", " G ", 'G', Item.ingotGold, 'B', Item.blazePowder});
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMItem.rivets, 10, 5), new Object[]{"EEE", "BEB", " E ", 'E', "ingotEndium", 'B', Item.blazePowder}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMItem.rivets, 10, 6), new Object[]{"CCC", "CEC", " C ", 'C', "ingotCobalt", 'B', Item.blazePowder}));
 		
@@ -323,15 +326,16 @@ public class HawksMachinery
 		PROCESS_RECIPES.addHMProcessingRecipe(new ItemStack(Item.hoeSteel), new ItemStack(HMItem.dustRefined, 2, 3), CRUSH);
 		PROCESS_RECIPES.addHMProcessingRecipe(new ItemStack(Item.netherStar), new ItemStack(HMItem.dustRefined, 3, 8), CRUSH);
 		
-		PROCESS_RECIPES.addHMFoDProcessingRecipe("oreIron", new ItemStack(HMItem.dustRaw, 2, 1), CRUSH);
-		PROCESS_RECIPES.addHMFoDProcessingRecipe("oreGold", new ItemStack(HMItem.dustRaw, 2, 2), CRUSH);
+		PROCESS_RECIPES.addHMProcessingRecipe(new ItemStack(Block.oreIron), new ItemStack(HMItem.dustRaw, 2, 1), CRUSH);
+		PROCESS_RECIPES.addHMProcessingRecipe(new ItemStack(Block.oreGold), new ItemStack(HMItem.dustRaw, 2, 2), CRUSH);
+		PROCESS_RECIPES.addHMProcessingRecipe(new ItemStack(Item.ingotIron), new ItemStack(HMItem.dustRefined, 1, 3), CRUSH);
+		PROCESS_RECIPES.addHMProcessingRecipe(new ItemStack(Item.ingotGold), new ItemStack(HMItem.dustRefined, 1, 4), CRUSH);
+		
 		PROCESS_RECIPES.addHMFoDProcessingRecipe("oreCopper", new ItemStack(HMItem.dustRaw, 2, 3), CRUSH);
 		PROCESS_RECIPES.addHMFoDProcessingRecipe("oreTin", new ItemStack(HMItem.dustRaw, 2, 4), CRUSH);
 		PROCESS_RECIPES.addHMFoDProcessingRecipe("oreEndium", new ItemStack(HMItem.dustRaw, 2, 6), CRUSH);
 		PROCESS_RECIPES.addHMFoDProcessingRecipe("oreCobalt", new ItemStack(HMItem.dustRaw, 2, 7), CRUSH);
 		
-		PROCESS_RECIPES.addHMFoDProcessingRecipe("ingotIron", new ItemStack(HMItem.dustRefined, 1, 3), CRUSH);
-		PROCESS_RECIPES.addHMFoDProcessingRecipe("ingotGold", new ItemStack(HMItem.dustRefined, 1, 4), CRUSH);
 		PROCESS_RECIPES.addHMFoDProcessingRecipe("ingotCopper", new ItemStack(HMItem.dustRefined, 1, 5), CRUSH);
 		PROCESS_RECIPES.addHMFoDProcessingRecipe("ingotTin", new ItemStack(HMItem.dustRefined, 1, 6), CRUSH);
 		PROCESS_RECIPES.addHMFoDProcessingRecipe("ingotEndium", new ItemStack(HMItem.dustRefined, 1, 9), CRUSH);

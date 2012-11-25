@@ -27,7 +27,7 @@ public class HMContainerStarForge extends Container
 		this.tileEntity = tileEntity;
 		int slotNumber = 0;
 		
-		for (int width = 0; width < this.matrix.getInvWidth(); ++width)
+		for (int width = 0; width < 3; ++width)
 		{
 			for (int height = 0; height < this.matrix.inventoryHeight; ++height)
 			{
