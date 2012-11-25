@@ -89,6 +89,8 @@ public class HawksMachinery
 	{
 		INSTANCE = this;
 		
+		this.MANAGER.loadConfig();
+		
 		HMBlock.crusher = new HMBlockCrusher(MANAGER.getBlockID("Crusher", 3960));
 		HMBlock.ore = new HMBlockOre(MANAGER.getBlockID("Ore", 3961));
 		HMBlock.washer = new HMBlockWasher(MANAGER.getBlockID("Washer", 3962));

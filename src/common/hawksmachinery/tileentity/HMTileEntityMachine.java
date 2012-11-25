@@ -288,7 +288,6 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 		super.readFromNBT(NBTTag);
 		this.machineHP = NBTTag.getInteger("MachineHP");
 		this.electricityStored = NBTTag.getDouble("electricityStored");
-		
 		if (this.isProcessor) this.workTicks = NBTTag.getInteger("workTicks");
 		
 		if (NBTTag.hasKey("Sapper"))
