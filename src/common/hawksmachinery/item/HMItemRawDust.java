@@ -1,7 +1,7 @@
 
 package hawksmachinery.item;
 
-import net.minecraft.src.CreativeTabs;
+import universalelectricity.prefab.UETab;
 import net.minecraft.src.EntityLiving;
 import net.minecraft.src.EnumRarity;
 import net.minecraft.src.ItemStack;
@@ -20,7 +20,7 @@ public class HMItemRawDust extends HMItem
 	{
 		super(id);
 		setHasSubtypes(true);
-		setCreativeTab(CreativeTabs.tabMaterials);
+		setCreativeTab(UETab.INSTANCE);
 		
 	}
 	
@@ -53,7 +53,7 @@ public class HMItemRawDust extends HMItem
 	@Override
 	public String getItemNameIS(ItemStack item)
 	{
-		return "HMdustUnref" + item.getItemDamage();
+		return "HMDustUnref" + item.getItemDamage();
 	}
 	
 	@Override

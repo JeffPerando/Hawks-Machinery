@@ -1,8 +1,8 @@
 
 package hawksmachinery.item;
 
+import universalelectricity.prefab.UETab;
 import hawksmachinery.HawksMachinery;
-import net.minecraft.src.CreativeTabs;
 import net.minecraft.src.EnumRarity;
 import net.minecraft.src.ItemStack;
 
@@ -19,7 +19,7 @@ public class HMItemBlueprints extends HMItem
 		super(id);
 		setHasSubtypes(true);
 		setContainerItem(this);
-		setCreativeTab(CreativeTabs.tabMisc);
+		setCreativeTab(UETab.INSTANCE);
 		setMaxStackSize(1);
 		setTextureFile("/gui/items.png");
 		

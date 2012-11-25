@@ -1,7 +1,7 @@
 
 package hawksmachinery.item;
 
-import net.minecraft.src.CreativeTabs;
+import universalelectricity.prefab.UETab;
 import net.minecraft.src.ItemStack;
 
 /**
@@ -16,7 +16,7 @@ public class HMItemParts extends HMItem
 	{
 		super(id);
 		setHasSubtypes(true);
-		setCreativeTab(CreativeTabs.tabMaterials);
+		setCreativeTab(UETab.INSTANCE);
 		
 	}
 	
@@ -29,7 +29,7 @@ public class HMItemParts extends HMItem
 	@Override
 	public String getItemNameIS(ItemStack item)
 	{
-		return "HMpart" + item.getItemDamage();
+		return "HMPart" + item.getItemDamage();
 	}
 	
 }

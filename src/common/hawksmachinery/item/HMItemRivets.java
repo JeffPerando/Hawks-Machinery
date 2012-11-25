@@ -1,7 +1,7 @@
 
 package hawksmachinery.item;
 
-import net.minecraft.src.CreativeTabs;
+import universalelectricity.prefab.UETab;
 import net.minecraft.src.EnumRarity;
 import net.minecraft.src.ItemStack;
 import hawksmachinery.api.HMRepairInterfaces.IHMRivet;
@@ -18,7 +18,7 @@ public class HMItemRivets extends HMItem implements IHMRivet
 	{
 		super(id);
 		setHasSubtypes(true);
-		setCreativeTab(CreativeTabs.tabMaterials);
+		setCreativeTab(UETab.INSTANCE);
 		
 	}
 	

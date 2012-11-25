@@ -8,7 +8,6 @@ import hawksmachinery.item.*;
 import net.minecraft.src.Achievement;
 import net.minecraft.src.AchievementList;
 import net.minecraft.src.Block;
-import net.minecraft.src.CreativeTabs;
 import net.minecraft.src.FurnaceRecipes;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
@@ -19,6 +18,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import obsidian.api.ItemRetriever;
+import universalelectricity.prefab.UETab;
 import universalelectricity.prefab.multiblock.BlockMulti;
 import universalelectricity.prefab.network.ConnectionHandler;
 import universalelectricity.prefab.network.PacketManager;
@@ -110,7 +110,7 @@ public class HawksMachinery
 		HMItem.rivets = new HMItemRivets(MANAGER.getItemID("Rivets", 24155)).registerMaxDamage(6);
 		HMItem.rivetGun = new HMItemRivetGun(MANAGER.getItemID("Rivet Gun", 24156));
 		HMItem.ingots = new HMItemIngots(MANAGER.getItemID("Ingots", 24157)).registerMaxDamage(1);
-		HMItem.fishFood = new HMItem(MANAGER.getItemID("Fish Food", 24158)).setIconIndex(88).setItemName("fishFood").setCreativeTab(CreativeTabs.tabFood);
+		HMItem.fishFood = new HMItem(MANAGER.getItemID("Fish Food", 24158)).setIconIndex(88).setItemName("fishFood").setCreativeTab(UETab.INSTANCE);
 		
 		timeToCrush = new Achievement(MANAGER.ACHtimeToCrush, "Crush", -2, -3, new ItemStack(HMBlock.crusher, 1, 0), AchievementList.buildBetterPickaxe).registerAchievement();
 		minerkiin = new Achievement(MANAGER.ACHminerkiin, "Minerkiin", -5, 2, new ItemStack(HMBlock.ore), AchievementList.theEnd2).registerAchievement().setSpecial();
