@@ -21,7 +21,7 @@ public class HMBlockStarForge extends HMBlockMachine
 {
 	public HMBlockStarForge(int id)
 	{
-		super("Star Forge", id, Material.iron);
+		super("HMStarForge", id, Material.iron);
 		setHardness(5.0F);
 		setResistance(20.0F);
 		setRequiresSelfNotify();

@@ -51,6 +51,8 @@ public class HMLangen_US implements IHMLangHandler
 		LANG.addNameForObject(new ItemStack(HMBlock.endiumTeleporter), "en_US", "Endium Teleporter (Send)");
 		LANG.addNameForObject(new ItemStack(HMBlock.endiumTeleporter, 1, 1), "en_US", "Endium Teleporter (Receive)");
 		LANG.addNameForObject(HMBlock.fisher, "en_US", "Fisher");
+		LANG.addNameForObject(HMBlock.starForge, "en_US", "Star Forge");
+		LANG.addNameForObject(HMBlock.starForgeTechnical, "en_US", "Look out, we got a badass over here!");
 		LANG.addNameForObject(new ItemStack(HMBlock.metalBlock, 1, 0), "en_US", "Endium Block");
 		LANG.addNameForObject(new ItemStack(HMBlock.metalBlock, 1, 1), "en_US", "Cobalt Block");
 		

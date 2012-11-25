@@ -49,7 +49,7 @@ public class HMItemRivetGun extends ItemElectric
 	@Override
 	public ItemStack onFoodEaten(ItemStack item, World world, EntityPlayer player)
 	{
-		MovingObjectPosition locatedBlock = getMovingObjectPositionFromPlayer(world, player, true);
+		MovingObjectPosition locatedBlock = this.getMovingObjectPositionFromPlayer(world, player, true);
 		
 		if (locatedBlock != null)
 		{
@@ -57,37 +57,37 @@ public class HMItemRivetGun extends ItemElectric
 			{
 				TileEntity foundBlock = world.getBlockTileEntity(locatedBlock.blockX, locatedBlock.blockY, locatedBlock.blockZ);
 				
-				if (foundBlock instanceof TileEntityMulti)
+				if (foundBlock != null)
 				{
-					foundBlock = ((TileEntityMulti)foundBlock).mainBlockPosition.getTileEntity(world);
+					if (foundBlock instanceof TileEntityMulti) foundBlock = ((TileEntityMulti)foundBlock).mainBlockPosition.getTileEntity(world);
 					
-				}
-				
-				if (foundBlock instanceof IHMRepairable)
-				{
-					if (((IHMRepairable)foundBlock).getMaxHP() > 0)
+					if (foundBlock instanceof IHMRepairable)
 					{
-						for (int counter = 0; counter <= 8; ++counter)
+						if (((IHMRepairable)foundBlock).getMaxHP() > 0)
 						{
-							if (player.inventory.mainInventory[counter] != null)
+							for (int counter = 0; counter <= 8; ++counter)
 							{
-								if (player.inventory.mainInventory[counter].getItem() instanceof IHMRivet)
+								if (player.inventory.mainInventory[counter] != null)
 								{
-									int potentialRepairAmount = ((IHMRivet)player.inventory.mainInventory[counter].getItem()).getRepairAmount(player.inventory.mainInventory[counter]);
-									
-									if (potentialRepairAmount > 0)
+									if (player.inventory.mainInventory[counter].getItem() instanceof IHMRivet)
 									{
-										if (((IHMRepairable)foundBlock).attemptToRepair(potentialRepairAmount))
+										int potentialRepairAmount = ((IHMRivet)player.inventory.mainInventory[counter].getItem()).getRepairAmount(player.inventory.mainInventory[counter]);
+										
+										if (potentialRepairAmount > 0)
 										{
-											--player.inventory.mainInventory[counter].stackSize;
-											if (player.inventory.mainInventory[counter].stackSize == 0)
+											if (((IHMRepairable)foundBlock).attemptToRepair(potentialRepairAmount))
 											{
-												player.inventory.mainInventory[counter] = null;
+												--player.inventory.mainInventory[counter].stackSize;
+												if (player.inventory.mainInventory[counter].stackSize == 0)
+												{
+													player.inventory.mainInventory[counter] = null;
+												}
+												
+												player.swingItem();
+												this.onUse(1, item);
+												return item;
 											}
 											
-											player.swingItem();
-											this.onUse(1, item);
-											return item;
 										}
 										
 									}
