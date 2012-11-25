@@ -1,8 +1,11 @@
 
 package hawksmachinery.tileentity;
 
+import hawksmachinery.block.HMBlock;
+import hawksmachinery.block.HMBlockStarForge;
 import universalelectricity.core.vector.Vector3;
 import universalelectricity.prefab.multiblock.IMultiBlock;
+import net.minecraft.src.Block;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.TileEntity;
@@ -108,22 +111,51 @@ public class HMTileEntityStarForge extends HMTileEntityMachine implements IMulti
 		this.randomlyDamageSelf();
 		
 	}
-
+	
 	@Override
-	public boolean onActivated(EntityPlayer entityPlayer)
+	public boolean onActivated(EntityPlayer player)
 	{
-		return false;
+		return ((HMBlockStarForge)Block.blocksList[this.worldObj.getBlockId(this.xCoord, this.yCoord, this.zCoord)]).onMachineActivated(this.worldObj, this.xCoord, this.yCoord, this.zCoord, player);
 	}
-
+	
 	@Override
 	public void onCreate(Vector3 placedPosition)
 	{
+		for (int x = -1; x < 2; ++x)
+		{
+			for (int z = -1; z < 2; ++z)
+			{
+				if (x != 0 && z != 0)
+				{
+					HMBlock.starForgeTechnical.makeFakeBlock(worldObj, new Vector3(this.xCoord + x, this.yCoord, this.zCoord + z), placedPosition);
+					
+				}
+				
+			}
+			
+		}
 		
 	}
-
+	
 	@Override
 	public void onDestroy(TileEntity callingBlock)
 	{
+		for (int x = -1; x < 2; ++x)
+		{
+			for (int z = -1; z < 2; ++z)
+			{
+				if (x != 0 && z != 0)
+				{
+					this.worldObj.setBlockWithNotify(x, this.yCoord, z, 0);
+					
+				}
+				
+			}
+			
+		}
+		
+		this.worldObj.setBlockWithNotify(this.xCoord, this.yCoord, this.zCoord, 0);
+		this.invalidate();
 		
 	}
 	

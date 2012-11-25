@@ -19,6 +19,7 @@ import net.minecraft.src.World;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.ForgeChunkManager.LoadingCallback;
 import net.minecraftforge.common.ForgeChunkManager.Ticket;
+import net.minecraftforge.common.Property;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.world.WorldEvent;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -37,24 +38,6 @@ public class HMManager implements LoadingCallback, IVillageTradeHandler, ICrafti
 {
 	public static HawksMachinery BASEMOD;
 	private static int chunkLimit;
-	
-	public static int crusherID;
-	public static int oreID;
-	public static int washerID;
-	public static int endiumChunkloaderID;
-	public static int endiumTeleporterID;
-	public static int fisherID;
-	public static int metalBlockID;
-	
-	public static int dustRawID;
-	public static int dustRefinedID;
-	public static int partsID;
-	public static int blueprintID;
-	public static int platingID;
-	public static int rivetsID;
-	public static int rivetGunID;
-	public static int ingotsID;
-	public static int fishFoodID;
 	
 	public static int ACHprospector;
 	public static int ACHtimeToCrush;
@@ -79,17 +62,9 @@ public class HMManager implements LoadingCallback, IVillageTradeHandler, ICrafti
 		
 	}
 	
-	public int loadConfig()
+	public void loadConfig()
 	{
 		HMConfig.load();
-		
-		crusherID = HMConfig.getBlock("Crusher", 3960).getInt(3960);
-		oreID = HMConfig.getBlock("Ore", 3961).getInt(3961);
-		washerID = HMConfig.getBlock("Washer", 3962).getInt(3962);
-		endiumChunkloaderID = HMConfig.getBlock("Endium Chunkloader", 3964).getInt(3964);
-		endiumTeleporterID = HMConfig.getBlock("Endium Teleporter", 3965).getInt(3965);
-		fisherID = HMConfig.getBlock("Fisher", 3966).getInt(3966);
-		metalBlockID = HMConfig.getBlock("Metal Block", 3967).getInt(3967);
 		
 		generateEndium = HMConfig.get(Configuration.CATEGORY_GENERAL, "Generate Endium", true).getBoolean(true);
 		generateCobalt = HMConfig.get(Configuration.CATEGORY_GENERAL, "Generate Cobalt", true).getBoolean(true);
@@ -97,16 +72,6 @@ public class HMManager implements LoadingCallback, IVillageTradeHandler, ICrafti
 		enableAutoDL = HMConfig.get(Configuration.CATEGORY_GENERAL, "Enable Auto DL", true).getBoolean(true);
 		enableChunkloader = HMConfig.get(Configuration.CATEGORY_GENERAL, "Enable Chunkloader Crafting", true).getBoolean(true);
 		maxChunksLoaded = HMConfig.get("Max Chunks Loaded", Configuration.CATEGORY_GENERAL, 25).getInt(25);
-		
-		dustRawID = HMConfig.get(Configuration.CATEGORY_ITEM, "Raw Dusts", 24150).getInt(24150);
-		dustRefinedID = HMConfig.get(Configuration.CATEGORY_ITEM, "Refined Dusts", 24151).getInt(24151);
-		partsID = HMConfig.get(Configuration.CATEGORY_ITEM, "Parts", 24152).getInt(24152);
-		blueprintID = HMConfig.get(Configuration.CATEGORY_ITEM, "Blueprints", 24153).getInt(24153);
-		platingID = HMConfig.get(Configuration.CATEGORY_ITEM, "Plating", 24154).getInt(24154);
-		rivetsID = HMConfig.get(Configuration.CATEGORY_ITEM, "Rivets", 24155).getInt(24155);
-		rivetGunID = HMConfig.get(Configuration.CATEGORY_ITEM, "Rivet Gun", 24156).getInt(24156);
-		ingotsID = HMConfig.get(Configuration.CATEGORY_ITEM, "Ingots", 24157).getInt(24157);
-		fishFoodID = HMConfig.get(Configuration.CATEGORY_ITEM, "Fish Food", 24158).getInt(24158);
 		
 		ACHprospector = HMConfig.get(Configuration.CATEGORY_GENERAL, "ACH Prospector", 1500).getInt(1500);
 		ACHtimeToCrush = HMConfig.get(Configuration.CATEGORY_GENERAL, "ACH Time To Crush", 1501).getInt(1501);
@@ -123,7 +88,24 @@ public class HMManager implements LoadingCallback, IVillageTradeHandler, ICrafti
 		
 		HMConfig.save();
 		
-		return crusherID;
+	}
+	
+	public int getID(String name, String category, int defaultID, boolean unshiftID)
+	{
+		HMConfig.load();
+		Property prop = HMConfig.get(category, name, defaultID - ((unshiftID) ? 256 : 0));
+		HMConfig.save();
+		return prop.getInt(defaultID - ((unshiftID) ? 256 : 0));
+	}
+	
+	public int getBlockID(String name, int defaultID)
+	{
+		return this.getID(name, Configuration.CATEGORY_BLOCK, defaultID, false);
+	}
+	
+	public int getItemID(String name, int defaultID)
+	{
+		return this.getID(name, Configuration.CATEGORY_ITEM, defaultID, true);
 	}
 	
 	@Override

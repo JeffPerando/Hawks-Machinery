@@ -13,6 +13,7 @@ import net.minecraft.src.FurnaceRecipes;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
 import net.minecraftforge.common.AchievementPage;
+import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.ShapedOreRecipe;
@@ -88,23 +89,23 @@ public class HawksMachinery
 	{
 		INSTANCE = this;
 		
-		HMBlock.crusher = new HMBlockCrusher(MANAGER.loadConfig());
-		HMBlock.ore = new HMBlockOre(MANAGER.oreID);
-		HMBlock.washer = new HMBlockWasher(MANAGER.washerID);
-		HMBlock.endiumChunkloader = new HMBlockEndiumChunkloader(MANAGER.endiumChunkloaderID);
-		HMBlock.endiumTeleporter = new HMBlockEndiumTeleporter(MANAGER.endiumTeleporterID);
-		HMBlock.fisher = new HMBlockFisher(MANAGER.fisherID);
-		HMBlock.metalBlock = new HMBlockMetalStorage(MANAGER.metalBlockID);
+		HMBlock.crusher = new HMBlockCrusher(MANAGER.getBlockID("Crusher", 3960));
+		HMBlock.ore = new HMBlockOre(MANAGER.getBlockID("Ore", 3961));
+		HMBlock.washer = new HMBlockWasher(MANAGER.getBlockID("Washer", 3962));
+		HMBlock.endiumChunkloader = new HMBlockEndiumChunkloader(MANAGER.getBlockID("Endium Chunkloader", 3963));
+		HMBlock.endiumTeleporter = new HMBlockEndiumTeleporter(MANAGER.getBlockID("Endium Teleporter", 3964));
+		HMBlock.fisher = new HMBlockFisher(MANAGER.getBlockID("Fisher", 3965));
+		HMBlock.metalBlock = new HMBlockMetalStorage(MANAGER.getBlockID("Metal Block", 3967));
 		
-		HMItem.dustRaw = new HMItemRawDust(MANAGER.dustRawID - 256).registerMaxDamage(7);
-		HMItem.dustRefined = new HMItemRefinedDust(MANAGER.dustRefinedID - 256).registerMaxDamage(10);
-		HMItem.parts = new HMItemParts(MANAGER.partsID - 256).registerMaxDamage(6);
-		HMItem.blueprints = new HMItemBlueprints(MANAGER.blueprintID - 256).registerMaxDamage(8);
-		HMItem.plating = new HMItemPlating(MANAGER.platingID - 256).registerMaxDamage(1);
-		HMItem.rivets = new HMItemRivets(MANAGER.rivetsID - 256).registerMaxDamage(6);
-		HMItem.rivetGun = new HMItemRivetGun(MANAGER.rivetGunID - 256);
-		HMItem.ingots = new HMItemIngots(MANAGER.ingotsID - 256).registerMaxDamage(1);
-		HMItem.fishFood = new HMItem(MANAGER.fishFoodID - 256).setIconIndex(88).setItemName("fishFood").setCreativeTab(CreativeTabs.tabFood);
+		HMItem.dustRaw = new HMItemRawDust(MANAGER.getItemID("Raw Dusts", 24150)).registerMaxDamage(7);
+		HMItem.dustRefined = new HMItemRefinedDust(MANAGER.getItemID("Refined Dusts", 24151)).registerMaxDamage(10);
+		HMItem.parts = new HMItemParts(MANAGER.getItemID("Parts", 24152)).registerMaxDamage(6);
+		HMItem.blueprints = new HMItemBlueprints(MANAGER.getItemID("Blueprints", 24153)).registerMaxDamage(8);
+		HMItem.plating = new HMItemPlating(MANAGER.getItemID("Plating", 24154)).registerMaxDamage(1);
+		HMItem.rivets = new HMItemRivets(MANAGER.getItemID("Rivets", 24155)).registerMaxDamage(6);
+		HMItem.rivetGun = new HMItemRivetGun(MANAGER.getItemID("Rivet Gun", 24156));
+		HMItem.ingots = new HMItemIngots(MANAGER.getItemID("Ingots", 24157)).registerMaxDamage(1);
+		HMItem.fishFood = new HMItem(MANAGER.getItemID("Fish Food", 24158)).setIconIndex(88).setItemName("fishFood").setCreativeTab(CreativeTabs.tabFood);
 		
 		timeToCrush = new Achievement(MANAGER.ACHtimeToCrush, "Crush", -2, -3, new ItemStack(HMBlock.crusher, 1, 0), AchievementList.buildBetterPickaxe).registerAchievement();
 		minerkiin = new Achievement(MANAGER.ACHminerkiin, "Minerkiin", -5, 2, new ItemStack(HMBlock.ore), AchievementList.theEnd2).registerAchievement().setSpecial();

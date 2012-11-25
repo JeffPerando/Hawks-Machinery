@@ -43,6 +43,7 @@ public class HMBlockStarForge extends HMBlockMachine
 	@Override
 	public boolean onUseWrench(World world, int x, int y, int z, EntityPlayer player)
 	{
+		/*
 		switch (world.getBlockMetadata(x, y, z))
 		{
 			case 2: world.setBlockMetadataWithNotify(x, y, z, 4); break;
@@ -52,12 +53,14 @@ public class HMBlockStarForge extends HMBlockMachine
 			
 		}
 		
-		return true;
+		return true;*/
+		return false;
 	}
 	
 	@Override
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLiving entity)
 	{
+		/*
 		int direction = MathHelper.floor_double((entity.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
 		int newMetadata = 3;
 		
@@ -70,6 +73,7 @@ public class HMBlockStarForge extends HMBlockMachine
 		}
 		
 		world.setBlockMetadataWithNotify(x, y, z, newMetadata);
+		*/
 		
 	}
 	

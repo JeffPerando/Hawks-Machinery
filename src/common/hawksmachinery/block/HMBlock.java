@@ -1,6 +1,7 @@
 
 package hawksmachinery.block;
 
+import universalelectricity.prefab.multiblock.BlockMulti;
 import hawksmachinery.HawksMachinery;
 import net.minecraft.src.Achievement;
 import net.minecraft.src.Block;
@@ -24,7 +25,7 @@ public class HMBlock extends Block
 	public static Block fisher;
 	public static Block metalBlock;
 	public static Block starForge;
-	public static Block starForgeTechnical;
+	public static BlockMulti starForgeTechnical;
 	public static Block sinterer;
 	public static Block fireBlock;
 	
