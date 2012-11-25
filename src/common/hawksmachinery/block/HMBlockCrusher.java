@@ -33,6 +33,7 @@ public class HMBlockCrusher extends HMBlockMachine
 		if (!world.isRemote && !super.onMachineActivated(world, x, y, z, player))
 		{
 			player.openGui(BASEMOD.instance(), 0, world, x, y, z);
+			
 		}
 		
 		return true;
@@ -66,6 +67,7 @@ public class HMBlockCrusher extends HMBlockMachine
 			case 1: newMetadata = 5; break;
 			case 2: newMetadata = 3; break;
 			case 3: newMetadata = 4; break;
+			
 		}
 		
 		world.setBlockMetadataWithNotify(x, y, z, newMetadata);

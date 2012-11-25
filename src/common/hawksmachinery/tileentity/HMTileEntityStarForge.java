@@ -1,7 +1,11 @@
 
 package hawksmachinery.tileentity;
 
+import universalelectricity.core.vector.Vector3;
+import universalelectricity.prefab.multiblock.IMultiBlock;
+import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.ItemStack;
+import net.minecraft.src.TileEntity;
 
 /**
  * 
@@ -9,7 +13,7 @@ import net.minecraft.src.ItemStack;
  * 
  * @author Elusivehawk
  */
-public class HMTileEntityStarForge extends HMTileEntityMachine
+public class HMTileEntityStarForge extends HMTileEntityMachine implements IMultiBlock
 {
 	/**
 	 * The item this Star Forge is going to spit out.
@@ -102,6 +106,24 @@ public class HMTileEntityStarForge extends HMTileEntityMachine
 		}
 		
 		this.randomlyDamageSelf();
+		
+	}
+
+	@Override
+	public boolean onActivated(EntityPlayer entityPlayer)
+	{
+		return false;
+	}
+
+	@Override
+	public void onCreate(Vector3 placedPosition)
+	{
+		
+	}
+
+	@Override
+	public void onDestroy(TileEntity callingBlock)
+	{
 		
 	}
 	

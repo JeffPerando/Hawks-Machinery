@@ -23,6 +23,10 @@ public class HMBlock extends Block
 	public static Block endiumTeleporter;
 	public static Block fisher;
 	public static Block metalBlock;
+	public static Block starForge;
+	public static Block starForgeTechnical;
+	public static Block sinterer;
+	public static Block fireBlock;
 	
 	public static HawksMachinery BASEMOD;
 	private Achievement onBlockBrokenAch;
