@@ -1,8 +1,7 @@
 
 package hawksmachinery.container;
 
-import universalelectricity.prefab.SlotElectricItem;
-import hawksmachinery.tileentity.HMTileEntityFisher;
+import hawksmachinery.tileentity.HMTileEntitySinterer;
 import net.minecraft.src.Container;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.InventoryPlayer;
@@ -14,25 +13,20 @@ import net.minecraft.src.Slot;
  * 
  * @author Elusivehawk
  */
-public class HMContainerFisher extends Container
+public class HMContainerSinterer extends Container
 {
-	private HMTileEntityFisher tileEntity;
+	public HMTileEntitySinterer tileEntity;
 	
-	public HMContainerFisher(InventoryPlayer playerInv, HMTileEntityFisher tileEntity)
+	public HMContainerSinterer(InventoryPlayer playerInv, HMTileEntitySinterer tileEntity)
 	{
 		this.tileEntity = tileEntity;
 		this.tileEntity.openChest();
-		this.addSlotToContainer(new SlotElectricItem(tileEntity, 0, 34, 61));
-		
-		for (int counter = 1; counter < 10; ++counter)
-		{
-			this.addSlotToContainer(new Slot(tileEntity, counter, 8 + ((counter - 1) * 18), 14));
-			this.addSlotToContainer(new Slot(tileEntity, counter + 9, 8 + ((counter - 1) * 18), 40));
-			
-		}
 		
 		for (int counter = 0; counter < 3; ++counter)
 		{
+			this.addSlotToContainer(new Slot(this.tileEntity, counter, 24, 16 + (counter * 18)));
+			this.addSlotToContainer(new Slot(this.tileEntity, counter + 3, 76, 16 + (counter * 18)));
+			
 			for (int var4 = 0; var4 < 9; ++var4)
 			{
 				this.addSlotToContainer(new Slot(playerInv, var4 + counter * 9 + 9, 8 + var4 * 18, 84 + counter * 18));
@@ -46,7 +40,7 @@ public class HMContainerFisher extends Container
 		}
 		
 	}
-	
+
 	@Override
 	public boolean canInteractWith(EntityPlayer var1)
 	{

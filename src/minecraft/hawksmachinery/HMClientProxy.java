@@ -36,6 +36,7 @@ public class HMClientProxy extends HMCommonProxy
 		ClientRegistry.bindTileEntitySpecialRenderer(HMTileEntityCrusher.class, new HMRenderCrusher());
 		ClientRegistry.bindTileEntitySpecialRenderer(HMTileEntityWasher.class, new HMRenderWasher());
 		ClientRegistry.bindTileEntitySpecialRenderer(HMTileEntityStarForge.class, new HMRenderStarForge());
+		ClientRegistry.bindTileEntitySpecialRenderer(HMTileEntitySinterer.class, new HMRenderSinterer());
 		
 		HMLanguageCore.addToolTips();
 		
@@ -54,10 +55,12 @@ public class HMClientProxy extends HMCommonProxy
 				case 1: return new HMGUIWasher(player.inventory, ((HMTileEntityWasher)tileEntity));
 				case 2: return new HMGUIEndiumTeleporter(player.inventory, ((HMTileEntityTeleporter)tileEntity));
 				case 3: return new HMGUIFisher(player.inventory, (HMTileEntityFisher)tileEntity);
-				case 4: return new HMGUIStarForge(player.inventory, (HMTileEntityStarForge)tileEntity);
+				case 4: throw new RuntimeException("NO STAR FORGE FOR YOU!"); //return new HMGUIStarForge(player.inventory, (HMTileEntityStarForge)tileEntity);
+				case 5: return new HMGUISinterer(player.inventory, (HMTileEntitySinterer)tileEntity);
 				default: return null;
 				
 			}
+			
         }
 		
 		return null;

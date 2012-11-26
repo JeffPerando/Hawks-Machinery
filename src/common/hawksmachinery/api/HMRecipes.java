@@ -40,6 +40,8 @@ public class HMRecipes
 		
 		WASHING(new HashMap()),
 		
+		SINTERER(new HashMap()),
+		
 		HM_E2MM(new HashMap());
 		
 		private Map processingList;
@@ -136,7 +138,7 @@ public class HMRecipes
 				
 			}
 			
-			return output;
+			return (input.stackSize < getQuantity(input, processType)) ? null : output;
 			
 		}
 		

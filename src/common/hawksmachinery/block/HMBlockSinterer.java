@@ -1,8 +1,7 @@
 
 package hawksmachinery.block;
 
-import universalelectricity.core.vector.Vector3;
-import hawksmachinery.tileentity.HMTileEntityStarForge;
+import hawksmachinery.tileentity.HMTileEntitySinterer;
 import net.minecraft.src.EntityLiving;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.Material;
@@ -17,15 +16,14 @@ import net.minecraftforge.common.ForgeDirection;
  * 
  * @author Elusivehawk
  */
-public class HMBlockStarForge extends HMBlockMachine
+public class HMBlockSinterer extends HMBlockMachine
 {
-	public HMBlockStarForge(int id)
+	public HMBlockSinterer(int id)
 	{
-		super("HMStarForge", id, Material.iron);
+		super("HMSinterer", id, Material.iron);
 		setHardness(5.0F);
 		setResistance(20.0F);
 		setRequiresSelfNotify();
-		setCreativeTab(null);//TODO Reactivate.
 		setTextureFile(BASEMOD.ITEM_TEXTURE_FILE);
 		
 	}
@@ -40,7 +38,7 @@ public class HMBlockStarForge extends HMBlockMachine
 		
 		if (!world.isRemote)
 		{
-			player.openGui(BASEMOD.instance(), 4, world, x, y, z);
+			player.openGui(BASEMOD.instance(), 5, world, x, y, z);
 			
 		}
 		
@@ -50,33 +48,53 @@ public class HMBlockStarForge extends HMBlockMachine
 	@Override
 	public boolean onUseWrench(World world, int x, int y, int z, EntityPlayer player)
 	{
-		return false;
+		switch (world.getBlockMetadata(x, y, z))
+		{
+			case 2: world.setBlockMetadataWithNotify(x, y, z, 4); break;
+			case 5: world.setBlockMetadataWithNotify(x, y, z, 2); break;
+			case 3: world.setBlockMetadataWithNotify(x, y, z, 5); break;
+			case 4: world.setBlockMetadataWithNotify(x, y, z, 3); break;
+			
+		}
+		
+		return true;
 	}
 	
 	@Override
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLiving entity)
 	{
-		((HMTileEntityStarForge)world.getBlockTileEntity(x, y, z)).onCreate(new Vector3(x, y, z));
+		int direction = MathHelper.floor_double((entity.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
+		int newMetadata = 3;
 		
-	}
-	@Override
-	public void breakBlock(World world, int x, int y, int z, int par5, int par6)
-	{
-		((HMTileEntityStarForge)world.getBlockTileEntity(x, y, z)).onDestroy(world.getBlockTileEntity(x, y, z), false);
-		super.breakBlock(world, x, y, z, par5, par6);
+		switch (direction)
+		{
+			case 0: newMetadata = 2; break;
+			case 1: newMetadata = 5; break;
+			case 2: newMetadata = 3; break;
+			case 3: newMetadata = 4; break;
+			
+		}
+		
+		world.setBlockMetadataWithNotify(x, y, z, newMetadata);
 		
 	}
 	
 	@Override
-	public int getRenderType()
+	public boolean hasTileEntity(int metadata)
 	{
-		return -1;
+		return true;
+	}
+	
+	@Override
+	public TileEntity createNewTileEntity(World world)
+	{
+		return new HMTileEntitySinterer();
 	}
 	
 	@Override
 	public int getBlockTextureFromSideAndMetadata(int side, int metadata)
 	{
-		return 106;
+		return 107;
 	}
 	
 	@Override
@@ -92,34 +110,9 @@ public class HMBlockStarForge extends HMBlockMachine
 	}
 	
 	@Override
-	public boolean hasTileEntity(int metadata)
+	public int getRenderType()
 	{
-		return true;
-	}
-	
-	@Override
-	public TileEntity createTileEntity(World world, int meta)
-	{
-		return new HMTileEntityStarForge();
-	}
-	
-	@Override
-	public boolean canPlaceBlockAt(World world, int x, int y, int z)
-	{
-		for (int x2 = -1; x2 < 2; ++x2)
-		{
-			for (int z2 = -1; z2 < 2; ++z2)
-			{
-				if (!super.canPlaceBlockAt(world, x + x2, y, z + z2))
-				{
-					return false;
-				}
-				
-			}
-			
-		}
-		
-		return true;
+		return -1;
 	}
 	
 }

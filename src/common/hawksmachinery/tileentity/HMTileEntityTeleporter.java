@@ -255,7 +255,7 @@ public class HMTileEntityTeleporter extends HMTileEntityMachine
 				newTicket.getModData().setInteger("xCoord", this.xCoord);
 				newTicket.getModData().setInteger("yCoord", this.yCoord);
 				newTicket.getModData().setInteger("zCoord", this.zCoord);
-				newTicket.setChunkListDepth(HawksMachinery.MANAGER.maxChunksLoaded);
+				newTicket.setChunkListDepth(HawksMachinery.instance().MANAGER.maxChunksLoaded);
 				this.heldChunk = newTicket;
 				ForgeChunkManager.forceChunk(this.heldChunk, new ChunkCoordIntPair(this.xCoord >> 4, this.zCoord >> 4));
 				

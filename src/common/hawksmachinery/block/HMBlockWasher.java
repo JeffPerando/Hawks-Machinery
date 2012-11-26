@@ -44,13 +44,18 @@ public class HMBlockWasher extends HMBlockMachine
 	@Override
 	public boolean onMachineActivated(World world, int x, int y, int z, EntityPlayer player)
 	{
-		if (!world.isRemote && !super.onMachineActivated(world, x, y, z, player))
+		if (super.onMachineActivated(world, x, y, z, player))
 		{
-			player.openGui(BASEMOD.instance(), 1, world, x, y, z);
-			return true;
+			return false;
 		}
 		
-		return false;
+		if (!world.isRemote)
+		{
+			player.openGui(BASEMOD.instance(), 1, world, x, y, z);
+			
+		}
+		
+		return true;
 	}
 	
 	@Override

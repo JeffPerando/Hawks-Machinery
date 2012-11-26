@@ -35,7 +35,7 @@ public class HMTileEntityWasher extends HMTileEntityMachine
 	{
 		super();
 		ELECTRICITY_REQUIRED = 5;
-		TICKS_REQUIRED = FMLCommonHandler.instance().getSide().isServer() ? HawksMachinery.MANAGER.crusherTicks : 100;
+		TICKS_REQUIRED = FMLCommonHandler.instance().getSide().isServer() ? HawksMachinery.instance().MANAGER.crusherTicks : 100;
 		ELECTRICITY_LIMIT = 1200;
 		containingItems = new ItemStack[6];
 		machineEnum = HMEnumProcessing.WASHING;
@@ -93,6 +93,8 @@ public class HMTileEntityWasher extends HMTileEntityMachine
 			
 			if (this.canWash())
 			{
+				this.electricityStored -= this.ELECTRICITY_REQUIRED;
+				
 				if (this.workTicks == 0)
 				{
 					this.workTicks = this.TICKS_REQUIRED;
@@ -111,8 +113,6 @@ public class HMTileEntityWasher extends HMTileEntityMachine
 					
 				}
 				
-				this.electricityStored -= this.ELECTRICITY_REQUIRED;
-				
 			}
 			else
 			{
@@ -121,12 +121,6 @@ public class HMTileEntityWasher extends HMTileEntityMachine
 			}
 			
 		}
-		
-	}
-	
-	@Override
-	public void onInventoryChanged()
-	{
 		
 	}
 	
@@ -151,12 +145,7 @@ public class HMTileEntityWasher extends HMTileEntityMachine
 				this.containingItems[3].stackSize += newItem.stackSize;
 			}
 			
-			this.containingItems[2].stackSize -= HMRecipes.getQuantity(this.containingItems[2], this.machineEnum);
-			
-			if (this.containingItems[2].stackSize <= 0)
-			{
-				this.containingItems[2] = null;
-			}
+			this.decrStackSize(2, HMRecipes.getQuantity(this.containingItems[2], this.machineEnum));
 			
 			this.randomlyDamageSelf();
 			

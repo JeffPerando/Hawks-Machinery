@@ -22,7 +22,7 @@ public class HMTileEntityCrusher extends HMTileEntityMachine
 	{
 		super();
 		ELECTRICITY_REQUIRED = 5;
-		TICKS_REQUIRED = FMLCommonHandler.instance().getSide().isServer() ? HawksMachinery.MANAGER.crusherTicks : 180;
+		TICKS_REQUIRED = FMLCommonHandler.instance().getSide().isServer() ? HawksMachinery.instance().MANAGER.crusherTicks : 180;
 		ELECTRICITY_LIMIT = 2500;
 		containingItems = new ItemStack[3];
 		machineEnum = HMEnumProcessing.CRUSHING;
@@ -102,25 +102,24 @@ public class HMTileEntityCrusher extends HMTileEntityMachine
 	
 	private void crushItem()
 	{
-		ItemStack newItem = HMRecipes.getResult(this.containingItems[1], this.machineEnum);
-		
-		if (this.containingItems[2] == null)
+		if (this.canCrush())
 		{
-			this.containingItems[2] = newItem.copy();
+			ItemStack newItem = HMRecipes.getResult(this.containingItems[1], this.machineEnum);
+			
+			if (this.containingItems[2] == null)
+			{
+				this.containingItems[2] = newItem.copy();
+			}
+			else if (this.containingItems[2].isItemEqual(newItem))
+			{
+				this.containingItems[2].stackSize += newItem.stackSize;
+			}
+			
+			this.decrStackSize(1, HMRecipes.getQuantity(this.containingItems[1], this.machineEnum));
+			
+			this.randomlyDamageSelf();
+			
 		}
-		else if (this.containingItems[2].isItemEqual(newItem))
-		{
-			this.containingItems[2].stackSize += newItem.stackSize;
-		}
-		
-		this.containingItems[1].stackSize -= HMRecipes.getQuantity(this.containingItems[1], this.machineEnum);
-		
-		if (this.containingItems[1].stackSize <= 0)
-		{
-			this.containingItems[1] = null;
-		}
-		
-		this.randomlyDamageSelf();
 		
 	}
 	

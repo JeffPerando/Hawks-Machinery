@@ -19,7 +19,7 @@ public class HMEndiumOreGen extends OreGenReplace
 	{
 		super("Endium Ore", "oreEndium", new ItemStack(HMBlock.ore), 121, 12, 64, 8, 8, "pickaxe", 3);
 		this.generateEnd = true;
-		this.shouldGenerate = BASEMOD.MANAGER.generateEndium;
+		this.shouldGenerate = BASEMOD.instance().MANAGER.generateEndium;
 		
 	}
 	

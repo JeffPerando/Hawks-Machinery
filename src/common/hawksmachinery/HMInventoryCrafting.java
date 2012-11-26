@@ -39,23 +39,4 @@ public class HMInventoryCrafting extends InventoryCrafting
 		return null;
 	}
 	
-	@Override
-	public ItemStack decrStackSize(int par1, int par2)
-	{
-		return this.tileEntity.decrStackSize(par1, par2);
-	}
-	
-	@Override
-	public void setInventorySlotContents(int par1, ItemStack par2ItemStack)
-	{
-		this.tileEntity.setInventorySlotContents(par1, par2ItemStack);
-		
-	}
-	
-	@Override
-    public ItemStack getStackInSlot(int par1)
-    {
-    	return this.tileEntity.getStackInSlot(par1);
-    }
-	
 }

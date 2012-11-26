@@ -29,14 +29,18 @@ public class HMBlockCrusher extends HMBlockMachine
 	@Override
 	public boolean onMachineActivated(World world, int x, int y, int z, EntityPlayer player)
 	{
-		if (!world.isRemote && !super.onMachineActivated(world, x, y, z, player))
+		if (super.onMachineActivated(world, x, y, z, player))
+		{
+			return false;
+		}
+		
+		if (!world.isRemote)
 		{
 			player.openGui(BASEMOD.instance(), 0, world, x, y, z);
-			return true;
 			
 		}
 		
-		return false;
+		return true;
 	}
 	
 	@Override

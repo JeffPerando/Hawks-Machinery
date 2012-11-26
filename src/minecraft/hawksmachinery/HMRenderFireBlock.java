@@ -34,6 +34,7 @@ public class HMRenderFireBlock extends TileEntitySpecialRenderer
 			case 3: GL11.glRotatef(270, 0.0F, 1.0F, 1.0F); break;
 			case 4: GL11.glRotatef(180, 0.0F, 1.0F, 0.0F); break;
 			case 5: GL11.glRotatef(0, 1.0F, 1.0F, 0.0F); break;
+			
 		}
 		
 		GL11.glScalef(1.0F, -1F, -1F);

@@ -38,6 +38,7 @@ public class HMCommonProxy implements IGuiHandler, IConnectionHandler
 		GameRegistry.registerTileEntity(HMTileEntityFisher.class, "HMFisher");
 		GameRegistry.registerTileEntity(HMTileEntityStarForge.class, "HMStarForge");
 		GameRegistry.registerTileEntity(HMTileEntityMulti.class, "HMMulti");
+		GameRegistry.registerTileEntity(HMTileEntitySinterer.class, "HMSinterer");
 		GameRegistry.registerTileEntity(HMTileEntityFireBlock.class, "HMFireBlock");
 		
 	}
@@ -55,11 +56,12 @@ public class HMCommonProxy implements IGuiHandler, IConnectionHandler
 		
 		switch (id)
 		{
-			case 0: return new HMContainerCrusher(player.inventory, ((HMTileEntityCrusher)tileEntity));
-			case 1: return new HMContainerWasher(player.inventory, ((HMTileEntityWasher)tileEntity));
+			case 0: return new HMContainerCrusher(player.inventory, (HMTileEntityCrusher)tileEntity);
+			case 1: return new HMContainerWasher(player.inventory, (HMTileEntityWasher)tileEntity);
 			case 2: return new HMContainerTeleporter(player.inventory);
 			case 3: return new HMContainerFisher(player.inventory, (HMTileEntityFisher)tileEntity);
-			case 4: return new HMContainerStarForge(player.inventory, ((HMTileEntityStarForge)tileEntity));
+			case 4: return new HMContainerStarForge(player.inventory, (HMTileEntityStarForge)tileEntity);
+			case 5: return new HMContainerSinterer(player.inventory, (HMTileEntitySinterer)tileEntity);
 			default: return null;
 			
 		}

@@ -20,20 +20,19 @@ import net.minecraft.src.SlotFurnace;
  */
 public class HMContainerStarForge extends Container
 {
-	public HMInventoryCrafting matrix;
 	public HMTileEntityStarForge tileEntity;
 	
 	public HMContainerStarForge(InventoryPlayer playerInv, HMTileEntityStarForge tileEntity)
 	{
 		this.tileEntity = tileEntity;
-		this.matrix = new HMInventoryCrafting("Star Forge", this, 3, 3, this.tileEntity);
+		if (this.tileEntity.matrix == null) this.tileEntity.matrix = new HMInventoryCrafting("Star Forge", this, 3, 3, this.tileEntity);
 		int slotNumber = 0;
 		
 		for (int width = 0; width < 3; ++width)
 		{
 			for (int height = 0; height < 3; ++height)
 			{
-				this.addSlotToContainer(new Slot(this.matrix, slotNumber, (((width + 1) * 18) - 3), ((height + 1) * 18) - 4));
+				this.addSlotToContainer(new Slot(this.tileEntity.matrix, slotNumber, (((width + 1) * 18) - 3), ((height + 1) * 18) - 4));
 				++slotNumber;
 				
 			}
@@ -63,14 +62,6 @@ public class HMContainerStarForge extends Container
 	public boolean canInteractWith(EntityPlayer player)
 	{
 		return true;
-	}
-	
-	@Override
-	public void onCraftMatrixChanged(IInventory inventory)
-	{
-		super.onCraftMatrixChanged(inventory);
-		this.tileEntity.setForgeResult(HMRecipes.getForgeResult(this.matrix, this.tileEntity.worldObj));
-		
 	}
 	
 	@Override

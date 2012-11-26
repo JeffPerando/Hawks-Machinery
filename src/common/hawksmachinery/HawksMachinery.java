@@ -71,7 +71,7 @@ public class HawksMachinery
 	public static HMEnumProcessing CRUSH = HMEnumProcessing.CRUSHING;
 	public static HMEnumProcessing WASH = HMEnumProcessing.WASHING;
 	
-	public static HMManager MANAGER = new HMManager(instance());
+	public HMManager MANAGER = new HMManager(instance());
 	
 	public static final String GUI_PATH = "/hawksmachinery/resources/gui";
 	public static final String BLOCK_TEXTURE_FILE = "/hawksmachinery/resources/textures/blocks.png";
@@ -101,6 +101,7 @@ public class HawksMachinery
 		HMBlock.metalBlock = new HMBlockMetalStorage(MANAGER.getBlockID("Metal Block", 3967));
 		HMBlock.starForge = new HMBlockStarForge(MANAGER.getBlockID("Star Forge", 3968));
 		HMBlock.starForgeTechnical = new HMBlockMulti(MANAGER.getBlockID("Star Forge Technical", 3969));
+		HMBlock.sinterer = new HMBlockSinterer(MANAGER.getBlockID("Sinterer", 3970));
 		
 		HMItem.dustRaw = new HMItemRawDust(MANAGER.getItemID("Raw Dusts", 24150)).registerMaxDamage(7);
 		HMItem.dustRefined = new HMItemRefinedDust(MANAGER.getItemID("Refined Dusts", 24151)).registerMaxDamage(10);
@@ -136,7 +137,7 @@ public class HawksMachinery
 	@Init
 	public void load(FMLInitializationEvent event)
 	{
-		loadRecipes();
+		this.loadRecipes();
 		new HMUpdateHandler(ModConverter.getMod(getClass()));
 		OreGenerator.addOre(new HMEndiumOreGen());
 		OreGenerator.addOre(new HMCobaltOreGen());
@@ -147,7 +148,7 @@ public class HawksMachinery
 	@PostInit
 	public void modsLoaded(FMLPostInitializationEvent event)
 	{
-		loadProcessingRecipes();
+		this.loadProcessingRecipes();
 		
 	}
 	
@@ -159,7 +160,7 @@ public class HawksMachinery
 	/**
 	 * Loads all of the vMC recipes for Hawk's Machinery.
 	 */
-	public static void loadRecipes()
+	public void loadRecipes()
 	{
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMBlock.crusher), new Object[]{"IPI", "IEI", "ICI", 'I', "ingotCobalt", 'P', Item.pickaxeSteel, 'E', new ItemStack(HMItem.parts, 1, 6), 'C', "ingotGold"}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMBlock.washer), new Object[]{"iBi", "iWi", "IEI", 'i', "ingotCobalt", 'B', Item.bucketEmpty, 'I', Block.blockSteel, 'W', Block.cloth, 'E', new ItemStack(HMItem.parts, 1, 6)}));
@@ -171,7 +172,7 @@ public class HawksMachinery
 		GameRegistry.addRecipe(new ShapelessOreRecipe(((HMItemRivetGun)HMItem.rivetGun).getUncharged(), new Object[]{"ingotCobalt", "ingotIron", Block.lever, new ItemStack(HMItem.plating, 1, 1), Item.goldNugget, new ItemStack(HMItem.blueprints, 1, 8), Block.pistonBase}));
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(HMBlock.fisher), new Object[]{"ingotCobalt", "ingotCobalt", new ItemStack(HMItem.blueprints, 1, 3), Block.chest, Item.fishingRod, new ItemStack(HMItem.parts, 1, 6)}));
 		
-		if (MANAGER.enableChunkloader)
+		if (this.MANAGER.enableChunkloader)
 		{
 			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMBlock.endiumChunkloader), new Object[]{"ECE", "C@C", "ECE", 'E', new ItemStack(HMItem.ingots), 'C', new ItemStack(HMItem.plating, 1, 1), '@', Item.eyeOfEnder}));
 			GameRegistry.addShapelessRecipe(new ItemStack(HMItem.ingots, 4, 0), HMBlock.endiumChunkloader);
@@ -262,7 +263,7 @@ public class HawksMachinery
 		
 	}
 	
-	public static void loadProcessingRecipes()
+	public void loadProcessingRecipes()
 	{
 		PROCESS_RECIPES.addHMProcessingRecipe(new ItemStack(Item.diamond), new ItemStack(HMItem.dustRefined, 1, 0), CRUSH);
 		PROCESS_RECIPES.addHMProcessingRecipe(new ItemStack(Item.enderPearl), new ItemStack(HMItem.dustRefined, 1, 1), CRUSH);
@@ -347,6 +348,8 @@ public class HawksMachinery
 		PROCESS_RECIPES.addHMProcessingRecipe(new ItemStack(HMItem.dustRaw, 1, 4), new ItemStack(HMItem.dustRefined, 1, 6), WASH);
 		PROCESS_RECIPES.addHMProcessingRecipe(new ItemStack(HMItem.dustRaw, 1, 6), new ItemStack(HMItem.dustRefined, 1, 9), WASH);
 		PROCESS_RECIPES.addHMProcessingRecipe(new ItemStack(HMItem.dustRaw, 1, 7), new ItemStack(HMItem.dustRefined, 1, 10), WASH);
+		
+		PROCESS_RECIPES.addHMForgeRecipe(new ShapelessOreRecipe(new ItemStack(HMItem.ingots, 1, 0), new Object[]{"dustEndium", "dustStar"}));
 		
 	}
 	

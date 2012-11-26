@@ -169,55 +169,59 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	}
 	
 	@Override
-	public ItemStack getStackInSlot(int var1)
+	public ItemStack getStackInSlot(int slot)
 	{
-		return this.containingItems != null ? this.containingItems[var1] : null;
+		return this.containingItems != null ? this.containingItems[slot] : null;
 	}
 	
 	@Override
-	public ItemStack decrStackSize(int var1, int var2)
+	public ItemStack decrStackSize(int slot, int quantity)
 	{
-		if (this.containingItems[var1] != null)
+		if (this.containingItems[slot] != null)
 		{
-			ItemStack var3;
+			ItemStack oldItem;
 			
-			if (this.containingItems[var1].stackSize <= var2)
+			if (this.containingItems[slot].stackSize <= quantity)
 			{
-				var3 = this.containingItems[var1];
-				this.containingItems[var1] = null;
-				return var3;
+				oldItem = this.containingItems[slot];
+				this.containingItems[slot] = null;
+				return oldItem;
 			}
 			else
 			{
-				var3 = this.containingItems[var1].splitStack(var2);
+				oldItem = this.containingItems[slot].splitStack(quantity);
 				
-				if (this.containingItems[var1].stackSize == 0)
+				if (this.containingItems[slot].stackSize == 0)
 				{
-					this.containingItems[var1] = null;
+					this.containingItems[slot] = null;
+					
 				}
 				
-				return var3;
+				return oldItem;
 			}
+			
 		}
 		else
 		{
 			return null;
 		}
+		
 	}
 	
 	@Override
-	public ItemStack getStackInSlotOnClosing(int var1)
+	public ItemStack getStackInSlotOnClosing(int slot)
 	{
-		if (this.containingItems[var1] != null)
+		if (this.containingItems[slot] != null)
 		{
-			ItemStack var2 = this.containingItems[var1];
-			this.containingItems[var1] = null;
-			return var2;
+			ItemStack oldItem = this.containingItems[slot];
+			this.containingItems[slot] = null;
+			return oldItem;
 		}
 		else
 		{
 			return null;
 		}
+		
 	}
 	
 	@Override
@@ -233,14 +237,16 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	}
 	
 	@Override
-	public void setInventorySlotContents(int var1, ItemStack var2)
+	public void setInventorySlotContents(int slot, ItemStack item)
 	{
-		this.containingItems[var1] = var2;
+		this.containingItems[slot] = item;
 		
-		if (var2 != null && var2.stackSize > this.getInventoryStackLimit())
+		if (item != null && item.stackSize > this.getInventoryStackLimit())
 		{
-			var2.stackSize = this.getInventoryStackLimit();
+			item.stackSize = this.getInventoryStackLimit();
+			
 		}
+		
 	}
 	
 	@Override
