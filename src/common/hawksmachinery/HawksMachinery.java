@@ -92,16 +92,17 @@ public class HawksMachinery
 		
 		this.MANAGER.loadConfig();
 		
-		HMBlock.crusher = new HMBlockCrusher(MANAGER.getBlockID("Crusher", 3960));
-		HMBlock.ore = new HMBlockOre(MANAGER.getBlockID("Ore", 3961));
-		HMBlock.washer = new HMBlockWasher(MANAGER.getBlockID("Washer", 3962));
-		HMBlock.endiumChunkloader = new HMBlockEndiumChunkloader(MANAGER.getBlockID("Endium Chunkloader", 3963));
-		HMBlock.endiumTeleporter = new HMBlockEndiumTeleporter(MANAGER.getBlockID("Endium Teleporter", 3964));
-		HMBlock.fisher = new HMBlockFisher(MANAGER.getBlockID("Fisher", 3965));
-		HMBlock.metalBlock = new HMBlockMetalStorage(MANAGER.getBlockID("Metal Block", 3967));
-		HMBlock.starForge = new HMBlockStarForge(MANAGER.getBlockID("Star Forge", 3968));
-		HMBlock.starForgeTechnical = new HMBlockMulti(MANAGER.getBlockID("Star Forge Technical", 3969));
-		HMBlock.sinterer = new HMBlockSinterer(MANAGER.getBlockID("Sinterer", 3970));
+		HMBlock.crusher = new HMBlockCrusher(MANAGER.getBlockID("Crusher", 550));
+		HMBlock.ore = new HMBlockOre(MANAGER.getBlockID("Ore", 551));
+		HMBlock.washer = new HMBlockWasher(MANAGER.getBlockID("Washer", 552));
+		HMBlock.endiumChunkloader = new HMBlockEndiumChunkloader(MANAGER.getBlockID("Endium Chunkloader", 553));
+		HMBlock.endiumTeleporter = new HMBlockEndiumTeleporter(MANAGER.getBlockID("Endium Teleporter", 554));
+		HMBlock.fisher = new HMBlockFisher(MANAGER.getBlockID("Fisher", 555));
+		HMBlock.metalBlock = new HMBlockMetalStorage(MANAGER.getBlockID("Metal Block", 556));
+		HMBlock.starForge = new HMBlockStarForge(MANAGER.getBlockID("Star Forge", 557));
+		HMBlock.starForgeTechnical = new HMBlockMulti(MANAGER.getBlockID("Star Forge Technical", 558));
+		HMBlock.sinterer = new HMBlockSinterer(MANAGER.getBlockID("Sinterer", 559));
+		HMBlock.fireBlock = new HMBlockFireBlock(MANAGER.getBlockID("Fire Block", 560));
 		
 		HMItem.dustRaw = new HMItemRawDust(MANAGER.getItemID("Raw Dusts", 24150)).registerMaxDamage(7);
 		HMItem.dustRefined = new HMItemRefinedDust(MANAGER.getItemID("Refined Dusts", 24151)).registerMaxDamage(10);
@@ -201,8 +202,14 @@ public class HawksMachinery
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMBlock.metalBlock, 1, 0), new Object[]{"EEE", "EEE", "EEE", 'E', "ingotEndium"}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMBlock.metalBlock, 1, 1), new Object[]{"CCC", "CCC", "CCC", 'C', "ingotCobalt"}));
 		
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMItem.plating, 1, 0), new Object[]{"MM", "MM", 'M', "ingotEndium"}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMItem.plating, 1, 1), new Object[]{"MM", "MM", 'M', "ingotCobalt"}));
+		
 		GameRegistry.addShapelessRecipe(new ItemStack(HMItem.ingots, 9, 0), new ItemStack(HMBlock.metalBlock, 1, 0));
 		GameRegistry.addShapelessRecipe(new ItemStack(HMItem.ingots, 9, 1), new ItemStack(HMBlock.metalBlock, 1, 1));
+		
+		//TODO Temporary until the Star Forge is done.
+		GameRegistry.addShapelessRecipe(new ItemStack(HMItem.ingots, 1, 0), new ItemStack(HMItem.dustRefined, 1, 8), new ItemStack(HMItem.dustRefined, 1, 9), new ItemStack(HMItem.dustRefined));
 		
 		GameRegistry.addShapelessRecipe(new ItemStack(Item.fireballCharge, 3), new Object[]{Item.blazePowder, Item.gunpowder, new ItemStack(HMItem.dustRaw, 1, 0)});
 		GameRegistry.addShapelessRecipe(new ItemStack(HMItem.fishFood, 4), new Object[]{Item.bread, Item.rottenFlesh});

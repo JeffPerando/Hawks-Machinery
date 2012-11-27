@@ -1,7 +1,13 @@
 
 package hawksmachinery;
 
+import hawksmachinery.block.HMBlock;
 import hawksmachinery.container.*;
+import hawksmachinery.item.HMItemBlockEndium;
+import hawksmachinery.item.HMItemBlockMachine;
+import hawksmachinery.item.HMItemBlockMetalStorage;
+import hawksmachinery.item.HMItemBlockOre;
+import hawksmachinery.item.HMItemBlockTeleporter;
 import hawksmachinery.tileentity.*;
 import cpw.mods.fml.common.network.IConnectionHandler;
 import cpw.mods.fml.common.network.IGuiHandler;
@@ -16,6 +22,7 @@ import net.minecraft.src.Packet1Login;
 import net.minecraft.src.Packet3Chat;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
+import net.minecraftforge.common.MinecraftForge;
 
 /**
  * 
@@ -40,6 +47,20 @@ public class HMCommonProxy implements IGuiHandler, IConnectionHandler
 		GameRegistry.registerTileEntity(HMTileEntityMulti.class, "HMMulti");
 		GameRegistry.registerTileEntity(HMTileEntitySinterer.class, "HMSinterer");
 		GameRegistry.registerTileEntity(HMTileEntityFireBlock.class, "HMFireBlock");
+		
+		GameRegistry.registerBlock(HMBlock.crusher, HMItemBlockMachine.class);
+		GameRegistry.registerBlock(HMBlock.ore, HMItemBlockOre.class);
+		GameRegistry.registerBlock(HMBlock.washer, HMItemBlockMachine.class);
+		GameRegistry.registerBlock(HMBlock.endiumChunkloader, HMItemBlockEndium.class);
+		GameRegistry.registerBlock(HMBlock.endiumTeleporter, HMItemBlockTeleporter.class);
+		GameRegistry.registerBlock(HMBlock.fisher, HMItemBlockMachine.class);
+		GameRegistry.registerBlock(HMBlock.metalBlock, HMItemBlockMetalStorage.class);
+		GameRegistry.registerBlock(HMBlock.starForge, HMItemBlockMachine.class);
+		GameRegistry.registerBlock(HMBlock.sinterer, HMItemBlockMachine.class);
+		GameRegistry.registerBlock(HMBlock.fireBlock, HMItemBlockMachine.class);
+		
+		MinecraftForge.setBlockHarvestLevel(HMBlock.endiumChunkloader, "pickaxe", 3);
+		MinecraftForge.setBlockHarvestLevel(HMBlock.endiumTeleporter, "pickaxe", 3);
 		
 	}
 	

@@ -17,9 +17,9 @@ import net.minecraft.src.World;
 public class HMBlock extends Block
 {
 	public static Block crusher;
+	public static Block ore;
 	public static Block washer;
 	public static Block endiumChunkloader;
-	public static Block ore;
 	public static Block endiumTeleporter;
 	public static Block fisher;
 	public static Block metalBlock;

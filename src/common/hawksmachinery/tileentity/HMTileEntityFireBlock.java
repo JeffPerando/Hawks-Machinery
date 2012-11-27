@@ -37,23 +37,27 @@ public class HMTileEntityFireBlock extends HMTileEntityMachine
 	@Override
 	public void updateEntity()
 	{
-		if (this.worldObj.isBlockIndirectlyGettingPowered(this.xCoord, this.yCoord, this.zCoord))
+		if (this.fire != null)
 		{
-			if (!this.worldObj.isBlockOpaqueCube(this.fire.intX(), this.fire.intY(), this.fire.intZ()))
+			if (this.worldObj.isBlockIndirectlyGettingPowered(this.xCoord, this.yCoord, this.zCoord))
 			{
-				this.worldObj.playSoundEffect(this.xCoord, this.yCoord, this.zCoord, "fire.ignite", 1.0F, new Random().nextFloat() * 0.4F + 0.8F);
-				this.fire.setBlock(this.worldObj, Block.fire.blockID);
+				if (!this.worldObj.isBlockOpaqueCube(this.fire.intX(), this.fire.intY(), this.fire.intZ()))
+				{
+					this.worldObj.playSoundEffect(this.xCoord, this.yCoord, this.zCoord, "fire.ignite", 1.0F, new Random().nextFloat() * 0.4F + 0.8F);
+					this.fire.setBlock(this.worldObj, Block.fire.blockID);
+					
+				}
+				
+				this.electricityStored -= this.ELECTRICITY_REQUIRED;
 				
 			}
-			
-			this.electricityStored -= this.ELECTRICITY_REQUIRED;
-			
-		}
-		else
-		{
-			if (this.fire.getBlockID(this.worldObj) == Block.portal.blockID || this.fire.getBlockID(this.worldObj) == Block.fire.blockID)
+			else
 			{
-				this.fire.setBlock(this.worldObj, 0);
+				if (this.fire.getBlockID(this.worldObj) == Block.portal.blockID || this.fire.getBlockID(this.worldObj) == Block.fire.blockID)
+				{
+					this.fire.setBlock(this.worldObj, 0);
+					
+				}
 				
 			}
 			

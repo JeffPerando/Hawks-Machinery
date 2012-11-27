@@ -3,14 +3,12 @@ package hawksmachinery.block;
 
 import java.util.List;
 import java.util.Random;
-import universalelectricity.prefab.UETab;
-import hawksmachinery.item.HMItemBlockMetalStorage;
-import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.src.Block;
 import net.minecraft.src.CreativeTabs;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.Material;
 import net.minecraft.src.World;
+import universalelectricity.prefab.UETab;
 
 /**
  * 
@@ -24,7 +22,6 @@ public class HMBlockMetalStorage extends HMBlock
 	{
 		super(id, Material.iron, -1, null);
 		setStepSound(Block.soundMetalFootstep);
-		GameRegistry.registerBlock(this, HMItemBlockMetalStorage.class);
 		setCreativeTab(UETab.INSTANCE);
 		
 	}

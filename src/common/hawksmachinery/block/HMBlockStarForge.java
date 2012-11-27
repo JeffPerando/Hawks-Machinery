@@ -1,15 +1,14 @@
 
 package hawksmachinery.block;
 
-import universalelectricity.core.vector.Vector3;
 import hawksmachinery.tileentity.HMTileEntityStarForge;
 import net.minecraft.src.EntityLiving;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.Material;
-import net.minecraft.src.MathHelper;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 import net.minecraftforge.common.ForgeDirection;
+import universalelectricity.core.vector.Vector3;
 
 /**
  * 

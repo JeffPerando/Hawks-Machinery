@@ -1,11 +1,16 @@
 
 package hawksmachinery.container;
 
+import universalelectricity.core.implement.IItemElectric;
+import hawksmachinery.api.HMRecipes;
+import hawksmachinery.api.HMRecipes.HMEnumProcessing;
 import hawksmachinery.tileentity.HMTileEntitySinterer;
 import net.minecraft.src.Container;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.InventoryPlayer;
+import net.minecraft.src.ItemStack;
 import net.minecraft.src.Slot;
+import net.minecraft.src.SlotFurnace;
 
 /**
  * 
@@ -25,7 +30,7 @@ public class HMContainerSinterer extends Container
 		for (int counter = 0; counter < 3; ++counter)
 		{
 			this.addSlotToContainer(new Slot(this.tileEntity, counter, 24, 16 + (counter * 18)));
-			this.addSlotToContainer(new Slot(this.tileEntity, counter + 3, 76, 16 + (counter * 18)));
+			this.addSlotToContainer(new SlotFurnace(playerInv.player, this.tileEntity, counter + 3, 76, 16 + (counter * 18)));
 			
 			for (int var4 = 0; var4 < 9; ++var4)
 			{
@@ -53,5 +58,77 @@ public class HMContainerSinterer extends Container
         super.onCraftGuiClosed(par1EntityPlayer);
         this.tileEntity.closeChest();
     }
+	
+	@Override
+	public ItemStack transferStackInSlot(EntityPlayer player, int par1)
+	{
+		ItemStack var2 = null;
+		Slot var3 = (Slot)this.inventorySlots.get(par1);
+		
+		if (var3 != null && var3.getHasStack())
+		{
+			ItemStack var4 = var3.getStack();
+			var2 = var4.copy();
+			
+			if (par1 == 2)
+			{
+				if (!this.mergeItemStack(var4, 3, 39, true))
+				{
+					return null;
+				}
+				
+				var3.onSlotChange(var4, var2);
+			}
+			else if (par1 != 1 && par1 != 0)
+			{
+				if (HMRecipes.getResult(var4, HMEnumProcessing.SINTERER) != null)
+				{
+					if (!this.mergeItemStack(var4, 1, 3, false))
+					{
+						return null;
+					}
+					
+				}
+				else if (par1 >= 3 && par1 < 30)
+				{
+					if (!this.mergeItemStack(var4, 30, 39, false))
+					{
+						return null;
+					}
+					
+				}
+				else if (par1 >= 30 && par1 < 39 && !this.mergeItemStack(var4, 3, 30, false))
+				{
+					return null;
+				}
+				
+			}
+			else if (!this.mergeItemStack(var4, 3, 39, false))
+			{
+				return null;
+			}
+			
+			if (var4.stackSize == 0)
+			{
+				var3.putStack((ItemStack)null);
+				
+			}
+			else
+			{
+				var3.onSlotChanged();
+				
+			}
+			
+			if (var4.stackSize == var2.stackSize)
+			{
+				return null;
+			}
+			
+			var3.onPickupFromSlot(player, var4);
+			
+		}
+		
+		return var2;
+	}
 	
 }

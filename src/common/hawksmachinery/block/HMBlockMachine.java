@@ -1,13 +1,10 @@
 
 package hawksmachinery.block;
 
-import cpw.mods.fml.common.registry.GameRegistry;
 import hawksmachinery.HawksMachinery;
 import hawksmachinery.api.HMRepairInterfaces.IHMRepairable;
 import hawksmachinery.api.HMRepairInterfaces.IHMSapper;
-import hawksmachinery.item.HMItemBlockMachine;
 import net.minecraft.src.Block;
-import net.minecraft.src.CreativeTabs;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.IBlockAccess;
 import net.minecraft.src.ItemStack;
@@ -34,7 +31,6 @@ public abstract class HMBlockMachine extends BlockMachine
 		setStepSound(Block.soundMetalFootstep);
 		setTextureFile(BASEMOD.BLOCK_TEXTURE_FILE);
 		setCreativeTab(UETab.INSTANCE);
-		GameRegistry.registerBlock(this, HMItemBlockMachine.class);
 		
 	}
 	

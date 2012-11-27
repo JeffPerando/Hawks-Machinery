@@ -14,8 +14,10 @@ import universalelectricity.core.implement.IItemElectric;
 import universalelectricity.prefab.SlotElectricItem;
 
 /**
+ * 
+ * 
+ * 
  * @author Elusivehawk
- *
  */
 public class HMContainerCrusher extends Container
 {

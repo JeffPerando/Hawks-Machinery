@@ -37,6 +37,7 @@ public class HMClientProxy extends HMCommonProxy
 		ClientRegistry.bindTileEntitySpecialRenderer(HMTileEntityWasher.class, new HMRenderWasher());
 		ClientRegistry.bindTileEntitySpecialRenderer(HMTileEntityStarForge.class, new HMRenderStarForge());
 		ClientRegistry.bindTileEntitySpecialRenderer(HMTileEntitySinterer.class, new HMRenderSinterer());
+		ClientRegistry.bindTileEntitySpecialRenderer(HMTileEntityFireBlock.class, new HMRenderFireBlock());
 		
 		HMLanguageCore.addToolTips();
 		

@@ -3,20 +3,15 @@ package hawksmachinery.block;
 
 import java.util.Random;
 import universalelectricity.prefab.UETab;
-import cpw.mods.fml.common.registry.GameRegistry;
 import hawksmachinery.HawksMachinery;
-import hawksmachinery.item.HMItemBlockEndium;
 import hawksmachinery.tileentity.HMTileEntityEndiumChunkloader;
-import net.minecraft.src.Block;
 import net.minecraft.src.BlockContainer;
 import net.minecraft.src.Chunk;
-import net.minecraft.src.CreativeTabs;
 import net.minecraft.src.IBlockAccess;
 import net.minecraft.src.Material;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 import net.minecraftforge.common.ForgeChunkManager;
-import net.minecraftforge.common.MinecraftForge;
 
 /**
  * 
@@ -36,8 +31,6 @@ public class HMBlockEndiumChunkloader extends BlockContainer
 		setTextureFile(BASEMOD.BLOCK_TEXTURE_FILE);
 		setBlockName("endiumChunkloader");
 		setCreativeTab(UETab.INSTANCE);
-		GameRegistry.registerBlock(this, HMItemBlockEndium.class);
-		MinecraftForge.setBlockHarvestLevel(this, "pickaxe", 3);
 		
 	}
 	

@@ -18,7 +18,7 @@ import net.minecraftforge.common.ForgeDirection;
  */
 public class HMBlockFireBlock extends HMBlockMachine
 {
-	public HMBlockFireBlock(String name, int id, Material mat)
+	public HMBlockFireBlock(int id)
 	{
 		super("HMFireBlock", id, Material.iron);
 		setHardness(2.0F);

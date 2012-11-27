@@ -2,21 +2,10 @@
 package hawksmachinery.block;
 
 import java.util.List;
-import cpw.mods.fml.common.registry.GameRegistry;
-import hawksmachinery.api.HMTeleportationHelper;
-import hawksmachinery.item.HMItemBlockTeleporter;
-import hawksmachinery.tileentity.HMTileEntityTeleporter;
-import net.minecraft.src.Block;
 import net.minecraft.src.CreativeTabs;
-import net.minecraft.src.Entity;
-import net.minecraft.src.EntityPlayer;
-import net.minecraft.src.ItemStack;
 import net.minecraft.src.Material;
-import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
-import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.common.ForgeDirection;
-import net.minecraftforge.common.MinecraftForge;
 
 /**
  * 
@@ -31,8 +20,6 @@ public class HMBlockEndiumTeleporter extends HMBlockMachine
 		super(null, id, Material.iron);
 		setHardness(5.0F);
 		setResistance(100.0F);
-		MinecraftForge.setBlockHarvestLevel(this, "pickaxe", 3);
-		//GameRegistry.registerBlock(this, HMItemBlockTeleporter.class);
 		
 	}
 	

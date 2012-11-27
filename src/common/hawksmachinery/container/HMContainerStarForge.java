@@ -20,7 +20,7 @@ import net.minecraft.src.SlotFurnace;
  */
 public class HMContainerStarForge extends Container
 {
-	public HMTileEntityStarForge tileEntity;
+	private HMTileEntityStarForge tileEntity;
 	
 	public HMContainerStarForge(InventoryPlayer playerInv, HMTileEntityStarForge tileEntity)
 	{
@@ -106,10 +106,12 @@ public class HMContainerStarForge extends Container
 			if (var5.stackSize == 0)
 			{
 				var4.putStack((ItemStack)null);
+				
 			}
 			else
 			{
 				var4.onSlotChanged();
+				
 			}
 			
 			if (var5.stackSize == var3.stackSize)
@@ -118,6 +120,7 @@ public class HMContainerStarForge extends Container
 			}
 			
 			var4.onPickupFromSlot(par1EntityPlayer, var5);
+			
 		}
 		
 		return var3;
