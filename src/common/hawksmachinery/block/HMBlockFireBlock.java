@@ -96,7 +96,7 @@ public class HMBlockFireBlock extends HMBlockMachine
 	@Override
 	public int getRenderType()
 	{
-		return -1;
+		return 0;
 	}
 	
 }

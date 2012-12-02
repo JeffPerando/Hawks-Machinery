@@ -67,7 +67,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	}
 	
 	@Override
-	public void onReceive(TileEntity tileEntity, double amps, double voltage, ForgeDirection side)
+	public void onReceive(Object sender, double amps, double voltage, ForgeDirection side)
 	{
 		if (voltage > this.getVoltage())
 		{
