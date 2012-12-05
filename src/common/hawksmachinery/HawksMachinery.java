@@ -15,6 +15,7 @@ import net.minecraftforge.common.AchievementPage;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import obsidian.api.ItemRetriever;
@@ -221,50 +222,15 @@ public class HawksMachinery
 		FurnaceRecipes.smelting().addSmelting(HMItem.plating.shiftedIndex, 0, new ItemStack(HMItem.ingots, 4, 0), 0.0F);
 		FurnaceRecipes.smelting().addSmelting(HMItem.plating.shiftedIndex, 1, new ItemStack(HMItem.ingots, 4, 1), 0.0F);
 		
-		ItemStack copperIngot = null;
-		ItemStack tinIngot = null;
-		
-		try
+		if (OreDictionary.getOres("ingotCopper") != null)
 		{
-			if (Loader.isModLoaded("BasicComponents"))
-			{
-				copperIngot = new ItemStack((Item)Class.forName("basiccomponents.BasicComponents").getField("itemCopperIngot").get(Item.class));
-				tinIngot = new ItemStack((Item)Class.forName("basiccomponents.BasicComponents").getField("itemTinIngot").get(Item.class));
-				
-			}
-			else if (Loader.isModLoaded("IC2"))
-			{
-				copperIngot = new ItemStack((Item)Class.forName("ic2.common.IC2").getField("itemIngotCopper").get(Item.class));
-				tinIngot = new ItemStack((Item)Class.forName("ic2.common.IC2").getField("itemIngotTin").get(Item.class));
-				
-			}
+			FurnaceRecipes.smelting().addSmelting(HMItem.dustRefined.shiftedIndex, 5, OreDictionary.getOres("ingotCopper").get(0), 0);
 			
 		}
-		catch (IllegalArgumentException e)
-		{
-			e.printStackTrace();
-		}
-		catch (SecurityException e)
-		{
-			e.printStackTrace();
-		}
-		catch (IllegalAccessException e)
-		{
-			e.printStackTrace();
-		}
-		catch (NoSuchFieldException e)
-		{
-			e.printStackTrace();
-		}
-		catch (ClassNotFoundException e)
-		{
-			e.printStackTrace();
-		}
 		
-		if (copperIngot != null && tinIngot != null)
+		if (OreDictionary.getOres("ingotTin") != null)
 		{
-			FurnaceRecipes.smelting().addSmelting(HMItem.dustRefined.shiftedIndex, 5, copperIngot, 0);
-			FurnaceRecipes.smelting().addSmelting(HMItem.dustRefined.shiftedIndex, 6, tinIngot, 0);
+			FurnaceRecipes.smelting().addSmelting(HMItem.dustRefined.shiftedIndex, 6, OreDictionary.getOres("ingotTin").get(0), 0);
 			
 		}
 		
