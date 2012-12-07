@@ -66,7 +66,7 @@ public class HawksMachinery
 	@Metadata("HawksMachinery")
 	public static ModMetadata HAWK_META = new HMDummyContainer().getMetadata();
 	
-	public static final String VERSION = "Beta v1.0.0";
+	public static final String VERSION = "Beta v1.0.0 (UE FTB)";
 	
 	public static HMRecipes PROCESS_RECIPES;
 	public static HMEnumProcessing CRUSH = HMEnumProcessing.CRUSHING;
@@ -93,46 +93,46 @@ public class HawksMachinery
 		
 		this.MANAGER.loadConfig();
 		
-		HMBlock.crusher = new HMBlockCrusher(MANAGER.getBlockID("Crusher", 550));
-		HMBlock.ore = new HMBlockOre(MANAGER.getBlockID("Ore", 551));
-		HMBlock.washer = new HMBlockWasher(MANAGER.getBlockID("Washer", 552));
-		HMBlock.endiumChunkloader = new HMBlockEndiumChunkloader(MANAGER.getBlockID("Endium Chunkloader", 553));
-		HMBlock.endiumTeleporter = new HMBlockEndiumTeleporter(MANAGER.getBlockID("Endium Teleporter", 554));
-		HMBlock.fisher = new HMBlockFisher(MANAGER.getBlockID("Fisher", 555));
-		HMBlock.metalBlock = new HMBlockMetalStorage(MANAGER.getBlockID("Metal Block", 556));
-		HMBlock.starForge = new HMBlockStarForge(MANAGER.getBlockID("Star Forge", 557));
-		HMBlock.starForgeTechnical = new HMBlockMulti(MANAGER.getBlockID("Star Forge Technical", 558));
-		HMBlock.sinterer = new HMBlockSinterer(MANAGER.getBlockID("Sinterer", 559));
-		HMBlock.fireBlock = new HMBlockFireBlock(MANAGER.getBlockID("Fire Block", 560));
+		HMBlock.crusher = new HMBlockCrusher(this.MANAGER.getBlockID("Crusher", 550));
+		HMBlock.ore = new HMBlockOre(this.MANAGER.getBlockID("Ore", 551));
+		HMBlock.washer = new HMBlockWasher(this.MANAGER.getBlockID("Washer", 552));
+		HMBlock.endiumChunkloader = new HMBlockEndiumChunkloader(this.MANAGER.getBlockID("Endium Chunkloader", 553));
+		HMBlock.endiumTeleporter = new HMBlockEndiumTeleporter(this.MANAGER.getBlockID("Endium Teleporter", 554));
+		HMBlock.fisher = new HMBlockFisher(this.MANAGER.getBlockID("Fisher", 555));
+		HMBlock.metalBlock = new HMBlockMetalStorage(this.MANAGER.getBlockID("Metal Block", 556));
+		HMBlock.starForge = new HMBlockStarForge(this.MANAGER.getBlockID("Star Forge", 557));
+		HMBlock.starForgeTechnical = new HMBlockMulti(this.MANAGER.getBlockID("Star Forge Technical", 558));
+		HMBlock.sinterer = new HMBlockSinterer(this.MANAGER.getBlockID("Sinterer", 559));
+		HMBlock.fireBlock = new HMBlockFireBlock(this.MANAGER.getBlockID("Fire Block", 560));
 		
-		HMItem.dustRaw = new HMItemRawDust(MANAGER.getItemID("Raw Dusts", 24150)).registerMaxDamage(7);
-		HMItem.dustRefined = new HMItemRefinedDust(MANAGER.getItemID("Refined Dusts", 24151)).registerMaxDamage(10);
-		HMItem.parts = new HMItemParts(MANAGER.getItemID("Parts", 24152)).registerMaxDamage(6);
-		HMItem.blueprints = new HMItemBlueprints(MANAGER.getItemID("Blueprints", 24153)).registerMaxDamage(8);
-		HMItem.plating = new HMItemPlating(MANAGER.getItemID("Plating", 24154)).registerMaxDamage(1);
-		HMItem.rivets = new HMItemRivets(MANAGER.getItemID("Rivets", 24155)).registerMaxDamage(6);
-		HMItem.rivetGun = new HMItemRivetGun(MANAGER.getItemID("Rivet Gun", 24156));
-		HMItem.ingots = new HMItemIngots(MANAGER.getItemID("Ingots", 24157)).registerMaxDamage(1);
-		HMItem.fishFood = new HMItem(MANAGER.getItemID("Fish Food", 24158)).setIconIndex(88).setItemName("fishFood").setCreativeTab(UETab.INSTANCE);
+		HMItem.dustRaw = new HMItemRawDust(this.MANAGER.getItemID("Raw Dusts", 24150)).registerMaxDamage(7);
+		HMItem.dustRefined = new HMItemRefinedDust(this.MANAGER.getItemID("Refined Dusts", 24151)).registerMaxDamage(10);
+		HMItem.parts = new HMItemParts(this.MANAGER.getItemID("Parts", 24152)).registerMaxDamage(6);
+		HMItem.blueprints = new HMItemBlueprints(this.MANAGER.getItemID("Blueprints", 24153)).registerMaxDamage(8);
+		HMItem.plating = new HMItemPlating(this.MANAGER.getItemID("Plating", 24154)).registerMaxDamage(1);
+		HMItem.rivets = new HMItemRivets(this.MANAGER.getItemID("Rivets", 24155)).registerMaxDamage(6);
+		HMItem.rivetGun = new HMItemRivetGun(this.MANAGER.getItemID("Rivet Gun", 24156));
+		HMItem.ingots = new HMItemIngots(this.MANAGER.getItemID("Ingots", 24157)).registerMaxDamage(1);
+		HMItem.fishFood = new HMItem(this.MANAGER.getItemID("Fish Food", 24158)).setIconIndex(88).setItemName("fishFood").setCreativeTab(UETab.INSTANCE);
 		
-		timeToCrush = new Achievement(MANAGER.ACHtimeToCrush, "Crush", -2, -3, new ItemStack(HMBlock.crusher, 1, 0), AchievementList.buildBetterPickaxe).registerAchievement();
-		minerkiin = new Achievement(MANAGER.ACHminerkiin, "Minerkiin", -5, 2, new ItemStack(HMBlock.ore), AchievementList.theEnd2).registerAchievement().setSpecial();
-		wash = new Achievement(MANAGER.ACHwash, "Wash", 0, -4, new ItemStack(HMBlock.washer, 1, 0), AchievementList.buildBetterPickaxe).registerAchievement();
+		timeToCrush = new Achievement(this.MANAGER.ACHtimeToCrush, "Crush", -2, -3, new ItemStack(HMBlock.crusher, 1, 0), AchievementList.buildBetterPickaxe).registerAchievement();
+		minerkiin = new Achievement(this.MANAGER.ACHminerkiin, "Minerkiin", -5, 2, new ItemStack(HMBlock.ore), AchievementList.theEnd2).registerAchievement().setSpecial();
+		wash = new Achievement(this.MANAGER.ACHwash, "Wash", 0, -4, new ItemStack(HMBlock.washer, 1, 0), AchievementList.buildBetterPickaxe).registerAchievement();
 		HAWKSPAGE = new AchievementPage("Hawk's Machinery", timeToCrush, minerkiin, wash);
 		
 		new HMContent();
 		NetworkRegistry.instance().registerGuiHandler(this, PROXY);
-		GameRegistry.registerCraftingHandler(MANAGER);
+		GameRegistry.registerCraftingHandler(this.MANAGER);
 		AchievementPage.registerAchievementPage(HAWKSPAGE);
 		NetworkRegistry.instance().registerConnectionHandler(PROXY);
-		VillagerRegistry.instance().registerVillageTradeHandler(0, MANAGER);
-		VillagerRegistry.instance().registerVillageTradeHandler(1, MANAGER);
-		VillagerRegistry.instance().registerVillageTradeHandler(2, MANAGER);
-		VillagerRegistry.instance().registerVillageTradeHandler(3, MANAGER);
-		VillagerRegistry.instance().registerVillageTradeHandler(4, MANAGER);
-		ForgeChunkManager.setForcedChunkLoadingCallback(this, MANAGER);
+		VillagerRegistry.instance().registerVillageTradeHandler(0, this.MANAGER);
+		VillagerRegistry.instance().registerVillageTradeHandler(1, this.MANAGER);
+		VillagerRegistry.instance().registerVillageTradeHandler(2, this.MANAGER);
+		VillagerRegistry.instance().registerVillageTradeHandler(3, this.MANAGER);
+		VillagerRegistry.instance().registerVillageTradeHandler(4, this.MANAGER);
+		ForgeChunkManager.setForcedChunkLoadingCallback(this, this.MANAGER);
 		PROXY.addVanillaLangHandlers();
-		MinecraftForge.EVENT_BUS.register(MANAGER);
+		MinecraftForge.EVENT_BUS.register(this.MANAGER);
 		
 	}
 	
@@ -261,11 +261,14 @@ public class HawksMachinery
 		if (Loader.isModLoaded("ObsidianIngots"))
 		{
 			PROCESS_RECIPES.addHMProcessingRecipe(ItemRetriever.getItem("obsidianDust"), new ItemStack(HMItem.dustRaw, 1, 5), CRUSH);
+			
 		}
 		else
 		{
 			PROCESS_RECIPES.addHMProcessingRecipe(new ItemStack(Block.obsidian), new ItemStack(HMItem.dustRaw, 1, 5), CRUSH);
+			
 		}
+		
 		PROCESS_RECIPES.addHMProcessingRecipe(new ItemStack(Item.glassBottle), new ItemStack(HMItem.dustRefined, 4, 2), CRUSH);
 		PROCESS_RECIPES.addHMProcessingRecipe(new ItemStack(Block.thinGlass), new ItemStack(HMItem.dustRefined, 1, 2), CRUSH);
 		
@@ -360,7 +363,7 @@ public class HawksMachinery
 		@Override
 		public String getChangelogURL()
 		{
-			return "https://dl.dropbox.com/u/100525141/HawksMachinery" + VERSION.replace(".", "").replace(" ", "") + "Changelog.txt";
+			return "https://dl.dropbox.com/u/100525141/HawksMachineryBetav100UEFTBChangelog.txt"; //"https://dl.dropbox.com/u/100525141/HawksMachinery" + VERSION.replace(".", "").replace(" ", "") + "Changelog.txt";
 		}
 		
 		@Override

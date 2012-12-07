@@ -30,9 +30,9 @@ public class HMBlockStarForge extends HMBlockMachine
 	}
 	
 	@Override
-	public boolean onMachineActivated(World world, int x, int y, int z, EntityPlayer player)
+	public boolean onMachineActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ)
 	{
-		if (super.onMachineActivated(world, x, y, z, player))
+		if (super.onMachineActivated(world, x, y, z, player, side, hitX, hitY, hitZ))
 		{
 			return false;
 		}
@@ -47,7 +47,7 @@ public class HMBlockStarForge extends HMBlockMachine
 	}
 	
 	@Override
-	public boolean onUseWrench(World world, int x, int y, int z, EntityPlayer player)
+	public boolean onUseWrench(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ)
 	{
 		return false;
 	}

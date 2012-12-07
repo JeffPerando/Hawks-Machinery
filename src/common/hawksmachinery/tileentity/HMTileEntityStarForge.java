@@ -49,12 +49,6 @@ public class HMTileEntityStarForge extends HMTileEntityMachine implements IMulti
 	}
 	
 	@Override
-	public boolean canReceiveFromSide(ForgeDirection side)
-	{
-		return side == ForgeDirection.DOWN;
-	}
-	
-	@Override
 	public void updateEntity()
 	{
 		super.updateEntity();
@@ -131,7 +125,7 @@ public class HMTileEntityStarForge extends HMTileEntityMachine implements IMulti
 	public boolean onActivated(EntityPlayer player)
 	{
 		if (player.isSneaking()) return false;
-		return ((HMBlockStarForge)Block.blocksList[this.worldObj.getBlockId(this.xCoord, this.yCoord, this.zCoord)]).onMachineActivated(this.worldObj, this.xCoord, this.yCoord, this.zCoord, player);
+		return ((HMBlockStarForge)Block.blocksList[this.worldObj.getBlockId(this.xCoord, this.yCoord, this.zCoord)]).onMachineActivated(this.worldObj, this.xCoord, this.yCoord, this.zCoord, player, 0, player.serverPosX, player.serverPosY, player.serverPosZ);
 	}
 	
 	@Override

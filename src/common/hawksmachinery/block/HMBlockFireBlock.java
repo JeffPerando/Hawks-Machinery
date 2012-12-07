@@ -66,7 +66,7 @@ public class HMBlockFireBlock extends HMBlockMachine
 	}
 	
 	@Override
-	public boolean onUseWrench(World world, int x, int y, int z, EntityPlayer player)
+	public boolean onUseWrench(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ)
 	{
 		switch (world.getBlockMetadata(x, y, z))
 		{

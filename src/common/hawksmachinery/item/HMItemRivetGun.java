@@ -7,6 +7,7 @@ import hawksmachinery.api.HMRepairInterfaces.IHMRivet;
 import universalelectricity.prefab.ItemElectric;
 import universalelectricity.prefab.UETab;
 import universalelectricity.prefab.multiblock.TileEntityMulti;
+import universalelectricity.prefab.repair.IRepairable;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.EnumAction;
 import net.minecraft.src.EnumMovingObjectType;
@@ -65,35 +66,42 @@ public class HMItemRivetGun extends ItemElectric
 					{
 						if (((IHMRepairable)foundBlock).getMaxHP() > 0)
 						{
-							for (int counter = 0; counter <= 8; ++counter)
+							return this.tryRepairTile(foundBlock, player, item);
+						}
+						
+					}
+					
+				}
+				
+			}
+			
+		}
+		
+		return item;
+	}
+	
+	public ItemStack tryRepairTile(TileEntity machine, EntityPlayer player, ItemStack item)
+	{
+		for (int counter = 0; counter < player.inventory.getSizeInventory(); ++counter)
+		{
+			ItemStack invItem = player.inventory.getStackInSlot(counter);
+			
+			if (invItem != null)
+			{
+				if (invItem.getItem() instanceof IHMRivet)
+				{
+					int potentialRepairAmount = ((IHMRivet)invItem.getItem()).getRepairAmount(invItem);
+					
+					if (potentialRepairAmount > 0)
+					{
+						if (machine instanceof IHMRepairable)
+						{
+							if (((IHMRepairable)machine).attemptToRepair(potentialRepairAmount))
 							{
-								if (player.inventory.mainInventory[counter] != null)
-								{
-									if (player.inventory.mainInventory[counter].getItem() instanceof IHMRivet)
-									{
-										int potentialRepairAmount = ((IHMRivet)player.inventory.mainInventory[counter].getItem()).getRepairAmount(player.inventory.mainInventory[counter]);
-										
-										if (potentialRepairAmount > 0)
-										{
-											if (((IHMRepairable)foundBlock).attemptToRepair(potentialRepairAmount))
-											{
-												--player.inventory.mainInventory[counter].stackSize;
-												if (player.inventory.mainInventory[counter].stackSize == 0)
-												{
-													player.inventory.mainInventory[counter] = null;
-												}
-												
-												player.swingItem();
-												this.onUse(1, item);
-												return item;
-											}
-											
-										}
-										
-									}
-									
-								}
-								
+								player.inventory.decrStackSize(counter, 1);
+								player.swingItem();
+								this.onUse(10, item);
+								return item;
 							}
 							
 						}
@@ -124,7 +132,7 @@ public class HMItemRivetGun extends ItemElectric
 	@Override
 	public double getMaxJoules(Object... data)
 	{
-		return 300;
+		return 3000;
 	}
 	
 	@Override

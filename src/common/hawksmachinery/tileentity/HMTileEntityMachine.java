@@ -4,6 +4,7 @@ package hawksmachinery.tileentity;
 import hawksmachinery.api.HMRecipes.HMEnumProcessing;
 import hawksmachinery.api.HMRepairInterfaces.IHMRepairable;
 import hawksmachinery.api.HMRepairInterfaces.IHMSapper;
+import java.util.EnumSet;
 import java.util.Random;
 import net.minecraft.src.Entity;
 import net.minecraft.src.EntityPlayer;
@@ -17,6 +18,7 @@ import net.minecraft.src.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.common.ISidedInventory;
 import universalelectricity.core.electricity.ElectricInfo;
+import universalelectricity.core.electricity.ElectricityConnections;
 import universalelectricity.core.vector.Vector3;
 import universalelectricity.prefab.implement.IRotatable;
 import universalelectricity.prefab.network.IPacketReceiver;
@@ -61,20 +63,9 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	protected boolean canSendPackets = true;
 	
 	@Override
-	public boolean canReceiveFromSide(ForgeDirection side)
+	public void initiate()
 	{
-		return side == ForgeDirection.getOrientation(this.worldObj.getBlockMetadata(this.xCoord, this.yCoord, this.zCoord)).getOpposite() || side == ForgeDirection.DOWN;
-	}
-	
-	@Override
-	public void onReceive(Object sender, double amps, double voltage, ForgeDirection side)
-	{
-		if (voltage > this.getVoltage())
-		{
-			this.explodeMachine(5.0F);
-		}
-		
-		this.electricityStored += ElectricInfo.getJoules(amps, voltage);
+		ElectricityConnections.registerConnector(this, EnumSet.of(ForgeDirection.DOWN));
 		
 	}
 	
@@ -83,26 +74,33 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	{
 		this.facingDirection = ForgeDirection.getOrientation(this.getBlockMetadata());
 		
-		if (!this.worldObj.isRemote)
+		if (!this.isDisabled())
 		{
 			this.electricityStored = Math.min(this.electricityStored, this.ELECTRICITY_LIMIT);
 			this.electricityStored = Math.max(this.electricityStored, 0);
 			this.machineHP = Math.min(this.machineHP, this.getMaxHP());
 			this.machineHP = Math.max(this.machineHP, 0);
 			
-			if (this.worldObj.getTotalWorldTime() % 3L == 0L && this.canSendPackets)
-			{
-				PacketManager.sendPacketToClients(this.getDescriptionPacket(), this.worldObj, Vector3.get(this), 8);
-				
-			}
-			
-			if (this.isBeingSapped())
-			{
-				((IHMSapper)this.sapper.getItem()).sapperTick(this.worldObj, this.xCoord, this.yCoord, this.zCoord, this.sapper);
-				
-			}
+		}
+		
+		if (!this.worldObj.isRemote && this.worldObj.getTotalWorldTime() % 3L == 0L && this.canSendPackets)
+		{
+			PacketManager.sendPacketToClients(this.getDescriptionPacket(), this.worldObj, Vector3.get(this), 8);
 			
 		}
+		
+	}
+	
+	@Override
+	protected void whileDisable()
+	{
+		if (this.isBeingSapped())
+		{
+			((IHMSapper)this.sapper.getItem()).sapperTick(this.worldObj, this.xCoord, this.yCoord, this.zCoord, this.sapper);
+			
+		}
+		
+		//TODO Add machine network computer... thingy.
 		
 	}
 	
@@ -115,7 +113,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	@Override
 	public double getVoltage()
 	{
-		return voltage;
+		return this.voltage;
 	}
 	
 	protected void explodeMachine(float strength)
@@ -258,7 +256,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	@Override
 	public boolean isUseableByPlayer(EntityPlayer player)
 	{
-		return true;
+		return !player.isSneaking();
 	}
 	
 	@Override
@@ -422,12 +420,6 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	public int getHP()
 	{
 		return this.machineHP;
-	}
-	
-	@Override
-	public double wattRequest()
-	{
-		return this.electricityStored == this.ELECTRICITY_LIMIT ? 0 : this.ELECTRICITY_REQUIRED * 2;
 	}
 	
 }

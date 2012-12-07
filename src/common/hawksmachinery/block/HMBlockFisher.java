@@ -25,9 +25,9 @@ public class HMBlockFisher extends HMBlockMachine
 	}
 
 	@Override
-	public boolean onMachineActivated(World world, int x, int y, int z, EntityPlayer player)
+	public boolean onMachineActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ)
 	{
-		if (!world.isRemote && !super.onMachineActivated(world, x, y, z, player))
+		if (!world.isRemote && !super.onMachineActivated(world, x, y, z, player, side, hitX, hitY, hitZ))
 		{
 			player.openGui(BASEMOD.instance(), 3, world, x, y, z);
 			

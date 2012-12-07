@@ -80,44 +80,6 @@ public class HMTileEntityTeleporter extends HMTileEntityMachine
 		return this.isBeingSapped() || (this.machineHP == 0 && this.getMaxHP() > 0);
 	}
 	
-	@Override
-	public double wattRequest()
-	{
-		if (this.isDisabled())
-		{
-			return 0;
-		}
-		else
-		{
-			if (this.electricityStored + this.ELECTRICITY_REQUIRED <= this.ELECTRICITY_LIMIT)
-			{
-				return this.ELECTRICITY_REQUIRED;
-			}
-			else
-			{
-				if (this.ELECTRICITY_LIMIT != this.electricityStored)
-				{
-					if (this.electricityStored + this.ELECTRICITY_REQUIRED >= this.ELECTRICITY_LIMIT)
-					{
-						return this.ELECTRICITY_LIMIT - this.electricityStored;
-					}
-					else
-					{
-						return this.ELECTRICITY_REQUIRED;
-					}
-					
-				}
-				else
-				{
-					return 0;
-				}
-				
-			}
-			
-		}
-		
-	}
-	
 	public boolean isReadyToTeleport()
 	{
 		if (this.getBlockMetadata() == 0)
@@ -197,12 +159,6 @@ public class HMTileEntityTeleporter extends HMTileEntityMachine
 	public void doTeleportationSpecialEffects()
 	{
 		//TODO Add special effects.
-	}
-	
-	@Override
-	public boolean canReceiveFromSide(ForgeDirection side)
-	{
-		return side == ForgeDirection.DOWN && this.worldObj.getBlockMetadata(this.xCoord, this.yCoord, this.zCoord) == 0;
 	}
 	
 	@Override

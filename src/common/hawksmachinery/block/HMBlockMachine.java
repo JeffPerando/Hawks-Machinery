@@ -35,7 +35,7 @@ public abstract class HMBlockMachine extends BlockMachine
 	}
 	
 	@Override
-	public boolean onMachineActivated(World world, int x, int y, int z, EntityPlayer player)
+	public boolean onMachineActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ)
 	{
 		ItemStack playerItem = player.getCurrentEquippedItem();
 		
@@ -62,7 +62,7 @@ public abstract class HMBlockMachine extends BlockMachine
 	}
 	
 	@Override
-	public boolean onSneakUseWrench(World world, int x, int y, int z, EntityPlayer player)
+	public boolean onSneakUseWrench(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ)
 	{
 		if (world.getBlockTileEntity(x, y, z) instanceof IHMRepairable)
 		{
