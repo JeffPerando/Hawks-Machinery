@@ -17,8 +17,8 @@ import net.minecraft.src.Packet250CustomPayload;
 import net.minecraft.src.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.common.ISidedInventory;
-import universalelectricity.core.electricity.ElectricInfo;
 import universalelectricity.core.electricity.ElectricityConnections;
+import universalelectricity.core.implement.IConductor;
 import universalelectricity.core.vector.Vector3;
 import universalelectricity.prefab.implement.IRotatable;
 import universalelectricity.prefab.network.IPacketReceiver;
@@ -73,6 +73,28 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	public void updateEntity()
 	{
 		this.facingDirection = ForgeDirection.getOrientation(this.getBlockMetadata());
+		
+		TileEntity inputCable = Vector3.getTileEntityFromSide(this.worldObj, Vector3.get(this), ForgeDirection.DOWN);
+		
+		if (inputCable != null)
+		{
+			if (inputCable instanceof IConductor)
+			{
+				if (this.electricityStored < this.ELECTRICITY_LIMIT)
+				{
+					((IConductor)inputCable).getNetwork().startRequesting(this, this.ELECTRICITY_REQUIRED / this.voltage, this.voltage);
+					this.electricityStored = Math.max(Math.min(this.electricityStored + ((IConductor) inputCable).getNetwork().consumeElectricity(this).getWatts(), this.ELECTRICITY_REQUIRED), 0);
+					
+				}
+				else
+				{
+					((IConductor)inputCable).getNetwork().stopRequesting(this);
+					
+				}
+				
+			}
+			
+		}
 		
 		if (!this.isDisabled())
 		{

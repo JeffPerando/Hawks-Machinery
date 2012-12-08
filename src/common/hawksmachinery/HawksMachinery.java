@@ -66,7 +66,7 @@ public class HawksMachinery
 	@Metadata("HawksMachinery")
 	public static ModMetadata HAWK_META = new HMDummyContainer().getMetadata();
 	
-	public static final String VERSION = "Beta v1.0.0 (UE FTB)";
+	public static final String VERSION = "Beta v1.0.0";
 	
 	public static HMRecipes PROCESS_RECIPES;
 	public static HMEnumProcessing CRUSH = HMEnumProcessing.CRUSHING;
@@ -93,17 +93,17 @@ public class HawksMachinery
 		
 		this.MANAGER.loadConfig();
 		
-		HMBlock.crusher = new HMBlockCrusher(this.MANAGER.getBlockID("Crusher", 550));
-		HMBlock.ore = new HMBlockOre(this.MANAGER.getBlockID("Ore", 551));
-		HMBlock.washer = new HMBlockWasher(this.MANAGER.getBlockID("Washer", 552));
-		HMBlock.endiumChunkloader = new HMBlockEndiumChunkloader(this.MANAGER.getBlockID("Endium Chunkloader", 553));
-		HMBlock.endiumTeleporter = new HMBlockEndiumTeleporter(this.MANAGER.getBlockID("Endium Teleporter", 554));
-		HMBlock.fisher = new HMBlockFisher(this.MANAGER.getBlockID("Fisher", 555));
-		HMBlock.metalBlock = new HMBlockMetalStorage(this.MANAGER.getBlockID("Metal Block", 556));
-		HMBlock.starForge = new HMBlockStarForge(this.MANAGER.getBlockID("Star Forge", 557));
-		HMBlock.starForgeTechnical = new HMBlockMulti(this.MANAGER.getBlockID("Star Forge Technical", 558));
-		HMBlock.sinterer = new HMBlockSinterer(this.MANAGER.getBlockID("Sinterer", 559));
-		HMBlock.fireBlock = new HMBlockFireBlock(this.MANAGER.getBlockID("Fire Block", 560));
+		HMBlock.crusher = new HMBlockCrusher(this.MANAGER.getBlockID("Crusher", 2550));
+		HMBlock.ore = new HMBlockOre(this.MANAGER.getBlockID("Ore", 2551));
+		HMBlock.washer = new HMBlockWasher(this.MANAGER.getBlockID("Washer", 2552));
+		HMBlock.endiumChunkloader = new HMBlockEndiumChunkloader(this.MANAGER.getBlockID("Endium Chunkloader", 2553));
+		HMBlock.endiumTeleporter = new HMBlockEndiumTeleporter(this.MANAGER.getBlockID("Endium Teleporter", 2554));
+		HMBlock.fisher = new HMBlockFisher(this.MANAGER.getBlockID("Fisher", 2555));
+		HMBlock.metalBlock = new HMBlockMetalStorage(this.MANAGER.getBlockID("Metal Block", 2556));
+		HMBlock.starForge = new HMBlockStarForge(this.MANAGER.getBlockID("Star Forge", 2557));
+		HMBlock.starForgeTechnical = new HMBlockMulti(this.MANAGER.getBlockID("Star Forge Technical", 2558));
+		HMBlock.sinterer = new HMBlockSinterer(this.MANAGER.getBlockID("Sinterer", 2559));
+		HMBlock.fireBlock = new HMBlockFireBlock(this.MANAGER.getBlockID("Fire Block", 2560));
 		
 		HMItem.dustRaw = new HMItemRawDust(this.MANAGER.getItemID("Raw Dusts", 24150)).registerMaxDamage(7);
 		HMItem.dustRefined = new HMItemRefinedDust(this.MANAGER.getItemID("Refined Dusts", 24151)).registerMaxDamage(10);
