@@ -25,7 +25,6 @@ public class HMContainerStarForge extends Container
 	public HMContainerStarForge(InventoryPlayer playerInv, HMTileEntityStarForge tileEntity)
 	{
 		this.tileEntity = tileEntity;
-		if (this.tileEntity.matrix == null) this.tileEntity.matrix = new HMInventoryCrafting("Star Forge", this, 3, 3, this.tileEntity);
 		int slotNumber = 0;
 		
 		for (int width = 0; width < 3; ++width)
