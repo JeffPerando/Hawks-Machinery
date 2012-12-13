@@ -98,7 +98,7 @@ public class HMBlockWasher extends HMBlockMachine
 	@Override
 	public int getBlockTextureFromSideAndMetadata(int side, int metadata)
 	{
-		return 105;
+		return 121;
 	}
 	
 	@Override

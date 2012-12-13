@@ -91,7 +91,7 @@ public class HMBlockCrusher extends HMBlockMachine
 	@Override
 	public int getBlockTextureFromSideAndMetadata(int side, int metadata)
 	{
-		return 104;
+		return 120;
 	}
 	
 	@Override

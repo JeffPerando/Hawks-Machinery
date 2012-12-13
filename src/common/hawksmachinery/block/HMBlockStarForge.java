@@ -75,7 +75,7 @@ public class HMBlockStarForge extends HMBlockMachine
 	@Override
 	public int getBlockTextureFromSideAndMetadata(int side, int metadata)
 	{
-		return 106;
+		return 122;
 	}
 	
 	@Override

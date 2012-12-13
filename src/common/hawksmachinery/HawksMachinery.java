@@ -113,7 +113,7 @@ public class HawksMachinery
 		HMItem.rivets = new HMItemRivets(this.MANAGER.getItemID("Rivets", 24155)).registerMaxDamage(6);
 		HMItem.rivetGun = new HMItemRivetGun(this.MANAGER.getItemID("Rivet Gun", 24156));
 		HMItem.ingots = new HMItemIngots(this.MANAGER.getItemID("Ingots", 24157)).registerMaxDamage(1);
-		HMItem.fishFood = new HMItem(this.MANAGER.getItemID("Fish Food", 24158)).setIconIndex(88).setItemName("fishFood").setCreativeTab(UETab.INSTANCE);
+		HMItem.fishFood = new HMItem(this.MANAGER.getItemID("Fish Food", 24158)).setIconIndex(104).setItemName("fishFood").setCreativeTab(UETab.INSTANCE);
 		
 		timeToCrush = new Achievement(this.MANAGER.ACHtimeToCrush, "Crush", -2, -3, new ItemStack(HMBlock.crusher, 1, 0), AchievementList.buildBetterPickaxe).registerAchievement();
 		minerkiin = new Achievement(this.MANAGER.ACHminerkiin, "Minerkiin", -5, 2, new ItemStack(HMBlock.ore), AchievementList.theEnd2).registerAchievement().setSpecial();
