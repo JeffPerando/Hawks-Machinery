@@ -10,8 +10,6 @@ import net.minecraft.src.ItemStack;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.Property.Type;
 import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.Side;
-import cpw.mods.fml.common.asm.SideOnly;
 
 /**
  * 
@@ -19,7 +17,6 @@ import cpw.mods.fml.common.asm.SideOnly;
  * 
  * @author Elusivehawk
  */
-@SideOnly(Side.CLIENT)
 public class HMLangen_US implements IHMLangHandler
 {
 	public static final String[] dustUnrefLang = new String[]{"Coal Dust", "Unrefined Iron Dust", "Unrefined Gold Dust", "Unrefined Copper Dust",
@@ -53,6 +50,8 @@ public class HMLangen_US implements IHMLangHandler
 		LANG.addNameForObject(HMBlock.fisher, "en_US", "Fisher");
 		LANG.addNameForObject(HMBlock.starForge, "en_US", "Star Forge");
 		LANG.addNameForObject(HMBlock.starForgeTechnical, "en_US", "Look out, we got a badass over here!");
+		LANG.addNameForObject(HMBlock.sinterer, "en_US", "Sinterer");
+		LANG.addNameForObject(HMBlock.fireBlock, "en_US", "Fire Block");
 		LANG.addNameForObject(new ItemStack(HMBlock.metalBlock, 1, 0), "en_US", "Endium Block");
 		LANG.addNameForObject(new ItemStack(HMBlock.metalBlock, 1, 1), "en_US", "Cobalt Block");
 		

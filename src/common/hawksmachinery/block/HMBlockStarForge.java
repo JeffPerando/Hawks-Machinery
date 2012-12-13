@@ -24,7 +24,6 @@ public class HMBlockStarForge extends HMBlockMachine
 		setHardness(5.0F);
 		setResistance(20.0F);
 		setRequiresSelfNotify();
-		setCreativeTab(null);//TODO Reactivate.
 		setTextureFile(BASEMOD.ITEM_TEXTURE_FILE);
 		
 	}

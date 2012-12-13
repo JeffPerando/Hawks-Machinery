@@ -6,35 +6,34 @@ import net.minecraft.src.TileEntity;
 import net.minecraft.src.TileEntitySpecialRenderer;
 
 /**
- *
- *
- *
+ * 
+ * 
+ * 
  * @author Elusivehawk
  */
-public class HMRenderSinterer extends TileEntitySpecialRenderer
+public class HMRenderFireBlock extends TileEntitySpecialRenderer
 {
 	public static HawksMachinery BASEMOD;
-	private HMModelSinterer model;
+	private HMModelFireBlock model;
 	
-	public HMRenderSinterer()
+	public HMRenderFireBlock()
 	{
-		this.model = new HMModelSinterer();
+		this.model = new HMModelFireBlock();
 		
 	}
 	
 	@Override
 	public void renderTileEntityAt(TileEntity var1, double var2, double var3, double var4, float var5)
 	{
-		bindTextureByName(BASEMOD.TEXTURE_PATH + "/Sinterer.png");
+		bindTextureByName(BASEMOD.TEXTURE_PATH + "/FireBlock.png");
 		GL11.glPushMatrix();
 		GL11.glTranslatef((float) var2 + 0.5F, (float) var3 + 1.5F, (float) var4 + 0.5F);
 		switch (var1.worldObj.getBlockMetadata(var1.xCoord, var1.yCoord, var1.zCoord))
 		{
-			case 2: GL11.glRotatef(180, 0.0F, 1.0F, 0.0F); break;
-			case 3: GL11.glRotatef(0, 0.0F, 1.0F, 0.0F); break;
-			case 4: GL11.glRotatef(270, 0.0F, 1.0F, 0.0F); break;
-			case 5: GL11.glRotatef(90, 0.0F, 1.0F, 0.0F); break;
-			
+			case 2: GL11.glRotatef(90, 1.0F, 1.0F, 0.0F); break;
+			case 3: GL11.glRotatef(270, 0.0F, 1.0F, 1.0F); break;
+			case 4: GL11.glRotatef(180, 0.0F, 1.0F, 0.0F); break;
+			case 5: GL11.glRotatef(0, 1.0F, 1.0F, 0.0F); break;
 		}
 		
 		GL11.glScalef(1.0F, -1F, -1F);

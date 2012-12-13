@@ -9,9 +9,9 @@ import net.minecraft.src.GuiContainer;
 import net.minecraft.src.InventoryPlayer;
 
 /**
- * 
- * 
- * 
+ *
+ *
+ *
  * @author Elusivehawk
  */
 public class HMGUISinterer extends GuiContainer
@@ -20,7 +20,7 @@ public class HMGUISinterer extends GuiContainer
 	private HMTileEntitySinterer tileEntity;
 	
 	private int containerWidth;
-	private int containerHeight;	
+	private int containerHeight;
 	
 	public HMGUISinterer(InventoryPlayer playerInv, HMTileEntitySinterer tileEntity)
 	{
@@ -28,7 +28,7 @@ public class HMGUISinterer extends GuiContainer
 		this.tileEntity = tileEntity;
 		
 	}
-
+	
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float var1, int var2, int var3)
 	{
@@ -68,7 +68,7 @@ public class HMGUISinterer extends GuiContainer
 			}
 			
 		}
-			
+		
 	}
 	
 }

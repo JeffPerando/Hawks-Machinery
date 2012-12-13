@@ -1,7 +1,6 @@
 
 package hawksmachinery;
 
-import hawksmachinery.api.HMTeleportationHelper;
 import hawksmachinery.item.HMItem;
 import hawksmachinery.tileentity.HMTileEntityEndiumChunkloader;
 import hawksmachinery.tileentity.HMTileEntityTeleporter;
@@ -9,19 +8,22 @@ import java.io.File;
 import java.util.List;
 import java.util.Random;
 import net.minecraft.src.EntityPlayer;
+import net.minecraft.src.EntityPlayerMP;
 import net.minecraft.src.EntityVillager;
 import net.minecraft.src.IInventory;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.MerchantRecipe;
 import net.minecraft.src.MerchantRecipeList;
+import net.minecraft.src.NBTTagCompound;
+import net.minecraft.src.NBTTagList;
 import net.minecraft.src.World;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.ForgeChunkManager.LoadingCallback;
 import net.minecraftforge.common.ForgeChunkManager.Ticket;
 import net.minecraftforge.common.Property;
 import net.minecraftforge.event.ForgeSubscribe;
-import net.minecraftforge.event.world.WorldEvent;
+import net.minecraftforge.event.entity.living.LivingEvent;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.ICraftingHandler;
 import cpw.mods.fml.common.IFuelHandler;
@@ -203,11 +205,39 @@ public class HMManager implements LoadingCallback, IVillageTradeHandler, ICrafti
 	}
 	
 	@ForgeSubscribe
-	public void Save(WorldEvent event)
+	public void LivingUpdateEvent(LivingEvent event)
 	{
-		if (!event.world.isRemote)
+		if (event.entityLiving instanceof EntityPlayerMP)
 		{
-			HMTeleportationHelper.instance().deleteAllCoords();
+			if (((EntityPlayerMP)event.entityLiving).worldObj.getTotalWorldTime() % 40L == 0L)
+			{
+				for (int counter = 0; counter < ((EntityPlayerMP)event.entityLiving).inventory.getSizeInventory(); ++counter)
+				{
+					ItemStack playerItem = ((EntityPlayerMP)event.entityLiving).inventory.getStackInSlot(counter);
+					
+					if (playerItem != null)
+					{
+						if (playerItem.isItemEnchanted() && playerItem.isItemStackDamageable() && playerItem.isItemDamaged() && playerItem.getItem().isRepairable())
+						{
+							NBTTagList list = ((EntityPlayerMP)event.entityLiving).inventory.getStackInSlot(counter).stackTagCompound.getTagList("ench");
+							
+							for (int tag = 0; tag < list.tagCount(); ++tag)
+							{
+								if (((NBTTagCompound)list.tagAt(tag)).getShort("id") == 0)
+								{
+									playerItem.setItemDamage(playerItem.getItemDamage() + 1);
+									
+								}
+								
+							}
+							
+						}
+						
+					}
+					
+				}
+				
+			}
 			
 		}
 		

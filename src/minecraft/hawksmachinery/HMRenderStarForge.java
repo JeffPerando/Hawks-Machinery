@@ -7,9 +7,9 @@ import net.minecraft.src.TileEntity;
 import net.minecraft.src.TileEntitySpecialRenderer;
 
 /**
- * 
- * 
- * 
+ *
+ *
+ *
  * @author Elusivehawk
  */
 public class HMRenderStarForge extends TileEntitySpecialRenderer
@@ -30,7 +30,6 @@ public class HMRenderStarForge extends TileEntitySpecialRenderer
 		GL11.glPushMatrix();
 		GL11.glTranslatef((float)par2 + 0.5F, (float)par3 + 1.5F, (float)par4 + 0.5F);
 		GL11.glScalef(1.0F, -1F, -1F);
-		this.model.NETHERSTAR_1_ROT.rotationPointY += 5;
 		this.model.render(null, 0, 0, 0, 0, 0, 0.0625F);
 		GL11.glPopMatrix();
 		

@@ -8,9 +8,9 @@ import net.minecraft.src.InventoryPlayer;
 import org.lwjgl.opengl.GL11;
 
 /**
- * 
- * 
- * 
+ *
+ *
+ *
  * @author Elusivehawk
  */
 public class HMGUIStarForge extends GuiContainer
@@ -19,7 +19,7 @@ public class HMGUIStarForge extends GuiContainer
 	private HMTileEntityStarForge tileEntity;
 	
 	private int containerWidth;
-	private int containerHeight;	
+	private int containerHeight;
 	
 	public HMGUIStarForge(InventoryPlayer playerInv, HMTileEntityStarForge tileEntity)
 	{

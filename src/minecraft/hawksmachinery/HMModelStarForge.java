@@ -225,15 +225,14 @@ public class HMModelStarForge extends ModelBase
 		setRotation(BASE_6, 0F, 0F, 0F);
 	}
 	
-	@Override
 	public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
 	{
 		super.render(entity, f, f1, f2, f3, f4, f5);
 		setRotationAngles(f, f1, f2, f3, f4, f5);
-		NETHERSTAR_1_ROT.renderWithRotation(0.0625F);
-		NETHERSTAR_2_ROT.renderWithRotation(0.0625F);
-		NETHERSTAR_3_ROT.renderWithRotation(0.0625F);
-		NETHERSTAR_4_ROT.renderWithRotation(0.0625F);
+		NETHERSTAR_1_ROT.render(0.0625F);
+		NETHERSTAR_2_ROT.render(0.0625F);
+		NETHERSTAR_3_ROT.render(0.0625F);
+		NETHERSTAR_4_ROT.render(0.0625F);
 		TOP_1.render(0.0625F);
 		TOP_2.render(0.0625F);
 		TOP_4.render(0.0625F);
@@ -272,7 +271,6 @@ public class HMModelStarForge extends ModelBase
 	public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5)
 	{
 		super.setRotationAngles(f, f1, f2, f3, f4, f5, null);
-		
 	}
 	
 }

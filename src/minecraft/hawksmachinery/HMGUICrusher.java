@@ -23,9 +23,9 @@ public class HMGUICrusher extends GuiContainer
 	private int containerWidth;
 	private int containerHeight;	
 	
-	public HMGUICrusher(InventoryPlayer playerInv, HMTileEntityCrusher tileEntity)
+	public HMGUICrusher(InventoryPlayer par1InventoryPlayer, HMTileEntityCrusher tileEntity)
 	{
-		super(new HMContainerCrusher(playerInv, tileEntity));
+		super(new HMContainerCrusher(par1InventoryPlayer, tileEntity));
 		this.tileEntity = tileEntity;
 	}
 	
