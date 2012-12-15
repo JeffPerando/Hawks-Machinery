@@ -44,7 +44,7 @@ public class HMItem extends Item
 		
 	}
 	
-	public HMItem registerMaxDamage(int dmg)
+	public HMItem setMaxDmg(int dmg)
 	{
 		this.maxDmg = dmg;
 		return this;
@@ -55,18 +55,14 @@ public class HMItem extends Item
 	{
 		if (this.hasSubtypes)
 		{
-			for (int counter = 0; this.getItemNameIS(new ItemStack(this, 1, counter)) != null && counter <= this.maxDmg; ++counter)
+			for (int counter = 0; counter <= this.maxDmg; ++counter)
 			{
-				itemList.add(new ItemStack(this, 1, counter));
+				if (this.getItemNameIS(new ItemStack(this, 1, counter)) != null) itemList.add(new ItemStack(this, 1, counter));
 				
 			}
 			
 		}
-		else
-		{
-			itemList.add(new ItemStack(this));
-			
-		}
+		else itemList.add(new ItemStack(this));
 		
 	}
 	

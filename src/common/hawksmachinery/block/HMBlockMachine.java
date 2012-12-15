@@ -1,10 +1,14 @@
 
 package hawksmachinery.block;
 
+import java.util.ArrayList;
+import java.util.Random;
 import hawksmachinery.HawksMachinery;
 import hawksmachinery.api.HMRepairInterfaces.IHMRepairable;
 import hawksmachinery.api.HMRepairInterfaces.IHMSapper;
+import hawksmachinery.tileentity.HMTileEntityMachine;
 import net.minecraft.src.Block;
+import net.minecraft.src.EntityLiving;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.IBlockAccess;
 import net.minecraft.src.ItemStack;
@@ -31,6 +35,17 @@ public abstract class HMBlockMachine extends BlockMachine
 		setStepSound(Block.soundMetalFootstep);
 		setTextureFile(BASEMOD.BLOCK_TEXTURE_FILE);
 		setCreativeTab(UETab.INSTANCE);
+		
+	}
+	
+	@Override
+    public void onBlockPlacedBy(World world, int x, int y, int z, EntityLiving entity)
+	{
+		if (entity != null)
+		{
+			((HMTileEntityMachine)world.getBlockTileEntity(x, y, z)).machineHP = entity.getHeldItem().getItemDamage();
+			
+		}
 		
 	}
 	
@@ -81,6 +96,20 @@ public abstract class HMBlockMachine extends BlockMachine
 	public boolean isBlockSolid(IBlockAccess world, int x, int y, int z, int side)
 	{
 		return side != world.getBlockMetadata(x, y, z) && side != 1;
+	}
+	
+	@Override
+	public int getDamageValue(World world, int x, int y, int z)
+	{
+		return ((HMTileEntityMachine)world.getBlockTileEntity(x, y, z)).getHP();
+	}
+	
+	@Override
+	public ArrayList<ItemStack> getBlockDropped(World world, int x, int y, int z, int metadata, int fortune)
+	{
+		ArrayList<ItemStack> itemList = new ArrayList<ItemStack>();
+		itemList.add(new ItemStack(this.idDropped(metadata, new Random(), fortune), 1, this.getDamageValue(world, x, y, z)));
+		return itemList;
 	}
 	
 }

@@ -72,7 +72,7 @@ public class HawksMachinery
 	public static HMEnumProcessing CRUSH = HMEnumProcessing.CRUSHING;
 	public static HMEnumProcessing WASH = HMEnumProcessing.WASHING;
 	
-	public HMManager MANAGER = new HMManager(instance());
+	public HMManager MANAGER;
 	
 	public static final String GUI_PATH = "/hawksmachinery/resources/gui";
 	public static final String BLOCK_TEXTURE_FILE = "/hawksmachinery/resources/textures/blocks.png";
@@ -90,6 +90,7 @@ public class HawksMachinery
 	public void preInit(FMLPreInitializationEvent event)
 	{
 		INSTANCE = this;
+		this.MANAGER = new HMManager(INSTANCE);
 		
 		this.MANAGER.loadConfig();
 		
@@ -105,14 +106,14 @@ public class HawksMachinery
 		HMBlock.sinterer = new HMBlockSinterer(this.MANAGER.getBlockID("Sinterer", 2559));
 		HMBlock.fireBlock = new HMBlockFireBlock(this.MANAGER.getBlockID("Fire Block", 2560));
 		
-		HMItem.dustRaw = new HMItemRawDust(this.MANAGER.getItemID("Raw Dusts", 24150)).registerMaxDamage(7);
-		HMItem.dustRefined = new HMItemRefinedDust(this.MANAGER.getItemID("Refined Dusts", 24151)).registerMaxDamage(10);
-		HMItem.parts = new HMItemParts(this.MANAGER.getItemID("Parts", 24152)).registerMaxDamage(6);
-		HMItem.blueprints = new HMItemBlueprints(this.MANAGER.getItemID("Blueprints", 24153)).registerMaxDamage(8);
-		HMItem.plating = new HMItemPlating(this.MANAGER.getItemID("Plating", 24154)).registerMaxDamage(1);
-		HMItem.rivets = new HMItemRivets(this.MANAGER.getItemID("Rivets", 24155)).registerMaxDamage(6);
+		HMItem.dustRaw = new HMItemRawDust(this.MANAGER.getItemID("Raw Dusts", 24150)).setMaxDmg(7);
+		HMItem.dustRefined = new HMItemRefinedDust(this.MANAGER.getItemID("Refined Dusts", 24151)).setMaxDmg(10);
+		HMItem.parts = new HMItemParts(this.MANAGER.getItemID("Parts", 24152)).setMaxDmg(6);
+		HMItem.blueprints = new HMItemBlueprints(this.MANAGER.getItemID("Blueprints", 24153)).setMaxDmg(8);
+		HMItem.plating = new HMItemPlating(this.MANAGER.getItemID("Plating", 24154)).setMaxDmg(1);
+		HMItem.rivets = new HMItemRivets(this.MANAGER.getItemID("Rivets", 24155)).setMaxDmg(6);
 		HMItem.rivetGun = new HMItemRivetGun(this.MANAGER.getItemID("Rivet Gun", 24156));
-		HMItem.ingots = new HMItemIngots(this.MANAGER.getItemID("Ingots", 24157)).registerMaxDamage(1);
+		HMItem.ingots = new HMItemIngots(this.MANAGER.getItemID("Ingots", 24157)).setMaxDmg(1);
 		HMItem.fishFood = new HMItem(this.MANAGER.getItemID("Fish Food", 24158)).setIconIndex(104).setItemName("fishFood").setCreativeTab(UETab.INSTANCE);
 		
 		timeToCrush = new Achievement(this.MANAGER.ACHtimeToCrush, "Crush", -2, -3, new ItemStack(HMBlock.crusher, 1, 0), AchievementList.buildBetterPickaxe).registerAchievement();

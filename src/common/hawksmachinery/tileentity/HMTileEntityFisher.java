@@ -105,7 +105,6 @@ public class HMTileEntityFisher extends HMTileEntityMachine
 		if (this.canFish())
 		{
 			boolean removedFood = false;
-			boolean addedFish = false;
 			
 			for (int counter = 1; counter < 10; ++counter)
 			{
@@ -113,42 +112,35 @@ public class HMTileEntityFisher extends HMTileEntityMachine
 				{
 					if (this.containingItems[counter + 9].isItemEqual(new ItemStack(HMItem.fishFood)) && this.containingItems[counter + 9].stackSize > 0)
 					{
-						--this.containingItems[counter + 9].stackSize;
-						if (this.containingItems[counter + 9].stackSize == 0)
-						{
-							this.containingItems[counter + 9] = null;
-						}
-						
+						this.decrStackSize(counter + 9, 1);
 						removedFood = true;
+						break;
 						
 					}
 					
 				}
 				
-				if (!addedFish && removedFood)
+			}
+			
+			for (int counter = 1; counter < 10; ++counter)
+			{
+				if (removedFood)
 				{
 					if (this.containingItems[counter] != null)
 					{
-						if (this.containingItems[counter].stackSize < this.containingItems[counter].getMaxStackSize())
+						if (this.containingItems[counter].stackSize < this.containingItems[counter].getMaxStackSize() && this.containingItems[counter].stackSize > 0)
 						{
 							++this.containingItems[counter].stackSize;
-							addedFish = true;
-							
+							return;
 						}
 						
 					}
 					else
 					{
 						this.containingItems[counter] = new ItemStack(Item.fishRaw);
-						addedFish = true;
-						
+						return;
 					}
 					
-				}
-				
-				if (addedFish && removedFood)
-				{
-					break;
 				}
 				
 			}
@@ -166,7 +158,7 @@ public class HMTileEntityFisher extends HMTileEntityMachine
 	public boolean isDisabled()
 	{
 		BiomeGenBase currentBiome = this.worldObj.getBiomeGenForCoords(this.xCoord, this.zCoord);
-		return (this.isBeingSapped() || (this.machineHP == 0 && this.getMaxHP() > 0)) || this.worldObj.isBlockIndirectlyGettingPowered(this.xCoord, this.yCoord, this.zCoord) || (currentBiome != BiomeGenBase.ocean && currentBiome != BiomeGenBase.river && currentBiome != BiomeGenBase.frozenRiver && currentBiome != BiomeGenBase.frozenOcean);
+		return super.isDisabled() || (currentBiome != BiomeGenBase.ocean && currentBiome != BiomeGenBase.river && currentBiome != BiomeGenBase.frozenRiver && currentBiome != BiomeGenBase.frozenOcean);
 	}
 	
 }
