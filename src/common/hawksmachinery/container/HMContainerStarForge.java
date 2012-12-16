@@ -31,7 +31,7 @@ public class HMContainerStarForge extends Container
 		{
 			for (int height = 0; height < 3; ++height)
 			{
-				this.addSlotToContainer(new Slot(this.tileEntity.matrix, slotNumber, (((width + 1) * 18) - 3), ((height + 1) * 18) - 4));
+				this.addSlotToContainer(new Slot(this.tileEntity, slotNumber, (((width + 1) * 18) - 3), ((height + 1) * 18) - 4));
 				++slotNumber;
 				
 			}

@@ -115,7 +115,7 @@ public class HMBlockCrusher extends HMBlockMachine
 	@Override
 	public void randomDisplayTick(World world, int x, int y, int z, Random random)
 	{
-		if (((HMTileEntityCrusher)world.getBlockTileEntity(x, y, z)).canCrush())
+		if (((HMTileEntityCrusher)world.getBlockTileEntity(x, y, z)).canWork())
 		{
 			switch (world.getBlockMetadata(x, y, z))
 			{

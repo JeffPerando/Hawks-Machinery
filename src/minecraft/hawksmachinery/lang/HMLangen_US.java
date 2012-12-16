@@ -60,6 +60,8 @@ public class HMLangen_US implements IHMLangHandler
 		
 		LANG.addNameForObject(HMItem.rivetGun, "en_US", "Rivet Gun");
 		LANG.addNameForObject(HMItem.fishFood, "en_US", "Fish Food");
+		LANG.addNameForObject(HMItem.machineMeter, "en_US", "Machine Meter");
+		LANG.addNameForObject(HMItem.cobaltBone, "en_US", "Cobalt Bone");
 		
 		LANG.addStringLocalization(HawksMachinery.timeToCrush.getName(), "en_US", "Time to Crush!");
 		LANG.addStringLocalization(HawksMachinery.timeToCrush.getName() + ".desc", "en_US", "Craft a Crusher");

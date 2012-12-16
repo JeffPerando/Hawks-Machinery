@@ -37,7 +37,7 @@ public class HMGUISinterer extends GuiContainer
 		this.containerWidth = (this.width - this.xSize) / 2;
 		this.containerHeight = (this.height - this.ySize) / 2;
 		this.drawTexturedModalRect(this.containerWidth, this.containerHeight, 0, 0, this.xSize, this.ySize);
-		
+		/*
 		this.drawTexturedModalRect(this.containerWidth - 32, this.containerHeight - 16, 0, 232, 240, 16);
 		
 		if (this.tileEntity.machineHP > 0)
@@ -68,7 +68,7 @@ public class HMGUISinterer extends GuiContainer
 			}
 			
 		}
-		
+		*/
 	}
 	
 }

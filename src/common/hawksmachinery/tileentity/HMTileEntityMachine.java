@@ -383,6 +383,11 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 		
 	}
 	
+	public boolean canWork()
+	{
+		return this.isProcessor && !this.isDisabled() && this.workTicks > 0;
+	}
+	
 	public boolean attemptToRepair(int repairAmount)
 	{
 		if (this.machineHP != this.getMaxHP() && !this.isBeingSapped())

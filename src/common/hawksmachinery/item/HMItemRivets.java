@@ -25,7 +25,7 @@ public class HMItemRivets extends HMItem implements IHMRivet
 	@Override
 	public int getIconFromDamage(int dmg)
 	{
-		return 41 + dmg;
+		return 40 + dmg;
 	}
 	
 	public int getRepairAmount(ItemStack rivet)

@@ -122,7 +122,7 @@ public class HMBlockWasher extends HMBlockMachine
 	@Override
 	public void randomDisplayTick(World world, int x, int y, int z, Random random)
 	{
-		if (((HMTileEntityWasher)world.getBlockTileEntity(x, y, z)).canWash())
+		if (((HMTileEntityWasher)world.getBlockTileEntity(x, y, z)).canWork())
 		{
 			world.spawnParticle("bubble", x + 0.5, y + 1, z + 0.5, 0, 0.1, 0);
 			world.spawnParticle("bubble", x + 0.5, y + 1, z + 0.5, 0, 0.1, 0);

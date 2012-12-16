@@ -52,7 +52,7 @@ public class HMTileEntityFisher extends HMTileEntityMachine
 				}
 			}
 			
-			if (this.worldObj.getBlockId(this.xCoord, this.yCoord - 1, this.zCoord) == Block.waterStill.blockID && this.canFish())
+			if (this.worldObj.getBlockId(this.xCoord, this.yCoord - 1, this.zCoord) == Block.waterStill.blockID && this.canWork())
 			{
 				this.worldObj.setBlockWithNotify(this.xCoord, this.yCoord - 1, this.zCoord, 0);
 				this.electricityStored -= this.ELECTRICITY_REQUIRED;
@@ -69,7 +69,7 @@ public class HMTileEntityFisher extends HMTileEntityMachine
 		
 	}
 	
-	public boolean canFish()
+	public boolean canWork()
 	{
 		int fullStacks = 0;
 		boolean hasFood = false;
@@ -102,7 +102,7 @@ public class HMTileEntityFisher extends HMTileEntityMachine
 	
 	public void addFishAndRemoveFood()
 	{
-		if (this.canFish())
+		if (this.canWork())
 		{
 			boolean removedFood = false;
 			

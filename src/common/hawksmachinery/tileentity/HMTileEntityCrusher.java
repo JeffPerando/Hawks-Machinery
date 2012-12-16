@@ -55,7 +55,7 @@ public class HMTileEntityCrusher extends HMTileEntityMachine
 				
 			}
 			
-			if (this.canCrush())
+			if (this.canWork())
 			{
 				if (this.workTicks == 0)
 				{
@@ -94,7 +94,7 @@ public class HMTileEntityCrusher extends HMTileEntityMachine
 		
 	}
 	
-	public boolean canCrush()
+	public boolean canWork()
 	{
 		ItemStack output = HMRecipes.getResult(this.containingItems[1], this.machineEnum);
 		return output != null && (this.electricityStored >= (this.ELECTRICITY_REQUIRED * 2)) && (this.containingItems[2] == null || (output.isItemEqual(this.containingItems[2]) && output.stackSize + this.containingItems[2].stackSize <= output.getMaxStackSize()));
@@ -102,7 +102,7 @@ public class HMTileEntityCrusher extends HMTileEntityMachine
 	
 	private void crushItem()
 	{
-		if (this.canCrush())
+		if (this.canWork())
 		{
 			ItemStack newItem = HMRecipes.getResult(this.containingItems[1], this.machineEnum);
 			

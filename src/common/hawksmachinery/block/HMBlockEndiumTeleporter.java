@@ -13,13 +13,11 @@ import net.minecraftforge.common.ForgeDirection;
  * 
  * @author Elusivehawk
  */
-public class HMBlockEndiumTeleporter extends HMBlockMachine
+public class HMBlockEndiumTeleporter extends HMBlockEndiumChunkloader
 {
 	public HMBlockEndiumTeleporter(int id)
 	{
-		super(null, id, Material.iron);
-		setHardness(5.0F);
-		setResistance(100.0F);
+		super(id);
 		
 	}
 	
@@ -48,28 +46,6 @@ public class HMBlockEndiumTeleporter extends HMBlockMachine
 		return new HMTileEntityTeleporter();
 	}
 	
-	@Override
-	public boolean onMachineActivated(World world, int x, int y, int z, EntityPlayer player)
-	{
-		if (!world.isRemote && !super.onMachineActivated(world, x, y, z, player))
-		{
-			player.openGui(BASEMOD.instance(), 2, world, x, y, z);
-		}
-		
-		return true;
-		
-	}
-	
-	@Override
-	public void onEntityWalking(World world, int x, int y, int z, Entity entity)
-	{
-		if (entity != null)
-		{
-			((HMTileEntityTeleporter)world.getBlockTileEntity(x, y, z)).tryTeleportEntity(entity);
-			
-		}
-		
-	}
 	*/
 	
 	@Override

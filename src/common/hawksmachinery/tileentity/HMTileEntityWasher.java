@@ -91,7 +91,7 @@ public class HMTileEntityWasher extends HMTileEntityMachine
 				
 			}
 			
-			if (this.canWash())
+			if (this.canWork())
 			{
 				this.electricityStored -= this.ELECTRICITY_REQUIRED;
 				
@@ -124,7 +124,7 @@ public class HMTileEntityWasher extends HMTileEntityMachine
 		
 	}
 	
-	public boolean canWash()
+	public boolean canWork()
 	{
 		ItemStack output = HMRecipes.getResult(this.containingItems[2], this.machineEnum);
 		return output != null && (this.electricityStored >= (this.ELECTRICITY_REQUIRED * 2) && this.waterUnits >= 1.0F) && (this.containingItems[3] == null || (output.isItemEqual(this.containingItems[3]) && output.stackSize + this.containingItems[3].stackSize <= output.getMaxStackSize()));
@@ -132,7 +132,7 @@ public class HMTileEntityWasher extends HMTileEntityMachine
 	
 	private void washItem()
 	{
-		if (this.canWash())
+		if (this.canWork())
 		{
 			ItemStack newItem = HMRecipes.getResult(this.containingItems[2], this.machineEnum);
 			

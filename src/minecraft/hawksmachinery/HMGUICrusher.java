@@ -36,11 +36,11 @@ public class HMGUICrusher extends GuiContainer
 		
 		this.fontRenderer.drawString("Input:", 10, 28, 4210752);
 		this.fontRenderer.drawString("Battery:", 10, 53, 4210752);
-		
+		/*
 		this.fontRenderer.drawString("Status: " + this.tileEntity.getCrusherStatus(), 75, 48, 4210752);
 		this.fontRenderer.drawString(ElectricInfo.getDisplayShort(this.tileEntity.getVoltage(), ElectricInfo.ElectricUnit.VOLTAGE), 75, 60, 4210752);
 		this.fontRenderer.drawString(ElectricInfo.getDisplayShort(this.tileEntity.electricityStored, ElectricInfo.ElectricUnit.WATT), 75, 70, 4210752);
-		
+		*/
 		this.fontRenderer.drawString(StatCollector.translateToLocal("container.inventory"), 8, this.ySize - 96 + 2, 4210752);
 		
 	}
@@ -62,7 +62,7 @@ public class HMGUICrusher extends GuiContainer
 			int scale = this.tileEntity.calculateCrushingDuration(24);
 			this.drawTexturedModalRect(this.containerWidth + 77, this.containerHeight + 24, 176, 0, 23 - scale, 20);
 		}
-		
+		/*
 		this.drawTexturedModalRect(this.containerWidth - 32, this.containerHeight - 16, 0, 232, 240, 16);
 		
 		if (this.tileEntity.machineHP > 0)
@@ -93,7 +93,7 @@ public class HMGUICrusher extends GuiContainer
 			}
 			
 		}
-		
+		*/
 	}
 	
 }

@@ -33,6 +33,8 @@ public class HMItem extends Item
 	public static Item rivetGun;
 	public static HMItem ingots;
 	public static Item fishFood;
+	public static Item machineMeter;
+	public static Item cobaltBone;
 	
 	public static HawksMachinery BASEMOD;
 	private int maxDmg;

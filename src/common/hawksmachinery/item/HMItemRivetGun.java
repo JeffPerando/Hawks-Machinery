@@ -31,7 +31,7 @@ public class HMItemRivetGun extends ItemElectric
 		super(id);
 		setTextureFile(BASEMOD.ITEM_TEXTURE_FILE);
 		setItemName("HMRivetGun");
-		setIconIndex(40);
+		setIconIndex(136);
 		setCreativeTab(UETab.INSTANCE);
 		
 	}
@@ -42,6 +42,7 @@ public class HMItemRivetGun extends ItemElectric
 		if (player.isSneaking() && (item.getItemDamage() < (this.getMaxDamage() - 1) || !item.isItemDamaged()))
 		{
 			player.setItemInUse(item, getMaxItemUseDuration(item));
+			
 		}
 		
 		return item;
@@ -101,7 +102,7 @@ public class HMItemRivetGun extends ItemElectric
 								player.inventory.decrStackSize(counter, 1);
 								player.swingItem();
 								this.onUse(10, item);
-								return item;
+								
 							}
 							
 						}
@@ -132,7 +133,7 @@ public class HMItemRivetGun extends ItemElectric
 	@Override
 	public double getMaxJoules(Object... data)
 	{
-		return 3000;
+		return 30000;
 	}
 	
 	@Override
