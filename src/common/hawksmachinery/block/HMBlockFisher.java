@@ -17,7 +17,7 @@ public class HMBlockFisher extends HMBlockMachine
 {
 	public HMBlockFisher(int id)
 	{
-		super("Fisher", id, Material.iron);
+		super("HMFisher", id, Material.iron);
 		setHardness(2.0F);
 		setResistance(20.0F);
 		setRequiresSelfNotify();

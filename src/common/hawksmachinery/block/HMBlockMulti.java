@@ -18,6 +18,7 @@ public class HMBlockMulti extends BlockMulti
 	public HMBlockMulti(int id)
 	{
 		super(id);
+		setBlockName("HMBlockTechnical");
 		
 	}
 	

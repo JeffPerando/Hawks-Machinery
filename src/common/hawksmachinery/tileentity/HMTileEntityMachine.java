@@ -3,7 +3,9 @@ package hawksmachinery.tileentity;
 
 import hawksmachinery.api.HMRecipes.HMEnumProcessing;
 import hawksmachinery.api.HMRepairInterfaces.IHMRepairable;
+import hawksmachinery.api.HMRepairInterfaces.IHMSappable;
 import hawksmachinery.api.HMRepairInterfaces.IHMSapper;
+import hawksmachinery.api.IHMMachine;
 import java.util.EnumSet;
 import java.util.Random;
 import net.minecraft.src.Entity;
@@ -32,7 +34,7 @@ import com.google.common.io.ByteArrayDataInput;
  * 
  * @author Elusivehawk
  */
-public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver implements ISidedInventory, IRotatable, IPacketReceiver, IHMRepairable
+public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver implements ISidedInventory, IRotatable, IPacketReceiver, IHMSappable, IHMMachine
 {
 	public int ELECTRICITY_REQUIRED;
 	
@@ -72,6 +74,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	@Override
 	public void updateEntity()
 	{
+		super.updateEntity();
 		this.facingDirection = ForgeDirection.getOrientation(this.getBlockMetadata());
 		
 		TileEntity inputCable = Vector3.getTileEntityFromSide(this.worldObj, Vector3.get(this), ForgeDirection.DOWN);
@@ -447,6 +450,16 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	public int getHP()
 	{
 		return this.machineHP;
+	}
+	
+	public double getElectricity()
+	{
+		return this.electricityStored;
+	}
+	
+	public double getMaxElectricity()
+	{
+		return this.ELECTRICITY_LIMIT;
 	}
 	
 }

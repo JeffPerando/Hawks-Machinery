@@ -3,6 +3,8 @@ package hawksmachinery.item;
 
 import hawksmachinery.HawksMachinery;
 import hawksmachinery.api.HMRepairInterfaces.IHMRepairable;
+import hawksmachinery.api.HMRepairInterfaces.IHMSappable;
+import hawksmachinery.api.IHMMachine;
 import hawksmachinery.tileentity.HMTileEntityMachine;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.EnumMovingObjectType;
@@ -11,11 +13,15 @@ import net.minecraft.src.MovingObjectPosition;
 import net.minecraft.src.NBTTagCompound;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
+import universalelectricity.core.electricity.ElectricInfo;
+import universalelectricity.core.electricity.ElectricInfo.ElectricUnit;
 import universalelectricity.core.implement.IDisableable;
+import universalelectricity.core.implement.IJouleStorage;
 import universalelectricity.core.implement.IVoltage;
 import universalelectricity.prefab.ItemElectric;
 import universalelectricity.prefab.UETab;
 import universalelectricity.prefab.multiblock.TileEntityMulti;
+import universalelectricity.prefab.repair.IRepairable;
 
 /**
  * 
@@ -41,11 +47,11 @@ public class HMItemMeter extends ItemElectric
 	@Override
 	public ItemStack onItemRightClick(ItemStack item, World world, EntityPlayer player)
 	{
-		byte meterState = item.stackTagCompound.getByte("meterState");
-		
-		if (player.isSneaking())
+		if (!item.isItemEqual(this.getUncharged()) && (item.getItemDamage() + 250) <= this.getMaxJoules(item))
 		{
-			if (!world.isRemote)
+			byte meterState = item.stackTagCompound.getByte("meterState");
+			
+			if (player.isSneaking())
 			{
 				MovingObjectPosition pos = this.getMovingObjectPositionFromPlayer(world, player, true);
 				
@@ -63,22 +69,30 @@ public class HMItemMeter extends ItemElectric
 								
 							}
 							
-							String mchnState = stateNames[meterState] + ": ";
+							String meterMessage = stateNames[meterState] + ": ";
 							
 							switch (meterState)
 							{
-								case 0: if (tile instanceof IVoltage) mchnState += ((IVoltage)tile).getVoltage(); break;
-								case 1: if (tile instanceof HMTileEntityMachine) mchnState += ((HMTileEntityMachine)tile).electricityStored + "/" +  ((HMTileEntityMachine)tile).ELECTRICITY_LIMIT; break;
-								case 2: if (tile instanceof IDisableable) mchnState += (((IDisableable)tile).isDisabled()) ? "Yes" : "No"; break;
-								case 3: if (tile instanceof HMTileEntityMachine) mchnState += ((HMTileEntityMachine)tile).canWork() ? "Yes" : "No"; break;
-								case 4: if (tile instanceof IHMRepairable) mchnState += ((IHMRepairable)tile).getMaxHP() > 0 ? "Yes" : "No"; break;
-								case 5: if (tile instanceof IHMRepairable) mchnState += ((IHMRepairable)tile).getHP() + "/" + ((IHMRepairable)tile).getMaxHP(); break;
+								case 0: if (tile instanceof IVoltage) meterMessage += ((IVoltage)tile).getVoltage(); break;
+								case 1: if (tile instanceof IHMMachine) meterMessage += ((IHMMachine)tile).getElectricity() + "/" + ElectricInfo.getDisplay(((IHMMachine)tile).getMaxElectricity(), ElectricUnit.JOULES); else if (tile instanceof IJouleStorage) meterMessage += ((IJouleStorage)tile).getJoules(tile) + "/" + ElectricInfo.getDisplay(((IJouleStorage)tile).getMaxJoules(tile), ElectricUnit.JOULES); break;
+								case 2: if (tile instanceof IDisableable) meterMessage += (((IDisableable)tile).isDisabled()) ? "Yes" : "No"; break;
+								case 3: if (tile instanceof IHMMachine) meterMessage += ((IHMMachine)tile).canWork() ? "Yes" : "No"; break;
+								case 4: meterMessage += (((tile instanceof IHMRepairable) ? (((IHMRepairable)tile).getMaxHP() > 0 ? "Yes" : "No") : (tile instanceof IRepairable) ? (((IRepairable)tile).getMaxDamage() > 0 ? "Yes" : "No") : "")); break;
+								case 5: if (tile instanceof IHMRepairable) meterMessage += ((IHMRepairable)tile).getHP() + "/" + ((IHMRepairable)tile).getMaxHP(); else if (tile instanceof IRepairable) meterMessage += ((IRepairable)tile).getDamage() + "/" + ((IRepairable)tile).getMaxDamage(); break;
 								
 							}
 							
-							if (mchnState.equals(stateNames[meterState] + ": ")) mchnState += "Data unavailable";
-							player.addChatMessage(mchnState);
+							boolean mchnBeingSapped = false;
+							
+							if (tile instanceof IHMRepairable)
+							{
+								if (((IHMSappable)tile).isBeingSapped()) mchnBeingSapped = true;
+							}
+							
+							if (meterMessage.equals(stateNames[meterState] + ": ") || mchnBeingSapped) meterMessage = "Current State: Data unavailable";
+							if (!world.isRemote) player.addChatMessage(meterMessage);
 							this.onUse(250, item);
+							player.swingItem();
 							
 						}
 						
@@ -87,13 +101,13 @@ public class HMItemMeter extends ItemElectric
 				}
 				
 			}
-			
-		}
-		else
-		{
-			item.stackTagCompound.setByte("meterState", (byte)(meterState + 1));
-			if (item.stackTagCompound.getByte("meterState") == stateNames.length) item.stackTagCompound.setByte("meterState", (byte)0);
-			if (!world.isRemote) player.addChatMessage("Current State: " + stateNames[item.stackTagCompound.getByte("meterState")]);
+			else
+			{
+				item.stackTagCompound.setByte("meterState", (byte)(meterState + 1));
+				if (item.stackTagCompound.getByte("meterState") == stateNames.length) item.stackTagCompound.setByte("meterState", (byte)0);
+				if (!world.isRemote) player.addChatMessage("Current State: " + stateNames[item.stackTagCompound.getByte("meterState")]);
+				
+			}
 			
 		}
 		

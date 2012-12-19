@@ -1,6 +1,7 @@
 
 package hawksmachinery;
 
+import hawksmachinery.api.HMRecipes;
 import hawksmachinery.tileentity.HMTileEntityStarForge;
 import net.minecraft.src.Container;
 import net.minecraft.src.InventoryCrafting;
@@ -22,7 +23,7 @@ public class HMInventoryCrafting extends InventoryCrafting
 	{
 		super(container, width, height);
 		this.name = name;
-		this.inventoryHeight = height;
+		inventoryHeight = height;
 		this.tileEntity = tileEntity;
 		
 	}
@@ -38,5 +39,34 @@ public class HMInventoryCrafting extends InventoryCrafting
 	{
 		return null;
 	}
+	
+	@Override
+	public void onInventoryChanged()
+	{
+		this.tileEntity.onInventoryChanged();
+		this.tileEntity.output = HMRecipes.getForgeResult(this, this.tileEntity.worldObj);
+		
+	}
+	
+	@Override
+    public ItemStack getStackInSlot(int slot)
+    {
+    	return this.tileEntity.getStackInSlot(slot);
+    }
+	
+	@Override
+    public ItemStack decrStackSize(int slot, int quantity)
+    {
+		this.onInventoryChanged();
+    	return this.tileEntity.decrStackSize(slot, quantity);
+    }
+	
+	@Override
+    public void setInventorySlotContents(int slot, ItemStack item)
+    {
+		this.onInventoryChanged();
+    	this.tileEntity.setInventorySlotContents(slot, item);
+    	
+    }
 	
 }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import hawksmachinery.HawksMachinery;
 import hawksmachinery.api.HMRepairInterfaces.IHMRepairable;
+import hawksmachinery.api.HMRepairInterfaces.IHMSappable;
 import hawksmachinery.api.HMRepairInterfaces.IHMSapper;
 import hawksmachinery.tileentity.HMTileEntityMachine;
 import net.minecraft.src.Block;
@@ -62,9 +63,9 @@ public abstract class HMBlockMachine extends BlockMachine
 				{
 					IHMSapper sapper = ((IHMSapper)playerItem.getItem());
 					
-					if (world.getBlockTileEntity(x, y, z) instanceof IHMRepairable)
+					if (world.getBlockTileEntity(x, y, z) instanceof IHMSappable)
 					{
-						return ((IHMRepairable)world.getBlockTileEntity(x, y, z)).setSapper(new ItemStack(playerItem.getItem(), sapper.sappersRequired(playerItem), playerItem.getItemDamage()));
+						return ((IHMSappable)world.getBlockTileEntity(x, y, z)).setSapper(new ItemStack(playerItem.getItem(), sapper.sappersRequired(playerItem), playerItem.getItemDamage()));
 					}
 					
 				}
@@ -79,11 +80,11 @@ public abstract class HMBlockMachine extends BlockMachine
 	@Override
 	public boolean onSneakUseWrench(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ)
 	{
-		if (world.getBlockTileEntity(x, y, z) instanceof IHMRepairable)
+		if (world.getBlockTileEntity(x, y, z) instanceof IHMSappable)
 		{
-			if (((IHMRepairable)world.getBlockTileEntity(x, y, z)).isBeingSapped())
+			if (((IHMSappable)world.getBlockTileEntity(x, y, z)).isBeingSapped())
 			{
-				((IHMRepairable)world.getBlockTileEntity(x, y, z)).attemptToUnSap(player);
+				((IHMSappable)world.getBlockTileEntity(x, y, z)).attemptToUnSap(player);
 				return true;
 			}
 			
@@ -101,7 +102,7 @@ public abstract class HMBlockMachine extends BlockMachine
 	@Override
 	public int getDamageValue(World world, int x, int y, int z)
 	{
-		return ((HMTileEntityMachine)world.getBlockTileEntity(x, y, z)).getHP();
+		return ((IHMRepairable)world.getBlockTileEntity(x, y, z)).getHP();
 	}
 	
 	@Override

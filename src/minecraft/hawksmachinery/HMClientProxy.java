@@ -1,14 +1,16 @@
 
 package hawksmachinery;
 
-import hawksmachinery.api.HMLanguageCore;
-import hawksmachinery.lang.HMLangen_US;
+import hawksmachinery.block.HMBlock;
+import hawksmachinery.item.HMItem;
 import hawksmachinery.tileentity.*;
 import net.minecraft.src.EntityPlayer;
+import net.minecraft.src.ItemStack;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 import net.minecraftforge.client.MinecraftForgeClient;
 import cpw.mods.fml.client.registry.ClientRegistry;
+import cpw.mods.fml.common.registry.LanguageRegistry;
 
 /**
  * 
@@ -18,24 +20,25 @@ import cpw.mods.fml.client.registry.ClientRegistry;
  */
 public class HMClientProxy extends HMCommonProxy
 {
-	public static HawksMachinery BASEMOD;
-	
-	public void addVanillaLangHandlers()
-	{
-		HMLanguageCore.registerLangHandler(new HMLangen_US(), "en_US");
-		
-	}
+	public static final String[] SUPPORTED_LANGS = new String[]{"en_US"};
 	
 	public void registerRenderInformation()
 	{
-		MinecraftForgeClient.preloadTexture(BASEMOD.BLOCK_TEXTURE_FILE);
-		MinecraftForgeClient.preloadTexture(BASEMOD.ITEM_TEXTURE_FILE);
 		super.registerRenderInformation();
+		
+		MinecraftForgeClient.preloadTexture(HM.BLOCK_TEXTURE_FILE);
+		MinecraftForgeClient.preloadTexture(HM.ITEM_TEXTURE_FILE);
+		
 		ClientRegistry.bindTileEntitySpecialRenderer(HMTileEntityCrusher.class, new HMRenderCrusher());
 		ClientRegistry.bindTileEntitySpecialRenderer(HMTileEntityWasher.class, new HMRenderWasher());
 		ClientRegistry.bindTileEntitySpecialRenderer(HMTileEntityStarForge.class, new HMRenderStarForge());
 		ClientRegistry.bindTileEntitySpecialRenderer(HMTileEntitySinterer.class, new HMRenderSinterer());
-		HMLanguageCore.addToolTips();
+		
+		for (String lang : SUPPORTED_LANGS)
+		{
+			LanguageRegistry.instance().loadLocalization(HM.LANG_PATH + "/" + lang + ".txt", lang, false);
+			
+		}
 		
 	}
 	

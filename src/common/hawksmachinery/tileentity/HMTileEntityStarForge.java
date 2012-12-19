@@ -29,7 +29,6 @@ public class HMTileEntityStarForge extends HMTileEntityMachine implements IMulti
 	 * The item this Star Forge is going to spit out.
 	 */
 	public ItemStack output;
-	public HMInventoryCrafting matrix;
 	
 	/**
 	 * Used internally to make sure the block drops properly.
@@ -53,7 +52,7 @@ public class HMTileEntityStarForge extends HMTileEntityMachine implements IMulti
 	{
 		super.updateEntity();
 		
-		if (this.canForge())
+		if (this.canWork())
 		{
 			this.electricityStored -= this.ELECTRICITY_REQUIRED;
 			
@@ -84,9 +83,8 @@ public class HMTileEntityStarForge extends HMTileEntityMachine implements IMulti
 		
 	}
 	
-	public boolean canForge()
+	public boolean canWork()
 	{
-		if (this.matrix != null) this.output = HMRecipes.getForgeResult(this.matrix, this.worldObj);
 		return this.output != null && (this.electricityStored >= (this.ELECTRICITY_REQUIRED * 2) && !this.isDisabled()) && (this.containingItems[9] == null || (this.output.isItemEqual(this.containingItems[9]) && this.output.stackSize + this.containingItems[9].stackSize <= this.output.getMaxStackSize()));
 	}
 	
@@ -203,25 +201,4 @@ public class HMTileEntityStarForge extends HMTileEntityMachine implements IMulti
 		
 	}
 	
-	@Override
-	public ItemStack getStackInSlot(int slot)
-	{
-		return (slot > 9) ? super.getStackInSlot(slot) : this.matrix.getStackInSlot(slot);
-	}
-	
-	@Override
-	public ItemStack decrStackSize(int slot, int quantity)
-	{
-		super.decrStackSize(slot, quantity);
-		return this.matrix.decrStackSize(slot, quantity);
-		
-	}
-	
-	@Override
-	public void setInventorySlotContents(int slot, ItemStack item)
-	{
-		super.setInventorySlotContents(slot, item);
-		if (slot < 9) this.matrix.setInventorySlotContents(slot, item);
-		
-	}
 }

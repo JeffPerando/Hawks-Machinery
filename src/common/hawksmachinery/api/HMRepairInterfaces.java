@@ -23,15 +23,19 @@ public class HMRepairInterfaces
 	{
 		public boolean attemptToRepair(int repairValue);
 		
+		public int getMaxHP();
+		
+		public int getHP();
+		
+	}
+	
+	public interface IHMSappable extends IHMRepairable
+	{
 		public boolean setSapper(ItemStack sapper);
 		
 		public boolean attemptToUnSap(EntityPlayer player);
 		
 		public boolean isBeingSapped();
-		
-		public int getMaxHP();
-		
-		public int getHP();
 		
 	}
 	

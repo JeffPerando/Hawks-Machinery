@@ -29,7 +29,7 @@ public class HMBlockEndiumChunkloader extends BlockContainer
 		setHardness(5.0F);
 		setResistance(1000000000.0F);
 		setTextureFile(BASEMOD.BLOCK_TEXTURE_FILE);
-		setBlockName("endiumChunkloader");
+		setBlockName("HMEndiumChunkloader");
 		setCreativeTab(UETab.INSTANCE);
 		
 	}

@@ -67,11 +67,6 @@ public class HMItemNanite extends Item implements IHMNanite
 			
 		}
 		
-		if (player.inventory.addItemStackToInventory(new ItemStack(this)))
-		{
-			return new ItemStack(this);
-		}
-		
 		return item;
 	}
 	

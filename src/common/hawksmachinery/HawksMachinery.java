@@ -67,7 +67,7 @@ public class HawksMachinery
 	@Metadata("HawksMachinery")
 	public static ModMetadata HAWK_META = new HMDummyContainer().getMetadata();
 	
-	public static final String VERSION = "Beta v1.0.0";
+	public static final String VERSION = "Beta v1.0.0 (Dev)";
 	
 	public static HMRecipes PROCESS_RECIPES;
 	public static HMEnumProcessing CRUSH = HMEnumProcessing.CRUSHING;
@@ -80,12 +80,7 @@ public class HawksMachinery
 	public static final String ITEM_TEXTURE_FILE = "/hawksmachinery/resources/textures/items.png";
 	public static final String TEXTURE_PATH = "/hawksmachinery/resources/textures";
 	public static final String SOUND_PATH = "/hawksmachinery/resources/sounds";
-	
-	public static Achievement timeToCrush;
-	public static Achievement minerkiin;
-	public static Achievement wash;
-	
-	public static AchievementPage HAWKSPAGE;
+	public static final String LANG_PATH = "/hawksmachinery/lang";
 	
 	@PreInit
 	public void preInit(FMLPreInitializationEvent event)
@@ -115,19 +110,13 @@ public class HawksMachinery
 		HMItem.rivets = new HMItemRivets(this.MANAGER.getItemID("Rivets", 24155)).setMaxDmg(6);
 		HMItem.rivetGun = new HMItemRivetGun(this.MANAGER.getItemID("Rivet Gun", 24156));
 		HMItem.ingots = new HMItemIngots(this.MANAGER.getItemID("Ingots", 24157)).setMaxDmg(1);
-		HMItem.fishFood = new HMItem(this.MANAGER.getItemID("Fish Food", 24158)).setIconIndex(104).setItemName("fishFood").setCreativeTab(UETab.INSTANCE);
+		HMItem.fishFood = new HMItem(this.MANAGER.getItemID("Fish Food", 24158)).setIconIndex(104).setItemName("HMFishFood").setCreativeTab(UETab.INSTANCE);
 		HMItem.machineMeter = new HMItemMeter(this.MANAGER.getItemID("Machine Meter", 24159));
 		HMItem.cobaltBone = new HMItemWolfTamer(this.MANAGER.getItemID("Cobalt Bone", 24160)).setItemName("HMCobaltBone").setCreativeTab(CreativeTabs.tabMisc).setIconIndex(105);
-		
-		timeToCrush = new Achievement(this.MANAGER.ACHtimeToCrush, "Crush", -2, -3, new ItemStack(HMBlock.crusher, 1, 0), AchievementList.buildBetterPickaxe).registerAchievement();
-		minerkiin = new Achievement(this.MANAGER.ACHminerkiin, "Minerkiin", -5, 2, new ItemStack(HMBlock.ore), AchievementList.theEnd2).registerAchievement().setSpecial();
-		wash = new Achievement(this.MANAGER.ACHwash, "Wash", 0, -4, new ItemStack(HMBlock.washer, 1, 0), AchievementList.buildBetterPickaxe).registerAchievement();
-		HAWKSPAGE = new AchievementPage("Hawk's Machinery", timeToCrush, minerkiin, wash);
 		
 		new HMContent();
 		NetworkRegistry.instance().registerGuiHandler(this, PROXY);
 		GameRegistry.registerCraftingHandler(this.MANAGER);
-		AchievementPage.registerAchievementPage(HAWKSPAGE);
 		NetworkRegistry.instance().registerConnectionHandler(PROXY);
 		VillagerRegistry.instance().registerVillageTradeHandler(0, this.MANAGER);
 		VillagerRegistry.instance().registerVillageTradeHandler(1, this.MANAGER);
@@ -135,7 +124,6 @@ public class HawksMachinery
 		VillagerRegistry.instance().registerVillageTradeHandler(3, this.MANAGER);
 		VillagerRegistry.instance().registerVillageTradeHandler(4, this.MANAGER);
 		ForgeChunkManager.setForcedChunkLoadingCallback(this, this.MANAGER);
-		PROXY.addVanillaLangHandlers();
 		MinecraftForge.EVENT_BUS.register(this.MANAGER);
 		
 	}

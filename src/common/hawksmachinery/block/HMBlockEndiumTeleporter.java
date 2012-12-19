@@ -18,6 +18,7 @@ public class HMBlockEndiumTeleporter extends HMBlockEndiumChunkloader
 	public HMBlockEndiumTeleporter(int id)
 	{
 		super(id);
+		setBlockName("HMEndiumTeleporter");
 		
 	}
 	
@@ -26,8 +27,8 @@ public class HMBlockEndiumTeleporter extends HMBlockEndiumChunkloader
 	{
 		switch (side)
 		{
-			case 0: return meta == 0 ? 67 : 243;
-			case 1: return meta == 0 ? 64 : 65;
+			case 0: return 67;
+			case 1: return 64;
 			default: return 66;
 		}
 		

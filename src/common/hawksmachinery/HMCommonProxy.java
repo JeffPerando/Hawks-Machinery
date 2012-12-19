@@ -3,11 +3,7 @@ package hawksmachinery;
 
 import hawksmachinery.block.HMBlock;
 import hawksmachinery.container.*;
-import hawksmachinery.item.HMItemBlockEndium;
-import hawksmachinery.item.HMItemBlockMachine;
-import hawksmachinery.item.HMItemBlockMetalStorage;
-import hawksmachinery.item.HMItemBlockOre;
-import hawksmachinery.item.HMItemBlockTeleporter;
+import hawksmachinery.item.*;
 import hawksmachinery.tileentity.*;
 import cpw.mods.fml.common.network.IConnectionHandler;
 import cpw.mods.fml.common.network.IGuiHandler;
@@ -32,9 +28,7 @@ import net.minecraftforge.common.MinecraftForge;
  */
 public class HMCommonProxy implements IGuiHandler, IConnectionHandler
 {
-	public static HawksMachinery BASEMOD;
-	
-	public void addVanillaLangHandlers(){}
+	public static HawksMachinery HM;
 	
 	public void registerRenderInformation()
 	{
@@ -52,7 +46,7 @@ public class HMCommonProxy implements IGuiHandler, IConnectionHandler
 		GameRegistry.registerBlock(HMBlock.ore, HMItemBlockOre.class);
 		GameRegistry.registerBlock(HMBlock.washer, HMItemBlockMachine.class);
 		GameRegistry.registerBlock(HMBlock.endiumChunkloader, HMItemBlockEndium.class);
-		GameRegistry.registerBlock(HMBlock.endiumTeleporter, HMItemBlockTeleporter.class);
+		GameRegistry.registerBlock(HMBlock.endiumTeleporter);
 		GameRegistry.registerBlock(HMBlock.fisher, HMItemBlockMachine.class);
 		GameRegistry.registerBlock(HMBlock.metalBlock, HMItemBlockMetalStorage.class);
 		GameRegistry.registerBlock(HMBlock.starForge, HMItemBlockMachine.class);

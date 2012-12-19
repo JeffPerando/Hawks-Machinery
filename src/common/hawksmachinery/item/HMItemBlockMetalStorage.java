@@ -23,7 +23,7 @@ public class HMItemBlockMetalStorage extends ItemBlock
 	@Override
 	public String getItemNameIS(ItemStack item)
 	{
-		return "HMmetalblock" + item.getItemDamage();
+		return "HMMetalBlock" + item.getItemDamage();
 	}
 	
 	@Override
