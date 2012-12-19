@@ -2,6 +2,7 @@
 package hawksmachinery.item;
 
 import java.util.List;
+import universalelectricity.prefab.UETab;
 import hawksmachinery.HawksMachinery;
 import net.minecraft.src.CreativeTabs;
 import net.minecraft.src.Item;
@@ -43,6 +44,7 @@ public class HMItem extends Item
 	{
 		super(id);
 		setTextureFile(BASEMOD.ITEM_TEXTURE_FILE);
+		setCreativeTab(UETab.INSTANCE);
 		
 	}
 	

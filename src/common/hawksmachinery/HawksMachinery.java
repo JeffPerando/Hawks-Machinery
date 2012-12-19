@@ -80,7 +80,7 @@ public class HawksMachinery
 	public static final String ITEM_TEXTURE_FILE = "/hawksmachinery/resources/textures/items.png";
 	public static final String TEXTURE_PATH = "/hawksmachinery/resources/textures";
 	public static final String SOUND_PATH = "/hawksmachinery/resources/sounds";
-	public static final String LANG_PATH = "/hawksmachinery/lang";
+	public static final String LANG_PATH = "/hawksmachinery/resources/lang";
 	
 	@PreInit
 	public void preInit(FMLPreInitializationEvent event)

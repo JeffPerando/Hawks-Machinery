@@ -2,11 +2,9 @@
 package hawksmachinery.item;
 
 import hawksmachinery.api.IHMNanite;
-import universalelectricity.prefab.UETab;
 import net.minecraft.src.Enchantment;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.EnumAction;
-import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.PotionEffect;
 import net.minecraft.src.World;
@@ -17,14 +15,13 @@ import net.minecraft.src.World;
  * 
  * @author Elusivehawk
  */
-public class HMItemNanite extends Item implements IHMNanite
+public class HMItemNanite extends HMItem implements IHMNanite
 {
 	public HMItemNanite(int id)
 	{
 		super(id);
 		setMaxStackSize(16);
 		setHasSubtypes(true);
-		setCreativeTab(UETab.INSTANCE);
 		
 	}
 	
@@ -68,6 +65,12 @@ public class HMItemNanite extends Item implements IHMNanite
 		}
 		
 		return item;
+	}
+	
+	@Override
+	public String getItemNameIS(ItemStack item)
+	{
+		return "item.HMNanite" + item.getItemDamage();
 	}
 	
 	public PotionEffect getPotionEffect(ItemStack item)

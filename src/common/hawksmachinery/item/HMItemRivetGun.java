@@ -4,10 +4,6 @@ package hawksmachinery.item;
 import hawksmachinery.HawksMachinery;
 import hawksmachinery.api.HMRepairInterfaces.IHMRepairable;
 import hawksmachinery.api.HMRepairInterfaces.IHMRivet;
-import universalelectricity.prefab.ItemElectric;
-import universalelectricity.prefab.UETab;
-import universalelectricity.prefab.multiblock.TileEntityMulti;
-import universalelectricity.prefab.repair.IRepairable;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.EnumAction;
 import net.minecraft.src.EnumMovingObjectType;
@@ -15,6 +11,9 @@ import net.minecraft.src.ItemStack;
 import net.minecraft.src.MovingObjectPosition;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
+import universalelectricity.prefab.ItemElectric;
+import universalelectricity.prefab.UETab;
+import universalelectricity.prefab.multiblock.TileEntityMulti;
 
 /**
  * 
@@ -99,7 +98,7 @@ public class HMItemRivetGun extends ItemElectric
 						{
 							if (((IHMRepairable)machine).attemptToRepair(potentialRepairAmount))
 							{
-								player.inventory.decrStackSize(counter, 1);
+								if (!player.capabilities.isCreativeMode) player.inventory.decrStackSize(counter, 1);
 								player.swingItem();
 								this.onUse(10, item);
 								

@@ -1,7 +1,6 @@
 
 package hawksmachinery.item;
 
-import universalelectricity.prefab.UETab;
 import net.minecraft.src.EnumRarity;
 import net.minecraft.src.ItemStack;
 
@@ -17,7 +16,6 @@ public class HMItemPlating extends HMItem
 	{
 		super(id);
 		setHasSubtypes(true);
-		setCreativeTab(UETab.INSTANCE);
 		
 	}
 
@@ -42,7 +40,7 @@ public class HMItemPlating extends HMItem
 	@Override
 	public String getItemNameIS(ItemStack item)
 	{
-		return "HMPlating" + item.getItemDamage();
+		return "item.HMPlating" + item.getItemDamage();
 	}
 	
 }

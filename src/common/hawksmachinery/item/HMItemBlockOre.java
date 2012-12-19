@@ -23,7 +23,7 @@ public class HMItemBlockOre extends ItemBlock
 	@Override
 	public String getItemNameIS(ItemStack item)
 	{
-		return "HMOre" + item.getItemDamage();
+		return "tile.HMOre" + item.getItemDamage();
 	}
 	
 	@Override

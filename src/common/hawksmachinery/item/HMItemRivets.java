@@ -1,10 +1,9 @@
 
 package hawksmachinery.item;
 
-import universalelectricity.prefab.UETab;
+import hawksmachinery.api.HMRepairInterfaces.IHMRivet;
 import net.minecraft.src.EnumRarity;
 import net.minecraft.src.ItemStack;
-import hawksmachinery.api.HMRepairInterfaces.IHMRivet;
 
 /**
  * 
@@ -18,7 +17,6 @@ public class HMItemRivets extends HMItem implements IHMRivet
 	{
 		super(id);
 		setHasSubtypes(true);
-		setCreativeTab(UETab.INSTANCE);
 		
 	}
 	
@@ -47,7 +45,7 @@ public class HMItemRivets extends HMItem implements IHMRivet
 	@Override
 	public String getItemNameIS(ItemStack item)
 	{
-		return "HMRivet" + item.getItemDamage();
+		return "item.HMRivet" + item.getItemDamage();
 	}
 	
 	@Override

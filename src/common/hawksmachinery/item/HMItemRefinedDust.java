@@ -1,7 +1,6 @@
 
 package hawksmachinery.item;
 
-import universalelectricity.prefab.UETab;
 import net.minecraft.src.EntityLiving;
 import net.minecraft.src.EnumRarity;
 import net.minecraft.src.ItemStack;
@@ -20,7 +19,6 @@ public class HMItemRefinedDust extends HMItem
 	{
 		super(id);
 		setHasSubtypes(true);
-		setCreativeTab(UETab.INSTANCE);
 		
 	}
 	
@@ -56,7 +54,7 @@ public class HMItemRefinedDust extends HMItem
 	@Override
 	public String getItemNameIS(ItemStack item)
 	{
-		return "HMDustRefined" + item.getItemDamage();
+		return "item.HMDustRefined" + item.getItemDamage();
 	}
 	
 	@Override
