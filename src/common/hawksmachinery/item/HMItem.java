@@ -36,14 +36,16 @@ public class HMItem extends Item
 	public static Item fishFood;
 	public static Item machineMeter;
 	public static Item cobaltBone;
+	public static Item testTube;
+	public static Item nanites;
 	
-	public static HawksMachinery BASEMOD;
+	public static HawksMachinery HM;
 	private int maxDmg;
 	
 	public HMItem(int id)
 	{
 		super(id);
-		setTextureFile(BASEMOD.ITEM_TEXTURE_FILE);
+		setTextureFile(HM.ITEM_TEXTURE_FILE);
 		setCreativeTab(UETab.INSTANCE);
 		
 	}

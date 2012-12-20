@@ -100,7 +100,7 @@ public class HawksMachinery
 		HMBlock.starForge = new HMBlockStarForge(this.MANAGER.getBlockID("Star Forge", 2557));
 		HMBlock.starForgeTechnical = new HMBlockMulti(this.MANAGER.getBlockID("Star Forge Technical", 2558));
 		HMBlock.sinterer = new HMBlockSinterer(this.MANAGER.getBlockID("Sinterer", 2559));
-		HMBlock.fireBlock = new HMBlockFireBlock(this.MANAGER.getBlockID("Fire Block", 2560));
+		//HMBlock.fireBlock = new HMBlockFireBlock(this.MANAGER.getBlockID("Fire Block", 2560));
 		
 		HMItem.dustRaw = new HMItemRawDust(this.MANAGER.getItemID("Raw Dusts", 24150)).setMaxDmg(7);
 		HMItem.dustRefined = new HMItemRefinedDust(this.MANAGER.getItemID("Refined Dusts", 24151)).setMaxDmg(10);
@@ -113,6 +113,8 @@ public class HawksMachinery
 		HMItem.fishFood = new HMItem(this.MANAGER.getItemID("Fish Food", 24158)).setIconIndex(104).setItemName("HMFishFood").setCreativeTab(UETab.INSTANCE);
 		HMItem.machineMeter = new HMItemMeter(this.MANAGER.getItemID("Machine Meter", 24159));
 		HMItem.cobaltBone = new HMItemWolfTamer(this.MANAGER.getItemID("Cobalt Bone", 24160)).setItemName("HMCobaltBone").setCreativeTab(CreativeTabs.tabMisc).setIconIndex(105);
+		HMItem.testTube = new HMItem(this.MANAGER.getItemID("Test Tube", 24161)).setItemName("HMTestTube").setCreativeTab(UETab.INSTANCE).setIconIndex(72);
+		HMItem.nanites = new HMItemNanite(this.MANAGER.getItemID("Nanites", 24162)).setMaxDmg(15);
 		
 		new HMContent();
 		NetworkRegistry.instance().registerGuiHandler(this, PROXY);
@@ -184,13 +186,13 @@ public class HawksMachinery
 		GameRegistry.addRecipe(new ItemStack(HMItem.parts, 1, 5), new Object[]{"ici", 'i', Item.ingotIron, 'c', new ItemStack(HMItem.parts, 1, 4)});
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMItem.parts, 1, 6), new Object[]{"OOS", "BPb", "OOS", 'O', Block.obsidian, 'S', "ingotCobalt", 'B', Item.blazePowder, 'P', new ItemStack(HMItem.parts), 'b', "ingotGold"}));
 		
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMItem.rivets, 10, 0), new Object[]{"CCC", "BCB", " C ", 'C', "ingotCopper", 'B', Item.blazePowder}));
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMItem.rivets, 10, 1), new Object[]{"BBB", "bBb", " B ", 'B', "ingotBronze", 'b', Item.blazePowder}));
-		GameRegistry.addRecipe(new ItemStack(HMItem.rivets, 10, 2), new Object[]{"III", "BIB", " I ", 'I', Item.ingotIron, 'B', Item.blazePowder});
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMItem.rivets, 10, 3), new Object[]{"SSS", "BSB", " S ", 'S', "ingotSteel", 'B', Item.blazePowder}));
-		GameRegistry.addRecipe(new ItemStack(HMItem.rivets, 10, 4), new Object[]{"GGG", "BGB", " G ", 'G', Item.ingotGold, 'B', Item.blazePowder});
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMItem.rivets, 10, 5), new Object[]{"EEE", "BEB", " E ", 'E', "ingotEndium", 'B', Item.blazePowder}));
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMItem.rivets, 10, 6), new Object[]{"CCC", "CEC", " C ", 'C', "ingotCobalt", 'B', Item.blazePowder}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMItem.rivets, 8, 0), new Object[]{"CCC", " C ", " B ", 'C', "ingotCopper", 'B', Item.blazeRod}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMItem.rivets, 8, 1), new Object[]{"BBB", " B ", " b ", 'B', "ingotBronze", 'b', Item.blazeRod}));
+		GameRegistry.addRecipe(new ItemStack(HMItem.rivets, 8, 2), new Object[]{"III", " I ", " B ", 'I', Item.ingotIron, 'B', Item.blazePowder});
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMItem.rivets, 8, 3), new Object[]{"SSS", " S ", " B ", 'S', "ingotSteel", 'B', Item.blazeRod}));
+		GameRegistry.addRecipe(new ItemStack(HMItem.rivets, 8, 4), new Object[]{"GGG", " G ", " B ", 'G', Item.ingotGold, 'B', Item.blazePowder});
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMItem.rivets, 8, 5), new Object[]{"EEE", " E ", " B ", 'E', "ingotEndium", 'B', Item.blazeRod}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMItem.rivets, 8, 6), new Object[]{"CCC", " C ", " B ", 'C', "ingotCobalt", 'B', Item.blazeRod}));
 		
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMBlock.metalBlock, 1, 0), new Object[]{"EEE", "EEE", "EEE", 'E', "ingotEndium"}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMBlock.metalBlock, 1, 1), new Object[]{"CCC", "CCC", "CCC", 'C', "ingotCobalt"}));

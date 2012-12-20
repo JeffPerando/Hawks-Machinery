@@ -40,7 +40,6 @@ public class HMCommonProxy implements IGuiHandler, IConnectionHandler
 		GameRegistry.registerTileEntity(HMTileEntityStarForge.class, "HMStarForge");
 		GameRegistry.registerTileEntity(HMTileEntityMulti.class, "HMMulti");
 		GameRegistry.registerTileEntity(HMTileEntitySinterer.class, "HMSinterer");
-		GameRegistry.registerTileEntity(HMTileEntityFireBlock.class, "HMFireBlock");
 		
 		GameRegistry.registerBlock(HMBlock.crusher, HMItemBlockMachine.class);
 		GameRegistry.registerBlock(HMBlock.ore, HMItemBlockOre.class);
@@ -51,7 +50,6 @@ public class HMCommonProxy implements IGuiHandler, IConnectionHandler
 		GameRegistry.registerBlock(HMBlock.metalBlock, HMItemBlockMetalStorage.class);
 		GameRegistry.registerBlock(HMBlock.starForge, HMItemBlockMachine.class);
 		GameRegistry.registerBlock(HMBlock.sinterer, HMItemBlockMachine.class);
-		GameRegistry.registerBlock(HMBlock.fireBlock, HMItemBlockMachine.class);
 		
 		MinecraftForge.setBlockHarvestLevel(HMBlock.endiumChunkloader, "pickaxe", 3);
 		MinecraftForge.setBlockHarvestLevel(HMBlock.endiumTeleporter, "pickaxe", 3);

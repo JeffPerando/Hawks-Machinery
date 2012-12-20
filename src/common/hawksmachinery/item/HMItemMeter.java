@@ -5,7 +5,6 @@ import hawksmachinery.HawksMachinery;
 import hawksmachinery.api.HMRepairInterfaces.IHMRepairable;
 import hawksmachinery.api.HMRepairInterfaces.IHMSappable;
 import hawksmachinery.api.IHMMachine;
-import hawksmachinery.tileentity.HMTileEntityMachine;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.EnumMovingObjectType;
 import net.minecraft.src.ItemStack;

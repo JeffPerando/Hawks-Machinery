@@ -69,3 +69,7 @@ item.HMRivet3.name=Steel Rivet
 item.HMRivet4.name=Gold Rivet
 item.HMRivet5.name=Endium Rivet
 item.HMRivet6.name=Cobalt Rivet
+
+item.HMTestTube.name=Test Tube
+item.HMNanitesEmpty.name=Blank Nanites
+item.HMNanites.name=Nanites

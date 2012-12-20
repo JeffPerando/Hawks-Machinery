@@ -64,6 +64,8 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	
 	protected boolean canSendPackets = true;
 	
+	private int maxHP = 20;
+	
 	@Override
 	public void initiate()
 	{
@@ -181,6 +183,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 		catch(Exception e)
 		{
 			e.printStackTrace();
+			
 		}
 		
 	}
@@ -318,6 +321,9 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 		this.machineHP = NBTTag.getInteger("MachineHP");
 		this.electricityStored = NBTTag.getDouble("electricityStored");
 		if (this.isProcessor) this.workTicks = NBTTag.getInteger("workTicks");
+		if (NBTTag.hasKey("electricityLimit")) this.ELECTRICITY_LIMIT = NBTTag.getInteger("electricityLimit");
+		if (NBTTag.hasKey("ticksNeeded")) this.TICKS_REQUIRED = NBTTag.getInteger("ticksNeeded");
+		if (NBTTag.hasKey("maxMachineHP")) this.maxHP = NBTTag.getInteger("maxMachineHP");
 		
 		if (NBTTag.hasKey("Sapper"))
 		{
@@ -352,6 +358,10 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 		NBTTag.setInteger("MachineHP", this.machineHP);
 		NBTTag.setDouble("electricityStored", this.electricityStored);
 		if (this.isProcessor) NBTTag.setInteger("workTicks", this.workTicks);
+		NBTTag.setInteger("electricityLimit", this.ELECTRICITY_LIMIT);
+		NBTTag.setInteger("ticksNeeded", this.TICKS_REQUIRED);
+		NBTTag.setInteger("maxMachineHP", this.maxHP);
+		
 		if (this.sapper != null) NBTTag.setCompoundTag("Sapper", this.sapper.writeToNBT(new NBTTagCompound()));
 		
 		if (this.containingItems != null)
@@ -444,7 +454,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	
 	public int getMaxHP()
 	{
-		return 20;
+		return 0;
 	}
 	
 	public int getHP()
