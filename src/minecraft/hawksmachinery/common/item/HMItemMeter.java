@@ -17,7 +17,6 @@ import universalelectricity.core.electricity.ElectricInfo.ElectricUnit;
 import universalelectricity.core.implement.IDisableable;
 import universalelectricity.core.implement.IJouleStorage;
 import universalelectricity.core.implement.IVoltage;
-import universalelectricity.prefab.ItemElectric;
 import universalelectricity.prefab.UETab;
 import universalelectricity.prefab.multiblock.TileEntityMulti;
 import universalelectricity.prefab.repair.IRepairable;
@@ -28,7 +27,7 @@ import universalelectricity.prefab.repair.IRepairable;
  * 
  * @author Elusivehawk
  */
-public class HMItemMeter extends ItemElectric
+public class HMItemMeter extends HMItemElectric
 {
 	public static HawksMachinery BASEMOD;
 	private static String[] stateNames = new String[]{"Voltage", "Electricity Cached", "Disabled", "Can work", "Repairable", "Machine Health"};
@@ -117,7 +116,6 @@ public class HMItemMeter extends ItemElectric
 	public void onCreated(ItemStack item, World world, EntityPlayer player)
 	{
 		super.onCreated(item, world, player);
-		item.stackTagCompound = new NBTTagCompound();
 		item.stackTagCompound.setByte("meterState", (byte)0);
 		
 	}
@@ -126,12 +124,6 @@ public class HMItemMeter extends ItemElectric
 	public double getMaxJoules(Object... data)
 	{
 		return 10000;
-	}
-	
-	@Override
-	public double getVoltage()
-	{
-		return 120;
 	}
 	
 }

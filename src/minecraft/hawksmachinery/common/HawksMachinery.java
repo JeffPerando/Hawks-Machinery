@@ -51,7 +51,7 @@ public class HawksMachinery
 	@Instance("HawksMachinery")
 	private static HawksMachinery INSTANCE;
 	
-	@SidedProxy(clientSide = "hawksmachinery.HMClientProxy", serverSide = "hawksmachinery.HMCommonProxy")
+	@SidedProxy(clientSide = "hawksmachinery.client.HMClientProxy", serverSide = "hawksmachinery.common.HMCommonProxy")
 	public static HMCommonProxy PROXY;
 	
 	public static final String VERSION = "Beta v1.0.0 (Dev)";
@@ -120,7 +120,6 @@ public class HawksMachinery
 	@Init
 	public void load(FMLInitializationEvent event)
 	{
-		this.loadRecipes();
 		//new HMUpdateHandler(ModConverter.getMod(getClass()));
 		OreGenerator.addOre(new HMEndiumOreGen());
 		OreGenerator.addOre(new HMCobaltOreGen());
@@ -131,6 +130,7 @@ public class HawksMachinery
 	@PostInit
 	public void modsLoaded(FMLPostInitializationEvent event)
 	{
+		this.loadRecipes();
 		this.loadProcessingRecipes();
 		
 	}
@@ -203,13 +203,13 @@ public class HawksMachinery
 		FurnaceRecipes.smelting().addSmelting(HMItem.plating.shiftedIndex, 0, new ItemStack(HMItem.ingots, 4, 0), 0.0F);
 		FurnaceRecipes.smelting().addSmelting(HMItem.plating.shiftedIndex, 1, new ItemStack(HMItem.ingots, 4, 1), 0.0F);
 		
-		if (OreDictionary.getOres("ingotCopper") != null)
+		if (!OreDictionary.getOres("ingotCopper").isEmpty())
 		{
 			FurnaceRecipes.smelting().addSmelting(HMItem.dustRefined.shiftedIndex, 5, OreDictionary.getOres("ingotCopper").get(0), 0);
 			
 		}
 		
-		if (OreDictionary.getOres("ingotTin") != null)
+		if (!OreDictionary.getOres("ingotTin").isEmpty())
 		{
 			FurnaceRecipes.smelting().addSmelting(HMItem.dustRefined.shiftedIndex, 6, OreDictionary.getOres("ingotTin").get(0), 0);
 			
@@ -397,5 +397,4 @@ public class HawksMachinery
 		
 	}
 	*/
-	
 }

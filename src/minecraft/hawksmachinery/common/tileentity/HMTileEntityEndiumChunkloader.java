@@ -47,7 +47,7 @@ public class HMTileEntityEndiumChunkloader extends TileEntity
 				newTicket.getModData().setInteger("xCoord", this.xCoord);
 				newTicket.getModData().setInteger("yCoord", this.yCoord);
 				newTicket.getModData().setInteger("zCoord", this.zCoord);
-				newTicket.setChunkListDepth(BASEMOD.MANAGER.maxChunksLoaded);
+				newTicket.setChunkListDepth(BASEMOD.instance().MANAGER.maxChunksLoaded);
 				this.heldChunk = newTicket;
 				ForgeChunkManager.forceChunk(this.heldChunk, new ChunkCoordIntPair(this.xCoord >> 4, this.zCoord >> 4));
 				

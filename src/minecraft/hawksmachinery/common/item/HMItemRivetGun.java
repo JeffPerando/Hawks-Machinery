@@ -11,9 +11,10 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumMovingObjectType;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
-import universalelectricity.prefab.ItemElectric;
 import universalelectricity.prefab.UETab;
 import universalelectricity.prefab.multiblock.TileEntityMulti;
+import universalelectricity.prefab.repair.IRepairable;
+import universalelectricity.prefab.repair.IToolRepair;
 
 /**
  * 
@@ -21,7 +22,7 @@ import universalelectricity.prefab.multiblock.TileEntityMulti;
  * 
  * @author Elusivehawk
  */
-public class HMItemRivetGun extends ItemElectric
+public class HMItemRivetGun extends HMItemElectric implements IToolRepair
 {
 	public static HawksMachinery BASEMOD;
 	
@@ -70,6 +71,14 @@ public class HMItemRivetGun extends ItemElectric
 						}
 						
 					}
+					else if (foundBlock instanceof IRepairable)
+					{
+						if (((IRepairable)foundBlock).getMaxDamage() > 0)
+						{
+							return this.tryRepairTile(foundBlock, player, item);
+						}
+						
+					}
 					
 				}
 				
@@ -105,6 +114,13 @@ public class HMItemRivetGun extends ItemElectric
 							}
 							
 						}
+						else if (machine instanceof IRepairable)
+						{
+							item.stackTagCompound.setInteger("repairValue", potentialRepairAmount);
+							((IRepairable)machine).onRepair(this, player);
+							item.stackTagCompound.setInteger("repairValue", 0);
+							
+						}
 						
 					}
 					
@@ -136,15 +152,21 @@ public class HMItemRivetGun extends ItemElectric
 	}
 	
 	@Override
-	public double getVoltage()
-	{
-		return 120;
-	}
-	
-	@Override
 	public boolean isFull3D()
 	{
 		return true;
+	}
+	
+	@Override
+	public String getID()
+	{
+		return "HMRivetGun";
+	}
+	
+	@Override
+	public int getEffectiveness(ItemStack item)
+	{
+		return item.stackTagCompound.getInteger("repairValue");
 	}
 	
 }

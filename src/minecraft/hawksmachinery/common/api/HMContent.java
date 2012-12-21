@@ -50,22 +50,22 @@ public class HMContent
 		{
 			try
 			{
-				crusher = (Block)Class.forName("hawksmachinery.block.HMBlock").getField("crusher").get(Block.class);
-				washer = (Block)Class.forName("hawksmachinery.block.HMBlock").getField("washer").get(Block.class);
-				endiumChunkloader = (Block)Class.forName("hawksmachinery.block.HMBlock").getField("endiumChunkloader").get(Block.class);
-				ore = (Block)Class.forName("hawksmachinery.block.HMBlock").getField("ore").get(Block.class);
-				endiumTeleporter = (Block)Class.forName("hawksmachinery.block.HMBlock").getField("endiumTeleporter").get(Block.class);
-				fisher = (Block)Class.forName("hawksmachinery.block.HMBlock").getField("fisher").get(Block.class);
+				crusher = (Block)Class.forName("hawksmachinery.common.block.HMBlock").getField("crusher").get(Block.class);
+				washer = (Block)Class.forName("hawksmachinery.common.block.HMBlock").getField("washer").get(Block.class);
+				endiumChunkloader = (Block)Class.forName("hawksmachinery.common.block.HMBlock").getField("endiumChunkloader").get(Block.class);
+				ore = (Block)Class.forName("hawksmachinery.common.block.HMBlock").getField("ore").get(Block.class);
+				endiumTeleporter = (Block)Class.forName("hawksmachinery.common.block.HMBlock").getField("endiumTeleporter").get(Block.class);
+				fisher = (Block)Class.forName("hawksmachinery.common.block.HMBlock").getField("fisher").get(Block.class);
 				
-				dustRaw = (Item)Class.forName("hawksmachinery.item.HMItem").getField("dustRaw").get(Item.class);
-				dustRefined = (Item)Class.forName("hawksmachinery.item.HMItem").getField("dustRefined").get(Item.class);
-				parts = (Item)Class.forName("hawksmachinery.item.HMItem").getField("parts").get(Item.class);
-				blueprints = (Item)Class.forName("hawksmachinery.item.HMItem").getField("blueprints").get(Item.class);
-				plating = (Item)Class.forName("hawksmachinery.item.HMItem").getField("plating").get(Item.class);
-				rivets = (Item)Class.forName("hawksmachinery.item.HMItem").getField("rivets").get(Item.class);
-				rivetGun = (Item)Class.forName("hawksmachinery.item.HMItem").getField("rivetGun").get(Item.class);
-				ingots = (Item)Class.forName("hawksmachinery.item.HMItem").getField("ingots").get(Item.class);
-				fishFood = (Item)Class.forName("hawksmachinery.item.HMItem").getField("fishFood").get(Item.class);
+				dustRaw = (Item)Class.forName("hawksmachinery.common.item.HMItem").getField("dustRaw").get(Item.class);
+				dustRefined = (Item)Class.forName("hawksmachinery.common.item.HMItem").getField("dustRefined").get(Item.class);
+				parts = (Item)Class.forName("hawksmachinery.common.item.HMItem").getField("parts").get(Item.class);
+				blueprints = (Item)Class.forName("hawksmachinery.common.item.HMItem").getField("blueprints").get(Item.class);
+				plating = (Item)Class.forName("hawksmachinery.common.item.HMItem").getField("plating").get(Item.class);
+				rivets = (Item)Class.forName("hawksmachinery.common.item.HMItem").getField("rivets").get(Item.class);
+				rivetGun = (Item)Class.forName("hawksmachinery.common.item.HMItem").getField("rivetGun").get(Item.class);
+				ingots = (Item)Class.forName("hawksmachinery.common.item.HMItem").getField("ingots").get(Item.class);
+				fishFood = (Item)Class.forName("hawksmachinery.common.item.HMItem").getField("fishFood").get(Item.class);
 				
 			}
 			catch (IllegalArgumentException e)
