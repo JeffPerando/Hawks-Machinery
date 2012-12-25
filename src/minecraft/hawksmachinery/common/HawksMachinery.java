@@ -21,14 +21,18 @@ import universalelectricity.prefab.UETab;
 import universalelectricity.prefab.network.ConnectionHandler;
 import universalelectricity.prefab.network.PacketManager;
 import universalelectricity.prefab.ore.OreGenerator;
+import updatemanager.client.ModReleaseType;
+import updatemanager.client.ModType;
+import updatemanager.common.ModConverter;
+import updatemanager.common.UpdateManager;
+import updatemanager.common.UpdateManagerMod;
+import updatemanager.common.checking.CheckingMethod;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
 import cpw.mods.fml.common.Mod.Instance;
-import cpw.mods.fml.common.Mod.Metadata;
 import cpw.mods.fml.common.Mod.PostInit;
 import cpw.mods.fml.common.Mod.PreInit;
-import cpw.mods.fml.common.ModMetadata;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
@@ -54,7 +58,7 @@ public class HawksMachinery
 	@SidedProxy(clientSide = "hawksmachinery.client.HMClientProxy", serverSide = "hawksmachinery.common.HMCommonProxy")
 	public static HMCommonProxy PROXY;
 	
-	public static final String VERSION = "Beta v1.0.0 (Dev)";
+	public static final String VERSION = "Beta v1.0.0 Prerelease 1";
 	
 	public static HMRecipes PROCESS_RECIPES;
 	public static HMEnumProcessing CRUSH = HMEnumProcessing.CRUSHING;
@@ -62,12 +66,12 @@ public class HawksMachinery
 	
 	public HMManager MANAGER;
 	
-	public static final String GUI_PATH = "/hawksmachinery/resources/gui";
-	public static final String BLOCK_TEXTURE_FILE = "/hawksmachinery/resources/textures/blocks.png";
-	public static final String ITEM_TEXTURE_FILE = "/hawksmachinery/resources/textures/items.png";
-	public static final String TEXTURE_PATH = "/hawksmachinery/resources/textures";
-	public static final String SOUND_PATH = "/hawksmachinery/resources/sounds";
-	public static final String LANG_PATH = "/hawksmachinery/resources/lang";
+	public static final String GUI_PATH = "/hawksmachinery/client/resources/gui";
+	public static final String BLOCK_TEXTURE_FILE = "/hawksmachinery/client/resources/textures/blocks.png";
+	public static final String ITEM_TEXTURE_FILE = "/hawksmachinery/client/resources/textures/items.png";
+	public static final String TEXTURE_PATH = "/hawksmachinery/client/resources/textures";
+	public static final String SOUND_PATH = "/hawksmachinery/client/resources/sounds";
+	public static final String LANG_PATH = "/hawksmachinery/client/resources/lang";
 	
 	@PreInit
 	public void preInit(FMLPreInitializationEvent event)
@@ -120,7 +124,7 @@ public class HawksMachinery
 	@Init
 	public void load(FMLInitializationEvent event)
 	{
-		//new HMUpdateHandler(ModConverter.getMod(getClass()));
+		new HMUpdateHandler(ModConverter.getMod(getClass()));
 		OreGenerator.addOre(new HMEndiumOreGen());
 		OreGenerator.addOre(new HMCobaltOreGen());
 		PROXY.registerRenderInformation();
@@ -191,7 +195,7 @@ public class HawksMachinery
 		GameRegistry.addShapelessRecipe(new ItemStack(HMItem.ingots, 9, 1), new ItemStack(HMBlock.metalBlock, 1, 1));
 		
 		//TODO Temporary until the Star Forge is done.
-		GameRegistry.addShapelessRecipe(new ItemStack(HMItem.ingots, 1, 0), new ItemStack(HMItem.dustRefined, 1, 8), new ItemStack(HMItem.dustRefined, 1, 9), new ItemStack(HMItem.dustRefined));
+		//GameRegistry.addShapelessRecipe(new ItemStack(HMItem.ingots, 1, 0), new ItemStack(HMItem.dustRefined, 1, 8), new ItemStack(HMItem.dustRefined, 1, 9), new ItemStack(HMItem.dustRefined));
 		
 		GameRegistry.addShapelessRecipe(new ItemStack(Item.fireballCharge, 3), new Object[]{Item.blazePowder, Item.gunpowder, new ItemStack(HMItem.dustRaw, 1, 0)});
 		GameRegistry.addShapelessRecipe(new ItemStack(HMItem.fishFood, 4), new Object[]{Item.bread, Item.rottenFlesh});
@@ -309,7 +313,7 @@ public class HawksMachinery
 		PROCESS_RECIPES.addHMForgeRecipe(new ShapelessOreRecipe(new ItemStack(HMItem.ingots, 1, 0), new Object[]{"dustEndium", "dustStar"}));
 		
 	}
-	/*
+	
 	public class HMUpdateHandler extends UpdateManagerMod
 	{
 		public HMUpdateHandler(Mod m)
@@ -344,7 +348,7 @@ public class HawksMachinery
 		@Override
 		public String getChangelogURL()
 		{
-			return "https://dl.dropbox.com/u/100525141/HawksMachineryBetav100UEFTBChangelog.txt"; //"https://dl.dropbox.com/u/100525141/HawksMachinery" + VERSION.replace(".", "").replace(" ", "") + "Changelog.txt";
+			return "https://dl.dropbox.com/u/100525141/HawksMachineryBetav100Changelog.txt"; //"https://dl.dropbox.com/u/100525141/HawksMachinery" + VERSION.replace(".", "").replace(" ", "") + "Changelog.txt";
 		}
 		
 		@Override
@@ -396,5 +400,5 @@ public class HawksMachinery
 		}
 		
 	}
-	*/
+	
 }

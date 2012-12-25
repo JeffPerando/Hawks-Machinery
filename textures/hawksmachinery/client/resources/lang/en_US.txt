@@ -1,0 +1,75 @@
+tile.HMCrusher.name=Crusher
+tile.HMWasher.name=Washer
+tile.HMEndiumChunkloader.name=Endium Chunkloader
+tile.HMEndiumTeleporter.name=Endium Teleporter
+tile.HMFisher.name=Fisher
+tile.HMStarForge.name=Star Forge
+tile.HMBlockTechnical.name=Look out, we got a badass over here!
+tile.HMSinterer.name=Sinterer
+tile.HMFireblock.name=Fire Block
+tile.HMMetalBlock0.name=Block of Endium
+tile.HMMetalBlock1.name=Block of Cobalt
+tile.HMOre0.name=Endium Ore
+tile.HMOre1.name=Cobalt Ore
+
+item.HMRivetGun.name=Rivet Gun
+item.HMFishFood.name=Fish Food
+item.HMMachineMeter.name=Machine Meter
+item.HMCobaltBone.name=Cobalt Bone
+
+item.HMDustUnref0.name=Coal Dust
+item.HMDustUnref1.name=Unrefined Iron Dust
+item.HMDustUnref2.name=Unrefined Gold Dust
+item.HMDustUnref3.name=Unrefined Copper Dust
+item.HMDustUnref4.name=Unrefined Tin Dust
+item.HMDustUnref5.name=Obsidian Dust
+item.HMDustUnref6.name=Unrefined Endium Dust
+item.HMDustUnref7.name=Unrefined Cobalt Dust
+
+item.HMDustRefined0.name=Diamond Dust
+item.HMDustRefined1.name=Ender Dust
+item.HMDustRefined2.name=Glass Dust
+item.HMDustRefined3.name=Iron Dust
+item.HMDustRefined4.name=Gold Dust
+item.HMDustRefined5.name=Copper Dust
+item.HMDustRefined6.name=Tin Dust
+item.HMDustRefined7.name=Emerald Dust
+item.HMDustRefined8.name=Star Dust
+item.HMDustRefined9.name=Endium dust
+item.HMDustRefined10.name=Cobalt Dust
+
+item.HMPart0.name=Electric Piston
+item.HMPart1.name=Laser
+item.HMPart2.name=Gear Axle
+item.HMPart3.name=Light Bulb
+item.HMPart4.name=Heating Coil
+item.HMPart5.name=Electric Magnet
+item.HMPart6.name=Engine
+
+item.HMIngot0.name=Endium Ingot
+item.HMIngot1.name=Cobalt Ingot
+
+item.HMPlating0.name=Endium Plating
+item.HMPlating1.name=Cobalt Plating
+
+item.HMBlueprint0.name=Blueprint (Crusher)
+item.HMBlueprint1.name=Blueprint (Washer)
+item.HMBlueprint2.name=Blueprint (Nano Assembler)
+item.HMBlueprint3.name=Blueprint (Fisher)
+item.HMBlueprint4.name=Blueprint (Mini-Drill Tank)
+item.HMBlueprint5.name=Blueprint (Saw)
+item.HMBlueprint6.name=Blueprint (Sinterer)
+item.HMBlueprint7.name=Blueprint (Rivet Gun)
+item.HMBlueprint8.name=Blueprint (HM-E2MM)
+
+item.HMRivet0.name=Copper Rivet
+item.HMRivet1.name=Bronze Rivet
+item.HMRivet2.name=Iron Rivet
+item.HMRivet3.name=Steel Rivet
+item.HMRivet4.name=Gold Rivet
+item.HMRivet5.name=Endium Rivet
+item.HMRivet6.name=Cobalt Rivet
+
+item.HMTestTube.name=Test Tube
+item.HMNanitesEmpty.name=Blank Nanites
+item.HMNanites.name=Nanites

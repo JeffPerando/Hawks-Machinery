@@ -1,0 +1,5 @@
+Since GitHub doesn't like empty folders, this is a placeholder.
+
+...
+
+What, did you expect anything special out of a placeholder?
