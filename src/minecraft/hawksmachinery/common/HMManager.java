@@ -55,6 +55,7 @@ public class HMManager implements LoadingCallback, IVillageTradeHandler, ICrafti
 	public static boolean enableUpdateChecking;
 	public static boolean enableAutoDL;
 	public static boolean enableChunkloader;
+	public static boolean enableWasherSourceBlockConsump;
 	
 	public static Configuration HMConfig = new Configuration(new File(Loader.instance().getConfigDir(), "HawksMachinery/HMConfig.cfg"));
 	
@@ -73,6 +74,7 @@ public class HMManager implements LoadingCallback, IVillageTradeHandler, ICrafti
 		enableUpdateChecking = HMConfig.get(Configuration.CATEGORY_GENERAL, "Enable Update Checking", true).getBoolean(true);
 		enableAutoDL = HMConfig.get(Configuration.CATEGORY_GENERAL, "Enable Auto DL", true).getBoolean(true);
 		enableChunkloader = HMConfig.get(Configuration.CATEGORY_GENERAL, "Enable Chunkloader Crafting", true).getBoolean(true);
+		enableWasherSourceBlockConsump = HMConfig.get(Configuration.CATEGORY_GENERAL, "Washer Physical Water Consump", true).getBoolean(true);
 		maxChunksLoaded = HMConfig.get("Max Chunks Loaded", Configuration.CATEGORY_GENERAL, 25).getInt(25);
 		
 		ACHprospector = HMConfig.get(Configuration.CATEGORY_GENERAL, "ACH Prospector", 1500).getInt(1500);

@@ -126,15 +126,9 @@ public class HMTileEntityCrusher extends HMTileEntityMachine
 	@Override
 	public int getStartInventorySide(ForgeDirection side)
 	{
-		if (side == ForgeDirection.UP)
-		{
-			return 1;
-		}
+		if (side == ForgeDirection.UP) return 1;
 		
-		if (side == ForgeDirection.DOWN)
-		{
-			return 0;
-		}
+		if (side == ForgeDirection.DOWN) return 0;
 		
 		return 2;
 	}
