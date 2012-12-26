@@ -4,8 +4,29 @@ package hawksmachinery.common;
 import hawksmachinery.common.api.HMContent;
 import hawksmachinery.common.api.HMRecipes;
 import hawksmachinery.common.api.HMRecipes.HMEnumProcessing;
-import hawksmachinery.common.block.*;
-import hawksmachinery.common.item.*;
+import hawksmachinery.common.block.HMBlock;
+import hawksmachinery.common.block.HMBlockCrusher;
+import hawksmachinery.common.block.HMBlockEndiumChunkloader;
+import hawksmachinery.common.block.HMBlockEndiumTeleporter;
+import hawksmachinery.common.block.HMBlockFisher;
+import hawksmachinery.common.block.HMBlockMetalStorage;
+import hawksmachinery.common.block.HMBlockMulti;
+import hawksmachinery.common.block.HMBlockOre;
+import hawksmachinery.common.block.HMBlockSinterer;
+import hawksmachinery.common.block.HMBlockStarForge;
+import hawksmachinery.common.block.HMBlockWasher;
+import hawksmachinery.common.item.HMItem;
+import hawksmachinery.common.item.HMItemBlueprints;
+import hawksmachinery.common.item.HMItemIngots;
+import hawksmachinery.common.item.HMItemMeter;
+import hawksmachinery.common.item.HMItemNanite;
+import hawksmachinery.common.item.HMItemParts;
+import hawksmachinery.common.item.HMItemPlating;
+import hawksmachinery.common.item.HMItemRawDust;
+import hawksmachinery.common.item.HMItemRefinedDust;
+import hawksmachinery.common.item.HMItemRivetGun;
+import hawksmachinery.common.item.HMItemRivets;
+import hawksmachinery.common.item.HMItemWolfTamer;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -16,7 +37,6 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
-import obsidian.api.ItemRetriever;
 import universalelectricity.prefab.UETab;
 import universalelectricity.prefab.network.ConnectionHandler;
 import universalelectricity.prefab.network.PacketManager;
@@ -27,7 +47,6 @@ import updatemanager.common.ModConverter;
 import updatemanager.common.UpdateManager;
 import updatemanager.common.UpdateManagerMod;
 import updatemanager.common.checking.CheckingMethod;
-import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
 import cpw.mods.fml.common.Mod.Instance;
@@ -242,18 +261,7 @@ public class HawksMachinery
 		PROCESS_RECIPES.addHMProcessingRecipe(new ItemStack(Block.redstoneLampIdle), new ItemStack(Item.lightStoneDust, 4), CRUSH);
 		PROCESS_RECIPES.addHMProcessingRecipe(new ItemStack(Item.brewingStand), new ItemStack(Item.blazeRod, 1), CRUSH);
 		PROCESS_RECIPES.addHMProcessingRecipe(new ItemStack(Block.sandStone), new ItemStack(Block.sand, 4), CRUSH);
-		
-		if (Loader.isModLoaded("ObsidianIngots"))
-		{
-			PROCESS_RECIPES.addHMProcessingRecipe(ItemRetriever.getItem("obsidianDust"), new ItemStack(HMItem.dustRaw, 1, 5), CRUSH);
-			
-		}
-		else
-		{
-			PROCESS_RECIPES.addHMProcessingRecipe(new ItemStack(Block.obsidian), new ItemStack(HMItem.dustRaw, 1, 5), CRUSH);
-			
-		}
-		
+		PROCESS_RECIPES.addHMProcessingRecipe(new ItemStack(Block.obsidian), new ItemStack(HMItem.dustRaw, 1, 5), CRUSH);
 		PROCESS_RECIPES.addHMProcessingRecipe(new ItemStack(Item.glassBottle), new ItemStack(HMItem.dustRefined, 4, 2), CRUSH);
 		PROCESS_RECIPES.addHMProcessingRecipe(new ItemStack(Block.thinGlass), new ItemStack(HMItem.dustRefined, 1, 2), CRUSH);
 		
