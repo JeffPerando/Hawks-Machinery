@@ -9,6 +9,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagFloat;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.Packet250CustomPayload;
@@ -183,6 +184,7 @@ public class HMTileEntityWasher extends HMTileEntityMachine implements ITankCont
 				this.electricityStored = dataStream.readDouble();
 				this.machineHP = dataStream.readInt();
 				this.waterUnits = dataStream.readInt();
+				
 			}
 			
 		}
@@ -202,7 +204,9 @@ public class HMTileEntityWasher extends HMTileEntityMachine implements ITankCont
 	public void readFromNBT(NBTTagCompound NBTTag)
 	{
 		super.readFromNBT(NBTTag);
-		int water = NBTTag.getInteger("waterUnits");
+		int water = 0;
+		if (NBTTag.getTag("waterUnits") instanceof NBTTagFloat) water = (int)NBTTag.getFloat("waterunits");
+		else water = NBTTag.getInteger("waterUnits");
 		this.waterTank.setLiquid(new LiquidStack(Block.waterStill, water));
 		
 	}

@@ -52,7 +52,7 @@ public class HMRecipes
 			
 		}
 		
-		public Map getRecipeList()
+		public Map recipeList()
 		{
 			return this.processingList;
 		}
@@ -69,7 +69,7 @@ public class HMRecipes
 	 */
 	public static void addHMProcessingRecipe(ItemStack input, ItemStack output, HMEnumProcessing processType)
 	{
-		processType.getRecipeList().put(Arrays.asList(input.getItem(), input.isItemStackDamageable() ? 0 : input.getItemDamage(), input.isItemEnchanted(), input.stackTagCompound != null), output);
+		processType.recipeList().put(Arrays.asList(input.getItem(), input.isItemStackDamageable() ? 0 : input.getItemDamage(), input.isItemEnchanted(), input.stackTagCompound != null), output);
 		quantityMapping.put(Arrays.asList(input.getItem(), input.getItemDamage(), processType), (Integer)input.stackSize);
 		
 	}
@@ -100,10 +100,12 @@ public class HMRecipes
 		if (isCommon)
 		{
 			washerSecondaries.put(Arrays.asList(input.getItem(), input.getItemDamage()), output);
+			
 		}
 		else
 		{
 			washerRarities.put(Arrays.asList(input.getItem(), input.getItemDamage()), output);
+			
 		}
 		
 	}
@@ -117,22 +119,23 @@ public class HMRecipes
 	public static void addHMForgeRecipe(IRecipe recipe)
 	{
 		forgeRecipes.add(recipe);
+		
 	}
 	
 	public static ItemStack getResult(ItemStack input, HMEnumProcessing processType)
 	{
 		if (input != null)
 		{
-			ItemStack output = (ItemStack)processType.getRecipeList().get(Arrays.asList(input.getItem(), input.isItemStackDamageable() ? 0 : input.getItemDamage(), input.isItemEnchanted(), input.stackTagCompound != null));
+			ItemStack output = (ItemStack)processType.recipeList().get(Arrays.asList(input.getItem(), input.isItemStackDamageable() ? 0 : input.getItemDamage(), input.isItemEnchanted(), input.stackTagCompound != null));
 			
 			if (output != null)
 			{
-				if (input.isItemEqual(output) && input.isItemStackDamageable() && output.isItemStackDamageable())
+				if (input.itemID == output.itemID && input.isItemStackDamageable() && output.isItemStackDamageable())
 				{
 					output.setItemDamage(input.getItemDamage());
 				}
 				
-				return (input.stackSize < getQuantity(input, processType)) ? null : output;
+				if (input.stackSize < getQuantity(input, processType)) return output;
 			}
 			
 		}
