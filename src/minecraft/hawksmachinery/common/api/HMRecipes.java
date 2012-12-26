@@ -121,11 +121,7 @@ public class HMRecipes
 	
 	public static ItemStack getResult(ItemStack input, HMEnumProcessing processType)
 	{
-		if (input == null)
-		{
-			return null;
-		}
-		else
+		if (input != null)
 		{
 			ItemStack output = (ItemStack)processType.getRecipeList().get(Arrays.asList(input.getItem(), input.isItemStackDamageable() ? 0 : input.getItemDamage(), input.isItemEnchanted(), input.stackTagCompound != null));
 			
@@ -136,12 +132,12 @@ public class HMRecipes
 					output.setItemDamage(input.getItemDamage());
 				}
 				
+				return (input.stackSize < getQuantity(input, processType)) ? null : output;
 			}
-			
-			return (input.stackSize < getQuantity(input, processType)) ? null : output;
 			
 		}
 		
+		return null;
 	}
 	
 	public static int getQuantity(ItemStack item, HMEnumProcessing processType)
