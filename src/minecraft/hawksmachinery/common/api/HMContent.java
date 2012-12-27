@@ -9,9 +9,9 @@ import cpw.mods.fml.common.Loader;
 
 /**
  * 
- * Just references to all of the blocks and items in HM, requested by Darkguardsman.
- * 
- * NOTICE: You will need to do a check for HM before using these, otherwise you will crash for obvious reasons.
+ * Just references to all of the blocks and items in HM, requested by Darkguardsman.<br>
+ * <br>
+ * <b>NOTICE</b>: You will need to do a check for HM before using these, otherwise you will crash for obvious reasons.
  * 
  * @author Elusivehawk
  */

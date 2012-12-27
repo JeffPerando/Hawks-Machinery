@@ -71,19 +71,19 @@ import cpw.mods.fml.common.registry.VillagerRegistry;
 @NetworkMod(channels = {"HawksMachinery"}, clientSideRequired = true, serverSideRequired = false, connectionHandler = ConnectionHandler.class, packetHandler = PacketManager.class)
 public class HawksMachinery
 {
+	public static final String VERSION = "Beta v1.0.0 Prerelease 2";
+	
 	@Instance("HawksMachinery")
 	private static HawksMachinery INSTANCE;
 	
 	@SidedProxy(clientSide = "hawksmachinery.client.HMClientProxy", serverSide = "hawksmachinery.common.HMCommonProxy")
 	public static HMCommonProxy PROXY;
 	
-	public static final String VERSION = "Beta v1.0.0 Prerelease 2";
+	public HMManager MANAGER;
 	
 	public static HMRecipes PROCESS_RECIPES;
 	public static HMEnumProcessing CRUSH = HMEnumProcessing.CRUSHING;
 	public static HMEnumProcessing WASH = HMEnumProcessing.WASHING;
-	
-	public HMManager MANAGER;
 	
 	public static final String GUI_PATH = "/hawksmachinery/client/resources/gui";
 	public static final String BLOCK_TEXTURE_FILE = "/hawksmachinery/client/resources/textures/blocks.png";

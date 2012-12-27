@@ -8,7 +8,7 @@ import net.minecraft.nbt.NBTTagCompound;
 
 /**
  * 
- * 
+ * Helps ease the annoyance of having to NBTTag {@link ItemStack}s.
  * 
  * @author Elusivehawk
  */
