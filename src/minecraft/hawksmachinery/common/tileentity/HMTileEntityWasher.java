@@ -34,8 +34,8 @@ import cpw.mods.fml.common.FMLCommonHandler;
 public class HMTileEntityWasher extends HMTileEntityMachine implements ITankContainer
 {
 	public int WATER_LIMIT = 9;
-	public int waterUnits = 0;
-	private LiquidTank waterTank = new LiquidTank(LiquidContainerRegistry.BUCKET_VOLUME * WATER_LIMIT);
+	public int waterUnits;
+	private LiquidTank waterTank;
 	
 	public HMTileEntityWasher()
 	{
@@ -47,6 +47,8 @@ public class HMTileEntityWasher extends HMTileEntityMachine implements ITankCont
 		machineEnum = HMEnumProcessing.WASHING;
 		voltage = 120;
 		isProcessor = true;
+		WATER_LIMIT = 9;
+		waterTank = new LiquidTank(LiquidContainerRegistry.BUCKET_VOLUME * WATER_LIMIT);
 		
 	}
 	

@@ -77,7 +77,7 @@ public class HawksMachinery
 	@SidedProxy(clientSide = "hawksmachinery.client.HMClientProxy", serverSide = "hawksmachinery.common.HMCommonProxy")
 	public static HMCommonProxy PROXY;
 	
-	public static final String VERSION = "Beta v1.0.0 Prerelease 1";
+	public static final String VERSION = "Beta v1.0.0 Prerelease 2";
 	
 	public static HMRecipes PROCESS_RECIPES;
 	public static HMEnumProcessing CRUSH = HMEnumProcessing.CRUSHING;
@@ -96,7 +96,7 @@ public class HawksMachinery
 	public void preInit(FMLPreInitializationEvent event)
 	{
 		INSTANCE = this;
-		this.MANAGER = new HMManager(INSTANCE);
+		this.MANAGER = new HMManager();
 		
 		this.MANAGER.loadConfig();
 		
@@ -147,6 +147,7 @@ public class HawksMachinery
 		OreGenerator.addOre(new HMEndiumOreGen());
 		OreGenerator.addOre(new HMCobaltOreGen());
 		PROXY.registerRenderInformation();
+		UETab.setItemStack(new ItemStack(HMItem.parts));
 		
 	}
 	

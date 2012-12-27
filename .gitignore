@@ -16,9 +16,6 @@
 /LICENSE.txt
 
 /src/minecraft/*
-/src/minecraft_server/*
-/src/common/*
-!/src/common/hawksmachinery/
 !/src/minecraft/hawksmachinery/
 
 *.bat

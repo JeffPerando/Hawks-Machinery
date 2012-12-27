@@ -38,67 +38,58 @@ import cpw.mods.fml.common.registry.VillagerRegistry.IVillageTradeHandler;
  */
 public class HMManager implements LoadingCallback, IVillageTradeHandler, ICraftingHandler, IFuelHandler
 {
-	public static HawksMachinery BASEMOD;
-	private static int chunkLimit;
+	public int ACHprospector;
+	public int ACHtimeToCrush;
+	public int ACHminerkiin;
+	public int ACHwash;
 	
-	public static int ACHprospector;
-	public static int ACHtimeToCrush;
-	public static int ACHminerkiin;
-	public static int ACHwash;
+	public int crusherTicks;
+	public int washerTicks;
+	public int maxChunksLoaded;
 	
-	public static int crusherTicks;
-	public static int washerTicks;
-	public static int maxChunksLoaded;
+	public boolean generateEndium;
+	public boolean generateCobalt;
+	public boolean enableUpdateChecking;
+	public boolean enableAutoDL;
+	public boolean enableChunkloader;
+	public boolean enableWasherSourceBlockConsump;
 	
-	public static boolean generateEndium;
-	public static boolean generateCobalt;
-	public static boolean enableUpdateChecking;
-	public static boolean enableAutoDL;
-	public static boolean enableChunkloader;
-	public static boolean enableWasherSourceBlockConsump;
-	
-	public static Configuration HMConfig = new Configuration(new File(Loader.instance().getConfigDir(), "HawksMachinery/HMConfig.cfg"));
-	
-	public HMManager(HawksMachinery Basemod)
-	{
-		BASEMOD = Basemod;
-		
-	}
+	public Configuration HMConfig = new Configuration(new File(Loader.instance().getConfigDir(), "HawksMachinery/HMConfig.cfg"));
 	
 	public void loadConfig()
 	{
-		HMConfig.load();
+		this.HMConfig.load();
 		
-		generateEndium = HMConfig.get(Configuration.CATEGORY_GENERAL, "Generate Endium", true).getBoolean(true);
-		generateCobalt = HMConfig.get(Configuration.CATEGORY_GENERAL, "Generate Cobalt", true).getBoolean(true);
-		enableUpdateChecking = HMConfig.get(Configuration.CATEGORY_GENERAL, "Enable Update Checking", true).getBoolean(true);
-		enableAutoDL = HMConfig.get(Configuration.CATEGORY_GENERAL, "Enable Auto DL", true).getBoolean(true);
-		enableChunkloader = HMConfig.get(Configuration.CATEGORY_GENERAL, "Enable Chunkloader Crafting", true).getBoolean(true);
-		enableWasherSourceBlockConsump = HMConfig.get(Configuration.CATEGORY_GENERAL, "Washer Physical Water Consump", true).getBoolean(true);
-		maxChunksLoaded = HMConfig.get("Max Chunks Loaded", Configuration.CATEGORY_GENERAL, 25).getInt(25);
+		this.generateEndium = HMConfig.get(Configuration.CATEGORY_GENERAL, "Generate Endium", true).getBoolean(true);
+		this.generateCobalt = HMConfig.get(Configuration.CATEGORY_GENERAL, "Generate Cobalt", true).getBoolean(true);
+		this.enableUpdateChecking = HMConfig.get(Configuration.CATEGORY_GENERAL, "Enable Update Checking", true).getBoolean(true);
+		this.enableAutoDL = HMConfig.get(Configuration.CATEGORY_GENERAL, "Enable Auto DL", true).getBoolean(true);
+		this.enableChunkloader = HMConfig.get(Configuration.CATEGORY_GENERAL, "Enable Chunkloader Crafting", true).getBoolean(true);
+		this.enableWasherSourceBlockConsump = HMConfig.get(Configuration.CATEGORY_GENERAL, "Washer Physical Water Consump", true).getBoolean(true);
+		this.maxChunksLoaded = HMConfig.get("Max Chunks Loaded", Configuration.CATEGORY_GENERAL, 25).getInt(25);
 		
-		ACHprospector = HMConfig.get(Configuration.CATEGORY_GENERAL, "ACH Prospector", 1500).getInt(1500);
-		ACHtimeToCrush = HMConfig.get(Configuration.CATEGORY_GENERAL, "ACH Time To Crush", 1501).getInt(1501);
-		ACHminerkiin = HMConfig.get(Configuration.CATEGORY_GENERAL, "ACH Minerkiin", 1503).getInt(1503);
-		ACHwash = HMConfig.get(Configuration.CATEGORY_GENERAL, "ACH Wash", 1504).getInt(1504);
+		this.ACHprospector = HMConfig.get(Configuration.CATEGORY_GENERAL, "ACH Prospector", 1500).getInt(1500);
+		this.ACHtimeToCrush = HMConfig.get(Configuration.CATEGORY_GENERAL, "ACH Time To Crush", 1501).getInt(1501);
+		this.ACHminerkiin = HMConfig.get(Configuration.CATEGORY_GENERAL, "ACH Minerkiin", 1503).getInt(1503);
+		this.ACHwash = HMConfig.get(Configuration.CATEGORY_GENERAL, "ACH Wash", 1504).getInt(1504);
 		
 		if (FMLCommonHandler.instance().getSide().isServer())
 		{
-			HMConfig.addCustomCategoryComment("advanced_settings", "Advanced server OP settings, don't be a moron with them.");
-			crusherTicks = HMConfig.get("advanced_settings", "Crusher Ticks", 180).getInt(180);
-			washerTicks = HMConfig.get("advanced_settings", "Washer Ticks", 100).getInt(100);
+			this.HMConfig.addCustomCategoryComment("advanced_settings", "Advanced server OP settings, don't be a moron with them.");
+			this.crusherTicks = HMConfig.get("advanced_settings", "Crusher Ticks", 180).getInt(180);
+			this.washerTicks = HMConfig.get("advanced_settings", "Washer Ticks", 100).getInt(100);
 			
 		}
 		
-		HMConfig.save();
+		this.HMConfig.save();
 		
 	}
 	
 	public int getID(String name, String category, int defaultID, boolean unshiftID)
 	{
-		HMConfig.load();
+		this.HMConfig.load();
 		Property prop = HMConfig.get(category, name, defaultID - ((unshiftID) ? 256 : 0));
-		HMConfig.save();
+		this.HMConfig.save();
 		return prop.getInt(defaultID - ((unshiftID) ? 256 : 0));
 	}
 	
@@ -175,15 +166,14 @@ public class HMManager implements LoadingCallback, IVillageTradeHandler, ICrafti
 		
 		if (profession == 2)
 		{
+			recipeList.add(new MerchantRecipe(new ItemStack(Item.emerald), new ItemStack(HMItem.ingots, 1, 1)));
 			
 		}
 		
 		if (profession == 3)
 		{
-			recipeList.add(new MerchantRecipe(new ItemStack(HMItem.ingots, 1, 0), new ItemStack(Item.emerald, 12)));
-			recipeList.add(new MerchantRecipe(new ItemStack(HMItem.ingots, 2, 0), new ItemStack(Item.emerald, 12)));
-			
-			recipeList.add(new MerchantRecipe(new ItemStack(Item.emerald), new ItemStack(HMItem.ingots, 1, 1)));
+			recipeList.add(new MerchantRecipe(new ItemStack(HMItem.ingots, 1, 0), new ItemStack(Item.emerald, 6)));
+			recipeList.add(new MerchantRecipe(new ItemStack(HMItem.ingots, 2, 0), new ItemStack(Item.emerald, 6)));
 			
 		}
 		
