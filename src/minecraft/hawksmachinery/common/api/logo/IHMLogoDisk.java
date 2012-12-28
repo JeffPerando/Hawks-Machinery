@@ -18,11 +18,11 @@ public interface IHMLogoDisk
 	 * @param item The disk.
 	 * @return What type of disk this is.
 	 */
-	public HMDiskType getDiskType(ItemStack item);
+	public HMEnumDiskType getDiskType(ItemStack item);
 	
 	/**
 	 * 
-	 * Only called when {@link getDiskType()} returns {@link HMDiskType.PROTOCOL}.
+	 * Only called when {@link getDiskType()} returns {@link HMEnumDiskType.PROTOCOL}.
 	 * 
 	 * @param item The disk.
 	 * @return The words this disk enables access to.

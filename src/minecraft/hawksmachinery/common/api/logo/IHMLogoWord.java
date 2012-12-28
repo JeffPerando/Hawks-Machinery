@@ -40,6 +40,6 @@ public interface IHMLogoWord
 	 * @param args The arguments passed alongside the word.
 	 * @param robot The robot the word is being invoked on.
 	 */
-	public void activateWord(String[] args, EntityLiving robot);
+	public HMLogoReadError activateWord(String[] args, EntityLiving robot);
 	
 }
