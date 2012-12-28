@@ -122,7 +122,7 @@ public class HawksMachinery
 	@Init
 	public void load(FMLInitializationEvent event)
 	{
-		new HMUpdateHandler(ModConverter.getMod(getClass()));
+		new HMUpdateHandler(ModConverter.getMod(this.getClass()));
 		OreGenerator.addOre(new HMEndiumOreGen());
 		OreGenerator.addOre(new HMCobaltOreGen());
 		PROXY.registerRenderInformation();
@@ -148,14 +148,14 @@ public class HawksMachinery
 	 */
 	public void loadRecipes()
 	{
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMBlock.crusher), new Object[]{"IPI", "IEI", "ICI", 'I', "ingotCobalt", 'P', Item.pickaxeSteel, 'E', new ItemStack(HMItem.parts, 1, 6), 'C', "ingotGold"}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMBlock.crusher), new Object[]{"IPI", "IEI", "ICI", 'I', "ingotCobalt", 'P', Item.pickaxeSteel, 'E', new ItemStack(HMItem.parts, 1, 6), 'C', Item.ingotGold}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMBlock.washer), new Object[]{"iBi", "iWi", "IEI", 'i', "ingotCobalt", 'B', Item.bucketEmpty, 'I', Block.blockSteel, 'W', Block.cloth, 'E', new ItemStack(HMItem.parts, 1, 6)}));
-		GameRegistry.addRecipe(new ShapedOreRecipe(((HMItemRivetGun)HMItem.rivetGun).getUncharged(), new Object[]{"CLC", "IBI", "IPI", 'C', "ingotCobalt", 'I', "ingotIron", 'L', Block.lever, 'B', "ingotGold", 'P', Block.pistonBase}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(((HMItemRivetGun)HMItem.rivetGun).getUncharged(), new Object[]{"CLC", "IBI", "IPI", 'C', "ingotCobalt", 'I', Item.ingotIron, 'L', Block.lever, 'B', Item.ingotGold, 'P', Block.pistonBase}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMBlock.fisher), new Object[]{"CEC", "CFC", "CHC", 'C', "ingotCobalt", 'E', new ItemStack(HMItem.parts, 1, 6), 'F', Item.fishingRod, 'H', Block.chest}));
 		
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(HMBlock.crusher), new Object[]{"ingotCobalt", "ingotCobalt", Item.pickaxeSteel, new ItemStack(HMItem.blueprints), new ItemStack(HMItem.parts, 1, 6)}));
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(HMBlock.washer), new Object[]{"ingotIron", "ingotIron", "ingotIron", "ingotIron", Item.bucketEmpty, new ItemStack(HMItem.blueprints, 1, 1), Block.cloth, new ItemStack(HMItem.parts, 1, 6)}));
-		GameRegistry.addRecipe(new ShapelessOreRecipe(((HMItemRivetGun)HMItem.rivetGun).getUncharged(), new Object[]{"ingotCobalt", "ingotIron", Block.lever, new ItemStack(HMItem.plating, 1, 1), Item.goldNugget, new ItemStack(HMItem.blueprints, 1, 8), Block.pistonBase}));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(HMBlock.washer), new Object[]{Item.ingotIron, Item.ingotIron, Item.ingotIron, Item.ingotIron, Item.bucketEmpty, new ItemStack(HMItem.blueprints, 1, 1), Block.cloth, new ItemStack(HMItem.parts, 1, 6)}));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(((HMItemRivetGun)HMItem.rivetGun).getUncharged(), new Object[]{"ingotCobalt", Item.ingotIron, Block.lever, new ItemStack(HMItem.plating, 1, 1), Item.goldNugget, new ItemStack(HMItem.blueprints, 1, 8), Block.pistonBase}));
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(HMBlock.fisher), new Object[]{"ingotCobalt", "ingotCobalt", new ItemStack(HMItem.blueprints, 1, 3), Block.chest, Item.fishingRod, new ItemStack(HMItem.parts, 1, 6)}));
 		
 		if (this.MANAGER.enableChunkloader)
@@ -174,7 +174,7 @@ public class HawksMachinery
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMItem.parts, 1, 3), new Object[]{" G ", "GBG", "CCC", 'G', Block.thinGlass, 'B', Item.blazeRod, 'C', Item.goldNugget}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMItem.parts, 1, 4), new Object[]{"CC", "CC", 'C', Block.fenceIron}));
 		GameRegistry.addRecipe(new ItemStack(HMItem.parts, 1, 5), new Object[]{"ici", 'i', Item.ingotIron, 'c', new ItemStack(HMItem.parts, 1, 4)});
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMItem.parts, 1, 6), new Object[]{"OOS", "BPb", "OOS", 'O', Block.obsidian, 'S', "ingotCobalt", 'B', Item.blazePowder, 'P', new ItemStack(HMItem.parts), 'b', "ingotGold"}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMItem.parts, 1, 6), new Object[]{"OOS", "BPb", "OOS", 'O', Block.obsidian, 'S', "ingotCobalt", 'B', Item.blazePowder, 'P', new ItemStack(HMItem.parts), 'b', Item.ingotGold}));
 		
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMItem.rivets, 8, 0), new Object[]{"CCC", " C ", " B ", 'C', "ingotCopper", 'B', Item.blazeRod}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMItem.rivets, 8, 1), new Object[]{"BBB", " B ", " b ", 'B', "ingotBronze", 'b', Item.blazeRod}));

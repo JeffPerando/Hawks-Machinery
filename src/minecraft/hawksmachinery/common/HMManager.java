@@ -199,6 +199,7 @@ public class HMManager implements LoadingCallback, IVillageTradeHandler, ICrafti
 	@ForgeSubscribe
 	public void LivingUpdateEvent(LivingEvent event)
 	{
+		/*
 		if (event.entityLiving instanceof EntityPlayerMP)
 		{
 			if (((EntityPlayerMP)event.entityLiving).worldObj.getTotalWorldTime() % 40L == 0L)
@@ -232,7 +233,7 @@ public class HMManager implements LoadingCallback, IVillageTradeHandler, ICrafti
 			}
 			
 		}
-		
+		*/
 	}
 	
 }

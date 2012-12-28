@@ -1,0 +1,32 @@
+
+package hawksmachinery.common.api.logo;
+
+import net.minecraft.item.ItemStack;
+
+/**
+ * 
+ * Implement this if you would like your item to function as a disk.
+ * 
+ * @author Elusivehawk
+ */
+public interface IHMLogoDisk
+{
+	/**
+	 * 
+	 * Tells the caller what kind of disk this is.
+	 * 
+	 * @param item The disk.
+	 * @return What type of disk this is.
+	 */
+	public HMDiskType getDiskType(ItemStack item);
+	
+	/**
+	 * 
+	 * Only called when {@link getDiskType()} returns {@link HMDiskType.PROTOCOL}.
+	 * 
+	 * @param item The disk.
+	 * @return The words this disk enables access to.
+	 */
+	public IHMLogoWord[] getWords(ItemStack item);
+	
+}
