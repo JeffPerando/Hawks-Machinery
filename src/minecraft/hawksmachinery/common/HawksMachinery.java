@@ -193,9 +193,6 @@ public class HawksMachinery
 		GameRegistry.addShapelessRecipe(new ItemStack(HMItem.ingots, 9, 0), new ItemStack(HMBlock.metalBlock, 1, 0));
 		GameRegistry.addShapelessRecipe(new ItemStack(HMItem.ingots, 9, 1), new ItemStack(HMBlock.metalBlock, 1, 1));
 		
-		//TODO Temporary until the Star Forge is done.
-		//GameRegistry.addShapelessRecipe(new ItemStack(HMItem.ingots, 1, 0), new ItemStack(HMItem.dustRefined, 1, 8), new ItemStack(HMItem.dustRefined, 1, 9), new ItemStack(HMItem.dustRefined));
-		
 		GameRegistry.addShapelessRecipe(new ItemStack(Item.fireballCharge, 3), new Object[]{Item.blazePowder, Item.gunpowder, new ItemStack(HMItem.dustRaw, 1, 0)});
 		GameRegistry.addShapelessRecipe(new ItemStack(HMItem.fishFood, 4), new Object[]{Item.bread, Item.rottenFlesh});
 		

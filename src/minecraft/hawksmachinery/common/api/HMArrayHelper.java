@@ -6,7 +6,7 @@ import java.util.ArrayList;
 /**
  * 
  * Helps convert {@link ArrayList} to {@link Object}[], and vice versa.<br><br>
- * I also included a neat method or two for removing a certain class from a list.
+ * I also included a neat method or two for removing all of a certain class from a list.
  * 
  * @author Elusivehawk
  */
@@ -44,8 +44,13 @@ public class HMArrayHelper
 		
 		return brackets;
 	}
-	
+
 	public ArrayList removeObjsFromList(ArrayList list, Class toRemove)
+	{
+		return this.removeObjsFromList(list, toRemove, true);
+	}
+	
+	public ArrayList removeObjsFromList(ArrayList list, Class toRemove, boolean keepNulls)
 	{
 		ArrayList list2 = (ArrayList)list.clone();
 		
@@ -53,9 +58,10 @@ public class HMArrayHelper
 		{
 			if (list2.get(counter) != null)
 			{
-				if (!(list2.get(counter).getClass().equals(toRemove))) list.remove(counter);
+				if (!(list2.get(counter).getClass().equals(toRemove))) list2.remove(counter);
 				
 			}
+			else if (!keepNulls) list2.remove(counter);
 			
 		}
 		
@@ -64,7 +70,12 @@ public class HMArrayHelper
 	
 	public Object[] removeObjsFromBrackets(Object[] brackets, Class toRemove)
 	{
-		return this.convertArrayToBrackets(this.removeObjsFromList(this.convertBracketsToArray(brackets.clone()), toRemove));
+		return this.removeObjsFromBrackets(brackets, toRemove, true);
+	}
+	
+	public Object[] removeObjsFromBrackets(Object[] brackets, Class toRemove, boolean keepNulls)
+	{
+		return this.convertArrayToBrackets(this.removeObjsFromList(this.convertBracketsToArray(brackets.clone()), toRemove, keepNulls));
 	}
 	
 	public static HMArrayHelper instance()
