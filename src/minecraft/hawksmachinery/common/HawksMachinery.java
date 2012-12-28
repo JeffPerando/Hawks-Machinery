@@ -4,29 +4,8 @@ package hawksmachinery.common;
 import hawksmachinery.common.api.HMContent;
 import hawksmachinery.common.api.HMRecipes;
 import hawksmachinery.common.api.HMRecipes.HMEnumProcessing;
-import hawksmachinery.common.block.HMBlock;
-import hawksmachinery.common.block.HMBlockCrusher;
-import hawksmachinery.common.block.HMBlockEndiumChunkloader;
-import hawksmachinery.common.block.HMBlockEndiumTeleporter;
-import hawksmachinery.common.block.HMBlockFisher;
-import hawksmachinery.common.block.HMBlockMetalStorage;
-import hawksmachinery.common.block.HMBlockMulti;
-import hawksmachinery.common.block.HMBlockOre;
-import hawksmachinery.common.block.HMBlockSinterer;
-import hawksmachinery.common.block.HMBlockStarForge;
-import hawksmachinery.common.block.HMBlockWasher;
-import hawksmachinery.common.item.HMItem;
-import hawksmachinery.common.item.HMItemBlueprints;
-import hawksmachinery.common.item.HMItemIngots;
-import hawksmachinery.common.item.HMItemMeter;
-import hawksmachinery.common.item.HMItemNanite;
-import hawksmachinery.common.item.HMItemParts;
-import hawksmachinery.common.item.HMItemPlating;
-import hawksmachinery.common.item.HMItemRawDust;
-import hawksmachinery.common.item.HMItemRefinedDust;
-import hawksmachinery.common.item.HMItemRivetGun;
-import hawksmachinery.common.item.HMItemRivets;
-import hawksmachinery.common.item.HMItemWolfTamer;
+import hawksmachinery.common.block.*;
+import hawksmachinery.common.item.*;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -71,7 +50,7 @@ import cpw.mods.fml.common.registry.VillagerRegistry;
 @NetworkMod(channels = {"HawksMachinery"}, clientSideRequired = true, serverSideRequired = false, connectionHandler = ConnectionHandler.class, packetHandler = PacketManager.class)
 public class HawksMachinery
 {
-	public static final String VERSION = "Beta v1.0.0 Prerelease 2";
+	public static final String VERSION = "Beta v1.0.0 Prerelease 4";
 	
 	@Instance("HawksMachinery")
 	private static HawksMachinery INSTANCE;

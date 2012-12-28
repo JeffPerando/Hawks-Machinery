@@ -1,6 +1,8 @@
 
 package hawksmachinery.common.tileentity;
 
+import hawksmachinery.common.HMInventoryCrafting;
+import hawksmachinery.common.api.HMRecipes;
 import hawksmachinery.common.block.HMBlock;
 import hawksmachinery.common.block.HMBlockStarForge;
 import net.minecraft.block.Block;
@@ -23,6 +25,7 @@ public class HMTileEntityStarForge extends HMTileEntityMachine implements IMulti
 	 * The item this Star Forge is going to spit out.
 	 */
 	public ItemStack output;
+	public HMInventoryCrafting matrix = new HMInventoryCrafting("Star Forge", 3, 3, this);
 	
 	/**
 	 * Used internally to make sure the block drops properly.
@@ -79,6 +82,7 @@ public class HMTileEntityStarForge extends HMTileEntityMachine implements IMulti
 	
 	public boolean canWork()
 	{
+		this.output = HMRecipes.getForgeResult(this.matrix, this.worldObj);
 		return this.output != null && (this.electricityStored >= (this.ELECTRICITY_REQUIRED * 2) && !this.isDisabled()) && (this.containingItems[9] == null || (this.output.isItemEqual(this.containingItems[9]) && this.output.stackSize + this.containingItems[9].stackSize <= this.output.getMaxStackSize()));
 	}
 	

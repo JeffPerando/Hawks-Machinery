@@ -4,7 +4,6 @@ package hawksmachinery.common.block;
 import hawksmachinery.common.HawksMachinery;
 import hawksmachinery.common.tileentity.HMTileEntityEndiumChunkloader;
 import java.util.Random;
-import portalgun.api.Api;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;
@@ -32,7 +31,6 @@ public class HMBlockEndiumChunkloader extends BlockContainer
 		setTextureFile(BASEMOD.BLOCK_TEXTURE_FILE);
 		setBlockName("HMEndiumChunkloader");
 		setCreativeTab(UETab.INSTANCE);
-		Api.addBlockIDToGrabList(this.blockID);
 		
 	}
 	

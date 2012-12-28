@@ -3,7 +3,6 @@ package hawksmachinery.common;
 
 import hawksmachinery.common.api.HMRecipes;
 import hawksmachinery.common.tileentity.HMTileEntityStarForge;
-import net.minecraft.inventory.Container;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 
@@ -19,9 +18,9 @@ public class HMInventoryCrafting extends InventoryCrafting
 	public final int inventoryHeight;
 	public final HMTileEntityStarForge tileEntity;
 	
-	public HMInventoryCrafting(String name, Container container, int width, int height, HMTileEntityStarForge tileEntity)
+	public HMInventoryCrafting(String name, int width, int height, HMTileEntityStarForge tileEntity)
 	{
-		super(container, width, height);
+		super(null, width, height);
 		this.name = name;
 		inventoryHeight = height;
 		this.tileEntity = tileEntity;
