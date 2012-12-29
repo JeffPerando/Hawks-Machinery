@@ -1,8 +1,9 @@
 
 package hawksmachinery.common.api.logo;
 
+import hawksmachinery.common.HMEntityRobot;
+import hawksmachinery.common.api.HMArrayHelper;
 import java.util.ArrayList;
-import net.minecraft.entity.EntityLiving;
 
 /**
  * 
@@ -14,200 +15,167 @@ public class HMLogoCore
 {
 	private static HMLogoCore INSTANCE = new HMLogoCore();
 	
-	public HMLogoReadError runProgram(String[] code, EntityLiving robot)
+	public HMLogoReadError runProgram(String[] program, HMEntityRobot robot)
 	{
-		for (String line : code)
-		{
-			HMLogoReadError potenError = this.processLOGO(line, robot);
-			
-			if (potenError.getErrorMessage() != null)
-			{
-				return potenError;
-			}
-			
-		}
-		
-		return HMLogoReadError.FINE;
-	}
-	
-	public HMLogoReadError processLOGO(String code, EntityLiving robot)
-	{
-		//The code, split up into individual, easy-to-for-loop pieces.
-		String[] words = code.split(" ");
-		
 		//The accepted words, ready to be invoked.
 		ArrayList<String> processedWords = new ArrayList<String>();
 		ArrayList<String[]> args = new ArrayList<String[]>();
 		ArrayList<HMLogoSubroutine> subroutines = new ArrayList<HMLogoSubroutine>();
 		
-		//The current word being examined.
-		IHMLogoWord currentWord = null;
-		
 		//The current subroutine being worked on.
 		HMLogoSubroutine currentSub = null;
 		
 		//Nesting stuff.
-		ArrayList<Boolean> nested = new ArrayList<Boolean>();
-		int lastNest = 0;
+		int nestingLayer = 0;
+		String nestedArg = null;
 		
-		for (int counter = 0; counter < words.length; ++counter)
+		for (String line : program)
 		{
-			String word = words[counter];
+			//The code, split up into individual, easy-to-for-loop pieces.
+			ArrayList<String> words = HMArrayHelper.instance().convertBracketsToArray(line.split(" "));
 			
-			if (word.equals(";")) break;
+			//The current word being examined.
+			IHMLogoWord currentWord = null;
 			
-			if (word.equals("["))
+			for (int counter = 0; counter < words.size(); ++counter)
 			{
-				boolean properNesting = false;
+				ArrayList<String> argList = new ArrayList<String>();
+				
+				String word = words.get(counter).toLowerCase().replace("	", " ");
+				
+				if (word.equals(";")) break;
+				
+				if (nestingLayer > 0)
+				{
+					nestedArg += " " + word + " ";
+					continue;
+					
+				}
 				
 				if (currentWord != null)
 				{
-					if (currentWord.supportsNesting())
+					if (word.equals("["))
 					{
-						nested.add(true);
-						properNesting = true;
+						if (currentWord.supportsNesting())
+						{
+							++nestingLayer;
+							nestedArg += " " + word + " ";
+							continue;
+							
+						}
+						else
+						{
+							return HMLogoReadError.IMPROPER_NEST;
+						}
+						
+					}
+					
+					if (word.equals("]"))
+					{
+						if (currentWord.supportsNesting() && nestingLayer > 0)
+						{
+							--nestingLayer;
+							nestedArg += " " + word + " ";
+							continue;
+							
+						}
+						else
+						{
+							return HMLogoReadError.IMPROPER_NEST;
+						}
+						
+					}
+					
+					if (currentWord.supportsNesting() && nestingLayer == 0 && nestedArg != null)
+					{
+						processedWords.add(word);
+						continue;
 						
 					}
 					
 				}
 				
-				if (!properNesting) return HMLogoReadError.IMPROPER_NEST;
+				if (word.equals("to"))
+				{
+					if (currentSub == null && words.size() > counter + 1)
+					{
+						currentSub = new HMLogoSubroutine(words.get(counter + 1));
+						continue;
+						
+					}
+					else
+					{
+						return HMLogoReadError.INVALID_SYNTAX;
+					}
+					
+				}
 				
-			}
-			
-			if (word.equals("]"))
-			{
-				boolean properNesting = false;
+				if (word.equals("end"))
+				{
+					if (currentSub != null)
+					{
+						subroutines.add(currentSub);
+						currentSub = null;
+						continue;
+						
+					}
+					else
+					{
+						return HMLogoReadError.INVALID_SYNTAX;
+					}
+					
+				}
+				
+				currentWord = HMLogoWordRegistry.instance().getHandlerForWord(word);
 				
 				if (currentWord != null)
 				{
-					if (currentWord.supportsNesting())
+					if (currentWord.argCount() > 0)
 					{
-						boolean successfulNest = false;
-						
-						if (nested.size() > 0)
+						for (int counter2 = counter + 1; counter2 < currentWord.argCount() + counter + 1; ++counter2)
 						{
-							if (nested.get(nested.size() - 1))
+							if (words.size() > counter2)
 							{
-								nested.remove(nested.size() - 1);
-								if (nested.size() == 0) lastNest = counter;
-								successfulNest = true;
-								properNesting = true;
+								if (currentWord.isValidArgument(words.get(counter2)) && !words.get(counter2).equals(";"))
+								{
+									argList.add(words.get(counter2));
+									
+								}
+								else if (!words.get(counter2).equals(";"))
+								{
+									return HMLogoReadError.INVALID_ARGS;
+								}
 								
+							}
+							else
+							{
+								return HMLogoReadError.INVALID_ARGS;
 							}
 							
 						}
 						
-						if (!successfulNest) return HMLogoReadError.UNFINISHED_NEST;
+						if (currentSub != null)
+						{
+							currentSub.args.add((String[])HMArrayHelper.instance().convertArrayToBrackets(argList));
+							currentSub.words.add(word);
+							continue;
+							
+						}
+						else
+						{
+							args.add((String[])HMArrayHelper.instance().convertArrayToBrackets(argList));
+							
+						}
+						
+					}
+					else
+					{
+						args.add(null);
 						
 					}
 					
-				}
-				
-				if (!properNesting) return HMLogoReadError.IMPROPER_NEST;
-				
-			}
-			
-			if (word.equals("TO") && counter < (words.length - 1))
-			{
-				if (!words[counter + 1].equals(";"))
-				{
-					currentSub = new HMLogoSubroutine(words[counter + 1]);
+					processedWords.add(word);
 					continue;
-					
-				}
-				else
-				{
-					return HMLogoReadError.INVALID_ARGS;
-				}
-				
-			}
-			
-			if (word.equals("END") && currentSub != null)
-			{
-				subroutines.add(currentSub);
-				currentSub = null;
-				
-			}
-			
-			currentWord = HMLogoWordRegistry.instance().getHandlerForWord(word);
-			
-			if (currentWord != null)
-			{
-				if (currentWord.supportsNesting())
-				{
-					if (lastNest == 0)
-					{
-						return HMLogoReadError.MISSING_NEST;
-					}
-					else
-					{
-						String[] arguments = new String[lastNest - counter];
-						
-						for (int counter2 = counter + 1; counter2 < lastNest; ++counter2)
-						{
-							arguments[counter2] = words[counter];
-							
-						}
-						
-						if (currentSub != null)
-						{
-							currentSub.words.add(word);
-							currentSub.args.add(arguments);
-							
-						}
-						else
-						{
-							processedWords.add(word);
-							args.add(arguments);
-							
-						}
-						
-					}
-					
-				}
-				else
-				{
-					if (words.length != 1 && counter != words.length && !words[counter + 1].equals(";"))
-					{
-						if (currentSub != null)
-						{
-							currentSub.words.add(word);
-							currentSub.args.add(new String[]{words[counter + 1]});
-							
-						}
-						else
-						{
-							processedWords.add(word);
-							args.add(new String[]{words[counter + 1]});
-							
-						}
-						
-					}
-					else
-					{
-						return HMLogoReadError.MISSING_ARGS;
-					}
-					
-				}
-				
-			}
-			else
-			{
-				if (subroutines.size() > 0)
-				{
-					for (int counter2 = 0; counter2 < subroutines.size(); ++counter2)
-					{
-						HMLogoSubroutine sub = subroutines.get(counter2);
-						
-						if (sub.name == word)
-						{
-							processedWords.add(sub.name);
-							break;
-							
-						}
-						
-					}
 					
 				}
 				

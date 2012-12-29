@@ -1,7 +1,7 @@
 
 package hawksmachinery.common.api.logo;
 
-import net.minecraft.entity.EntityLiving;
+import hawksmachinery.common.HMEntityRobot;
 
 /**
  * 
@@ -35,11 +35,26 @@ public interface IHMLogoWord
 	
 	/**
 	 * 
+	 * @return The number of arguments needed by this word.
+	 */
+	public int argCount();
+	
+	/**
+	 * 
+	 * Notice: Not called if {@link argCount()} returns 0.
+	 * 
+	 * @param arg The argument in question.
+	 * @return Whether or not arg is valid.
+	 */
+	public boolean isValidArgument(String arg);
+	
+	/**
+	 * 
 	 * Invoked when the return value of {@link getWord()} is used.
 	 * 
 	 * @param args The arguments passed alongside the word.
 	 * @param robot The robot the word is being invoked on.
 	 */
-	public HMLogoReadError activateWord(String[] args, EntityLiving robot);
+	public HMLogoReadError activateWord(String[] args, HMEntityRobot robot);
 	
 }

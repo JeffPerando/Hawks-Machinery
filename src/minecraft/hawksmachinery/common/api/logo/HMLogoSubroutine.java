@@ -1,8 +1,8 @@
 
 package hawksmachinery.common.api.logo;
 
+import hawksmachinery.common.HMEntityRobot;
 import java.util.ArrayList;
-import net.minecraft.entity.EntityLiving;
 
 /**
  * 
@@ -22,7 +22,7 @@ public class HMLogoSubroutine
 		
 	}
 	
-	public HMLogoReadError invoke(EntityLiving robot)
+	public HMLogoReadError invoke(HMEntityRobot robot)
 	{
 		return HMLogoReadError.FINE;
 	}
