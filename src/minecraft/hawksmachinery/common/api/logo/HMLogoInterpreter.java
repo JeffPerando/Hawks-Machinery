@@ -49,7 +49,7 @@ public class HMLogoInterpreter
 				
 				for (int counter = 0; counter < words.size(); ++counter)
 				{
-					ArrayList<String> argListNested = new ArrayList<String>();
+					ArrayList<String> argListTemp = new ArrayList<String>();
 					
 					String word = words.get(counter).toLowerCase().replace("	", "");
 					
@@ -143,7 +143,7 @@ public class HMLogoInterpreter
 								{
 									if (currentWord.isValidArgument(words.get(counter2)) && !words.get(counter2).equals(";"))
 									{
-										argListNested.add(words.get(counter2));
+										argListTemp.add(words.get(counter2));
 										
 									}
 									else if (!words.get(counter2).equals(";"))
@@ -161,28 +161,22 @@ public class HMLogoInterpreter
 							
 							if (currentWord.supportsNesting() && nestingLayer == 0 && nestedArg != null)
 							{
-								String[] newNestedArgs = nestedArg.split(" ");
-								
-								for (String newTwine : newNestedArgs)
-								{
-									argListNested.add(newTwine);
-									processedWords.add(word);
-									continue;
-									
-								}
+								args.add(nestedArg.split(" "));
+								processedWords.add(word);
+								continue;
 								
 							}
 							
 							if (currentSub != null)
 							{
-								currentSub.args.add((String[])HMArrayHelper.instance().convertArrayToBrackets(argListNested));
+								currentSub.args.add((String[])HMArrayHelper.instance().convertArrayToBrackets(argListTemp));
 								currentSub.words.add(word);
 								continue;
 								
 							}
 							else
 							{
-								args.add((String[])HMArrayHelper.instance().convertArrayToBrackets(argListNested));
+								args.add((String[])HMArrayHelper.instance().convertArrayToBrackets(argListTemp));
 								
 							}
 							
