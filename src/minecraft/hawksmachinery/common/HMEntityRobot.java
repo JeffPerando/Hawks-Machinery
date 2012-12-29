@@ -3,6 +3,7 @@ package hawksmachinery.common;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import hawksmachinery.common.api.logo.IHMLogoInterpreter;
 import hawksmachinery.common.api.logo.IHMLogoWord;
 import hawksmachinery.common.api.logo.IHMRobot;
 import hawksmachinery.common.logo.HMLogoInterpreter;
@@ -20,7 +21,7 @@ public class HMEntityRobot extends EntityLiving implements IHMRobot
 {
 	private HMLogoWordDictionary dictionary = new HMLogoWordDictionary();
 	private HashMap<String, Integer> integers = new HashMap<String, Integer>();
-	private HMLogoInterpreter interpreter = new HMLogoInterpreter(this);
+	private IHMLogoInterpreter interpreter = new HMLogoInterpreter(this);
 	
 	public HMEntityRobot(World world)
 	{
@@ -44,6 +45,19 @@ public class HMEntityRobot extends EntityLiving implements IHMRobot
 	public IHMLogoWord getHandlerForWord(String word)
 	{
 		return this.dictionary.getHandlerForWord(word);
+	}
+	
+	@Override
+	public IHMLogoInterpreter getInterpreter()
+	{
+		return this.interpreter;
+	}
+	
+	@Override
+	public void setInterpreter(IHMLogoInterpreter interpreter)
+	{
+		this.interpreter = interpreter;
+		
 	}
 	
 	@Override

@@ -5,6 +5,7 @@ import hawksmachinery.common.HMEntityRobot;
 import hawksmachinery.common.api.HMArrayHelper;
 import hawksmachinery.common.api.logo.HMEnumErrorType;
 import hawksmachinery.common.api.logo.HMLogoError;
+import hawksmachinery.common.api.logo.IHMLogoInterpreter;
 import hawksmachinery.common.api.logo.IHMLogoWord;
 import hawksmachinery.common.api.logo.IHMRobot;
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ import java.util.HashMap;
  * 
  * @author Elusivehawk
  */
-public class HMLogoInterpreter
+public class HMLogoInterpreter implements IHMLogoInterpreter
 {
 	private IHMRobot robot;
 	
@@ -26,6 +27,7 @@ public class HMLogoInterpreter
 		
 	}
 	
+	@Override
 	public HMLogoError runProgram(String[] program)
 	{
 		//The accepted words, ready to be invoked.
