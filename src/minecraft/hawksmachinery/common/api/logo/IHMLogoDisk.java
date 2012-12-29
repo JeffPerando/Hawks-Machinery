@@ -1,6 +1,7 @@
 
 package hawksmachinery.common.api.logo;
 
+import java.util.ArrayList;
 import net.minecraft.item.ItemStack;
 
 /**
@@ -27,6 +28,6 @@ public interface IHMLogoDisk
 	 * @param item The disk.
 	 * @return The words this disk enables access to.
 	 */
-	public IHMLogoWord[] getWords(ItemStack item);
+	public ArrayList<IHMLogoWord> getWords(ItemStack item);
 	
 }

@@ -22,9 +22,9 @@ public class HMLogoSubroutine
 		
 	}
 	
-	public HMLogoReadError invoke(HMEntityRobot robot)
+	public HMLogoError invoke(IHMRobot robot)
 	{
-		return HMLogoReadError.FINE;
+		return null;//TODO
 	}
 	
 }

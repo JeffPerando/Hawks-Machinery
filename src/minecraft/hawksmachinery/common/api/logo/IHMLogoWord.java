@@ -55,6 +55,6 @@ public interface IHMLogoWord
 	 * @param args The arguments passed alongside the word.
 	 * @param robot The robot the word is being invoked on.
 	 */
-	public HMLogoReadError activateWord(String[] args, HMEntityRobot robot);
+	public HMLogoError activateWord(String[] args, IHMRobot robot);
 	
 }
