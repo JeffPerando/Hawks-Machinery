@@ -37,6 +37,9 @@ public class HMLogoInterpreter
 		int nestingLayer = 0;
 		String nestedArg = null;
 		
+		//The current word being examined.
+		IHMLogoWord currentWord = null;
+		
 		for (String line : program)
 		{
 			if (!line.equals(""))
@@ -44,12 +47,9 @@ public class HMLogoInterpreter
 				//The code, split up into individual, easy-to-for-loop pieces.
 				ArrayList<String> words = HMArrayHelper.instance().convertBracketsToArray(line.split(" "));
 				
-				//The current word being examined.
-				IHMLogoWord currentWord = null;
-				
 				for (int counter = 0; counter < words.size(); ++counter)
 				{
-					ArrayList<String> argList = new ArrayList<String>();
+					ArrayList<String> argListNested = new ArrayList<String>();
 					
 					String word = words.get(counter).toLowerCase().replace("	", "");
 					
@@ -75,7 +75,7 @@ public class HMLogoInterpreter
 						
 						if (word.equals("]"))
 						{
-							if (currentWord.supportsNesting() && nestingLayer > 0)
+							if (nestingLayer > 0)
 							{
 								--nestingLayer;
 								nestedArg += " " + word + " ";
@@ -92,13 +92,6 @@ public class HMLogoInterpreter
 						if (nestingLayer > 0)
 						{
 							nestedArg += " " + word + " ";
-							continue;
-							
-						}
-						
-						if (currentWord.supportsNesting() && nestingLayer == 0 && nestedArg != null)
-						{
-							processedWords.add(word);
 							continue;
 							
 						}
@@ -136,7 +129,9 @@ public class HMLogoInterpreter
 						
 					}
 					
-					currentWord = HMLogoWordRegistry.instance().getHandlerForWord(word);
+					if (counter == (words.size() - 1) && currentSub != null) return new HMLogoError(HMEnumErrorType.INVALID_SYNTAX, currentSub.name, null);
+					
+					currentWord = this.robot.getHandlerForWord(word);
 					
 					if (currentWord != null)
 					{
@@ -148,7 +143,7 @@ public class HMLogoInterpreter
 								{
 									if (currentWord.isValidArgument(words.get(counter2)) && !words.get(counter2).equals(";"))
 									{
-										argList.add(words.get(counter2));
+										argListNested.add(words.get(counter2));
 										
 									}
 									else if (!words.get(counter2).equals(";"))
@@ -164,13 +159,15 @@ public class HMLogoInterpreter
 								
 							}
 							
-							if (currentWord.supportsNesting())
+							if (currentWord.supportsNesting() && nestingLayer == 0 && nestedArg != null)
 							{
 								String[] newNestedArgs = nestedArg.split(" ");
 								
 								for (String newTwine : newNestedArgs)
 								{
-									argList.add(newTwine);
+									argListNested.add(newTwine);
+									processedWords.add(word);
+									continue;
 									
 								}
 								
@@ -178,14 +175,14 @@ public class HMLogoInterpreter
 							
 							if (currentSub != null)
 							{
-								currentSub.args.add((String[])HMArrayHelper.instance().convertArrayToBrackets(argList));
+								currentSub.args.add((String[])HMArrayHelper.instance().convertArrayToBrackets(argListNested));
 								currentSub.words.add(word);
 								continue;
 								
 							}
 							else
 							{
-								args.add((String[])HMArrayHelper.instance().convertArrayToBrackets(argList));
+								args.add((String[])HMArrayHelper.instance().convertArrayToBrackets(argListNested));
 								
 							}
 							
@@ -210,7 +207,7 @@ public class HMLogoInterpreter
 				for (int counter = 0; counter < processedWords.size(); ++counter)
 				{
 					HMLogoError error = null;
-					IHMLogoWord wordHandler = HMLogoWordRegistry.instance().getHandlerForWord(processedWords.get(counter));
+					IHMLogoWord wordHandler = this.robot.getHandlerForWord(processedWords.get(counter));
 					
 					if (wordHandler != null)
 					{

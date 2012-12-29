@@ -3,7 +3,8 @@ package hawksmachinery.common;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import hawksmachinery.common.api.logo.HMLogoWordRegistry;
+import hawksmachinery.common.api.logo.HMLogoInterpreter;
+import hawksmachinery.common.api.logo.HMLogoWordDictionary;
 import hawksmachinery.common.api.logo.IHMLogoWord;
 import hawksmachinery.common.api.logo.IHMRobot;
 import net.minecraft.entity.EntityLiving;
@@ -17,8 +18,9 @@ import net.minecraft.world.World;
  */
 public class HMEntityRobot extends EntityLiving implements IHMRobot
 {
-	private HMLogoWordRegistry dictionary = new HMLogoWordRegistry();
+	private HMLogoWordDictionary dictionary = new HMLogoWordDictionary();
 	private HashMap<String, Integer> integers = new HashMap<String, Integer>();
+	private HMLogoInterpreter interpreter = new HMLogoInterpreter(this);
 	
 	public HMEntityRobot(World world)
 	{
