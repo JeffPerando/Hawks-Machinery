@@ -1,6 +1,7 @@
 
-package hawksmachinery.common.api.logo;
+package hawksmachinery.common.logo;
 
+import hawksmachinery.common.api.logo.IHMLogoWord;
 import java.util.HashMap;
 
 /**

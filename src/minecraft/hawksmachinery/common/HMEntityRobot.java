@@ -3,10 +3,10 @@ package hawksmachinery.common;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import hawksmachinery.common.api.logo.HMLogoInterpreter;
-import hawksmachinery.common.api.logo.HMLogoWordDictionary;
 import hawksmachinery.common.api.logo.IHMLogoWord;
 import hawksmachinery.common.api.logo.IHMRobot;
+import hawksmachinery.common.logo.HMLogoInterpreter;
+import hawksmachinery.common.logo.HMLogoWordDictionary;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.world.World;
 
