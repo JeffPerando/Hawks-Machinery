@@ -63,7 +63,7 @@ public class HMLogoInterpreter implements IHMLogoInterpreter
 					
 					if (currentWord != null)
 					{
-						for (char letter : word.toCharArray())
+						for (Character letter : word.toCharArray())
 						{
 							if (word.equals("["))
 							{

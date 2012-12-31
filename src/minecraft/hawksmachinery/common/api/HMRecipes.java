@@ -67,7 +67,7 @@ public class HMRecipes
 	 * @param output The output.
 	 * @param processType What type of processing this recipe is for.
 	 */
-	public static void addHMProcessingRecipe(ItemStack input, ItemStack output, HMEnumProcessing processType)
+	public static void addProcessingRecipe(ItemStack input, ItemStack output, HMEnumProcessing processType)
 	{
 		processType.recipeList().put(Arrays.asList(input.getItem(), input.isItemStackDamageable() ? 0 : input.getItemDamage(), input.isItemEnchanted(), input.stackTagCompound != null), output);
 		quantityMapping.put(Arrays.asList(input.getItem(), input.getItemDamage(), processType), (Integer)input.stackSize);
@@ -82,20 +82,20 @@ public class HMRecipes
 	 * @param output
 	 * @param processingType
 	 */
-	public static void addHMFoDProcessingRecipe(String input, ItemStack output, HMEnumProcessing processType)
+	public static void addFoDProcessingRecipe(String input, ItemStack output, HMEnumProcessing processType)
 	{
 		for (ItemStack ore : OreDictionary.getOres(input))
 		{
 			if (ore != null)
 			{
-				addHMProcessingRecipe(ore, output, processType);
+				addProcessingRecipe(ore, output, processType);
 			}
 			
 		}
 		
 	}
 	
-	public static void addHMWashingSecondary(ItemStack input, Object output, boolean isCommon)
+	public static void addWashingSecondary(ItemStack input, Object output, boolean isCommon)
 	{
 		if (isCommon)
 		{
@@ -116,7 +116,7 @@ public class HMRecipes
 	 * 
 	 * @param recipe The recipe.
 	 */
-	public static void addHMForgeRecipe(IRecipe recipe)
+	public static void addForgeRecipe(IRecipe recipe)
 	{
 		forgeRecipes.add(recipe);
 		

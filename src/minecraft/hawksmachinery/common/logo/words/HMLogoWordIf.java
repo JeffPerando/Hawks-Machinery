@@ -40,7 +40,7 @@ public class HMLogoWordIf implements IHMLogoWord
 	@Override
 	public boolean isValidArgument(String arg)
 	{
-		return true;
+		return Integer.valueOf(arg) > 0;
 	}
 	
 	@Override
