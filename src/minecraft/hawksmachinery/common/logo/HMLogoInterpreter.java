@@ -4,6 +4,7 @@ package hawksmachinery.common.logo;
 import hawksmachinery.common.HMEntityRobot;
 import hawksmachinery.common.api.HMArrayHelper;
 import hawksmachinery.common.api.logo.HMEnumErrorType;
+import hawksmachinery.common.api.logo.HMEnumCharType;
 import hawksmachinery.common.api.logo.HMLogoError;
 import hawksmachinery.common.api.logo.IHMLogoInterpreter;
 import hawksmachinery.common.api.logo.IHMLogoWord;
@@ -28,7 +29,7 @@ public class HMLogoInterpreter implements IHMLogoInterpreter
 	}
 	
 	@Override
-	public HMLogoError runProgram(String[] program)
+	public HMLogoError runProgram(String[] program, boolean saveTemps)
 	{
 		//The accepted words, ready to be invoked.
 		ArrayList<String> processedWords = new ArrayList<String>();
@@ -247,6 +248,21 @@ public class HMLogoInterpreter implements IHMLogoInterpreter
 		}
 		
 		return null;
+	}
+	
+	private HMEnumCharType getTypeFromChar(Character letter)
+	{
+		char[] ints = new char[]{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+		char[] ops = new char[]{'+', '-', '/', '*', '='};
+		char[] brackets = new char[]{'{', '}', '[', ']'};
+		
+		for (Character potenInt : ints) if (letter.equals(potenInt)) return HMEnumCharType.INT;
+		
+		for (Character potenOp : ops) if (letter.equals(potenOp)) return HMEnumCharType.OPERATOR;
+		
+		for (Character potenBracket : brackets) if (letter.equals(potenBracket)) return HMEnumCharType.BRACKET;
+		
+		return HMEnumCharType.STRING;
 	}
 	
 }

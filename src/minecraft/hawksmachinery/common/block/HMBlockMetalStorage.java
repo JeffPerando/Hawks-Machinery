@@ -6,6 +6,7 @@ import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import universalelectricity.prefab.UETab;
@@ -37,6 +38,18 @@ public class HMBlockMetalStorage extends HMBlock
 	{
 		list.add(new ItemStack(this, 1, 0));
 		list.add(new ItemStack(this, 1, 1));
+		
+	}
+	
+	@Override
+    public float getExplosionResistance(Entity entity, World world, int x, int y, int z, double explosionX, double explosionY, double explosionZ)
+	{
+		switch (world.getBlockMetadata(x, y, z))
+		{
+			case 0: return 25;
+			case 1: return 50;
+			default: return 0;
+		}
 		
 	}
 	

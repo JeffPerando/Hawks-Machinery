@@ -25,6 +25,7 @@ public class HMItemNanite extends HMItem implements IHMNanite
 		super(id);
 		setMaxStackSize(1);
 		setHasSubtypes(true);
+		setCreativeTab(null);
 		
 	}
 	

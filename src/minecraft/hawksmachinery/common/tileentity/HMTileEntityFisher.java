@@ -2,12 +2,15 @@
 package hawksmachinery.common.tileentity;
 
 import hawksmachinery.common.item.HMItem;
+import java.util.EnumSet;
 import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraftforge.common.ForgeDirection;
 import universalelectricity.core.electricity.ElectricInfo;
+import universalelectricity.core.electricity.ElectricityConnections;
 import universalelectricity.core.implement.IItemElectric;
 
 /**
@@ -27,6 +30,13 @@ public class HMTileEntityFisher extends HMTileEntityMachine
 		ELECTRICITY_LIMIT = 1000;
 		containingItems = new ItemStack[19];
 		voltage = 120;
+		
+	}
+	
+	@Override
+	public void initiate()
+	{
+		ElectricityConnections.registerConnector(this, EnumSet.of(ForgeDirection.UP));
 		
 	}
 	

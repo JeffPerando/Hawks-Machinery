@@ -84,11 +84,15 @@ public class HMRecipes
 	 */
 	public static void addFoDProcessingRecipe(String input, ItemStack output, HMEnumProcessing processType)
 	{
-		for (ItemStack ore : OreDictionary.getOres(input))
+		if (!OreDictionary.getOres(input).isEmpty())
 		{
-			if (ore != null)
+			for (ItemStack ore : OreDictionary.getOres(input))
 			{
-				addProcessingRecipe(ore, output, processType);
+				if (ore != null)
+				{
+					addProcessingRecipe(ore, output, processType);
+				}
+				
 			}
 			
 		}

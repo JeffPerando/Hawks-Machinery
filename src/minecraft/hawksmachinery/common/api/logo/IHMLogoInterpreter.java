@@ -9,6 +9,6 @@ package hawksmachinery.common.api.logo;
  */
 public interface IHMLogoInterpreter
 {
-	public HMLogoError runProgram(String[] program);
+	public HMLogoError runProgram(String[] program, boolean saveTemps);
 	
 }
