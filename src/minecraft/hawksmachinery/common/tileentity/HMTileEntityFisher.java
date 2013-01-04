@@ -61,7 +61,7 @@ public class HMTileEntityFisher extends HMTileEntityMachine
 				}
 			}
 			
-			if (this.worldObj.getBlockId(this.xCoord, this.yCoord - 1, this.zCoord) == Block.waterStill.blockID && this.canWork())
+			if (this.worldObj.getBlockId(this.xCoord, this.yCoord + 1, this.zCoord) == Block.waterStill.blockID && this.canWork())
 			{
 				this.worldObj.setBlockWithNotify(this.xCoord, this.yCoord - 1, this.zCoord, 0);
 				this.electricityStored -= this.ELECTRICITY_REQUIRED;
@@ -87,14 +87,9 @@ public class HMTileEntityFisher extends HMTileEntityMachine
 		{
 			if (this.containingItems[counter] != null)
 			{
-				if (this.containingItems[counter].stackSize < this.containingItems[counter].getMaxStackSize())
+				if (this.containingItems[counter].stackSize == this.containingItems[counter].getMaxStackSize())
 				{
 					++fullStacks;
-				}
-				else
-				{
-					continue;
-					
 				}
 				
 			}

@@ -50,7 +50,7 @@ import cpw.mods.fml.common.registry.VillagerRegistry;
 @NetworkMod(channels = {"HawksMachinery"}, clientSideRequired = true, serverSideRequired = false, connectionHandler = ConnectionHandler.class, packetHandler = PacketManager.class)
 public class HawksMachinery
 {
-	public static final String VERSION = "Beta v1.0.0 Prerelease 4";
+	public static final String VERSION = "Beta v1.0.0 Prerelease 5";
 	
 	@Instance("HawksMachinery")
 	private static HawksMachinery INSTANCE;
@@ -59,6 +59,8 @@ public class HawksMachinery
 	public static HMCommonProxy PROXY;
 	
 	public HMManager MANAGER;
+	
+	public CreativeTabs tab;
 	
 	public static HMRecipes PROCESS_RECIPES;
 	public static HMEnumProcessing CRUSH = HMEnumProcessing.CRUSHING;

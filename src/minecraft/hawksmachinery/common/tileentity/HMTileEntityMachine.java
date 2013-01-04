@@ -50,7 +50,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	
 	public int ELECTRICITY_LIMIT;
 	
-	public boolean isOpen;
+	public int isOpen = 0;
 	
 	public double voltage;
 	
@@ -175,9 +175,12 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 				this.workTicks = dataStream.readInt();
 				
 			}
-			
-			this.electricityStored = dataStream.readDouble();
-			this.machineHP = dataStream.readInt();
+			if (this.worldObj.isRemote)
+			{
+				this.electricityStored = dataStream.readDouble();
+				this.machineHP = dataStream.readInt();
+				
+			}
 			
 		}
 		catch(Exception e)
@@ -290,14 +293,14 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	@Override
 	public void openChest()
 	{
-		this.isOpen = true;
+		++this.isOpen;
 		
 	}
 	
 	@Override
 	public void closeChest()
 	{
-		this.isOpen = false;
+		--this.isOpen;
 		
 	}
 	
