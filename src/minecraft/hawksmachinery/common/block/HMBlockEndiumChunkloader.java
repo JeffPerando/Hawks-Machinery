@@ -21,14 +21,12 @@ import universalelectricity.prefab.UETab;
  */
 public class HMBlockEndiumChunkloader extends BlockContainer
 {
-	public HawksMachinery BASEMOD;
-	
 	public HMBlockEndiumChunkloader(int id)
 	{
 		super(id, 208, Material.iron);
 		setHardness(5.0F);
 		setResistance(1000000000.0F);
-		setTextureFile(BASEMOD.BLOCK_TEXTURE_FILE);
+		setTextureFile(HawksMachinery.BLOCK_TEXTURE_FILE);
 		setBlockName("HMEndiumChunkloader");
 		setCreativeTab(UETab.INSTANCE);
 		

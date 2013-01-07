@@ -151,12 +151,8 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	@Override
 	public Packet getDescriptionPacket()
 	{
-		if (this.isProcessor)
-		{
-			return PacketManager.getPacket("HawksMachinery", this, this.workTicks, this.electricityStored, this.machineHP);
-		}
-		
-		return PacketManager.getPacket("HawksMachinery", this, this.electricityStored, this.machineHP);
+		if (this.isProcessor) return PacketManager.getPacket("HawksMachinery", this, this.workTicks, this.electricityStored, this.machineHP, this.facingDirection.ordinal());
+		return PacketManager.getPacket("HawksMachinery", this, this.electricityStored, this.machineHP, this.facingDirection.ordinal());
 	}
 	
 	@Override
@@ -179,6 +175,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 			{
 				this.electricityStored = dataStream.readDouble();
 				this.machineHP = dataStream.readInt();
+				this.facingDirection = ForgeDirection.getOrientation(dataStream.readInt());
 				
 			}
 			
@@ -327,6 +324,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 		if (NBTTag.hasKey("electricityLimit")) this.ELECTRICITY_LIMIT = NBTTag.getInteger("electricityLimit");
 		if (NBTTag.hasKey("ticksNeeded")) this.TICKS_REQUIRED = NBTTag.getInteger("ticksNeeded");
 		if (NBTTag.hasKey("maxMachineHP")) this.maxHP = NBTTag.getInteger("maxMachineHP");
+		if (NBTTag.hasKey("facingDirection")) this.facingDirection = ForgeDirection.getOrientation(NBTTag.getInteger("facingDirection"));
 		
 		if (NBTTag.hasKey("Sapper"))
 		{
@@ -364,6 +362,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 		NBTTag.setInteger("electricityLimit", this.ELECTRICITY_LIMIT);
 		NBTTag.setInteger("ticksNeeded", this.TICKS_REQUIRED);
 		NBTTag.setInteger("maxMachineHP", this.maxHP);
+		NBTTag.setInteger("facingDirection", this.facingDirection.ordinal());
 		
 		if (this.sapper != null) NBTTag.setCompoundTag("Sapper", this.sapper.writeToNBT(new NBTTagCompound()));
 		

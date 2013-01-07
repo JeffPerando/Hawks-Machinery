@@ -22,7 +22,7 @@ public class HMTileEntityCrusher extends HMTileEntityMachine
 	{
 		super();
 		ELECTRICITY_REQUIRED = 5;
-		TICKS_REQUIRED = FMLCommonHandler.instance().getSide().isServer() ? HawksMachinery.instance().MANAGER.crusherTicks : 180;
+		TICKS_REQUIRED = FMLCommonHandler.instance().getSide().isServer() ? HawksMachinery.instance().MANAGER.crusherTicks : 200;
 		ELECTRICITY_LIMIT = 2500;
 		containingItems = new ItemStack[3];
 		machineEnum = HMEnumProcessing.CRUSHING;
@@ -147,7 +147,7 @@ public class HMTileEntityCrusher extends HMTileEntityMachine
 	
 	public int calculateCrushingDuration(int par1)
 	{
-		return this.workTicks * par1 / 200;
+		return this.workTicks * par1 / this.TICKS_REQUIRED;
 	}
 	
 	public String getCrusherStatus()

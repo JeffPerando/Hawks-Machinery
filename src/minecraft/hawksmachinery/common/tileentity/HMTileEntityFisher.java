@@ -96,7 +96,7 @@ public class HMTileEntityFisher extends HMTileEntityMachine
 			
 			if (this.containingItems[counter + 9] != null && !hasFood)
 			{
-				hasFood = this.containingItems[counter + 9].itemID == HMItem.fishFood.shiftedIndex && this.containingItems[counter + 9].stackSize > 0;
+				hasFood = this.containingItems[counter + 9].itemID == HMItem.fishFood.itemID && this.containingItems[counter + 9].stackSize > 0;
 			}
 			
 		}

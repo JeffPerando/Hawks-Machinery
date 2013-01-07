@@ -2,8 +2,10 @@
 package hawksmachinery.common.item;
 
 import hawksmachinery.common.HawksMachinery;
-import net.minecraft.block.Block;
+import java.util.List;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
 
 /**
  * 
@@ -18,12 +20,6 @@ public class HMItemBlockMachine extends ItemBlock
 		super(id);
 		setTextureFile(HawksMachinery.instance().ITEM_TEXTURE_FILE);
 		
-	}
-	
-	@Override
-	public int getIconFromDamage(int dmg)
-	{
-		return Block.blocksList[this.getBlockID()].getBlockTextureFromSideAndMetadata(0, dmg);
 	}
 	
 	@Override

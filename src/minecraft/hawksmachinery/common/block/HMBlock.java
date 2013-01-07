@@ -28,7 +28,6 @@ public class HMBlock extends Block
 	public static Block sinterer;
 	public static Block fireBlock;
 	
-	public static HawksMachinery BASEMOD;
 	private Achievement onBlockBrokenAch;
 	
 	public HMBlock(int id, Material mat, int textureID, Achievement onBrokenAch)
@@ -36,7 +35,7 @@ public class HMBlock extends Block
 		super(id, mat);
 		setHardness(1.0F);
 		setResistance(5.0F);
-		setTextureFile(BASEMOD.BLOCK_TEXTURE_FILE);
+		setTextureFile(HawksMachinery.BLOCK_TEXTURE_FILE);
 		
 		if (textureID >= 0)
 		{

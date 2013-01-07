@@ -16,7 +16,6 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
-import universalelectricity.prefab.UETab;
 import universalelectricity.prefab.network.ConnectionHandler;
 import universalelectricity.prefab.network.PacketManager;
 import universalelectricity.prefab.ore.OreGenerator;
@@ -80,7 +79,7 @@ public class HawksMachinery
 		this.MANAGER = new HMManager();
 		
 		this.MANAGER.loadConfig();
-		
+
 		HMBlock.crusher = new HMBlockCrusher(this.MANAGER.getBlockID("Crusher", 2550));
 		HMBlock.ore = new HMBlockOre(this.MANAGER.getBlockID("Ore", 2551));
 		HMBlock.washer = new HMBlockWasher(this.MANAGER.getBlockID("Washer", 2552));
@@ -101,10 +100,10 @@ public class HawksMachinery
 		HMItem.rivets = new HMItemRivets(this.MANAGER.getItemID("Rivets", 24155)).setMaxDmg(6);
 		HMItem.rivetGun = new HMItemRivetGun(this.MANAGER.getItemID("Rivet Gun", 24156));
 		HMItem.ingots = new HMItemIngots(this.MANAGER.getItemID("Ingots", 24157)).setMaxDmg(1);
-		HMItem.fishFood = new HMItem(this.MANAGER.getItemID("Fish Food", 24158)).setIconIndex(104).setItemName("HMFishFood").setCreativeTab(UETab.INSTANCE);
+		HMItem.fishFood = new HMItem(this.MANAGER.getItemID("Fish Food", 24158)).setIconIndex(104).setItemName("HMFishFood").setCreativeTab(this.tab);
 		HMItem.machineMeter = new HMItemMeter(this.MANAGER.getItemID("Machine Meter", 24159));
-		HMItem.cobaltBone = new HMItemWolfTamer(this.MANAGER.getItemID("Cobalt Bone", 24160)).setItemName("HMCobaltBone").setCreativeTab(CreativeTabs.tabMisc).setIconIndex(105);
-		HMItem.testTube = new HMItem(this.MANAGER.getItemID("Test Tube", 24161)).setItemName("HMTestTube").setCreativeTab(UETab.INSTANCE).setIconIndex(72);
+		HMItem.cobaltBone = new HMItemWolfTamer(this.MANAGER.getItemID("Cobalt Bone", 24160)).setItemName("HMCobaltBone").setCreativeTab(this.tab).setIconIndex(105);
+		HMItem.testTube = new HMItem(this.MANAGER.getItemID("Test Tube", 24161)).setItemName("HMTestTube").setCreativeTab(this.tab).setIconIndex(72);
 		HMItem.nanites = new HMItemNanite(this.MANAGER.getItemID("Nanites", 24162)).setMaxDmg(15);
 		
 		new HMContent();
@@ -169,13 +168,13 @@ public class HawksMachinery
 		GameRegistry.addRecipe(new ItemStack(Block.torchWood, 4), new Object[]{"c", "s", 'c', new ItemStack(HMItem.dustRaw, 1, 0), 's', Item.stick});
 		GameRegistry.addRecipe(new ItemStack(Block.glass, 1), new Object[]{"GG", "GG", 'G', new ItemStack(HMItem.dustRefined, 1, 2)});
 		
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMItem.parts, 1, 0), new Object[]{" B ", "PSM", " B ", 'P', new ItemStack(HMItem.plating, 1, 1), 'S', "ingotCobalt", 'M', Block.pistonBase, 'B', Item.blazePowder}));
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMItem.parts, 1, 1), new Object[]{" B ", "RGR", "SLS", 'B', Item.blazePowder, 'R', Item.redstone, 'G', Block.glass, 'S', "ingotCobalt", 'L', new ItemStack(HMItem.parts, 1, 3)}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMItem.parts, 1, 0), new Object[]{"IBG", "ICP", "IBG", 'I', Item.ingotIron, 'C', "ingotCobalt", 'P', Block.pistonBase, 'B', Item.blazePowder, 'G', Item.ingotGold}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMItem.parts, 1, 1), new Object[]{" B ", "RGR", "CLC", 'B', Item.blazePowder, 'R', Item.redstone, 'G', Block.glass, 'C', "ingotCobalt", 'L', new ItemStack(HMItem.parts, 1, 3)}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMItem.parts, 6, 2), new Object[]{"C", "C", "C", 'C', "ingotCobalt"}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMItem.parts, 1, 3), new Object[]{" G ", "GBG", "CCC", 'G', Block.thinGlass, 'B', Item.blazeRod, 'C', Item.goldNugget}));
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMItem.parts, 1, 4), new Object[]{"CC", "CC", 'C', Block.fenceIron}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMItem.parts, 1, 4), new Object[]{"CCC", "BCB", 'C', Block.fenceIron, 'B', Item.blazePowder}));
 		GameRegistry.addRecipe(new ItemStack(HMItem.parts, 1, 5), new Object[]{"ici", 'i', Item.ingotIron, 'c', new ItemStack(HMItem.parts, 1, 4)});
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMItem.parts, 1, 6), new Object[]{"OOS", "BPb", "OOS", 'O', Block.obsidian, 'S', "ingotCobalt", 'B', Item.blazePowder, 'P', new ItemStack(HMItem.parts), 'b', Item.ingotGold}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMItem.parts, 1, 6), new Object[]{"OOC", "BPg", "OOC", 'O', Block.obsidian, 'C', "ingotCobalt", 'B', Item.blazePowder, 'P', new ItemStack(HMItem.parts), 'g', Item.goldNugget}));
 		
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMItem.rivets, 8, 0), new Object[]{"CCC", " C ", " B ", 'C', "ingotCopper", 'B', Item.blazeRod}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMItem.rivets, 8, 1), new Object[]{"BBB", " B ", " b ", 'B', "ingotBronze", 'b', Item.blazeRod}));
@@ -197,22 +196,22 @@ public class HawksMachinery
 		GameRegistry.addShapelessRecipe(new ItemStack(Item.fireballCharge, 3), new Object[]{Item.blazePowder, Item.gunpowder, new ItemStack(HMItem.dustRaw, 1, 0)});
 		GameRegistry.addShapelessRecipe(new ItemStack(HMItem.fishFood, 4), new Object[]{Item.bread, Item.rottenFlesh});
 		
-		FurnaceRecipes.smelting().addSmelting(HMItem.dustRefined.shiftedIndex, 2, new ItemStack(Block.thinGlass), 0.0F);
-		FurnaceRecipes.smelting().addSmelting(HMItem.dustRefined.shiftedIndex, 3, new ItemStack(Item.ingotIron), 0.0F);
-		FurnaceRecipes.smelting().addSmelting(HMItem.dustRefined.shiftedIndex, 4, new ItemStack(Item.ingotGold), 0.0F);
-		FurnaceRecipes.smelting().addSmelting(HMItem.dustRaw.shiftedIndex, 8, new ItemStack(Block.obsidian), 0.0F);
-		FurnaceRecipes.smelting().addSmelting(HMItem.plating.shiftedIndex, 0, new ItemStack(HMItem.ingots, 4, 0), 0.0F);
-		FurnaceRecipes.smelting().addSmelting(HMItem.plating.shiftedIndex, 1, new ItemStack(HMItem.ingots, 4, 1), 0.0F);
+		FurnaceRecipes.smelting().addSmelting(HMItem.dustRefined.itemID, 2, new ItemStack(Block.thinGlass), 0.0F);
+		FurnaceRecipes.smelting().addSmelting(HMItem.dustRefined.itemID, 3, new ItemStack(Item.ingotIron), 0.0F);
+		FurnaceRecipes.smelting().addSmelting(HMItem.dustRefined.itemID, 4, new ItemStack(Item.ingotGold), 0.0F);
+		FurnaceRecipes.smelting().addSmelting(HMItem.dustRaw.itemID, 8, new ItemStack(Block.obsidian), 0.0F);
+		FurnaceRecipes.smelting().addSmelting(HMItem.plating.itemID, 0, new ItemStack(HMItem.ingots, 4, 0), 0.0F);
+		FurnaceRecipes.smelting().addSmelting(HMItem.plating.itemID, 1, new ItemStack(HMItem.ingots, 4, 1), 0.0F);
 		
 		if (!OreDictionary.getOres("ingotCopper").isEmpty())
 		{
-			FurnaceRecipes.smelting().addSmelting(HMItem.dustRefined.shiftedIndex, 5, OreDictionary.getOres("ingotCopper").get(0), 0);
+			FurnaceRecipes.smelting().addSmelting(HMItem.dustRefined.itemID, 5, OreDictionary.getOres("ingotCopper").get(0), 0);
 			
 		}
 		
 		if (!OreDictionary.getOres("ingotTin").isEmpty())
 		{
-			FurnaceRecipes.smelting().addSmelting(HMItem.dustRefined.shiftedIndex, 6, OreDictionary.getOres("ingotTin").get(0), 0);
+			FurnaceRecipes.smelting().addSmelting(HMItem.dustRefined.itemID, 6, OreDictionary.getOres("ingotTin").get(0), 0);
 			
 		}
 		

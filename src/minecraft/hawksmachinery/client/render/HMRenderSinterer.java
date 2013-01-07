@@ -6,6 +6,7 @@ import hawksmachinery.common.HawksMachinery;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import org.lwjgl.opengl.GL11;
+import universalelectricity.prefab.implement.IRotatable;
 
 /**
  *
@@ -15,7 +16,6 @@ import org.lwjgl.opengl.GL11;
  */
 public class HMRenderSinterer extends TileEntitySpecialRenderer
 {
-	public static HawksMachinery BASEMOD;
 	private HMModelSinterer model;
 	
 	public HMRenderSinterer()
@@ -27,10 +27,10 @@ public class HMRenderSinterer extends TileEntitySpecialRenderer
 	@Override
 	public void renderTileEntityAt(TileEntity var1, double var2, double var3, double var4, float var5)
 	{
-		bindTextureByName(BASEMOD.TEXTURE_PATH + "/Sinterer.png");
+		this.bindTextureByName(HawksMachinery.TEXTURE_PATH + "/Sinterer.png");
 		GL11.glPushMatrix();
 		GL11.glTranslatef((float) var2 + 0.5F, (float) var3 + 1.5F, (float) var4 + 0.5F);
-		switch (var1.worldObj.getBlockMetadata(var1.xCoord, var1.yCoord, var1.zCoord))
+		switch (((IRotatable)var1).getDirection().ordinal())
 		{
 			case 2: GL11.glRotatef(180, 0.0F, 1.0F, 0.0F); break;
 			case 3: GL11.glRotatef(0, 0.0F, 1.0F, 0.0F); break;

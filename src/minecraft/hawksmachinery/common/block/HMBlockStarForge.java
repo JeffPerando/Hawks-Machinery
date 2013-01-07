@@ -46,12 +46,6 @@ public class HMBlockStarForge extends HMBlockMachine
 	}
 	
 	@Override
-	public boolean onUseWrench(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ)
-	{
-		return false;
-	}
-	
-	@Override
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLiving entity)
 	{
 		((HMTileEntityStarForge)world.getBlockTileEntity(x, y, z)).onCreate(new Vector3(x, y, z));

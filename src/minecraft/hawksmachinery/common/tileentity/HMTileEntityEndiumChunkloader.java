@@ -16,7 +16,6 @@ import net.minecraftforge.common.ForgeChunkManager.Type;
  */
 public class HMTileEntityEndiumChunkloader extends TileEntity
 {
-	public static HawksMachinery BASEMOD;
 	public Ticket heldChunk;
 	
 	@Override
@@ -43,11 +42,11 @@ public class HMTileEntityEndiumChunkloader extends TileEntity
 		{
 			if (this.heldChunk == null)
 			{
-				Ticket newTicket = ForgeChunkManager.requestTicket(BASEMOD.instance(), this.worldObj, Type.NORMAL);
+				Ticket newTicket = ForgeChunkManager.requestTicket(HawksMachinery.instance(), this.worldObj, Type.NORMAL);
 				newTicket.getModData().setInteger("xCoord", this.xCoord);
 				newTicket.getModData().setInteger("yCoord", this.yCoord);
 				newTicket.getModData().setInteger("zCoord", this.zCoord);
-				newTicket.setChunkListDepth(BASEMOD.instance().MANAGER.maxChunksLoaded);
+				newTicket.setChunkListDepth(HawksMachinery.instance().MANAGER.maxChunksLoaded);
 				this.heldChunk = newTicket;
 				ForgeChunkManager.forceChunk(this.heldChunk, new ChunkCoordIntPair(this.xCoord >> 4, this.zCoord >> 4));
 				

@@ -37,7 +37,7 @@ item.HMDustRefined5.name=Copper Dust
 item.HMDustRefined6.name=Tin Dust
 item.HMDustRefined7.name=Emerald Dust
 item.HMDustRefined8.name=Star Dust
-item.HMDustRefined9.name=Endium dust
+item.HMDustRefined9.name=Endium Dust
 item.HMDustRefined10.name=Cobalt Dust
 
 item.HMPart0.name=Electric Piston
@@ -58,7 +58,7 @@ item.HMBlueprint0.name=Blueprint (Crusher)
 item.HMBlueprint1.name=Blueprint (Washer)
 item.HMBlueprint2.name=Blueprint (Nano Assembler)
 item.HMBlueprint3.name=Blueprint (Fisher)
-item.HMBlueprint4.name=Blueprint (Mini-Drill Tank)
+item.HMBlueprint4.name=Blueprint (HaWK Robot)
 item.HMBlueprint5.name=Blueprint (Saw)
 item.HMBlueprint6.name=Blueprint (Sinterer)
 item.HMBlueprint7.name=Blueprint (Rivet Gun)

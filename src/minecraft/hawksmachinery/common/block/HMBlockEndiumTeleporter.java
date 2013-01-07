@@ -17,7 +17,7 @@ public class HMBlockEndiumTeleporter extends HMBlockEndiumChunkloader
 	public HMBlockEndiumTeleporter(int id)
 	{
 		super(id);
-		setBlockName("HMEndiumTeleporter");
+		setBlockName("HMBlockTechnical");
 		
 	}
 	
