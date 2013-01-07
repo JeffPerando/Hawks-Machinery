@@ -1,6 +1,7 @@
 
 package hawksmachinery.common.item;
 
+import hawksmachinery.common.HawksMachinery;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -18,6 +19,8 @@ public class HMItemElectric extends ItemElectric
 	public HMItemElectric(int id)
 	{
 		super(id);
+		setTextureFile(HawksMachinery.ITEM_TEXTURE_FILE);
+		setCreativeTab(HawksMachinery.instance().tab);
 		
 	}
 	

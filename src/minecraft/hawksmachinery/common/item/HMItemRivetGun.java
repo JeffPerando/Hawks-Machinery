@@ -1,7 +1,6 @@
 
 package hawksmachinery.common.item;
 
-import hawksmachinery.common.HawksMachinery;
 import hawksmachinery.common.api.HMRepairInterfaces.IHMRepairable;
 import hawksmachinery.common.api.HMRepairInterfaces.IHMRivet;
 import net.minecraft.entity.player.EntityPlayer;
@@ -11,7 +10,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumMovingObjectType;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
-import universalelectricity.prefab.UETab;
 import universalelectricity.prefab.multiblock.TileEntityMulti;
 import universalelectricity.prefab.repair.IRepairable;
 import universalelectricity.prefab.repair.IToolRepair;
@@ -24,15 +22,11 @@ import universalelectricity.prefab.repair.IToolRepair;
  */
 public class HMItemRivetGun extends HMItemElectric implements IToolRepair
 {
-	public static HawksMachinery BASEMOD;
-	
 	public HMItemRivetGun(int id)
 	{
 		super(id);
-		setTextureFile(BASEMOD.ITEM_TEXTURE_FILE);
 		setItemName("HMRivetGun");
 		setIconIndex(136);
-		setCreativeTab(UETab.INSTANCE);
 		
 	}
 	

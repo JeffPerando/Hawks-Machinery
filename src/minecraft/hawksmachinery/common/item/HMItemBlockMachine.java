@@ -16,7 +16,7 @@ public class HMItemBlockMachine extends ItemBlock
 	public HMItemBlockMachine(int id)
 	{
 		super(id);
-		setTextureFile(HawksMachinery.ITEM_TEXTURE_FILE);
+		setTextureFile(HawksMachinery.instance().ITEM_TEXTURE_FILE);
 		
 	}
 	

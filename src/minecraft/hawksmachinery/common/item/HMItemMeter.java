@@ -1,13 +1,11 @@
 
 package hawksmachinery.common.item;
 
-import hawksmachinery.common.HawksMachinery;
 import hawksmachinery.common.api.HMRepairInterfaces.IHMRepairable;
 import hawksmachinery.common.api.HMRepairInterfaces.IHMSappable;
 import hawksmachinery.common.api.IHMMachine;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumMovingObjectType;
 import net.minecraft.util.MovingObjectPosition;
@@ -17,7 +15,6 @@ import universalelectricity.core.electricity.ElectricInfo.ElectricUnit;
 import universalelectricity.core.implement.IDisableable;
 import universalelectricity.core.implement.IJouleStorage;
 import universalelectricity.core.implement.IVoltage;
-import universalelectricity.prefab.UETab;
 import universalelectricity.prefab.multiblock.TileEntityMulti;
 import universalelectricity.prefab.repair.IRepairable;
 
@@ -29,16 +26,13 @@ import universalelectricity.prefab.repair.IRepairable;
  */
 public class HMItemMeter extends HMItemElectric
 {
-	public static HawksMachinery BASEMOD;
 	private static String[] stateNames = new String[]{"Voltage", "Electricity Cached", "Disabled", "Can work", "Repairable", "Machine Health"};
 	
 	public HMItemMeter(int id)
 	{
 		super(id);
-		setTextureFile(BASEMOD.ITEM_TEXTURE_FILE);
 		setItemName("HMMachineMeter");
 		setIconIndex(139);
-		setCreativeTab(UETab.INSTANCE);
 		
 	}
 	

@@ -6,7 +6,6 @@ import java.util.List;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import universalelectricity.prefab.UETab;
 
 /**
  * 
@@ -39,14 +38,13 @@ public class HMItem extends Item
 	public static Item testTube;
 	public static Item nanites;
 	
-	public static HawksMachinery HM;
 	private int maxDmg;
 	
 	public HMItem(int id)
 	{
 		super(id);
-		setTextureFile(HM.ITEM_TEXTURE_FILE);
-		setCreativeTab(UETab.INSTANCE);
+		setTextureFile(HawksMachinery.instance().ITEM_TEXTURE_FILE);
+		setCreativeTab(HawksMachinery.instance().tab);
 		
 	}
 	
@@ -63,12 +61,20 @@ public class HMItem extends Item
 		{
 			for (int counter = 0; counter <= this.maxDmg; ++counter)
 			{
-				if (this.getItemNameIS(new ItemStack(this, 1, counter)) != null) itemList.add(new ItemStack(this, 1, counter));
+				if (this.getItemNameIS(new ItemStack(this, 1, counter)) != null)
+				{
+					itemList.add(new ItemStack(this, 1, counter));
+					
+				}
 				
 			}
 			
 		}
-		else itemList.add(new ItemStack(this));
+		else
+		{
+			itemList.add(new ItemStack(this));
+			
+		}
 		
 	}
 	

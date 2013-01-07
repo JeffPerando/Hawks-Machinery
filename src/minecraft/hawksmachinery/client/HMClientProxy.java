@@ -1,13 +1,17 @@
 
 package hawksmachinery.client;
 
+import hawksmachinery.client.gui.*;
+import hawksmachinery.client.render.*;
 import hawksmachinery.common.HMCommonProxy;
+import hawksmachinery.common.HawksMachinery;
 import hawksmachinery.common.tileentity.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.client.MinecraftForgeClient;
 import cpw.mods.fml.client.registry.ClientRegistry;
+import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -22,25 +26,33 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class HMClientProxy extends HMCommonProxy
 {
 	public static final String[] SUPPORTED_LANGS = new String[]{"en_US"};
+	public final int HM_RENDER_ID = RenderingRegistry.getNextAvailableRenderId();
 	
 	public void registerRenderInformation()
 	{
 		super.registerRenderInformation();
 		
-		MinecraftForgeClient.preloadTexture(HM.BLOCK_TEXTURE_FILE);
-		MinecraftForgeClient.preloadTexture(HM.ITEM_TEXTURE_FILE);
+		MinecraftForgeClient.preloadTexture(HawksMachinery.instance().BLOCK_TEXTURE_FILE);
+		MinecraftForgeClient.preloadTexture(HawksMachinery.instance().ITEM_TEXTURE_FILE);
 		
 		ClientRegistry.bindTileEntitySpecialRenderer(HMTileEntityCrusher.class, new HMRenderCrusher());
 		ClientRegistry.bindTileEntitySpecialRenderer(HMTileEntityWasher.class, new HMRenderWasher());
 		ClientRegistry.bindTileEntitySpecialRenderer(HMTileEntityStarForge.class, new HMRenderStarForge());
 		ClientRegistry.bindTileEntitySpecialRenderer(HMTileEntitySinterer.class, new HMRenderSinterer());
 		
+		RenderingRegistry.registerBlockHandler(new HMMachineInvRenderer());
+		
 		for (String lang : SUPPORTED_LANGS)
 		{
-			LanguageRegistry.instance().loadLocalization(HM.LANG_PATH + "/" + lang + ".txt", lang, false);
+			LanguageRegistry.instance().loadLocalization(HawksMachinery.instance().LANG_PATH + "/" + lang + ".txt", lang, false);
 			
 		}
 		
+	}
+	
+	public int getHMRenderID()
+	{
+		return this.HM_RENDER_ID;
 	}
 	
 	@Override

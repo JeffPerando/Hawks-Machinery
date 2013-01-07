@@ -1,6 +1,7 @@
 
 package hawksmachinery.common.block;
 
+import hawksmachinery.common.HawksMachinery;
 import hawksmachinery.common.tileentity.HMTileEntityFisher;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
@@ -29,7 +30,7 @@ public class HMBlockFisher extends HMBlockMachine
 	{
 		if (!world.isRemote && !super.onMachineActivated(world, x, y, z, player, side, hitX, hitY, hitZ))
 		{
-			player.openGui(BASEMOD.instance(), 3, world, x, y, z);
+			player.openGui(HawksMachinery.instance(), 3, world, x, y, z);
 			
 		}
 		

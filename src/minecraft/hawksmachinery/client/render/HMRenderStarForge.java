@@ -1,6 +1,7 @@
 
-package hawksmachinery.client;
+package hawksmachinery.client.render;
 
+import hawksmachinery.client.model.HMModelStarForge;
 import hawksmachinery.common.HawksMachinery;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;

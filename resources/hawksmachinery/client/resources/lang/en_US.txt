@@ -12,6 +12,8 @@ tile.HMMetalBlock1.name=Block of Cobalt
 tile.HMOre0.name=Endium Ore
 tile.HMOre1.name=Cobalt Ore
 
+itemGroup.HMTab=Hawk's Machinery
+
 item.HMRivetGun.name=Rivet Gun
 item.HMFishFood.name=Fish Food
 item.HMMachineMeter.name=Machine Meter

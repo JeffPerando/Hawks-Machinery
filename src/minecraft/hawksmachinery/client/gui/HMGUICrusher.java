@@ -1,5 +1,5 @@
 
-package hawksmachinery.client;
+package hawksmachinery.client.gui;
 
 import hawksmachinery.common.HawksMachinery;
 import hawksmachinery.common.container.HMContainerCrusher;

@@ -27,8 +27,6 @@ import cpw.mods.fml.common.registry.GameRegistry;
  */
 public class HMCommonProxy implements IGuiHandler, IConnectionHandler
 {
-	public static HawksMachinery HM;
-	
 	public void registerRenderInformation()
 	{
 		GameRegistry.registerTileEntity(HMTileEntityCrusher.class, "HMCrusher");
@@ -53,6 +51,11 @@ public class HMCommonProxy implements IGuiHandler, IConnectionHandler
 		MinecraftForge.setBlockHarvestLevel(HMBlock.endiumChunkloader, "pickaxe", 3);
 		MinecraftForge.setBlockHarvestLevel(HMBlock.endiumTeleporter, "pickaxe", 3);
 		
+	}
+	
+	public int getHMRenderID()
+	{
+		return 0;
 	}
 	
 	@Override

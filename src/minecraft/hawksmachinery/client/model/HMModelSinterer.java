@@ -1,5 +1,5 @@
 
-package hawksmachinery.client;
+package hawksmachinery.client.model;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;

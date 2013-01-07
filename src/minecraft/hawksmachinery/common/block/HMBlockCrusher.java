@@ -1,6 +1,7 @@
 
 package hawksmachinery.common.block;
 
+import hawksmachinery.common.HawksMachinery;
 import hawksmachinery.common.tileentity.HMTileEntityCrusher;
 import java.util.Random;
 import net.minecraft.block.material.Material;
@@ -25,7 +26,6 @@ public class HMBlockCrusher extends HMBlockMachine
 		setHardness(5.0F);
 		setResistance(20.0F);
 		setRequiresSelfNotify();
-		setTextureFile(BASEMOD.ITEM_TEXTURE_FILE);
 		
 	}
 	
@@ -39,7 +39,7 @@ public class HMBlockCrusher extends HMBlockMachine
 		
 		if (!world.isRemote)
 		{
-			player.openGui(BASEMOD.instance(), 0, world, x, y, z);
+			player.openGui(HawksMachinery.instance(), 0, world, x, y, z);
 			
 		}
 		
@@ -93,12 +93,6 @@ public class HMBlockCrusher extends HMBlockMachine
 	}
 	
 	@Override
-	public int getBlockTextureFromSideAndMetadata(int side, int metadata)
-	{
-		return 120;
-	}
-	
-	@Override
 	public boolean isOpaqueCube()
 	{
 		return false;
@@ -113,7 +107,7 @@ public class HMBlockCrusher extends HMBlockMachine
 	@Override
 	public int getRenderType()
 	{
-		return -1;
+		return HawksMachinery.PROXY.getHMRenderID();
 	}
 	
 	@Override

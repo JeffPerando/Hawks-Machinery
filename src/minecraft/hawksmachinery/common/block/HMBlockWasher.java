@@ -1,6 +1,7 @@
 
 package hawksmachinery.common.block;
 
+import hawksmachinery.common.HawksMachinery;
 import hawksmachinery.common.tileentity.HMTileEntityWasher;
 import java.util.Random;
 import net.minecraft.block.material.Material;
@@ -25,14 +26,7 @@ public class HMBlockWasher extends HMBlockMachine
 		setHardness(2.0F);
 		setResistance(20.0F);
 		setRequiresSelfNotify();
-		setTextureFile(BASEMOD.ITEM_TEXTURE_FILE);
 		
-	}
-	
-	@Override
-	public int damageDropped(int metadata)
-	{
-		return 0;
 	}
 	
 	@Override
@@ -45,7 +39,7 @@ public class HMBlockWasher extends HMBlockMachine
 		
 		if (!world.isRemote)
 		{
-			player.openGui(BASEMOD.instance(), 1, world, x, y, z);
+			player.openGui(HawksMachinery.instance(), 1, world, x, y, z);
 			
 		}
 		
@@ -96,12 +90,6 @@ public class HMBlockWasher extends HMBlockMachine
 	}
 	
 	@Override
-	public int getBlockTextureFromSideAndMetadata(int side, int metadata)
-	{
-		return 121;
-	}
-	
-	@Override
 	public boolean isOpaqueCube()
 	{
 		return false;
@@ -116,7 +104,7 @@ public class HMBlockWasher extends HMBlockMachine
 	@Override
 	public int getRenderType()
 	{
-		return -1;
+		return HawksMachinery.PROXY.getHMRenderID();
 	}
 	
 	@Override

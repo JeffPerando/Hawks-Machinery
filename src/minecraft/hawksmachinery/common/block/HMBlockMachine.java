@@ -2,12 +2,9 @@
 package hawksmachinery.common.block;
 
 import hawksmachinery.common.HawksMachinery;
-import hawksmachinery.common.api.HMRepairInterfaces.IHMRepairable;
 import hawksmachinery.common.api.HMRepairInterfaces.IHMSappable;
 import hawksmachinery.common.api.HMRepairInterfaces.IHMSapper;
 import hawksmachinery.common.tileentity.HMTileEntityMachine;
-import java.util.ArrayList;
-import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLiving;
@@ -16,7 +13,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import universalelectricity.prefab.BlockMachine;
-import universalelectricity.prefab.UETab;
 
 /**
  * 
@@ -26,16 +22,14 @@ import universalelectricity.prefab.UETab;
  */
 public abstract class HMBlockMachine extends BlockMachine
 {
-	public static HawksMachinery BASEMOD;
-	
 	public HMBlockMachine(String name, int id, Material mat)
 	{
 		super(name, id, mat);
 		setHardness(1.0F);
 		setResistance(5.0F);
 		setStepSound(Block.soundMetalFootstep);
-		setTextureFile(BASEMOD.BLOCK_TEXTURE_FILE);
-		setCreativeTab(UETab.INSTANCE);
+		setTextureFile(HawksMachinery.BLOCK_TEXTURE_FILE);
+		setCreativeTab(HawksMachinery.instance().tab);
 		
 	}
 	
@@ -100,17 +94,9 @@ public abstract class HMBlockMachine extends BlockMachine
 	}
 	
 	@Override
-	public int getDamageValue(World world, int x, int y, int z)
+	public int damageDropped(int metadata)
 	{
-		return ((IHMRepairable)world.getBlockTileEntity(x, y, z)).getHP();
-	}
-	
-	@Override
-	public ArrayList<ItemStack> getBlockDropped(World world, int x, int y, int z, int metadata, int fortune)
-	{
-		ArrayList<ItemStack> itemList = new ArrayList<ItemStack>();
-		itemList.add(new ItemStack(this.idDropped(metadata, new Random(), fortune), 1, this.getDamageValue(world, x, y, z)));
-		return itemList;
+		return 0;
 	}
 	
 }

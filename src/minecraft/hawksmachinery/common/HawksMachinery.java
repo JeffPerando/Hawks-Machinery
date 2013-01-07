@@ -60,7 +60,7 @@ public class HawksMachinery
 	
 	public HMManager MANAGER;
 	
-	public CreativeTabs tab;
+	public CreativeTabs tab = new HMCreativeTab("HMTab");
 	
 	public static HMRecipes PROCESS_RECIPES;
 	public static HMEnumProcessing CRUSH = HMEnumProcessing.CRUSHING;
@@ -128,7 +128,6 @@ public class HawksMachinery
 		OreGenerator.addOre(new HMEndiumOreGen());
 		OreGenerator.addOre(new HMCobaltOreGen());
 		PROXY.registerRenderInformation();
-		UETab.setItemStack(new ItemStack(HMItem.parts));
 		
 	}
 	

@@ -1,6 +1,7 @@
 
 package hawksmachinery.common.block;
 
+import hawksmachinery.common.HawksMachinery;
 import hawksmachinery.common.tileentity.HMTileEntityStarForge;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLiving;
@@ -24,7 +25,6 @@ public class HMBlockStarForge extends HMBlockMachine
 		setHardness(5.0F);
 		setResistance(20.0F);
 		setRequiresSelfNotify();
-		setTextureFile(BASEMOD.ITEM_TEXTURE_FILE);
 		
 	}
 	
@@ -38,7 +38,7 @@ public class HMBlockStarForge extends HMBlockMachine
 		
 		if (!world.isRemote)
 		{
-			player.openGui(BASEMOD.instance(), 4, world, x, y, z);
+			player.openGui(HawksMachinery.instance(), 4, world, x, y, z);
 			
 		}
 		
@@ -64,17 +64,11 @@ public class HMBlockStarForge extends HMBlockMachine
 		super.breakBlock(world, x, y, z, par5, par6);
 		
 	}
-	
+
 	@Override
 	public int getRenderType()
 	{
-		return -1;
-	}
-	
-	@Override
-	public int getBlockTextureFromSideAndMetadata(int side, int metadata)
-	{
-		return 122;
+		return HawksMachinery.PROXY.getHMRenderID();
 	}
 	
 	@Override

@@ -1,6 +1,7 @@
 
 package hawksmachinery.common.block;
 
+import hawksmachinery.common.HawksMachinery;
 import hawksmachinery.common.tileentity.HMTileEntitySinterer;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLiving;
@@ -24,7 +25,6 @@ public class HMBlockSinterer extends HMBlockMachine
 		setHardness(5.0F);
 		setResistance(20.0F);
 		setRequiresSelfNotify();
-		setTextureFile(BASEMOD.ITEM_TEXTURE_FILE);
 		
 	}
 	
@@ -38,7 +38,7 @@ public class HMBlockSinterer extends HMBlockMachine
 		
 		if (!world.isRemote)
 		{
-			player.openGui(BASEMOD.instance(), 5, world, x, y, z);
+			player.openGui(HawksMachinery.instance(), 5, world, x, y, z);
 			
 		}
 		
@@ -92,12 +92,6 @@ public class HMBlockSinterer extends HMBlockMachine
 	}
 	
 	@Override
-	public int getBlockTextureFromSideAndMetadata(int side, int metadata)
-	{
-		return 107;
-	}
-	
-	@Override
 	public boolean isOpaqueCube()
 	{
 		return false;
@@ -112,7 +106,7 @@ public class HMBlockSinterer extends HMBlockMachine
 	@Override
 	public int getRenderType()
 	{
-		return -1;
+		return HawksMachinery.PROXY.getHMRenderID();
 	}
 	
 }
