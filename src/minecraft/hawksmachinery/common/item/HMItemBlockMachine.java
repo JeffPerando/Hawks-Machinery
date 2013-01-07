@@ -2,10 +2,7 @@
 package hawksmachinery.common.item;
 
 import hawksmachinery.common.HawksMachinery;
-import java.util.List;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
 
 /**
  * 
