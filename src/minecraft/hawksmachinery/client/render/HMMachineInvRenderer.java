@@ -15,7 +15,7 @@ import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 
 /**
  * 
- * Renders all machines in block form in the Player's inventory.
+ * Renders all machines in the Player's inventory.
  * 
  * @author Elusivehawk
  */

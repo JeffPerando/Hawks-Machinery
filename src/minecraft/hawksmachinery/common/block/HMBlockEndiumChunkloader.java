@@ -11,7 +11,6 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.common.ForgeChunkManager;
-import universalelectricity.prefab.UETab;
 
 /**
  * 
@@ -28,7 +27,7 @@ public class HMBlockEndiumChunkloader extends BlockContainer
 		setResistance(1000000000.0F);
 		setTextureFile(HawksMachinery.BLOCK_TEXTURE_FILE);
 		setBlockName("HMEndiumChunkloader");
-		setCreativeTab(UETab.INSTANCE);
+		setCreativeTab(HawksMachinery.instance().tab);
 		
 	}
 	

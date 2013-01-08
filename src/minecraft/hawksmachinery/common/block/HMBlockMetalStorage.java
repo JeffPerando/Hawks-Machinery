@@ -1,6 +1,7 @@
 
 package hawksmachinery.common.block;
 
+import hawksmachinery.common.HawksMachinery;
 import java.util.List;
 import java.util.Random;
 import net.minecraft.block.Block;
@@ -9,7 +10,6 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import universalelectricity.prefab.UETab;
 
 /**
  * 
@@ -23,7 +23,7 @@ public class HMBlockMetalStorage extends HMBlock
 	{
 		super(id, Material.iron, -1, null);
 		setStepSound(Block.soundMetalFootstep);
-		setCreativeTab(UETab.INSTANCE);
+		setCreativeTab(HawksMachinery.instance().tab);
 		
 	}
 	

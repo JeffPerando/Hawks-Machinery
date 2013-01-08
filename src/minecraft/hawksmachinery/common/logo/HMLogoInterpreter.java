@@ -2,7 +2,7 @@
 package hawksmachinery.common.logo;
 
 import hawksmachinery.common.HMEntityRobot;
-import hawksmachinery.common.api.HMArrayHelper;
+import hawksmachinery.common.api.helpers.HMArrayHelper;
 import hawksmachinery.common.api.logo.HMEnumErrorType;
 import hawksmachinery.common.api.logo.HMEnumCharType;
 import hawksmachinery.common.api.logo.HMLogoError;

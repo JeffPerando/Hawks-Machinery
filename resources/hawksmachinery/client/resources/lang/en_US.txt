@@ -27,6 +27,7 @@ item.HMDustUnref4.name=Unrefined Tin Dust
 item.HMDustUnref5.name=Obsidian Dust
 item.HMDustUnref6.name=Unrefined Endium Dust
 item.HMDustUnref7.name=Unrefined Cobalt Dust
+item.HMDustUnref8.name=Quartz Dust
 
 item.HMDustRefined0.name=Diamond Dust
 item.HMDustRefined1.name=Ender Dust

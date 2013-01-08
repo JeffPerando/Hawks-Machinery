@@ -1,13 +1,13 @@
 
 package hawksmachinery.common.block;
 
+import hawksmachinery.common.HawksMachinery;
 import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import universalelectricity.prefab.UETab;
 
 /**
  * 
@@ -23,7 +23,7 @@ public class HMBlockOre extends HMBlock
 		setHardness(2.0F);
 		setResistance(10.0F);
 		setStepSound(Block.soundStoneFootstep);
-		setCreativeTab(UETab.INSTANCE);
+		setCreativeTab(HawksMachinery.instance().tab);
 		
 	}
 	

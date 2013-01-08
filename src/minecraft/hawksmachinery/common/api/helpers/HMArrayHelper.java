@@ -1,5 +1,5 @@
 
-package hawksmachinery.common.api;
+package hawksmachinery.common.api.helpers;
 
 import java.util.ArrayList;
 

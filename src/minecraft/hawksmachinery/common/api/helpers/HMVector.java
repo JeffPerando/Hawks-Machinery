@@ -1,5 +1,5 @@
 
-package hawksmachinery.common.api;
+package hawksmachinery.common.api.helpers;
 
 import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
@@ -39,7 +39,7 @@ public class HMVector
 	
 	public HMVector(NBTTagCompound tag)
 	{
-		this(DimensionManager.getWorld(tag.getInteger("Dim")), tag.getInteger("xPos"), tag.getInteger("yPos"), tag.getInteger("zPos"));
+		this(DimensionManager.getWorld(tag.getInteger("Dim")), tag.getInteger("xCoord"), tag.getInteger("yCoord"), tag.getInteger("zCoord"));
 		
 	}
 	
@@ -127,9 +127,9 @@ public class HMVector
 	
 	public NBTTagCompound writeToNBTTag(NBTTagCompound tag)
 	{
-		tag.setInteger("xPos", this.xCoord);
-		tag.setInteger("yPos", this.yCoord);
-		tag.setInteger("zPos", this.zCoord);
+		tag.setInteger("xCoord", this.xCoord);
+		tag.setInteger("yCoord", this.yCoord);
+		tag.setInteger("zCoord", this.zCoord);
 		tag.setInteger("Dim", this.worldObj.provider.dimensionId);
 		return tag;
 	}
@@ -139,11 +139,19 @@ public class HMVector
 		return this.modifyFromDir(direction, 1);
 	}
 	
-	public HMVector modifyFromDir(ForgeDirection direction, int amount)
+	public HMVector modifyFromDir(ForgeDirection dir, int amount)
 	{
-		this.xCoord += (direction.offsetX * amount);
-		this.yCoord += (direction.offsetY * amount);
-		this.zCoord += (direction.offsetZ * amount);
+		this.xCoord += (dir.offsetX * amount);
+		this.yCoord += (dir.offsetY * amount);
+		this.zCoord += (dir.offsetZ * amount);
+		return this;
+	}
+	
+	public HMVector reset(TileEntity tile, ForgeDirection dir)
+	{
+		this.xCoord = tile.xCoord + dir.offsetX;
+		this.yCoord = tile.yCoord + dir.offsetY;
+		this.zCoord = tile.zCoord + dir.offsetZ;
 		return this;
 	}
 	

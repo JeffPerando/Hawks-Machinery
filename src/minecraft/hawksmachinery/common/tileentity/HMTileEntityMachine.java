@@ -4,7 +4,7 @@ package hawksmachinery.common.tileentity;
 import hawksmachinery.common.api.HMRecipes.HMEnumProcessing;
 import hawksmachinery.common.api.HMRepairInterfaces.IHMSappable;
 import hawksmachinery.common.api.HMRepairInterfaces.IHMSapper;
-import hawksmachinery.common.api.HMVector;
+import hawksmachinery.common.api.helpers.HMVector;
 import hawksmachinery.common.api.IHMMachine;
 import java.util.EnumSet;
 import java.util.Random;
@@ -188,6 +188,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 				this.workTicks = dataStream.readInt();
 				
 			}
+			
 			if (this.worldObj.isRemote)
 			{
 				this.electricityStored = dataStream.readDouble();
@@ -260,11 +261,8 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 			this.containingItems[slot] = null;
 			return oldItem;
 		}
-		else
-		{
-			return null;
-		}
 		
+		return null;
 	}
 	
 	@Override
@@ -334,6 +332,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 		this.facingDirection = facingDirection;
 		ElectricityConnections.unregisterConnector(this);
 		ElectricityConnections.registerConnector(this, EnumSet.of(ForgeDirection.DOWN, this.facingDirection.getOpposite()));
+		this.backsideVec = this.backsideVec.reset(this, this.facingDirection.getOpposite());
 		this.selfVec.markBlockForRenderUpdate();
 		
 	}
