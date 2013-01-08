@@ -22,7 +22,7 @@ public class HMTileEntitySinterer extends HMTileEntityMachine
 		ELECTRICITY_LIMIT = 2000;
 		containingItems = new ItemStack[6];
 		machineEnum = HMEnumProcessing.SINTERER;
-		voltage = 120;
+		VOLTAGE = 120;
 		isProcessor = true;
 		
 	}

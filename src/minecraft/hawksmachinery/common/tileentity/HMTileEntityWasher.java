@@ -45,7 +45,7 @@ public class HMTileEntityWasher extends HMTileEntityMachine implements ITankCont
 		ELECTRICITY_LIMIT = 1200;
 		containingItems = new ItemStack[6];
 		machineEnum = HMEnumProcessing.WASHING;
-		voltage = 120;
+		VOLTAGE = 120;
 		isProcessor = true;
 		WATER_LIMIT = 9;
 		waterTank = new LiquidTank(LiquidContainerRegistry.BUCKET_VOLUME * WATER_LIMIT);
@@ -282,38 +282,5 @@ public class HMTileEntityWasher extends HMTileEntityMachine implements ITankCont
 	{
 		return null;
 	}
-	
-	/*
-	 * @Override public ItemStack offerItem(Object source, ItemStack offer) { if
-	 * (HMProcessingRecipes.getResult(offer, this.machineEnum) != null) { if
-	 * (this.containingItems[2] == null) { this.containingItems[2] = offer;
-	 * return null; } else { if (this.containingItems[2].isItemEqual(offer)) {
-	 * if (this.containingItems[2].stackSize + offer.stackSize <= 64) {
-	 * this.containingItems[2].stackSize += offer.stackSize; return null; } else
-	 * { int extraAmount = (this.containingItems[1].stackSize + offer.stackSize)
-	 * - 64;
-	 * 
-	 * this.containingItems[2].stackSize += offer.stackSize; return new
-	 * ItemStack(offer.getItem(), extraAmount, offer.getItemDamage()); } } } }
-	 * else { if (offer.getItem() instanceof IItemElectric) { if
-	 * (((IItemElectric)offer.getItem()).canProduceElectricity()) {
-	 * this.containingItems[0] = offer; return null; } }
-	 * 
-	 * if (offer.getItem() == Item.bucketWater) { if (this.containingItems[1] ==
-	 * null) { this.containingItems[1] = offer; return null; } else { if
-	 * (this.containingItems[1].getItem() == Item.bucketEmpty) {
-	 * this.containingItems[1] = offer; return new ItemStack(Item.bucketEmpty,
-	 * 1); } } } }
-	 * 
-	 * return offer; }
-	 * 
-	 * @Override public ItemStack requestItem(Object source) { return null; }
-	 * 
-	 * @Override public ItemStack requestItem(Object source, ItemStack request)
-	 * { return null; }
-	 * 
-	 * @Override public ItemStack requestItem(Object source, EnumItemType
-	 * request) { return null; }
-	 */
 	
 }

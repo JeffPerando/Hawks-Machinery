@@ -4,6 +4,7 @@ package hawksmachinery.common.tileentity;
 import hawksmachinery.common.api.HMRecipes.HMEnumProcessing;
 import hawksmachinery.common.api.HMRepairInterfaces.IHMSappable;
 import hawksmachinery.common.api.HMRepairInterfaces.IHMSapper;
+import hawksmachinery.common.api.HMVector;
 import hawksmachinery.common.api.IHMMachine;
 import java.util.EnumSet;
 import java.util.Random;
@@ -40,7 +41,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	
 	public int TICKS_REQUIRED;
 	
-	private ForgeDirection facingDirection = ForgeDirection.DOWN;
+	private ForgeDirection facingDirection = ForgeDirection.UNKNOWN;
 	
 	public double electricityStored;
 	
@@ -52,7 +53,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	
 	public int isOpen = 0;
 	
-	public double voltage;
+	public double VOLTAGE;
 	
 	public HMEnumProcessing machineEnum;
 	
@@ -66,10 +67,25 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	
 	private int maxHP = 20;
 	
+	private HMVector backsideVec, selfVec;
+	
+	public HMTileEntityMachine()
+	{
+		selfVec = new HMVector(this);
+		
+	}
+	
 	@Override
 	public void initiate()
 	{
-		ElectricityConnections.registerConnector(this, EnumSet.of(ForgeDirection.DOWN));
+		ElectricityConnections.registerConnector(this, EnumSet.of(ForgeDirection.DOWN, this.facingDirection.getOpposite()));
+		this.backsideVec = new HMVector(this, this.facingDirection.getOpposite());
+		
+		if (this.backsideVec.equals(this.selfVec))
+		{
+			this.backsideVec = null;
+			
+		}
 		
 	}
 	
@@ -77,9 +93,10 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	public void updateEntity()
 	{
 		super.updateEntity();
-		this.facingDirection = ForgeDirection.getOrientation(this.getBlockMetadata());
 		
 		TileEntity inputCable = Vector3.getTileEntityFromSide(this.worldObj, new Vector3(this), ForgeDirection.DOWN);
+		
+		if (inputCable == null && this.backsideVec != null) inputCable = this.backsideVec.getTileEntity();
 		
 		if (inputCable != null)
 		{
@@ -87,7 +104,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 			{
 				if (this.electricityStored < this.ELECTRICITY_LIMIT)
 				{
-					((IConductor)inputCable).getNetwork().startRequesting(this, this.ELECTRICITY_REQUIRED / this.voltage, this.voltage);
+					((IConductor)inputCable).getNetwork().startRequesting(this, this.ELECTRICITY_REQUIRED / this.VOLTAGE, this.VOLTAGE);
 					this.electricityStored = Math.max(Math.min(this.electricityStored + ((IConductor) inputCable).getNetwork().consumeElectricity(this).getWatts(), this.ELECTRICITY_REQUIRED), 0);
 					
 				}
@@ -140,7 +157,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	@Override
 	public double getVoltage()
 	{
-		return this.voltage;
+		return this.VOLTAGE;
 	}
 	
 	protected void explodeMachine(float strength)
@@ -267,9 +284,13 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	{
 		this.containingItems[slot] = item;
 		
-		if (item != null && item.stackSize > this.getInventoryStackLimit())
+		if (item != null)
 		{
-			item.stackSize = this.getInventoryStackLimit();
+			if (item.stackSize > this.getInventoryStackLimit())
+			{
+				item.stackSize = this.getInventoryStackLimit();
+				
+			}
 			
 		}
 		
@@ -311,6 +332,9 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	public void setDirection(ForgeDirection facingDirection)
 	{
 		this.facingDirection = facingDirection;
+		ElectricityConnections.unregisterConnector(this);
+		ElectricityConnections.registerConnector(this, EnumSet.of(ForgeDirection.DOWN, this.facingDirection.getOpposite()));
+		this.selfVec.markBlockForRenderUpdate();
 		
 	}
 	

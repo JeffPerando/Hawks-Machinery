@@ -39,7 +39,7 @@ public class HMTileEntityStarForge extends HMTileEntityMachine implements IMulti
 		TICKS_REQUIRED = 100;
 		ELECTRICITY_LIMIT = 2000;
 		containingItems = new ItemStack[10];
-		voltage = 120;
+		VOLTAGE = 120;
 		isProcessor = true;
 		
 	}

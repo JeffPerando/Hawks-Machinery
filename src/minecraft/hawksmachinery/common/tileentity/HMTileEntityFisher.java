@@ -29,7 +29,7 @@ public class HMTileEntityFisher extends HMTileEntityMachine
 		ELECTRICITY_REQUIRED = 5;
 		ELECTRICITY_LIMIT = 1000;
 		containingItems = new ItemStack[19];
-		voltage = 120;
+		VOLTAGE = 120;
 		
 	}
 	

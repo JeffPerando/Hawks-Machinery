@@ -1,6 +1,7 @@
 
 package hawksmachinery.common.block;
 
+import universalelectricity.prefab.implement.IRotatable;
 import hawksmachinery.common.HawksMachinery;
 import hawksmachinery.common.tileentity.HMTileEntitySinterer;
 import net.minecraft.block.material.Material;
@@ -48,14 +49,18 @@ public class HMBlockSinterer extends HMBlockMachine
 	@Override
 	public boolean onUseWrench(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ)
 	{
+		int newDirection = 3;
+		
 		switch (world.getBlockMetadata(x, y, z))
 		{
-			case 2: world.setBlockMetadataWithNotify(x, y, z, 4); break;
-			case 5: world.setBlockMetadataWithNotify(x, y, z, 2); break;
-			case 3: world.setBlockMetadataWithNotify(x, y, z, 5); break;
-			case 4: world.setBlockMetadataWithNotify(x, y, z, 3); break;
+			case 0: newDirection = 2; break;
+			case 1: newDirection = 5; break;
+			case 2: newDirection = 3; break;
+			case 3: newDirection = 4; break;
 			
 		}
+		
+		((IRotatable)world.getBlockTileEntity(x, y, z)).setDirection(ForgeDirection.getOrientation(newDirection));
 		
 		return true;
 	}
@@ -64,18 +69,18 @@ public class HMBlockSinterer extends HMBlockMachine
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLiving entity)
 	{
 		int direction = MathHelper.floor_double((entity.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
-		int newMetadata = 3;
+		int newDirection = 3;
 		
 		switch (direction)
 		{
-			case 0: newMetadata = 2; break;
-			case 1: newMetadata = 5; break;
-			case 2: newMetadata = 3; break;
-			case 3: newMetadata = 4; break;
+			case 0: newDirection = 2; break;
+			case 1: newDirection = 5; break;
+			case 2: newDirection = 3; break;
+			case 3: newDirection = 4; break;
 			
 		}
 		
-		world.setBlockMetadataWithNotify(x, y, z, newMetadata);
+		((IRotatable)world.getBlockTileEntity(x, y, z)).setDirection(ForgeDirection.getOrientation(newDirection));
 		
 	}
 	
