@@ -187,10 +187,8 @@ public class HawksMachinery
 		
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMBlock.metalBlock, 1, 0), new Object[]{"EEE", "EEE", "EEE", 'E', "ingotEndium"}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMBlock.metalBlock, 1, 1), new Object[]{"CCC", "CCC", "CCC", 'C', "ingotCobalt"}));
-		
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMItem.plating, 1, 0), new Object[]{"MM", "MM", 'M', "ingotEndium"}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMItem.plating, 1, 1), new Object[]{"MM", "MM", 'M', "ingotCobalt"}));
-		
 		GameRegistry.addShapelessRecipe(new ItemStack(HMItem.ingots, 9, 0), new ItemStack(HMBlock.metalBlock, 1, 0));
 		GameRegistry.addShapelessRecipe(new ItemStack(HMItem.ingots, 9, 1), new ItemStack(HMBlock.metalBlock, 1, 1));
 		
@@ -198,23 +196,9 @@ public class HawksMachinery
 		GameRegistry.addShapelessRecipe(new ItemStack(HMItem.fishFood, 4), new Object[]{Item.bread, Item.rottenFlesh});
 		
 		FurnaceRecipes.smelting().addSmelting(HMItem.dustRefined.itemID, 2, new ItemStack(Block.thinGlass), 0.0F);
-		FurnaceRecipes.smelting().addSmelting(HMItem.dustRefined.itemID, 3, new ItemStack(Item.ingotIron), 0.0F);
-		FurnaceRecipes.smelting().addSmelting(HMItem.dustRefined.itemID, 4, new ItemStack(Item.ingotGold), 0.0F);
 		FurnaceRecipes.smelting().addSmelting(HMItem.dustRaw.itemID, 8, new ItemStack(Block.obsidian), 0.0F);
 		FurnaceRecipes.smelting().addSmelting(HMItem.plating.itemID, 0, new ItemStack(HMItem.ingots, 4, 0), 0.0F);
 		FurnaceRecipes.smelting().addSmelting(HMItem.plating.itemID, 1, new ItemStack(HMItem.ingots, 4, 1), 0.0F);
-		
-		if (!OreDictionary.getOres("ingotCopper").isEmpty())
-		{
-			FurnaceRecipes.smelting().addSmelting(HMItem.dustRefined.itemID, 5, OreDictionary.getOres("ingotCopper").get(0), 0);
-			
-		}
-		
-		if (!OreDictionary.getOres("ingotTin").isEmpty())
-		{
-			FurnaceRecipes.smelting().addSmelting(HMItem.dustRefined.itemID, 6, OreDictionary.getOres("ingotTin").get(0), 0);
-			
-		}
 		
 	}
 	
@@ -272,6 +256,7 @@ public class HawksMachinery
 		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Item.shovelSteel), new ItemStack(HMItem.dustRefined, 1, 3), HMEnumProcessing.CRUSHING);
 		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Item.axeSteel), new ItemStack(HMItem.dustRefined, 3, 3), HMEnumProcessing.CRUSHING);
 		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Item.hoeSteel), new ItemStack(HMItem.dustRefined, 2, 3), HMEnumProcessing.CRUSHING);
+		
 		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Item.netherStar), new ItemStack(HMItem.dustRefined, 3, 8), HMEnumProcessing.CRUSHING);
 		
 		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Block.oreIron), new ItemStack(HMItem.dustRaw, 2, 1), HMEnumProcessing.CRUSHING);
@@ -298,6 +283,21 @@ public class HawksMachinery
 		
 		PROCESS_RECIPES.addForgeRecipe(new ShapelessOreRecipe(new ItemStack(HMItem.ingots, 1, 0), new Object[]{"dustEndium", "dustStar"}));
 		
+		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(HMItem.dustRefined, 1, 3), new ItemStack(Item.ingotIron), HMEnumProcessing.SINTERER);
+		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(HMItem.dustRefined, 1, 4), new ItemStack(Item.ingotGold), HMEnumProcessing.SINTERER);
+		
+		if (!OreDictionary.getOres("ingotCopper").isEmpty())
+		{
+			PROCESS_RECIPES.addProcessingRecipe(new ItemStack(HMItem.dustRefined, 1, 5), OreDictionary.getOres("ingotCopper").get(0), HMEnumProcessing.SINTERER);
+			
+		}
+		
+		if (!OreDictionary.getOres("ingotTin").isEmpty())
+		{
+			PROCESS_RECIPES.addProcessingRecipe(new ItemStack(HMItem.dustRefined, 1, 6), OreDictionary.getOres("ingotTin").get(0), HMEnumProcessing.SINTERER);
+			
+		}
+		
 	}
 	
 	public class HMUpdateHandler extends UpdateManagerMod
@@ -305,6 +305,7 @@ public class HawksMachinery
 		public HMUpdateHandler(Mod m)
 		{
 			super(m);
+			
 		}
 		
 		@Override
@@ -334,7 +335,7 @@ public class HawksMachinery
 		@Override
 		public String getChangelogURL()
 		{
-			return "https://dl.dropbox.com/u/100525141/HawksMachineryBetav100Changelog.txt"; //"https://dl.dropbox.com/u/100525141/HawksMachinery" + VERSION.replace(".", "").replace(" ", "") + "Changelog.txt";
+			return "https://dl.dropbox.com/u/100525141/HawksMachinery" + VERSION.replace(".", "").replace(" ", "") + "Changelog.txt";
 		}
 		
 		@Override
@@ -382,7 +383,7 @@ public class HawksMachinery
 		@Override
 		public ItemStack getIconStack()
 		{
-			return new ItemStack(HMBlock.crusher);
+			return new ItemStack(HMItem.parts);
 		}
 		
 	}
