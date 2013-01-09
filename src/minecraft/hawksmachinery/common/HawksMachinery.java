@@ -49,7 +49,7 @@ import cpw.mods.fml.common.registry.VillagerRegistry;
 @NetworkMod(channels = {"HawksMachinery"}, clientSideRequired = true, serverSideRequired = false, connectionHandler = ConnectionHandler.class, packetHandler = PacketManager.class)
 public class HawksMachinery
 {
-	public static final String VERSION = "Beta v1.0.0 Prerelease 5";
+	public static final String VERSION = "Beta v1.0.0";
 	
 	@Instance("HawksMachinery")
 	private static HawksMachinery INSTANCE;
