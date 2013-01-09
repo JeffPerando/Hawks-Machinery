@@ -67,11 +67,12 @@ public class HMTileEntitySinterer extends HMTileEntityMachine
 	public boolean canWork()
 	{
 		if (this.isDisabled()) return false;
-		ItemStack output = null;
 		
-		for (int counter = 0; counter < 4; ++counter)
+		for (int counter = 0; counter < 3; ++counter)
 		{
-			if (output == null) output = HMRecipes.getResult(this.containingItems[counter], this.machineEnum);
+			ItemStack output = null;
+			
+			output = HMRecipes.getResult(this.containingItems[counter], this.machineEnum);
 			if (output == null) output = FurnaceRecipes.smelting().getSmeltingResult(this.containingItems[counter]);
 			
 			if (output != null && (this.electricityStored >= (this.ELECTRICITY_REQUIRED * 2)) && (this.containingItems[counter + 3] == null || (output.isItemEqual(this.containingItems[counter + 3]) && output.stackSize + this.containingItems[counter + 3].stackSize <= output.getMaxStackSize())))
@@ -99,9 +100,13 @@ public class HMTileEntitySinterer extends HMTileEntityMachine
 					{
 						this.containingItems[counter + 3] = newItem.copy();
 					}
-					else if (this.containingItems[counter + 3].isItemEqual(newItem))
+					else if (this.containingItems[counter + 3].isItemEqual(newItem) && this.containingItems[counter + 3].stackSize + newItem.stackSize <= newItem.getMaxStackSize())
 					{
 						this.containingItems[counter + 3].stackSize += newItem.stackSize;
+					}
+					else
+					{
+						continue;
 					}
 					
 					this.decrStackSize(counter, (HMRecipes.getResult(this.containingItems[counter], this.machineEnum) != null) ? HMRecipes.getQuantity(this.containingItems[counter], this.machineEnum) : 1);
