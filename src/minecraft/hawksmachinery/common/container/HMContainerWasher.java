@@ -27,9 +27,9 @@ public class HMContainerWasher extends Container
 	{
 		this.tileEntity = tileEntity;
 		this.tileEntity.openChest();
-		this.addSlotToContainer(new SlotElectricItem(tileEntity, 0, 36, 47));//Electric item
-		this.addSlotToContainer(new Slot(tileEntity, 1, 58, 52));//Water input
-		this.addSlotToContainer(new Slot(tileEntity, 2, 36, 15));//Actual input
+		this.addSlotToContainer(new SlotElectricItem(tileEntity, 0, 34, 60));//Electric item
+		this.addSlotToContainer(new Slot(tileEntity, 1, 58, 60));//Water input
+		this.addSlotToContainer(new Slot(tileEntity, 2, 34, 33));//Actual input
 		this.addSlotToContainer(new SlotProcessorsOutput(playerInventory.player, tileEntity, 3, 107, 32));
 		this.addSlotToContainer(new SlotProcessorsOutput(playerInventory.player, tileEntity, 4, 125, 32));
 		this.addSlotToContainer(new SlotProcessorsOutput(playerInventory.player, tileEntity, 5, 143, 32));

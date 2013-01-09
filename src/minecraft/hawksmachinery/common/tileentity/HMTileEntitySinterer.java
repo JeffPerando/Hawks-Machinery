@@ -33,7 +33,7 @@ public class HMTileEntitySinterer extends HMTileEntityMachine
 	{
 		super.updateEntity();
 		
-		if (this.canSmelt())
+		if (this.canWork())
 		{
 			this.electricityStored -= this.ELECTRICITY_REQUIRED;
 			
@@ -64,7 +64,7 @@ public class HMTileEntitySinterer extends HMTileEntityMachine
 		
 	}
 	
-	public boolean canSmelt()
+	public boolean canWork()
 	{
 		if (this.isDisabled()) return false;
 		ItemStack output = null;
@@ -74,7 +74,7 @@ public class HMTileEntitySinterer extends HMTileEntityMachine
 			if (output == null) output = HMRecipes.getResult(this.containingItems[counter], this.machineEnum);
 			if (output == null) output = FurnaceRecipes.smelting().getSmeltingResult(this.containingItems[counter]);
 			
-			if (output != null && /*(this.electricityStored >= (this.ELECTRICITY_REQUIRED * 2)) &&*/ (this.containingItems[counter + 3] == null || (output.isItemEqual(this.containingItems[counter + 3]) && output.stackSize + this.containingItems[counter + 3].stackSize <= output.getMaxStackSize())))
+			if (output != null && (this.electricityStored >= (this.ELECTRICITY_REQUIRED * 2)) && (this.containingItems[counter + 3] == null || (output.isItemEqual(this.containingItems[counter + 3]) && output.stackSize + this.containingItems[counter + 3].stackSize <= output.getMaxStackSize())))
 			{
 				return true;
 			}
@@ -86,7 +86,7 @@ public class HMTileEntitySinterer extends HMTileEntityMachine
 	
 	public void smeltItems()
 	{
-		if (this.canSmelt())
+		if (this.canWork())
 		{
 			for (int counter = 0; counter < 3; ++counter)
 			{

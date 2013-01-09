@@ -83,8 +83,8 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	public void initiate()
 	{
 		ElectricityConnections.registerConnector(this, EnumSet.of(ForgeDirection.DOWN));
-		this.selfVec = new HMVector(this);
-		if (this.canRotate) this.backsideVec = new HMVector(this, this.facingDirection.getOpposite());
+		if (this.selfVec == null) this.selfVec = new HMVector(this);
+		if (this.backsideVec == null && this.canRotate) this.backsideVec = new HMVector(this, this.facingDirection.getOpposite());
 		
 	}
 	

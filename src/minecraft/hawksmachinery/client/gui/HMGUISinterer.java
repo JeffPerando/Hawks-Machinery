@@ -47,8 +47,8 @@ public class HMGUISinterer extends GuiContainer
 		
 		if (this.tileEntity.workTicks > 0)
 		{
-			int scale = this.tileEntity.workTicks * 24 / this.tileEntity.TICKS_REQUIRED;
-			this.drawTexturedModalRect(this.containerWidth + 45, this.containerHeight + 35, 176, 0, 16 - scale, 36);
+			int scale = this.tileEntity.workTicks * 18 / this.tileEntity.TICKS_REQUIRED;
+			this.drawTexturedModalRect(this.containerWidth + 81, this.containerHeight + 35, 176, 0, (16 - scale) * 2, 36);
 			
 		}
 		
