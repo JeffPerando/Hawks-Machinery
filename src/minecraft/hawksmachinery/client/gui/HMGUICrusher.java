@@ -31,7 +31,7 @@ public class HMGUICrusher extends GuiContainer
 	@Override
 	protected void drawGuiContainerForegroundLayer(int par1, int par2)
 	{
-		this.fontRenderer.drawString("Crusher", 65, 6, 4210752);
+		this.fontRenderer.drawString(StatCollector.translateToLocal("tile.HMCrusher.name"), 65, 6, 4210752);
 		
 		this.fontRenderer.drawString("Input:", 10, 28, 4210752);
 		this.fontRenderer.drawString("Battery:", 10, 53, 4210752);

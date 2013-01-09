@@ -32,7 +32,7 @@ public class HMGUIFisher extends GuiContainer
 	@Override
 	protected void drawGuiContainerForegroundLayer(int par1, int par2)
 	{
-		this.fontRenderer.drawString("Fisher", 72, 4, 4210752);
+		this.fontRenderer.drawString(StatCollector.translateToLocal("tile.HMFisher.name"), 72, 4, 4210752);
 		
 		this.fontRenderer.drawString(StatCollector.translateToLocal("container.inventory"), 110, this.ySize - 94, 4210752);
 		

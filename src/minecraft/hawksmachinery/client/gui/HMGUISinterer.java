@@ -32,6 +32,7 @@ public class HMGUISinterer extends GuiContainer
 	@Override
 	protected void drawGuiContainerForegroundLayer(int par1, int par2)
 	{
+		this.fontRenderer.drawString(StatCollector.translateToLocal("tile.HMSinterer.name"), 65, 6, 4210752);
 		this.fontRenderer.drawString(StatCollector.translateToLocal("container.inventory"), 8, this.ySize - 96 + 2, 4210752);
 		
 	}
@@ -48,7 +49,7 @@ public class HMGUISinterer extends GuiContainer
 		if (this.tileEntity.workTicks > 0)
 		{
 			int scale = this.tileEntity.workTicks * 18 / this.tileEntity.TICKS_REQUIRED;
-			this.drawTexturedModalRect(this.containerWidth + 81, this.containerHeight + 35, 176, 0, (16 - scale) * 2, 36);
+			this.drawTexturedModalRect(this.containerWidth + 73, this.containerHeight + 35, 176, 0, (16 - scale) * 2, 36);
 			
 		}
 		

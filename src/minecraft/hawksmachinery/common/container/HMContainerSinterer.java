@@ -28,8 +28,8 @@ public class HMContainerSinterer extends Container
 		
 		for (int counter = 0; counter < 3; ++counter)
 		{
-			this.addSlotToContainer(new Slot(this.tileEntity, counter, 62, 17 + (counter * 18)));
-			this.addSlotToContainer(new SlotFurnace(playerInv.player, this.tileEntity, counter + 3, 114, 17 + (counter * 18)));
+			this.addSlotToContainer(new Slot(this.tileEntity, counter, 53, 17 + (counter * 18)));
+			this.addSlotToContainer(new SlotFurnace(playerInv.player, this.tileEntity, counter + 3, 107, 17 + (counter * 18)));
 			
 			for (int var4 = 0; var4 < 9; ++var4)
 			{

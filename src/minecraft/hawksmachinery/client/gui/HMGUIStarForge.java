@@ -6,6 +6,7 @@ import hawksmachinery.common.container.HMContainerStarForge;
 import hawksmachinery.common.tileentity.HMTileEntityStarForge;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.util.StatCollector;
 import org.lwjgl.opengl.GL11;
 
 /**
@@ -25,6 +26,13 @@ public class HMGUIStarForge extends GuiContainer
 	{
 		super(new HMContainerStarForge(playerInv, tileEntity));
 		this.tileEntity = tileEntity;
+		
+	}
+	
+	@Override
+	protected void drawGuiContainerForegroundLayer(int par1, int par2)
+	{
+		this.fontRenderer.drawString(StatCollector.translateToLocal("tile.HMStarForge.name"), 65, 4, 4210752);
 		
 	}
 	

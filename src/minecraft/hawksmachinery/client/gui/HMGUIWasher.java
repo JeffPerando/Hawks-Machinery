@@ -6,6 +6,7 @@ import hawksmachinery.common.container.HMContainerWasher;
 import hawksmachinery.common.tileentity.HMTileEntityWasher;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.util.StatCollector;
 import org.lwjgl.opengl.GL11;
 
 /**
@@ -31,6 +32,7 @@ public class HMGUIWasher extends GuiContainer
 	@Override
 	protected void drawGuiContainerForegroundLayer(int par1, int par2)
 	{
+		this.fontRenderer.drawString(StatCollector.translateToLocal("tile.HMWasher.name"), 65, 6, 4210752);
 		
 	}
 	
