@@ -19,11 +19,9 @@ public class HMVector
 {
 	public final World worldObj;
 	
-	public int xCoord;
+	public int xCoord, yCoord, zCoord;
 	
-	public int yCoord;
-	
-	public int zCoord;
+	public ForgeDirection dir = ForgeDirection.UNKNOWN;
 	
 	public HMVector(TileEntity tileEntity)
 	{
@@ -49,18 +47,19 @@ public class HMVector
 		
 	}
 	
-	public HMVector(World world, int x, int y, int z, ForgeDirection dir)
+	public HMVector(World world, int x, int y, int z, ForgeDirection direction)
 	{
 		worldObj = world;
-		xCoord = x + dir.offsetX;
-		yCoord = y + dir.offsetY;
-		zCoord = z + dir.offsetZ;
+		xCoord = x;
+		yCoord = y;
+		zCoord = z;
+		dir = direction;
 		
 	}
 	
 	public int getBlockId()
 	{
-		return this.worldObj.getBlockId(this.xCoord, this.yCoord, this.zCoord);
+		return this.worldObj.getBlockId(this.xCoord + this.dir.offsetX, this.yCoord + this.dir.offsetY, this.zCoord + this.dir.offsetZ);
 	}
 	
 	public Block getBlock()
@@ -70,17 +69,17 @@ public class HMVector
 	
 	public int getMetadata()
 	{
-		return this.worldObj.getBlockMetadata(this.xCoord, this.yCoord, this.zCoord);
+		return this.worldObj.getBlockMetadata(this.xCoord + this.dir.offsetX, this.yCoord + this.dir.offsetY, this.zCoord + this.dir.offsetZ);
 	}
 	
 	public TileEntity getTileEntity()
 	{
-		return this.worldObj.getBlockTileEntity(this.xCoord, this.yCoord, this.zCoord);
+		return this.worldObj.getBlockTileEntity(this.xCoord + this.dir.offsetX, this.yCoord + this.dir.offsetY, this.zCoord + this.dir.offsetZ);
 	}
 	
 	public int getLightValue()
 	{
-		return this.worldObj.getBlockLightValue(this.xCoord, this.yCoord, this.zCoord);
+		return this.worldObj.getBlockLightValue(this.xCoord + this.dir.offsetX, this.yCoord + this.dir.offsetY, this.zCoord + this.dir.offsetZ);
 	}
 	
 	public int getDim()
@@ -90,17 +89,17 @@ public class HMVector
 	
 	public boolean isGettingRedstoned()
 	{
-		return this.worldObj.isBlockGettingPowered(this.xCoord, this.yCoord, this.zCoord);
+		return this.worldObj.isBlockGettingPowered(this.xCoord + this.dir.offsetX, this.yCoord + this.dir.offsetY, this.zCoord + this.dir.offsetZ);
 	}
 	
 	public boolean isGettingIndirectlyRedstoned()
 	{
-		return this.worldObj.isBlockIndirectlyGettingPowered(this.xCoord, this.yCoord, this.zCoord);
+		return this.worldObj.isBlockIndirectlyGettingPowered(this.xCoord + this.dir.offsetX, this.yCoord + this.dir.offsetY, this.zCoord + this.dir.offsetZ);
 	}
 	
 	public boolean canSeeTheSky()
 	{
-		return this.worldObj.canBlockSeeTheSky(this.xCoord, this.yCoord, this.zCoord);
+		return this.worldObj.canBlockSeeTheSky(this.xCoord + this.dir.offsetX, this.yCoord + this.dir.offsetY, this.zCoord + this.dir.offsetZ);
 	}
 	
 	public boolean isDaytime()
@@ -110,19 +109,19 @@ public class HMVector
 	
 	public void markBlockForRenderUpdate()
 	{
-		this.worldObj.markBlockForRenderUpdate(this.xCoord, this.yCoord, this.zCoord);
+		this.worldObj.markBlockForRenderUpdate(this.xCoord + this.dir.offsetX, this.yCoord + this.dir.offsetY, this.zCoord + this.dir.offsetZ);
 		
 	}
 	
 	public void updateNeighboringBlocks()
 	{
-		this.worldObj.notifyBlocksOfNeighborChange(this.xCoord, this.yCoord, this.zCoord, this.getBlockId());
+		this.worldObj.notifyBlocksOfNeighborChange(this.xCoord + this.dir.offsetX, this.yCoord + this.dir.offsetY, this.zCoord + this.dir.offsetZ, this.getBlockId());
 		
 	}
 	
 	public Vector3 toVector3()
 	{
-		return new Vector3(this.xCoord, this.yCoord, this.zCoord);
+		return new Vector3(this.xCoord + this.dir.offsetX, this.yCoord + this.dir.offsetY, this.zCoord + this.dir.offsetZ);
 	}
 	
 	public NBTTagCompound writeToNBTTag(NBTTagCompound tag)
@@ -130,13 +129,20 @@ public class HMVector
 		tag.setInteger("xCoord", this.xCoord);
 		tag.setInteger("yCoord", this.yCoord);
 		tag.setInteger("zCoord", this.zCoord);
+		tag.setInteger("Dir", this.dir.ordinal());
 		tag.setInteger("Dim", this.worldObj.provider.dimensionId);
 		return tag;
 	}
 	
-	public HMVector modifyFromDir(ForgeDirection direction)
+	public HMVector changeDir(ForgeDirection dir)
 	{
-		return this.modifyFromDir(direction, 1);
+		this.dir = dir;
+		return this;
+	}
+	
+	public HMVector modifyFromDir(ForgeDirection dir)
+	{
+		return this.modifyFromDir(dir, 1);
 	}
 	
 	public HMVector modifyFromDir(ForgeDirection dir, int amount)
@@ -149,9 +155,10 @@ public class HMVector
 	
 	public HMVector reset(TileEntity tile, ForgeDirection dir)
 	{
-		this.xCoord = tile.xCoord + dir.offsetX;
-		this.yCoord = tile.yCoord + dir.offsetY;
-		this.zCoord = tile.zCoord + dir.offsetZ;
+		this.xCoord = tile.xCoord;
+		this.yCoord = tile.yCoord;
+		this.zCoord = tile.zCoord;
+		this.dir = dir;
 		return this;
 	}
 	
@@ -162,7 +169,7 @@ public class HMVector
 		{
 			if (obj instanceof HMVector)
 			{
-				return ((HMVector)obj).getDim() == this.getDim() && ((HMVector)obj).xCoord == this.xCoord && ((HMVector)obj).yCoord == this.yCoord && ((HMVector)obj).zCoord == this.zCoord;
+				return ((HMVector)obj).getDim() == this.getDim() && ((HMVector)obj).xCoord == this.xCoord && ((HMVector)obj).yCoord == this.yCoord && ((HMVector)obj).zCoord == this.zCoord && ((HMVector)obj).dir.ordinal() == this.dir.ordinal();
 			}
 			
 		}

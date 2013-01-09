@@ -24,6 +24,7 @@ public class HMTileEntitySinterer extends HMTileEntityMachine
 		machineEnum = HMEnumProcessing.SINTERER;
 		VOLTAGE = 120;
 		isProcessor = true;
+		canRotate = true;
 		
 	}
 	
@@ -73,7 +74,7 @@ public class HMTileEntitySinterer extends HMTileEntityMachine
 			if (output == null) output = HMRecipes.getResult(this.containingItems[counter], this.machineEnum);
 			if (output == null) output = FurnaceRecipes.smelting().getSmeltingResult(this.containingItems[counter]);
 			
-			if (output != null && (this.electricityStored >= (this.ELECTRICITY_REQUIRED * 2)) && (this.containingItems[counter + 3] == null || (output.isItemEqual(this.containingItems[counter + 3]) && output.stackSize + this.containingItems[counter + 3].stackSize <= output.getMaxStackSize())))
+			if (output != null && /*(this.electricityStored >= (this.ELECTRICITY_REQUIRED * 2)) &&*/ (this.containingItems[counter + 3] == null || (output.isItemEqual(this.containingItems[counter + 3]) && output.stackSize + this.containingItems[counter + 3].stackSize <= output.getMaxStackSize())))
 			{
 				return true;
 			}
@@ -87,7 +88,7 @@ public class HMTileEntitySinterer extends HMTileEntityMachine
 	{
 		if (this.canSmelt())
 		{
-			for (int counter = 0; counter < 4; ++counter)
+			for (int counter = 0; counter < 3; ++counter)
 			{
 				ItemStack newItem = HMRecipes.getResult(this.containingItems[counter], this.machineEnum);
 				if (newItem == null) newItem = FurnaceRecipes.smelting().getSmeltingResult(this.containingItems[counter]);

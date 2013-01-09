@@ -28,6 +28,7 @@ public class HMTileEntityCrusher extends HMTileEntityMachine
 		machineEnum = HMEnumProcessing.CRUSHING;
 		VOLTAGE = 120;
 		isProcessor = true;
+		canRotate = true;
 		
 	}
 	

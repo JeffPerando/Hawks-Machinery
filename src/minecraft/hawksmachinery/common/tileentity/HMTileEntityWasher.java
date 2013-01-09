@@ -13,6 +13,7 @@ import net.minecraft.nbt.NBTTagFloat;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.Packet250CustomPayload;
+import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.liquids.ILiquidTank;
 import net.minecraftforge.liquids.ITankContainer;
@@ -47,6 +48,7 @@ public class HMTileEntityWasher extends HMTileEntityMachine implements ITankCont
 		machineEnum = HMEnumProcessing.WASHING;
 		VOLTAGE = 120;
 		isProcessor = true;
+		canRotate = true;
 		WATER_LIMIT = 9;
 		waterTank = new LiquidTank(LiquidContainerRegistry.BUCKET_VOLUME * WATER_LIMIT);
 		

@@ -34,17 +34,6 @@ public abstract class HMBlockMachine extends BlockMachine
 	}
 	
 	@Override
-    public void onBlockPlacedBy(World world, int x, int y, int z, EntityLiving entity)
-	{
-		if (entity != null)
-		{
-			((HMTileEntityMachine)world.getBlockTileEntity(x, y, z)).machineHP = entity.getHeldItem().getItemDamage();
-			
-		}
-		
-	}
-	
-	@Override
 	public boolean onMachineActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ)
 	{
 		ItemStack playerItem = player.getCurrentEquippedItem();

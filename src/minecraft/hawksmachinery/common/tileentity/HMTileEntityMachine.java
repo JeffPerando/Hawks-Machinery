@@ -4,8 +4,9 @@ package hawksmachinery.common.tileentity;
 import hawksmachinery.common.api.HMRecipes.HMEnumProcessing;
 import hawksmachinery.common.api.HMRepairInterfaces.IHMSappable;
 import hawksmachinery.common.api.HMRepairInterfaces.IHMSapper;
-import hawksmachinery.common.api.helpers.HMVector;
 import hawksmachinery.common.api.IHMMachine;
+import hawksmachinery.common.api.helpers.HMVector;
+import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.Random;
 import net.minecraft.entity.Entity;
@@ -69,23 +70,21 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	
 	private HMVector backsideVec, selfVec;
 	
+	public boolean canRotate;
+	
+	private ArrayList<ForgeDirection> directionList = new ArrayList<ForgeDirection>();
+	
 	public HMTileEntityMachine()
 	{
-		selfVec = new HMVector(this);
 		
 	}
 	
 	@Override
 	public void initiate()
 	{
-		ElectricityConnections.registerConnector(this, EnumSet.of(ForgeDirection.DOWN, this.facingDirection.getOpposite()));
-		this.backsideVec = new HMVector(this, this.facingDirection.getOpposite());
-		
-		if (this.backsideVec.equals(this.selfVec))
-		{
-			this.backsideVec = null;
-			
-		}
+		ElectricityConnections.registerConnector(this, EnumSet.of(ForgeDirection.DOWN));
+		this.selfVec = new HMVector(this);
+		if (this.canRotate) this.backsideVec = new HMVector(this, this.facingDirection.getOpposite());
 		
 	}
 	
@@ -93,6 +92,16 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	public void updateEntity()
 	{
 		super.updateEntity();
+		
+		if (!this.directionList.isEmpty())
+		{
+			this.facingDirection = this.directionList.get(0);
+			ElectricityConnections.unregisterConnector(this);
+			ElectricityConnections.registerConnector(this, EnumSet.of(ForgeDirection.DOWN, this.facingDirection.getOpposite()));
+			if (this.canRotate) this.backsideVec = this.backsideVec.changeDir(facingDirection.getOpposite());
+			this.selfVec.markBlockForRenderUpdate();
+			
+		}
 		
 		TileEntity inputCable = Vector3.getTileEntityFromSide(this.worldObj, new Vector3(this), ForgeDirection.DOWN);
 		
@@ -327,13 +336,13 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	}
 	
 	@Override
-	public void setDirection(ForgeDirection facingDirection)
+	public void setDirection(ForgeDirection dir)
 	{
-		this.facingDirection = facingDirection;
-		ElectricityConnections.unregisterConnector(this);
-		ElectricityConnections.registerConnector(this, EnumSet.of(ForgeDirection.DOWN, this.facingDirection.getOpposite()));
-		this.backsideVec = this.backsideVec.reset(this, this.facingDirection.getOpposite());
-		this.selfVec.markBlockForRenderUpdate();
+		if (this.canRotate)
+		{
+			this.directionList.add(dir);
+			
+		}
 		
 	}
 	
@@ -347,7 +356,9 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 		if (NBTTag.hasKey("electricityLimit")) this.ELECTRICITY_LIMIT = NBTTag.getInteger("electricityLimit");
 		if (NBTTag.hasKey("ticksNeeded")) this.TICKS_REQUIRED = NBTTag.getInteger("ticksNeeded");
 		if (NBTTag.hasKey("maxMachineHP")) this.maxHP = NBTTag.getInteger("maxMachineHP");
-		if (NBTTag.hasKey("facingDirection")) this.facingDirection = ForgeDirection.getOrientation(NBTTag.getInteger("facingDirection"));
+		if (NBTTag.hasKey("selfVec")) this.selfVec = new HMVector(NBTTag.getCompoundTag("selfVec"));
+		if (NBTTag.hasKey("backVec") && this.canRotate) this.backsideVec = new HMVector(NBTTag.getCompoundTag("backVec"));
+		if (NBTTag.hasKey("facingDirection")) this.setDirection(ForgeDirection.getOrientation(NBTTag.getInteger("facingDirection")));
 		
 		if (NBTTag.hasKey("Sapper"))
 		{
@@ -385,6 +396,8 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 		NBTTag.setInteger("electricityLimit", this.ELECTRICITY_LIMIT);
 		NBTTag.setInteger("ticksNeeded", this.TICKS_REQUIRED);
 		NBTTag.setInteger("maxMachineHP", this.maxHP);
+		NBTTag.setCompoundTag("selfVec", this.selfVec.writeToNBTTag(new NBTTagCompound()));
+		if (this.canRotate) NBTTag.setCompoundTag("backVec", this.backsideVec.writeToNBTTag(new NBTTagCompound()));
 		NBTTag.setInteger("facingDirection", this.facingDirection.ordinal());
 		
 		if (this.sapper != null) NBTTag.setCompoundTag("Sapper", this.sapper.writeToNBT(new NBTTagCompound()));
@@ -479,7 +492,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	
 	public int getMaxHP()
 	{
-		return 0;
+		return this.maxHP;
 	}
 	
 	public int getHP()
