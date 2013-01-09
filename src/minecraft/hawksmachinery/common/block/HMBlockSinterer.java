@@ -80,11 +80,7 @@ public class HMBlockSinterer extends HMBlockMachine
 			
 		}
 		
-		if (world.getBlockTileEntity(x, y, z) != null)
-		{
-			((IRotatable)world.getBlockTileEntity(x, y, z)).setDirection(ForgeDirection.getOrientation(newDirection));
-			
-		}
+		((IRotatable)world.getBlockTileEntity(x, y, z)).setDirection(ForgeDirection.getOrientation(newDirection));
 		
 	}
 	

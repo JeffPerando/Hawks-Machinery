@@ -93,19 +93,19 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	{
 		super.updateEntity();
 		
-		if (!this.directionList.isEmpty())
+		if (!this.directionList.isEmpty() && this.canRotate)
 		{
 			this.facingDirection = this.directionList.get(0);
 			ElectricityConnections.unregisterConnector(this);
 			ElectricityConnections.registerConnector(this, EnumSet.of(ForgeDirection.DOWN, this.facingDirection.getOpposite()));
-			if (this.canRotate) this.backsideVec = this.backsideVec.changeDir(facingDirection.getOpposite());
+			if (this.canRotate) this.backsideVec = this.backsideVec.changeDir(this.facingDirection.getOpposite());
 			this.selfVec.markBlockForRenderUpdate();
 			
 		}
 		
 		TileEntity inputCable = Vector3.getTileEntityFromSide(this.worldObj, new Vector3(this), ForgeDirection.DOWN);
 		
-		if (inputCable == null && this.backsideVec != null) inputCable = this.backsideVec.getTileEntity();
+		if (inputCable == null && this.canRotate) inputCable = this.backsideVec.getTileEntity();
 		
 		if (inputCable != null)
 		{
