@@ -62,8 +62,6 @@ public class HawksMachinery
 	public CreativeTabs tab = new HMCreativeTab("HMTab");
 	
 	public static HMRecipes PROCESS_RECIPES;
-	public static HMEnumProcessing CRUSH = HMEnumProcessing.CRUSHING;
-	public static HMEnumProcessing WASH = HMEnumProcessing.WASHING;
 	
 	public static final String GUI_PATH = "/hawksmachinery/client/resources/gui";
 	public static final String BLOCK_TEXTURE_FILE = "/hawksmachinery/client/resources/textures/blocks.png";
@@ -222,81 +220,81 @@ public class HawksMachinery
 	
 	public void loadProcessingRecipes()
 	{
-		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Item.diamond), new ItemStack(HMItem.dustRefined, 1, 0), CRUSH);
-		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Item.enderPearl), new ItemStack(HMItem.dustRefined, 1, 1), CRUSH);
-		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Block.glass), new ItemStack(HMItem.dustRefined, 4, 2), CRUSH);
-		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Item.blazeRod), new ItemStack(Item.blazePowder, 2), CRUSH);
-		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Item.bone), new ItemStack(Item.dyePowder, 4, 15), CRUSH);
-		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Block.stone), new ItemStack(Block.gravel), CRUSH);
-		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Block.cobblestone), new ItemStack(Block.sand), CRUSH);
-		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Block.gravel), new ItemStack(Item.flint, 2), CRUSH);
+		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Item.diamond), new ItemStack(HMItem.dustRefined, 1, 0), HMEnumProcessing.CRUSHING);
+		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Item.enderPearl), new ItemStack(HMItem.dustRefined, 1, 1), HMEnumProcessing.CRUSHING);
+		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Block.glass), new ItemStack(HMItem.dustRefined, 4, 2), HMEnumProcessing.CRUSHING);
+		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Item.blazeRod), new ItemStack(Item.blazePowder, 2), HMEnumProcessing.CRUSHING);
+		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Item.bone), new ItemStack(Item.dyePowder, 4, 15), HMEnumProcessing.CRUSHING);
+		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Block.stone), new ItemStack(Block.gravel), HMEnumProcessing.CRUSHING);
+		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Block.cobblestone), new ItemStack(Block.sand), HMEnumProcessing.CRUSHING);
+		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Block.gravel), new ItemStack(Item.flint, 2), HMEnumProcessing.CRUSHING);
 		
-		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Item.eyeOfEnder), new ItemStack(HMItem.dustRefined, 1, 1), CRUSH);
-		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Block.pistonBase), new ItemStack(HMItem.dustRefined, 1, 3), CRUSH);
-		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Block.pistonStickyBase), new ItemStack(HMItem.dustRefined, 1, 3), CRUSH);
-		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Block.dispenser), new ItemStack(Item.bow), CRUSH);
-		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Block.stoneOvenIdle), new ItemStack(Block.cobblestone, 8), CRUSH);
-		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Block.thinGlass), new ItemStack(HMItem.dustRefined, 1, 2), CRUSH);
-		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Block.glowStone), new ItemStack(Item.lightStoneDust, 4), CRUSH);
-		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Block.redstoneLampIdle), new ItemStack(Item.lightStoneDust, 4), CRUSH);
-		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Item.brewingStand), new ItemStack(Item.blazeRod, 1), CRUSH);
-		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Block.sandStone), new ItemStack(Block.sand, 4), CRUSH);
-		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Block.obsidian), new ItemStack(HMItem.dustRaw, 1, 5), CRUSH);
-		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Item.glassBottle), new ItemStack(HMItem.dustRefined, 4, 2), CRUSH);
-		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Block.thinGlass), new ItemStack(HMItem.dustRefined, 1, 2), CRUSH);
+		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Item.eyeOfEnder), new ItemStack(HMItem.dustRefined, 1, 1), HMEnumProcessing.CRUSHING);
+		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Block.pistonBase), new ItemStack(HMItem.dustRefined, 1, 3), HMEnumProcessing.CRUSHING);
+		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Block.pistonStickyBase), new ItemStack(HMItem.dustRefined, 1, 3), HMEnumProcessing.CRUSHING);
+		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Block.dispenser), new ItemStack(Item.bow), HMEnumProcessing.CRUSHING);
+		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Block.stoneOvenIdle), new ItemStack(Block.cobblestone, 8), HMEnumProcessing.CRUSHING);
+		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Block.thinGlass), new ItemStack(HMItem.dustRefined, 1, 2), HMEnumProcessing.CRUSHING);
+		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Block.glowStone), new ItemStack(Item.lightStoneDust, 4), HMEnumProcessing.CRUSHING);
+		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Block.redstoneLampIdle), new ItemStack(Item.lightStoneDust, 4), HMEnumProcessing.CRUSHING);
+		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Item.brewingStand), new ItemStack(Item.blazeRod, 1), HMEnumProcessing.CRUSHING);
+		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Block.sandStone), new ItemStack(Block.sand, 4), HMEnumProcessing.CRUSHING);
+		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Block.obsidian), new ItemStack(HMItem.dustRaw, 1, 5), HMEnumProcessing.CRUSHING);
+		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Item.glassBottle), new ItemStack(HMItem.dustRefined, 4, 2), HMEnumProcessing.CRUSHING);
+		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Block.thinGlass), new ItemStack(HMItem.dustRefined, 1, 2), HMEnumProcessing.CRUSHING);
 		
-		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Item.minecartEmpty), new ItemStack(HMItem.dustRefined, 5, 3), CRUSH);
-		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Item.minecartPowered), new ItemStack(HMItem.dustRefined, 5, 3), CRUSH);
-		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Item.minecartCrate), new ItemStack(HMItem.dustRefined, 5, 3), CRUSH);
-		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Item.doorSteel), new ItemStack(HMItem.dustRefined, 6, 3), CRUSH);
-		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Item.bucketEmpty), new ItemStack(HMItem.dustRefined, 3, 3), CRUSH);
-		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Item.compass), new ItemStack(HMItem.dustRefined, 4, 3), CRUSH);
-		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Item.pocketSundial), new ItemStack(HMItem.dustRefined, 4, 4), CRUSH);
-		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Item.cauldron), new ItemStack(HMItem.dustRefined, 7, 3), CRUSH);
-		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Block.plantRed), new ItemStack(Item.dyePowder, 2, 1), CRUSH);
-		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Block.plantYellow), new ItemStack(Item.dyePowder, 2, 11), CRUSH);
+		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Item.minecartEmpty), new ItemStack(HMItem.dustRefined, 5, 3), HMEnumProcessing.CRUSHING);
+		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Item.minecartPowered), new ItemStack(HMItem.dustRefined, 5, 3), HMEnumProcessing.CRUSHING);
+		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Item.minecartCrate), new ItemStack(HMItem.dustRefined, 5, 3), HMEnumProcessing.CRUSHING);
+		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Item.doorSteel), new ItemStack(HMItem.dustRefined, 6, 3), HMEnumProcessing.CRUSHING);
+		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Item.bucketEmpty), new ItemStack(HMItem.dustRefined, 3, 3), HMEnumProcessing.CRUSHING);
+		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Item.compass), new ItemStack(HMItem.dustRefined, 4, 3), HMEnumProcessing.CRUSHING);
+		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Item.pocketSundial), new ItemStack(HMItem.dustRefined, 4, 4), HMEnumProcessing.CRUSHING);
+		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Item.cauldron), new ItemStack(HMItem.dustRefined, 7, 3), HMEnumProcessing.CRUSHING);
+		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Block.plantRed), new ItemStack(Item.dyePowder, 2, 1), HMEnumProcessing.CRUSHING);
+		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Block.plantYellow), new ItemStack(Item.dyePowder, 2, 11), HMEnumProcessing.CRUSHING);
 		
-		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Item.emerald), new ItemStack(HMItem.dustRefined, 1, 7), CRUSH);
-		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Item.coal, 1, 0), new ItemStack(HMItem.dustRaw, 1, 0), CRUSH);
-		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Item.coal, 1, 1), new ItemStack(HMItem.dustRaw, 1, 0), CRUSH);
-		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Block.stoneBrick, 1, 0), new ItemStack(Block.stoneBrick, 1), CRUSH);
-		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Block.stoneBrick, 1, 1), new ItemStack(Block.cobblestone), CRUSH);
-		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Block.stoneBrick, 1, 2), new ItemStack(Block.cobblestoneMossy), CRUSH);
-		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Block.stoneBrick, 1, 3), new ItemStack(Block.cobblestone), CRUSH);
+		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Item.emerald), new ItemStack(HMItem.dustRefined, 1, 7), HMEnumProcessing.CRUSHING);
+		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Item.coal, 1, 0), new ItemStack(HMItem.dustRaw, 1, 0), HMEnumProcessing.CRUSHING);
+		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Item.coal, 1, 1), new ItemStack(HMItem.dustRaw, 1, 0), HMEnumProcessing.CRUSHING);
+		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Block.stoneBrick, 1, 0), new ItemStack(Block.stoneBrick, 1), HMEnumProcessing.CRUSHING);
+		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Block.stoneBrick, 1, 1), new ItemStack(Block.cobblestone), HMEnumProcessing.CRUSHING);
+		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Block.stoneBrick, 1, 2), new ItemStack(Block.cobblestoneMossy), HMEnumProcessing.CRUSHING);
+		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Block.stoneBrick, 1, 3), new ItemStack(Block.cobblestone), HMEnumProcessing.CRUSHING);
 		
-		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Item.helmetSteel), new ItemStack(HMItem.dustRefined, 5, 3), CRUSH);
-		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Item.plateSteel), new ItemStack(HMItem.dustRefined, 8, 3), CRUSH);
-		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Item.legsSteel), new ItemStack(HMItem.dustRefined, 7, 3), CRUSH);
-		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Item.bootsSteel), new ItemStack(HMItem.dustRefined, 4, 3), CRUSH);
+		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Item.helmetSteel), new ItemStack(HMItem.dustRefined, 5, 3), HMEnumProcessing.CRUSHING);
+		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Item.plateSteel), new ItemStack(HMItem.dustRefined, 8, 3), HMEnumProcessing.CRUSHING);
+		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Item.legsSteel), new ItemStack(HMItem.dustRefined, 7, 3), HMEnumProcessing.CRUSHING);
+		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Item.bootsSteel), new ItemStack(HMItem.dustRefined, 4, 3), HMEnumProcessing.CRUSHING);
 		
-		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Item.swordSteel), new ItemStack(HMItem.dustRefined, 2, 3), CRUSH);
-		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Item.pickaxeSteel), new ItemStack(HMItem.dustRefined, 3, 3), CRUSH);
-		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Item.shovelSteel), new ItemStack(HMItem.dustRefined, 1, 3), CRUSH);
-		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Item.axeSteel), new ItemStack(HMItem.dustRefined, 3, 3), CRUSH);
-		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Item.hoeSteel), new ItemStack(HMItem.dustRefined, 2, 3), CRUSH);
-		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Item.netherStar), new ItemStack(HMItem.dustRefined, 3, 8), CRUSH);
+		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Item.swordSteel), new ItemStack(HMItem.dustRefined, 2, 3), HMEnumProcessing.CRUSHING);
+		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Item.pickaxeSteel), new ItemStack(HMItem.dustRefined, 3, 3), HMEnumProcessing.CRUSHING);
+		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Item.shovelSteel), new ItemStack(HMItem.dustRefined, 1, 3), HMEnumProcessing.CRUSHING);
+		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Item.axeSteel), new ItemStack(HMItem.dustRefined, 3, 3), HMEnumProcessing.CRUSHING);
+		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Item.hoeSteel), new ItemStack(HMItem.dustRefined, 2, 3), HMEnumProcessing.CRUSHING);
+		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Item.netherStar), new ItemStack(HMItem.dustRefined, 3, 8), HMEnumProcessing.CRUSHING);
 		
-		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Block.oreIron), new ItemStack(HMItem.dustRaw, 2, 1), CRUSH);
-		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Block.oreGold), new ItemStack(HMItem.dustRaw, 2, 2), CRUSH);
-		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Item.ingotIron), new ItemStack(HMItem.dustRefined, 1, 3), CRUSH);
-		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Item.ingotGold), new ItemStack(HMItem.dustRefined, 1, 4), CRUSH);
+		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Block.oreIron), new ItemStack(HMItem.dustRaw, 2, 1), HMEnumProcessing.CRUSHING);
+		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Block.oreGold), new ItemStack(HMItem.dustRaw, 2, 2), HMEnumProcessing.CRUSHING);
+		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Item.ingotIron), new ItemStack(HMItem.dustRefined, 1, 3), HMEnumProcessing.CRUSHING);
+		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(Item.ingotGold), new ItemStack(HMItem.dustRefined, 1, 4), HMEnumProcessing.CRUSHING);
 		
-		PROCESS_RECIPES.addFoDProcessingRecipe("oreCopper", new ItemStack(HMItem.dustRaw, 2, 3), CRUSH);
-		PROCESS_RECIPES.addFoDProcessingRecipe("oreTin", new ItemStack(HMItem.dustRaw, 2, 4), CRUSH);
-		PROCESS_RECIPES.addFoDProcessingRecipe("oreEndium", new ItemStack(HMItem.dustRaw, 2, 6), CRUSH);
-		PROCESS_RECIPES.addFoDProcessingRecipe("oreCobalt", new ItemStack(HMItem.dustRaw, 2, 7), CRUSH);
+		PROCESS_RECIPES.addFoDProcessingRecipe("oreCopper", new ItemStack(HMItem.dustRaw, 2, 3), HMEnumProcessing.CRUSHING);
+		PROCESS_RECIPES.addFoDProcessingRecipe("oreTin", new ItemStack(HMItem.dustRaw, 2, 4), HMEnumProcessing.CRUSHING);
+		PROCESS_RECIPES.addFoDProcessingRecipe("oreEndium", new ItemStack(HMItem.dustRaw, 2, 6), HMEnumProcessing.CRUSHING);
+		PROCESS_RECIPES.addFoDProcessingRecipe("oreCobalt", new ItemStack(HMItem.dustRaw, 2, 7), HMEnumProcessing.CRUSHING);
 		
-		PROCESS_RECIPES.addFoDProcessingRecipe("ingotCopper", new ItemStack(HMItem.dustRefined, 1, 5), CRUSH);
-		PROCESS_RECIPES.addFoDProcessingRecipe("ingotTin", new ItemStack(HMItem.dustRefined, 1, 6), CRUSH);
-		PROCESS_RECIPES.addFoDProcessingRecipe("ingotEndium", new ItemStack(HMItem.dustRefined, 1, 9), CRUSH);
-		PROCESS_RECIPES.addFoDProcessingRecipe("ingotCobalt", new ItemStack(HMItem.dustRefined, 1, 10), CRUSH);
+		PROCESS_RECIPES.addFoDProcessingRecipe("ingotCopper", new ItemStack(HMItem.dustRefined, 1, 5), HMEnumProcessing.CRUSHING);
+		PROCESS_RECIPES.addFoDProcessingRecipe("ingotTin", new ItemStack(HMItem.dustRefined, 1, 6), HMEnumProcessing.CRUSHING);
+		PROCESS_RECIPES.addFoDProcessingRecipe("ingotEndium", new ItemStack(HMItem.dustRefined, 1, 9), HMEnumProcessing.CRUSHING);
+		PROCESS_RECIPES.addFoDProcessingRecipe("ingotCobalt", new ItemStack(HMItem.dustRefined, 1, 10), HMEnumProcessing.CRUSHING);
 		
-		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(HMItem.dustRaw, 1, 1), new ItemStack(HMItem.dustRefined, 1, 3), WASH);
-		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(HMItem.dustRaw, 1, 2), new ItemStack(HMItem.dustRefined, 1, 4), WASH);
-		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(HMItem.dustRaw, 1, 3), new ItemStack(HMItem.dustRefined, 1, 5), WASH);
-		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(HMItem.dustRaw, 1, 4), new ItemStack(HMItem.dustRefined, 1, 6), WASH);
-		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(HMItem.dustRaw, 1, 6), new ItemStack(HMItem.dustRefined, 1, 9), WASH);
-		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(HMItem.dustRaw, 1, 7), new ItemStack(HMItem.dustRefined, 1, 10), WASH);
+		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(HMItem.dustRaw, 1, 1), new ItemStack(HMItem.dustRefined, 1, 3), HMEnumProcessing.WASHING);
+		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(HMItem.dustRaw, 1, 2), new ItemStack(HMItem.dustRefined, 1, 4), HMEnumProcessing.WASHING);
+		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(HMItem.dustRaw, 1, 3), new ItemStack(HMItem.dustRefined, 1, 5), HMEnumProcessing.WASHING);
+		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(HMItem.dustRaw, 1, 4), new ItemStack(HMItem.dustRefined, 1, 6), HMEnumProcessing.WASHING);
+		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(HMItem.dustRaw, 1, 6), new ItemStack(HMItem.dustRefined, 1, 9), HMEnumProcessing.WASHING);
+		PROCESS_RECIPES.addProcessingRecipe(new ItemStack(HMItem.dustRaw, 1, 7), new ItemStack(HMItem.dustRefined, 1, 10), HMEnumProcessing.WASHING);
 		
 		PROCESS_RECIPES.addForgeRecipe(new ShapelessOreRecipe(new ItemStack(HMItem.ingots, 1, 0), new Object[]{"dustEndium", "dustStar"}));
 		

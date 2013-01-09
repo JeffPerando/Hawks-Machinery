@@ -83,7 +83,7 @@ public class HMTileEntityStarForge extends HMTileEntityMachine implements IMulti
 	public boolean canWork()
 	{
 		this.output = HMRecipes.getForgeResult(this.matrix, this.worldObj);
-		return this.output != null && (this.electricityStored >= (this.ELECTRICITY_REQUIRED * 2) && !this.isDisabled()) && (this.containingItems[9] == null || (this.output.isItemEqual(this.containingItems[9]) && this.output.stackSize + this.containingItems[9].stackSize <= this.output.getMaxStackSize()));
+		return this.output != null && !this.isDisabled() && (this.electricityStored >= (this.ELECTRICITY_REQUIRED * 2)) && (this.containingItems[9] == null || (this.output.isItemEqual(this.containingItems[9]) && this.output.stackSize + this.containingItems[9].stackSize <= this.output.getMaxStackSize()));
 	}
 	
 	public void forgeItem()
