@@ -115,6 +115,8 @@ public class HawksMachinery
 		VillagerRegistry.instance().registerVillageTradeHandler(4, this.MANAGER);
 		ForgeChunkManager.setForcedChunkLoadingCallback(this, this.MANAGER);
 		MinecraftForge.EVENT_BUS.register(this.MANAGER);
+		OreGenerator.addOre(new HMEndiumOreGen());
+		OreGenerator.addOre(new HMCobaltOreGen());
 		
 	}
 	
@@ -122,8 +124,6 @@ public class HawksMachinery
 	public void load(FMLInitializationEvent event)
 	{
 		new HMUpdateHandler(ModConverter.getMod(this.getClass()));
-		OreGenerator.addOre(new HMEndiumOreGen());
-		OreGenerator.addOre(new HMCobaltOreGen());
 		PROXY.registerRenderInformation();
 		
 	}

@@ -18,6 +18,7 @@ public class HMEndiumOreGen extends OreGenReplace
 		super("Endium Ore", "oreEndium", new ItemStack(HMBlock.ore), 121, 12, 64, 8, 8, "pickaxe", 3);
 		this.ignoreNether = true;
 		this.ignoreSurface = true;
+		this.ignoreEnd = false;
 		this.shouldGenerate = HawksMachinery.instance().MANAGER.generateEndium;
 		
 	}
