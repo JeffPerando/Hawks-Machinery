@@ -21,7 +21,10 @@ import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.common.ISidedInventory;
+import universalelectricity.core.UniversalElectricity;
 import universalelectricity.core.electricity.ElectricityConnections;
+import universalelectricity.core.electricity.ElectricityNetwork;
+import universalelectricity.core.electricity.ElectricityPack;
 import universalelectricity.core.implement.IConductor;
 import universalelectricity.core.vector.Vector3;
 import universalelectricity.prefab.implement.IRotatable;
@@ -60,15 +63,17 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	
 	public int machineHP;
 	
-	private ItemStack sapper;
+	protected ItemStack sapper;
 	
 	protected boolean isProcessor;
 	
 	protected boolean canSendPackets = true;
 	
-	private int maxHP = 20;
+	protected int maxHP = 20;
 	
-	private HMVector backsideVec, selfVec;
+	protected HMVector backsideVec;
+	
+	protected HMVector selfVec;
 	
 	public boolean canRotate;
 	
@@ -79,12 +84,17 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 		
 	}
 	
+	public ForgeDirection getDefaultCableDirection()
+	{
+		return ForgeDirection.DOWN;
+	}
+	
 	@Override
 	public void initiate()
 	{
-		ElectricityConnections.registerConnector(this, EnumSet.of(ForgeDirection.DOWN));
 		if (this.selfVec == null) this.selfVec = new HMVector(this);
 		if (this.backsideVec == null && this.canRotate) this.backsideVec = new HMVector(this, this.facingDirection.getOpposite());
+		if (!this.canRotate) ElectricityConnections.registerConnector(this, EnumSet.of(this.getDefaultCableDirection()));
 		
 	}
 	
@@ -97,31 +107,52 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 		{
 			this.facingDirection = this.directionList.get(0);
 			ElectricityConnections.unregisterConnector(this);
-			ElectricityConnections.registerConnector(this, EnumSet.of(ForgeDirection.DOWN, this.facingDirection.getOpposite()));
-			if (this.canRotate) this.backsideVec = this.backsideVec.changeDir(this.facingDirection.getOpposite());
+			ElectricityConnections.registerConnector(this, EnumSet.of(this.getDefaultCableDirection(), this.facingDirection.getOpposite()));
+			if (this.canRotate) this.backsideVec = this.backsideVec.reset(this, this.facingDirection.getOpposite());
 			this.selfVec.markBlockForRenderUpdate();
+			this.selfVec.updateNeighboringBlocks();
 			
 		}
 		
-		TileEntity inputCable = Vector3.getTileEntityFromSide(this.worldObj, new Vector3(this), ForgeDirection.DOWN);
+		TileEntity inputCable = this.worldObj.getBlockTileEntity(this.xCoord, new Integer(this.yCoord) - 1, this.zCoord);
+		ElectricityNetwork network = null;
+		boolean usedBacksideVec = false;
 		
-		if (inputCable == null && this.canRotate) inputCable = this.backsideVec.getTileEntity();
+		if (inputCable == null && this.canRotate)
+		{
+			inputCable = this.backsideVec.getTileEntity();
+			usedBacksideVec = true;
+			
+		}
 		
 		if (inputCable != null)
 		{
 			if (inputCable instanceof IConductor)
 			{
-				if (this.electricityStored < this.ELECTRICITY_LIMIT)
+				network = ElectricityNetwork.getNetworkFromTileEntity(inputCable, usedBacksideVec ? this.facingDirection.getOpposite() : this.getDefaultCableDirection());
+				
+			}
+			
+		}
+		
+		if (network != null && !this.isDisabled())
+		{
+			if (this.electricityStored < this.ELECTRICITY_LIMIT)
+			{
+				network.startRequesting(this, this.ELECTRICITY_REQUIRED / this.VOLTAGE, this.VOLTAGE);
+				ElectricityPack pack = network.consumeElectricity(this);
+				this.electricityStored = Math.max(Math.min(this.electricityStored + pack.getWatts(), this.ELECTRICITY_REQUIRED), 0);
+				
+				if (UniversalElectricity.isVoltageSensitive && pack.voltage > this.VOLTAGE)
 				{
-					((IConductor)inputCable).getNetwork().startRequesting(this, this.ELECTRICITY_REQUIRED / this.VOLTAGE, this.VOLTAGE);
-					this.electricityStored = Math.max(Math.min(this.electricityStored + ((IConductor) inputCable).getNetwork().consumeElectricity(this).getWatts(), this.ELECTRICITY_REQUIRED), 0);
+					this.explodeMachine(2.0F);
 					
 				}
-				else
-				{
-					((IConductor)inputCable).getNetwork().stopRequesting(this);
-					
-				}
+				
+			}
+			else
+			{
+				network.stopRequesting(this);
 				
 			}
 			
@@ -131,10 +162,11 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 		{
 			this.electricityStored = Math.min(this.electricityStored, this.ELECTRICITY_LIMIT);
 			this.electricityStored = Math.max(this.electricityStored, 0);
-			this.machineHP = Math.min(this.machineHP, this.getMaxHP());
-			this.machineHP = Math.max(this.machineHP, 0);
 			
 		}
+		
+		this.machineHP = Math.min(this.machineHP, this.getMaxHP());
+		this.machineHP = Math.max(this.machineHP, 0);
 		
 		if (!this.worldObj.isRemote && this.worldObj.getTotalWorldTime() % 3L == 0L && this.canSendPackets)
 		{
@@ -172,6 +204,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	protected void explodeMachine(float strength)
 	{
 		this.worldObj.createExplosion((Entity)null, this.xCoord, this.yCoord, this.zCoord, strength, true);
+		
 	}
 	
 	@Override

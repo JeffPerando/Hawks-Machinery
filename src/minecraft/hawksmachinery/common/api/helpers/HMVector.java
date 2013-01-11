@@ -47,6 +47,18 @@ public class HMVector
 		
 	}
 	
+	public HMVector(HMVector oldVec)
+	{
+		this(oldVec, ForgeDirection.UNKNOWN);
+		
+	}
+	
+	public HMVector(HMVector oldVec, ForgeDirection direction)
+	{
+		this(oldVec.worldObj, oldVec.xCoord, oldVec.yCoord, oldVec.zCoord, direction);
+		
+	}
+	
 	public HMVector(World world, int x, int y, int z, ForgeDirection direction)
 	{
 		worldObj = world;
@@ -175,6 +187,12 @@ public class HMVector
 		}
 		
 		return false;
+	}
+	
+	@Override
+	public HMVector clone()
+	{
+		return new HMVector(this);
 	}
 	
 }

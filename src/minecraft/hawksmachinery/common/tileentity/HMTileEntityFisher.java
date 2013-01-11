@@ -2,7 +2,6 @@
 package hawksmachinery.common.tileentity;
 
 import hawksmachinery.common.item.HMItem;
-import java.util.EnumSet;
 import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -10,7 +9,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.ForgeDirection;
 import universalelectricity.core.electricity.ElectricInfo;
-import universalelectricity.core.electricity.ElectricityConnections;
 import universalelectricity.core.implement.IItemElectric;
 
 /**
@@ -33,11 +31,9 @@ public class HMTileEntityFisher extends HMTileEntityMachine
 		
 	}
 	
-	@Override
-	public void initiate()
+	public ForgeDirection getDefaultCableDirection()
 	{
-		ElectricityConnections.registerConnector(this, EnumSet.of(ForgeDirection.UP));
-		
+		return ForgeDirection.UP;
 	}
 	
 	@Override

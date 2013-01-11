@@ -51,6 +51,7 @@ public class HMBlockStarForge extends HMBlockMachine
 		((HMTileEntityStarForge)world.getBlockTileEntity(x, y, z)).onCreate(new Vector3(x, y, z));
 		
 	}
+	
 	@Override
 	public void breakBlock(World world, int x, int y, int z, int par5, int par6)
 	{
@@ -58,7 +59,7 @@ public class HMBlockStarForge extends HMBlockMachine
 		super.breakBlock(world, x, y, z, par5, par6);
 		
 	}
-
+	
 	@Override
 	public int getRenderType()
 	{
