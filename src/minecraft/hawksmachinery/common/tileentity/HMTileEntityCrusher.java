@@ -12,7 +12,7 @@ import cpw.mods.fml.common.FMLCommonHandler;
 
 /**
  * 
- * The Tile Entity for the Grinder.
+ * 
  * 
  * @author Elusivehawk
  */
