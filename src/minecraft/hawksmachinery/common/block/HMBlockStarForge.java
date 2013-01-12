@@ -2,8 +2,11 @@
 package hawksmachinery.common.block;
 
 import hawksmachinery.common.HawksMachinery;
+import hawksmachinery.common.api.IHMTechnicalMultiBlock;
+import hawksmachinery.common.api.helpers.HMVector;
 import hawksmachinery.common.tileentity.HMTileEntityStarForge;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -23,6 +26,29 @@ public class HMBlockStarForge extends HMBlockMachine
 		setHardness(5.0F);
 		setResistance(20.0F);
 		setRequiresSelfNotify();
+		
+	}
+	
+	@Override
+	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLiving entity)
+	{
+		for (int newX = -1; newX < 2; ++newX)
+		{
+			for (int newZ = -1; newZ < 2; ++newZ)
+			{
+				if (x != 0 || z != 0)
+				{
+					if (world.setBlock(x + newX, y, z + newZ, HMBlock.starForgeTechnical.blockID) || world.getBlockId(newX + x, y, newZ + z) == HMBlock.starForgeTechnical.blockID);
+					{
+						((IHMTechnicalMultiBlock)world.getBlockTileEntity(x + newX, y, z + newZ)).setVector(new HMVector(world, x, y, z));
+						
+					}
+					
+				}
+				
+			}
+			
+		}
 		
 	}
 	

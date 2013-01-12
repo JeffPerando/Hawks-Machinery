@@ -92,7 +92,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	@Override
 	public void initiate()
 	{
-		if (this.selfVec == null) this.selfVec = new HMVector(this);
+		//if (this.selfVec == null) this.selfVec = new HMVector(this);
 		if (this.backsideVec == null && this.canRotate) this.backsideVec = new HMVector(this, this.facingDirection.getOpposite());
 		if (!this.canRotate) ElectricityConnections.registerConnector(this, EnumSet.of(this.getDefaultCableDirection()));
 		
@@ -429,6 +429,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 		NBTTag.setInteger("electricityLimit", this.ELECTRICITY_LIMIT);
 		NBTTag.setInteger("ticksNeeded", this.TICKS_REQUIRED);
 		NBTTag.setInteger("maxMachineHP", this.maxHP);
+		if (this.selfVec == null) this.selfVec = new HMVector(this);
 		NBTTag.setCompoundTag("selfVec", this.selfVec.writeToNBTTag(new NBTTagCompound()));
 		if (this.canRotate) NBTTag.setCompoundTag("backVec", this.backsideVec.writeToNBTTag(new NBTTagCompound()));
 		NBTTag.setInteger("facingDirection", this.facingDirection.ordinal());

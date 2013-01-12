@@ -2,6 +2,7 @@
 package hawksmachinery.common.block;
 
 import hawksmachinery.common.api.IHMTechnicalMultiBlock;
+import hawksmachinery.common.api.helpers.HMVector;
 import hawksmachinery.common.tileentity.HMTileEntityStarForgeTechnical;
 import java.util.Random;
 import net.minecraft.block.Block;
@@ -64,19 +65,25 @@ public class HMBlockStarForgeTechnical extends BlockContainer
 	@Override
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z)
 	{
-		return ((IHMTechnicalMultiBlock)world.getBlockTileEntity(x, y, z)).getVector().getBlock().getPickBlock(target, world, x, y, z);
+		return ((HMBlockStarForge)((IHMTechnicalMultiBlock)world.getBlockTileEntity(x, y, z)).getVector().getBlock()).getPickBlock(target, world, x, y, z);
 	}
 	
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9)
 	{
-		return ((IHMTechnicalMultiBlock)world.getBlockTileEntity(x, y, z)).getVector().getBlock().onBlockActivated(world, x, y, z, player, par6, par7, par8, par9);
+		return ((HMBlockStarForge)((IHMTechnicalMultiBlock)world.getBlockTileEntity(x, y, z)).getVector().getBlock()).onBlockActivated(world, x, y, z, player, par6, par7, par8, par9);
 	}
 	
 	@Override
 	public void breakBlock(World world, int x, int y, int z, int par5, int par6)
 	{
-		((IHMTechnicalMultiBlock)world.getBlockTileEntity(x, y, z)).getVector().getBlock().breakBlock(world, x, y, z, par5, par6);
+		HMVector vec = ((IHMTechnicalMultiBlock)world.getBlockTileEntity(x, y, z)).getVector();
+		
+		if (!vec.equals(new HMVector(world, x, y, z)))
+		{
+			((HMBlockStarForge)vec.getBlock()).breakBlock(world, x, y, z, par5, par6);
+			
+		}
 		
 	}
 	
@@ -85,7 +92,7 @@ public class HMBlockStarForgeTechnical extends BlockContainer
 	{
 		for (int newX = x - 1; newX < 2; ++newX)
 		{
-			for (int newZ = x - 1; newZ < 2; ++newZ)
+			for (int newZ = z - 1; newZ < 2; ++newZ)
 			{
 				if (world.getBlockId(x, y, z) == HMBlock.starForge.blockID)
 				{

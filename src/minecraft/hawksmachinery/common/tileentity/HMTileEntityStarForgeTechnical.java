@@ -17,22 +17,6 @@ public class HMTileEntityStarForgeTechnical extends TileEntity implements IHMTec
 	private HMVector vector;
 	
 	@Override
-	public void readFromNBT(NBTTagCompound NBTTag)
-	{
-		super.readFromNBT(NBTTag);
-		this.vector = new HMVector(NBTTag.getCompoundTag("starForge"));
-		
-	}
-	
-	@Override
-	public void writeToNBT(NBTTagCompound NBTTag)
-	{
-		super.writeToNBT(NBTTag);
-		NBTTag.setCompoundTag("starForge", this.vector.writeToNBTTag(new NBTTagCompound()));
-		
-	}
-	
-	@Override
 	public void setVector(HMVector vec)
 	{
 		this.vector = vec;

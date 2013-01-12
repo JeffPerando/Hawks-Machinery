@@ -4,6 +4,7 @@ package hawksmachinery.common.tileentity;
 import hawksmachinery.common.HMInventoryCrafting;
 import hawksmachinery.common.api.HMRecipes;
 import hawksmachinery.common.api.IHMTechnicalMultiBlock;
+import hawksmachinery.common.api.helpers.HMVector;
 import hawksmachinery.common.block.HMBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -31,28 +32,6 @@ public class HMTileEntityStarForge extends HMTileEntityMachine
 		containingItems = new ItemStack[10];
 		VOLTAGE = 120;
 		isProcessor = true;
-		
-	}
-	
-	@Override
-	public void initiate()
-	{
-		super.initiate();
-		
-		for (int x = -1; x < 2; ++x)
-		{
-			for (int z = -1; z < 2; ++z)
-			{
-				if (x != 0 || z != 0)
-				{
-					this.worldObj.setBlock(x, this.yCoord, z, HMBlock.starForgeTechnical.blockID);
-					((IHMTechnicalMultiBlock)this.worldObj.getBlockTileEntity(x, this.yCoord, z)).setVector(this.selfVec.clone());
-					
-				}
-				
-			}
-			
-		}
 		
 	}
 	
