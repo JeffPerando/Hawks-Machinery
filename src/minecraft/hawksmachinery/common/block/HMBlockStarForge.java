@@ -2,8 +2,6 @@
 package hawksmachinery.common.block;
 
 import hawksmachinery.common.HawksMachinery;
-import hawksmachinery.common.api.IHMTechnicalMultiBlock;
-import hawksmachinery.common.api.helpers.HMVector;
 import hawksmachinery.common.tileentity.HMTileEntityStarForge;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLiving;
@@ -11,6 +9,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
+import universalelectricity.core.vector.Vector3;
 
 /**
  * 
@@ -26,29 +25,6 @@ public class HMBlockStarForge extends HMBlockMachine
 		setHardness(5.0F);
 		setResistance(20.0F);
 		setRequiresSelfNotify();
-		
-	}
-	
-	@Override
-	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLiving entity)
-	{
-		for (int newX = -1; newX < 2; ++newX)
-		{
-			for (int newZ = -1; newZ < 2; ++newZ)
-			{
-				if (x != 0 || z != 0)
-				{
-					if (world.setBlock(x + newX, y, z + newZ, HMBlock.starForgeTechnical.blockID) || world.getBlockId(newX + x, y, newZ + z) == HMBlock.starForgeTechnical.blockID);
-					{
-						((IHMTechnicalMultiBlock)world.getBlockTileEntity(x + newX, y, z + newZ)).setVector(new HMVector(world, x, y, z));
-						
-					}
-					
-				}
-				
-			}
-			
-		}
 		
 	}
 	
@@ -70,9 +46,16 @@ public class HMBlockStarForge extends HMBlockMachine
 	}
 	
 	@Override
+	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLiving entity)
+	{
+		((HMTileEntityStarForge)world.getBlockTileEntity(x, y, z)).onCreate(new Vector3(x, y, z));
+		
+	}
+	
+	@Override
 	public void breakBlock(World world, int x, int y, int z, int par5, int par6)
 	{
-		((HMTileEntityStarForge)world.getBlockTileEntity(x, y, z)).destroyExtraBlocks();
+		((HMTileEntityStarForge)world.getBlockTileEntity(x, y, z)).onDestroy(world.getBlockTileEntity(x, y, z), false);
 		super.breakBlock(world, x, y, z, par5, par6);
 		
 	}
@@ -124,14 +107,6 @@ public class HMBlockStarForge extends HMBlockMachine
 		}
 		
 		return true;
-	}
-	
-	@Override
-	public void onBlockDestroyedByExplosion(World world, int x, int y, int z)
-	{
-		((HMTileEntityStarForge)world.getBlockTileEntity(x, y, z)).destroyExtraBlocks();
-		super.onBlockDestroyedByExplosion(world, x, y, z);
-		
 	}
 	
 }

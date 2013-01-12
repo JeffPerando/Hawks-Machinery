@@ -86,7 +86,7 @@ public class HawksMachinery
 		HMBlock.fisher = new HMBlockFisher(this.MANAGER.getBlockID("Fisher", 2555));
 		HMBlock.metalBlock = new HMBlockMetalStorage(this.MANAGER.getBlockID("Metal Block", 2556));
 		HMBlock.starForge = new HMBlockStarForge(this.MANAGER.getBlockID("Star Forge", 2557));
-		HMBlock.starForgeTechnical = new HMBlockStarForgeTechnical(this.MANAGER.getBlockID("Star Forge Technical", 2558));
+		HMBlock.starForgeTechnical = new HMBlockMulti(this.MANAGER.getBlockID("Star Forge Technical", 2558));
 		HMBlock.sinterer = new HMBlockSinterer(this.MANAGER.getBlockID("Sinterer", 2559));
 		//HMBlock.fireBlock = new HMBlockFireBlock(this.MANAGER.getBlockID("Fire Block", 2560));
 		

@@ -3,11 +3,15 @@ package hawksmachinery.common.tileentity;
 
 import hawksmachinery.common.HMInventoryCrafting;
 import hawksmachinery.common.api.HMRecipes;
-import hawksmachinery.common.api.IHMTechnicalMultiBlock;
-import hawksmachinery.common.api.helpers.HMVector;
 import hawksmachinery.common.block.HMBlock;
+import hawksmachinery.common.block.HMBlockStarForge;
+import net.minecraft.block.Block;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import universalelectricity.core.vector.Vector3;
+import universalelectricity.prefab.multiblock.IMultiBlock;
 
 /**
  * 
@@ -15,13 +19,18 @@ import net.minecraft.nbt.NBTTagCompound;
  * 
  * @author Elusivehawk
  */
-public class HMTileEntityStarForge extends HMTileEntityMachine
+public class HMTileEntityStarForge extends HMTileEntityMachine implements IMultiBlock
 {
 	/**
 	 * The item this Star Forge is going to spit out.
 	 */
 	public ItemStack output;
 	public HMInventoryCrafting matrix = new HMInventoryCrafting("Star Forge", 3, 3, this);
+	
+	/**
+	 * Used internally to make sure the block drops properly.
+	 */
+	private boolean canDrop = true;
 	
 	public HMTileEntityStarForge()
 	{
@@ -108,7 +117,15 @@ public class HMTileEntityStarForge extends HMTileEntityMachine
 		
 	}
 	
-	public void destroyExtraBlocks()
+	@Override
+	public boolean onActivated(EntityPlayer player)
+	{
+		if (player.isSneaking()) return false;
+		return ((HMBlockStarForge)Block.blocksList[this.worldObj.getBlockId(this.xCoord, this.yCoord, this.zCoord)]).onMachineActivated(this.worldObj, this.xCoord, this.yCoord, this.zCoord, player, 0, player.serverPosX, player.serverPosY, player.serverPosZ);
+	}
+	
+	@Override
+	public void onCreate(Vector3 placedPosition)
 	{
 		for (int x = -1; x < 2; ++x)
 		{
@@ -116,6 +133,36 @@ public class HMTileEntityStarForge extends HMTileEntityMachine
 			{
 				if (x != 0 || z != 0)
 				{
+					HMBlock.starForgeTechnical.makeFakeBlock(this.worldObj, new Vector3(this.xCoord + x, this.yCoord, this.zCoord + z), placedPosition);
+					
+				}
+				
+			}
+			
+		}
+		
+	}
+	
+	public void onDestroy(TileEntity callingBlock, boolean dropItem)
+	{
+		for (int x = -1; x < 2; ++x)
+		{
+			for (int z = -1; z < 2; ++z)
+			{
+				if (x != 0 || z != 0)
+				{
+					if (dropItem && this.canDrop)
+					{
+						Block.blocksList[this.worldObj.getBlockId(this.xCoord, this.yCoord, this.zCoord)].dropBlockAsItem(this.worldObj, this.xCoord, this.yCoord, this.zCoord, this.worldObj.getBlockId(this.xCoord, this.yCoord, this.zCoord), this.getBlockMetadata());
+						this.canDrop = false;
+						
+					}
+					else if (!dropItem)
+					{
+						this.canDrop = false;
+						
+					}
+					
 					this.worldObj.setBlockWithNotify(this.xCoord + x, this.yCoord, this.zCoord + z, 0);
 					
 				}
@@ -123,6 +170,16 @@ public class HMTileEntityStarForge extends HMTileEntityMachine
 			}
 			
 		}
+		
+		this.worldObj.setBlockWithNotify(this.xCoord, this.yCoord, this.zCoord, 0);
+		this.invalidate();
+		
+	}
+	
+	@Override
+	public void onDestroy(TileEntity callingBlock)
+	{
+		this.onDestroy(callingBlock, true);
 		
 	}
 	

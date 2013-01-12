@@ -3,7 +3,6 @@ package hawksmachinery.common.item;
 
 import hawksmachinery.common.api.HMRepairInterfaces.IHMRepairable;
 import hawksmachinery.common.api.HMRepairInterfaces.IHMRivet;
-import hawksmachinery.common.api.IHMTechnicalMultiBlock;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
@@ -56,8 +55,7 @@ public class HMItemRivetGun extends HMItemElectric implements IToolRepair
 				
 				if (foundBlock != null)
 				{
-					if (foundBlock instanceof IHMTechnicalMultiBlock) foundBlock = ((IHMTechnicalMultiBlock)foundBlock).getVector().getTileEntity();
-					else if (foundBlock instanceof TileEntityMulti) foundBlock = ((TileEntityMulti)foundBlock).mainBlockPosition.getTileEntity(world);
+					if (foundBlock instanceof TileEntityMulti) foundBlock = ((TileEntityMulti)foundBlock).mainBlockPosition.getTileEntity(world);
 					
 					if (foundBlock instanceof IHMRepairable)
 					{
