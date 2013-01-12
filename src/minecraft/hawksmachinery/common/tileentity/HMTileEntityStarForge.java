@@ -1,11 +1,13 @@
 
 package hawksmachinery.common.tileentity;
 
+import java.util.Random;
 import hawksmachinery.common.HMInventoryCrafting;
 import hawksmachinery.common.api.HMRecipes;
 import hawksmachinery.common.block.HMBlock;
 import hawksmachinery.common.block.HMBlockStarForge;
 import net.minecraft.block.Block;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -171,7 +173,48 @@ public class HMTileEntityStarForge extends HMTileEntityMachine implements IMulti
 			
 		}
 		
-		this.worldObj.setBlockWithNotify(this.xCoord, this.yCoord, this.zCoord, 0);
+		for (ItemStack item : this.containingItems)
+		{
+			if (item != null)
+			{
+				Random random = new Random();
+				float var8 = random.nextFloat() * 0.8F + 0.1F;
+				float var9 = random.nextFloat() * 0.8F + 0.1F;
+				float var10 = random.nextFloat() * 0.8F + 0.1F;
+				
+				while (item.stackSize > 0)
+				{
+					int var11 = random.nextInt(21) + 10;
+					
+					if (var11 > item.stackSize)
+					{
+						var11 = item.stackSize;
+					}
+
+					item.stackSize -= var11;
+					
+					EntityItem var12 = new EntityItem(this.worldObj, (this.xCoord + var8), (this.yCoord + var9), (this.zCoord + var10), new ItemStack(item.itemID, var11, item.getItemDamage()));
+
+					if (item.hasTagCompound())
+					{
+						var12.func_92014_d().setTagCompound((NBTTagCompound) item.getTagCompound().copy());
+					}
+					
+					float var13 = 0.05F;
+					
+					var12.motionX = ((float)random.nextGaussian() * var13);
+					var12.motionY = ((float)random.nextGaussian() * var13 + 0.2F);
+					var12.motionZ = ((float)random.nextGaussian() * var13);
+					
+					this.worldObj.spawnEntityInWorld(var12);
+					
+				}
+				
+			}
+			
+		}
+		
+		this.selfVec.selfTerminate();
 		this.invalidate();
 		
 	}

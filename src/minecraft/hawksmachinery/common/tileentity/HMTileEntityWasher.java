@@ -168,7 +168,7 @@ public class HMTileEntityWasher extends HMTileEntityMachine implements ITankCont
 	@Override
 	public Packet getDescriptionPacket()
 	{
-		if (this.isOpen > 0) return PacketManager.getPacket("HawksMachinery", this, this.workTicks, this.electricityStored, this.machineHP, this.waterUnits);
+		if (this.playersLookingIn > 0) return PacketManager.getPacket("HawksMachinery", this, this.workTicks, this.electricityStored, this.machineHP, this.waterUnits);
 		return PacketManager.getPacket("HawksMachinery", this, this.electricityStored, this.machineHP, this.waterUnits);
 	}
 	
@@ -177,7 +177,7 @@ public class HMTileEntityWasher extends HMTileEntityMachine implements ITankCont
 	{
 		try
 		{
-			if (this.isOpen > 0)
+			if (this.playersLookingIn > 0)
 			{
 				this.workTicks = dataStream.readInt();
 				

@@ -55,13 +55,13 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	
 	public int ELECTRICITY_LIMIT;
 	
-	public int isOpen = 0;
+	public int playersLookingIn = 0;
 	
 	public double VOLTAGE;
 	
 	public HMEnumProcessing machineEnum;
 	
-	public int machineHP;
+	protected int machineHP;
 	
 	protected ItemStack sapper;
 	
@@ -93,7 +93,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	public void initiate()
 	{
 		if (this.selfVec == null) this.selfVec = new HMVector(this);
-		if (this.backsideVec == null && this.canRotate) this.backsideVec = new HMVector(this, this.facingDirection.getOpposite());
+		if (this.backsideVec == null && this.canRotate) this.backsideVec = new HMVector(this).modifyFromDir(this.facingDirection.getOpposite());
 		if (!this.canRotate) ElectricityConnections.registerConnector(this, EnumSet.of(this.getDefaultCableDirection()));
 		
 	}
@@ -106,9 +106,10 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 		if (!this.directionList.isEmpty() && this.canRotate)
 		{
 			this.facingDirection = this.directionList.get(0);
+			this.directionList.remove(0);
 			ElectricityConnections.unregisterConnector(this);
 			ElectricityConnections.registerConnector(this, EnumSet.of(this.getDefaultCableDirection(), this.facingDirection.getOpposite()));
-			if (this.canRotate) this.backsideVec = this.backsideVec.reset(this, this.facingDirection.getOpposite());
+			if (this.canRotate) this.backsideVec = this.backsideVec.reset(this).modifyFromDir(this.facingDirection.getOpposite());
 			this.selfVec.markBlockForRenderUpdate();
 			this.selfVec.updateNeighboringBlocks();
 			
@@ -351,14 +352,14 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	@Override
 	public void openChest()
 	{
-		++this.isOpen;
+		++this.playersLookingIn;
 		
 	}
 	
 	@Override
 	public void closeChest()
 	{
-		--this.isOpen;
+		--this.playersLookingIn;
 		
 	}
 	
