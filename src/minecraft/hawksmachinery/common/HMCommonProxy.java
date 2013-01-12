@@ -35,7 +35,7 @@ public class HMCommonProxy implements IGuiHandler, IConnectionHandler
 		GameRegistry.registerTileEntity(HMTileEntityTeleporter.class, "HMTeleporter");
 		GameRegistry.registerTileEntity(HMTileEntityFisher.class, "HMFisher");
 		GameRegistry.registerTileEntity(HMTileEntityStarForge.class, "HMStarForge");
-		GameRegistry.registerTileEntity(HMTileEntityMulti.class, "HMMulti");
+		GameRegistry.registerTileEntity(HMTileEntityStarForgeTechnical.class, "HMStarForgeTechnical");
 		GameRegistry.registerTileEntity(HMTileEntitySinterer.class, "HMSinterer");
 		
 		GameRegistry.registerBlock(HMBlock.crusher, HMItemBlockMachine.class);

@@ -4,12 +4,10 @@ package hawksmachinery.common.block;
 import hawksmachinery.common.HawksMachinery;
 import hawksmachinery.common.tileentity.HMTileEntityStarForge;
 import net.minecraft.block.material.Material;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
-import universalelectricity.core.vector.Vector3;
 
 /**
  * 
@@ -46,16 +44,9 @@ public class HMBlockStarForge extends HMBlockMachine
 	}
 	
 	@Override
-	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLiving entity)
-	{
-		((HMTileEntityStarForge)world.getBlockTileEntity(x, y, z)).onCreate(new Vector3(x, y, z));
-		
-	}
-	
-	@Override
 	public void breakBlock(World world, int x, int y, int z, int par5, int par6)
 	{
-		((HMTileEntityStarForge)world.getBlockTileEntity(x, y, z)).onDestroy(world.getBlockTileEntity(x, y, z), false);
+		((HMTileEntityStarForge)world.getBlockTileEntity(x, y, z)).destroyExtraBlocks();
 		super.breakBlock(world, x, y, z, par5, par6);
 		
 	}
@@ -107,6 +98,14 @@ public class HMBlockStarForge extends HMBlockMachine
 		}
 		
 		return true;
+	}
+	
+	@Override
+	public void onBlockDestroyedByExplosion(World world, int x, int y, int z)
+	{
+		((HMTileEntityStarForge)world.getBlockTileEntity(x, y, z)).destroyExtraBlocks();
+		super.onBlockDestroyedByExplosion(world, x, y, z);
+		
 	}
 	
 }

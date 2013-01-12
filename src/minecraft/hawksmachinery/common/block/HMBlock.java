@@ -24,7 +24,7 @@ public class HMBlock extends Block
 	public static Block fisher;
 	public static Block metalBlock;
 	public static Block starForge;
-	public static HMBlockMulti starForgeTechnical;
+	public static Block starForgeTechnical;
 	public static Block sinterer;
 	public static Block fireBlock;
 	

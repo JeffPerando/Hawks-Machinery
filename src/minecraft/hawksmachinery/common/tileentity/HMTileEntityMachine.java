@@ -114,7 +114,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 			
 		}
 		
-		TileEntity inputCable = this.worldObj.getBlockTileEntity(this.xCoord, new Integer(this.yCoord) - 1, this.zCoord);
+		TileEntity inputCable = this.worldObj.getBlockTileEntity(this.xCoord, this.yCoord - 1, this.zCoord);
 		ElectricityNetwork network = null;
 		boolean usedBacksideVec = false;
 		
