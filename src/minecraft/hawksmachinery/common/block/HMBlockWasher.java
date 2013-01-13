@@ -52,12 +52,12 @@ public class HMBlockWasher extends HMBlockMachine
 	{
 		int newDirection = 3;
 		
-		switch (world.getBlockMetadata(x, y, z))
+		switch (((IRotatable)world.getBlockTileEntity(x, y, z)).getDirection().ordinal())
 		{
-			case 0: newDirection = 2; break;
-			case 1: newDirection = 5; break;
-			case 2: newDirection = 3; break;
+			case 2: newDirection = 5; break;
+			case 5: newDirection = 3; break;
 			case 3: newDirection = 4; break;
+			case 4: newDirection = 2; break;
 			
 		}
 		

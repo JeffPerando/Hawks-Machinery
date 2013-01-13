@@ -52,12 +52,12 @@ public class HMBlockCrusher extends HMBlockMachine
 	{
 		int newDirection = 3;
 		
-		switch (world.getBlockMetadata(x, y, z))
+		switch (((IRotatable)world.getBlockTileEntity(x, y, z)).getDirection().ordinal())
 		{
-			case 0: newDirection = 2; break;
-			case 1: newDirection = 5; break;
-			case 2: newDirection = 3; break;
+			case 2: newDirection = 5; break;
+			case 5: newDirection = 3; break;
 			case 3: newDirection = 4; break;
+			case 4: newDirection = 2; break;
 			
 		}
 		
@@ -120,7 +120,7 @@ public class HMBlockCrusher extends HMBlockMachine
 	{
 		if (((HMTileEntityCrusher)world.getBlockTileEntity(x, y, z)).canWork())
 		{
-			switch (world.getBlockMetadata(x, y, z))
+			switch (((IRotatable)world.getBlockTileEntity(x, y, z)).getDirection().ordinal())
 			{
 				case 2: world.spawnParticle("smoke", x + 0.5, y + 1, z + 0.8, 0, 0.1, 0); break;
 				case 3: world.spawnParticle("smoke", x + 0.5, y + 1, z + 0.2, 0, 0.1, 0); break;

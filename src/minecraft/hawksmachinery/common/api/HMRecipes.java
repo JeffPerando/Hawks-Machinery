@@ -139,7 +139,7 @@ public class HMRecipes
 					output.setItemDamage(input.getItemDamage());
 				}
 				
-				if (input.stackSize < getQuantity(input, processType)) return output;
+				if (input.stackSize >= getQuantity(input, processType)) return output;
 			}
 			
 		}

@@ -92,8 +92,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	@Override
 	public void initiate()
 	{
-		if (this.selfVec == null) this.selfVec = new HMVector(this);
-		if (this.backsideVec == null && this.canRotate) this.backsideVec = new HMVector(this).modifyFromDir(this.facingDirection.getOpposite());
+		this.selfVec = new HMVector(this);
 		if (!this.canRotate) ElectricityConnections.registerConnector(this, EnumSet.of(this.getDefaultCableDirection()));
 		
 	}
@@ -109,7 +108,15 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 			this.directionList.remove(0);
 			ElectricityConnections.unregisterConnector(this);
 			ElectricityConnections.registerConnector(this, EnumSet.of(this.getDefaultCableDirection(), this.facingDirection.getOpposite()));
-			if (this.canRotate) this.backsideVec = this.backsideVec.reset(this).modifyFromDir(this.facingDirection.getOpposite());
+			
+			if (this.backsideVec == null)
+			{
+				this.backsideVec = new HMVector(this);
+				
+			}
+			
+			this.backsideVec = this.backsideVec.reset(this).modifyFromDir(this.facingDirection.getOpposite());
+			
 			this.selfVec.markBlockForRenderUpdate();
 			this.selfVec.updateNeighboringBlocks();
 			
@@ -119,7 +126,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 		ElectricityNetwork network = null;
 		boolean usedBacksideVec = false;
 		
-		if (inputCable == null && this.canRotate)
+		if (inputCable == null && this.backsideVec != null)
 		{
 			inputCable = this.backsideVec.getTileEntity();
 			usedBacksideVec = true;
@@ -140,9 +147,9 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 		{
 			if (this.electricityStored < this.ELECTRICITY_LIMIT)
 			{
-				network.startRequesting(this, this.ELECTRICITY_REQUIRED / this.VOLTAGE, this.VOLTAGE);
+				network.startRequesting(this, (this.ELECTRICITY_REQUIRED * 2) / this.VOLTAGE, this.VOLTAGE);
 				ElectricityPack pack = network.consumeElectricity(this);
-				this.electricityStored = Math.max(Math.min(this.electricityStored + pack.getWatts(), this.ELECTRICITY_REQUIRED), 0);
+				this.electricityStored += Math.max(Math.min(this.electricityStored + pack.getWatts(), this.ELECTRICITY_REQUIRED), 0);
 				
 				if (UniversalElectricity.isVoltageSensitive && pack.voltage > this.VOLTAGE)
 				{
@@ -211,7 +218,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	@Override
 	public Packet getDescriptionPacket()
 	{
-		if (this.isProcessor) return PacketManager.getPacket("HawksMachinery", this, this.workTicks, this.electricityStored, this.machineHP, this.facingDirection.ordinal());
+		if (this.isProcessor && this.playersLookingIn > 0) return PacketManager.getPacket("HawksMachinery", this, this.workTicks, this.electricityStored, this.machineHP, this.facingDirection.ordinal());
 		return PacketManager.getPacket("HawksMachinery", this, this.electricityStored, this.machineHP, this.facingDirection.ordinal());
 	}
 	
@@ -226,17 +233,20 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	{
 		try
 		{
-			if (this.isProcessor)
+			if (this.isProcessor && this.playersLookingIn > 0)
 			{
 				this.workTicks = dataStream.readInt();
 				
 			}
 			
-			if (this.worldObj.isRemote)
+			this.electricityStored = dataStream.readDouble();
+			this.machineHP = dataStream.readInt();
+			
+			ForgeDirection newDir = ForgeDirection.getOrientation(dataStream.readInt());
+			
+			if (newDir != this.facingDirection)
 			{
-				this.electricityStored = dataStream.readDouble();
-				this.machineHP = dataStream.readInt();
-				this.facingDirection = ForgeDirection.getOrientation(dataStream.readInt());
+				this.setDirection(newDir);
 				
 			}
 			
@@ -390,8 +400,6 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 		if (NBTTag.hasKey("electricityLimit")) this.ELECTRICITY_LIMIT = NBTTag.getInteger("electricityLimit");
 		if (NBTTag.hasKey("ticksNeeded")) this.TICKS_REQUIRED = NBTTag.getInteger("ticksNeeded");
 		if (NBTTag.hasKey("maxMachineHP")) this.maxHP = NBTTag.getInteger("maxMachineHP");
-		if (NBTTag.hasKey("selfVec")) this.selfVec = new HMVector(NBTTag.getCompoundTag("selfVec"));
-		if (NBTTag.hasKey("backVec") && this.canRotate) this.backsideVec = new HMVector(NBTTag.getCompoundTag("backVec"));
 		if (NBTTag.hasKey("facingDirection")) this.setDirection(ForgeDirection.getOrientation(NBTTag.getInteger("facingDirection")));
 		
 		if (NBTTag.hasKey("Sapper"))
@@ -430,8 +438,6 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 		NBTTag.setInteger("electricityLimit", this.ELECTRICITY_LIMIT);
 		NBTTag.setInteger("ticksNeeded", this.TICKS_REQUIRED);
 		NBTTag.setInteger("maxMachineHP", this.maxHP);
-		NBTTag.setCompoundTag("selfVec", this.selfVec.writeToNBTTag(new NBTTagCompound()));
-		if (this.canRotate) NBTTag.setCompoundTag("backVec", this.backsideVec.writeToNBTTag(new NBTTagCompound()));
 		NBTTag.setInteger("facingDirection", this.facingDirection.ordinal());
 		
 		if (this.sapper != null) NBTTag.setCompoundTag("Sapper", this.sapper.writeToNBT(new NBTTagCompound()));

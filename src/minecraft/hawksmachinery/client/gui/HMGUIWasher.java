@@ -7,6 +7,7 @@ import hawksmachinery.common.tileentity.HMTileEntityWasher;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.StatCollector;
+import net.minecraftforge.common.ForgeDirection;
 import org.lwjgl.opengl.GL11;
 
 /**
@@ -52,17 +53,21 @@ public class HMGUIWasher extends GuiContainer
 		if (this.tileEntity.workTicks > 0)
 		{
 			int scale = this.tileEntity.getWashingStatus(this.tileEntity.TICKS_REQUIRED);
-			this.drawTexturedModalRect(containerWidth + 52, containerHeight + 28, 176, 0, 52 - scale, 20);
+			this.drawTexturedModalRect(containerWidth + 52, containerHeight + 30, 176, 0, 52 - scale, 20);
 		}
-		
-		if (this.tileEntity.waterUnits > 0)
+		/*
+		if (this.tileEntity.waterTank.getLiquid() != null)
 		{
-			double percent = (double)this.tileEntity.waterUnits / (double)this.tileEntity.WATER_LIMIT;
-			int waterLvl = (int)(percent * 71) + 1;
-			this.drawTexturedModalRect(containerWidth + 8, containerHeight + 78 - waterLvl, 178, 94 - waterLvl, 17, waterLvl);
+			if (this.tileEntity.waterTank.getLiquid().amount > 0)
+			{
+				double percent = (double)(this.tileEntity.waterTank.getLiquid().amount / HMTileEntityWasher.BUCKET_UNIT) / (double)this.tileEntity.WATER_LIMIT;
+				int waterLvl = (int)(percent * 71) + 1;
+				this.drawTexturedModalRect(containerWidth + 8, containerHeight + 78 - waterLvl, 178, 94 - waterLvl, 17, waterLvl);
+				
+			}
 			
 		}
-		
+		*/
 	}
 	
 }

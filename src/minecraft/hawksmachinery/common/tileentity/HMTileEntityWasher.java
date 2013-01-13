@@ -31,25 +31,25 @@ import cpw.mods.fml.common.FMLCommonHandler;
  * 
  * @author Elusivehawk
  */
-public class HMTileEntityWasher extends HMTileEntityMachine implements ITankContainer
+public class HMTileEntityWasher extends HMTileEntityMachine// implements ITankContainer
 {
-	public int WATER_LIMIT = 9;
-	public int waterUnits;
-	private LiquidTank waterTank;
+	//public int WATER_LIMIT = 9;
+	//public LiquidTank waterTank;
+	public static int BUCKET_UNIT = LiquidContainerRegistry.BUCKET_VOLUME;
 	
 	public HMTileEntityWasher()
 	{
 		super();
 		ELECTRICITY_REQUIRED = 5;
-		TICKS_REQUIRED = FMLCommonHandler.instance().getSide().isServer() ? HawksMachinery.instance().MANAGER.crusherTicks : 100;
+		TICKS_REQUIRED = FMLCommonHandler.instance().getSide().isServer() ? HawksMachinery.instance().MANAGER.washerTicks : 100;
 		ELECTRICITY_LIMIT = 1200;
 		containingItems = new ItemStack[6];
 		machineEnum = HMEnumProcessing.WASHING;
 		VOLTAGE = 120;
 		isProcessor = true;
 		canRotate = true;
-		WATER_LIMIT = 9;
-		waterTank = new LiquidTank(LiquidContainerRegistry.BUCKET_VOLUME * WATER_LIMIT);
+		//WATER_LIMIT = 9;
+		//waterTank = new LiquidTank(new LiquidStack(Block.waterStill, 0), BUCKET_UNIT * WATER_LIMIT);
 		
 	}
 	
@@ -57,24 +57,21 @@ public class HMTileEntityWasher extends HMTileEntityMachine implements ITankCont
 	public void updateEntity()
 	{
 		super.updateEntity();
-		
-		if (HawksMachinery.instance().MANAGER.enableWasherSourceBlockConsump)
+		/*
+		if (!HawksMachinery.instance().MANAGER.enableWasherSourceBlockConsump)
 		{
-			if (this.worldObj.getTotalWorldTime() % 3L == 0L && this.worldObj.getBlockId(this.xCoord, this.yCoord + 1, this.zCoord) == Block.waterStill.blockID && this.waterUnits + 1.0F <= this.WATER_LIMIT)
+			if (this.worldObj.getTotalWorldTime() % 3L == 0L && this.worldObj.getBlockId(this.xCoord, this.yCoord + 1, this.zCoord) == Block.waterStill.blockID && this.waterTank.getLiquid().amount + BUCKET_UNIT  <= this.WATER_LIMIT)
 			{
-				this.waterTank.fill(new LiquidStack(Block.waterStill, LiquidContainerRegistry.BUCKET_VOLUME), true);
+				this.waterTank.fill(new LiquidStack(Block.waterStill, BUCKET_UNIT), true);
 				this.worldObj.setBlockAndMetadataWithUpdate(this.xCoord, this.yCoord + 1, this.zCoord, 0, 0, true);
 				this.worldObj.notifyBlocksOfNeighborChange(this.xCoord, this.yCoord + 1, this.zCoord, 0);
 				
 			}
 			
 		}
-		
+		*/
 		if (!this.isDisabled() && !this.worldObj.isRemote)
 		{
-			this.waterUnits = Math.min(Math.max(this.waterUnits,0), this.WATER_LIMIT);
-			if (this.waterTank.getLiquid() != null) this.waterUnits = (this.waterTank.getLiquid().amount / LiquidContainerRegistry.BUCKET_VOLUME);
-			
 			if (this.containingItems[0] != null)
 			{
 				if (this.containingItems[0].getItem() instanceof IItemElectric)
@@ -91,18 +88,18 @@ public class HMTileEntityWasher extends HMTileEntityMachine implements ITankCont
 				}
 				
 			}
-			
+			/*
 			if (this.containingItems[1] != null)
 			{
-				if (this.containingItems[1].getItem() == Item.bucketWater && this.waterUnits + 1 <= this.WATER_LIMIT)
+				if (this.containingItems[1].getItem() == Item.bucketWater && this.waterTank.getLiquid().amount + 1000 <= this.WATER_LIMIT)
 				{
-					int filled = this.waterTank.fill(new LiquidStack(Block.waterStill, LiquidContainerRegistry.BUCKET_VOLUME), true);
+					int filled = this.waterTank.fill(new LiquidStack(Block.waterStill, BUCKET_UNIT), true);
 					if (filled > 0) this.containingItems[1] = new ItemStack(Item.bucketEmpty, 1);
 					
 				}
 				
 			}
-			
+			*/
 			if (this.canWork())
 			{
 				this.electricityStored -= this.ELECTRICITY_REQUIRED;
@@ -120,7 +117,8 @@ public class HMTileEntityWasher extends HMTileEntityMachine implements ITankCont
 					{
 						this.washItem();
 						this.workTicks = 0;
-						this.waterTank.drain(LiquidContainerRegistry.BUCKET_VOLUME, true);
+						//this.waterTank.getLiquid().amount -= BUCKET_UNIT;
+						
 					}
 					
 				}
@@ -139,7 +137,7 @@ public class HMTileEntityWasher extends HMTileEntityMachine implements ITankCont
 	public boolean canWork()
 	{
 		ItemStack output = HMRecipes.getResult(this.containingItems[2], this.machineEnum);
-		return output != null && (this.electricityStored >= (this.ELECTRICITY_REQUIRED * 2) && this.waterUnits >= 1) && (this.containingItems[3] == null || (output.isItemEqual(this.containingItems[3]) && output.stackSize + this.containingItems[3].stackSize <= output.getMaxStackSize()));
+		return output != null && (this.electricityStored >= (this.ELECTRICITY_REQUIRED * 2)/* && this.waterTank.getLiquid() != null && this.waterTank.getLiquid().amount >= BUCKET_UNIT*/) && (this.containingItems[3] == null || (output.isItemEqual(this.containingItems[3]) && output.stackSize + this.containingItems[3].stackSize <= output.getMaxStackSize()));
 	}
 	
 	private void washItem()
@@ -168,8 +166,8 @@ public class HMTileEntityWasher extends HMTileEntityMachine implements ITankCont
 	@Override
 	public Packet getDescriptionPacket()
 	{
-		if (this.playersLookingIn > 0) return PacketManager.getPacket("HawksMachinery", this, this.workTicks, this.electricityStored, this.machineHP, this.waterUnits);
-		return PacketManager.getPacket("HawksMachinery", this, this.electricityStored, this.machineHP, this.waterUnits);
+		if (this.playersLookingIn > 0) return PacketManager.getPacket("HawksMachinery", this, this.workTicks, this.electricityStored, this.machineHP);//, this.waterTank.getLiquid().amount);
+		return PacketManager.getPacket("HawksMachinery", this, this.electricityStored, this.machineHP);//, this.waterTank.getLiquid().amount);
 	}
 	
 	@Override
@@ -186,7 +184,7 @@ public class HMTileEntityWasher extends HMTileEntityMachine implements ITankCont
 			{
 				this.electricityStored = dataStream.readDouble();
 				this.machineHP = dataStream.readInt();
-				this.waterUnits = dataStream.readInt();
+				//this.waterTank.fill(new LiquidStack(Block.waterStill, dataStream.readInt()), true);
 				
 			}
 			
@@ -207,10 +205,7 @@ public class HMTileEntityWasher extends HMTileEntityMachine implements ITankCont
 	public void readFromNBT(NBTTagCompound NBTTag)
 	{
 		super.readFromNBT(NBTTag);
-		int water = 0;
-		if (NBTTag.getTag("waterUnits") instanceof NBTTagFloat) water = (int)NBTTag.getFloat("waterunits");
-		else water = NBTTag.getInteger("waterUnits");
-		this.waterTank.setLiquid(new LiquidStack(Block.waterStill, water));
+		//if (NBTTag.hasKey("waterTank")) this.waterTank.setLiquid(LiquidStack.loadLiquidStackFromNBT(NBTTag.getCompoundTag("waterTank")));
 		
 	}
 	
@@ -218,7 +213,7 @@ public class HMTileEntityWasher extends HMTileEntityMachine implements ITankCont
 	public void writeToNBT(NBTTagCompound NBTTag)
 	{
 		super.writeToNBT(NBTTag);
-		NBTTag.setInteger("waterUnits", this.waterTank.getLiquid() != null ? this.waterTank.getLiquid().amount : 0);
+		//NBTTag.setCompoundTag("waterTank", this.waterTank.getLiquid() != null ? this.waterTank.getLiquid().writeToNBT(new NBTTagCompound()) : new NBTTagCompound());
 		
 	}
 	
@@ -245,7 +240,7 @@ public class HMTileEntityWasher extends HMTileEntityMachine implements ITankCont
 	{
 		return "HMWasher";
 	}
-	
+	/*
 	@Override
 	public int fill(ForgeDirection from, LiquidStack resource, boolean doFill)
 	{
@@ -275,7 +270,7 @@ public class HMTileEntityWasher extends HMTileEntityMachine implements ITankCont
 	@Override
 	public ILiquidTank[] getTanks(ForgeDirection direction)
 	{
-		return new ILiquidTank[] { this.waterTank };
+		return new ILiquidTank[]{this.waterTank};
 	}
 	
 	@Override
@@ -283,5 +278,5 @@ public class HMTileEntityWasher extends HMTileEntityMachine implements ITankCont
 	{
 		return null;
 	}
-	
+	*/
 }

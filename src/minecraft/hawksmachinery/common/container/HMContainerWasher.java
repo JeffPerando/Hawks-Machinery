@@ -39,12 +39,15 @@ public class HMContainerWasher extends Container
 			for (int var4 = 0; var4 < 9; ++var4)
 			{
 				this.addSlotToContainer(new Slot(playerInventory, var4 + counter * 9 + 9, 8 + var4 * 18, 84 + counter * 18));
+				
 			}
+			
 		}
 		
 		for (int counter = 0; counter < 9; ++counter)
 		{
 			this.addSlotToContainer(new Slot(playerInventory, counter, 8 + counter * 18, 142));
+			
 		}
 		
 	}
@@ -79,10 +82,15 @@ public class HMContainerWasher extends Container
 			{
 				if (var4.getItem() instanceof IItemElectric)
 				{
-					if (!this.mergeItemStack(var4, 0, 3, false))
+					if (((IItemElectric)var4.getItem()).canProduceElectricity())
 					{
-						return null;
+						if (!this.mergeItemStack(var4, 0, 3, false))
+						{
+							return null;
+						}
+						
 					}
+					
 				}
 				else if (HMRecipes.getResult(var4, HMRecipes.HMEnumProcessing.WASHING) != null)
 				{
@@ -90,6 +98,7 @@ public class HMContainerWasher extends Container
 					{
 						return null;
 					}
+					
 				}
 				else if (var4.getItem() == Item.bucketWater)
 				{
@@ -97,6 +106,7 @@ public class HMContainerWasher extends Container
 					{
 						return null;
 					}
+					
 				}
 				else if (par1 >= 3 && par1 < 30)
 				{
@@ -104,6 +114,7 @@ public class HMContainerWasher extends Container
 					{
 						return null;
 					}
+					
 				}
 				
 			}
@@ -111,10 +122,12 @@ public class HMContainerWasher extends Container
 			if (var4.stackSize == 0)
 			{
 				var3.putStack((ItemStack)null);
+				
 			}
 			else
 			{
 				var3.onSlotChanged();
+				
 			}
 			
 			if (var4.stackSize == var2.stackSize)
@@ -123,6 +136,7 @@ public class HMContainerWasher extends Container
 			}
 			
 			var3.onPickupFromSlot(player, var4);
+			
 		}
 		
 		return var2;
@@ -133,6 +147,7 @@ public class HMContainerWasher extends Container
     {
         super.onCraftGuiClosed(par1EntityPlayer);
         this.tileEntity.closeChest();
+        
     }
 	
 }

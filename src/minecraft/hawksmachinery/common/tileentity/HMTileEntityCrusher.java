@@ -66,6 +66,7 @@ public class HMTileEntityCrusher extends HMTileEntityMachine
 				else
 				{
 					--this.workTicks;
+					this.electricityStored -= this.ELECTRICITY_REQUIRED;
 					
 					if (this.workTicks == 1)
 					{
@@ -75,8 +76,6 @@ public class HMTileEntityCrusher extends HMTileEntityMachine
 					}
 					
 				}
-				
-				this.electricityStored -= this.ELECTRICITY_REQUIRED;
 				
 			}
 			else
