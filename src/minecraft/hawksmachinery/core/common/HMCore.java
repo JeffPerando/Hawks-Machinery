@@ -29,6 +29,7 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.common.registry.VillagerRegistry;
 
 /**
@@ -64,6 +65,7 @@ public class HMCore
 	public static final String TEXTURE_PATH = "/hawksmachinery/core/client/resources/textures";
 	public static final String SOUND_PATH = "/hawksmachinery/core/client/resources/sounds";
 	public static final String LANG_PATH = "/hawksmachinery/core/client/resources/lang";
+	public static final String[] SUPPORTED_LANGS = new String[]{"en_US"};
 	
 	@PreInit
 	public void preInit(FMLPreInitializationEvent event)
@@ -106,7 +108,12 @@ public class HMCore
 	public void load(FMLInitializationEvent event)
 	{
 		new HMUpdateHandler(ModConverter.getMod(this.getClass()));
-		//TODO Finish PROXY.registerRenderInformation();
+		
+		for (String lang : SUPPORTED_LANGS)
+		{
+			LanguageRegistry.instance().loadLocalization(LANG_PATH + "/" + lang + ".txt", lang, false);
+			
+		}
 		
 	}
 	
