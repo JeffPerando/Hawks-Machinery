@@ -204,7 +204,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	}
 	
 	@Override
-	public double getVoltage()
+	public double getVoltage(Object... data)
 	{
 		return this.VOLTAGE;
 	}

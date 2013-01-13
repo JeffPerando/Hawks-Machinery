@@ -123,7 +123,7 @@ public class HMTileEntityStarForge extends HMTileEntityMachine implements IMulti
 	public boolean onActivated(EntityPlayer player)
 	{
 		if (player.isSneaking()) return false;
-		return ((HMBlockStarForge)Block.blocksList[this.worldObj.getBlockId(this.xCoord, this.yCoord, this.zCoord)]).onMachineActivated(this.worldObj, this.xCoord, this.yCoord, this.zCoord, player, 0, player.serverPosX, player.serverPosY, player.serverPosZ);
+		return ((HMBlockStarForge)Block.blocksList[this.worldObj.getBlockId(this.xCoord, this.yCoord, this.zCoord)]).onMachineActivated(this.worldObj, this.xCoord, this.yCoord, this.zCoord, player, 0, (float)player.posX, (float)player.posY, (float)player.posZ);
 	}
 	
 	@Override
