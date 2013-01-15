@@ -41,7 +41,7 @@ public class HMTileEntityWasher extends HMTileEntityMachine// implements ITankCo
 	{
 		super();
 		ELECTRICITY_REQUIRED = 5;
-		TICKS_REQUIRED = FMLCommonHandler.instance().getSide().isServer() ? HMCore.instance().MANAGER.washerTicks : 100;
+		TICKS_REQUIRED = FMLCommonHandler.instance().getSide().isServer() ? HMCore.instance().PROXY.washerTicks : 100;
 		ELECTRICITY_LIMIT = 1200;
 		containingItems = new ItemStack[6];
 		machineEnum = HMEnumProcessing.WASHING;

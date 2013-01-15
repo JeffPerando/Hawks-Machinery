@@ -1,5 +1,5 @@
 
-package hawksmachinery.core.common.api.logo;
+package hawksmachinery.machine.common.api;
 
 /**
  * 

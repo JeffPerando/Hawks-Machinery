@@ -19,7 +19,7 @@ public class HMEndiumOreGen extends OreGenReplace
 		this.ignoreNether = true;
 		this.ignoreSurface = true;
 		this.ignoreEnd = false;
-		this.shouldGenerate = HMCore.instance().MANAGER.generateEndium;
+		this.shouldGenerate = HMCore.instance().PROXY.generateEndium;
 		
 	}
 	

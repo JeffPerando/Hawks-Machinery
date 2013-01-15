@@ -18,6 +18,7 @@ item.HMRivetGun.name=Rivet Gun
 item.HMFishFood.name=Fish Food
 item.HMMachineMeter.name=Machine Meter
 item.HMCobaltBone.name=Cobalt Bone
+item.HMEnderMirror.name=Ender Mirror
 
 item.HMDustUnref0.name=Coal Dust
 item.HMDustUnref1.name=Unrefined Iron Dust
@@ -76,3 +77,5 @@ item.HMRivet6.name=Cobalt Rivet
 item.HMTestTube.name=Test Tube
 item.HMNanitesEmpty.name=Blank Nanites
 item.HMNanites.name=Nanites
+
+hm.endermirror.tetheredTo=Tethered To

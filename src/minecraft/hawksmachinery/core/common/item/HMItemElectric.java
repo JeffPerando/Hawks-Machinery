@@ -16,11 +16,15 @@ import universalelectricity.prefab.ItemElectric;
  */
 public class HMItemElectric extends ItemElectric
 {
-	public HMItemElectric(int id)
+	public final double maxJoules, maxVolts;
+	
+	public HMItemElectric(int id, double joules, double volts)
 	{
 		super(id);
 		setTextureFile(HMCore.ITEM_TEXTURE_FILE);
 		setCreativeTab(HMCore.instance().tab);
+		maxJoules = joules;
+		maxVolts = volts;
 		
 	}
 	
@@ -35,13 +39,13 @@ public class HMItemElectric extends ItemElectric
 	@Override
 	public double getMaxJoules(Object... data)
 	{
-		return 0;
+		return this.maxJoules;
 	}
 	
 	@Override
 	public double getVoltage(Object... data)
 	{
-		return 120;
+		return this.maxVolts;
 	}
 	
 }

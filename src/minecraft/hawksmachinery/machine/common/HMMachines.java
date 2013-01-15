@@ -68,10 +68,6 @@ public class HMMachines implements IVillageTradeHandler, IFuelHandler
 	 * Refined dusts! 0 - Diamond, 1 - Ender, 2 - Glass, 3 - Iron, 4 - Gold, 5 - Copper, 6 - Tin, 7 - Emerald, 8 - Nether Star, 9 - Endium, 10 - Cobalt.
 	 */
 	public static HMItem dustRefined;
-	/**
-	 * Parts! 0 - Electric Pistons, 1 - Laser, 2 - Being Redone, 3 - Light Bulb, 4 - Heating Coil, 5 - Electric Magnet, 6 - Engine.
-	 */
-	public static HMItem parts;
 	public static HMItem blueprints;
 	public static HMItem rivets;
 	public static Item rivetGun;
@@ -89,30 +85,30 @@ public class HMMachines implements IVillageTradeHandler, IFuelHandler
 	public void preInit(FMLPreInitializationEvent event)
 	{
 		INSTANCE = this;
+		
 		PROXY.registerRenderInformation();
 		VillagerRegistry.instance().registerVillageTradeHandler(1, this);
 		
 		NetworkRegistry.instance().registerGuiHandler(this, PROXY);
 		NetworkRegistry.instance().registerConnectionHandler(PROXY);
 		
-		crusher = new HMBlockCrusher(HMCore.instance().MANAGER.getBlockID("Crusher", 2550));
-		washer = new HMBlockWasher(HMCore.instance().MANAGER.getBlockID("Washer", 2552));
+		crusher = new HMBlockCrusher(HMCore.instance().PROXY.getBlockID("Crusher", 2550));
+		washer = new HMBlockWasher(HMCore.instance().PROXY.getBlockID("Washer", 2552));
 		//TODO Reoccupy ID #2554 with the new Endium Teleporter.
-		fisher = new HMBlockFisher(HMCore.instance().MANAGER.getBlockID("Fisher", 2555));
-		starForge = new HMBlockStarForge(HMCore.instance().MANAGER.getBlockID("Star Forge", 2557));
-		sinterer = new HMBlockSinterer(HMCore.instance().MANAGER.getBlockID("Sinterer", 2559));
+		fisher = new HMBlockFisher(HMCore.instance().PROXY.getBlockID("Fisher", 2555));
+		starForge = new HMBlockStarForge(HMCore.instance().PROXY.getBlockID("Star Forge", 2557));
+		sinterer = new HMBlockSinterer(HMCore.instance().PROXY.getBlockID("Sinterer", 2559));
 		//HMBlock.fireBlock = new HMBlockFireBlock(this.MANAGER.getBlockID("Fire Block", 2560));
 		
-		dustRaw = new HMItemRawDust(HMCore.instance().MANAGER.getItemID("Raw Dusts", 24150)).setMaxDmg(8);
-		dustRefined = new HMItemRefinedDust(HMCore.instance().MANAGER.getItemID("Refined Dusts", 24151)).setMaxDmg(10);
-		parts = new HMItemParts(HMCore.instance().MANAGER.getItemID("Parts", 24152)).setMaxDmg(6);
-		blueprints = new HMItemBlueprints(HMCore.instance().MANAGER.getItemID("Blueprints", 24153)).setMaxDmg(8);
-		rivets = new HMItemRivets(HMCore.instance().MANAGER.getItemID("Rivets", 24155)).setMaxDmg(6);
-		rivetGun = new HMItemRivetGun(HMCore.instance().MANAGER.getItemID("Rivet Gun", 24156));
-		fishFood = new HMItem(HMCore.instance().MANAGER.getItemID("Fish Food", 24158)).setIconIndex(104).setItemName("HMFishFood").setCreativeTab(HMCore.instance().tab);
-		machineMeter = new HMItemMeter(HMCore.instance().MANAGER.getItemID("Machine Meter", 24159));
-		testTube = new HMItem(HMCore.instance().MANAGER.getItemID("Test Tube", 24161)).setItemName("HMTestTube").setCreativeTab(HMCore.instance().tab).setIconIndex(72);
-		nanites = new HMItemNanite(HMCore.instance().MANAGER.getItemID("Nanites", 24162)).setMaxDmg(15);
+		dustRaw = new HMItemRawDust(HMCore.instance().PROXY.getItemID("Raw Dusts", 24150)).setMaxDmg(8);
+		dustRefined = new HMItemRefinedDust(HMCore.instance().PROXY.getItemID("Refined Dusts", 24151)).setMaxDmg(10);
+		blueprints = new HMItemBlueprints(HMCore.instance().PROXY.getItemID("Blueprints", 24153)).setMaxDmg(8);
+		rivets = new HMItemRivets(HMCore.instance().PROXY.getItemID("Rivets", 24155)).setMaxDmg(6);
+		rivetGun = new HMItemRivetGun(HMCore.instance().PROXY.getItemID("Rivet Gun", 24156));
+		fishFood = new HMItem(HMCore.instance().PROXY.getItemID("Fish Food", 24158)).setIconIndex(104).setItemName("HMFishFood").setCreativeTab(HMCore.instance().tab);
+		machineMeter = new HMItemMeter(HMCore.instance().PROXY.getItemID("Machine Meter", 24159));
+		testTube = new HMItem(HMCore.instance().PROXY.getItemID("Test Tube", 24161)).setItemName("HMTestTube").setCreativeTab(HMCore.instance().tab).setIconIndex(72);
+		nanites = new HMItemNanite(HMCore.instance().PROXY.getItemID("Nanites", 24162)).setMaxDmg(15);
 		
 		GameRegistry.registerTileEntity(HMTileEntityCrusher.class, "HMCrusher");
 		GameRegistry.registerTileEntity(HMTileEntityWasher.class, "HMWasher");
@@ -147,20 +143,20 @@ public class HMMachines implements IVillageTradeHandler, IFuelHandler
 	 */
 	public void loadRecipes()
 	{
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(crusher), new Object[]{"IPI", "IEI", "ICI", 'I', "ingotCobalt", 'P', Item.pickaxeSteel, 'E', new ItemStack(parts, 1, 6), 'C', Item.ingotGold}));
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(washer), new Object[]{"iBi", "iWi", "IEI", 'i', "ingotCobalt", 'B', Item.bucketEmpty, 'I', Block.blockSteel, 'W', Block.cloth, 'E', new ItemStack(parts, 1, 6)}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(crusher), new Object[]{"IPI", "IEI", "ICI", 'I', "ingotCobalt", 'P', Item.pickaxeSteel, 'E', new ItemStack(HMCore.parts, 1, 6), 'C', Item.ingotGold}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(washer), new Object[]{"iBi", "iWi", "IEI", 'i', "ingotCobalt", 'B', Item.bucketEmpty, 'I', Block.blockSteel, 'W', Block.cloth, 'E', new ItemStack(HMCore.parts, 1, 6)}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(((HMItemRivetGun)rivetGun).getUncharged(), new Object[]{"CLC", "IBI", "IPI", 'C', "ingotCobalt", 'I', Item.ingotIron, 'L', Block.lever, 'B', Item.ingotGold, 'P', Block.pistonBase}));
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(fisher), new Object[]{"CEC", "CFC", "CHC", 'C', "ingotCobalt", 'E', new ItemStack(parts, 1, 6), 'F', Item.fishingRod, 'H', Block.chest}));
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(sinterer), new Object[]{"CHC", "CFC", "CHC", 'C', "ingotCobalt", 'F', Block.stoneOvenIdle, 'H', new ItemStack(parts, 1, 4)}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(fisher), new Object[]{"CEC", "CFC", "CHC", 'C', "ingotCobalt", 'E', new ItemStack(HMCore.parts, 1, 6), 'F', Item.fishingRod, 'H', Block.chest}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(sinterer), new Object[]{"CHC", "CFC", "CHC", 'C', "ingotCobalt", 'F', Block.stoneOvenIdle, 'H', new ItemStack(HMCore.parts, 1, 4)}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(starForge), new Object[]{" N ", "CSC", "GGG", 'N', Item.netherStar, 'C', new ItemStack(HMCore.plating, 1, 1), 'S', sinterer, 'G', Item.ingotGold}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(machineMeter), new Object[]{"BCg", "ECs", "GsI", 'B', Item.blazeRod, 'C', "ingotCobalt", 'g', Item.goldNugget, 'E', Item.eyeOfEnder, 's', Item.silk, 'i', new ItemStack(dustRefined, 1, 3)}));
 		
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(crusher), new Object[]{"ingotCobalt", "ingotCobalt", Item.pickaxeSteel, new ItemStack(blueprints), new ItemStack(parts, 1, 6)}));
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(washer), new Object[]{Item.ingotIron, Item.ingotIron, Item.ingotIron, Item.ingotIron, Item.bucketEmpty, new ItemStack(blueprints, 1, 1), Block.cloth, new ItemStack(parts, 1, 6)}));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(crusher), new Object[]{"ingotCobalt", "ingotCobalt", Item.pickaxeSteel, new ItemStack(blueprints), new ItemStack(HMCore.parts, 1, 6)}));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(washer), new Object[]{Item.ingotIron, Item.ingotIron, Item.ingotIron, Item.ingotIron, Item.bucketEmpty, new ItemStack(blueprints, 1, 1), Block.cloth, new ItemStack(HMCore.parts, 1, 6)}));
 		GameRegistry.addRecipe(new ShapelessOreRecipe(((HMItemRivetGun)rivetGun).getUncharged(), new Object[]{"ingotCobalt", Item.ingotIron, Block.lever, new ItemStack(HMCore.plating, 1, 1), Item.goldNugget, new ItemStack(blueprints, 1, 8), Block.pistonBase}));
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(fisher), new Object[]{"ingotCobalt", "ingotCobalt", new ItemStack(blueprints, 1, 3), Block.chest, Item.fishingRod, new ItemStack(parts, 1, 6)}));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(fisher), new Object[]{"ingotCobalt", "ingotCobalt", new ItemStack(blueprints, 1, 3), Block.chest, Item.fishingRod, new ItemStack(HMCore.parts, 1, 6)}));
 		
-		if (HMCore.instance().MANAGER.enableChunkloader)
+		if (HMCore.instance().PROXY.enableChunkloader)
 		{
 			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HMCore.endiumChunkloader), new Object[]{"ECE", "C@C", "ECE", 'E', "ingotEndium", 'C', new ItemStack(HMCore.plating, 1, 1), '@', Item.eyeOfEnder}));
 			GameRegistry.addShapelessRecipe(new ItemStack(HMCore.ingots, 4, 0), HMCore.endiumChunkloader);
@@ -169,14 +165,6 @@ public class HMMachines implements IVillageTradeHandler, IFuelHandler
 		
 		GameRegistry.addRecipe(new ItemStack(Block.torchWood, 4), new Object[]{"c", "s", 'c', new ItemStack(dustRaw, 1, 0), 's', Item.stick});
 		GameRegistry.addRecipe(new ItemStack(Block.glass, 1), new Object[]{"GG", "GG", 'G', new ItemStack(dustRefined, 1, 2)});
-		
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(parts, 1, 0), new Object[]{"IBG", "ICP", "IBG", 'I', Item.ingotIron, 'C', "ingotCobalt", 'P', Block.pistonBase, 'B', Item.blazePowder, 'G', Item.ingotGold}));
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(parts, 1, 1), new Object[]{" B ", "RGR", "CLC", 'B', Item.blazePowder, 'R', Item.redstone, 'G', Block.glass, 'C', "ingotCobalt", 'L', new ItemStack(parts, 1, 3)}));
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(parts, 6, 2), new Object[]{"C", "C", "C", 'C', "ingotCobalt"}));
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(parts, 1, 3), new Object[]{" G ", "GBG", "CCC", 'G', Block.thinGlass, 'B', Item.blazeRod, 'C', Item.goldNugget}));
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(parts, 1, 4), new Object[]{"CCC", "BCB", 'C', Block.fenceIron, 'B', Item.blazePowder}));
-		GameRegistry.addRecipe(new ItemStack(parts, 1, 5), new Object[]{"ici", 'i', Item.ingotIron, 'c', new ItemStack(parts, 1, 4)});
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(parts, 1, 6), new Object[]{"OOC", "BPg", "OOC", 'O', Block.obsidian, 'C', "ingotCobalt", 'B', Item.blazePowder, 'P', new ItemStack(parts), 'g', Item.goldNugget}));
 		
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(rivets, 8, 0), new Object[]{"CCC", " C ", " B ", 'C', "ingotCopper", 'B', Item.blazeRod}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(rivets, 8, 1), new Object[]{"BBB", " B ", " b ", 'B', "ingotBronze", 'b', Item.blazeRod}));

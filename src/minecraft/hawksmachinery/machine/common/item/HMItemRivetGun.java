@@ -25,7 +25,7 @@ public class HMItemRivetGun extends HMItemElectric implements IToolRepair
 {
 	public HMItemRivetGun(int id)
 	{
-		super(id);
+		super(id, 30000, 120);
 		setItemName("HMRivetGun");
 		setIconIndex(136);
 		
@@ -138,12 +138,6 @@ public class HMItemRivetGun extends HMItemElectric implements IToolRepair
 	public int getMaxItemUseDuration(ItemStack item)
 	{
 		return 25;
-	}
-	
-	@Override
-	public double getMaxJoules(Object... data)
-	{
-		return 30000;
 	}
 	
 	@Override

@@ -11,6 +11,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.common.ForgeChunkManager;
+import net.minecraftforge.common.MinecraftForge;
 
 /**
  * 
@@ -28,6 +29,7 @@ public class HMBlockEndiumChunkloader extends BlockContainer
 		setTextureFile(HMCore.BLOCK_TEXTURE_FILE);
 		setBlockName("HMEndiumChunkloader");
 		setCreativeTab(HMCore.instance().tab);
+		MinecraftForge.setBlockHarvestLevel(this, "pickaxe", 3);
 		
 	}
 	

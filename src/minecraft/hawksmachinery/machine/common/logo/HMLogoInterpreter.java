@@ -2,13 +2,13 @@
 package hawksmachinery.machine.common.logo;
 
 import hawksmachinery.core.common.api.helpers.HMArrayHelper;
-import hawksmachinery.core.common.api.logo.HMEnumCharType;
-import hawksmachinery.core.common.api.logo.HMEnumErrorType;
-import hawksmachinery.core.common.api.logo.HMLogoError;
-import hawksmachinery.core.common.api.logo.IHMLogoInterpreter;
-import hawksmachinery.core.common.api.logo.IHMLogoWord;
-import hawksmachinery.core.common.api.logo.IHMRobot;
 import hawksmachinery.machine.common.HMEntityRobot;
+import hawksmachinery.machine.common.api.HMEnumCharType;
+import hawksmachinery.machine.common.api.HMEnumErrorType;
+import hawksmachinery.machine.common.api.HMLogoError;
+import hawksmachinery.machine.common.api.IHMLogoInterpreter;
+import hawksmachinery.machine.common.api.IHMLogoWord;
+import hawksmachinery.machine.common.api.IHMRobot;
 import java.util.ArrayList;
 import java.util.HashMap;
 

@@ -1,7 +1,6 @@
 
 package hawksmachinery.core.common.block;
 
-import hawksmachinery.core.common.HMCore;
 import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -23,7 +22,6 @@ public class HMBlockOre extends HMBlock
 		setHardness(2.0F);
 		setResistance(10.0F);
 		setStepSound(Block.soundStoneFootstep);
-		setCreativeTab(HMCore.instance().tab);
 		
 	}
 	

@@ -1,7 +1,6 @@
 
-package hawksmachinery.machine.common.item;
+package hawksmachinery.core.common.item;
 
-import hawksmachinery.core.common.item.HMItem;
 import net.minecraft.item.ItemStack;
 
 /**

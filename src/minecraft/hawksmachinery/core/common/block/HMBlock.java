@@ -24,6 +24,7 @@ public class HMBlock extends Block
 		setHardness(1.0F);
 		setResistance(5.0F);
 		setTextureFile(HMCore.BLOCK_TEXTURE_FILE);
+		setCreativeTab(HMCore.instance().tab);
 		
 		if (textureID >= 0)
 		{

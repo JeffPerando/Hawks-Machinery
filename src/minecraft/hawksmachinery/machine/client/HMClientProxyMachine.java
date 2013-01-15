@@ -32,9 +32,6 @@ public class HMClientProxyMachine extends HMCommonProxyMachine
 	{
 		super.registerRenderInformation();
 		
-		MinecraftForgeClient.preloadTexture(HMCore.instance().BLOCK_TEXTURE_FILE);
-		MinecraftForgeClient.preloadTexture(HMCore.instance().ITEM_TEXTURE_FILE);
-		
 		ClientRegistry.bindTileEntitySpecialRenderer(HMTileEntityCrusher.class, new HMRenderCrusher());
 		ClientRegistry.bindTileEntitySpecialRenderer(HMTileEntityWasher.class, new HMRenderWasher());
 		ClientRegistry.bindTileEntitySpecialRenderer(HMTileEntityStarForge.class, new HMRenderStarForge());

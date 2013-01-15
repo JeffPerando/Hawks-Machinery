@@ -1,9 +1,9 @@
 
 package hawksmachinery.machine.common.logo.words;
 
-import hawksmachinery.core.common.api.logo.HMLogoError;
-import hawksmachinery.core.common.api.logo.IHMLogoWord;
-import hawksmachinery.core.common.api.logo.IHMRobot;
+import hawksmachinery.machine.common.api.HMLogoError;
+import hawksmachinery.machine.common.api.IHMLogoWord;
+import hawksmachinery.machine.common.api.IHMRobot;
 
 /**
  * 

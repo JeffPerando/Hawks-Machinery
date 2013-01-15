@@ -31,7 +31,7 @@ public class HMItemMeter extends HMItemElectric
 	
 	public HMItemMeter(int id)
 	{
-		super(id);
+		super(id, 10000, 120);
 		setItemName("HMMachineMeter");
 		setIconIndex(139);
 		
@@ -113,12 +113,6 @@ public class HMItemMeter extends HMItemElectric
 		super.onCreated(item, world, player);
 		item.stackTagCompound.setByte("meterState", (byte)0);
 		
-	}
-	
-	@Override
-	public double getMaxJoules(Object... data)
-	{
-		return 10000;
 	}
 	
 }

@@ -3,9 +3,9 @@ package hawksmachinery.machine.common;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import hawksmachinery.core.common.api.logo.IHMLogoInterpreter;
-import hawksmachinery.core.common.api.logo.IHMLogoWord;
-import hawksmachinery.core.common.api.logo.IHMRobot;
+import hawksmachinery.machine.common.api.IHMLogoInterpreter;
+import hawksmachinery.machine.common.api.IHMLogoWord;
+import hawksmachinery.machine.common.api.IHMRobot;
 import hawksmachinery.machine.common.logo.HMLogoInterpreter;
 import hawksmachinery.machine.common.logo.HMLogoWordDictionary;
 import net.minecraft.entity.EntityLiving;

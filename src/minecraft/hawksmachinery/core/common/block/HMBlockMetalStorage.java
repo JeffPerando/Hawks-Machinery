@@ -1,7 +1,6 @@
 
 package hawksmachinery.core.common.block;
 
-import hawksmachinery.core.common.HMCore;
 import java.util.List;
 import java.util.Random;
 import net.minecraft.block.Block;
@@ -23,7 +22,6 @@ public class HMBlockMetalStorage extends HMBlock
 	{
 		super(id, Material.iron, -1, null);
 		setStepSound(Block.soundMetalFootstep);
-		setCreativeTab(HMCore.instance().tab);
 		
 	}
 	
