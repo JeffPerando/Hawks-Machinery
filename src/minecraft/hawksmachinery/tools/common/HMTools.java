@@ -3,6 +3,7 @@ package hawksmachinery.tools.common;
 
 import hawksmachinery.core.common.HMCore;
 import hawksmachinery.tools.common.item.*;
+import net.minecraft.block.Block;
 import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.EnumToolMaterial;
 import net.minecraft.item.Item;
@@ -72,7 +73,7 @@ public class HMTools
 	@PostInit
 	public void modsLoaded(FMLPostInitializationEvent event)
 	{
-		
+		this.loadRecipes();
 		
 	}
 	
@@ -80,6 +81,7 @@ public class HMTools
 	{
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(cobaltBone), new Object[]{" C ", "CBC", " C ", 'C', "dustCobalt", 'B', Item.bone}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(enderMirrorPlayer), new Object[]{"SCS", "CEC", "SCS", 'S', Item.silk, 'C', "ingotCobalt", 'E', Item.enderPearl}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(enderMirrorSpawn), new Object[]{"BCB", "CEC", "BCB", 'B', Block.bed, 'C', "ingotCobalt", "E", Item.enderPearl}));
 		
 	}
 	
