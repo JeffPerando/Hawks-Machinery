@@ -20,7 +20,7 @@ public class HMItem extends Item
 	public HMItem(int id)
 	{
 		super(id);
-		setTextureFile(HMCore.instance().ITEM_TEXTURE_FILE);
+		setTextureFile(HMCore.ITEM_TEXTURE_FILE);
 		setCreativeTab(HMCore.instance().tab);
 		
 	}

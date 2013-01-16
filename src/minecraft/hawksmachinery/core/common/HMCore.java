@@ -1,7 +1,6 @@
 
 package hawksmachinery.core.common;
 
-import hawksmachinery.core.common.api.helpers.HMItemStackHelper;
 import hawksmachinery.core.common.block.*;
 import hawksmachinery.core.common.item.*;
 import hawksmachinery.core.common.tileentity.*;
@@ -22,11 +21,11 @@ import updatemanager.common.UpdateManager;
 import updatemanager.common.UpdateManagerMod;
 import updatemanager.common.checking.CheckingMethod;
 import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.Mod.Init;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.Mod.PostInit;
 import cpw.mods.fml.common.Mod.PreInit;
+import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -44,7 +43,7 @@ import cpw.mods.fml.common.registry.VillagerRegistry;
 @NetworkMod(channels = {"HawksMachinery"}, clientSideRequired = true, serverSideRequired = false)
 public class HMCore
 {
-	public static final String VERSION = "Beta v1.0.0";
+	public static final String VERSION = "Beta v1.1.0";
 	
 	@SidedProxy(clientSide = "hawksmachinery.core.common.HMClientProxy", serverSide = "hawksmachinery.core.common.HMCommonProxy")
 	public static HMCommonProxy PROXY;

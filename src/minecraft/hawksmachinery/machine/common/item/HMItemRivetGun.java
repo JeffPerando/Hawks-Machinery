@@ -36,7 +36,7 @@ public class HMItemRivetGun extends HMItemElectric implements IToolRepair
 	{
 		if (player.isSneaking() && (item.getItemDamage() < (this.getMaxDamage() - 1) || !item.isItemDamaged()))
 		{
-			player.setItemInUse(item, getMaxItemUseDuration(item));
+			player.setItemInUse(item, this.getMaxItemUseDuration(item));
 			
 		}
 		

@@ -17,8 +17,10 @@ itemGroup.HMTab=Hawk's Machinery
 item.HMRivetGun.name=Rivet Gun
 item.HMFishFood.name=Fish Food
 item.HMMachineMeter.name=Machine Meter
+
 item.HMCobaltBone.name=Cobalt Bone
-item.HMEnderMirror.name=Ender Mirror
+item.HMEnderMirrorPlayer.name=Ender Mirror (Player)
+item.HMEnderMirrorSpawn.name=Ender Mirror (Home)
 
 item.HMDustUnref0.name=Coal Dust
 item.HMDustUnref1.name=Unrefined Iron Dust
