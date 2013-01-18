@@ -22,7 +22,7 @@ public class HMTileEntityCrusher extends HMTileEntityMachine
 	{
 		super();
 		ELECTRICITY_REQUIRED = 5;
-		TICKS_REQUIRED = FMLCommonHandler.instance().getSide().isServer() ? HMCore.instance().PROXY.crusherTicks : 200;
+		TICKS_REQUIRED = FMLCommonHandler.instance().getSide().isServer() ? HMCore.PROXY.crusherTicks : 200;
 		ELECTRICITY_LIMIT = 2500;
 		containingItems = new ItemStack[3];
 		machineEnum = HMEnumProcessing.CRUSHING;

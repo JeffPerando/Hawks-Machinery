@@ -57,8 +57,8 @@ public class HMTools
 	{
 		INSTANCE = this;
 		
-		cobaltBone = new HMItemWolfTamer(HMCore.instance().PROXY.getItemID("Cobalt Bone", 24160)).setItemName("HMCobaltBone").setCreativeTab(HMCore.instance().tab).setIconIndex(105);
-		enderMirrorPlayer = new HMItemEnderMirrorPlayer(HMCore.instance().PROXY.getItemID("Ender Mirror Player", 24163));
+		cobaltBone = new HMItemWolfTamer(HMCore.PROXY.getItemID("Cobalt Bone", 24160)).setItemName("HMCobaltBone").setCreativeTab(HMCore.instance().tab).setIconIndex(105);
+		enderMirrorPlayer = new HMItemEnderMirrorPlayer(HMCore.PROXY.getItemID("Ender Mirror Player", 24163));
 		enderMirrorSpawn = new HMItemEnderMirrorSpawn(HMCore.PROXY.getItemID("Ender Mirror Spawn", 24164));
 		
 	}

@@ -35,7 +35,7 @@ public class HMRedstone
 	{
 		INSTANCE = this;
 		
-		blockDetector = new HMBlockTileSensor(HMCore.instance().PROXY.getBlockID("Block Detector", 2560));
+		blockDetector = new HMBlockTileSensor(HMCore.PROXY.getBlockID("Block Detector", 2560));
 		
 		GameRegistry.registerBlock(blockDetector);
 		

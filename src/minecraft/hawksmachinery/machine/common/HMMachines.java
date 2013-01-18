@@ -92,23 +92,22 @@ public class HMMachines implements IVillageTradeHandler, IFuelHandler
 		NetworkRegistry.instance().registerGuiHandler(this, PROXY);
 		NetworkRegistry.instance().registerConnectionHandler(PROXY);
 		
-		crusher = new HMBlockCrusher(HMCore.instance().PROXY.getBlockID("Crusher", 2550));
-		washer = new HMBlockWasher(HMCore.instance().PROXY.getBlockID("Washer", 2552));
+		crusher = new HMBlockCrusher(HMCore.PROXY.getBlockID("Crusher", 2550));
+		washer = new HMBlockWasher(HMCore.PROXY.getBlockID("Washer", 2552));
 		//TODO Reoccupy ID #2554 with the new Endium Teleporter.
-		fisher = new HMBlockFisher(HMCore.instance().PROXY.getBlockID("Fisher", 2555));
-		starForge = new HMBlockStarForge(HMCore.instance().PROXY.getBlockID("Star Forge", 2557));
-		sinterer = new HMBlockSinterer(HMCore.instance().PROXY.getBlockID("Sinterer", 2559));
-		//HMBlock.fireBlock = new HMBlockFireBlock(this.MANAGER.getBlockID("Fire Block", 2560));
+		fisher = new HMBlockFisher(HMCore.PROXY.getBlockID("Fisher", 2555));
+		starForge = new HMBlockStarForge(HMCore.PROXY.getBlockID("Star Forge", 2557));
+		sinterer = new HMBlockSinterer(HMCore.PROXY.getBlockID("Sinterer", 2559));
 		
-		dustRaw = new HMItemRawDust(HMCore.instance().PROXY.getItemID("Raw Dusts", 24150)).setMaxDmg(8);
-		dustRefined = new HMItemRefinedDust(HMCore.instance().PROXY.getItemID("Refined Dusts", 24151)).setMaxDmg(10);
-		blueprints = new HMItemBlueprints(HMCore.instance().PROXY.getItemID("Blueprints", 24153)).setMaxDmg(8);
-		rivets = new HMItemRivets(HMCore.instance().PROXY.getItemID("Rivets", 24155)).setMaxDmg(6);
-		rivetGun = new HMItemRivetGun(HMCore.instance().PROXY.getItemID("Rivet Gun", 24156));
-		fishFood = new HMItem(HMCore.instance().PROXY.getItemID("Fish Food", 24158)).setIconIndex(104).setItemName("HMFishFood").setCreativeTab(HMCore.instance().tab);
-		machineMeter = new HMItemMeter(HMCore.instance().PROXY.getItemID("Machine Meter", 24159));
-		testTube = new HMItem(HMCore.instance().PROXY.getItemID("Test Tube", 24161)).setItemName("HMTestTube").setCreativeTab(HMCore.instance().tab).setIconIndex(72);
-		nanites = new HMItemNanite(HMCore.instance().PROXY.getItemID("Nanites", 24162)).setMaxDmg(15);
+		dustRaw = new HMItemRawDust(HMCore.PROXY.getItemID("Raw Dusts", 24150)).setMaxDmg(8);
+		dustRefined = new HMItemRefinedDust(HMCore.PROXY.getItemID("Refined Dusts", 24151)).setMaxDmg(10);
+		blueprints = new HMItemBlueprints(HMCore.PROXY.getItemID("Blueprints", 24153)).setMaxDmg(8);
+		rivets = new HMItemRivets(HMCore.PROXY.getItemID("Rivets", 24155)).setMaxDmg(6);
+		rivetGun = new HMItemRivetGun(HMCore.PROXY.getItemID("Rivet Gun", 24156));
+		fishFood = new HMItem(HMCore.PROXY.getItemID("Fish Food", 24158)).setIconIndex(104).setItemName("HMFishFood").setCreativeTab(HMCore.instance().tab);
+		machineMeter = new HMItemMeter(HMCore.PROXY.getItemID("Machine Meter", 24159));
+		testTube = new HMItem(HMCore.PROXY.getItemID("Test Tube", 24161)).setItemName("HMTestTube").setCreativeTab(HMCore.instance().tab).setIconIndex(72);
+		nanites = new HMItemNanite(HMCore.PROXY.getItemID("Nanites", 24162)).setMaxDmg(15);
 		
 		GameRegistry.registerTileEntity(HMTileEntityCrusher.class, "HMCrusher");
 		GameRegistry.registerTileEntity(HMTileEntityWasher.class, "HMWasher");
