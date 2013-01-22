@@ -1,15 +1,15 @@
 
 package hawksmachinery.machine.common.tileentity;
 
-import hawksmachinery.core.common.api.HMVector;
-import hawksmachinery.core.common.api.IHMMachine;
 import hawksmachinery.core.common.api.HMRecipes.HMEnumProcessing;
 import hawksmachinery.core.common.api.HMRepairInterfaces.IHMSappable;
 import hawksmachinery.core.common.api.HMRepairInterfaces.IHMSapper;
+import hawksmachinery.core.common.api.HMVector;
+import hawksmachinery.core.common.api.IHMMachine;
 import java.util.ArrayList;
 import java.util.EnumSet;
+import java.util.List;
 import java.util.Random;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -18,14 +18,12 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.Packet250CustomPayload;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.common.ISidedInventory;
 import universalelectricity.core.UniversalElectricity;
 import universalelectricity.core.electricity.ElectricityConnections;
 import universalelectricity.core.electricity.ElectricityNetwork;
 import universalelectricity.core.electricity.ElectricityPack;
-import universalelectricity.core.implement.IConductor;
 import universalelectricity.core.vector.Vector3;
 import universalelectricity.prefab.implement.IRotatable;
 import universalelectricity.prefab.network.IPacketReceiver;
@@ -75,7 +73,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	
 	public boolean canRotate;
 	
-	private ArrayList<ForgeDirection> directionList = new ArrayList<ForgeDirection>();
+	private ArrayList<ForgeDirection> directionsList = new ArrayList<ForgeDirection>();
 	
 	public HMTileEntityMachine()
 	{
@@ -100,57 +98,41 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	{
 		super.updateEntity();
 		
-		if (!this.directionList.isEmpty() && this.canRotate)
+		if (!this.directionsList.isEmpty() && this.canRotate)
 		{
-			this.facingDirection = this.directionList.get(0);
-			this.directionList.remove(0);
+			this.facingDirection = this.directionsList.get(0);
+			this.directionsList.remove(0);
 			ElectricityConnections.unregisterConnector(this);
 			ElectricityConnections.registerConnector(this, EnumSet.of(this.getDefaultCableDirection(), this.facingDirection.getOpposite()));
-			
 			this.selfVec.markBlockForRenderUpdate();
 			this.selfVec.updateNeighboringBlocks();
 			
 		}
 		
-		TileEntity inputCable = this.worldObj.getBlockTileEntity(this.xCoord, this.yCoord - 1, this.zCoord);
-		ElectricityNetwork network = null;
-		boolean usedBacksideVec = false;
+		List<ElectricityNetwork> networkList = ElectricityNetwork.getNetworksFromMultipleSides(this, ElectricityConnections.getDirections(this));
 		
-		if (inputCable == null && this.canRotate)
+		if (!networkList.isEmpty())
 		{
-			inputCable = this.selfVec.getTileEntityWithDir(this.facingDirection.getOpposite());
-			usedBacksideVec = true;
-			
-		}
-		
-		if (inputCable != null)
-		{
-			if (inputCable instanceof IConductor)
+			for (ElectricityNetwork network : networkList)
 			{
-				network = ElectricityNetwork.getNetworkFromTileEntity(inputCable, usedBacksideVec ? this.facingDirection.getOpposite() : this.getDefaultCableDirection());
-				
-			}
-			
-		}
-		
-		if (network != null && !this.isDisabled())
-		{
-			if (this.electricityStored < this.ELECTRICITY_LIMIT)
-			{
-				network.startRequesting(this, (this.ELECTRICITY_REQUIRED * 2) / this.VOLTAGE, this.VOLTAGE);
-				ElectricityPack pack = network.consumeElectricity(this);
-				this.electricityStored += Math.max(Math.min(this.electricityStored + pack.getWatts(), this.ELECTRICITY_REQUIRED), 0);
-				
-				if (UniversalElectricity.isVoltageSensitive && pack.voltage > this.VOLTAGE)
+				if (this.electricityStored < this.ELECTRICITY_LIMIT)
 				{
-					this.explodeMachine(2.0F);
+					network.startRequesting(this, (this.ELECTRICITY_REQUIRED * 2) / this.VOLTAGE, this.VOLTAGE);
+					ElectricityPack pack = network.consumeElectricity(this);
+					this.electricityStored += Math.max(Math.min(this.electricityStored + pack.getWatts(), this.ELECTRICITY_REQUIRED), 0);
+					
+					if (UniversalElectricity.isVoltageSensitive && pack.voltage > this.VOLTAGE)
+					{
+						this.explodeMachine(2.0F);
+						
+					}
 					
 				}
-				
-			}
-			else
-			{
-				network.stopRequesting(this);
+				else
+				{
+					network.stopRequesting(this);
+					
+				}
 				
 			}
 			
@@ -201,7 +183,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	
 	protected void explodeMachine(float strength)
 	{
-		this.worldObj.createExplosion((Entity)null, this.xCoord, this.yCoord, this.zCoord, strength, true);
+		this.selfVec.explode(strength, null, true);
 		
 	}
 	
@@ -323,8 +305,6 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	@Override
 	public void setInventorySlotContents(int slot, ItemStack item)
 	{
-		this.containingItems[slot] = item;
-		
 		if (item != null)
 		{
 			if (item.stackSize > this.getInventoryStackLimit())
@@ -334,6 +314,8 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 			}
 			
 		}
+		
+		this.containingItems[slot] = item;
 		
 	}
 	
@@ -366,7 +348,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	@Override
 	public ForgeDirection getDirection()
 	{
-		return this.facingDirection;
+		return this.canRotate ? this.facingDirection : ForgeDirection.UNKNOWN;
 	}
 	
 	@Override
@@ -374,7 +356,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	{
 		if (this.canRotate)
 		{
-			this.directionList.add(dir);
+			this.directionsList.add(dir);
 			
 		}
 		
@@ -390,7 +372,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 		if (NBTTag.hasKey("electricityLimit")) this.ELECTRICITY_LIMIT = NBTTag.getInteger("electricityLimit");
 		if (NBTTag.hasKey("ticksNeeded")) this.TICKS_REQUIRED = NBTTag.getInteger("ticksNeeded");
 		if (NBTTag.hasKey("maxMachineHP")) this.maxHP = NBTTag.getInteger("maxMachineHP");
-		if (NBTTag.hasKey("facingDirection")) this.setDirection(ForgeDirection.getOrientation(NBTTag.getInteger("facingDirection")));
+		if (NBTTag.hasKey("facingDirection") && this.canRotate) this.setDirection(ForgeDirection.getOrientation(NBTTag.getInteger("facingDirection")));
 		
 		if (NBTTag.hasKey("Sapper"))
 		{
@@ -428,7 +410,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 		NBTTag.setInteger("electricityLimit", this.ELECTRICITY_LIMIT);
 		NBTTag.setInteger("ticksNeeded", this.TICKS_REQUIRED);
 		NBTTag.setInteger("maxMachineHP", this.maxHP);
-		NBTTag.setInteger("facingDirection", this.facingDirection.ordinal());
+		if (this.canRotate) NBTTag.setInteger("facingDirection", this.facingDirection.ordinal());
 		
 		if (this.sapper != null) NBTTag.setCompoundTag("Sapper", this.sapper.writeToNBT(new NBTTagCompound()));
 		
