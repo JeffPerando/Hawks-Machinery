@@ -1,11 +1,11 @@
 
 package hawksmachinery.machine.common.tileentity;
 
+import hawksmachinery.core.common.api.HMVector;
 import hawksmachinery.core.common.api.IHMMachine;
 import hawksmachinery.core.common.api.HMRecipes.HMEnumProcessing;
 import hawksmachinery.core.common.api.HMRepairInterfaces.IHMSappable;
 import hawksmachinery.core.common.api.HMRepairInterfaces.IHMSapper;
-import hawksmachinery.core.common.api.helpers.HMVector;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.Random;
@@ -71,8 +71,6 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	
 	protected int maxHP = 20;
 	
-	protected HMVector backsideVec;
-	
 	protected HMVector selfVec;
 	
 	public boolean canRotate;
@@ -109,14 +107,6 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 			ElectricityConnections.unregisterConnector(this);
 			ElectricityConnections.registerConnector(this, EnumSet.of(this.getDefaultCableDirection(), this.facingDirection.getOpposite()));
 			
-			if (this.backsideVec == null)
-			{
-				this.backsideVec = new HMVector(this);
-				
-			}
-			
-			this.backsideVec = this.backsideVec.reset(this).modifyFromDir(this.facingDirection.getOpposite());
-			
 			this.selfVec.markBlockForRenderUpdate();
 			this.selfVec.updateNeighboringBlocks();
 			
@@ -126,9 +116,9 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 		ElectricityNetwork network = null;
 		boolean usedBacksideVec = false;
 		
-		if (inputCable == null && this.backsideVec != null)
+		if (inputCable == null && this.canRotate)
 		{
-			inputCable = this.backsideVec.getTileEntity();
+			inputCable = this.selfVec.getTileEntityWithDir(this.facingDirection.getOpposite());
 			usedBacksideVec = true;
 			
 		}

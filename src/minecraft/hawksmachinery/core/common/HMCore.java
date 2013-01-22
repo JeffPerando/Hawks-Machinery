@@ -61,8 +61,7 @@ public class HMCore
 	/**
 	 * Parts! 0 - Electric Pistons, 1 - Laser, 2 - Being Redone, 3 - Light Bulb, 4 - Heating Coil, 5 - Electric Magnet, 6 - Engine.
 	 */
-	public static HMItem parts;
-	
+	public static Item parts;
 	public static Item plating;
 	public static Item ingots;
 	
@@ -73,6 +72,11 @@ public class HMCore
 	public static final String LANG_PATH = "/hawksmachinery/core/client/resources/lang";
 	public static final String SOUND_PATH = "/hawksmachinery/core/client/resources/sounds";
 	public static final String TEXTURE_PATH = "/hawksmachinery/core/client/resources/textures";
+	
+	public static HMCore instance()
+	{
+		return INSTANCE;
+	}
 	
 	@PreInit
 	public void preInit(FMLPreInitializationEvent event)
@@ -147,11 +151,6 @@ public class HMCore
 		FurnaceRecipes.smelting().addSmelting(HMCore.plating.itemID, 0, new ItemStack(HMCore.ingots, 4, 0), 0.0F);
 		FurnaceRecipes.smelting().addSmelting(HMCore.plating.itemID, 1, new ItemStack(HMCore.ingots, 4, 1), 0.0F);
 		
-	}
-	
-	public static HMCore instance()
-	{
-		return INSTANCE;
 	}
 	
 	public class HMUpdateHandler extends UpdateManagerMod

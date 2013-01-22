@@ -1,7 +1,7 @@
 
 package hawksmachinery.core.common.tileentity;
 
-import hawksmachinery.core.common.api.helpers.HMVector;
+import hawksmachinery.core.common.api.HMVector;
 import universalelectricity.prefab.tile.TileEntityAdvanced;
 
 /**

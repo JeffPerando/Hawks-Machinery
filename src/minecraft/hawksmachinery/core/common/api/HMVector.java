@@ -1,5 +1,5 @@
 
-package hawksmachinery.core.common.api.helpers;
+package hawksmachinery.core.common.api;
 
 import java.util.ArrayList;
 import net.minecraft.block.Block;
@@ -56,44 +56,89 @@ public class HMVector
 		return this.setBlockWithMeta(id, 0);
 	}
 	
+	public boolean setBlockIdWithDir(int id, ForgeDirection dir)
+	{
+		return this.setBlockWithMetaPlusDir(id, 0, dir);
+	}
+	
 	public boolean setBlockWithMeta(int id, int meta)
 	{
-		return this.worldObj.setBlockAndMetadataWithNotify(this.xCoord, this.yCoord, this.zCoord, id, meta);
+		return this.setBlockWithMetaPlusDir(id, meta, ForgeDirection.UNKNOWN);
+	}
+	
+	public boolean setBlockWithMetaPlusDir(int id, int meta, ForgeDirection dir)
+	{
+		return this.worldObj.setBlockAndMetadataWithNotify(this.xCoord + dir.offsetX, this.yCoord + dir.offsetY, this.zCoord + dir.offsetZ, id, meta);
 	}
 	
 	public int getBlockId()
 	{
-		return this.worldObj.getBlockId(this.xCoord, this.yCoord, this.zCoord);
+		return this.getBlockIdWithDir(ForgeDirection.UNKNOWN);
+	}
+	
+	public int getBlockIdWithDir(ForgeDirection dir)
+	{
+		return this.worldObj.getBlockId(this.xCoord + dir.offsetX, this.yCoord + dir.offsetY, this.zCoord + dir.offsetZ);
 	}
 	
 	public Block getBlock()
 	{
-		return Block.blocksList[this.getBlockId()];
+		return this.getBlockWithDir(ForgeDirection.UNKNOWN);
+	}
+	
+	public Block getBlockWithDir(ForgeDirection dir)
+	{
+		return Block.blocksList[this.getBlockIdWithDir(dir)];
 	}
 	
 	public boolean setMeta(int meta)
 	{
-		return this.setBlockWithMeta(this.getBlockId(), meta);
+		return this.setMetaWithDir(meta, ForgeDirection.UNKNOWN);
+	}
+	
+	public boolean setMetaWithDir(int meta, ForgeDirection dir)
+	{
+		return this.setBlockWithMetaPlusDir(this.getBlockId(), meta, dir);
 	}
 	
 	public int getMetadata()
 	{
-		return this.worldObj.getBlockMetadata(this.xCoord, this.yCoord, this.zCoord);
+		return this.getMetadataWithDir(ForgeDirection.UNKNOWN);
+	}
+	
+	public int getMetadataWithDir(ForgeDirection dir)
+	{
+		return this.worldObj.getBlockMetadata(this.xCoord + dir.offsetX, this.yCoord + dir.offsetY, this.zCoord + dir.offsetZ);
 	}
 	
 	public TileEntity getTileEntity()
 	{
-		return this.worldObj.getBlockTileEntity(this.xCoord, this.yCoord, this.zCoord);
+		return this.getTileEntityWithDir(ForgeDirection.UNKNOWN);
+	}
+	
+	public TileEntity getTileEntityWithDir(ForgeDirection dir)
+	{
+		return this.worldObj.getBlockTileEntity(this.xCoord + dir.offsetX, this.yCoord + dir.offsetY, this.zCoord + dir.offsetZ);
 	}
 	
 	public void setLightValue(EnumSkyBlock lightType, int value)
 	{
-		this.worldObj.setLightValue(lightType, this.xCoord, this.yCoord, this.zCoord, value);
+		this.setLightValueWithDir(lightType, value, ForgeDirection.UNKNOWN);
+	}
+	
+	public void setLightValueWithDir(EnumSkyBlock lightType, int value, ForgeDirection dir)
+	{
+		this.worldObj.setLightValue(lightType, this.xCoord + dir.offsetX, this.yCoord + dir.offsetY, this.zCoord + dir.offsetZ, value);
 	}
 	
 	public int getLightValue()
 	{
-		return this.worldObj.getBlockLightValue(this.xCoord, this.yCoord, this.zCoord);
+		return this.getLightValueWithDir(ForgeDirection.UNKNOWN);
+	}
+	
+	public int getLightValueWithDir(ForgeDirection dir)
+	{
+		return this.worldObj.getBlockLightValue(this.xCoord + dir.offsetX, this.yCoord + dir.offsetY, this.zCoord + dir.offsetZ);
 	}
 	
 	public int getDim()
@@ -103,17 +148,32 @@ public class HMVector
 	
 	public boolean isGettingRedstoned()
 	{
-		return this.worldObj.isBlockGettingPowered(this.xCoord, this.yCoord, this.zCoord);
+		return this.isGettingRedstonedWithDir(ForgeDirection.UNKNOWN);
+	}
+	
+	public boolean isGettingRedstonedWithDir(ForgeDirection dir)
+	{
+		return this.worldObj.isBlockGettingPowered(this.xCoord + dir.offsetX, this.yCoord + dir.offsetY, this.zCoord + dir.offsetZ);
 	}
 	
 	public boolean isGettingIndirectlyRedstoned()
 	{
-		return this.worldObj.isBlockIndirectlyGettingPowered(this.xCoord, this.yCoord, this.zCoord);
+		return this.isGettingIndirectlyRedstoneWithDir(ForgeDirection.UNKNOWN);
+	}
+	
+	public boolean isGettingIndirectlyRedstoneWithDir(ForgeDirection dir)
+	{
+		return this.worldObj.isBlockIndirectlyGettingPowered(this.xCoord + dir.offsetX, this.yCoord + dir.offsetY, this.zCoord + dir.offsetZ);
 	}
 	
 	public boolean canSeeTheSky()
 	{
-		return this.worldObj.canBlockSeeTheSky(this.xCoord, this.yCoord, this.zCoord);
+		return this.canSeeTheSkyWithDir(ForgeDirection.UNKNOWN);
+	}
+	
+	public boolean canSeeTheSkyWithDir(ForgeDirection dir)
+	{
+		return this.worldObj.canBlockSeeTheSky(this.xCoord + dir.offsetX, this.yCoord + dir.offsetY, this.zCoord + dir.offsetZ);
 	}
 	
 	public boolean isDaytime()
@@ -123,13 +183,25 @@ public class HMVector
 	
 	public void markBlockForRenderUpdate()
 	{
-		this.worldObj.markBlockForRenderUpdate(this.xCoord, this.yCoord, this.zCoord);
+		this.markNeighborBlockForRenderUpdate(ForgeDirection.UNKNOWN);
+		
+	}
+	
+	public void markNeighborBlockForRenderUpdate(ForgeDirection dir)
+	{
+		this.worldObj.markBlockForRenderUpdate(this.xCoord + dir.offsetX, this.yCoord + dir.offsetY, this.zCoord + dir.offsetZ);
 		
 	}
 	
 	public void updateNeighboringBlocks()
 	{
-		this.worldObj.notifyBlocksOfNeighborChange(this.xCoord, this.yCoord, this.zCoord, this.getBlockId());
+		this.updateNeighboringBlocksWithDir(ForgeDirection.UNKNOWN);
+		
+	}
+	
+	public void updateNeighboringBlocksWithDir(ForgeDirection dir)
+	{
+		this.worldObj.notifyBlocksOfNeighborChange(this.xCoord + dir.offsetX, this.yCoord + dir.offsetY, this.zCoord + dir.offsetZ, this.getBlockIdWithDir(dir));
 		
 	}
 	

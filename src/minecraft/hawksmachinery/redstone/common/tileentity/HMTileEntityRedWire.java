@@ -1,7 +1,7 @@
 
 package hawksmachinery.redstone.common.tileentity;
 
-import hawksmachinery.core.common.api.helpers.HMVector;
+import hawksmachinery.core.common.api.HMVector;
 import java.awt.Color;
 import net.minecraft.block.Block;
 import net.minecraft.tileentity.TileEntity;
