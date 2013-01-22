@@ -7,7 +7,6 @@ import net.minecraft.entity.Entity;
 
 public class HMModelSinterer extends ModelBase
 {
-	//fields
 	ModelRenderer BASE;
 	ModelRenderer MAIN_CHAMBER;
 	ModelRenderer TEMPERATURE_CONTROL;
@@ -70,20 +69,23 @@ public class HMModelSinterer extends ModelBase
 		TOP_HATCH_2_ROT.setTextureSize(128, 128);
 		TOP_HATCH_2_ROT.mirror = true;
 		setRotation(TOP_HATCH_2_ROT, 0F, 0F, 0F);
+		
 	}
 	
+	@Override
 	public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
 	{
 		super.render(entity, f, f1, f2, f3, f4, f5);
-		setRotationAngles(f, f1, f2, f3, f4, f5);
-		BASE.render(0.0625F);
-		MAIN_CHAMBER.render(0.0625F);
-		TEMPERATURE_CONTROL.render(0.0625F);
-		CONTROL_CPU.render(0.0625F);
-		KEYBOARD_LEG.render(0.0625F);
-		KEYBOARD.render(0.0625F);
-		TOP_HATCH_1_ROT.render(0.0625F);
-		TOP_HATCH_2_ROT.render(0.0625F);
+		this.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
+		this.BASE.render(0.0625F);
+		this.MAIN_CHAMBER.render(0.0625F);
+		this.TEMPERATURE_CONTROL.render(0.0625F);
+		this.CONTROL_CPU.render(0.0625F);
+		this.KEYBOARD_LEG.render(0.0625F);
+		this.KEYBOARD.render(0.0625F);
+		this.TOP_HATCH_1_ROT.render(0.0625F);
+		this.TOP_HATCH_2_ROT.render(0.0625F);
+		
 	}
 	
 	private void setRotation(ModelRenderer model, float x, float y, float z)
@@ -91,11 +93,14 @@ public class HMModelSinterer extends ModelBase
 		model.rotateAngleX = x;
 		model.rotateAngleY = y;
 		model.rotateAngleZ = z;
+		
 	}
 	
-	public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5)
+	@Override
+	public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, Entity entity)
 	{
-		super.setRotationAngles(f, f1, f2, f3, f4, f5, null);
+		super.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
+		
 	}
 	
 }

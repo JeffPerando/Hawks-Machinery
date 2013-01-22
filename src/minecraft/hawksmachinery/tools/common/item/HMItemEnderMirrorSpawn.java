@@ -1,6 +1,7 @@
 
 package hawksmachinery.tools.common.item;
 
+import hawksmachinery.core.common.item.HMItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.EnumAction;
@@ -10,7 +11,6 @@ import net.minecraft.server.management.ServerConfigurationManager;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.WorldInfo;
-import hawksmachinery.core.common.item.HMItem;
 
 /**
  * 

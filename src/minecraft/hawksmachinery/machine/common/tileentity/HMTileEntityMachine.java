@@ -218,7 +218,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	@Override
 	public Packet getDescriptionPacket()
 	{
-		if (this.isProcessor && this.playersLookingIn > 0) return PacketManager.getPacket("HawksMachinery", this, this.workTicks, this.electricityStored, this.machineHP, this.facingDirection.ordinal());
+		if (this.isProcessor && this.playersLookingIn > 0) return PacketManager.getPacket("HawksMachinery", this, this.electricityStored, this.machineHP, this.facingDirection.ordinal(), this.workTicks);
 		return PacketManager.getPacket("HawksMachinery", this, this.electricityStored, this.machineHP, this.facingDirection.ordinal());
 	}
 	
@@ -233,12 +233,6 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	{
 		try
 		{
-			if (this.isProcessor && this.playersLookingIn > 0)
-			{
-				this.workTicks = dataStream.readInt();
-				
-			}
-			
 			this.electricityStored = dataStream.readDouble();
 			this.machineHP = dataStream.readInt();
 			
@@ -247,6 +241,12 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 			if (newDir != this.facingDirection)
 			{
 				this.setDirection(newDir);
+				
+			}
+			
+			if (this.isProcessor && this.playersLookingIn > 0)
+			{
+				this.workTicks = dataStream.readInt();
 				
 			}
 			

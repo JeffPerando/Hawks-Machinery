@@ -167,13 +167,14 @@ public class HMModelWasher extends ModelBase
 		SUPPORT.setTextureSize(128, 128);
 		SUPPORT.mirror = true;
 		setRotation(SUPPORT, 0F, 0F, 0F);
+		
 	}
 	
 	@Override
 	public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
 	{
 		super.render(entity, f, f1, f2, f3, f4, f5);
-		setRotationAngles(f, f1, f2, f3, f4, f5, null);
+		setRotationAngles(f, f1, f2, f3, f4, f5, entity);
 		AXIS.render(0.0625F);
 		BLADE_1.render(0.0625F);
 		BLADE_2.render(0.0625F);
@@ -204,12 +205,14 @@ public class HMModelWasher extends ModelBase
 		model.rotateAngleX = x;
 		model.rotateAngleY = y;
 		model.rotateAngleZ = z;
+		
 	}
 	
 	@Override
 	public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, Entity entity)
 	{
 		super.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
+		
 	}
 
 }

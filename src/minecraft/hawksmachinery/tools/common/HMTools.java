@@ -34,21 +34,9 @@ public class HMTools
 	@Instance("HMTools")
 	private static HMTools INSTANCE;
 	
-	public static EnumArmorMaterial COBALT_ARMOR = EnumHelper.addArmorMaterial("Cobalt", 20, new int[]{4, 6, 5, 3}, 18);
-	public static EnumArmorMaterial ENDIUM_ARMOR = EnumHelper.addArmorMaterial("Endium", 46, new int[]{6, 8, 7, 5}, 22);
-	
-	public static EnumToolMaterial COBALT_TOOL = EnumHelper.addToolMaterial("Cobalt", 2, 400, 7.0F, 2, 12);
-	public static EnumToolMaterial ENDIUM_TOOL = EnumHelper.addToolMaterial("Endium", 3, 2000, 14.0F, 3, 22);
-	
 	public static Item cobaltBone;
 	
 	public static Item enderMirrorPlayer, enderMirrorSpawn;
-	
-	public static Item cobaltHelm, cobaltChest, cobaltLegs, cobaltBoots;
-	public static Item cobaltSword, cobaltPick, cobaltShovel, cobaltHatchet;
-	
-	public static Item endiumHelm, endiumChest, endiumLegs, endiumBoots;
-	public static Item endiumSword, endiumPick, endiumShovel, endiumHatchet;
 	
 	public static Item electricSwordOff, electricSwordOn;
 	
@@ -81,7 +69,7 @@ public class HMTools
 	{
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(cobaltBone), new Object[]{" C ", "CBC", " C ", 'C', "dustCobalt", 'B', Item.bone}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(enderMirrorPlayer), new Object[]{"SCS", "CEC", "SCS", 'S', Item.silk, 'C', "ingotCobalt", 'E', Item.enderPearl}));
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(enderMirrorSpawn), new Object[]{"BCB", "CEC", "BCB", 'B', Block.bed, 'C', "ingotCobalt", "E", Item.enderPearl}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(enderMirrorSpawn), new Object[]{"BCB", "CEC", "BCB", 'B', Block.bed, 'C', "ingotCobalt", 'E', Item.enderPearl}));
 		
 	}
 	

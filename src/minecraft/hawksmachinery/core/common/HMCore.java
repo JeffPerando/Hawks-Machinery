@@ -58,13 +58,13 @@ public class HMCore
 	public static Block endiumChunkloader;
 	public static Block technicalBlock;
 	
-	public static Item plating;
-	public static Item ingots;
-	
 	/**
 	 * Parts! 0 - Electric Pistons, 1 - Laser, 2 - Being Redone, 3 - Light Bulb, 4 - Heating Coil, 5 - Electric Magnet, 6 - Engine.
 	 */
 	public static HMItem parts;
+	
+	public static Item plating;
+	public static Item ingots;
 	
 	public static final String ARMOR_PATH = "/hawksmachinery/core/client/resources/armor"; 
 	public static final String BLOCK_TEXTURE_FILE = "/hawksmachinery/core/client/resources/textures/blocks.png";

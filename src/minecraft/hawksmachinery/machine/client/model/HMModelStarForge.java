@@ -225,40 +225,42 @@ public class HMModelStarForge extends ModelBase
 		setRotation(BASE_6, 0F, 0F, 0F);
 	}
 	
+	@Override
 	public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
 	{
 		super.render(entity, f, f1, f2, f3, f4, f5);
-		setRotationAngles(f, f1, f2, f3, f4, f5);
-		NETHERSTAR_1_ROT.render(0.0625F);
-		NETHERSTAR_2_ROT.render(0.0625F);
-		NETHERSTAR_3_ROT.render(0.0625F);
-		NETHERSTAR_4_ROT.render(0.0625F);
-		TOP_1.render(0.0625F);
-		TOP_2.render(0.0625F);
-		TOP_4.render(0.0625F);
-		TOP_3.render(0.0625F);
-		TOP_5.render(0.0625F);
-		TOP_6.render(0.0625F);
-		CHANNEL_1.render(0.0625F);
-		DEPOSIT_2.render(0.0625F);
-		CHANNEL_2.render(0.0625F);
-		DEPOSIT_1.render(0.0625F);
-		DEPOSIT_3.render(0.0625F);
-		CHANNEL_3.render(0.0625F);
-		CHANNEL_4.render(0.0625F);
-		DEPOSIT_4.render(0.0625F);
-		SUPPORT_1.render(0.0625F);
-		SUPPORT_2.render(0.0625F);
-		SUPPORT_3.render(0.0625F);
-		SUPPORT_4.render(0.0625F);
-		SUPPORT_5.render(0.0625F);
-		SUPPORT_6.render(0.0625F);
-		BASE_1.render(0.0625F);
-		BASE_2.render(0.0625F);
-		BASE_3.render(0.0625F);
-		BASE_4.render(0.0625F);
-		BASE_5.render(0.0625F);
-		BASE_6.render(0.0625F);
+		this.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
+		this.NETHERSTAR_1_ROT.render(0.0625F);
+		this.NETHERSTAR_2_ROT.render(0.0625F);
+		this.NETHERSTAR_3_ROT.render(0.0625F);
+		this.NETHERSTAR_4_ROT.render(0.0625F);
+		this.TOP_1.render(0.0625F);
+		this.TOP_2.render(0.0625F);
+		this.TOP_4.render(0.0625F);
+		this.TOP_3.render(0.0625F);
+		this.TOP_5.render(0.0625F);
+		this.TOP_6.render(0.0625F);
+		this.CHANNEL_1.render(0.0625F);
+		this.DEPOSIT_2.render(0.0625F);
+		this.CHANNEL_2.render(0.0625F);
+		this.DEPOSIT_1.render(0.0625F);
+		this.DEPOSIT_3.render(0.0625F);
+		this.CHANNEL_3.render(0.0625F);
+		this.CHANNEL_4.render(0.0625F);
+		this.DEPOSIT_4.render(0.0625F);
+		this.SUPPORT_1.render(0.0625F);
+		this.SUPPORT_2.render(0.0625F);
+		this.SUPPORT_3.render(0.0625F);
+		this.SUPPORT_4.render(0.0625F);
+		this.SUPPORT_5.render(0.0625F);
+		this.SUPPORT_6.render(0.0625F);
+		this.BASE_1.render(0.0625F);
+		this.BASE_2.render(0.0625F);
+		this.BASE_3.render(0.0625F);
+		this.BASE_4.render(0.0625F);
+		this.BASE_5.render(0.0625F);
+		this.BASE_6.render(0.0625F);
+		
 	}
 	
 	private void setRotation(ModelRenderer model, float x, float y, float z)
@@ -266,11 +268,14 @@ public class HMModelStarForge extends ModelBase
 		model.rotateAngleX = x;
 		model.rotateAngleY = y;
 		model.rotateAngleZ = z;
+		
 	}
 	
-	public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5)
+	@Override
+	public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, Entity entity)
 	{
-		super.setRotationAngles(f, f1, f2, f3, f4, f5, null);
+		super.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
+		
 	}
 	
 }
