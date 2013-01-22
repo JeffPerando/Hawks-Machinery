@@ -3,7 +3,6 @@ package hawksmachinery.core.common;
 
 import hawksmachinery.core.common.block.*;
 import hawksmachinery.core.common.item.*;
-import hawksmachinery.core.common.tileentity.*;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -84,7 +83,6 @@ public class HMCore
 		INSTANCE = this;
 		
 		PROXY.loadConfig();
-		PROXY.registerRenderInformation();
 		
 		ore = new HMBlockOre(PROXY.getBlockID("Ore", 2551));
 		endiumChunkloader = new HMBlockEndiumChunkloader(PROXY.getBlockID("Endium Chunkloader", 2553));
@@ -108,18 +106,12 @@ public class HMCore
 		VillagerRegistry.instance().registerVillageTradeHandler(3, PROXY);
 		VillagerRegistry.instance().registerVillageTradeHandler(4, PROXY);
 		
-		GameRegistry.registerTileEntity(HMTileEntityMulti.class, "HMMulti");
-		GameRegistry.registerTileEntity(HMTileEntityEndiumChunkloader.class, "HMChunkloader");
-		
-		GameRegistry.registerBlock(ore, HMItemBlockOre.class);
-		GameRegistry.registerBlock(metalBlock, HMItemBlockMetalStorage.class);
-		GameRegistry.registerBlock(endiumChunkloader, HMItemBlockEndium.class);
-		
 	}
 	
 	@Init
 	public void load(FMLInitializationEvent event)
 	{
+		PROXY.registerRenderInformation();
 		new HMUpdateHandler(ModConverter.getMod(this.getClass()));
 		
 	}

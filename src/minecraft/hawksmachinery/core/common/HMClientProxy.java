@@ -16,6 +16,8 @@ public class HMClientProxy extends HMCommonProxy
 	
 	public void registerRenderInformation()
 	{
+		super.registerRenderInformation();
+		
 		MinecraftForgeClient.preloadTexture(HMCore.instance().BLOCK_TEXTURE_FILE);
 		MinecraftForgeClient.preloadTexture(HMCore.instance().ITEM_TEXTURE_FILE);
 		

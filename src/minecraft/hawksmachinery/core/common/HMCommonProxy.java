@@ -1,7 +1,8 @@
 
 package hawksmachinery.core.common;
 
-import hawksmachinery.core.common.tileentity.HMTileEntityEndiumChunkloader;
+import hawksmachinery.core.common.item.*;
+import hawksmachinery.core.common.tileentity.*;
 import java.io.File;
 import java.util.List;
 import java.util.Random;
@@ -22,6 +23,7 @@ import net.minecraftforge.event.entity.living.LivingEvent;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.ICraftingHandler;
 import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.VillagerRegistry.IVillageTradeHandler;
 
 /**
@@ -52,6 +54,12 @@ public class HMCommonProxy implements LoadingCallback, IVillageTradeHandler, ICr
 	
 	public void registerRenderInformation()
 	{
+		GameRegistry.registerTileEntity(HMTileEntityMulti.class, "HMMulti");
+		GameRegistry.registerTileEntity(HMTileEntityEndiumChunkloader.class, "HMChunkloader");
+		
+		GameRegistry.registerBlock(HMCore.ore, HMItemBlockOre.class);
+		GameRegistry.registerBlock(HMCore.metalBlock, HMItemBlockMetalStorage.class);
+		GameRegistry.registerBlock(HMCore.endiumChunkloader, HMItemBlockEndium.class);
 		
 	}
 	
