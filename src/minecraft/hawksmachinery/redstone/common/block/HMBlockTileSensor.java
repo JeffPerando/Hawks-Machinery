@@ -27,7 +27,7 @@ public class HMBlockTileSensor extends HMBlock
 	@Override
 	public int onBlockPlaced(World world, int x, int y, int z, int side, float hitX, float hitY, float blockID, int meta)
 	{
-		return 0;
+		return side;
 	}
 	
 	@Override

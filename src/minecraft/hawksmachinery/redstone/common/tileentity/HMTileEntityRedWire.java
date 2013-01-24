@@ -2,6 +2,7 @@
 package hawksmachinery.redstone.common.tileentity;
 
 import hawksmachinery.core.common.api.HMVector;
+import hawksmachinery.core.common.tileentity.HMTileEntity;
 import java.awt.Color;
 import net.minecraft.block.Block;
 import net.minecraft.tileentity.TileEntity;
@@ -13,7 +14,7 @@ import net.minecraftforge.common.ForgeDirection;
  * 
  * @author Elusivehawk
  */
-public class HMTileEntityRedWire extends TileEntity
+public class HMTileEntityRedWire extends HMTileEntity
 {
 	public Color wireColor;
 	
@@ -21,18 +22,14 @@ public class HMTileEntityRedWire extends TileEntity
 	
 	public boolean[] connectedSides = new boolean[6];
 	
-	public HMVector selfVec;
-	
 	@Override
 	public void updateEntity()
 	{
-		if (this.selfVec == null) this.selfVec = new HMVector(this);
-		
 		for (int counter = 0; counter < 6; ++counter)
 		{
 			ForgeDirection dir = ForgeDirection.getOrientation(counter);
-			Block block = Block.blocksList[this.worldObj.getBlockId(this.xCoord + dir.offsetX, this.yCoord + dir.offsetY, this.zCoord + dir.offsetZ)];
-			TileEntity tileEntity = this.worldObj.getBlockTileEntity(this.xCoord + dir.offsetX, this.yCoord + dir.offsetY, this.zCoord + dir.offsetZ);
+			Block block = this.selfVec.getBlockWithDir(dir);
+			TileEntity tileEntity = this.selfVec.getTileEntityWithDir(dir);
 			
 			if (tileEntity != null)
 			{

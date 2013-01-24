@@ -30,6 +30,7 @@ import universalelectricity.prefab.network.IPacketReceiver;
 import universalelectricity.prefab.network.PacketManager;
 import universalelectricity.prefab.tile.TileEntityElectricityReceiver;
 import com.google.common.io.ByteArrayDataInput;
+import cpw.mods.fml.common.FMLCommonHandler;
 
 /**
  * 
@@ -43,7 +44,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	
 	public int TICKS_REQUIRED;
 	
-	private ForgeDirection facingDirection = ForgeDirection.UNKNOWN;
+	protected ForgeDirection facingDirection = ForgeDirection.UNKNOWN;
 	
 	public double electricityStored;
 	
@@ -109,6 +110,8 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 			
 		}
 		
+		if (this.worldObj.isRemote) System.out.println(this.facingDirection.ordinal());
+		
 		List<ElectricityNetwork> networkList = ElectricityNetwork.getNetworksFromMultipleSides(this, ElectricityConnections.getDirections(this));
 		
 		if (!networkList.isEmpty())
@@ -117,7 +120,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 			{
 				if (this.electricityStored < this.ELECTRICITY_LIMIT)
 				{
-					network.startRequesting(this, (this.ELECTRICITY_REQUIRED * 2) / this.VOLTAGE, this.VOLTAGE);
+					network.startRequesting(this, ((this.ELECTRICITY_REQUIRED * 2) / networkList.size()) / this.VOLTAGE, this.VOLTAGE);
 					ElectricityPack pack = network.consumeElectricity(this);
 					this.electricityStored += Math.max(Math.min(this.electricityStored + pack.getWatts(), this.ELECTRICITY_REQUIRED), 0);
 					
@@ -150,7 +153,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 		
 		if (!this.worldObj.isRemote && this.worldObj.getTotalWorldTime() % 3L == 0L && this.canSendPackets)
 		{
-			PacketManager.sendPacketToClients(this.getDescriptionPacket(), this.worldObj, new Vector3(this), 8);
+			PacketManager.sendPacketToClients(this.getDescriptionPacket(), this.worldObj, this.selfVec.toVector3(), 8);
 			
 		}
 		
@@ -190,8 +193,8 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 	@Override
 	public Packet getDescriptionPacket()
 	{
-		if (this.isProcessor && this.playersLookingIn > 0) return PacketManager.getPacket("HawksMachinery", this, this.electricityStored, this.machineHP, this.facingDirection.ordinal(), this.workTicks);
-		return PacketManager.getPacket("HawksMachinery", this, this.electricityStored, this.machineHP, this.facingDirection.ordinal());
+		if (this.isProcessor && this.playersLookingIn > 0) return PacketManager.getPacket("HMMachines", this, this.electricityStored, this.machineHP, this.facingDirection.ordinal(), this.workTicks);
+		return PacketManager.getPacket("HMMachines", this, this.electricityStored, this.machineHP, this.facingDirection.ordinal());
 	}
 	
 	@Override
@@ -209,12 +212,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 			this.machineHP = dataStream.readInt();
 			
 			ForgeDirection newDir = ForgeDirection.getOrientation(dataStream.readInt());
-			
-			if (newDir != this.facingDirection)
-			{
-				this.setDirection(newDir);
-				
-			}
+			this.setDirection(newDir);
 			
 			if (this.isProcessor && this.playersLookingIn > 0)
 			{
@@ -388,6 +386,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 			{
 				NBTTagCompound newTag = (NBTTagCompound)tagList.tagAt(counter);
 				byte slot = newTag.getByte("Slot");
+				
 				if (slot >= 0 && slot < this.containingItems.length)
 				{
 					this.containingItems[slot] = ItemStack.loadItemStackFromNBT(newTag);
@@ -426,6 +425,7 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 					newTag.setByte("Slot", (byte)counter);
 					this.containingItems[counter].writeToNBT(newTag);
 					tagList.appendTag(newTag);
+					
 				}
 				
 			}

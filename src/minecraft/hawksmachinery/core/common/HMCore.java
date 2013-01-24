@@ -39,7 +39,7 @@ import cpw.mods.fml.common.registry.VillagerRegistry;
  * @author Elusivehawk
  */
 @Mod(modid = "HawksMachinery", name = "Hawk's Core", version = HMCore.VERSION, useMetadata = true)
-@NetworkMod(channels = {"HawksMachinery"}, clientSideRequired = true, serverSideRequired = false)
+@NetworkMod(clientSideRequired = true, serverSideRequired = false)
 public class HMCore
 {
 	public static final String VERSION = "Beta v1.1.0";

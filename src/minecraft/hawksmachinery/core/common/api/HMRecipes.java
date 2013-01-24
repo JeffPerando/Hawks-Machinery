@@ -11,6 +11,7 @@ import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
+import net.minecraftforge.common.EnumHelper;
 import net.minecraftforge.oredict.OreDictionary;
 
 /**
@@ -55,6 +56,11 @@ public class HMRecipes
 		public Map recipeList()
 		{
 			return this.processingList;
+		}
+		
+		public static HMEnumProcessing makeNewEnum(String name, Map map)
+		{
+			return EnumHelper.addEnum(HMEnumProcessing.class, name, map);
 		}
 		
 	}

@@ -166,8 +166,11 @@ public class HMTileEntityWasher extends HMTileEntityMachine// implements ITankCo
 	@Override
 	public Packet getDescriptionPacket()
 	{
-		if (this.playersLookingIn > 0) return PacketManager.getPacket("HawksMachinery", this, this.workTicks, this.electricityStored, this.machineHP);//, this.waterTank.getLiquid().amount);
-		return PacketManager.getPacket("HawksMachinery", this, this.electricityStored, this.machineHP);//, this.waterTank.getLiquid().amount);
+		/*
+		if (this.playersLookingIn > 0) return PacketManager.getPacket("HMMachines", this, this.workTicks, this.electricityStored, this.machineHP, this.waterTank.getLiquid().amount);
+		return PacketManager.getPacket("HMMachines", this, this.electricityStored, this.machineHP, this.waterTank.getLiquid().amount);
+		*/
+		return super.getDescriptionPacket();
 	}
 	
 	@Override
@@ -175,18 +178,9 @@ public class HMTileEntityWasher extends HMTileEntityMachine// implements ITankCo
 	{
 		try
 		{
-			if (this.playersLookingIn > 0)
-			{
-				this.workTicks = dataStream.readInt();
-				
-			}
-			if (this.worldObj.isRemote)
-			{
-				this.electricityStored = dataStream.readDouble();
-				this.machineHP = dataStream.readInt();
-				//this.waterTank.fill(new LiquidStack(Block.waterStill, dataStream.readInt()), true);
-				
-			}
+			super.handlePacketData(network, type, packet, player, dataStream);
+			
+			//this.waterTank.fill(new LiquidStack(Block.waterStill, dataStream.readInt()), true);
 			
 		}
 		catch (Exception e)

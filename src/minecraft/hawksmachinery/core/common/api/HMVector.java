@@ -4,6 +4,7 @@ package hawksmachinery.core.common.api;
 import java.util.ArrayList;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.EnumSkyBlock;
@@ -219,6 +220,42 @@ public class HMVector
 	public boolean selfTerminate()
 	{
 		return this.setBlockId(0);
+	}
+	
+	public static EntityPlayerMP getPlayerInWorld(World world, String name)
+	{
+		if (!world.playerEntities.isEmpty())
+		{
+			for (EntityPlayerMP player : (ArrayList<EntityPlayerMP>)world.playerEntities)
+			{
+				if (player.username.equalsIgnoreCase(name))
+				{
+					return player;
+				}
+				
+			}
+			
+		}
+		
+		return null;
+	}
+	
+	public EntityPlayerMP getPlayerInWorld(String name)
+	{
+		if (!this.worldObj.playerEntities.isEmpty())
+		{
+			for (EntityPlayerMP player : (ArrayList<EntityPlayerMP>)this.worldObj.playerEntities)
+			{
+				if (player.username.equalsIgnoreCase(name))
+				{
+					return player;
+				}
+				
+			}
+			
+		}
+		
+		return null;
 	}
 	
 	public Vector3 toVector3()

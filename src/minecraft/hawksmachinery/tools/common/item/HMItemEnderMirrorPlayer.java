@@ -2,6 +2,7 @@
 package hawksmachinery.tools.common.item;
 
 import hawksmachinery.core.common.HMCore;
+import hawksmachinery.core.common.api.HMVector;
 import hawksmachinery.core.common.item.HMItem;
 import java.util.List;
 import net.minecraft.entity.EntityLiving;
@@ -80,20 +81,15 @@ public class HMItemEnderMirrorPlayer extends HMItem
 				
 				if (!playerUsername.toLowerCase().equals(player.username.toLowerCase()))
 				{
-					ServerConfigurationManager server = MinecraftServer.getServer().getServerConfigurationManager(MinecraftServer.getServer());
-					EntityPlayerMP sentPlayer = server.getPlayerForUsername(player.username);
-					EntityPlayerMP targetPlayer = server.getPlayerForUsername(playerUsername);
+					EntityPlayerMP sentPlayer = HMVector.getPlayerInWorld(world, player.username);
+					EntityPlayerMP targetPlayer = HMVector.getPlayerInWorld(world, playerUsername);
 					
 					if (targetPlayer != null)
 					{
-						if (targetPlayer.dimension == player.dimension)
-						{
-							sentPlayer.fallDistance = 0;
-							sentPlayer.playerNetServerHandler.setPlayerLocation(targetPlayer.posX, targetPlayer.posY, targetPlayer.posZ, targetPlayer.rotationPitch, targetPlayer.rotationYaw);
-							item.damageItem(1, player);
-							world.playSoundEffect(sentPlayer.posX, sentPlayer.posY, sentPlayer.posZ, "mob.endermen.portal", 1.0F, 1.0F);
-							
-						}
+						sentPlayer.fallDistance = 0;
+						sentPlayer.playerNetServerHandler.setPlayerLocation(targetPlayer.posX, targetPlayer.posY, targetPlayer.posZ, targetPlayer.rotationPitch, targetPlayer.rotationYaw);
+						item.damageItem(1, player);
+						world.playSoundEffect(sentPlayer.posX, sentPlayer.posY, sentPlayer.posZ, "mob.endermen.portal", 1.0F, 1.0F);
 						
 					}
 					
