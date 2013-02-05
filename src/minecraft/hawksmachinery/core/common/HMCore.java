@@ -64,13 +64,15 @@ public class HMCore
 	public static Item plating;
 	public static Item ingots;
 	
-	public static final String ARMOR_PATH = "/hawksmachinery/core/client/resources/armor"; 
-	public static final String BLOCK_TEXTURE_FILE = "/hawksmachinery/core/client/resources/textures/blocks.png";
-	public static final String GUI_PATH = "/hawksmachinery/core/client/resources/gui";
-	public static final String ITEM_TEXTURE_FILE = "/hawksmachinery/core/client/resources/textures/items.png";
-	public static final String LANG_PATH = "/hawksmachinery/core/client/resources/lang";
-	public static final String SOUND_PATH = "/hawksmachinery/core/client/resources/sounds";
-	public static final String TEXTURE_PATH = "/hawksmachinery/core/client/resources/textures";
+	public static final String RESOURCES_PATH = "/hawksmachinery/core/client/resources";
+	
+	public static final String ARMOR_PATH = RESOURCES_PATH + "/armor"; 
+	public static final String BLOCK_TEXTURE_FILE = RESOURCES_PATH + "/textures/blocks.png";
+	public static final String GUI_PATH = RESOURCES_PATH + "/gui";
+	public static final String ITEM_TEXTURE_FILE = RESOURCES_PATH + "/textures/items.png";
+	public static final String LANG_PATH = RESOURCES_PATH + "/lang";
+	public static final String SOUND_PATH = RESOURCES_PATH + "/sounds";
+	public static final String TEXTURE_PATH = RESOURCES_PATH + "/textures";
 	
 	public static HMCore instance()
 	{
