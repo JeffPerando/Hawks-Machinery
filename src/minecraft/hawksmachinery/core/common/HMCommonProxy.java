@@ -20,6 +20,7 @@ import net.minecraftforge.common.ForgeChunkManager.Ticket;
 import net.minecraftforge.common.Property;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.living.LivingEvent;
+import net.minecraftforge.event.world.WorldEvent;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.ICraftingHandler;
 import cpw.mods.fml.common.Loader;
@@ -158,6 +159,18 @@ public class HMCommonProxy implements LoadingCallback, IVillageTradeHandler, ICr
 	
 	@Override
 	public void onSmelting(EntityPlayer player, ItemStack item){}
+	
+	@ForgeSubscribe
+	public void Load(WorldEvent event)
+	{
+		
+	}
+	
+	@ForgeSubscribe
+	public void Save(WorldEvent event)
+	{
+		
+	}
 	
 	@ForgeSubscribe
 	public void LivingUpdateEvent(LivingEvent event)

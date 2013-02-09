@@ -110,8 +110,6 @@ public abstract class HMTileEntityMachine extends TileEntityElectricityReceiver 
 			
 		}
 		
-		if (this.worldObj.isRemote) System.out.println(this.facingDirection.ordinal());
-		
 		List<ElectricityNetwork> networkList = ElectricityNetwork.getNetworksFromMultipleSides(this, ElectricityConnections.getDirections(this));
 		
 		if (!networkList.isEmpty())
