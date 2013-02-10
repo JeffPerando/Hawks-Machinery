@@ -16,7 +16,7 @@ import net.minecraftforge.common.ForgeDirection;
  */
 public class HMTileEntityRedWire extends HMTileEntity
 {
-	public Color wireColor;
+	protected Color wireColor;
 	
 	public int redstoneStrength;
 	
@@ -35,16 +35,7 @@ public class HMTileEntityRedWire extends HMTileEntity
 			{
 				if (tileEntity instanceof HMTileEntityRedWire)
 				{
-					if (((HMTileEntityRedWire)tileEntity).isColored() && this.isColored())
-					{
-						this.connectedSides[counter] = ((HMTileEntityRedWire)tileEntity).wireColor.equals(this.wireColor);
-						
-					}
-					else
-					{
-						this.connectedSides[counter] = true;
-						
-					}
+					this.connectedSides[counter] = (((HMTileEntityRedWire)tileEntity).isColored() && this.isColored() ? ((HMTileEntityRedWire)tileEntity).wireColor.equals(this.wireColor) : true);
 					
 					if (this.connectedSides[counter]) this.redstoneStrength = Math.max(this.redstoneStrength, ((HMTileEntityRedWire)tileEntity).redstoneStrength - 1);
 					continue;
