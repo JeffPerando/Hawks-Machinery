@@ -40,9 +40,13 @@ public class HMTileEntityRedWire extends HMTileEntity
 						this.connectedSides[counter] = ((HMTileEntityRedWire)tileEntity).wireColor.equals(this.wireColor);
 						
 					}
+					else
+					{
+						this.connectedSides[counter] = true;
+						
+					}
 					
-					this.connectedSides[counter] = true;
-					this.redstoneStrength = Math.max(this.redstoneStrength, ((HMTileEntityRedWire)tileEntity).redstoneStrength - 1);
+					if (this.connectedSides[counter]) this.redstoneStrength = Math.max(this.redstoneStrength, ((HMTileEntityRedWire)tileEntity).redstoneStrength - 1);
 					continue;
 				}
 				
